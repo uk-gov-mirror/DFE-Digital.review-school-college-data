@@ -1,0 +1,35 @@
+{
+  "name": "schoolscheckingwebalpha",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "compile-js:prod": "npm run eslint && npm run webpack:prod",
+    "compile-js:dev": "npm run webpack:dev && npm run eslint -- --fix",
+    "eslint": "eslint Assets/Scripts/**/*.js webpack gulpfile.js",
+    "stylelint": "stylelint \"Assets/Sass/**/*.scss\"",
+    "webpack:dev": "cross-env NODE_ENV=development webpack --config webpack/dev.config.js",
+    "webpack:prod": "cross-env NODE_ENV=production webpack --config webpack/prod.config.js",
+    "gulp": "gulp",
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "govuk-frontend": "^3.6.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^9.8.0",
+    "cssnano": "^4.1.10",
+    "del": "^5.1.0",
+    "gulp": "^4.0.2",
+    "gulp-postcss": "^8.0.0",
+    "gulp-run": "^1.7.1",
+    "gulp-sass": "^4.1.0",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-stylelint": "^13.0.0",
+    "stylelint": "^13.4.1",
+    "stylelint-config-standard": "^20.0.0"
+  }
+}
