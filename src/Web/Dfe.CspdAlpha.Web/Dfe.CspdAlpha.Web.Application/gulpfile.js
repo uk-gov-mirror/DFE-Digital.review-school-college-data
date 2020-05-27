@@ -19,7 +19,7 @@ function cleanCss() {
 }
 
 function cleanJs(){
-    return del('./wwwroot/assets/scripts/build');
+  return del('./wwwroot/assets/scripts/build');
 }
 
 function lintScss() {
@@ -36,7 +36,7 @@ function prodCss() {
   return src(scssPath)
     .pipe(sass())
     .pipe(postcss([autoprefixer(), cssnano()]))
-      .pipe(dest(cssDest));
+    .pipe(dest(cssDest));
 }
 
 // build uncompressed css files with source maps
@@ -46,7 +46,7 @@ function devCss() {
     .pipe(sass())
     .pipe(postcss([autoprefixer()]))
     .pipe(sourcemaps.write('./sourcemaps'))
-      .pipe(dest(cssDest));
+    .pipe(dest(cssDest));
 }
 
 
