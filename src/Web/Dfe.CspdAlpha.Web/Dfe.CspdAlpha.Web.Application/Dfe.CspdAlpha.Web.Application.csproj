@@ -9,4 +9,8 @@
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Sustainsys.Saml2.AspNetCore2" Version="2.7.0" />
+  </ItemGroup>
+
 </Project>
