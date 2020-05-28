@@ -21,7 +21,7 @@ dotnet build
 ```
 Build the frontend assets (compiled JS and CSS) by running the following from the `Dfe.CspdAlpha.Web.Application` directory:
 ```
-gulp compile-ui-assets:dev
+gulp buildDev
 ```
 Run the web application through Visual Studio, or running the following .NET Core CLI command from the solution directory:
 ```
