@@ -5,7 +5,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "compile-js:prod": "npm run eslint && npm run webpack:prod",
+    "compile-js:prod": "npm run webpack:prod",
     "compile-js:dev": "npm run webpack:dev && npm run eslint -- --fix",
     "eslint": "eslint Assets/Scripts/**/*.js webpack gulpfile.js",
     "stylelint": "stylelint \"Assets/Sass/**/*.scss\"",
