@@ -69,6 +69,8 @@ namespace Dfe.CspdAlpha.Web.Application
                 options.Cookie.IsEssential = true;
                 options.Cookie.SameSite = SameSiteMode.None;
             });
+
+            services.AddApplicationInsightsTelemetry();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
