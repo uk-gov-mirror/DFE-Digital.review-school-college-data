@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Dfe.CspdAlpha.Web.Domain.Entities
+namespace Dfe.CspdAlpha.Web.Domain.Interfaces
 {
-    public class Audit
+    public interface IEvent
     {
     }
 }

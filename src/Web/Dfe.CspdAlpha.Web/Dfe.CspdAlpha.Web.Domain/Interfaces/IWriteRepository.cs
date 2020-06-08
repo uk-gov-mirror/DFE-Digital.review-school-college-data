@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Dfe.CspdAlpha.Web.Domain.Interfaces
 {
-    public interface IWriteRepository<T>
+    public interface IWriteRepository<T> : IReadRepository<T>
     {
         void Add(T value);
         void Update(T value);

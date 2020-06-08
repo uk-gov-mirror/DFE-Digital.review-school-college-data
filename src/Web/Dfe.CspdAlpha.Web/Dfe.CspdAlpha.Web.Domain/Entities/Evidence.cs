@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Dfe.CspdAlpha.Web.Domain.Entities
 {
-    class Evidence
+    public class Evidence
     {
     }
 }
