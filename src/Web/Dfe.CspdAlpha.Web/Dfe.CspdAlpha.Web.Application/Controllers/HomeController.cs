@@ -23,6 +23,17 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult Index(HomeViewModel homeViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction("Index", "Service");
+            }
+
+            return View(homeViewModel);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

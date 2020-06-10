@@ -1,4 +1,5 @@
-﻿@{
+﻿@model HomeViewModel
+@{
     ViewBag.Title = "Service homepage";
 }
 <div class="govuk-grid-row">
@@ -9,38 +10,40 @@
         <p class="govuk-body">Lorem ipsum...</p>
     </div>
     <div class="govuk-grid-column-full">
-        <div class="govuk-form-group">
-            <fieldset class="govuk-fieldset">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                    <h1 class="govuk-fieldset__heading">
-                        Select a key stage
-                    </h1>
-                </legend>
-                <div class="govuk-radios">
-                    <div class="govuk-radios__item">
-                        <input class="govuk-radios__input" id="select-a-key-stage" name="select-a-key-stage" type="radio" value="ks5">
-                        <label class="govuk-label govuk-radios__label" for="select-a-key-stage">
-                            16 to 18
-                        </label>
+        <form method="post">
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <h1 class="govuk-fieldset__heading">
+                            Select a key stage
+                        </h1>
+                    </legend>
+                    <div class="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="select-a-key-stage" name="select-a-key-stage" type="radio" value="ks5">
+                            <label class="govuk-label govuk-radios__label" for="select-a-key-stage">
+                                16 to 18
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="select-a-key-stage" name="select-a-key-stage" type="radio" value="ks4">
+                            <label class="govuk-label govuk-radios__label" for="select-a-key-stage">
+                                Key stage 4
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="select-a-key-stage" name="select-a-key-stage" type="radio" value="ks2">
+                            <label class="govuk-label govuk-radios__label" for="select-a-key-stage">
+                                Key stage 2
+                            </label>
+                        </div>
                     </div>
-                    <div class="govuk-radios__item">
-                        <input class="govuk-radios__input" id="select-a-key-stage" name="select-a-key-stage" type="radio" value="ks4">
-                        <label class="govuk-label govuk-radios__label" for="select-a-key-stage">
-                            Key stage 4
-                        </label>
-                    </div>
-                    <div class="govuk-radios__item">
-                        <input class="govuk-radios__input" id="select-a-key-stage" name="select-a-key-stage" type="radio" value="ks2">
-                        <label class="govuk-label govuk-radios__label" for="select-a-key-stage">
-                            Key stage 4
-                        </label>
-                    </div>
-                </div>
-            </fieldset>
-        </div>
-        <button class="govuk-button" data-module="govuk-button">
-            Select
-        </button>
+                </fieldset>
+            </div>
+            <button class="govuk-button" data-module="govuk-button">
+                Select
+            </button>
+        </form>
     </div>
 </div>
 
