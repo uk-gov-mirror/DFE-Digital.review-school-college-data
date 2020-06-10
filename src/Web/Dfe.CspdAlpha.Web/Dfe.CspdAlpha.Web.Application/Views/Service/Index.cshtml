@@ -2,15 +2,23 @@
 @{
     ViewBag.Title = "Service provided";
 }
+
+@section BackLink
+{
+    <a class="govuk-back-link" asp-controller="Home" asp-action="Index">Back to service homepage</a>
+}
+
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
         <h1 class="govuk-heading-xl">@ViewBag.Title</h1>
     </div>
     <div class="govuk-grid-column-full">
-        <p class="govuk-body">Lorem ipsum...</p>
+        <p class="govuk-body-l">Lorem ipsum...</p>
     </div>
-    <div class="govuk-grid-column-full">
-        <form method="post">
+</div>
+<form method="post">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
             <div class="govuk-form-group">
                 <fieldset class="govuk-fieldset">
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
@@ -19,41 +27,41 @@
                         </h1>
                     </legend>
                     <div class="govuk-radios">
-                        <div class="govuk-radios__item">
+                        <div class="govuk-radios__item app-radios-multiline__item">
                             <input class="govuk-radios__input" id="select-a-service-1" name="select-a-service" type="radio" value="ks5">
                             <label class="govuk-label govuk-radios__label" for="select-a-service-1">
                                 Check my data
+                                <span class="app-radios-multiline__label-row">
+                                    Here you can review, add or amend your data
+                                </span>
                             </label>
-                            <span id="select-a-service-1-item-hint" class="govuk-hint govuk-radios__hint">
-                                Here you can review, add or amend your data
-                            </span>
                         </div>
-                        <div class="govuk-radios__item">
+                        <div class="govuk-radios__item app-radios-multiline__item">
                             <input class="govuk-radios__input" id="select-a-service-2" name="select-a-service" type="radio" value="ks4">
                             <label class="govuk-label govuk-radios__label" for="select-a-service-2">
                                 Request a pupil exception
+                                <span class="app-radios-multiline__label-row">
+                                    Here you can request to remove a pupil
+                                </span>
                             </label>
-                            <span id="select-a-service-2-item-hint" class="govuk-hint govuk-radios__hint">
-                                Here you can request to remove a pupil
-                            </span>
                         </div>
-                        <div class="govuk-radios__item">
+                        <div class="govuk-radios__item app-radios-multiline__item">
                             <input class="govuk-radios__input" id="select-a-service-3" name="select-a-service" type="radio" value="ks2">
                             <label class="govuk-label govuk-radios__label" for="select-a-service-3">
                                 View early data access
+                                <span class="app-radios-multiline__label-row">
+                                    Here you can have early access to your data
+                                </span>
                             </label>
-                            <span id="select-a-service-3-item-hint" class="govuk-hint govuk-radios__hint">
-                                Here you can have early access to your data
-                            </span>
                         </div>
                     </div>
                 </fieldset>
             </div>
-            <button class="govuk-button" data-module="govuk-button">
-                Continue
-            </button>
-        </form>
+        </div>
     </div>
-</div>
-
-
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <input type="submit" class="govuk-button" data-module="govuk-button" value="Continue"/>
+        </div>
+    </div>
+</form>
