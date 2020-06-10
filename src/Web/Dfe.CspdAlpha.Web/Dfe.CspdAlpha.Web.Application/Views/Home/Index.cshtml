@@ -1,14 +1,19 @@
 ﻿@{
     ViewBag.Title = "Service homepage";
 }
+@section BackLink
+{
+    <text>&nbsp;</text>
+}
+
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
         <h1 class="govuk-heading-xl">@ViewBag.Title</h1>
+        <p class="govuk-body-l">Lorem ipsum...</p>
     </div>
-    <div class="govuk-grid-column-full">
-        <p class="govuk-body">Lorem ipsum...</p>
-    </div>
-    <div class="govuk-grid-column-full">
+</div>
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset">
                 <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
@@ -17,31 +22,36 @@
                     </h1>
                 </legend>
                 <div class="govuk-radios">
-                    <div class="govuk-radios__item">
-                        <input class="govuk-radios__input" id="select-a-key-stage" name="select-a-key-stage" type="radio" value="ks5">
-                        <label class="govuk-label govuk-radios__label" for="select-a-key-stage">
+                    <div class="govuk-radios__item app-radios-multiline__item">
+                        <input class="govuk-radios__input" id="select-a-key-stage-16-18" name="select-a-key-stage" type="radio" value="ks5">
+                        <label class="govuk-label govuk-radios__label" for="select-a-key-stage-16-18">
                             16 to 18
+                            <span class="app-radios-multiline__label-row">dolor sit amet, consectetur adipiscing elit</span>
                         </label>
                     </div>
-                    <div class="govuk-radios__item">
-                        <input class="govuk-radios__input" id="select-a-key-stage" name="select-a-key-stage" type="radio" value="ks4">
-                        <label class="govuk-label govuk-radios__label" for="select-a-key-stage">
+                    <div class="govuk-radios__item app-radios-multiline__item">
+                        <input class="govuk-radios__input" id="select-a-key-stage-ks4" name="select-a-key-stage" type="radio" value="ks4">
+                        <label class="govuk-label govuk-radios__label" for="select-a-key-stage-ks4">
                             Key stage 4
+                            <span class="app-radios-multiline__label-row">sed do eiusmod tempor incididunt ut labore</span>
                         </label>
                     </div>
-                    <div class="govuk-radios__item">
-                        <input class="govuk-radios__input" id="select-a-key-stage" name="select-a-key-stage" type="radio" value="ks2">
-                        <label class="govuk-label govuk-radios__label" for="select-a-key-stage">
+                    <div class="govuk-radios__item app-radios-multiline__item">
+                        <input class="govuk-radios__input" id="select-a-key-stage-ks2" name="select-a-key-stage" type="radio" value="ks2">
+                        <label class="govuk-label govuk-radios__label" for="select-a-key-stage-ks2">
                             Key stage 4
+                            <span class="app-radios-multiline__label-row">Ut enim ad minim veniam, quis nostrud exercitation
+                                ullamco laboris nisi ut aliquip ex ea commodo consequat</span>
                         </label>
                     </div>
                 </div>
             </fieldset>
         </div>
-        <button class="govuk-button" data-module="govuk-button">
-            Select
-        </button>
     </div>
 </div>
-
-
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <input type="submit" class="govuk-button" data-module="govuk-button" value="Continue" />
+        
+    </div>
+</div>
