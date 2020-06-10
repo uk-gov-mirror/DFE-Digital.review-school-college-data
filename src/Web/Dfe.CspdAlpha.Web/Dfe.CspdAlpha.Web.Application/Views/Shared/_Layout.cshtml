@@ -1,9 +1,12 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var pageTitle = !string.IsNullOrEmpty(ViewBag.Title) ? string.Format("{0} - {1}", ViewBag.Title, "Check and amend school performance data - GOV.UK") : "Check and amend school performance data - GOV.UK";
+}
+<!DOCTYPE html>
 <html lang="en" class="govuk-template app-html-class">
 
 <head>
     <meta charset="utf-8">
-    <title>Check school performance data - GOV.UK</title>
+    <title>@pageTitle</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="blue">
 
@@ -53,17 +56,12 @@
                     <ul id="navigation" class="govuk-header__navigation " aria-label="Top Level Navigation">
                         <li class="govuk-header__navigation-item govuk-header__navigation-item--active">
                             <a class="govuk-header__link" href="#1">
-                                Navigation item 1
+                                Download
                             </a>
                         </li>
                         <li class="govuk-header__navigation-item">
                             <a class="govuk-header__link" href="#2">
-                                Navigation item 2
-                            </a>
-                        </li>
-                        <li class="govuk-header__navigation-item">
-                            <a class="govuk-header__link" asp-controller="Account" asp-action="SignOut">
-                                Sign out
+                                Guidance
                             </a>
                         </li>
                     </ul>
@@ -83,10 +81,13 @@
                 </span>
             </p>
         </div>
-
+        <div>
+            <a class="govuk-link" asp-controller="Account" asp-action="SignOut">
+                Sign out
+            </a>
+        </div>
         <main class="govuk-main-wrapper app-main-class" id="main-content" role="main">
             @RenderBody()
-
         </main>
     </div>
 
