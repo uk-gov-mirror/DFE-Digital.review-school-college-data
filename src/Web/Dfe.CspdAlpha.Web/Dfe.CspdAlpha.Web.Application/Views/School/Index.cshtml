@@ -1,0 +1,128 @@
+﻿@using Dfe.CspdAlpha.Web.Application.Models.ViewModels
+@model SchoolViewModel
+@{
+    ViewBag.Title = "School performance";
+}
+
+@section BackLink
+{
+    <a class="govuk-back-link" asp-controller="Service" asp-action="Index">Back to service homepage</a>
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-xl govuk-!-margin-bottom-4">@ViewBag.Title</h1>
+    </div>
+
+    <div class="govuk-grid-column-full">
+        <details class="govuk-details" data-module="govuk-details">
+            <summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text">
+                    View school details
+                </span>
+            </summary>
+            <div class="govuk-details__text">
+                <dl class="govuk-summary-list">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            URN
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            @Model.SchoolDetails.URN
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Name
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            @Model.SchoolDetails.SchoolName
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+        </details>
+    </div>
+
+    <div class="govuk-grid-column-full">
+        <p class="govuk-body-l">Lorem ipsum...</p>
+    </div>
+
+    <div class="govuk-grid-column-full">
+        <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
+            <div class="govuk-accordion__section ">
+                <div class="govuk-accordion__section-header">
+                    <h2 class="govuk-accordion__section-heading">
+                        <span class="govuk-accordion__section-button" id="accordion-default-heading-1">
+                            Cohort
+                        </span>
+                    </h2>
+                </div>
+                <div id="accordion-default-content-1" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-1">
+                    <dl class="govuk-summary-list">
+                        @foreach (var pupil in Model.PupilList)
+                        {
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">
+                                    @pupil.FirstName @pupil.LastName
+                                </dt>
+                                <dd class="govuk-summary-list__value">
+                                    @pupil.PupilId
+                                </dd>
+                            </div>
+                        }
+                    </dl>
+                </div>
+            </div>
+            <div class="govuk-accordion__section ">
+                <div class="govuk-accordion__section-header">
+                    <h2 class="govuk-accordion__section-heading">
+                        <span class="govuk-accordion__section-button" id="accordion-default-heading-1">
+                            Headline measures
+                        </span>
+                    </h2>
+                </div>
+                <div id="accordion-default-content-1" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-1">
+                    <dl class="govuk-summary-list">
+                        @foreach (var measure in Model.HeadlineMeasures)
+                        {
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">
+                                    @measure.Name
+                                </dt>
+                                <dd class="govuk-summary-list__value">
+                                    @measure.Data
+                                </dd>
+                            </div>
+                        }
+                    </dl>
+                </div>
+            </div>
+            <div class="govuk-accordion__section ">
+                <div class="govuk-accordion__section-header">
+                    <h2 class="govuk-accordion__section-heading">
+                        <span class="govuk-accordion__section-button" id="accordion-default-heading-1">
+                            Additional measures
+                        </span>
+                    </h2>
+                </div>
+                <div id="accordion-default-content-1" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-1">
+                    <dl class="govuk-summary-list">
+                        @foreach (var measure in Model.AdditionalMeasures)
+                        {
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">
+                                    @measure.Name
+                                </dt>
+                                <dd class="govuk-summary-list__value">
+                                    @measure.Data
+                                </dd>
+                            </div>
+                        }
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Dfe.CspdAlpha.Web.Application.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Dfe.CspdAlpha.Web.Application.Models;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
 {

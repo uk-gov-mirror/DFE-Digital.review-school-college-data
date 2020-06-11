@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Dfe.CspdAlpha.Web.Application.Models
+namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels
 {
     public enum ServiceOptions
     {

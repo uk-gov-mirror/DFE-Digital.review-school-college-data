@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Dfe.CspdAlpha.Web.Application.Models;
+using Dfe.CspdAlpha.Web.Application.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
@@ -18,6 +18,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         [HttpPost]
         public IActionResult Index(ServiceViewModel homeViewModel)
         {
+            var identity = User.Identity;
             if (!ModelState.IsValid)
             {
                 return View(homeViewModel);
