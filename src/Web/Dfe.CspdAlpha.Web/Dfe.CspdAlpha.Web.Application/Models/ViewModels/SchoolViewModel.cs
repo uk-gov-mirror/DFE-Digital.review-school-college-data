@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Dfe.CspdAlpha.Web.Application.Models.Common;
 using Dfe.CspdAlpha.Web.Application.Models.School;
 
 namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels
 {
     public class SchoolViewModel
     {
+        public CheckDataNavigation CheckDataNavigationModel => new CheckDataNavigation(NavigationItem.SchoolPerformance);
         public SchoolDetails SchoolDetails { get; set; }
         public List<Pupil> PupilList { get; set; }
         public List<Measure> HeadlineMeasures { get; set; }
