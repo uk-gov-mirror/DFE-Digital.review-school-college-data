@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Dfe.CspdAlpha.Web.Application.Application.Helpers;
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
-using Dfe.CspdAlpha.Web.Application.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
@@ -16,9 +12,15 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         {
             _schoolService = schoolService;
         }
+  
         public IActionResult Index()
         {
-            var viewModel = _schoolService.GetSchoolViewModel("136028");
+            var urn = ClaimsHelper.GetURN(this.User);
+            if (string.IsNullOrEmpty(urn))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var viewModel = _schoolService.GetSchoolViewModel(urn);
             return View(viewModel);
         }
     }
