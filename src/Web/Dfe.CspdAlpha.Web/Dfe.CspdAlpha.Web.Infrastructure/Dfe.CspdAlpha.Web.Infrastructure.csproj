@@ -6,10 +6,12 @@
 
   <ItemGroup>
     <None Remove="Mock\Data\establishments.json" />
+    <None Remove="Mock\Data\pupils.json" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Mock\Data\establishments.json" />
+    <EmbeddedResource Include="Mock\Data\pupils.json" />
   </ItemGroup>
 
   <ItemGroup>

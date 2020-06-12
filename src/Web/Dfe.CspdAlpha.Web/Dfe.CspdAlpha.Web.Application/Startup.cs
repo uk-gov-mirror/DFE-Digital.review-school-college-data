@@ -79,6 +79,8 @@ namespace Dfe.CspdAlpha.Web.Application
 
             services.AddApplicationInsightsTelemetry();
 
+            services.AddSingleton<IReadRepository<Pupil>, PupilRepository>();
+            services.AddSingleton<IPupilService, PupilService>();
             services.AddSingleton<IReadRepository<Establishment>, EstablishmentRepository>();
             services.AddSingleton<IEstablishmentService, EstablishmentService>();
             services.AddSingleton<ISchoolService, SchoolService>();

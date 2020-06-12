@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Dfe.CspdAlpha.Web.Domain.Interfaces
@@ -8,5 +9,6 @@ namespace Dfe.CspdAlpha.Web.Domain.Interfaces
     {
         T GetById(string id);
         List<T> Get();
+        IQueryable<T> Query();
     }
 }
