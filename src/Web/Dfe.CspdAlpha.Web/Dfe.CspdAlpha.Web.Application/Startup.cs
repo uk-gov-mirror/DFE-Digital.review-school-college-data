@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.PowerPlatform.Cds.Client;
+using Microsoft.Xrm.Sdk;
 using Sustainsys.Saml2;
 using Sustainsys.Saml2.AspNetCore2;
 using Sustainsys.Saml2.Metadata;
@@ -63,6 +65,12 @@ namespace Dfe.CspdAlpha.Web.Application
             {
                 services.Configure<BasicAuthOptions>(Configuration.GetSection("BasicAuth"));
             }
+
+            // Dynamics 365 configuration
+            var dynamicsConnString = Configuration.GetConnectionString("DynamicsCds");
+            var cdsClient = new CdsServiceClient(dynamicsConnString);
+
+            services.AddTransient<IOrganizationService, CdsServiceClient>(sp => cdsClient.Clone());
 
             services.AddSession(options =>
             {
