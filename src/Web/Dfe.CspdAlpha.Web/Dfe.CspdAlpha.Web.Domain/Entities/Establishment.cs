@@ -11,6 +11,6 @@ namespace Dfe.CspdAlpha.Web.Domain.Entities
         public string Name { get; set; }
         public URN Urn { get; set; }
         public string LaEstab { get; set; }
-        public List<PerformanceMeasure> Type { get; set; }
+        public List<PerformanceMeasure> PerformanceMeasures { get; set; }
     }
 }

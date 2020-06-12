@@ -1,8 +1,15 @@
+using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
+using Dfe.CspdAlpha.Web.Application.Application.Services;
 using Dfe.CspdAlpha.Web.Application.Config;
 using Dfe.CspdAlpha.Web.Application.Middleware;
+using Dfe.CspdAlpha.Web.Domain.Entities;
+using Dfe.CspdAlpha.Web.Domain.Interfaces;
+using Dfe.CspdAlpha.Web.Domain.Services;
+using Dfe.CspdAlpha.Web.Infrastructure.Mock;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -71,6 +78,10 @@ namespace Dfe.CspdAlpha.Web.Application
             });
 
             services.AddApplicationInsightsTelemetry();
+
+            services.AddSingleton<IReadRepository<Establishment>, EstablishmentRepository>();
+            services.AddSingleton<IEstablishmentService, EstablishmentService>();
+            services.AddSingleton<ISchoolService, SchoolService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

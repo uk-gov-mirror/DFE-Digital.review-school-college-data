@@ -10,6 +10,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels
     public class SchoolViewModel
     {
         public CheckDataNavigation CheckDataNavigationModel => new CheckDataNavigation(NavigationItem.SchoolPerformance);
+        public ConfirmDataBanner ConfirmDataBanner => new ConfirmDataBanner();
         public SchoolDetails SchoolDetails { get; set; }
         public List<Pupil> PupilList { get; set; }
         public List<Measure> HeadlineMeasures { get; set; }

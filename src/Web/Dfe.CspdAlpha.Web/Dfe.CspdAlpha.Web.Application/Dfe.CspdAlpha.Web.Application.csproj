@@ -16,4 +16,9 @@
     <PackageReference Include="Sustainsys.Saml2.AspNetCore2" Version="2.7.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Dfe.CspdAlpha.Web.Domain\Dfe.CspdAlpha.Web.Domain.csproj" />
+    <ProjectReference Include="..\Dfe.CspdAlpha.Web.Infrastructure\Dfe.CspdAlpha.Web.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

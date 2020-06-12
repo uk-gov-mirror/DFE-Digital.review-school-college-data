@@ -1,0 +1,70 @@
+{
+  "establishments":[
+    {
+      "Name": "abcd",
+      "Urn": {
+        "Value":  "123456"
+      },
+      "LaEstab": "1234567",
+      "PerformanceMeasures": [
+        {
+          "Name": "P8_BANDING",
+          "Value": "3"
+        },
+        {
+          "Name": "PTEBACC_E_PTQ_EE",
+          "Value": "80"
+        },
+        {
+          "Name": "PTL2BASICS_95",
+          "Value": "83"
+        },
+        {
+          "Name": "PTL2BASICS_94",
+          "Value": "93"
+        },
+        {
+          "Name": "ATT8SCR",
+          "Value": "69.9"
+        },
+        {
+          "Name": "EBACCAPS",
+          "Value": "6.55"
+        }
+      ]
+    },
+    {
+      "Name": "Dagenham Park CofE School",
+      "Urn": {
+        "Value": "136028"
+      },
+      "LaEstab": "3014704",
+      "PerformanceMeasures": [
+        {
+          "Name": "P8_BANDING",
+          "Value": "3"
+        },
+        {
+          "Name": "PTEBACC_E_PTQ_EE",
+          "Value": "80"
+        },
+        {
+          "Name": "PTL2BASICS_95",
+          "Value": "83"
+        },
+        {
+          "Name": "PTL2BASICS_94",
+          "Value": "93"
+        },
+        {
+          "Name": "ATT8SCR",
+          "Value": "69.9"
+        },
+        {
+          "Name": "EBACCAPS",
+          "Value": "6.55"
+        }
+      ]
+    }
+  ]
+}

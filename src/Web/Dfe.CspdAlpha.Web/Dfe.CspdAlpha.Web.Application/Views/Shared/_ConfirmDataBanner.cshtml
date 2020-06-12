@@ -1,0 +1,11 @@
+﻿@using Dfe.CspdAlpha.Web.Application.Models.Common
+@model ConfirmDataBanner
+@if (!Model.DataConfirmed)
+{
+    <div class="govuk-grid-column-full">
+        <div>
+            <p>You need to confirm your data for Key stage 4.</p>
+            <a asp-controller="DataConfirmation" asp-action="Index">Confirm you data</a>
+        </div>
+    </div>
+}

@@ -3,8 +3,14 @@
 namespace Dfe.CspdAlpha.Web.Domain.Core
 {
     public class URN
-    {
+    { 
         public string Value { get; set; }
+
+        public URN()
+        {
+            
+        }
+
         public URN(string urn)
         {
             if (string.IsNullOrWhiteSpace(urn))

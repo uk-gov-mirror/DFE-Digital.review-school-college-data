@@ -17,7 +17,7 @@ namespace Dfe.CspdAlpha.Web.Domain.Services
         }
         public Establishment GetByURN(URN urn)
         {
-            throw new NotImplementedException();
+            return _establishmentRepository.GetById(urn.Value);
         }
 
         public List<Establishment> GetByLAId(string laId)
