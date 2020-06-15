@@ -12,7 +12,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels
         public CheckDataNavigation CheckDataNavigationModel => new CheckDataNavigation(NavigationItem.SchoolPerformance);
         public ConfirmDataBanner ConfirmDataBanner => new ConfirmDataBanner();
         public SchoolDetails SchoolDetails { get; set; }
-        public List<Pupil> PupilList { get; set; }
+        public List<Measure> CohortMeasures { get; set; }
         public List<Measure> HeadlineMeasures { get; set; }
         public List<Measure> AdditionalMeasures { get; set; }
 
@@ -25,12 +25,12 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels
                     SchoolName = "Lorem ipsum...",
                     URN = "123456"
                 },
-                PupilList = new List<Pupil>
+                CohortMeasures = new List<Measure>
                 {
-                    new Pupil{FirstName = "Name", LastName = "1", PupilId = "1"},
-                    new Pupil{FirstName = "Name", LastName = "2", PupilId = "2"},
-                    new Pupil{FirstName = "Name", LastName = "3", PupilId = "3"},
-                    new Pupil{FirstName = "Name", LastName = "4", PupilId = "4"}
+                    new Measure{Name = "Cohort Measure 1", Data = "1"},
+                    new Measure{Name = "Cohort Measure 2", Data = "2"},
+                    new Measure{Name = "Cohort Measure 3", Data = "3"},
+                    new Measure{Name = "Cohort Measure 4", Data = "4"},
                 },
                 HeadlineMeasures = new List<Measure>
                 {

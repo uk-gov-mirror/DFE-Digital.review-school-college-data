@@ -12,7 +12,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         {
             _schoolService = schoolService;
         }
-  
+
         public IActionResult Index()
         {
             var urn = ClaimsHelper.GetURN(this.User);

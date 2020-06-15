@@ -3,10 +3,28 @@
     {
       "Name": "abcd",
       "Urn": {
-        "Value":  "123456"
+        "Value": "123456"
       },
       "LaEstab": "1234567",
-      "PerformanceMeasures": [
+      "CohortMeasures": [
+        {
+          "Name": "NUMROLL",
+          "Value": "285"
+        },
+        {
+          "Name": "PUPS9",
+          "Value": "29"
+        },
+        {
+          "Name": "BOYS10",
+          "Value": "16"
+        },
+        {
+          "Name": "GIRLS10",
+          "Value": "12"
+        }
+      ],
+            "PerformanceMeasures": [
         {
           "Name": "P8_BANDING",
           "Value": "3"
@@ -39,6 +57,24 @@
         "Value": "136028"
       },
       "LaEstab": "3014704",
+      "CohortMeasures": [
+        {
+          "Name": "NUMROLL",
+          "Value": "285"
+        },
+        {
+          "Name": "PUPS9",
+          "Value": "29"
+        },
+        {
+          "Name": "BOYS10",
+          "Value": "16"
+        },
+        {
+          "Name": "GIRLS10",
+          "Value": "12"
+        }
+      ],
       "PerformanceMeasures": [
         {
           "Name": "P8_BANDING",

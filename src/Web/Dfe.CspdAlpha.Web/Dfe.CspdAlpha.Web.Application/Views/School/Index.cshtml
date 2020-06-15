@@ -65,14 +65,14 @@
                 </div>
                 <div id="accordion-default-content-1" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-1">
                     <dl class="govuk-summary-list">
-                        @foreach (var pupil in Model.PupilList)
+                        @foreach (var cohortMeasure in Model.CohortMeasures)
                         {
                             <div class="govuk-summary-list__row">
                                 <dt class="govuk-summary-list__key">
-                                    @pupil.FirstName @pupil.LastName
+                                    @cohortMeasure.Name
                                 </dt>
                                 <dd class="govuk-summary-list__value">
-                                    @pupil.PupilId
+                                    @cohortMeasure.Data
                                 </dd>
                             </div>
                         }
