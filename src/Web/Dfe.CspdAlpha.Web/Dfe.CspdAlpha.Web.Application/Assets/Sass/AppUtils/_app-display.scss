@@ -6,7 +6,7 @@
 
 .app-display-desktop__block {
   display: none;
-  
+
   @include govuk-media-query($from: tablet) {
     display: block;
   }
@@ -14,8 +14,12 @@
 
 .app-display-desktop__inline-block {
   display: none;
-  
+
   @include govuk-media-query($from: tablet) {
     display: inline-block;
   }
+}
+
+.hidden {
+  display: none !important;
 }
