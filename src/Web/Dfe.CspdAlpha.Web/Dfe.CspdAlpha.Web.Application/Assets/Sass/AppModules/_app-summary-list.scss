@@ -13,3 +13,15 @@
     }
   }
 }
+
+.govuk-accordion__section-content {
+  .app-summary-list {
+    .govuk-summary-list__row {
+      @include govuk-media-query($until: tablet) {
+        &:last-child {
+          border-bottom: 0;
+        }
+      }
+    }
+  }
+}
