@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Dfe.CspdAlpha.Web.Application.Application.Helpers;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,10 +25,11 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 return View(homeViewModel);
             }
 
+            var urn = ClaimsHelper.GetURN(this.User);
             switch (homeViewModel.SelectedService)
             {
                 case ServiceOptions.CheckData:
-                    return RedirectToAction("Index", "School");
+                    return RedirectToAction("Index", "School", new {urn = urn });
                 case ServiceOptions.RemovePupil:
                 case ServiceOptions.ViewEarlyAccess:
                 default:
