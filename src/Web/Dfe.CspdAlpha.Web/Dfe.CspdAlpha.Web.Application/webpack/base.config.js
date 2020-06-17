@@ -2,7 +2,6 @@
 
 const webpack = require('webpack');
 const path = require('path');
-//const CleanWebpackPlugin = require('clean-webpack-plugin');
 const glob = require('glob');
 //const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
@@ -72,9 +71,6 @@ module.exports = {
       $: 'jquery',
       jQuery: 'jquery',
     }),
-
-    // Clean out the build directory between each build
-    //new CleanWebpackPlugin(buildDir, {root: process.cwd()}),
-
+      
   ],
 };

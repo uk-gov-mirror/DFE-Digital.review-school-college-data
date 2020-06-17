@@ -9,48 +9,39 @@
     <a class="govuk-back-link" asp-controller="Service" asp-action="Index">Back to service provided</a>
 }
 
-<partial name="_ConfirmDataBanner" model="@Model.ConfirmDataBanner"/>
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <partial name="_ConfirmDataBanner" model="@Model.ConfirmDataBanner"/>
+    </div>
+</div>
+
 
 <partial name="_CheckDataNavigation" model="@Model.CheckDataNavigationModel"/>
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
-        <h1 class="govuk-heading-xl govuk-!-margin-bottom-4">@ViewBag.Title</h1>
+        <h1 class="govuk-heading-l govuk-!-margin-bottom-4">@ViewBag.Title</h1>
     </div>
 
     <div class="govuk-grid-column-full">
-        <details class="govuk-details" data-module="govuk-details">
+        <details class="govuk-details govuk-!-font-size-16" data-module="govuk-details">
             <summary class="govuk-details__summary">
                 <span class="govuk-details__summary-text">
                     View school details
                 </span>
             </summary>
             <div class="govuk-details__text">
-                <dl class="govuk-summary-list">
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            URN
-                        </dt>
-                        <dd class="govuk-summary-list__value">
-                            @Model.SchoolDetails.URN
-                        </dd>
-                    </div>
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            Name
-                        </dt>
-                        <dd class="govuk-summary-list__value">
-                            @Model.SchoolDetails.SchoolName
-                        </dd>
-                    </div>
-                </dl>
+                <partial name="_SchoolDetails"/>
             </div>
         </details>
     </div>
 
-    <div class="govuk-grid-column-full">
-        <p class="govuk-body-l">Lorem ipsum...</p>
-        <a href="javascript:window.print()">Print</a>
+    <div class="govuk-grid-column-three-quarters">
+        <p class="govuk-body">Lorem ipsum...</p>
+
+    </div>
+    <div class="govuk-grid-column-one-quarter app-align-right govuk-!-padding-bottom-4">
+        <a class="print-link" href="javascript:window.print()">Print</a>
     </div>
 
     <div class="govuk-grid-column-full">
@@ -58,13 +49,13 @@
             <div class="govuk-accordion__section ">
                 <div class="govuk-accordion__section-header">
                     <h2 class="govuk-accordion__section-heading">
-                        <span class="govuk-accordion__section-button" id="accordion-default-heading-1">
+                        <span class="govuk-accordion__section-button" id="accordion-heading-0">
                             Cohort
                         </span>
                     </h2>
                 </div>
-                <div id="accordion-default-content-1" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-1">
-                    <dl class="govuk-summary-list">
+                <div id="accordion-content-0" class="govuk-accordion__section-content" aria-labelledby="accordion-heading-0">
+                    <dl class="govuk-summary-list app-summary-list">
                         @foreach (var cohortMeasure in Model.CohortMeasures)
                         {
                             <div class="govuk-summary-list__row">
@@ -83,13 +74,13 @@
             <div class="govuk-accordion__section ">
                 <div class="govuk-accordion__section-header">
                     <h2 class="govuk-accordion__section-heading">
-                        <span class="govuk-accordion__section-button" id="accordion-default-heading-1">
+                        <span class="govuk-accordion__section-button" id="accordion-heading-1">
                             Headline measures
                         </span>
                     </h2>
                 </div>
-                <div id="accordion-default-content-1" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-1">
-                    <dl class="govuk-summary-list">
+                <div id="accordion-content-1" class="govuk-accordion__section-content" aria-labelledby="accordion-heading-1">
+                    <dl class="govuk-summary-list app-summary-list">
                         @foreach (var measure in Model.HeadlineMeasures)
                         {
                             <div class="govuk-summary-list__row">
@@ -107,13 +98,13 @@
             <div class="govuk-accordion__section ">
                 <div class="govuk-accordion__section-header">
                     <h2 class="govuk-accordion__section-heading">
-                        <span class="govuk-accordion__section-button" id="accordion-default-heading-1">
+                        <span class="govuk-accordion__section-button" id="accordion-heading-2">
                             Additional measures
                         </span>
                     </h2>
                 </div>
-                <div id="accordion-default-content-1" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-1">
-                    <dl class="govuk-summary-list">
+                <div id="accordion-content-2" class="govuk-accordion__section-content" aria-labelledby="accordion-heading-2">
+                    <dl class="govuk-summary-list app-summary-list">
                         @foreach (var measure in Model.AdditionalMeasures)
                         {
                             <div class="govuk-summary-list__row">
