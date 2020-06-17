@@ -1,17 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Dfe.CspdAlpha.Web.Application.Models.ViewModels;
+﻿using Dfe.CspdAlpha.Web.Application.Application.Helpers;
+using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
     public class SchoolController : Controller
     {
+        private readonly ISchoolService _schoolService;
+
+        public SchoolController(ISchoolService schoolService)
+        {
+            _schoolService = schoolService;
+        }
+
         public IActionResult Index()
         {
-            return View(SchoolViewModel.DummyData());
+            var urn = ClaimsHelper.GetURN(this.User);
+            if (string.IsNullOrEmpty(urn))
+            {
+                urn = "136028";
+                //return RedirectToAction("Index", "Home");
+            }
+            var viewModel = _schoolService.GetSchoolViewModel(urn);
+            return View(viewModel);
         }
     }
 }

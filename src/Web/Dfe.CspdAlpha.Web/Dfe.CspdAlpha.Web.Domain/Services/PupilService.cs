@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Dfe.CspdAlpha.Web.Domain.Core;
 using Dfe.CspdAlpha.Web.Domain.Entities;
@@ -17,12 +18,12 @@ namespace Dfe.CspdAlpha.Web.Domain.Services
         }
         public Pupil GetById(PupilId id)
         {
-            throw new NotImplementedException();
+            return _pupilRepository.GetById(id.Value);
         }
 
         public List<Pupil> GetByUrn(URN urn)
         {
-            throw new NotImplementedException();
+            return _pupilRepository.Query().Where(p => p.Urn.Value == urn.Value).ToList();
         }
     }
 }

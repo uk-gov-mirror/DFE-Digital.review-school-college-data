@@ -1,0 +1,15 @@
+﻿@model Dfe.CspdAlpha.Web.Application.Models.Common.CheckDataNavigation
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <nav class="app-ribbon-nav" id="app-ribbon-nav">
+            <ul class="app-ribbon-nav__list">
+                @foreach (var navigationItem in Model.NavigationItems)
+                {
+                    <li class="app-ribbon-nav__list-item @(navigationItem.Active ? "app-ribbon-nav__list-item--active" : string.Empty)">
+                        <a class="app-ribbon-nav__link" asp-controller="@navigationItem.Controller" asp-action="Index">@navigationItem.Label</a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    </div>
+</div>

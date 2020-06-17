@@ -1,0 +1,27 @@
+.app-summary-list {
+  font-size: 16px;
+
+  .govuk-summary-list__key,
+  .govuk-summary-list__value {
+    border-bottom: none;
+    width: auto;
+    float: left;
+    font-weight: normal;
+
+    @include govuk-media-query($until: tablet){
+      float: none;
+    }
+  }
+}
+
+.govuk-accordion__section-content {
+  .app-summary-list {
+    .govuk-summary-list__row {
+      @include govuk-media-query($until: tablet) {
+        &:last-child {
+          border-bottom: 0;
+        }
+      }
+    }
+  }
+}

@@ -17,4 +17,16 @@
     <PackageReference Include="Sustainsys.Saml2.AspNetCore2" Version="2.7.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Dfe.CspdAlpha.Web.Domain\Dfe.CspdAlpha.Web.Domain.csproj" />
+    <ProjectReference Include="..\Dfe.CspdAlpha.Web.Infrastructure\Dfe.CspdAlpha.Web.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Views\Shared\_SchoolDetails.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
