@@ -1,4 +1,5 @@
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
+using Dfe.CspdAlpha.Web.Application.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
@@ -19,6 +20,13 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
         public IActionResult Add()
         {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Add(AddPupilViewModel pupilViewModel)
+        {
+            var pupilView = pupilViewModel;
             return View();
         }
     }
