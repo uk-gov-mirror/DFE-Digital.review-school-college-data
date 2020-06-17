@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
 using Dfe.CspdAlpha.Web.Application.Models.School;
@@ -43,8 +43,11 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             var urnValue = new URN(urn);
             return new PupilListViewModel
             {
-                Pupils = _pupilService.GetByUrn(urnValue).Select(p => new Pupil
-                    {FirstName = p.ForeName, LastName = p.LastName, PupilId = p.Id.Value}).ToList()
+                Pupils = _pupilService
+                    .GetByUrn(urnValue)
+                    .Select(p => new Pupil {FirstName = p.ForeName, LastName = p.LastName, PupilId = p.Id.Value})
+                    .OrderBy(p => p.FirstName)
+                    .ToList()
             };
         }
     }
