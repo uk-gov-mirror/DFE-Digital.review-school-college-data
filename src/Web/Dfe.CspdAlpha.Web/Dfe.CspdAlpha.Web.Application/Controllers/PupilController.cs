@@ -1,4 +1,4 @@
-﻿using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
+using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
@@ -15,6 +15,11 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         {
             var viewModel = _schoolService.GetPupilListViewModel(urn);
             return View(viewModel);
+        }
+
+        public IActionResult Add()
+        {
+            return View();
         }
     }
 }
