@@ -1,26 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
+using System.IO;
 using System.Threading.Tasks;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels;
+using Dfe.CspdAlpha.Web.Domain.Interfaces;
+using Dfe.CspdAlpha.Web.Infrastructure.Interfaces;
+using Dfe.CspdAlpha.Web.Infrastructure.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Microsoft.Xrm.Sdk;
-using Microsoft.Xrm.Sdk.Query;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IOrganizationService _organizationService;
+        private readonly IAmendmentService _amendmentService;
+        private readonly IFileUploadService _fileUploadService;
 
         public HomeController(ILogger<HomeController> logger,
-            IOrganizationService organizationService)
+            IAmendmentService amendmentService,
+            IFileUploadService fileUploadService)
         {
             _logger = logger;
-            _organizationService = organizationService;
+            _amendmentService = amendmentService;
+            _fileUploadService = fileUploadService;
         }
 
         public IActionResult Index()
@@ -45,18 +48,36 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public IActionResult DynamicsTest()
+        public IActionResult DynamicsReadTest()
         {
-            var query = new QueryExpression("new_addpupilamendment");
-            query.ColumnSet = new ColumnSet(true);
+            var result = _amendmentService.GetAddPupilAmendments(7654321);
 
-            var link = query.AddLink("new_amendmentmetadata", "cr3d5_metadata", "new_amendmentmetadataid", JoinOperator.LeftOuter);
-            link.Columns = new ColumnSet(true);
-            link.EntityAlias = "new_addpupilamendment_metadata";
+            return Json(result);
+        }
 
-            var entities = _organizationService.RetrieveMultiple(query);
+        public IActionResult DynamicsCreateTest()
+        {
+            var result = _amendmentService.CreateAddPupilAmendment(null);
 
-            return Json(entities);
+            return Json(result);
+        }
+
+        public IActionResult UploadFile()
+        {
+            //TODO: Usual security controls around file uploads
+
+            //result = _fileUploadService.UploadFile(
+            //    file.OpenReadStream(), file.FileName, file.ContentType);
+
+            FileUploadResult result;
+
+            using (FileStream stream = System.IO.File.Open("filepath", FileMode.Open))
+            {
+                result = _fileUploadService.UploadFile(
+                stream, "filename", "application/vnd.oasis.opendocument.text");
+            }
+
+            return Json(result);
         }
     }
 }

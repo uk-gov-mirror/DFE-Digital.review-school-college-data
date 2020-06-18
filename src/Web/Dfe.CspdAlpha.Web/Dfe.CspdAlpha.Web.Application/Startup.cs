@@ -5,6 +5,8 @@ using Dfe.CspdAlpha.Web.Application.Middleware;
 using Dfe.CspdAlpha.Web.Domain.Entities;
 using Dfe.CspdAlpha.Web.Domain.Interfaces;
 using Dfe.CspdAlpha.Web.Domain.Services;
+using Dfe.CspdAlpha.Web.Infrastructure.Crm;
+using Dfe.CspdAlpha.Web.Infrastructure.Interfaces;
 using Dfe.CspdAlpha.Web.Infrastructure.Mock;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -91,6 +93,8 @@ namespace Dfe.CspdAlpha.Web.Application
             services.AddSingleton<IPupilService, PupilService>();
             services.AddSingleton<IReadRepository<Establishment>, EstablishmentRepository>();
             services.AddSingleton<IEstablishmentService, EstablishmentService>();
+            services.AddSingleton<IAmendmentService, CrmAmendmentService>();
+            services.AddSingleton<IFileUploadService, FileUploadService>();
             services.AddSingleton<ISchoolService, SchoolService>();
         }
 
