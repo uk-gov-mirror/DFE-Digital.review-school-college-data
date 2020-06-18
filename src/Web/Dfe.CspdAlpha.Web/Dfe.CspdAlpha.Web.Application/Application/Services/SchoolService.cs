@@ -3,6 +3,7 @@ using System.Linq;
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
 using Dfe.CspdAlpha.Web.Application.Models.School;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels;
+using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
 using Dfe.CspdAlpha.Web.Domain.Core;
 using Dfe.CspdAlpha.Web.Domain.Interfaces;
 

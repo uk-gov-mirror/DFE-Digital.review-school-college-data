@@ -1,7 +1,8 @@
-using Dfe.CspdAlpha.Web.Application.Models.Common;
 using System;
+using System.Linq;
+using Dfe.CspdAlpha.Web.Application.Models.Common;
 
-namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels
+namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
 {
     public class AddPupilViewModel
     {
@@ -19,5 +20,8 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels
         public DateTime DateOfAdmission => new DateTime(YearOfAdmission, MonthOfAdmission, DayOfAdmission);
         public string YearGroup { get; set; }
         public string PostCode { get; set; }
+
+        public string FullName => string.Join(" ", new[] {FirstName, LastName}.Where(n => !string.IsNullOrEmpty(n)));
+        
     }
 }
