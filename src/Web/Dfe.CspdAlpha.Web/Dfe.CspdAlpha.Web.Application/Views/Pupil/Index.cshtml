@@ -23,19 +23,6 @@
         <h1 class="govuk-heading-l govuk-!-margin-bottom-3">@ViewBag.Title</h1>
     </div>
 
-    <div class="govuk-grid-column-full">
-        <details class="govuk-details govuk-!-font-size-16" data-module="govuk-details">
-            <summary class="govuk-details__summary">
-                <span class="govuk-details__summary-text">
-                    View school details
-                </span>
-            </summary>
-            <div class="govuk-details__text">
-                @* <partial name="_SchoolDetails"/> *@
-            </div>
-        </details>
-    </div>
-
     <div class="govuk-grid-column-three-quarters">
         <p class="govuk-body">Lorem ipsum...</p>
     </div>
@@ -46,7 +33,7 @@
 </div>
 <script type="text/javascript">
       var pupilsJson = @Html.Raw(Model.PupilsJson);
-      var urn = '136028';
+      var urn = '@Model.Urn';
 </script>
 <div id="pupil-list-app">
     <div class="govuk-grid-row">

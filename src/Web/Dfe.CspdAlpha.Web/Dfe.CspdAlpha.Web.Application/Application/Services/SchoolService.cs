@@ -43,6 +43,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             var urnValue = new URN(urn);
             return new PupilListViewModel
             {
+                Urn = urn,
                 Pupils = _pupilService
                     .GetByUrn(urnValue)
                     .Select(p => new Pupil {FirstName = p.ForeName, LastName = p.LastName, PupilId = p.Id.Value})

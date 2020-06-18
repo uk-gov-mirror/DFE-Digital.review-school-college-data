@@ -1,3 +1,4 @@
+using Dfe.CspdAlpha.Web.Application.Application.Extensions;
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -24,10 +25,20 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(AddPupilViewModel pupilViewModel)
+        public IActionResult Add(AddPupilViewModel addPupilViewModel)
         {
-            var pupilView = pupilViewModel;
-            return View();
+            if (ModelState.IsValid)
+            {
+                HttpContext.Session.Set("add-pupil-amendment", addPupilViewModel);
+                return RedirectToAction("AddResult");
+            }
+            return View(addPupilViewModel);
+        }
+
+        public IActionResult AddResult()
+        {
+            var addPupilViewModel = HttpContext.Session.Get<AddPupilViewModel>("add-pupil-amendment");
+            return View(addPupilViewModel);
         }
     }
 }

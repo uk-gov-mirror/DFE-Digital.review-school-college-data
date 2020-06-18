@@ -1,4 +1,4 @@
-﻿@using Dfe.CspdAlpha.Web.Application.Models.ViewModels
+@using Dfe.CspdAlpha.Web.Application.Models.ViewModels
 @model SchoolViewModel
 @{
     ViewBag.Title = "Key stage 4 School performance";
@@ -32,7 +32,7 @@
                 </span>
             </summary>
             <div class="govuk-details__text">
-                <partial name="_SchoolDetails"/>
+                <partial name="_SchoolDetails" model="@Model.SchoolDetails"/>
             </div>
         </details>
     </div>

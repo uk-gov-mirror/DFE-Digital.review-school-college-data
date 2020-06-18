@@ -1,10 +1,12 @@
+@using Dfe.CspdAlpha.Web.Application.Models.School
+@model SchoolDetails
 <dl class="govuk-summary-list app-summary-list">
     <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
             URN
         </dt>
         <dd class="govuk-summary-list__value">
-            @Model.SchoolDetails.URN
+            @Model.URN
         </dd>
     </div>
     <div class="govuk-summary-list__row">
@@ -12,7 +14,7 @@
             Name
         </dt>
         <dd class="govuk-summary-list__value">
-            @Model.SchoolDetails.SchoolName
+            @Model.SchoolName
         </dd>
     </div>
 </dl>

@@ -12,6 +12,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels
     {
         public CheckDataNavigation CheckDataNavigationModel => new CheckDataNavigation(NavigationItem.PupilList);
         public ConfirmDataBanner ConfirmDataBanner => new ConfirmDataBanner();
+        public string Urn { get; set; }
         public List<Pupil> Pupils { get; set; }
         public string PupilsJson => JsonConvert.SerializeObject(Pupils);
     }
