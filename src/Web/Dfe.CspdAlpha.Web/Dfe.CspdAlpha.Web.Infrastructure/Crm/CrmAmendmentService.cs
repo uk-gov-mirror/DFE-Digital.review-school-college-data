@@ -25,10 +25,10 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 
         public bool CreateAddPupilAmendment(AddPupilAmendment amendment)
         {
+            var amendmentDto = new new_AddPupilAmendment();
+
             using (var context = new CrmServiceContext(_organizationService))
             {
-                var amendmentDto = new new_AddPupilAmendment();
-
                 // TODO: Map from domain model
 
                 // don't need to set status as this will default to "Requested" in backend
@@ -52,15 +52,23 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
                 amendmentDto.cr3d5_PriorAttainmentAcademicYear = "";
                 amendmentDto.cr3d5_PriorAttainmentLevel = "";
 
-                // evidence
                 amendmentDto.cr3d5_EvidenceOption = cr3d5_EvidenceOption.UploadEvidenceNow;
-                // TODO: Evidence file refs
 
                 amendmentDto.cr3d5_IncludeInPerformanceResults = true;
                 
                 context.AddObject(amendmentDto);
                 context.SaveChanges();
             }
+
+            // associate any uploaded evidence files with the newly-created amendment
+            var relatedFileUploads = new EntityReferenceCollection();
+
+            // TODO: Call relatedFileUploads.Add() for each file guid
+            //relatedFileUploads.Add(new EntityReference(cr3d5_Fileupload.EntityLogicalName, fileGuid));
+            
+            var relationship = new Relationship("cr3d5_new_AddPupilAmendment_cr3d5_EvidenceFileS");
+            _organizationService.Associate(
+                new_AddPupilAmendment.EntityLogicalName, amendmentDto.Id, relationship, relatedFileUploads);
 
             return true;
         }

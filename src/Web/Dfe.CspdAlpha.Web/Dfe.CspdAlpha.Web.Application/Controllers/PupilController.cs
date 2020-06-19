@@ -4,17 +4,22 @@ using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
+using Dfe.CspdAlpha.Web.Domain.Interfaces;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
     public class PupilController : Controller
     {
         private ISchoolService _schoolService;
+        private readonly IAmendmentService _amendmentService;
         private const string ADD_PUPIL_AMENDMENT = "add-pupil-amendment";
 
-        public PupilController(ISchoolService schoolService)
+        public PupilController(
+            ISchoolService schoolService,
+            IAmendmentService amendmentService)
         {
             _schoolService = schoolService;
+            _amendmentService = amendmentService;
         }
         public IActionResult Index(string urn)
         {
