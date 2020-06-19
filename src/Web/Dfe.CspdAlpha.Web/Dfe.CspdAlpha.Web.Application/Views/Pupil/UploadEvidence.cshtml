@@ -1,0 +1,60 @@
+@using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
+@model AddPupilAmendmentViewModel
+@{
+    ViewData["Title"] = "Upload evidence for " + Model.AddPupilViewModel.FullName;
+}
+
+@section BackLink
+{
+    <a class="govuk-back-link" asp-controller="Pupil" asp-action="AddResult">Back to pupil list</a>
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-xl govuk-!-margin-bottom-4">@ViewBag.Title</h1>
+    </div>
+
+    <div class="govuk-grid-column-full">
+        <details class="govuk-details govuk-!-font-size-16" data-module="govuk-details">
+            <summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text">
+                    View pupil details
+                </span>
+            </summary>
+            <div class="govuk-details__text">
+                <partial name="_PupilDetails" model="@Model.AddPupilViewModel" />
+            </div>
+        </details>
+    </div>
+
+    <div class="govuk-grid-column-full">
+        <p class="govuk-body-l">Lorem ipsum...</p>
+    </div>
+</div>
+<form method="post">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-two-thirds">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label" asp-for="EvidenceFiles">
+                            Upload file
+                        </label>
+                        <input class="govuk-file-upload"  asp-for="EvidenceFiles" type="file" multiple>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <input type="submit" class="govuk-button" data-module="govuk-button" value="Next" />
+        </div>
+    </div>
+</form>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <a asp-action="CancelAmendment">Cancel amendment</a>
+    </div>
+</div>

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Dfe.CspdAlpha.Web.Application.Application.Extensions;
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels;
@@ -53,6 +54,47 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 HttpContext.Session.Set("add-pupil-amendment", addPupilAmendment);
                 return RedirectToAction("AddEvidence");
             }
+            return View(addPupilAmendment);
+        }
+
+        public IActionResult AddEvidence()
+        {
+            var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>("add-pupil-amendment");
+            return View(addPupilAmendment);
+        }
+
+        [HttpPost]
+        public IActionResult AddEvidence(EvidenceOption selectedEvidenceOption)
+        {
+            var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>("add-pupil-amendment");
+            addPupilAmendment.SelectedEvidenceOption = selectedEvidenceOption;
+            if (ModelState.IsValid)
+            {
+                HttpContext.Session.Set("add-pupil-amendment", addPupilAmendment);
+                switch (selectedEvidenceOption)
+                {
+                    case EvidenceOption.UploadNow:
+                        return RedirectToAction("UploadEvidence");
+                    case EvidenceOption.UploadLater:
+                    case EvidenceOption.NotRequired:
+                        return RedirectToAction("InclusionDetails");
+                    default:
+                        return View(addPupilAmendment);
+                }
+            }
+            return View(addPupilAmendment);
+        }
+
+        public IActionResult UploadEvidence()
+        {
+            var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>("add-pupil-amendment");
+            return View(addPupilAmendment);
+        }
+
+        [HttpPost]
+        public IActionResult UploadEvidence(List<string> evidenceFiles)
+        {
+            var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>("add-pupil-amendment");
             return View(addPupilAmendment);
         }
 
