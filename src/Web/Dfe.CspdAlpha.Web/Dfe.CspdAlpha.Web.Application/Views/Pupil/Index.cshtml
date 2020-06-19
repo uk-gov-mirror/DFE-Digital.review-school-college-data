@@ -1,0 +1,59 @@
+@using Dfe.CspdAlpha.Web.Application.Models.ViewModels
+@model Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil.PupilListViewModel
+@{
+    ViewBag.Title = "Key stage 4 pupil list";
+    ViewBag.ContentClass = "app-detail-page-main";
+}
+
+@section BackLink
+{
+    <a class="govuk-back-link" asp-controller="Service" asp-action="Index">Back to service provided</a>
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <partial name="_ConfirmDataBanner" model="@Model.ConfirmDataBanner"/>
+    </div>
+</div>
+
+<partial name="_CheckDataNavigation" model="@Model.CheckDataNavigationModel"/>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-l govuk-!-margin-bottom-3">@ViewBag.Title</h1>
+    </div>
+
+    <div class="govuk-grid-column-three-quarters">
+        <p class="govuk-body">Lorem ipsum...</p>
+    </div>
+    <div class="govuk-grid-column-one-quarter app-align-right govuk-!-padding-bottom-4">
+        <a asp-controller="Pupil" asp-action="Add" class="app-top-add">Add a pupil</a>
+        <a class="print-link" href="javascript:window.print()">Print</a>
+    </div>
+</div>
+<script type="text/javascript">
+      var pupilsJson = @Html.Raw(Model.PupilsJson);
+      var urn = '@Model.Urn';
+</script>
+<div id="pupil-list-app">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <pupil-search v-model="searchText"/>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <pupil-table :urn="urn" :pupils="filteredPupils" :columns="columns"/>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <no-results :search-text="searchText" :has-results="hasResults"/>
+        </div>
+    </div>
+</div>
+
+
+@section ViewScripts {
+    <script webpack-src="pupil-list"></script>
+}

@@ -1,0 +1,97 @@
+@using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
+@model AddPupilAmendmentViewModel
+@{
+    ViewData["Title"] = "Add prior attainment result for " + Model.AddPupilViewModel.FullName;
+}
+
+@section BackLink
+{
+    <a class="govuk-back-link" asp-controller="Pupil" asp-action="Index">Back to pupil list</a>
+}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-xl govuk-!-margin-bottom-4">@ViewBag.Title</h1>
+    </div>
+
+    <div class="govuk-grid-column-full">
+        <details class="govuk-details govuk-!-font-size-16" data-module="govuk-details">
+            <summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text">
+                    View pupil details
+                </span>
+            </summary>
+            <div class="govuk-details__text">
+                <partial name="_PupilDetails" model="@Model.AddPupilViewModel" />
+            </div>
+        </details>
+    </div>
+
+    <div class="govuk-grid-column-full">
+        <p class="govuk-body-l">Lorem ipsum...</p>
+    </div>
+</div>
+<form method="post">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label" asp-for="AddPriorAttainmentViewModel.ResultFor">
+                            Result for
+                        </label>
+                        <select class="govuk-select" asp-for="AddPriorAttainmentViewModel.ResultFor">
+                            <option value="resultfor1">Result for 1</option>
+                            <option value="resultfor2">Result for 2</option>
+                            <option value="resultfor3">Result for 3</option>
+                            <option value="resultfor4">Result for 4</option>
+                        </select>
+                    </div>
+                    <div class="govuk-form-group">
+                        <label class="govuk-label" asp-for="AddPriorAttainmentViewModel.Test">
+                            Test
+                        </label>
+                        <select class="govuk-select" asp-for="AddPriorAttainmentViewModel.Test">
+                            <option value="test1">Test 1</option>
+                            <option value="test2">Test 2</option>
+                            <option value="test3">Test 3</option>
+                            <option value="test4">Test 4</option>
+                        </select>
+                    </div>
+                    <div class="govuk-form-group">
+                        <label class="govuk-label" asp-for="AddPriorAttainmentViewModel.AcademicYear">
+                            Result for
+                        </label>
+                        <select class="govuk-select" asp-for="AddPriorAttainmentViewModel.AcademicYear">
+                            <option value="academicyear1">Academic year 1</option>
+                            <option value="academicyear2">Academic year 2</option>
+                            <option value="academicyear3">Academic year 3</option>
+                            <option value="academicyear4">Academic year 4</option>
+                        </select>
+                    </div>
+                    <div class="govuk-form-group">
+                        <label class="govuk-label" asp-for="AddPriorAttainmentViewModel.Level">
+                            Result for
+                        </label>
+                        <select class="govuk-select" asp-for="AddPriorAttainmentViewModel.Level">
+                            <option value="level1">Level 1</option>
+                            <option value="level2">Level 2</option>
+                            <option value="level3">Level 3</option>
+                            <option value="level4">Level 4</option>
+                        </select>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <input type="submit" class="govuk-button" data-module="govuk-button" value="Next" />
+        </div>
+    </div>
+</form>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <a asp-action="CancelAmendment">Cancel amendment</a>
+    </div>
+</div>

@@ -13,14 +13,8 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             _schoolService = schoolService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string urn)
         {
-            var urn = ClaimsHelper.GetURN(this.User);
-            if (string.IsNullOrEmpty(urn))
-            {
-                urn = "136028";
-                //return RedirectToAction("Index", "Home");
-            }
             var viewModel = _schoolService.GetSchoolViewModel(urn);
             return View(viewModel);
         }

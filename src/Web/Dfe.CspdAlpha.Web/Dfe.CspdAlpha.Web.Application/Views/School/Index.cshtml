@@ -1,7 +1,7 @@
-﻿@using Dfe.CspdAlpha.Web.Application.Models.ViewModels
+@using Dfe.CspdAlpha.Web.Application.Models.ViewModels
 @model SchoolViewModel
 @{
-    ViewBag.Title = "School performance";
+    ViewBag.Title = "Key stage 4 School performance";
     ViewBag.ContentClass = "app-detail-page-main";
 }
 
@@ -32,7 +32,7 @@
                 </span>
             </summary>
             <div class="govuk-details__text">
-                <partial name="_SchoolDetails"/>
+                <partial name="_SchoolDetails" model="@Model.SchoolDetails"/>
             </div>
         </details>
     </div>
@@ -63,6 +63,7 @@
                                 <dt class="govuk-summary-list__key">
                                     @cohortMeasure.Name
                                 </dt>
+
                                 <dd class="govuk-summary-list__value">
                                     @cohortMeasure.Data
                                 </dd>

@@ -3,7 +3,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const glob = require('glob');
-//const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 
 const entryDirPath = path.resolve('./Assets/Scripts/entry/');
@@ -38,9 +38,9 @@ module.exports = {
     alias: {
       modules: path.resolve('./Assets/Scripts/modules'),
       helpers: path.resolve('./Assets/Scripts/helpers'),
-      //'vue$': 'vue/dist/vue.esm.js'
+      'vue$': 'vue/dist/vue.esm.js'
     },
-    extensions: ['*', '.js', /*'.vue',*/ '.json']
+    extensions: ['*', '.js', '.vue', '.json']
   },
 
 
@@ -55,15 +55,15 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
       },
-      //{
-      //  test: /\.vue$/,
-      //  loader: 'vue-loader'
-      //}
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader'
+      }
     ],
   },
 
   plugins: [
-    //new VueLoaderPlugin(),
+    new VueLoaderPlugin(),
     new webpack.EnvironmentPlugin([
       'NODE_ENV',
     ]),
@@ -71,6 +71,6 @@ module.exports = {
       $: 'jquery',
       jQuery: 'jquery',
     }),
-      
+
   ],
 };

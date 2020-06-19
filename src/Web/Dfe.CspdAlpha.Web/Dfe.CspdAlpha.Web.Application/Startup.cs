@@ -142,6 +142,11 @@ namespace Dfe.CspdAlpha.Web.Application
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+                    name: "school",
+                    pattern: "school/{urn}/{controller}/{action}/{id?}",
+                    defaults: new {controller = "School", action = "Index"});
+
+                endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });

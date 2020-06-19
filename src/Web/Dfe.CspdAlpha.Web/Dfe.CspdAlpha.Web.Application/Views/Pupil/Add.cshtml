@@ -1,0 +1,176 @@
+@using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
+@model AddPupilViewModel
+
+@{
+    ViewData["Title"] = "Add a pupil";
+}
+
+@section BackLink
+{
+    <a class="govuk-back-link" asp-controller="Pupil" asp-action="Index">Back to pupil list</a>
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-l govuk-!-margin-bottom-3">@ViewBag.Title</h1>
+    </div>
+
+    <div class="govuk-grid-column-full">
+        <p class="govuk-body">Lorem ipsum...</p>
+    </div>
+</div>
+
+<form method="post">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-form-group">
+                <div class="govuk-form-group">
+                    <label class="govuk-label" asp-for="PupilId">
+                        Pupil Id
+                    </label>
+                    <input class="govuk-input govuk-input--width-20" asp-for="PupilId" type="text">
+                </div>
+                <div class="govuk-form-group">
+                    <label class="govuk-label" asp-for="FirstName">
+                        First name
+                    </label>
+                    <input class="govuk-input govuk-input--width-20" asp-for="FirstName" type="text">
+                </div>
+                <div class="govuk-form-group">
+                    <label class="govuk-label" asp-for="LastName">
+                        Last name
+                    </label>
+                    <input class="govuk-input govuk-input--width-20" asp-for="LastName" type="text">
+                </div>
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset" role="group">
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                            <h2 class="govuk-fieldset__heading  govuk-!-font-weight-regular">
+                                Date of birth
+                            </h2>
+                        </legend>
+                        <div class="govuk-date-input" id="date-of-birth">
+                            <div class="govuk-date-input__item">
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-date-input__label" asp-for="DayOfBirth">
+                                        Day
+                                    </label>
+                                    <input class="govuk-input govuk-date-input__input govuk-input--width-2" asp-for="DayOfBirth" type="text" pattern="[0-9]*" inputmode="numeric">
+                                </div>
+                            </div>
+                            <div class="govuk-date-input__item">
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-date-input__label" asp-for="MonthOfBirth">
+                                        Month
+                                    </label>
+                                    <input class="govuk-input govuk-date-input__input govuk-input--width-2" asp-for="MonthOfBirth" type="text" pattern="[0-9]*" inputmode="numeric">
+                                </div>
+                            </div>
+                            <div class="govuk-date-input__item">
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-date-input__label" asp-for="YearOfBirth">
+                                        Year
+                                    </label>
+                                    <input class="govuk-input govuk-date-input__input govuk-input--width-4" asp-for="YearOfBirth" type="text" pattern="[0-9]*" inputmode="numeric">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                            <h2 class="govuk-fieldset__heading govuk-!-font-weight-regular">
+                                Gender
+                            </h2>
+                        </legend>
+                        <div class="govuk-radios govuk-radios--inline">
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" asp-for="Gender" type="radio" value="Male">
+                                <label class="govuk-label govuk-radios__label" asp-for="Gender">
+                                    Male
+                                </label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" asp-for="Gender" type="radio" value="Female">
+                                <label class="govuk-label govuk-radios__label" asp-for="Gender">
+                                    Female
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset" role="group">
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                            <h2 class="govuk-fieldset__heading  govuk-!-font-weight-regular">
+                                Admission date
+                            </h2>
+                        </legend>
+                        <div class="govuk-date-input" id="date-of-admission">
+                            <div class="govuk-date-input__item">
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-date-input__label" asp-for="DayOfAdmission">
+                                        Day
+                                    </label>
+                                    <input class="govuk-input govuk-date-input__input govuk-input--width-2" asp-for="DayOfAdmission" type="text" pattern="[0-9]*" inputmode="numeric">
+                                </div>
+                            </div>
+                            <div class="govuk-date-input__item">
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-date-input__label" asp-for="MonthOfAdmission">
+                                        Month
+                                    </label>
+                                    <input class="govuk-input govuk-date-input__input govuk-input--width-2" asp-for="MonthOfAdmission" type="text" pattern="[0-9]*" inputmode="numeric">
+                                </div>
+                            </div>
+                            <div class="govuk-date-input__item">
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-date-input__label" asp-for="YearOfAdmission">
+                                        Year
+                                    </label>
+                                    <input class="govuk-input govuk-date-input__input govuk-input--width-4" asp-for="YearOfAdmission" type="text" pattern="[0-9]*" inputmode="numeric">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="govuk-form-group">
+                    <label class="govuk-label" asp-for="YearGroup">
+                        Year group
+                    </label>
+                    <input class="govuk-input govuk-input--width-20" asp-for="YearGroup" type="text">
+                </div>
+                <div class="govuk-form-group">
+                    <label class="govuk-label" asp-for="PostCode">
+                        Post code
+                    </label>
+                    <input class="govuk-input govuk-input--width-20" asp-for="PostCode" type="text">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <input type="submit" class="govuk-button" data-module="govuk-button" value="Next"/>
+        </div>
+    </div>
+</form>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <a asp-action="Index" class="app-modal__canel-link">Cancel amendment</a>
+    </div>
+</div>
+
+<div class="hidden" id="modal-content">
+    <div id="confirm-cancel-amendment">
+        <p class="govuk-body-s">
+            Are you sure you want to cancel this amendment?
+        </p>
+        <div class="app-modal__button-row">
+            <button class="govuk-button app-modal__button-positive">Yes</button>
+            <button class="govuk-button app-modal__button-negative">No</button>
+        </div>
+    </div>
+</div>
