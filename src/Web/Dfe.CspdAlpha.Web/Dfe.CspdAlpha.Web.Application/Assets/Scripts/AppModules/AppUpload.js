@@ -4,40 +4,23 @@ class AppUpload {
   }
 
   init() {
-    this.formData = new FormData(document.getElementById('upload-form'));
-    this.formData.delete('EvidenceFiles');
+    this.uploadControl = $('<div class="govuk-form-group app-upload__element"><label class="govuk-label" for="EvidenceFiles">Upload file</label><input class="govuk-file-upload" type="file" id="EvidenceFiles" name="EvidenceFiles"></div>');
     this.fileNames = [];
     const uploadBtn = document.getElementById('upload-button');
-    const uploadField = document.getElementById('EvidenceFiles');
-    let fileCount = 0;
 
-    /* eslint no-console: 0 */
     uploadBtn.addEventListener('click', (e) =>{
-      e.preventDefault();
-      let currentUpload = uploadField.files[0];
+      let currentUpload = $('.govuk-file-upload').filter(':visible')[0].files[0];
       if (currentUpload) {
-        this.formData.append('EvidenceFiles', currentUpload);
+        e.preventDefault();
+        $('.app-upload__element').filter(':visible').data('fName', currentUpload.name).addClass('hidden');
+
+        $('#app-upload__files-container').prepend(this.uploadControl.clone());
         this.fileNames.push(currentUpload.name);
-        fileCount ++;
+        this.updateFileList();
+      } else {
+
+        //$('#upload-button').next('dot-pulse').removeClass('hidden');
       }
-      else if (fileCount > 0) {
-        $.ajax({
-          url: window.location,
-          method: 'post',
-          data: this.formData,
-          processData: false,
-          contentType: false,
-          success: function() {
-            const punt = window.location.toString().replace('/UploadEvidence', '/Inclusion');
-            window.location = punt;
-          },
-          error: function(err) {
-            console.log(err);
-          }
-        });
-      }
-      this.updateFileList();
-      uploadField.value = '';
     });
   }
 
@@ -45,14 +28,9 @@ class AppUpload {
     const index = this.fileNames.indexOf(fileName);
     this.fileNames.splice(index, 1);
 
-    const currentFiles = this.formData.getAll('EvidenceFiles');
-    this.formData.delete('EvidenceFiles');
-
-    for (let i = 0, len = currentFiles.length; i < len; i++) {
-      if (currentFiles[i].name !== fileName) {
-        this.formData.append('EvidenceFiles', currentFiles[i]);
-      }
-    }
+    $('.app-upload__element').filter((n,el)=> {
+      return $(el).data().fName === fileName;
+    }).remove();
 
     this.updateFileList();
   }
