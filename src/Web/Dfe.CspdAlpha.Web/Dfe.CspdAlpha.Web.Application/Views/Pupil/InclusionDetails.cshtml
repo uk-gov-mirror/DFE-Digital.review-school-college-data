@@ -1,12 +1,12 @@
 @using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
 @model AddPupilAmendmentViewModel
 @{
-    ViewData["Title"] = "Upload evidence for " + Model.AddPupilViewModel.FullName;
+    ViewData["Title"] = "Inclusion details";
 }
 
 @section BackLink
 {
-    <a class="govuk-back-link" asp-controller="Pupil" asp-action="AddEvidence">Back</a>
+    <a class="govuk-back-link" asp-controller="Pupil" asp-action="@Model.SelectedEvidenceBackOption">Back</a>
 }
 
 <div class="govuk-grid-row">
@@ -31,18 +31,20 @@
         <p class="govuk-body-l">Lorem ipsum...</p>
     </div>
 </div>
-<form method="post" enctype="multipart/form-data">
+<form method="post">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-            <div class="govuk-grid-row">
-                <div class="govuk-grid-column-two-thirds">
-                    <div class="govuk-form-group">
-                        <label class="govuk-label" asp-for="EvidenceFiles">
-                            Upload file
-                        </label>
-                        <input class="govuk-file-upload"  asp-for="EvidenceFiles" type="file" multiple>
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+                    <div class="govuk-checkboxes">
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" asp-for="InclusionConfirmed" type="checkbox" value="true">
+                            <label class="govuk-label govuk-checkboxes__label" asp-for="InclusionConfirmed">
+                                Add this unlisted pupil to the performance table
+                            </label>
+                        </div>
                     </div>
-                </div>
+                </fieldset>
             </div>
         </div>
     </div>

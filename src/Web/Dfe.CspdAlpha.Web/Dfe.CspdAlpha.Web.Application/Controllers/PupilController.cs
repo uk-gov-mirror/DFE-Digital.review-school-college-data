@@ -10,6 +10,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
     public class PupilController : Controller
     {
         private ISchoolService _schoolService;
+        private const string ADD_PUPIL_AMENDMENT = "add-pupil-amendment";
 
         public PupilController(ISchoolService schoolService)
         {
@@ -32,7 +33,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             if (ModelState.IsValid)
             {
                 var addPupilAmendment = new AddPupilAmendmentViewModel{AddPupilViewModel = addPupilViewModel};
-                HttpContext.Session.Set("add-pupil-amendment", addPupilAmendment);
+                HttpContext.Session.Set(ADD_PUPIL_AMENDMENT, addPupilAmendment);
                 return RedirectToAction("AddResult");
             }
             return View(addPupilViewModel);
@@ -40,18 +41,18 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
         public IActionResult AddResult()
         {
-            var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>("add-pupil-amendment");
+            var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
             return View(addPupilAmendment);
         }
 
         [HttpPost]
         public IActionResult AddResult(AddPriorAttainmentViewModel addPriorAttainmentViewModel)
         {
-            var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>("add-pupil-amendment");
+            var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
             addPupilAmendment.AddPriorAttainmentViewModel = addPriorAttainmentViewModel;
             if (ModelState.IsValid)
             {
-                HttpContext.Session.Set("add-pupil-amendment", addPupilAmendment);
+                HttpContext.Session.Set(ADD_PUPIL_AMENDMENT, addPupilAmendment);
                 return RedirectToAction("AddEvidence");
             }
             return View(addPupilAmendment);
@@ -59,18 +60,18 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
         public IActionResult AddEvidence()
         {
-            var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>("add-pupil-amendment");
+            var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
             return View(addPupilAmendment);
         }
 
         [HttpPost]
         public IActionResult AddEvidence(EvidenceOption selectedEvidenceOption)
         {
-            var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>("add-pupil-amendment");
+            var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
             addPupilAmendment.SelectedEvidenceOption = selectedEvidenceOption;
             if (ModelState.IsValid)
             {
-                HttpContext.Session.Set("add-pupil-amendment", addPupilAmendment);
+                HttpContext.Session.Set(ADD_PUPIL_AMENDMENT, addPupilAmendment);
                 switch (selectedEvidenceOption)
                 {
                     case EvidenceOption.UploadNow:
@@ -87,22 +88,38 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
         public IActionResult UploadEvidence()
         {
-            var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>("add-pupil-amendment");
+            var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
             return View(addPupilAmendment);
         }
 
         [HttpPost]
         public IActionResult UploadEvidence(List<IFormFile> evidenceFiles)
         {
-            var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>("add-pupil-amendment");
+            var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
             if (ModelState.IsValid)
             {
                 addPupilAmendment.EvidenceFiles = _schoolService.UploadEvidence(evidenceFiles);
-                HttpContext.Session.Set("add-pupil-amendment", addPupilAmendment);
+                HttpContext.Session.Set(ADD_PUPIL_AMENDMENT, addPupilAmendment);
                 return RedirectToAction("InclusionDetails");
             }
             return View(addPupilAmendment);
         }
+
+        public IActionResult InclusionDetails()
+        {
+            var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
+            return View(addPupilAmendment);
+        }
+
+        [HttpPost]
+        public IActionResult InclusionDetails(bool inclusionConfirmed)
+        {
+            var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
+            addPupilAmendment.InclusionConfirmed = inclusionConfirmed;
+            HttpContext.Session.Set(ADD_PUPIL_AMENDMENT, addPupilAmendment);
+            return RedirectToAction("AmendmentReceived");
+        }
+
 
         public IActionResult CancelAmendment()
         {

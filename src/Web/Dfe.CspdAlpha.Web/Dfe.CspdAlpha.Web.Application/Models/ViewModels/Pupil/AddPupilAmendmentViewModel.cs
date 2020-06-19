@@ -18,7 +18,10 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
         public AddPupilViewModel AddPupilViewModel { get; set; }
         public AddPriorAttainmentViewModel AddPriorAttainmentViewModel { get; set; }
         public EvidenceOption SelectedEvidenceOption { get; set; }
-
         public List<string> EvidenceFiles { get; set; }
+        public bool InclusionConfirmed { get; set; }
+
+        public string SelectedEvidenceBackOption =>
+            SelectedEvidenceOption == EvidenceOption.UploadNow ? "UploadEvidence" : "AddEvidence";
     }
 }
