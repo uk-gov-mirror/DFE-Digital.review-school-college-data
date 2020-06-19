@@ -31,7 +31,7 @@
         <p class="govuk-body-l">Lorem ipsum...</p>
     </div>
 </div>
-<form method="post">
+<form method="post"  enctype="multipart/form-data">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <div class="govuk-grid-row">
@@ -41,19 +41,19 @@
                             <div class="govuk-radios">
                                 <div class="govuk-radios__item app-radios-multiline__item">
                                     <input class="govuk-radios__input" asp-for="SelectedEvidenceOption" type="radio" value="UploadNow">
-                                    <label class="govuk-label govuk-radios__label" >
+                                    <label class="govuk-label govuk-radios__label" for="SelectedEvidenceOption">
                                         I will provide electronic evidence now
                                     </label>
                                 </div>
                                 <div class="govuk-radios__item app-radios-multiline__item">
                                     <input class="govuk-radios__input" asp-for="SelectedEvidenceOption" type="radio" value="UploadLater">
-                                    <label class="govuk-label govuk-radios__label" >
+                                    <label class="govuk-label govuk-radios__label" for="SelectedEvidenceOption">
                                         I will provide electronic evidence before 5pm on DD/MM/YYYY
                                     </label>
                                 </div>
                                 <div class="govuk-radios__item app-radios-multiline__item">
                                     <input class="govuk-radios__input"  asp-for="SelectedEvidenceOption" type="radio" value="NotRequired">
-                                    <label class="govuk-label govuk-radios__label" >
+                                    <label class="govuk-label govuk-radios__label" for="">
                                         I don't need to provide electronic evidence
                                     </label>
                                 </div>
@@ -73,6 +73,8 @@
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
-        <a asp-action="CancelAmendment">Cancel amendment</a>
+        <a asp-action="CancelAmendment" class="app-modal__canel-link">Cancel amendment</a>
     </div>
 </div>
+<partial name="_CancelModalContent"/>
+
