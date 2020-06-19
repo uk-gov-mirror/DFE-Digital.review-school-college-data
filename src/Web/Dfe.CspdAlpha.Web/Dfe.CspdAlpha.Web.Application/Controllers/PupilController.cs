@@ -1,24 +1,19 @@
-using System.Collections.Generic;
 using Dfe.CspdAlpha.Web.Application.Application.Extensions;
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
-using Dfe.CspdAlpha.Web.Application.Models.ViewModels;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
-using Dfe.CspdAlpha.Web.Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
     public class PupilController : Controller
     {
         private ISchoolService _schoolService;
-        private readonly IAmendmentService _amendmentService;
 
-        public PupilController(
-            ISchoolService schoolService,
-            IAmendmentService amendmentService)
+        public PupilController(ISchoolService schoolService)
         {
             _schoolService = schoolService;
-            _amendmentService = amendmentService;
         }
         public IActionResult Index(string urn)
         {
@@ -97,9 +92,15 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         }
 
         [HttpPost]
-        public IActionResult UploadEvidence(List<string> evidenceFiles)
+        public IActionResult UploadEvidence(List<IFormFile> evidenceFiles)
         {
             var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>("add-pupil-amendment");
+            if (ModelState.IsValid)
+            {
+                addPupilAmendment.EvidenceFiles = _schoolService.UploadEvidence(evidenceFiles);
+                HttpContext.Session.Set("add-pupil-amendment", addPupilAmendment);
+                return RedirectToAction("InclusionDetails");
+            }
             return View(addPupilAmendment);
         }
 
@@ -107,20 +108,6 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         {
             HttpContext.Session.Remove("add-pupil-amendment");
             return RedirectToAction("Index");
-        }
-
-        public IActionResult DynamicsReadTest()
-        {
-            var result = _amendmentService.GetAddPupilAmendments(7654321);
-
-            return Json(result);
-        }
-
-        public IActionResult DynamicsCreateTest()
-        {
-            var result = _amendmentService.CreateAddPupilAmendment(null);
-
-            return Json(result);
         }
     }
 }
