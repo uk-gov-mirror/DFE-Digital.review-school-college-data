@@ -5,9 +5,10 @@
 import {initAll} from 'govuk-frontend';
 import accordionExtensions from '../AppModules/GovUkComponentExtensions/appAccordionExtensions';
 import AppRibbonNavigation from '../AppModules/Navigation/AppRibbonNavigation';
+import AppCancelDialog from '../AppModules/AppModals/AppCancelDialog';
 import AppPrint from '../AppModules/AppPrint';
-initAll();
 
+initAll();
 accordionExtensions();
 
 if (document.getElementById('app-ribbon-nav')) {
@@ -24,3 +25,12 @@ if (document.getElementById('app-ribbon-nav')) {
 }
 
 AppPrint();
+
+$('.app-modal__canel-link').each(function(n, el) {
+  new AppCancelDialog(el, {
+    contentSelector: '#confirm-cancel-amendment',
+    hideTitle: true,
+    additionalClasses: 'app-modal__yes-no'
+  });
+});
+
