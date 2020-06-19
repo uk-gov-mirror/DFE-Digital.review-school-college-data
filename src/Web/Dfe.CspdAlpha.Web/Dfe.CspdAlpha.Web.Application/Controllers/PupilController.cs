@@ -2,6 +2,7 @@ using Dfe.CspdAlpha.Web.Application.Application.Extensions;
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
+using Dfe.CspdAlpha.Web.Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
@@ -9,10 +10,14 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
     public class PupilController : Controller
     {
         private ISchoolService _schoolService;
+        private readonly IAmendmentService _amendmentService;
 
-        public PupilController(ISchoolService schoolService)
+        public PupilController(
+            ISchoolService schoolService,
+            IAmendmentService amendmentService)
         {
             _schoolService = schoolService;
+            _amendmentService = amendmentService;
         }
         public IActionResult Index(string urn)
         {
@@ -60,6 +65,20 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         {
             HttpContext.Session.Remove("add-pupil-amendment");
             return RedirectToAction("Index");
+        }
+
+        public IActionResult DynamicsReadTest()
+        {
+            var result = _amendmentService.GetAddPupilAmendments(7654321);
+
+            return Json(result);
+        }
+
+        public IActionResult DynamicsCreateTest()
+        {
+            var result = _amendmentService.CreateAddPupilAmendment(null);
+
+            return Json(result);
         }
     }
 }

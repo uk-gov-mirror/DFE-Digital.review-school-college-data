@@ -7,6 +7,12 @@ using System.Linq;
 
 namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 {
+    /// <summary>
+    /// Dynamics 365-backed amendment store.
+    /// </summary>
+    /// <remarks>Currently uses Dynamics SDK (OrganizationServiceContext), which curiously 
+    /// doesn't seem to support async calls. Will probably want to switch to use Web API
+    /// at some point.</remarks>
     public class CrmAmendmentService : IAmendmentService
     {
         private readonly IOrganizationService _organizationService;
@@ -41,7 +47,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
                 context.SaveChanges();
 
                 // TODO: Prior attainment result (if provided)
-                // TODO: Evidence upload
+                // TODO: Evidence file refs
             }
 
             return true;
