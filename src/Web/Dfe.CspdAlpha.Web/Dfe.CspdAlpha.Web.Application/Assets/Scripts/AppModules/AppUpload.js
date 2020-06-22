@@ -9,17 +9,20 @@ class AppUpload {
     const uploadBtn = document.getElementById('upload-button');
 
     uploadBtn.addEventListener('click', (e) =>{
+      e.preventDefault();
       let currentUpload = $('.govuk-file-upload').filter(':visible')[0].files[0];
       if (currentUpload) {
-        e.preventDefault();
         $('.app-upload__element').filter(':visible').data('fName', currentUpload.name).addClass('hidden');
 
         $('#app-upload__files-container').prepend(this.uploadControl.clone());
         this.fileNames.push(currentUpload.name);
         this.updateFileList();
-      } else {
+      }
+    });
 
-        //$('#upload-button').next('dot-pulse').removeClass('hidden');
+    document.getElementById('upload-button-next').addEventListener('click', (e)=>{
+      if (!$('.govuk-file-upload').filter(':visible')[0].files[0] && this.fileNames.length === 0) {
+        e.preventDefault();
       }
     });
   }
