@@ -7,6 +7,6 @@ namespace Dfe.CspdAlpha.Web.Domain.Interfaces
     {
         IEnumerable<AddPupilAmendment> GetAddPupilAmendments(int laestab);
 
-        bool CreateAddPupilAmendment(AddPupilAmendment amendment);
+        bool CreateAddPupilAmendment(AddPupilAmendment amendment, out string id);
     }
 }

@@ -4,6 +4,7 @@ using Microsoft.Xrm.Sdk;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Dfe.CspdAlpha.Web.Domain.Core.Enums;
 
 namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 {
@@ -22,7 +23,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
             _organizationService = organizationService;
         }
 
-        public bool CreateAddPupilAmendment(AddPupilAmendment amendment)
+        public bool CreateAddPupilAmendment(AddPupilAmendment amendment, out string id)
         {
             using (var context = new CrmServiceContext(_organizationService))
             {
@@ -31,21 +32,21 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
                 // TODO: Map from domain model
 
                 // don't need to set status as this will default to "Requested" in backend
-                amendmentDto.new_Name = "Geoff Jones";
-                amendmentDto.cr3d5_Laestab = "7654321";
-                amendmentDto.cr3d5_PupilId = "111111111111";
-                amendmentDto.new_Forename = "Geoff";
-                amendmentDto.new_Surname = "Jones";
-                amendmentDto.cr3d5_Yeargroup = "8";
-                amendmentDto.cr3d5_Postcode = "GH6 7DF";
-                amendmentDto.cr3d5_IncludeInPerformanceResults = true;
-                amendmentDto.cr3d5_Gender = cr3d5_Gender.Male;
-                amendmentDto.new_DOB = new DateTime(2002, 1, 17);
-                amendmentDto.cr3d5_AdmissionDate = new DateTime(2007, 6, 1);
+                amendmentDto.new_Name = amendment.Pupil.FullName;
+                amendmentDto.cr3d5_Laestab = amendment.Pupil.LaEstab;
+                amendmentDto.cr3d5_PupilId = amendment.Pupil.Id.Value;
+                amendmentDto.new_Forename = amendment.Pupil.FullName;
+                amendmentDto.new_Surname = amendment.Pupil.LastName;
+                amendmentDto.cr3d5_Yeargroup = amendment.Pupil.YearGroup;
+                amendmentDto.cr3d5_Postcode = amendment.Pupil.PostCode;
+                amendmentDto.cr3d5_IncludeInPerformanceResults = amendment.InclusionConfirmed;
+                amendmentDto.cr3d5_Gender = amendment.Pupil.Gender == Gender.Male ? cr3d5_Gender.Male: cr3d5_Gender.Female;
+                amendmentDto.new_DOB = amendment.Pupil.DateOfBirth;
+                amendmentDto.cr3d5_AdmissionDate = amendment.Pupil.DateOfAdmission;
 
                 context.AddObject(amendmentDto);
                 context.SaveChanges();
-
+                id = amendmentDto.Id.ToString();
                 // TODO: Prior attainment result (if provided)
                 // TODO: Evidence file refs
             }

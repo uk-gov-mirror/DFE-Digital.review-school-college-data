@@ -3,6 +3,7 @@ using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using Dfe.CspdAlpha.Web.Application.Application.Helpers;
 using Microsoft.AspNetCore.Http;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
@@ -11,6 +12,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
     {
         private ISchoolService _schoolService;
         private const string ADD_PUPIL_AMENDMENT = "add-pupil-amendment";
+        private const string ADD_PUPIL_AMENDMENT_ID = "add-pupil-amendment-id";
 
         public PupilController(ISchoolService schoolService)
         {
@@ -32,7 +34,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         {
             if (ModelState.IsValid)
             {
-                var addPupilAmendment = new AddPupilAmendmentViewModel{AddPupilViewModel = addPupilViewModel};
+                var addPupilAmendment = new AddPupilAmendmentViewModel{AddPupilViewModel = addPupilViewModel, LaEstab = ClaimsHelper.GetLAESTAB(this.User)};
                 HttpContext.Session.Set(ADD_PUPIL_AMENDMENT, addPupilAmendment);
                 return RedirectToAction("AddResult");
             }
@@ -116,14 +118,26 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         {
             var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
             addPupilAmendment.InclusionConfirmed = inclusionConfirmed;
-            HttpContext.Session.Set(ADD_PUPIL_AMENDMENT, addPupilAmendment);
-            return RedirectToAction("AmendmentReceived");
+            if (_schoolService.CreateAddPupilAmendment(addPupilAmendment, out string id))
+            {
+                HttpContext.Session.Remove(ADD_PUPIL_AMENDMENT);
+                HttpContext.Session.Set(ADD_PUPIL_AMENDMENT_ID, id);
+                return RedirectToAction("AmendmentReceived");
+
+            }
+            return View(addPupilAmendment);
+        }
+
+        public IActionResult AmendmentReceived()
+        {
+            var addPupilAmendmentId = HttpContext.Session.Get<string>(ADD_PUPIL_AMENDMENT_ID);
+            return View(addPupilAmendmentId);
         }
 
 
         public IActionResult CancelAmendment()
         {
-            HttpContext.Session.Remove("add-pupil-amendment");
+            HttpContext.Session.Remove(ADD_PUPIL_AMENDMENT);
             return RedirectToAction("Index");
         }
     }

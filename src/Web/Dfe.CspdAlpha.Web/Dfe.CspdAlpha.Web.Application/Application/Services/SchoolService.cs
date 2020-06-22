@@ -2,14 +2,18 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
+using Dfe.CspdAlpha.Web.Application.Models.Common;
 using Dfe.CspdAlpha.Web.Application.Models.School;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
 using Dfe.CspdAlpha.Web.Domain.Core;
+using Dfe.CspdAlpha.Web.Domain.Entities;
 using Dfe.CspdAlpha.Web.Domain.Interfaces;
 using Dfe.CspdAlpha.Web.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Diagnostics;
 using Microsoft.AspNetCore.StaticFiles;
+using Pupil = Dfe.CspdAlpha.Web.Application.Models.School.Pupil;
 
 namespace Dfe.CspdAlpha.Web.Application.Application.Services
 {
@@ -20,9 +24,11 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
         private readonly List<string> ADDITIONAL_MEASURES = new List<string> { "PTL2BASICS_94", "ATT8SCR", "EBACCAPS" };
         private IPupilService _pupilService;
         private IFileUploadService _fileUploadService;
+        private IAmendmentService _amendmentService;
 
-        public SchoolService(IEstablishmentService establishmentService, IPupilService pupilService, IFileUploadService fileUploadService)
+        public SchoolService(IEstablishmentService establishmentService, IPupilService pupilService, IFileUploadService fileUploadService, IAmendmentService amendmentService)
         {
+            _amendmentService = amendmentService;
             _fileUploadService = fileUploadService;
             _pupilService = pupilService;
             _establishmentService = establishmentService;
@@ -72,6 +78,29 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             }
 
             return fileIdList;
+        }
+
+        public bool CreateAddPupilAmendment(AddPupilAmendmentViewModel addPupilAmendment, out string id)
+        {
+            var result = _amendmentService.CreateAddPupilAmendment(new AddPupilAmendment
+            {
+                Pupil = new Domain.Entities.Pupil
+                {
+                    LaEstab = addPupilAmendment.LaEstab,
+                    Id = new PupilId(addPupilAmendment.AddPupilViewModel.PupilId),
+                    ForeName = addPupilAmendment.AddPupilViewModel.FirstName,
+                    LastName = addPupilAmendment.AddPupilViewModel.LastName,
+                    DateOfBirth = addPupilAmendment.AddPupilViewModel.DateOfBirth,
+                    Gender = addPupilAmendment.AddPupilViewModel.Gender == Gender.Male
+                        ? Domain.Core.Enums.Gender.Male
+                        : Domain.Core.Enums.Gender.Female,
+                    DateOfAdmission = addPupilAmendment.AddPupilViewModel.DateOfAdmission,
+                    YearGroup = addPupilAmendment.AddPupilViewModel.YearGroup,
+                    PostCode = addPupilAmendment.AddPupilViewModel.PostCode
+                },
+                InclusionConfirmed = addPupilAmendment.InclusionConfirmed
+            }, out id);
+            return result;
         }
     }
 }

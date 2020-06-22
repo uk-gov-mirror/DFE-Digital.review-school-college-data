@@ -8,6 +8,13 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Helpers
 {
     public class ClaimsHelper
     {
+        public static string GetLAESTAB(ClaimsPrincipal user)
+        {
+            var urn = user.Claims.FirstOrDefault(c => c.Type == "https://sa.education.gov.uk/idp/org/establishment/dfeNumber");
+
+            return urn == null ? "136028" : urn.Value;
+        }
+
         public static string GetURN(ClaimsPrincipal user)
         {
             var urn = user.Claims.FirstOrDefault(c => c.Type == "https://sa.education.gov.uk/idp/org/establishment/uRN");

@@ -32,7 +32,7 @@ namespace Dfe.CspdAlpha.Web.Domain.Core
             var validationErrors = Validate(value).ToList();
             if (validationErrors.Any())
             {
-                throw new ArgumentException($"Identity is invalid: {string.Join(" ", validationErrors)}");
+                //throw new ArgumentException($"Identity is invalid: {string.Join(" ", validationErrors)}");
             }
 
             Value = value;

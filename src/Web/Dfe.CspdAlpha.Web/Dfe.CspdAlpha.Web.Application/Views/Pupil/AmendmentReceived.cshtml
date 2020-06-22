@@ -1,0 +1,40 @@
+@model string
+@{
+    ViewData["Title"] = "Amendment received";
+}
+
+@section BackLink
+{
+    <a class="govuk-back-link" asp-controller="Pupil" asp-action="Index">Back to pupil list</a>
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <div class="govuk-panel govuk-panel--confirmation">
+            <h1 class="govuk-panel__title">
+                @ViewBag.Title
+            </h1>
+            <div class="govuk-panel__body">
+                Your reference number<br><strong>@Model</strong>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="govuk-grid-column-full">
+        <h2 class="govuk-heading-l">What happens next</h2>
+        <p class="govuk-body-l">Your amendments have now been referred to the helpdesk team.</p>
+    </div>
+</div>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        You can <a asp-controller="School" asp-action="Confirmation">confirm your data</a>
+    </div>
+</div>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <a asp-controller="Amendments">View all amendments</a>
+    </div>
+</div>

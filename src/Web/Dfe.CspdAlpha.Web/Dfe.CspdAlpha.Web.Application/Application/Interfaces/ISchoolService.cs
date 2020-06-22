@@ -10,5 +10,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Interfaces
         SchoolViewModel GetSchoolViewModel(string urn);
         PupilListViewModel GetPupilListViewModel(string urn);
         List<string> UploadEvidence(List<IFormFile> files);
+
+        bool CreateAddPupilAmendment(AddPupilAmendmentViewModel addPupilAmendment, out string id);
     }
 }
