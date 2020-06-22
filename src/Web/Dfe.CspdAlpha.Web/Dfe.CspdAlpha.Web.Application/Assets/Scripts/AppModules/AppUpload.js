@@ -44,10 +44,8 @@ class AppUpload {
     const li = document.createElement('li');
     const button = document.createElement('input');
     button.type = 'button';
-    button.value = 'remove file';
+    button.value = 'Remove file';
     button.className = 'app-upload__remove';
-    const buttonText = document.createTextNode('remove');
-    button.appendChild(buttonText);
 
     let listHeading = li.cloneNode();
     let heading = document.createElement('h2');
