@@ -5,6 +5,7 @@ using Microsoft.Xrm.Sdk;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Web;
 
 namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
@@ -32,7 +33,8 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
                 context.SaveChanges();
             }
 
-            const int bufferSize = 4 * 1024 * 1024; // 4 MB
+            const int chunkSize = 4 * 1024 * 1024; // 4 MB
+            CommitFileBlocksUploadResponse commitUploadResponse;
 
             try
             {
@@ -44,27 +46,47 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
                 };
 
                 var initUploadResponse = (InitializeFileBlocksUploadResponse)_organizationService.Execute(initUploadRequest);
-                var blockIds = new List<string>();
+                IEnumerable<string> blockIds;
 
                 using (file)
                 {
-                    var buffer = new byte[bufferSize];
+                    var chunked = file.Length > chunkSize;
+                    var blockIdList = new List<string>();
 
-                    for (var offset = 0; offset < file.Length; offset += bufferSize)
+                    if (chunked)
                     {
-                        file.Read(buffer, 0, bufferSize);
-                        var blockId = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
+                        var bufferSize = chunkSize;
+                        var buffer = new byte[bufferSize];
 
-                        var uploadRequest = new UploadBlockRequest
+                        for (var offset = 0; offset < file.Length; offset += bufferSize)
                         {
-                            BlockData = buffer,
-                            BlockId = HttpUtility.UrlEncode(blockId),
-                            FileContinuationToken = initUploadResponse.FileContinuationToken
-                        };
+                            var remainingBytes = file.Length - offset;
 
-                        var uploadResponse = (UploadBlockResponse)_organizationService.Execute(uploadRequest);
+                            if (remainingBytes < bufferSize)
+                            {
+                                bufferSize = (int) remainingBytes;
+                                buffer = new byte[bufferSize];
+                            }
 
-                        blockIds.Add(blockId);
+                            file.Read(buffer, 0, bufferSize);
+
+                            var blockId = UploadBlock(buffer, initUploadResponse.FileContinuationToken);
+
+                            blockIdList.Add(blockId);
+                        }
+
+                        blockIds = blockIdList;
+                    }
+                    else
+                    {
+                        var bufferSize = (int) file.Length;
+                        var buffer = new byte[bufferSize];
+
+                        file.Read(buffer, 0, bufferSize);
+
+                        var blockId = UploadBlock(buffer, initUploadResponse.FileContinuationToken);
+
+                        blockIds = new string[] { blockId };
                     }
                 }
 
@@ -76,7 +98,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
                     MimeType = mimeType
                 };
 
-                var commitUploadResponse = (CommitFileBlocksUploadResponse)_organizationService.Execute(commitUploadRequest);
+                commitUploadResponse = (CommitFileBlocksUploadResponse)_organizationService.Execute(commitUploadRequest);
             }
             catch (Exception)
             {
@@ -91,8 +113,26 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 
             return new FileUploadResult
             {
-                FileId = upload.Id
+                FileId = upload.Id,
+                FileName = filename,
+                FileSizeInBytes = commitUploadResponse.FileSizeInBytes
             };
+        }
+
+        private string UploadBlock(byte[] buffer, string continuationToken)
+        {
+            var blockId = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
+
+            var uploadRequest = new UploadBlockRequest
+            {
+                BlockData = buffer,
+                BlockId = HttpUtility.UrlEncode(blockId),
+                FileContinuationToken = continuationToken
+            };
+
+            _organizationService.Execute(uploadRequest);
+
+            return blockId;
         }
     }
 }
