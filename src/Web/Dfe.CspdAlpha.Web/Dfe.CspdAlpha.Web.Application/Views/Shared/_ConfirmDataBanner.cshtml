@@ -1,4 +1,4 @@
-﻿@using Dfe.CspdAlpha.Web.Application.Models.Common
+@using Dfe.CspdAlpha.Web.Application.Models.Common
 @model ConfirmDataBanner
 @if (!Model.DataConfirmed)
 {
@@ -6,7 +6,7 @@
 <div class="app-banner app-banner--information">
     <p>
         You need to confirm your data for Key stage 4.<br/>
-        <a asp-controller="DataConfirmation" asp-action="Index">Confirm your data</a>
+        <a asp-controller="School" asp-action="ConfirmData">Confirm your data</a>
     </p>
 </div>
 
