@@ -136,7 +136,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         public IActionResult AmendmentReceived()
         {
             var addPupilAmendmentId = HttpContext.Session.Get<string>(ADD_PUPIL_AMENDMENT_ID);
-            return View(addPupilAmendmentId);
+            return View("AmendmentReceived", addPupilAmendmentId);
         }
 
 
