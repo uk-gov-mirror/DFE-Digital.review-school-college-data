@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Dfe.CspdAlpha.Web.Domain.Entities;
 
 namespace Dfe.CspdAlpha.Web.Domain.Interfaces
@@ -8,5 +9,9 @@ namespace Dfe.CspdAlpha.Web.Domain.Interfaces
         IEnumerable<AddPupilAmendment> GetAddPupilAmendments(int laestab);
 
         bool CreateAddPupilAmendment(AddPupilAmendment amendment, out string id);
+        AddPupilAmendment GetAddPupilAmendmentDetail(Guid amendmentId);
+
+
+        bool CancelAddPupilAmendment(Guid amendmentId);
     }
 }

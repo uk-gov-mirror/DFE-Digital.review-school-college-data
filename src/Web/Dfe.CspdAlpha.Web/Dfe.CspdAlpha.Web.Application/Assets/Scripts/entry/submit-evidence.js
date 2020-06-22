@@ -1,4 +1,4 @@
-import AppUpload from '../AppModules/AppModals/AppUpload';
+import AppUpload from '../AppModules/AppUpload';
 
 if (document.getElementById('upload-button')) {
   new AppUpload();
