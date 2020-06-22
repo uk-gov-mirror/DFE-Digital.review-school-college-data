@@ -24,10 +24,14 @@
           padding-top: 30px;
         }
 
-        &::before {
-          content: attr(data-label);
-          float: left;
-          padding-right: 15px;
+        &[data-label] {
+          &::before {
+            content: attr(data-label);
+            float: left;
+            padding-right: 15px;
+            padding-bottom: 10px;
+            min-width: 75px;
+          }
         }
       }
     }

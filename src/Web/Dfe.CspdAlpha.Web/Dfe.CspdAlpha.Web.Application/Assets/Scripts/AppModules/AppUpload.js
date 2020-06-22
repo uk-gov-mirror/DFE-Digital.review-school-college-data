@@ -9,17 +9,20 @@ class AppUpload {
     const uploadBtn = document.getElementById('upload-button');
 
     uploadBtn.addEventListener('click', (e) =>{
+      e.preventDefault();
       let currentUpload = $('.govuk-file-upload').filter(':visible')[0].files[0];
       if (currentUpload) {
-        e.preventDefault();
         $('.app-upload__element').filter(':visible').data('fName', currentUpload.name).addClass('hidden');
 
         $('#app-upload__files-container').prepend(this.uploadControl.clone());
         this.fileNames.push(currentUpload.name);
         this.updateFileList();
-      } else {
+      }
+    });
 
-        //$('#upload-button').next('dot-pulse').removeClass('hidden');
+    document.getElementById('upload-button-next').addEventListener('click', (e)=>{
+      if (!$('.govuk-file-upload').filter(':visible')[0].files[0] && this.fileNames.length === 0) {
+        e.preventDefault();
       }
     });
   }
@@ -44,10 +47,8 @@ class AppUpload {
     const li = document.createElement('li');
     const button = document.createElement('input');
     button.type = 'button';
-    button.value = 'remove file';
+    button.value = 'Remove file';
     button.className = 'app-upload__remove';
-    const buttonText = document.createTextNode('remove');
-    button.appendChild(buttonText);
 
     let listHeading = li.cloneNode();
     let heading = document.createElement('h2');
