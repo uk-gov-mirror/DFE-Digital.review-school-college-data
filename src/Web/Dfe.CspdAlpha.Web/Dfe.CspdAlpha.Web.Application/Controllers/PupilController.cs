@@ -4,6 +4,7 @@ using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using Dfe.CspdAlpha.Web.Application.Application.Helpers;
+using Dfe.CspdAlpha.Web.Application.Models.Common;
 using Microsoft.AspNetCore.Http;
 using Dfe.CspdAlpha.Web.Domain.Interfaces;
 
@@ -26,6 +27,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         public IActionResult Index(string urn)
         {
             var viewModel = _schoolService.GetPupilListViewModel(urn);
+            viewModel.ConfirmDataBanner = HttpContext.Session.Get<ConfirmDataBanner>("data-confirmed") ?? new ConfirmDataBanner();
             return View(viewModel);
         }
 

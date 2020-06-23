@@ -6,7 +6,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Extensions
     public static class SessionExtension
     {
         public static void Set<T>(this ISession session, string key, T value)
-        {
+        { 
             session.SetString(key, JsonConvert.SerializeObject(value));
         }
 
