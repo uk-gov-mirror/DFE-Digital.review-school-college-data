@@ -13,7 +13,6 @@
         <td class="govuk-table__cell" data-label="Last name">{{pupil.LastName}}</td>
         <td class="govuk-table__cell" data-label="Pupil ID">{{pupil.PupilId}}</td>
         <td class="govuk-table__cell" v-html="viewLink(pupil.PupilId)"></td>
-        <td class="govuk-table__cell" v-html="amendLink(pupil.PupilId)"></td>
       </tr>
     </tbody>
   </table>
@@ -33,10 +32,6 @@
         const href = '/school/' + this.urn + '/Pupil/View/' + pupilId
         return `<a href="${href}">View pupil</a>`
       },
-      amendLink: function(pupilId) {
-        const href = '/school/' + this.urn + '/Results/View/' + pupilId;
-        return `<a href="${href}">View/amend results</a>`;
-      }
     }
   }
 </script>
