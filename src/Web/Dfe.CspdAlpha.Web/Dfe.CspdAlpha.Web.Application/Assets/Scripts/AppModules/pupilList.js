@@ -15,7 +15,7 @@ const pupilListApp = new Vue({
     pupils: [],
     searchText: '',
     urn: '',
-    columns: ['First name', 'Last name', 'Pupil ID', 'View pupil', 'View/amend results'],
+    columns: ['First name', 'Last name', 'Pupil ID', 'View pupil'],
     isLoading: false,
   },
   mounted: function() {
