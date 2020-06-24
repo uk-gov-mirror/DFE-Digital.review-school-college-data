@@ -141,7 +141,6 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             return View("AmendmentReceived", addPupilAmendmentId);
         }
 
-
         public IActionResult CancelAmendment()
         {
             HttpContext.Session.Remove(ADD_PUPIL_AMENDMENT);

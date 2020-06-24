@@ -30,8 +30,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 
             using (var context = new CrmServiceContext(_organizationService))
             {
-                // TODO: Map from domain model
-
+                // Pupil data
                 // don't need to set status as this will default to "Requested" in backend
                 amendmentDto.new_Name = amendment.Pupil.FullName;
                 amendmentDto.cr3d5_Laestab = amendment.Pupil.LaEstab;
@@ -40,34 +39,54 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
                 amendmentDto.new_Surname = amendment.Pupil.LastName;
                 amendmentDto.cr3d5_Yeargroup = amendment.Pupil.YearGroup;
                 amendmentDto.cr3d5_Postcode = amendment.Pupil.PostCode;
-                amendmentDto.cr3d5_IncludeInPerformanceResults = amendment.InclusionConfirmed;
-                amendmentDto.cr3d5_Gender = amendment.Pupil.Gender == Gender.Male ? cr3d5_Gender.Male: cr3d5_Gender.Female;
+                amendmentDto.cr3d5_Gender =
+                    amendment.Pupil.Gender == Gender.Male ? cr3d5_Gender.Male : cr3d5_Gender.Female;
                 amendmentDto.new_DOB = amendment.Pupil.DateOfBirth;
                 amendmentDto.cr3d5_AdmissionDate = amendment.Pupil.DateOfAdmission;
 
                 // prior attainment result
-                amendmentDto.cr3d5_PriorAttainmentResultFor = "";
-                amendmentDto.cr3d5_PriorAttainmentTest = "";
-                amendmentDto.cr3d5_PriorAttainmentAcademicYear = "";
-                amendmentDto.cr3d5_PriorAttainmentLevel = "";
+                amendmentDto.cr3d5_PriorAttainmentResultFor = amendment.PriorAttainment.ResultFor;
+                amendmentDto.cr3d5_PriorAttainmentTest = amendment.PriorAttainment.Test;
+                amendmentDto.cr3d5_PriorAttainmentAcademicYear = amendment.PriorAttainment.AcademicYear;
+                amendmentDto.cr3d5_PriorAttainmentLevel = amendment.PriorAttainment.AttainmentLevel;
 
-                amendmentDto.cr3d5_EvidenceOption = cr3d5_EvidenceOption.UploadEvidenceNow;
+                // Inclusion details
+                amendmentDto.cr3d5_IncludeInPerformanceResults = amendment.InclusionConfirmed;
 
-                
+                // Evidence status
+                switch (amendment.EvidenceStatus)
+                {
+                    case EvidenceStatus.Now:
+                        amendmentDto.cr3d5_EvidenceOption = cr3d5_EvidenceOption.UploadEvidenceNow;
+                        break;
+                    case EvidenceStatus.Later:
+                        amendmentDto.cr3d5_EvidenceOption = cr3d5_EvidenceOption.UploadEvidenceLater;
+                        break;
+                    case EvidenceStatus.NotRequired:
+                    default:
+                        amendmentDto.cr3d5_EvidenceOption = cr3d5_EvidenceOption.DontUploadEvidence;
+                        break;
+                }
+
+                // Save
                 context.AddObject(amendmentDto);
                 context.SaveChanges();
                 id = amendmentDto.Id.ToString();
             }
 
-            // associate any uploaded evidence files with the newly-created amendment
-            var relatedFileUploads = new EntityReferenceCollection();
+            // Upload Evidence
+            if (amendment.EvidenceStatus == EvidenceStatus.Now && amendment.EvidenceList.Any())
+            {
+                var relatedFileUploads = new EntityReferenceCollection();
+                foreach (var evidence in amendment.EvidenceList)
+                {
+                    relatedFileUploads.Add(new EntityReference("cr3d5_fileupload", new Guid(evidence.Id)));
+                }
 
-            // TODO: Call relatedFileUploads.Add() for each file guid
-            //relatedFileUploads.Add(new EntityReference(cr3d5_Fileupload.EntityLogicalName, fileGuid));
-            
-            var relationship = new Relationship("cr3d5_new_AddPupilAmendment_cr3d5_EvidenceFileS");
-            _organizationService.Associate(
-                new_AddPupilAmendment.EntityLogicalName, amendmentDto.Id, relationship, relatedFileUploads);
+                var relationship = new Relationship("cr3d5_new_AddPupilAmendment_cr3d5_EvidenceFileS");
+                _organizationService.Associate(new_AddPupilAmendment.EntityLogicalName, amendmentDto.Id, relationship,
+                    relatedFileUploads);
+            }
 
             return true;
         }

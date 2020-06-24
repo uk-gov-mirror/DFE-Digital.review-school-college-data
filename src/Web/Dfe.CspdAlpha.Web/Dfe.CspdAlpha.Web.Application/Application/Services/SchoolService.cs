@@ -7,12 +7,14 @@ using Dfe.CspdAlpha.Web.Application.Models.School;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
 using Dfe.CspdAlpha.Web.Domain.Core;
+using Dfe.CspdAlpha.Web.Domain.Core.Enums;
 using Dfe.CspdAlpha.Web.Domain.Entities;
 using Dfe.CspdAlpha.Web.Domain.Interfaces;
 using Dfe.CspdAlpha.Web.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Diagnostics;
 using Microsoft.AspNetCore.StaticFiles;
+using Gender = Dfe.CspdAlpha.Web.Application.Models.Common.Gender;
 using Pupil = Dfe.CspdAlpha.Web.Application.Models.School.Pupil;
 
 namespace Dfe.CspdAlpha.Web.Application.Application.Services
@@ -65,16 +67,17 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             };
         }
 
-        public List<string> UploadEvidence(List<IFormFile> files)
+        public List<EvidenceFile> UploadEvidence(List<IFormFile> files)
         {
-            var fileIdList = new List<string>();
+            var fileIdList = new List<EvidenceFile>();
             foreach (var file in files)
             {
                 using (var fs = file.OpenReadStream())
                 {
                     var fileId = _fileUploadService.UploadFile(fs, file.FileName, file.ContentType);
-                    fileIdList.Add(fileId.FileId.ToString());
+                    fileIdList.Add(new EvidenceFile{ Id = fileId.FileId.ToString(), Name = fileId.FileName});
                 }
+
             }
 
             return fileIdList;
@@ -82,6 +85,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
 
         public bool CreateAddPupilAmendment(AddPupilAmendmentViewModel addPupilAmendment, out string id)
         {
+            var selectedEvidenceOption = addPupilAmendment.SelectedEvidenceOption;
             var result = _amendmentService.CreateAddPupilAmendment(new AddPupilAmendment
             {
                 Pupil = new Domain.Entities.Pupil
@@ -98,7 +102,18 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                     YearGroup = addPupilAmendment.AddPupilViewModel.YearGroup,
                     PostCode = addPupilAmendment.AddPupilViewModel.PostCode
                 },
-                InclusionConfirmed = addPupilAmendment.InclusionConfirmed
+                InclusionConfirmed = addPupilAmendment.InclusionConfirmed,
+                PriorAttainment = new PriorAttainment
+                {
+                    ResultFor = addPupilAmendment.AddPriorAttainmentViewModel.ResultFor,
+                    Test = addPupilAmendment.AddPriorAttainmentViewModel.Test,
+                    AcademicYear = addPupilAmendment.AddPriorAttainmentViewModel.AcademicYear,
+                    AttainmentLevel = addPupilAmendment.AddPriorAttainmentViewModel.Level,
+                },
+                EvidenceStatus = selectedEvidenceOption == EvidenceOption.UploadNow ?
+                    EvidenceStatus.Now : selectedEvidenceOption == EvidenceOption.UploadLater ?
+                        EvidenceStatus.Later : EvidenceStatus.NotRequired,
+                EvidenceList = addPupilAmendment.EvidenceFiles.Select(e => new Evidence{Id = e.Id, Name = e.Name}).ToList()
             }, out id);
             return result;
         }
