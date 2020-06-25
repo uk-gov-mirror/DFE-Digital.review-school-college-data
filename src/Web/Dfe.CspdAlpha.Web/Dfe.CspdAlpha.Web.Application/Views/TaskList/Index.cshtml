@@ -1,0 +1,115 @@
+@using Dfe.CspdAlpha.Web.Application.Models.ViewModels
+@model TaskListViewModel
+@{
+    ViewBag.Title = "Task list";
+    ViewBag.ContentClass = "app-detail-page-main";
+}
+
+@section BackLink
+{
+    <a class="govuk-back-link" asp-controller="Home" asp-action="Index">Back to homepage</a>
+}
+
+<partial name="_CheckDataNavigation" model="@Model.CheckDataNavigationModel" />
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-l govuk-!-margin-bottom-3">@ViewBag.Title</h1>
+    </div>
+
+    <div class="govuk-grid-column-three-quarters">
+        <p class="govuk-body">@Model.GetLeadText()</p>
+    </div>
+    <div class="govuk-grid-column-one-quarter app-align-right govuk-!-padding-bottom-4">
+        <a class="print-link" href="javascript:window.print()">Print</a>
+    </div>
+
+    <div class="govuk-grid-column-full">
+        <ol class="app-task-list">
+            <li>
+                <h2 class="app-task-list__section">1. Review data before requesting amendments</h2>
+                <ul class="app-task-list__items">
+                    <li class="app-task-list__item">
+                        <span class="app-task-list__task-name"><a asp-controller="School">School performance</a></span>
+                        <span class="app-task-list__tag">@(Model.ReviewChecked ? "Reviewed" : "Not reviewed")</span>
+                    </li>
+                    <li class="app-task-list__item">
+                        <span class="app-task-list__task-name"><a asp-controller="Pupil">Pupil list</a></span>
+                        <span class="app-task-list__tag">@(Model.ReviewChecked ? "Reviewed" : "Not reviewed")</span>
+                    </li>
+                    <li class="app-task-list__item">
+                        <span class="app-task-list__task-name">Review data</span>
+                        @if (Model.ReviewChecked)
+                        {
+                            <span class="app-task-list__tag">Completed</span>
+                        }
+                        else
+                        {
+                            <form asp-action="Review" method="post"><span class="app-task-list__tag">Click to confirm  you have reviewed the data</span><input type="submit" class="govuk-button" data-module="govuk-button" value="Review" /></form>
+                        }
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <h2 class="app-task-list__section">2. Request amendments</h2>
+                <ul class="app-task-list__items">
+                    @if (!Model.ReviewChecked)
+                    {
+                        <li class="app-task-list__item">
+                            <span class="app-task-list__task-name">Request to add a pupil</span>
+                            <span class="app-task-list__tag">Cannot start yet</span>
+                        </li>
+                        <li class="app-task-list__item">
+                            <span class="app-task-list__task-name">Request to remove an incorrect pupil</span>
+                            <span class="app-task-list__tag">Cannot start yet</span>
+                        </li>
+                        <li class="app-task-list__item">
+                            <span class="app-task-list__task-name">Request to remove a pupil from school measures</span>
+                            <span class="app-task-list__tag">Cannot start yet</span>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="app-task-list__item">
+                            <span class="app-task-list__task-name"><a asp-controller="Pupil" asp-action="Add">Request to add a pupil</a></span>
+                        </li>
+                        <li class="app-task-list__item">
+                            <span class="app-task-list__task-name"><a asp-controller="Pupil" asp-action="Remove">Request to remove an incorrect pupil</a></span>
+                            <span class="app-task-list__tag">Cannot start yet</span>
+                        </li>
+                        <li class="app-task-list__item">
+                            <span class="app-task-list__task-name"><a asp-controller="Pupil" asp-action="RemoveFromResults">Request to remove a pupil from school measures</a></span>
+                            <span class="app-task-list__tag">Cannot start yet</span>
+                        </li>
+                    }
+                </ul>
+            </li>
+            <li>
+                <h2 class="app-task-list__section">3. Confirm data</h2>
+                <ul class="app-task-list__items">
+                    @if (!Model.ReviewChecked)
+                    {
+                        <li class="app-task-list__item">
+                            <span class="app-task-list__task-name">Confirm data</span>
+                            <span class="app-task-list__tag">Cannot start yet</span>
+                        </li>
+                    }
+                    else if (!Model.DataConfirmed)
+                    {
+                        <li class="app-task-list__item">
+                            <form asp-action="ConfrimData" method="post"><span class="app-task-list__tag">Click to confirm data</span><input type="submit" class="govuk-button" data-module="govuk-button" value="Confirm" /></form>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="app-task-list__item">
+                            <span class="app-task-list__task-name">Confirm data</span>
+                            <span class="app-task-list__tag">Confirmed</span>
+                        </li>
+                    }
+                </ul>
+            </li>
+        </ol>
+    </div>
+</div>
+
