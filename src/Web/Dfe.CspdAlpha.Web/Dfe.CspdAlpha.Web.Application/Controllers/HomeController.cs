@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using Dfe.CspdAlpha.Web.Application.Application.Helpers;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -25,7 +26,8 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         {
             if (ModelState.IsValid)
             {
-                return RedirectToAction("Index", "Service");
+                var urn = ClaimsHelper.GetURN(this.User);
+                return RedirectToAction("Index", "TaskList", new { urn = urn });
             }
 
             return View(homeViewModel);

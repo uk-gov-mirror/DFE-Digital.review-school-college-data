@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,6 +7,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.Common
 {
     public enum NavigationItem
     {
+        TaskList,
         SchoolPerformance,
         PupilList,
         Amendments
@@ -19,6 +20,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.Common
         {
             NavigationItems = new List<CheckDataNavigationItem>
             {
+                new CheckDataNavigationItem {Label = "Task list", Controller = "TaskList", Active = navigationItem == NavigationItem.TaskList},
                 new CheckDataNavigationItem {Label = "School performance", Controller = "School", Active = navigationItem == NavigationItem.SchoolPerformance},
                 new CheckDataNavigationItem {Label = "Pupil list", Controller = "Pupil", Active = navigationItem == NavigationItem.PupilList},
                 new CheckDataNavigationItem {Label = "Amendments", Controller = "Amendments", Active = navigationItem == NavigationItem.Amendments}
