@@ -7,15 +7,9 @@
 
 @section BackLink
 {
-    @* TODO update back link once task list has been created *@
-    <a class="govuk-back-link" href="#">Back to task list</a>
+    <a class="govuk-back-link" asp-controller="TaskList" asp-action="Index">Back to task list</a>
 }
 
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
-        <partial name="_ConfirmDataBanner" model="@Model.ConfirmDataBanner"/>
-    </div>
-</div>
 
 <partial name="_CheckDataNavigation" model="@Model.CheckDataNavigationModel"/>
 
@@ -28,7 +22,6 @@
         <p class="govuk-body">Lorem ipsum...</p>
     </div>
     <div class="govuk-grid-column-one-quarter app-align-right govuk-!-padding-bottom-4">
-        <a asp-controller="Pupil" asp-action="Add" class="app-top-add">Add a pupil</a>
         <a class="print-link" href="javascript:window.print()">Print</a>
     </div>
 </div>

@@ -37,7 +37,7 @@
                         <span class="app-task-list__task-name"><a asp-controller="Pupil">Pupil list</a></span>
                         <span class="app-task-list__tag">@(Model.ReviewChecked ? "Reviewed" : "Not reviewed")</span>
                     </li>
-                    <li class="app-task-list__item">
+                    <li class="app-task-list__item app-task-list__item-review">
                         <span class="app-task-list__task-name">Review data</span>
                         @if (Model.ReviewChecked)
                         {
@@ -45,7 +45,12 @@
                         }
                         else
                         {
-                            <form asp-action="Review" method="post"><span class="app-task-list__tag">Click to confirm  you have reviewed the data</span><input type="submit" class="govuk-button" data-module="govuk-button" value="Review" /></form>
+                            <span class="app-task-list__description">
+                                Click to confirm you have reviewed the data
+                            </span>
+                            <form asp-action="Review" method="post">
+                                <input type="submit" class="govuk-button app-task-list__cta" data-module="govuk-button" value="Review"/>
+                            </form>
                         }
                     </li>
                 </ul>
@@ -96,8 +101,11 @@
                     }
                     else if (!Model.DataConfirmed)
                     {
-                        <li class="app-task-list__item">
-                            <form asp-action="ConfrimData" method="post"><span class="app-task-list__tag">Click to confirm data</span><input type="submit" class="govuk-button" data-module="govuk-button" value="Confirm" /></form>
+                        <li class="app-task-list__item app-task-list__item-review">
+                            <span class="app-task-list__task-name">Click to confirm data</span>
+                            <form asp-action="ConfrimData" method="post">
+                                <input type="submit" class="govuk-button app-task-list__cta" data-module="govuk-button" value="Confirm"/>
+                            </form>
                         </li>
                     }
                     else
