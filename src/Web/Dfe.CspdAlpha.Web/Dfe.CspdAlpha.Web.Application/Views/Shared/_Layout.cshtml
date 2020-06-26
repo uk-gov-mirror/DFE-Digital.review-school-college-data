@@ -1,4 +1,5 @@
-﻿@{
+@using Dfe.CspdAlpha.Web.Application.Models.Common
+@{
     var pageTitle = !string.IsNullOrEmpty(ViewBag.Title) ? string.Format("{0} - {1}", ViewBag.Title, "Check and amend school performance data - GOV.UK") : "Check and amend school performance data - GOV.UK";
 }
 <!DOCTYPE html>
@@ -50,7 +51,7 @@
             </div>
             <div class="govuk-header__content">
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="govuk-header__link govuk-header__link--service-name">
-                    Check and amend school performance data
+                    @Constants.APP_TITLE
                 </a>
                 <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
                 <nav>
