@@ -22,7 +22,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
         public AddPupilViewModel AddPupilViewModel { get; set; }
         public AddPriorAttainmentViewModel AddPriorAttainmentViewModel { get; set; }
         public EvidenceOption SelectedEvidenceOption { get; set; }
-        public List<EvidenceFile> EvidenceFiles { get; set; }
+        public List<EvidenceFile> EvidenceFiles => new List<EvidenceFile>();
         public bool InclusionConfirmed { get; set; }
 
         public string SelectedEvidenceBackOption =>

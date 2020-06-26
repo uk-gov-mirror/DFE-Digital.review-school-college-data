@@ -71,7 +71,9 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
                 // Save
                 context.AddObject(amendmentDto);
                 context.SaveChanges();
-                id = amendmentDto.Id.ToString();
+
+                var addPUp = context.CreateQuery<new_AddPupilAmendment>().Single(e => e.Id == amendmentDto.Id);
+                id = addPUp?.cr3d5_AddPupilRef;
             }
 
             // Upload Evidence

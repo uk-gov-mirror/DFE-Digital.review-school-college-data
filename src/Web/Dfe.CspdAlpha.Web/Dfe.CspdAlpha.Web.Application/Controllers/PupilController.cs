@@ -125,7 +125,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
             if (ModelState.IsValid)
             {
-                addPupilAmendment.EvidenceFiles = _schoolService.UploadEvidence(evidenceFiles);
+                addPupilAmendment.EvidenceFiles.AddRange(_schoolService.UploadEvidence(evidenceFiles));
                 HttpContext.Session.Set(ADD_PUPIL_AMENDMENT, addPupilAmendment);
                 return RedirectToAction("InclusionDetails");
             }

@@ -113,7 +113,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                 EvidenceStatus = selectedEvidenceOption == EvidenceOption.UploadNow ?
                     EvidenceStatus.Now : selectedEvidenceOption == EvidenceOption.UploadLater ?
                         EvidenceStatus.Later : EvidenceStatus.NotRequired,
-                EvidenceList = addPupilAmendment.EvidenceFiles.Select(e => new Evidence{Id = e.Id, Name = e.Name}).ToList()
+                EvidenceList = addPupilAmendment.EvidenceFiles.Any() ? addPupilAmendment.EvidenceFiles.Select(e => new Evidence{Id = e.Id, Name = e.Name}).ToList() : new List<Evidence>()
             }, out id);
             return result;
         }
