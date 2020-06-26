@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Threading.Tasks;
 using Dfe.CspdAlpha.Web.Application.Models.Common;
 
@@ -17,6 +18,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
     public class AddPupilAmendmentViewModel
     {
         public string LaEstab { get; set; }
+        public AddReasonViewModel AddReasonViewModel { get; set; }
         public AddPupilViewModel AddPupilViewModel { get; set; }
         public AddPriorAttainmentViewModel AddPriorAttainmentViewModel { get; set; }
         public EvidenceOption SelectedEvidenceOption { get; set; }

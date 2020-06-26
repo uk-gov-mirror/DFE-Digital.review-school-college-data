@@ -31,17 +31,35 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             return View(viewModel);
         }
 
-        public IActionResult Add()
+        public IActionResult AddReason()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Add(AddPupilViewModel addPupilViewModel)
+        public IActionResult AddReason(AddReasonViewModel addReasonViewModel)
         {
             if (ModelState.IsValid)
             {
-                var addPupilAmendment = new AddPupilAmendmentViewModel{AddPupilViewModel = addPupilViewModel, LaEstab = ClaimsHelper.GetLAESTAB(this.User)};
+                var addPupilAmendment = new AddPupilAmendmentViewModel { AddReasonViewModel = addReasonViewModel, LaEstab = ClaimsHelper.GetLAESTAB(this.User) };
+                HttpContext.Session.Set(ADD_PUPIL_AMENDMENT, addPupilAmendment);
+                return RedirectToAction("AddPupil");
+            }
+            return View(addReasonViewModel);
+        }
+
+
+        public IActionResult AddPupil()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddPupil(AddPupilViewModel addPupilViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var addPupilAmendment = new AddPupilAmendmentViewModel{AddPupilViewModel = addPupilViewModel};
                 HttpContext.Session.Set(ADD_PUPIL_AMENDMENT, addPupilAmendment);
                 return RedirectToAction("AddResult");
             }

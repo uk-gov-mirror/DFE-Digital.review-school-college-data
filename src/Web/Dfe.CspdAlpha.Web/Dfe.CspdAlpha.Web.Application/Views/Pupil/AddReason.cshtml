@@ -1,0 +1,46 @@
+@using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
+@model AddReasonViewModel
+
+@{
+    ViewData["Title"] = "Provide a reason for adding a pupil";
+}
+
+@section BackLink
+{
+    <a class="govuk-back-link" asp-controller="TaskList" asp-action="Index">Back to task list</a>
+}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-xl govuk-!-margin-bottom-4">@ViewBag.Title</h1>
+        <p class="govuk-body">Lorem ipsum...</p>
+    </div>
+</div>
+<form method="post">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset">
+                    <div class="govuk-radios">
+                        <div class="govuk-radios__item app-radios-multiline__item">
+                            <input class="govuk-radios__input" asp-for="Reason" type="radio" value="reason-1">
+                            <label class="govuk-label govuk-radios__label" asp-for="Reason">
+                                Reason 1
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item app-radios-multiline__item">
+                            <input class="govuk-radios__input" asp-for="Reason" type="radio" value="reason-2">
+                            <label class="govuk-label govuk-radios__label" asp-for="Reason">
+                                Reason 2
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <input type="submit" class="govuk-button" data-module="govuk-button" value="Continue" />
+        </div>
+    </div>
+</form>
