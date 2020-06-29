@@ -57,9 +57,10 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         [HttpPost]
         public IActionResult AddPupil(AddPupilViewModel addPupilViewModel)
         {
+            var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
+            addPupilAmendment.AddPupilViewModel = addPupilViewModel;
             if (ModelState.IsValid)
             {
-                var addPupilAmendment = new AddPupilAmendmentViewModel{AddPupilViewModel = addPupilViewModel};
                 HttpContext.Session.Set(ADD_PUPIL_AMENDMENT, addPupilAmendment);
                 return RedirectToAction("AddResult");
             }

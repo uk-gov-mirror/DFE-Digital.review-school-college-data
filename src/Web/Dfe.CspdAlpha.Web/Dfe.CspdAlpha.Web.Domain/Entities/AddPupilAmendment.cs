@@ -7,6 +7,7 @@ namespace Dfe.CspdAlpha.Web.Domain.Entities
 {
     public class AddPupilAmendment
     {
+        public string AddReason { get; set; }
         public Pupil Pupil { get; set; }
         public PriorAttainment PriorAttainment { get; set; }
         public bool InclusionConfirmed { get; set; }

@@ -1018,6 +1018,26 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 		/// <summary>
 		/// 
 		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("new_addreason")]
+		public string new_addreason
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("new_addreason");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("new_addreason");
+				this.SetAttributeValue("new_addreason", value);
+				this.OnPropertyChanged("new_addreason");
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("new_dob")]
 		public System.Nullable<System.DateTime> new_DOB
 		{

@@ -88,6 +88,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             var selectedEvidenceOption = addPupilAmendment.SelectedEvidenceOption;
             var result = _amendmentService.CreateAddPupilAmendment(new AddPupilAmendment
             {
+                AddReason = addPupilAmendment.AddReasonViewModel.Reason,
                 Pupil = new Domain.Entities.Pupil
                 {
                     LaEstab = addPupilAmendment.LaEstab,

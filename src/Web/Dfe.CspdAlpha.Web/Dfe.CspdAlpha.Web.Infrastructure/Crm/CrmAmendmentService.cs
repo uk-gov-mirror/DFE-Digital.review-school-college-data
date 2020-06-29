@@ -30,6 +30,8 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 
             using (var context = new CrmServiceContext(_organizationService))
             {
+                // Reason for adding
+                amendmentDto.new_addreason = amendment.AddReason;
                 // Pupil data
                 // don't need to set status as this will default to "Requested" in backend
                 amendmentDto.new_Name = amendment.Pupil.FullName;
