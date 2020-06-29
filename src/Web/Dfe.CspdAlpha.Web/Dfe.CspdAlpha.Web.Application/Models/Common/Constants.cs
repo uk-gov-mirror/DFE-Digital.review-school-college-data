@@ -7,6 +7,6 @@ namespace Dfe.CspdAlpha.Web.Application.Models.Common
 {
     public class Constants
     {
-        public const string APP_TITLE = "Schools checking";
+        public const string APP_TITLE = "Schools Checking";
     }
 }

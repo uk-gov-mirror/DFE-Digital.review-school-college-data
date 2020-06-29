@@ -13,5 +13,8 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Interfaces
         List<EvidenceFile> UploadEvidence(List<IFormFile> files);
 
         bool CreateAddPupilAmendment(AddPupilAmendmentViewModel addPupilAmendment, out string id);
+
+        bool UpdateConfirmation(TaskListViewModel taskListViewModel, string userId, string urn);
+        TaskListViewModel GetConfirmationRecord(string userId, string urn);
     }
 }

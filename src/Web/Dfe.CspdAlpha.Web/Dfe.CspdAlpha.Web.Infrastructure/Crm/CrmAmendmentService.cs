@@ -36,6 +36,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
                 // don't need to set status as this will default to "Requested" in backend
                 amendmentDto.new_Name = amendment.Pupil.FullName;
                 amendmentDto.cr3d5_Laestab = amendment.Pupil.LaEstab;
+                amendmentDto.new_URN = amendment.Pupil.Urn.Value;
                 amendmentDto.cr3d5_PupilId = amendment.Pupil.Id.Value;
                 amendmentDto.new_Forename = amendment.Pupil.FullName;
                 amendmentDto.new_Surname = amendment.Pupil.LastName;

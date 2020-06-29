@@ -27,9 +27,11 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
         private IPupilService _pupilService;
         private IFileUploadService _fileUploadService;
         private IAmendmentService _amendmentService;
+        private IConfirmationService _confirmationService;
 
-        public SchoolService(IEstablishmentService establishmentService, IPupilService pupilService, IFileUploadService fileUploadService, IAmendmentService amendmentService)
+        public SchoolService(IEstablishmentService establishmentService, IPupilService pupilService, IFileUploadService fileUploadService, IAmendmentService amendmentService, IConfirmationService confirmationService)
         {
+            _confirmationService = confirmationService;
             _amendmentService = amendmentService;
             _fileUploadService = fileUploadService;
             _pupilService = pupilService;
@@ -117,6 +119,36 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                 EvidenceList = addPupilAmendment.EvidenceFiles.Any() ? addPupilAmendment.EvidenceFiles.Select(e => new Evidence{Id = e.Id, Name = e.Name}).ToList() : new List<Evidence>()
             }, out id);
             return result;
+        }
+
+        public TaskListViewModel GetConfirmationRecord(string userId, string urn)
+        {
+            var confirmationRecord = _confirmationService.GetConfirmationRecord(userId, urn);
+            return confirmationRecord != null
+                ? new TaskListViewModel
+                {
+                    ReviewChecked = confirmationRecord.ReviewCompleted, DataConfirmed = confirmationRecord.DataConfirmed
+                }
+                : new TaskListViewModel();
+        }
+
+        public bool UpdateConfirmation(TaskListViewModel taskListViewModel, string userId, string urn)
+        {
+            var confirmationRecord = _confirmationService.GetConfirmationRecord(userId, urn);
+            if (confirmationRecord == null)
+            {
+                return _confirmationService.CreateConfirmationRecord(new ConfirmationRecord
+                {
+                    UserId = userId,
+                    EstablishmentId = urn,
+                    ReviewCompleted = taskListViewModel.ReviewChecked,
+                    DataConfirmed = taskListViewModel.DataConfirmed
+                });
+            }
+
+            confirmationRecord.ReviewCompleted = taskListViewModel.ReviewChecked;
+            confirmationRecord.DataConfirmed = taskListViewModel.DataConfirmed;
+            return _confirmationService.UpdateConfirmationRecord(confirmationRecord);
         }
     }
 }

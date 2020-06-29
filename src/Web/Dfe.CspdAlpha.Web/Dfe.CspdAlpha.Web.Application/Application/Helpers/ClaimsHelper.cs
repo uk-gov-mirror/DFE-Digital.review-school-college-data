@@ -21,5 +21,13 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Helpers
 
             return urn == null ? "136028" : urn.Value;
         }
+
+        public static string GetUserId(ClaimsPrincipal user)
+        {
+            var urn = user.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
+
+            return urn == null ? "136028" : urn.Value;
+        }
+
     }
 }

@@ -94,6 +94,7 @@ namespace Dfe.CspdAlpha.Web.Application
             services.AddSingleton<IReadRepository<Establishment>, EstablishmentRepository>();
             services.AddSingleton<IEstablishmentService, EstablishmentService>();
             services.AddSingleton<IAmendmentService, CrmAmendmentService>();
+            services.AddSingleton<IConfirmationService, CrmConfirmationService>();
             services.AddSingleton<IFileUploadService, FileUploadService>();
             services.AddSingleton<ISchoolService, SchoolService>();
         }
