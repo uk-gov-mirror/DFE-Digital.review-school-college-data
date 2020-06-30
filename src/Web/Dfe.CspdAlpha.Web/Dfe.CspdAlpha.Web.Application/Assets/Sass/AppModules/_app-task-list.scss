@@ -30,10 +30,6 @@
 
   list-style: none;
   padding-left: 0;
-
-  @include govuk-media-query($from: tablet) {
-    padding-left: govuk-spacing(6);
-  }
 }
 
 .app-task-list__item {
@@ -50,7 +46,7 @@
 
 .app-task-list__tag,
 .app-task-list__task-completed {
-  margin-top: govuk-spacing(2);
+  margin-top: 0;
   margin-bottom: govuk-spacing(1);
   float: right;
 
