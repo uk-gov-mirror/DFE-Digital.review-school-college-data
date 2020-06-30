@@ -93,6 +93,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                 AddReason = addPupilAmendment.AddReasonViewModel.Reason,
                 Pupil = new Domain.Entities.Pupil
                 {
+                    Urn = new URN(addPupilAmendment.URN),
                     LaEstab = addPupilAmendment.LaEstab,
                     Id = new PupilId(addPupilAmendment.AddPupilViewModel.PupilId),
                     ForeName = addPupilAmendment.AddPupilViewModel.FirstName,

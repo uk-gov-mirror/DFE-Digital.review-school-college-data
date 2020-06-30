@@ -41,7 +41,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         {
             if (ModelState.IsValid)
             {
-                var addPupilAmendment = new AddPupilAmendmentViewModel { AddReasonViewModel = addReasonViewModel, LaEstab = ClaimsHelper.GetLAESTAB(this.User) };
+                var addPupilAmendment = new AddPupilAmendmentViewModel { AddReasonViewModel = addReasonViewModel, URN = ClaimsHelper.GetURN(this.User), LaEstab = ClaimsHelper.GetLAESTAB(this.User) };
                 HttpContext.Session.Set(ADD_PUPIL_AMENDMENT, addPupilAmendment);
                 return RedirectToAction("AddPupil");
             }
