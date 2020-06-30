@@ -34,4 +34,8 @@
   .govuk-header__navigation {
     display: none !important;
   }
+
+  .govuk-header__container {
+    border-bottom: 0;
+  }
 }
