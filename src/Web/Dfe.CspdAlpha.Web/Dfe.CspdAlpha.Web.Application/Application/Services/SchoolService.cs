@@ -76,8 +76,11 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             {
                 using (var fs = file.OpenReadStream())
                 {
-                    var fileId = _fileUploadService.UploadFile(fs, file.FileName, file.ContentType);
-                    fileIdList.Add(new EvidenceFile{ Id = fileId.FileId.ToString(), Name = fileId.FileName});
+                    if (fs.Length > 0)
+                    {
+                        var fileId = _fileUploadService.UploadFile(fs, file.FileName, file.ContentType);
+                        fileIdList.Add(new EvidenceFile {Id = fileId.FileId.ToString(), Name = fileId.FileName});
+                    }
                 }
 
             }

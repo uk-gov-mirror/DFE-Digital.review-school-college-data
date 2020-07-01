@@ -100,8 +100,9 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 
                 commitUploadResponse = (CommitFileBlocksUploadResponse)_organizationService.Execute(commitUploadRequest);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                var message = ex.Message;
                 using (var context = new CrmServiceContext(_organizationService))
                 {
                     context.DeleteObject(upload);

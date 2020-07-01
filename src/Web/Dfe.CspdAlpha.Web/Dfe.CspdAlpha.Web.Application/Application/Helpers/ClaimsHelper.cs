@@ -24,9 +24,10 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Helpers
 
         public static string GetUserId(ClaimsPrincipal user)
         {
-            var urn = user.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
+            var userId = user.Claims.FirstOrDefault(c => c.Type == "urn:oid:0.9.2342.19200300.100.1.1");
+            //var urn = user.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
 
-            return urn == null ? "136028" : urn.Value;
+            return userId == null ? "136028" : userId.Value;
         }
 
     }
