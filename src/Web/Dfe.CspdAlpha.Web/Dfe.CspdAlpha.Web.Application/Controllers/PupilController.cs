@@ -41,7 +41,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         {
             if (ModelState.IsValid)
             {
-                var addPupilAmendment = new AddPupilAmendmentViewModel { AddReasonViewModel = addReasonViewModel, URN = ClaimsHelper.GetURN(this.User), LaEstab = ClaimsHelper.GetLAESTAB(this.User) };
+                var addPupilAmendment = new AddPupilAmendmentViewModel { AddReasonViewModel = addReasonViewModel, URN = ClaimsHelper.GetURN(this.User), LaEstab = ClaimsHelper.GetLAESTAB(this.User), EvidenceFiles = new List<EvidenceFile>()};
                 HttpContext.Session.Set(ADD_PUPIL_AMENDMENT, addPupilAmendment);
                 return RedirectToAction("AddPupil");
             }
@@ -97,9 +97,9 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         {
             var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
             addPupilAmendment.SelectedEvidenceOption = selectedEvidenceOption;
+            HttpContext.Session.Set(ADD_PUPIL_AMENDMENT, addPupilAmendment);
             if (ModelState.IsValid)
             {
-                HttpContext.Session.Set(ADD_PUPIL_AMENDMENT, addPupilAmendment);
                 switch (selectedEvidenceOption)
                 {
                     case EvidenceOption.UploadNow:
@@ -126,7 +126,8 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
             if (ModelState.IsValid)
             {
-                addPupilAmendment.EvidenceFiles.AddRange(_schoolService.UploadEvidence(evidenceFiles));
+                var uploadedEvidenceFiles = _schoolService.UploadEvidence(evidenceFiles);
+                addPupilAmendment.EvidenceFiles.AddRange(uploadedEvidenceFiles);
                 HttpContext.Session.Set(ADD_PUPIL_AMENDMENT, addPupilAmendment);
                 return RedirectToAction("InclusionDetails");
             }
