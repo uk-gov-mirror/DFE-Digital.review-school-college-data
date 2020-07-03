@@ -41,7 +41,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
                 var initUploadRequest = new InitializeFileBlocksUploadRequest
                 {
                     FileName = filename,
-                    Target = new EntityReference("cr3d5_fileupload", upload.Id),
+                    Target = new EntityReference(cr3d5_Fileupload.EntityLogicalName, upload.Id),
                     FileAttributeName = "cr3d5_file"
                 };
 

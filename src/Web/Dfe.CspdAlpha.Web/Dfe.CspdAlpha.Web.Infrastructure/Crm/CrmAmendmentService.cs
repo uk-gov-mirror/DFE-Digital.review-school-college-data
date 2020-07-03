@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Dfe.CspdAlpha.Web.Domain.Core.Enums;
+using Microsoft.Xrm.Sdk.Messages;
+using Microsoft.Xrm.Sdk.Metadata;
 
 namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 {
@@ -18,6 +20,9 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
     public class CrmAmendmentService : IAmendmentService
     {
         private readonly IOrganizationService _organizationService;
+        private readonly Guid _firstLineTeamId = Guid.Parse("469cdfc3-1aba-ea11-a812-000d3a4b2a11");
+
+        private const string fileUploadRelationshipName = "cr3d5_new_Amendment_Evidence_cr3d5_Fileupload";
 
         public CrmAmendmentService(IOrganizationService organizationService)
         {
@@ -26,57 +31,60 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 
         public bool CreateAddPupilAmendment(AddPupilAmendment amendment, out string id)
         {
-            var amendmentDto = new new_AddPupilAmendment();
+            var amendmentDto = new new_Amendment();
 
             using (var context = new CrmServiceContext(_organizationService))
             {
                 // Reason for adding
-                amendmentDto.new_addreason = amendment.AddReason;
+                amendmentDto.cr3d5_addreason = amendment.AddReason;
                 // Pupil data
                 // don't need to set status as this will default to "Requested" in backend
                 amendmentDto.new_Name = amendment.Pupil.FullName;
-                amendmentDto.cr3d5_Laestab = amendment.Pupil.LaEstab;
-                amendmentDto.new_URN = amendment.Pupil.Urn.Value;
-                amendmentDto.cr3d5_PupilId = amendment.Pupil.Id.Value;
-                amendmentDto.new_Forename = amendment.Pupil.FullName;
-                amendmentDto.new_Surname = amendment.Pupil.LastName;
-                amendmentDto.cr3d5_Yeargroup = amendment.Pupil.YearGroup;
-                amendmentDto.cr3d5_Postcode = amendment.Pupil.PostCode;
-                amendmentDto.cr3d5_Gender =
+                amendmentDto.cr3d5_laestab = amendment.Pupil.LaEstab;
+                amendmentDto.cr3d5_urn = amendment.Pupil.Urn.Value;
+                amendmentDto.cr3d5_pupilid = amendment.Pupil.Id.Value;
+                amendmentDto.cr3d5_forename = amendment.Pupil.ForeName;
+                amendmentDto.cr3d5_surname = amendment.Pupil.LastName;
+                amendmentDto.cr3d5_yeargroup = amendment.Pupil.YearGroup;
+                amendmentDto.cr3d5_postcode = amendment.Pupil.PostCode;
+                amendmentDto.cr3d5_gender =
                     amendment.Pupil.Gender == Gender.Male ? cr3d5_Gender.Male : cr3d5_Gender.Female;
-                amendmentDto.new_DOB = amendment.Pupil.DateOfBirth;
-                amendmentDto.cr3d5_AdmissionDate = amendment.Pupil.DateOfAdmission;
+                amendmentDto.cr3d5_dob = amendment.Pupil.DateOfBirth;
+                amendmentDto.cr3d5_admissiondate = amendment.Pupil.DateOfAdmission;
 
                 // prior attainment result
-                amendmentDto.cr3d5_PriorAttainmentResultFor = amendment.PriorAttainment.ResultFor;
-                amendmentDto.cr3d5_PriorAttainmentTest = amendment.PriorAttainment.Test;
-                amendmentDto.cr3d5_PriorAttainmentAcademicYear = amendment.PriorAttainment.AcademicYear;
-                amendmentDto.cr3d5_PriorAttainmentLevel = amendment.PriorAttainment.AttainmentLevel;
+                amendmentDto.cr3d5_priorattainmentresultfor = amendment.PriorAttainment.ResultFor;
+                amendmentDto.cr3d5_priorattainmenttest = amendment.PriorAttainment.Test;
+                amendmentDto.cr3d5_priorattainmentacademicyear = amendment.PriorAttainment.AcademicYear;
+                amendmentDto.cr3d5_priorattainmentlevel = amendment.PriorAttainment.AttainmentLevel;
 
                 // Inclusion details
-                amendmentDto.cr3d5_IncludeInPerformanceResults = amendment.InclusionConfirmed;
+                amendmentDto.cr3d5_includeinperformanceresults = amendment.InclusionConfirmed;
 
                 // Evidence status
                 switch (amendment.EvidenceStatus)
                 {
                     case EvidenceStatus.Now:
-                        amendmentDto.cr3d5_EvidenceOption = cr3d5_EvidenceOption.UploadEvidenceNow;
+                        amendmentDto.cr3d5_evidenceoption = cr3d5_EvidenceOption.UploadEvidenceNow;
                         break;
                     case EvidenceStatus.Later:
-                        amendmentDto.cr3d5_EvidenceOption = cr3d5_EvidenceOption.UploadEvidenceLater;
+                        amendmentDto.cr3d5_evidenceoption = cr3d5_EvidenceOption.UploadEvidenceLater;
                         break;
                     case EvidenceStatus.NotRequired:
                     default:
-                        amendmentDto.cr3d5_EvidenceOption = cr3d5_EvidenceOption.DontUploadEvidence;
+                        amendmentDto.cr3d5_evidenceoption = cr3d5_EvidenceOption.DontUploadEvidence;
                         break;
                 }
+
+                // assign to helpdesk 1st line
+                amendmentDto.OwnerId = new EntityReference("team", _firstLineTeamId);
 
                 // Save
                 context.AddObject(amendmentDto);
                 context.SaveChanges();
 
-                var addPUp = context.CreateQuery<new_AddPupilAmendment>().Single(e => e.Id == amendmentDto.Id);
-                id = addPUp?.cr3d5_AddPupilRef;
+                var addPUp = context.CreateQuery<new_Amendment>().Single(e => e.Id == amendmentDto.Id);
+                id = addPUp?.cr3d5_addpupilref;
             }
 
             // Upload Evidence
@@ -85,11 +93,11 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
                 var relatedFileUploads = new EntityReferenceCollection();
                 foreach (var evidence in amendment.EvidenceList)
                 {
-                    relatedFileUploads.Add(new EntityReference("cr3d5_fileupload", new Guid(evidence.Id)));
+                    relatedFileUploads.Add(new EntityReference(cr3d5_Fileupload.EntityLogicalName, new Guid(evidence.Id)));
                 }
 
-                var relationship = new Relationship("cr3d5_new_AddPupilAmendment_cr3d5_EvidenceFileS");
-                _organizationService.Associate(new_AddPupilAmendment.EntityLogicalName, amendmentDto.Id, relationship,
+                var relationship = new Relationship(fileUploadRelationshipName);
+                _organizationService.Associate(new_Amendment.EntityLogicalName, amendmentDto.Id, relationship,
                     relatedFileUploads);
             }
 
@@ -100,8 +108,8 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
         {
             using (var context = new CrmServiceContext(_organizationService))
             {
-                var amendment = context.new_AddPupilAmendmentSet.Where(
-                    x => x.cr3d5_Laestab == laestab.ToString());
+                var amendment = context.new_AmendmentSet.Where(
+                    x => x.cr3d5_laestab == laestab.ToString());
 
                 // TODO: Map to domain model
 
@@ -113,11 +121,11 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
         {
             using (var context = new CrmServiceContext(_organizationService))
             {
-                var amendment = context.new_AddPupilAmendmentSet.Where(
+                var amendment = context.new_AmendmentSet.Where(
                     x => x.Id == amendmentId).FirstOrDefault();
 
                 // TODO: Get relationship name from attribute
-                context.LoadProperty(amendment, "cr3d5_new_AddPupilAmendment_cr3d5_EvidenceFileS");
+                context.LoadProperty(amendment, fileUploadRelationshipName);
 
                 // TODO: Map to domain model
 
@@ -133,16 +141,16 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
             // TODO: Get field name from attribute
             var cols = new ColumnSet(
                         new String[] { "cr3d5_amendmentstatus" });
-            var amendment = (new_AddPupilAmendment) _organizationService.Retrieve(
-                new_AddPupilAmendment.EntityLogicalName, amendmentId, cols);
+            var amendment = (new_Amendment) _organizationService.Retrieve(
+                new_Amendment.EntityLogicalName, amendmentId, cols);
 
             if (amendment == null
-                || amendment.cr3d5_AmendmentStatus == new_amendmentStatus.Cancelled)
+                || amendment.cr3d5_amendmentstatus == new_amendmentStatus.Cancelled)
             {
                 return false;
             }
 
-            amendment.cr3d5_AmendmentStatus = new_amendmentStatus.Cancelled;
+            amendment.cr3d5_amendmentstatus = new_amendmentStatus.Cancelled;
 
             _organizationService.Update(amendment);
 
