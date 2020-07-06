@@ -51,6 +51,11 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
         public IActionResult AddPupil()
         {
+            var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
+            if (addPupilAmendment == null || addPupilAmendment.AddReasonViewModel == null)
+            {
+                return RedirectToAction("AddReason");
+            }
             return View();
         }
 
@@ -70,6 +75,10 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         public IActionResult AddResult()
         {
             var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
+            if (addPupilAmendment == null || addPupilAmendment.AddPupilViewModel == null)
+            {
+                return RedirectToAction("AddReason");
+            }
             return View(addPupilAmendment);
         }
 
@@ -89,6 +98,10 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         public IActionResult AddEvidence()
         {
             var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
+            if (addPupilAmendment == null || addPupilAmendment.AddPriorAttainmentViewModel == null)
+            {
+                return RedirectToAction("AddReason");
+            }
             return View(addPupilAmendment);
         }
 
@@ -117,6 +130,10 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         public IActionResult UploadEvidence()
         {
             var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
+            if (addPupilAmendment == null || addPupilAmendment.SelectedEvidenceOption != EvidenceOption.UploadNow)
+            {
+                return RedirectToAction("AddReason");
+            }
             return View(addPupilAmendment);
         }
 
@@ -137,6 +154,10 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         public IActionResult InclusionDetails()
         {
             var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
+            if (addPupilAmendment == null || addPupilAmendment.SelectedEvidenceOption == EvidenceOption.Unknown)
+            {
+                return RedirectToAction("AddReason");
+            }
             return View(addPupilAmendment);
         }
 
