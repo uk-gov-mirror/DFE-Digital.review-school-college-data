@@ -33,7 +33,8 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
         public IActionResult AddReason()
         {
-            return View();
+            var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
+            return View(addPupilAmendment != null ? addPupilAmendment.AddReasonViewModel : new AddReasonViewModel());
         }
 
         [HttpPost]
