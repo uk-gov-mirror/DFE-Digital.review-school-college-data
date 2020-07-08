@@ -129,13 +129,6 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             return View(addPupilAmendment);
         }
 
-        public IActionResult UploadEvidence(string id)
-        {
-            
-            return View();
-        }
-
-
         public IActionResult UploadEvidence()
         {
             var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
