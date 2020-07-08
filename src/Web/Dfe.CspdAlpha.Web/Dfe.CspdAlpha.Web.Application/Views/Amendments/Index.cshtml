@@ -1,0 +1,78 @@
+@using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments
+@model AmendmentsListViewModel
+@{
+    ViewBag.Title = "Requested amendments";
+    ViewBag.ContentClass = "app-detail-page-main";
+}
+
+@section BackLink
+{
+    <text>&nbsp;</text>
+}
+
+
+<partial name="_CheckDataNavigation" model="@Model.CheckDataNavigationModel" />
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-l govuk-!-margin-bottom-3">@ViewBag.Title</h1>
+    </div>
+
+    <div class="govuk-grid-column-three-quarters">
+        <p class="govuk-body">Lorem ipsum...</p>
+    </div>
+    <div class="govuk-grid-column-one-quarter app-align-right govuk-!-padding-bottom-4">
+        <a class="print-link" href="javascript:window.print()">Print</a>
+    </div>
+</div>
+<script type="text/javascript">
+    var pupilsJson = @Html.Raw(Model.AmendmentListJson);
+    var urn = '@Model.Urn';
+</script>
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <table class="govuk-table">
+            <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">First name</th>
+                <th scope="col" class="govuk-table__header">Last name</th>
+                <th scope="col" class="govuk-table__header">Pupil id</th>
+                <th scope="col" class="govuk-table__header">Date requested</th>
+                <th scope="col" class="govuk-table__header">View requested amendment</th>
+                <th scope="col" class="govuk-table__header">Upload evidence</th>
+                <th scope="col" class="govuk-table__header">Cancel amendment</th>
+                <th scope="col" class="govuk-table__header">Ref ID</th>
+                <th scope="col" class="govuk-table__header">Status</th>
+            </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+            @foreach (var amendment in Model.AmendmentList)
+            {
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">@amendment.FirstName</td>
+                    <td class="govuk-table__cell">@amendment.LastName</td>
+                    <td class="govuk-table__cell">@amendment.PupilId</td>
+                    <td class="govuk-table__cell">@amendment.DateRequested.ToLongDateString()</td>
+                    <td class="govuk-table__cell"><a asp-controller="Amendments" asp-action="View" asp-route-id="@amendment.Id">View</a></td>
+                    <td class="govuk-table__cell">@amendment.EvidenceStatus</td>
+                    <td class="govuk-table__cell"><a asp-controller="Amendments" asp-action="Cancel" asp-route-id="@amendment.Id">Cancel</a></td>
+                    <td class="govuk-table__cell">@amendment.ReferenceId</td>
+                    <td class="govuk-table__cell">@amendment.Status</td>
+                </tr>
+
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div id="pupil-list-app">
+neight    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <no-results :search-text="searchText" :has-results="hasResults" />
+        </div>
+    </div>
+</div>
+
+
+@section ViewScripts {
+}

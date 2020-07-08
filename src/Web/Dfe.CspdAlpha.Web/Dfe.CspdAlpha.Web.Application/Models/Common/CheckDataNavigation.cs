@@ -23,7 +23,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.Common
                 new CheckDataNavigationItem {Label = "Task list", Controller = "TaskList", Active = navigationItem == NavigationItem.TaskList},
                 new CheckDataNavigationItem {Label = "School performance", Controller = "School", Active = navigationItem == NavigationItem.SchoolPerformance},
                 new CheckDataNavigationItem {Label = "Pupil list", Controller = "Pupil", Active = navigationItem == NavigationItem.PupilList},
-                new CheckDataNavigationItem {Label = "Amendments", Controller = "Amendments", Active = navigationItem == NavigationItem.Amendments}
+                new CheckDataNavigationItem {Label = "Requested amendments", Controller = "Amendments", Active = navigationItem == NavigationItem.Amendments}
             };
         }
     }

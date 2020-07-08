@@ -5,6 +5,7 @@ using Microsoft.Xrm.Sdk.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Dfe.CspdAlpha.Web.Domain.Core;
 using Dfe.CspdAlpha.Web.Domain.Core.Enums;
 using Microsoft.Xrm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Metadata;
@@ -116,6 +117,49 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
                 return null;
             }
         }
+
+        public IEnumerable<AddPupilAmendment> GetAddPupilAmendments(string urn)
+        {
+            using (var context = new CrmServiceContext(_organizationService))
+            {
+                var amendments = context.new_AmendmentSet.Where(
+                    x => x.cr3d5_urn == urn).ToList();
+
+                return amendments.Select(Convert);
+            }
+        }
+
+        private AddPupilAmendment Convert(new_Amendment amendment)
+        {
+            return new AddPupilAmendment
+            {
+                Id = amendment.Id.ToString(),
+                Reference = amendment.cr3d5_addpupilref,
+                Status = amendment.cr3d5_amendmentstatus.ToString(),
+                CreatedDate = amendment.CreatedOn ?? DateTime.MinValue,
+                AddReason = amendment.cr3d5_addreason,
+                EvidenceStatus = amendment.cr3d5_evidenceoption == cr3d5_EvidenceOption.UploadEvidenceNow ? EvidenceStatus.Now : amendment.cr3d5_evidenceoption == cr3d5_EvidenceOption.UploadEvidenceLater ? EvidenceStatus.Later : EvidenceStatus.NotRequired,
+                Pupil = new Pupil
+                {
+                    ForeName = amendment.cr3d5_forename,
+                    LastName = amendment.cr3d5_surname,
+                    DateOfBirth = amendment.cr3d5_dob ?? DateTime.MinValue,
+                    DateOfAdmission = amendment.cr3d5_admissiondate ?? DateTime.MinValue,
+                    Gender = amendment.cr3d5_gender == cr3d5_Gender.Male ? Gender.Male : Gender.Female,
+                    Id = new PupilId(amendment.cr3d5_pupilid),
+                    Urn = new URN(amendment.cr3d5_urn)
+                },
+                PriorAttainment = new PriorAttainment
+                {
+                    ResultFor = amendment.cr3d5_priorattainmentresultfor,
+                    Test = amendment.cr3d5_priorattainmenttest,
+                    AttainmentLevel = amendment.cr3d5_priorattainmentlevel,
+                    AcademicYear = amendment.cr3d5_priorattainmentacademicyear
+                },
+                InclusionConfirmed = amendment.cr3d5_includeinperformanceresults ?? false
+            };
+        }
+
 
         public AddPupilAmendment GetAddPupilAmendmentDetail(Guid amendmentId)
         {

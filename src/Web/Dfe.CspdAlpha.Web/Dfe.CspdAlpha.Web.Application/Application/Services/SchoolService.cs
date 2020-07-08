@@ -1,10 +1,9 @@
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+using System;
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
 using Dfe.CspdAlpha.Web.Application.Models.Common;
 using Dfe.CspdAlpha.Web.Application.Models.School;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels;
+using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
 using Dfe.CspdAlpha.Web.Domain.Core;
 using Dfe.CspdAlpha.Web.Domain.Core.Enums;
@@ -12,8 +11,8 @@ using Dfe.CspdAlpha.Web.Domain.Entities;
 using Dfe.CspdAlpha.Web.Domain.Interfaces;
 using Dfe.CspdAlpha.Web.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Diagnostics;
-using Microsoft.AspNetCore.StaticFiles;
+using System.Collections.Generic;
+using System.Linq;
 using Gender = Dfe.CspdAlpha.Web.Application.Models.Common.Gender;
 using Pupil = Dfe.CspdAlpha.Web.Application.Models.School.Pupil;
 
@@ -67,6 +66,25 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                     .OrderBy(p => p.FirstName)
                     .ToList()
             };
+        }
+
+        public AmendmentsListViewModel GetAmendmentsListViewModel(string urn)
+        {
+            var urnValue = new URN(urn);
+            return  new AmendmentsListViewModel
+            {
+                Urn = urn,
+                AmendmentList = _amendmentService
+                    .GetAddPupilAmendments(urnValue.Value)
+                    .Select(a => new Amendment { FirstName = a.Pupil.ForeName, LastName = a.Pupil.LastName, PupilId = a.Pupil.Id.Value, DateRequested = a.CreatedDate, ReferenceId = a.Reference, Id = a.Id, Status = a.Status, EvidenceStatus = a.EvidenceStatus})
+                    .OrderByDescending(a => a.DateRequested)
+                    .ToList()
+            };
+        }
+
+        public bool CancelAmendment(string id)
+        {
+            return _amendmentService.CancelAddPupilAmendment(new Guid(id));
         }
 
         public List<EvidenceFile> UploadEvidence(List<IFormFile> files)
