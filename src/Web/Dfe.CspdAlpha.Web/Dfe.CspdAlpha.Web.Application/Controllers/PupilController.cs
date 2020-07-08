@@ -1,3 +1,4 @@
+using System;
 using Dfe.CspdAlpha.Web.Application.Application.Extensions;
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
@@ -127,6 +128,13 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             }
             return View(addPupilAmendment);
         }
+
+        public IActionResult UploadEvidence(string id)
+        {
+            
+            return View();
+        }
+
 
         public IActionResult UploadEvidence()
         {

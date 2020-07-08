@@ -1,4 +1,5 @@
 @using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments
+@using Dfe.CspdAlpha.Web.Domain.Core.Enums
 @model AmendmentsListViewModel
 @{
     ViewBag.Title = "Requested amendments";
@@ -54,8 +55,35 @@
                     <td class="govuk-table__cell">@amendment.PupilId</td>
                     <td class="govuk-table__cell">@amendment.DateRequested.ToLongDateString()</td>
                     <td class="govuk-table__cell"><a asp-controller="Amendments" asp-action="View" asp-route-id="@amendment.Id">View</a></td>
-                    <td class="govuk-table__cell">@amendment.EvidenceStatus</td>
-                    <td class="govuk-table__cell"><a asp-controller="Amendments" asp-action="Cancel" asp-route-id="@amendment.Id">Cancel</a></td>
+                    <td class="govuk-table__cell">
+                        @if (amendment.Status == "Cancelled")
+                        {
+                            <span>Not applicable</span>
+                        }
+                        else if (amendment.EvidenceStatus == EvidenceStatus.Now)
+                        {
+                            <span>Uploaded</span>
+                        }
+                        else if (amendment.EvidenceStatus == EvidenceStatus.NotRequired)
+                        {
+                            <span>Not required</span>
+                            
+                        }
+                        else
+                        {
+                            <a asp-controller="Pupil" asp-action="Cancel" asp-route-id="@amendment.Id">Cancel</a>
+                        }
+                    </td>
+                    <td class="govuk-table__cell">
+                        @if (amendment.Status == "Cancelled")
+                        {
+                            <span>Not applicable</span>
+                        }
+                        else
+                        {
+                            <a asp-controller="Amendments" asp-action="Cancel" asp-route-id="@amendment.Id">Cancel</a>
+                        }
+                    </td>
                     <td class="govuk-table__cell">@amendment.ReferenceId</td>
                     <td class="govuk-table__cell">@amendment.Status</td>
                 </tr>
@@ -66,7 +94,7 @@
     </div>
 </div>
 <div id="pupil-list-app">
-neight    <div class="govuk-grid-row">
+    <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <no-results :search-text="searchText" :has-results="hasResults" />
         </div>
