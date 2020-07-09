@@ -4,7 +4,7 @@ const defaults = {
   contentSelector: '',
   additionalClasses: '',
 };
-/* eslint no-console: 0 */
+
 class AppModal {
   constructor(el, opts) {
     this.el = el;

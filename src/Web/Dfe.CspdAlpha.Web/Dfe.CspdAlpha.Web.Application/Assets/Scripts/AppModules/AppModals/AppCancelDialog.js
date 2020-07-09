@@ -1,5 +1,4 @@
 import AppModal from './AppModal';
-/* eslint no-console: 0 */
 class AppCancelDialog extends AppModal{
   constructor(el, opts) {
     super(el, opts);
@@ -16,10 +15,8 @@ class AppCancelDialog extends AppModal{
   }
 
   bindButtonEvents() {
-    console.log('bind buttons ' , this.el);
     $('.app-modal__button-positive').on('click', (e)=>{
       e.preventDefault();
-      console.log('YES click: ', this.el);
       $('#app-modal-close').click();
       window.location = this.el.getAttribute('href');
     });
@@ -31,7 +28,6 @@ class AppCancelDialog extends AppModal{
   }
 
   unbindButtonEvents() {
-    console.log('unbind buttons');
     $('.app-modal__button-positive').off('click');
     $('.app-modal__button-negative').off('click');
   }
