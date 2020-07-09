@@ -91,18 +91,28 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
             // Upload Evidence
             if (amendment.EvidenceStatus == EvidenceStatus.Now && amendment.EvidenceList.Any())
             {
-                var relatedFileUploads = new EntityReferenceCollection();
-                foreach (var evidence in amendment.EvidenceList)
-                {
-                    relatedFileUploads.Add(new EntityReference(cr3d5_Fileupload.EntityLogicalName, new Guid(evidence.Id)));
-                }
-
-                var relationship = new Relationship(fileUploadRelationshipName);
-                _organizationService.Associate(new_Amendment.EntityLogicalName, amendmentDto.Id, relationship,
-                    relatedFileUploads);
+                RelateEvidence(amendmentDto.Id, amendment.EvidenceList, false);
             }
 
             return true;
+        }
+
+        public void RelateEvidence(Guid amendmentId, List<Evidence> evidenceList, bool updateEvidenceOption)
+        {
+            var relatedFileUploads = new EntityReferenceCollection();
+            foreach (var evidence in evidenceList)
+            {
+                relatedFileUploads.Add(new EntityReference(cr3d5_Fileupload.EntityLogicalName, new Guid(evidence.Id)));
+            }
+
+            var relationship = new Relationship(fileUploadRelationshipName);
+            _organizationService.Associate(new_Amendment.EntityLogicalName, amendmentId, relationship,
+                relatedFileUploads);
+            
+            if (updateEvidenceOption)
+            {
+                UpdateEvidenceStatus(amendmentId);
+            }
         }
 
         public IEnumerable<AddPupilAmendment> GetAddPupilAmendments(int laestab)
@@ -169,11 +179,10 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
                     x => x.Id == amendmentId).FirstOrDefault();
 
                 // TODO: Get relationship name from attribute
-                context.LoadProperty(amendment, fileUploadRelationshipName);
+                var relationship = new Relationship(fileUploadRelationshipName);
+                context.LoadProperty(amendment, relationship);
 
-                // TODO: Map to domain model
-
-                return null;
+                return Convert(amendment);
             }
         }
 
@@ -195,6 +204,23 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
             }
 
             amendment.cr3d5_amendmentstatus = new_amendmentStatus.Cancelled;
+
+            _organizationService.Update(amendment);
+
+            return true;
+        }
+
+        private bool UpdateEvidenceStatus(Guid amendmentId)
+        {
+            var cols = new ColumnSet( new [] { "cr3d5_evidenceoption" });
+            var amendment = (new_Amendment)_organizationService.Retrieve(new_Amendment.EntityLogicalName, amendmentId, cols);
+
+            if (amendment == null || amendment.cr3d5_evidenceoption == cr3d5_EvidenceOption.UploadEvidenceNow)
+            {
+                return false;
+            }
+
+            amendment.cr3d5_evidenceoption = cr3d5_EvidenceOption.UploadEvidenceNow;
 
             _organizationService.Update(amendment);
 

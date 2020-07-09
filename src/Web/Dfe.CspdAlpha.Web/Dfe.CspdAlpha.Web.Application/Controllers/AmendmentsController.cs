@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,23 +5,23 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
     public class AmendmentsController : Controller
     {
-        private readonly ISchoolService _schoolService;
+        private readonly IAmendmentService _amendmentService;
 
-        public AmendmentsController(ISchoolService schoolService)
+        public AmendmentsController(IAmendmentService amendmentService)
         {
-            _schoolService = schoolService;
+            _amendmentService = amendmentService;
         }
 
         public IActionResult Index(string urn)
         {
 
-            var amendments = _schoolService.GetAmendmentsListViewModel(urn);
+            var amendments = _amendmentService.GetAmendmentsListViewModel(urn);
             return View(amendments);
         }
 
         public IActionResult Cancel(string id)
         {
-            if (_schoolService.CancelAmendment(id))
+            if (_amendmentService.CancelAmendment(id))
             {
                 return RedirectToAction("Index");
             }

@@ -4,10 +4,10 @@ using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using Dfe.CspdAlpha.Web.Application.Application.Helpers;
 using Dfe.CspdAlpha.Web.Application.Models.Common;
 using Microsoft.AspNetCore.Http;
-using Dfe.CspdAlpha.Web.Domain.Interfaces;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
@@ -129,28 +129,50 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             return View(addPupilAmendment);
         }
 
-        public IActionResult UploadEvidence()
+        public IActionResult UploadEvidence(string id)
         {
-            var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
-            if (addPupilAmendment == null || addPupilAmendment.SelectedEvidenceOption != EvidenceOption.UploadNow)
+            if (id == null)
             {
-                return RedirectToAction("AddReason");
+                var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
+                if (addPupilAmendment == null || addPupilAmendment.SelectedEvidenceOption != EvidenceOption.UploadNow)
+                {
+                    return RedirectToAction("AddReason");
+                }
+                return View(new UploadEvidenceViewModel{ AddPupilViewModel = addPupilAmendment.AddPupilViewModel });
             }
-            return View(addPupilAmendment);
+            else
+            {
+                var addPupilAmendment = _amendmentService.GetAddPupilAmendmentViewModel(new Guid(id));
+                return View(new UploadEvidenceViewModel { AddPupilViewModel = addPupilAmendment, Id = id });
+            }
         }
 
         [HttpPost]
-        public IActionResult UploadEvidence(List<IFormFile> evidenceFiles)
+        public IActionResult UploadEvidence(List<IFormFile> evidenceFiles, string id)
         {
-            var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
-            if (ModelState.IsValid)
+            if (id == null)
             {
-                var uploadedEvidenceFiles = _schoolService.UploadEvidence(evidenceFiles);
-                addPupilAmendment.EvidenceFiles.AddRange(uploadedEvidenceFiles);
-                HttpContext.Session.Set(ADD_PUPIL_AMENDMENT, addPupilAmendment);
-                return RedirectToAction("InclusionDetails");
+                var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
+                if (ModelState.IsValid)
+                {
+                    var uploadedEvidenceFiles = _amendmentService.UploadEvidence(evidenceFiles);
+                    addPupilAmendment.EvidenceFiles.AddRange(uploadedEvidenceFiles);
+                    HttpContext.Session.Set(ADD_PUPIL_AMENDMENT, addPupilAmendment);
+                    return RedirectToAction("InclusionDetails");
+                }
+                return View(new UploadEvidenceViewModel { AddPupilViewModel = addPupilAmendment.AddPupilViewModel });
             }
-            return View(addPupilAmendment);
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    var uploadedEvidenceFiles = _amendmentService.UploadEvidence(evidenceFiles);
+                    _amendmentService.RelateEvidence(new Guid(id), uploadedEvidenceFiles);
+                    return RedirectToAction("Index", "Amendments");
+                }
+                var addPupilAmendment = _amendmentService.GetAddPupilAmendmentViewModel(new Guid(id));
+                return View(new UploadEvidenceViewModel { AddPupilViewModel = addPupilAmendment, Id = id });
+            }
         }
 
         public IActionResult InclusionDetails()
@@ -168,7 +190,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         {
             var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
             addPupilAmendment.InclusionConfirmed = inclusionConfirmed;
-            if (_schoolService.CreateAddPupilAmendment(addPupilAmendment, out string id))
+            if (_amendmentService.CreateAddPupilAmendment(addPupilAmendment, out string id))
             {
                 HttpContext.Session.Remove(ADD_PUPIL_AMENDMENT);
                 HttpContext.Session.Set(ADD_PUPIL_AMENDMENT_ID, id);

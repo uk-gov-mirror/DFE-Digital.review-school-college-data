@@ -10,6 +10,7 @@ namespace Dfe.CspdAlpha.Web.Domain.Interfaces
         IEnumerable<AddPupilAmendment> GetAddPupilAmendments(string urn);
 
         bool CreateAddPupilAmendment(AddPupilAmendment amendment, out string id);
+        void RelateEvidence(Guid amendmentId, List<Evidence> evidenceList, bool updateEvidenceOption);
         AddPupilAmendment GetAddPupilAmendmentDetail(Guid amendmentId);
 
 

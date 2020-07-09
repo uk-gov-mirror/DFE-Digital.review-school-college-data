@@ -24,6 +24,8 @@ using Microsoft.Xrm.Sdk;
 using Sustainsys.Saml2;
 using Sustainsys.Saml2.AspNetCore2;
 using Sustainsys.Saml2.Metadata;
+using DomainInterface = Dfe.CspdAlpha.Web.Domain.Interfaces;
+using AppInterface = Dfe.CspdAlpha.Web.Application.Application.Interfaces;
 
 namespace Dfe.CspdAlpha.Web.Application
 {
@@ -93,10 +95,11 @@ namespace Dfe.CspdAlpha.Web.Application
             services.AddSingleton<IPupilService, PupilService>();
             services.AddSingleton<IReadRepository<Establishment>, EstablishmentRepository>();
             services.AddSingleton<IEstablishmentService, EstablishmentService>();
-            services.AddSingleton<IAmendmentService, CrmAmendmentService>();
+            services.AddSingleton<DomainInterface.IAmendmentService, CrmAmendmentService>();
             services.AddSingleton<IConfirmationService, CrmConfirmationService>();
             services.AddSingleton<IFileUploadService, FileUploadService>();
             services.AddSingleton<ISchoolService, SchoolService>();
+            services.AddSingleton<AppInterface.IAmendmentService, AmendmentService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

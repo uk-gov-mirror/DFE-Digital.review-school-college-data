@@ -11,12 +11,6 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Interfaces
     {
         SchoolViewModel GetSchoolViewModel(string urn);
         PupilListViewModel GetPupilListViewModel(string urn);
-        AmendmentsListViewModel GetAmendmentsListViewModel(string urn);
-
-        bool CancelAmendment(string id);
-        List<EvidenceFile> UploadEvidence(List<IFormFile> files);
-
-        bool CreateAddPupilAmendment(AddPupilAmendmentViewModel addPupilAmendment, out string id);
 
         bool UpdateConfirmation(TaskListViewModel taskListViewModel, string userId, string urn);
         TaskListViewModel GetConfirmationRecord(string userId, string urn);
