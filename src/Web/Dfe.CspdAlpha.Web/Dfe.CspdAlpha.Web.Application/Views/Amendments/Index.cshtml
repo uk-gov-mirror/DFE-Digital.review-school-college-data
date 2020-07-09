@@ -26,81 +26,83 @@
         <a class="print-link" href="javascript:window.print()">Print</a>
     </div>
 </div>
-<script type="text/javascript">
-    var pupilsJson = @Html.Raw(Model.AmendmentListJson);
-    var urn = '@Model.Urn';
-</script>
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
-        <table class="govuk-table">
-            <thead class="govuk-table__head">
-            <tr class="govuk-table__row">
-                <th scope="col" class="govuk-table__header">First name</th>
-                <th scope="col" class="govuk-table__header">Last name</th>
-                <th scope="col" class="govuk-table__header">Pupil id</th>
-                <th scope="col" class="govuk-table__header">Date requested</th>
-                <th scope="col" class="govuk-table__header">View requested amendment</th>
-                <th scope="col" class="govuk-table__header">Upload evidence</th>
-                <th scope="col" class="govuk-table__header">Cancel amendment</th>
-                <th scope="col" class="govuk-table__header">Ref ID</th>
-                <th scope="col" class="govuk-table__header">Status</th>
-            </tr>
-            </thead>
-            <tbody class="govuk-table__body">
-            @foreach (var amendment in Model.AmendmentList)
-            {
-                <tr class="govuk-table__row">
-                    <td class="govuk-table__cell">@amendment.FirstName</td>
-                    <td class="govuk-table__cell">@amendment.LastName</td>
-                    <td class="govuk-table__cell">@amendment.PupilId</td>
-                    <td class="govuk-table__cell">@amendment.DateRequested.ToLongDateString()</td>
-                    <td class="govuk-table__cell"><a asp-controller="Amendments" asp-action="View" asp-route-id="@amendment.Id">View</a></td>
-                    <td class="govuk-table__cell">
-                        @if (amendment.Status == "Cancelled")
-                        {
-                            <span>Not applicable</span>
-                        }
-                        else if (amendment.EvidenceStatus == EvidenceStatus.Now)
-                        {
-                            <span>Uploaded</span>
-                        }
-                        else if (amendment.EvidenceStatus == EvidenceStatus.NotRequired)
-                        {
-                            <span>Not required</span>
-                            
-                        }
-                        else
-                        {
-                            <a asp-controller="Pupil" asp-action="UploadEvidence" asp-route-id="@amendment.Id">Upload</a>
-                        }
-                    </td>
-                    <td class="govuk-table__cell">
-                        @if (amendment.Status == "Cancelled")
-                        {
-                            <span>Not applicable</span>
-                        }
-                        else
-                        {
-                            <a asp-controller="Amendments" asp-action="Cancel" asp-route-id="@amendment.Id">Cancel</a>
-                        }
-                    </td>
-                    <td class="govuk-table__cell">@amendment.ReferenceId</td>
-                    <td class="govuk-table__cell">@amendment.Status</td>
-                </tr>
 
-            }
-            </tbody>
-        </table>
-    </div>
-</div>
-<div id="pupil-list-app">
+@if (Model.AmendmentList.Any())
+{
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
-            <no-results :search-text="searchText" :has-results="hasResults" />
+            <table class="govuk-table app-pupil-list-table">
+                <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                    <th scope="col" class="govuk-table__header">First name</th>
+                    <th scope="col" class="govuk-table__header">Last name</th>
+                    <th scope="col" class="govuk-table__header">Pupil id</th>
+                    <th scope="col" class="govuk-table__header">Date requested</th>
+                    <th scope="col" class="govuk-table__header">View requested amendment</th>
+                    <th scope="col" class="govuk-table__header">Upload evidence</th>
+                    <th scope="col" class="govuk-table__header">Cancel amendment</th>
+                    <th scope="col" class="govuk-table__header">Ref ID</th>
+                    <th scope="col" class="govuk-table__header">Status</th>
+                </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+                @foreach (var amendment in Model.AmendmentList)
+                {
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell" data-label="First name">@amendment.FirstName</td>
+                        <td class="govuk-table__cell" data-label="Last name">@amendment.LastName</td>
+                        <td class="govuk-table__cell" data-label="Pupil ID">@amendment.PupilId</td>
+                        <td class="govuk-table__cell" data-label="Date requested">@amendment.DateRequested.ToLongDateString()</td>
+                        <td class="govuk-table__cell" data-label="View requested amendment"><a asp-controller="Amendments" asp-action="View" asp-route-id="@amendment.Id">View</a></td>
+                        <td class="govuk-table__cell" data-label="Upload evidence">
+                            @if (amendment.Status == "Cancelled")
+                            {
+                                <span>Not applicable</span>
+                            }
+                            else if (amendment.EvidenceStatus == EvidenceStatus.Now)
+                            {
+                                <span>Uploaded</span>
+                            }
+                            else if (amendment.EvidenceStatus == EvidenceStatus.NotRequired)
+                            {
+                                <span>Not required</span>
+
+                            }
+                            else
+                            {
+                            <a asp-controller="Pupil" asp-action="UploadEvidence" asp-route-id="@amendment.Id">Upload</a>
+                            }
+                        </td>
+                        <td class="govuk-table__cell" data-label="Cancel amendment">
+                            @if (amendment.Status == "Cancelled")
+                            {
+                                <span>Not applicable</span>
+                            }
+                            else
+                            {
+                                <a asp-controller="Amendments" asp-action="Cancel" asp-route-id="@amendment.Id" class="app-modal__cancel-link">Cancel</a>
+                            }
+                        </td>
+                        <td class="govuk-table__cell" data-label="Ref ID">@amendment.ReferenceId</td>
+                        <td class="govuk-table__cell" data-label="Status">@amendment.Status</td>
+                    </tr>
+
+                }
+                </tbody>
+            </table>
         </div>
     </div>
-</div>
-
-
-@section ViewScripts {
 }
+else
+{
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <p>You have not requested any amendments.</p>
+        </div>
+    </div>
+
+}
+
+
+<partial name="_CancelModalContent"/>
+

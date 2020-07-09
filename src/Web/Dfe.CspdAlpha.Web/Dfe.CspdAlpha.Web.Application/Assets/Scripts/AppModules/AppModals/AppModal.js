@@ -23,11 +23,11 @@ class AppModal {
 
     $(this.el).on('click', (e) => {
       e.preventDefault();
-      this.openModal(e);
+      this.openModal();
     });
   }
 
-  openModal(e) {
+  openModal() {
     const opts = this.opts;
     const modalContent = $(opts.contentSelector).html();
     const $appContainer = $('#app-container');
@@ -54,7 +54,7 @@ class AppModal {
         <div class="govuk-visually-hidden">Dismiss modal and return to page</div>
       </div>`;
 
-    this.openedBy = e.target || document.body;
+    //this.openedBy = e.target || document.body;
 
     $('html').addClass('no-scroll');
     $appContainer.attr('aria-hidden', true);
@@ -84,6 +84,11 @@ class AppModal {
         $('#js-modal').scrollTop = top - 1;
       }
     });
+
+    $(window).trigger({
+      type: 'modal:opened',
+      element: this.el
+    });
   }
 
   closeModal() {
@@ -97,7 +102,8 @@ class AppModal {
     $('#app-modal-overlay').off('click').remove();
     $('#app-modal').remove();
 
-    this.openedBy.focus();
+    this.el.focus();
+    $(window).trigger('modal:closed');
   }
 
   manageModalKeyPress(e) {

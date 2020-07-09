@@ -1,21 +1,35 @@
 import AppModal from './AppModal';
-
 class AppCancelDialog extends AppModal{
   constructor(el, opts) {
     super(el, opts);
-    this.bindButtonEvents();
+
+    $(window).on('modal:opened', (e)=> {
+      if (e.element === this.el) {
+        this.bindButtonEvents();
+      }
+    });
+
+    $(window).on('modal:closed', ()=> {
+      this.unbindButtonEvents();
+    });
   }
 
   bindButtonEvents() {
-    $(document).on('click','.app-modal__button-positive', (e)=>{
+    $('.app-modal__button-positive').on('click', (e)=>{
       e.preventDefault();
-      window.location = this.openedBy.getAttribute('href');
+      $('#app-modal-close').click();
+      window.location = this.el.getAttribute('href');
     });
 
-    $(document).on('click','.app-modal__button-negative',(e)=> {
+    $('.app-modal__button-negative').on('click',(e)=> {
       e.preventDefault();
-      this.closeModal();
+      $('#app-modal-close').click();
     });
+  }
+
+  unbindButtonEvents() {
+    $('.app-modal__button-positive').off('click');
+    $('.app-modal__button-negative').off('click');
   }
 }
 
