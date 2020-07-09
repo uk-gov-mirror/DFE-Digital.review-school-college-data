@@ -26,7 +26,7 @@ if (document.getElementById('app-ribbon-nav')) {
 
 AppPrint();
 
-$('.app-modal__canel-link').each(function(n, el) {
+$('.app-modal__cancel-link').each(function(n, el) {
   new AppCancelDialog(el, {
     contentSelector: '#confirm-cancel-amendment',
     hideTitle: true,

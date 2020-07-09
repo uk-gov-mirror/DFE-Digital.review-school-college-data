@@ -71,6 +71,10 @@
   position: absolute;
   z-index: 10;
   background-color: govuk-colour('light-grey');
+
+  .app-ribbon-nav__link {
+    min-width: 155px;
+  }
 }
 
 .app-ribbon-nav__list-item--more {

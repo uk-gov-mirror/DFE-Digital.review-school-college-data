@@ -1,21 +1,39 @@
 import AppModal from './AppModal';
-
+/* eslint no-console: 0 */
 class AppCancelDialog extends AppModal{
   constructor(el, opts) {
     super(el, opts);
-    this.bindButtonEvents();
+
+    $(window).on('modal:opened', (e)=> {
+      if (e.element === this.el) {
+        this.bindButtonEvents();
+      }
+    });
+
+    $(window).on('modal:closed', ()=> {
+      this.unbindButtonEvents();
+    });
   }
 
   bindButtonEvents() {
-    $(document).on('click','.app-modal__button-positive', (e)=>{
+    console.log('bind buttons ' , this.el);
+    $('.app-modal__button-positive').on('click', (e)=>{
       e.preventDefault();
-      window.location = this.openedBy.getAttribute('href');
+      console.log('YES click: ', this.el);
+      $('#app-modal-close').click();
+      window.location = this.el.getAttribute('href');
     });
 
-    $(document).on('click','.app-modal__button-negative',(e)=> {
+    $('.app-modal__button-negative').on('click',(e)=> {
       e.preventDefault();
-      this.closeModal();
+      $('#app-modal-close').click();
     });
+  }
+
+  unbindButtonEvents() {
+    console.log('unbind buttons');
+    $('.app-modal__button-positive').off('click');
+    $('.app-modal__button-negative').off('click');
   }
 }
 
