@@ -1,14 +1,13 @@
-﻿using Dfe.CspdAlpha.Web.Domain.Entities;
+﻿using Dfe.CspdAlpha.Web.Domain.Core;
+using Dfe.CspdAlpha.Web.Domain.Core.Enums;
+using Dfe.CspdAlpha.Web.Domain.Entities;
 using Dfe.CspdAlpha.Web.Domain.Interfaces;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Dfe.CspdAlpha.Web.Domain.Core;
-using Dfe.CspdAlpha.Web.Domain.Core.Enums;
 using Microsoft.Xrm.Sdk.Messages;
-using Microsoft.Xrm.Sdk.Metadata;
 
 namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 {
@@ -22,21 +21,51 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
     {
         private readonly IOrganizationService _organizationService;
         private readonly Guid _firstLineTeamId = Guid.Parse("469cdfc3-1aba-ea11-a812-000d3a4b2a11");
+        private IReadRepository<Establishment> _establshmentsRepository;
 
         private const string fileUploadRelationshipName = "cr3d5_new_Amendment_Evidence_cr3d5_Fileupload";
 
-        public CrmAmendmentService(IOrganizationService organizationService)
+        public CrmAmendmentService(IOrganizationService organizationService, IReadRepository<Establishment> establshmentsRepository)
         {
+            _establshmentsRepository = establshmentsRepository;
             _organizationService = organizationService;
+        }
+
+        private cr3d5_establishment GetOrCreateEstablishment(string urn, CrmServiceContext context)
+        {
+            var establishmentDto =
+                context.cr3d5_establishmentSet.SingleOrDefault(
+                    e => e.cr3d5_Urn == urn);
+            if (establishmentDto != null)
+            {
+                return establishmentDto;
+            }
+
+            var establishment = _establshmentsRepository.GetById(urn);
+            establishmentDto = new cr3d5_establishment
+            {
+                cr3d5_name = establishment.Name,
+                cr3d5_Urn = urn,
+                cr3d5_LAEstab = establishment.LaEstab,
+                cr3d5_Numberofamendments = 0
+            };
+            context.AddObject(establishmentDto);
+            var result = context.SaveChanges();
+            if (result.HasError)
+            {
+                throw result.FirstOrDefault(e => e.Error != null)?.Error ?? new ApplicationException();
+            }
+
+            return establishmentDto;
         }
 
         public bool CreateAddPupilAmendment(AddPupilAmendment amendment, out string id)
         {
-            var amendmentDto = new new_Amendment();
-
+            Guid amendmentId;
             using (var context = new CrmServiceContext(_organizationService))
             {
-                // Reason for adding
+                var amendmentDto = new new_Amendment();
+               // Reason for adding
                 amendmentDto.cr3d5_addreason = amendment.AddReason;
                 // Pupil data
                 // don't need to set status as this will default to "Requested" in backend
@@ -80,18 +109,32 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
                 // assign to helpdesk 1st line
                 amendmentDto.OwnerId = new EntityReference("team", _firstLineTeamId);
 
+                
                 // Save
                 context.AddObject(amendmentDto);
-                context.SaveChanges();
+                var result = context.SaveChanges();
+                if (result.HasError)
+                {
+                    throw result.FirstOrDefault(e => e.Error != null)?.Error ?? new ApplicationException();
+                }
 
                 var addPUp = context.CreateQuery<new_Amendment>().Single(e => e.Id == amendmentDto.Id);
                 id = addPUp?.cr3d5_addpupilref;
+                amendmentId = amendmentDto.Id;
+
+                // Link to an establishment entity
+                var establishment = GetOrCreateEstablishment(amendment.Pupil.Urn.Value, context);
+                var relationship = new Relationship("cr3d5_cr3d5_establishment_new_amendment");
+                _organizationService.Associate(cr3d5_establishment.EntityLogicalName, establishment.Id, relationship, new EntityReferenceCollection
+                {
+                    new EntityReference(new_Amendment.EntityLogicalName, amendmentDto.Id)
+                });
             }
 
             // Upload Evidence
             if (amendment.EvidenceStatus == EvidenceStatus.Now && amendment.EvidenceList.Any())
             {
-                RelateEvidence(amendmentDto.Id, amendment.EvidenceList, false);
+                RelateEvidence(amendmentId, amendment.EvidenceList, false);
             }
 
             return true;
@@ -119,12 +162,10 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
         {
             using (var context = new CrmServiceContext(_organizationService))
             {
-                var amendment = context.new_AmendmentSet.Where(
-                    x => x.cr3d5_laestab == laestab.ToString());
+                var amendments = context.new_AmendmentSet.Where(
+                    x => x.cr3d5_laestab == laestab.ToString()).ToList();
 
-                // TODO: Map to domain model
-
-                return null;
+                return amendments.Select(Convert);
             }
         }
 
