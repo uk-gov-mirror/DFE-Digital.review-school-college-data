@@ -28,7 +28,7 @@ namespace Dfe.CspdAlpha.Admin
             log($"{nameof(SchoolsLoader)} started");
 
             ILookup<string, object> performanceLookup;
-            ILookup<string, object> giasLookup;
+            IDictionary<string, dynamic> giasDictionary;
             var decimalConverter = new NumberJsonConverter();
 
             using (var reader = new StreamReader(schoolsPerfCsvFilePath))
@@ -43,8 +43,33 @@ namespace Dfe.CspdAlpha.Admin
             using (var reader = new StreamReader(giasCsvFilePath))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
+                // TODO: Regex replace would probably be better here
+                csv.Configuration.PrepareHeaderForMatch = (s, i) =>
+                    s.Replace("(", string.Empty).Replace(")", string.Empty).Replace(" ", string.Empty).ToLower().Trim();
                 var records = csv.GetRecords<dynamic>();
-                giasLookup = records.ToLookup(r => (string)r.LA + (string)r.EstablishmentNumber, s => s.URN);
+
+                // TODO: we need to build the LAEstab/DFESNumber in GIAS however this can lead to duplicates possibly due to conversions
+                // This code assumes the last match is the valid one and overwrites any existing values
+                giasDictionary = new Dictionary<string, dynamic>();
+                foreach (var record in records)
+                {
+                    var lacode = (string)record.lacode;
+                    var establshmentnumber = (string)record.establishmentnumber;
+                    if (string.IsNullOrEmpty(lacode) || string.IsNullOrEmpty(establshmentnumber))
+                    {
+                        continue;
+                    }
+
+                    var key = lacode + establshmentnumber;
+                    if (giasDictionary.ContainsKey(key))
+                    {
+                        giasDictionary[key] = record;
+                    }
+                    else
+                    {
+                        giasDictionary.Add(key, record);
+                    }
+                }
                 log($"{giasCsvFilePath} loaded");
             }
 
@@ -60,13 +85,14 @@ namespace Dfe.CspdAlpha.Admin
                 {
                     Parallel.ForEach(batch, new ParallelOptions { MaxDegreeOfParallelism = MAX_PARALLELISM }, schoolRow =>
                     {
-                        var urn = ((System.Linq.IGrouping<string, object>) giasLookup[schoolRow.DFESNumber])?.First()
-                                  ?.ToString() ?? null;
+                        var gias = giasDictionary[schoolRow.DFESNumber];
+                        var urn = gias.urn;
                         if (string.IsNullOrEmpty(urn))
                         {
                             log($"can't find URN for {schoolRow.DFESNumber}");
                         }
                         schoolRow.URN = urn;
+                        schoolRow.SchoolType = gias.typeofestablishmentname;
                         schoolRow.SchoolName = $"Test School {urn}";
                         var perf = (IEnumerable<dynamic>)performanceLookup[schoolRow.DFESNumber];
                         schoolRow.performance = perf.Select(r => new { r.Code, r.SetName, r.CodeValue });
