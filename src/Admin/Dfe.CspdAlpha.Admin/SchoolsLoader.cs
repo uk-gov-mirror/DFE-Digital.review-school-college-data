@@ -21,13 +21,14 @@ namespace Dfe.CspdAlpha.Admin
 
         private static volatile int _processedCount;
 
-        public static void Load(Action<string> log, string schoolsRefCsvFilePath, string schoolsPerfCsvFilePath)
+        public static void Load(Action<string> log, string schoolsRefCsvFilePath, string schoolsPerfCsvFilePath, string giasCsvFilePath)
         {
             var stopwatch = new Stopwatch();
             stopwatch.Start();
             log($"{nameof(SchoolsLoader)} started");
 
             ILookup<string, object> performanceLookup;
+            ILookup<string, object> giasLookup;
             var decimalConverter = new NumberJsonConverter();
 
             using (var reader = new StreamReader(schoolsPerfCsvFilePath))
@@ -36,6 +37,15 @@ namespace Dfe.CspdAlpha.Admin
                 var records = csv.GetRecords<dynamic>();
                 performanceLookup = records.ToLookup(r => (string)r.DFESNumber);
                 log($"{schoolsPerfCsvFilePath} loaded");
+            }
+
+
+            using (var reader = new StreamReader(giasCsvFilePath))
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            {
+                var records = csv.GetRecords<dynamic>();
+                giasLookup = records.ToLookup(r => (string)r.LA + (string)r.EstablishmentNumber, s => s.URN);
+                log($"{giasCsvFilePath} loaded");
             }
 
             using (var reader = new StreamReader(schoolsRefCsvFilePath))
@@ -50,6 +60,14 @@ namespace Dfe.CspdAlpha.Admin
                 {
                     Parallel.ForEach(batch, new ParallelOptions { MaxDegreeOfParallelism = MAX_PARALLELISM }, schoolRow =>
                     {
+                        var urn = ((System.Linq.IGrouping<string, object>) giasLookup[schoolRow.DFESNumber])?.First()
+                                  ?.ToString() ?? null;
+                        if (string.IsNullOrEmpty(urn))
+                        {
+                            log($"can't find URN for {schoolRow.DFESNumber}");
+                        }
+                        schoolRow.URN = urn;
+                        schoolRow.SchoolName = $"Test School {urn}";
                         var perf = (IEnumerable<dynamic>)performanceLookup[schoolRow.DFESNumber];
                         schoolRow.performance = perf.Select(r => new { r.Code, r.SetName, r.CodeValue });
                         System.Threading.Interlocked.Increment(ref _processedCount);
