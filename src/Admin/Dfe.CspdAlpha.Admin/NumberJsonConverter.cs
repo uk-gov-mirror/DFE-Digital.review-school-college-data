@@ -20,7 +20,7 @@ namespace Dfe.CspdAlpha.Admin
         {
             JToken t = JToken.FromObject(value);
 
-            if (t.Type != JTokenType.String)
+            if (t.Type != JTokenType.String || writer.Path.Contains("URN"))
             {
                 t.WriteTo(writer);
             }
