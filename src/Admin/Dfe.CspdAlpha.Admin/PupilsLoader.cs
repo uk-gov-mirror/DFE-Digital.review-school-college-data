@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Dfe.CspdAlpha.Admin
 {
-    public static class SchoolsLoader
+    public static class PupilsLoader
     {
 #if DEBUG
         private const int MAX_PARALLELISM = 1;
@@ -21,50 +21,50 @@ namespace Dfe.CspdAlpha.Admin
 
         private static volatile int _processedCount;
 
-        public static void Load(Action<string> log, string schoolsRefCsvFilePath, string schoolsPerfCsvFilePath, string giasCsvFilePath)
+        public static void Load(
+            Action<string> log, string pupilsCsvFilePath, string pupilsPerfCsvFilePath, string giasCsvFilePath)
         {
             var stopwatch = new Stopwatch();
             stopwatch.Start();
-            log($"{nameof(SchoolsLoader)} started");
+            log($"{nameof(PupilsLoader)} started");
 
             ILookup<string, object> performanceLookup;
-            IDictionary<string, dynamic> giasDictionary;
             var decimalConverter = new NumberJsonConverter();
 
-            using (var reader = new StreamReader(schoolsPerfCsvFilePath))
+            using (var reader = new StreamReader(pupilsPerfCsvFilePath))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 var records = csv.GetRecords<dynamic>();
-                performanceLookup = records.ToLookup(r => (string)r.DFESNumber);
-                log($"{schoolsPerfCsvFilePath} loaded");
+                performanceLookup = records.ToLookup(r => (string)r.PortlandStudentID);
+                log($"{pupilsPerfCsvFilePath} loaded");
             }
 
             var giasLookup = new GiasLookup(log, giasCsvFilePath);
 
-            using (var reader = new StreamReader(schoolsRefCsvFilePath))
+            using (var reader = new StreamReader(pupilsCsvFilePath))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 var records = csv.GetRecords<dynamic>();
-                log($"{schoolsRefCsvFilePath} loaded");
+                log($"{pupilsCsvFilePath} loaded");
 
                 var batchNumber = 1;
 
                 foreach (IEnumerable<dynamic> batch in records.Batch(1000))
                 {
-                    Parallel.ForEach(batch, new ParallelOptions { MaxDegreeOfParallelism = MAX_PARALLELISM }, schoolRow =>
+                    Parallel.ForEach(batch, new ParallelOptions { MaxDegreeOfParallelism = MAX_PARALLELISM }, pupilRow =>
                     {
-                        var gias = giasLookup[schoolRow.DFESNumber];
+                        var gias = giasLookup[pupilRow.DFESNumber];
+                        
+                        pupilRow.URN = gias.urn;
 
-                        schoolRow.URN = gias.urn;
-                        schoolRow.SchoolType = gias.typeofestablishmentname;
-                        schoolRow.SchoolName = $"Test School {gias.urn}";
-                        var perf = (IEnumerable<dynamic>)performanceLookup[schoolRow.DFESNumber];
-                        schoolRow.performance = perf.Select(r => new { r.Code, r.SetName, r.CodeValue });
+                        var perf = (IEnumerable<dynamic>)performanceLookup[pupilRow.PortlandStudentID];
+
+                        pupilRow.performance = perf.Select(r => new { r.Code, r.CodeValue });
                         System.Threading.Interlocked.Increment(ref _processedCount);
                     });
 
                     File.WriteAllText(
-                        "schools_batch_" + batchNumber + ".json",
+                        "pupils_batch_" + batchNumber + ".json",
                         JsonConvert.SerializeObject(batch, decimalConverter));
 
                     log($"{batchNumber} batches processed");
@@ -73,7 +73,7 @@ namespace Dfe.CspdAlpha.Admin
             }
 
             stopwatch.Stop();
-            log($"{nameof(SchoolsLoader)} finished in {stopwatch.Elapsed.Minutes}m {stopwatch.Elapsed.Seconds}s");
+            log($"{nameof(PupilsLoader)} finished in {stopwatch.Elapsed.Minutes}m {stopwatch.Elapsed.Seconds}s");
         }
     }
 }
