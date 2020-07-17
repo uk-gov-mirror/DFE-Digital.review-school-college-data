@@ -56,6 +56,8 @@ namespace Dfe.CspdAlpha.Admin
                         var gias = giasLookup[pupilRow.DFESNumber];
                         
                         pupilRow.URN = gias.urn;
+                        pupilRow.Surname = $"{pupilRow.CandidateNumber}S";
+                        pupilRow.Forename = $"{pupilRow.CandidateNumber}F";
 
                         var perf = (IEnumerable<dynamic>)performanceLookup[pupilRow.PortlandStudentID];
 
