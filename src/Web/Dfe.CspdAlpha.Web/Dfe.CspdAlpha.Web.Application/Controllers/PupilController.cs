@@ -142,7 +142,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             else
             {
                 var addPupilAmendment = _amendmentService.GetAddPupilAmendmentViewModel(new Guid(id));
-                return View(new UploadEvidenceViewModel { AddPupilViewModel = addPupilAmendment, Id = id });
+                return View(new UploadEvidenceViewModel { AddPupilViewModel = addPupilAmendment.AddPupilViewModel, Id = id });
             }
         }
 
@@ -170,7 +170,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                     return RedirectToAction("Index", "Amendments");
                 }
                 var addPupilAmendment = _amendmentService.GetAddPupilAmendmentViewModel(new Guid(id));
-                return View(new UploadEvidenceViewModel { AddPupilViewModel = addPupilAmendment, Id = id });
+                return View(new UploadEvidenceViewModel { AddPupilViewModel = addPupilAmendment.AddPupilViewModel, Id = id });
             }
         }
 

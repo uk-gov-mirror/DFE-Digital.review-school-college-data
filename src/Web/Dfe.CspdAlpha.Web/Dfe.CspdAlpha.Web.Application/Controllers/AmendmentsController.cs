@@ -1,3 +1,4 @@
+using System;
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,6 +27,17 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 return RedirectToAction("Index");
             }
 
+            return RedirectToAction("Error", "Home");
+        }
+
+        [ActionName("View")]
+        public IActionResult ViewAmendment(string id)
+        {
+            var amendment = _amendmentService.GetAddPupilAmendmentViewModel(new Guid(id));
+            if (amendment != null)
+            {
+                return View(amendment);
+            }
             return RedirectToAction("Error", "Home");
         }
     }

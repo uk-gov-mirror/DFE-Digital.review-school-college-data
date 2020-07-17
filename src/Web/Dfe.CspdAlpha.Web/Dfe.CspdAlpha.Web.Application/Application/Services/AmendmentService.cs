@@ -43,17 +43,33 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             };
         }
 
-        public AddPupilViewModel GetAddPupilAmendmentViewModel(Guid id)
+        public AmendmentViewModel GetAddPupilAmendmentViewModel(Guid id)
         {
             var amendment = _amendmentService.GetAddPupilAmendmentDetail(id);
-            return new AddPupilViewModel
+            return new AmendmentViewModel
             {
-                FirstName = amendment.Pupil.ForeName,
-                LastName = amendment.Pupil.LastName,
-                PupilId = amendment.Pupil.Id.Value,
-                DayOfBirth = amendment.Pupil.DateOfBirth.Day,
-                MonthOfBirth = amendment.Pupil.DateOfBirth.Month,
-                YearOfBirth = amendment.Pupil.DateOfBirth.Year
+                AddPupilViewModel = new AddPupilViewModel
+                {
+                    PupilId = amendment.Pupil.Id.Value,
+                    FirstName = amendment.Pupil.ForeName,
+                    LastName = amendment.Pupil.LastName,
+                    DayOfBirth = amendment.Pupil.DateOfBirth.Day,
+                    MonthOfBirth = amendment.Pupil.DateOfBirth.Month,
+                    YearOfBirth = amendment.Pupil.DateOfBirth.Year,
+                    Gender = amendment.Pupil.Gender == Domain.Core.Enums.Gender.Male ? Gender.Male : Gender.Female,
+                    DayOfAdmission = amendment.Pupil.DateOfAdmission.Day,
+                    MonthOfAdmission = amendment.Pupil.DateOfAdmission.Month,
+                    YearOfAdmission = amendment.Pupil.DateOfAdmission.Year,
+                    YearGroup = amendment.Pupil.YearGroup,
+                    PostCode = amendment.Pupil.PostCode
+                },
+                AddPriorAttainmentViewModel = new AddPriorAttainmentViewModel
+                {
+                    ResultFor = amendment.PriorAttainment.ResultFor,
+                    Test = amendment.PriorAttainment.Test,
+                    Level = amendment.PriorAttainment.AttainmentLevel,
+                    AcademicYear = amendment.PriorAttainment.AcademicYear
+                }
             };
         }
 

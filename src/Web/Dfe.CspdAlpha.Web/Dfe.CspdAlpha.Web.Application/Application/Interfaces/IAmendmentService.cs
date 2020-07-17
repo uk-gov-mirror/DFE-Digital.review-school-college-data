@@ -12,7 +12,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Interfaces
     {
         AmendmentsListViewModel GetAmendmentsListViewModel(string urn);
 
-        AddPupilViewModel GetAddPupilAmendmentViewModel(Guid id);
+        AmendmentViewModel GetAddPupilAmendmentViewModel(Guid id);
 
         bool CancelAmendment(string id);
         List<EvidenceFile> UploadEvidence(List<IFormFile> files);

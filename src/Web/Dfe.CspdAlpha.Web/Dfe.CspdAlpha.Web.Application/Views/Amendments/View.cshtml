@@ -1,0 +1,148 @@
+@using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments
+@model AmendmentViewModel
+@{
+    ViewData["Title"] = "Request for pupil addition: " + Model.AddPupilViewModel.FullName;
+}
+
+@section BackLink
+{
+    &nbsp;
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full app-align-right govuk-!-margin-bottom-2">
+        <a class="print-link" href="javascript:window.print()">Print</a>
+    </div>
+</div>
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-l govuk-!-margin-bottom-3">@ViewBag.Title</h1>
+    </div>
+</div>
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-2 govuk-!-margin-bottom-3">Pupil details</h1>
+    </div>
+</div>
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <dl class="govuk-summary-list app-summary-list">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Pupil ID
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Model.AddPupilViewModel.PupilId
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    First name
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Model.AddPupilViewModel.FirstName
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Last name
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Model.AddPupilViewModel.LastName
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Date of birth
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Model.AddPupilViewModel.DateOfBirth.ToString("dd/MM/yyyy")
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Age
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Model.PupilAge
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Gender
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Model.AddPupilViewModel.Gender
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Admission date
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Model.AddPupilViewModel.DateOfAdmission.ToString("dd/MM/yyyy")
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Year group
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Model.AddPupilViewModel.YearGroup
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Post code
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Model.AddPupilViewModel.PostCode
+                </dd>
+            </div>
+        </dl>
+    </div>
+</div>
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-2 govuk-!-margin-bottom-3">Pupil prior attainment results</h1>
+    </div>
+</div>
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <dl class="govuk-summary-list app-summary-list">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Results for
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Model.AddPriorAttainmentViewModel.ResultFor
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Test
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Model.AddPriorAttainmentViewModel.Test
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Academic year
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Model.AddPriorAttainmentViewModel.AcademicYear
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Level
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Model.AddPriorAttainmentViewModel.Level
+                </dd>
+            </div>
+        </dl>
+    </div>
+</div>
+
