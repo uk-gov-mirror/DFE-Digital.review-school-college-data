@@ -70,7 +70,7 @@
                             }
                             else
                             {
-                            <a asp-controller="Pupil" asp-action="UploadEvidence" asp-route-id="@amendment.Id">Upload</a>
+                                <a asp-controller="Pupil" asp-action="UploadEvidence" asp-route-id="@amendment.Id">Upload</a>
                             }
                         </td>
                         <td class="govuk-table__cell" data-label="Cancel amendment">
@@ -84,7 +84,16 @@
                             }
                         </td>
                         <td class="govuk-table__cell" data-label="Ref ID">@amendment.ReferenceId</td>
-                        <td class="govuk-table__cell" data-label="Status">@amendment.Status</td>
+                        <td class="govuk-table__cell" data-label="Status">
+                            @if (amendment.Status != "Cancelled" && amendment.EvidenceStatus == EvidenceStatus.Later)
+                            {
+                                <span>Awaiting evidence</span>
+                            }
+                            else
+                            {
+                                <span>@amendment.Status</span>
+                            }
+                        </td>
                     </tr>
 
                 }
