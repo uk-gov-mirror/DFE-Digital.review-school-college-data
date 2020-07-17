@@ -28,7 +28,6 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         public IActionResult Index(string urn)
         {
             var viewModel = _schoolService.GetPupilListViewModel(urn);
-            viewModel.ConfirmDataBanner = HttpContext.Session.Get<ConfirmDataBanner>("data-confirmed") ?? new ConfirmDataBanner();
             return View(viewModel);
         }
 

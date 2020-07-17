@@ -1,11 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Dfe.CspdAlpha.Web.Application.Models.Common;
 using Dfe.CspdAlpha.Web.Application.Models.School;
-using Dfe.CspdAlpha.Web.Domain.Entities;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments
 {
