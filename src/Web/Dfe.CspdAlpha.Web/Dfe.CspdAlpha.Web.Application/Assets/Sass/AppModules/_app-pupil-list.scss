@@ -4,7 +4,7 @@
     font-size: 16px;
   }
 
-  @include govuk-media-query($until: tablet) {
+  @include govuk-media-query($until: 900px) {
     .govuk-table__head {
       display: none;
     }
@@ -34,6 +34,13 @@
           }
         }
       }
+    }
+  }
+
+  @include govuk-media-query($from: 900px, $until: 1200px) {
+    .govuk-table__header,
+    .govuk-table__cell {
+      font-size: 14px;
     }
   }
 }
