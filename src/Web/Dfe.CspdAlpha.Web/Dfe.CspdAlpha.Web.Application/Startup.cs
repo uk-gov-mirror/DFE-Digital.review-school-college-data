@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
 using Dfe.CspdAlpha.Web.Application.Application.Services;
 using Dfe.CspdAlpha.Web.Application.Config;
@@ -5,6 +6,7 @@ using Dfe.CspdAlpha.Web.Application.Middleware;
 using Dfe.CspdAlpha.Web.Domain.Entities;
 using Dfe.CspdAlpha.Web.Domain.Interfaces;
 using Dfe.CspdAlpha.Web.Domain.Services;
+using Dfe.CspdAlpha.Web.Infrastructure.CosmosDb;
 using Dfe.CspdAlpha.Web.Infrastructure.Crm;
 using Dfe.CspdAlpha.Web.Infrastructure.Interfaces;
 using Dfe.CspdAlpha.Web.Infrastructure.Mock;
@@ -16,6 +18,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.StaticFiles;
+using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -91,15 +94,24 @@ namespace Dfe.CspdAlpha.Web.Application
 
             services.AddApplicationInsightsTelemetry();
 
+            var cosmosDbOptions = Configuration.GetSection("CosmosDb").Get<CosmosDbOptions>();
+            var client = new CosmosClient(cosmosDbOptions.Account, cosmosDbOptions.Key);
+
+
             services.AddSingleton<IReadRepository<Pupil>, PupilRepository>();
             services.AddSingleton<IPupilService, PupilService>();
-            services.AddSingleton<IReadRepository<Establishment>, EstablishmentRepository>();
+            services.AddSingleton<IReadRepository<Establishment>>(IntialiseEstablishmentService(client, cosmosDbOptions.Database, cosmosDbOptions.EstablishmentsCollection).GetAwaiter().GetResult());
             services.AddSingleton<IEstablishmentService, EstablishmentService>();
             services.AddSingleton<DomainInterface.IAmendmentService, CrmAmendmentService>();
             services.AddSingleton<IConfirmationService, CrmConfirmationService>();
             services.AddSingleton<IFileUploadService, FileUploadService>();
             services.AddSingleton<ISchoolService, SchoolService>();
             services.AddSingleton<AppInterface.IAmendmentService, AmendmentService>();
+        }
+
+        private static async Task<IReadRepository<Establishment>> IntialiseEstablishmentService(CosmosClient client, string database, string collection)
+        {
+            return new Infrastructure.CosmosDb.EstablishmentRepository(client, database, collection);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
