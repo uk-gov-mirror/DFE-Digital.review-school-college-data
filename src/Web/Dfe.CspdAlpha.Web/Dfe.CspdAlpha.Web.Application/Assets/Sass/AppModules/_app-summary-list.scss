@@ -12,6 +12,30 @@
       float: none;
     }
   }
+
+  &.app-summary-list--mobile-inline {
+    .govuk-summary-list__key,
+    .govuk-summary-list__value {
+      padding-top: govuk-spacing(1);
+    }
+
+    @include govuk-media-query($until: tablet) {
+      .govuk-summary-list__row {
+        clear: both;
+        border: 0;
+      }
+
+      .govuk-summary-list__key {
+        float: left;
+        width: 40%;
+      }
+
+      .govuk-summary-list__value {
+        float: left;
+        padding-left: govuk-spacing(1);
+      }
+    }
+  }
 }
 
 .govuk-accordion__section-content {

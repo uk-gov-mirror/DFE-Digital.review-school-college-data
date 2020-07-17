@@ -1,32 +1,31 @@
 @using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments
 @model AmendmentViewModel
 @{
-    ViewData["Title"] = "Request for pupil addition: " + Model.AddPupilViewModel.FullName;
+    ViewData["Title"] = "Request for pupil addition:<br/> " + Model.AddPupilViewModel.FullName;
+    ViewBag.ContentClass = "app-detail-page-main";
 }
 
 @section BackLink
 {
-    &nbsp;
+    <a class="govuk-back-link" asp-controller="Amendments" asp-action="Index">Back</a>
 }
 
 <div class="govuk-grid-row">
-    <div class="govuk-grid-column-full app-align-right govuk-!-margin-bottom-2">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l govuk-!-margin-bottom-3">@Html.Raw(ViewBag.Title)</h1>
+    </div>
+</div>
+<div class="govuk-grid-row">
+    <div class="app-grid-column-two-thirds--always">
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-3">Pupil details</h2>
+    </div>
+    <div class="app-grid-column-one-third--always app-align-right">
         <a class="print-link" href="javascript:window.print()">Print</a>
     </div>
 </div>
 <div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
-        <h1 class="govuk-heading-l govuk-!-margin-bottom-3">@ViewBag.Title</h1>
-    </div>
-</div>
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
-        <h1 class="govuk-heading-2 govuk-!-margin-bottom-3">Pupil details</h1>
-    </div>
-</div>
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
-        <dl class="govuk-summary-list app-summary-list">
+    <div class="govuk-grid-column-two-thirds">
+        <dl class="govuk-summary-list app-summary-list app-summary-list--mobile-inline">
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                     Pupil ID
@@ -103,13 +102,13 @@
     </div>
 </div>
 <div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
-        <h1 class="govuk-heading-2 govuk-!-margin-bottom-3">Pupil prior attainment results</h1>
+    <div class="govuk-grid-column-two-thirds govuk-!-padding-top-4">
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-3">Pupil prior attainment results</h2>
     </div>
 </div>
 <div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
-        <dl class="govuk-summary-list app-summary-list">
+    <div class="govuk-grid-column-two-thirds">
+        <dl class="govuk-summary-list app-summary-list app-summary-list--mobile-inline">
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                     Results for
