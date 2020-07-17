@@ -15,15 +15,23 @@ namespace Dfe.CspdAlpha.Admin
         {
             get 
             {
-                var giasRecord = _lookup[i];
+                if (!_lookup.TryGetValue(i, out var giasRecord))
+                {
+                    _log($"can't find GIAS record for {i}");
+
+                    return null;
+                }
+                
                 var urn = giasRecord.urn;
 
                 if (string.IsNullOrEmpty(urn))
                 {
                     _log($"can't find URN for {i}");
+
+                    return null;
                 }
 
-                return _lookup[i]; 
+                return giasRecord; 
             }
         }
 

@@ -40,6 +40,7 @@ namespace Dfe.CspdAlpha.Admin
             }
 
             var giasLookup = new GiasLookup(log, giasCsvFilePath);
+            var skippedPupils = new List<string>();
 
             using (var reader = new StreamReader(pupilsCsvFilePath))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
@@ -54,6 +55,13 @@ namespace Dfe.CspdAlpha.Admin
                     Parallel.ForEach(batch, new ParallelOptions { MaxDegreeOfParallelism = MAX_PARALLELISM }, pupilRow =>
                     {
                         var gias = giasLookup[pupilRow.DFESNumber];
+
+                        if (gias == null)
+                        {
+                            skippedPupils.Add($"{pupilRow.CandidateNumber} ({pupilRow.DFESNumber})");
+
+                            return;
+                        }
                         
                         pupilRow.URN = gias.urn;
                         pupilRow.Surname = $"{pupilRow.CandidateNumber}S";
@@ -76,6 +84,11 @@ namespace Dfe.CspdAlpha.Admin
 
             stopwatch.Stop();
             log($"{nameof(PupilsLoader)} finished in {stopwatch.Elapsed.Minutes}m {stopwatch.Elapsed.Seconds}s");
+
+            if (skippedPupils.Count > 0)
+            {
+                log($"{skippedPupils.Count} skipped pupils (no GIAS establishment record found): {string.Join(", ", skippedPupils)}");
+            }
         }
     }
 }

@@ -28,7 +28,6 @@ namespace Dfe.CspdAlpha.Admin
             log($"{nameof(SchoolsLoader)} started");
 
             ILookup<string, object> performanceLookup;
-            IDictionary<string, dynamic> giasDictionary;
             var decimalConverter = new NumberJsonConverter();
 
             using (var reader = new StreamReader(schoolsPerfCsvFilePath))
