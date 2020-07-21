@@ -13,6 +13,7 @@ namespace Dfe.CspdAlpha.Web.Application.Config
 
         public string Database { get; set; }
         public string EstablishmentsCollection { get; set; }
+        public string PupilsCollection { get; set; }
 
     }
 }

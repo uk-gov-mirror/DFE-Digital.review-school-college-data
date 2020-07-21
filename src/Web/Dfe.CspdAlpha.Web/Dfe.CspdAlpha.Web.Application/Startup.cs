@@ -1,19 +1,16 @@
-using System.Threading.Tasks;
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
 using Dfe.CspdAlpha.Web.Application.Application.Services;
 using Dfe.CspdAlpha.Web.Application.Config;
 using Dfe.CspdAlpha.Web.Application.Middleware;
 using Dfe.CspdAlpha.Web.Domain.Entities;
 using Dfe.CspdAlpha.Web.Domain.Interfaces;
-using Dfe.CspdAlpha.Web.Domain.Services;
 using Dfe.CspdAlpha.Web.Infrastructure.CosmosDb;
 using Dfe.CspdAlpha.Web.Infrastructure.Crm;
 using Dfe.CspdAlpha.Web.Infrastructure.Interfaces;
-using Dfe.CspdAlpha.Web.Infrastructure.Mock;
+using Dfe.CspdAlpha.Web.Infrastructure.CosmosDb.Service;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -27,8 +24,10 @@ using Microsoft.Xrm.Sdk;
 using Sustainsys.Saml2;
 using Sustainsys.Saml2.AspNetCore2;
 using Sustainsys.Saml2.Metadata;
-using DomainInterface = Dfe.CspdAlpha.Web.Domain.Interfaces;
+using System.Threading.Tasks;
+using Dfe.CspdAlpha.Web.Infrastructure.CosmosDb.Repositories;
 using AppInterface = Dfe.CspdAlpha.Web.Application.Application.Interfaces;
+using DomainInterface = Dfe.CspdAlpha.Web.Domain.Interfaces;
 
 namespace Dfe.CspdAlpha.Web.Application
 {
@@ -98,9 +97,9 @@ namespace Dfe.CspdAlpha.Web.Application
             var client = new CosmosClient(cosmosDbOptions.Account, cosmosDbOptions.Key);
 
 
-            services.AddSingleton<IReadRepository<Pupil>, PupilRepository>();
+            services.AddSingleton(IntialisePupilService(client, cosmosDbOptions.Database, cosmosDbOptions.PupilsCollection).GetAwaiter().GetResult());
             services.AddSingleton<IPupilService, PupilService>();
-            services.AddSingleton<IReadRepository<Establishment>>(IntialiseEstablishmentService(client, cosmosDbOptions.Database, cosmosDbOptions.EstablishmentsCollection).GetAwaiter().GetResult());
+            services.AddSingleton(IntialiseEstablishmentService(client, cosmosDbOptions.Database, cosmosDbOptions.EstablishmentsCollection).GetAwaiter().GetResult());
             services.AddSingleton<IEstablishmentService, EstablishmentService>();
             services.AddSingleton<DomainInterface.IAmendmentService, CrmAmendmentService>();
             services.AddSingleton<IConfirmationService, CrmConfirmationService>();
@@ -111,7 +110,11 @@ namespace Dfe.CspdAlpha.Web.Application
 
         private static async Task<IReadRepository<Establishment>> IntialiseEstablishmentService(CosmosClient client, string database, string collection)
         {
-            return new Infrastructure.CosmosDb.EstablishmentRepository(client, database, collection);
+            return new EstablishmentRepository(client, database, collection);
+        }
+        private static async Task<IReadRepository<PupilDTO>> IntialisePupilService(CosmosClient client, string database, string collection)
+        {
+            return new PupilRepository(client, database, collection);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

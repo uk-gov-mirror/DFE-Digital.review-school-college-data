@@ -6,24 +6,26 @@ using Dfe.CspdAlpha.Web.Domain.Core;
 using Dfe.CspdAlpha.Web.Domain.Entities;
 using Dfe.CspdAlpha.Web.Domain.Interfaces;
 
-namespace Dfe.CspdAlpha.Web.Domain.Services
+namespace Dfe.CspdAlpha.Web.Infrastructure.CosmosDb.Service
 {
     public class PupilService : IPupilService
     {
-        private IReadRepository<Pupil> _pupilRepository;
+        private IReadRepository<PupilDTO> _pupilRepository;
 
-        public PupilService(IReadRepository<Pupil> pupilRepository)
+        public PupilService(IReadRepository<PupilDTO> pupilRepository)
         {
             _pupilRepository = pupilRepository;
         }
+
         public Pupil GetById(PupilId id)
         {
-            return _pupilRepository.GetById(id.Value);
+            return _pupilRepository.GetById(id.Value).Pupil;
         }
 
         public List<Pupil> GetByUrn(URN urn)
         {
-            return _pupilRepository.Query().Where(p => p.Urn.Value == urn.Value).ToList();
+            var dtos = _pupilRepository.Query().Where(p => p.URN == urn.Value).ToList();
+            return dtos.Select(p => p.Pupil).ToList();
         }
     }
 }

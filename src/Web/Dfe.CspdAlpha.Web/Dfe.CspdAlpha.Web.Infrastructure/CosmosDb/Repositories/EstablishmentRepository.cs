@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Text;
 using Dfe.CspdAlpha.Web.Domain.Core;
 using Dfe.CspdAlpha.Web.Domain.Entities;
 using Dfe.CspdAlpha.Web.Domain.Interfaces;
-using Dfe.CspdAlpha.Web.Infrastructure.Mock;
 using Microsoft.Azure.Cosmos;
 using Newtonsoft.Json.Linq;
 
-namespace Dfe.CspdAlpha.Web.Infrastructure.CosmosDb
+namespace Dfe.CspdAlpha.Web.Infrastructure.CosmosDb.Repositories
 {
     public class EstablishmentRepository : IReadRepository<Establishment>
     {
