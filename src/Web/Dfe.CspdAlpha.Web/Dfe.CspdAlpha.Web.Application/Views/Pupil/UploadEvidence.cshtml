@@ -3,11 +3,21 @@
 @{
     ViewData["Title"] = "Upload evidence for " + Model.AddPupilViewModel.FullName;
     ViewBag.ContentClass = "app-detail-page-main";
+    string referer = Context.Request.Headers["Referer"].ToString();
 }
 
 @section BackLink
 {
-    <a class="govuk-back-link" asp-controller="Pupil" asp-action="AddEvidence">Back</a>
+
+    @if (referer.IndexOf("AddEvidence") > -1)
+    {
+        <a class="govuk-back-link" asp-controller="Pupil" asp-action="AddEvidence">Back</a>
+    }
+    else
+    {
+        <a class="govuk-back-link" asp-controller="Amendments" asp-action="Index">Back</a>
+    }
+
 }
 
 <div class="govuk-grid-row">
