@@ -29,7 +29,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application
             {
                 var userId = ClaimsHelper.GetUserId(context.HttpContext.User);
                 var viewModel = context.HttpContext.Session.Get<TaskListViewModel>(string.Format(TASK_LIST, userId));
-                if (!viewModel.ReviewChecked)
+                if (viewModel == null || !viewModel.ReviewChecked)
                 {
                     context.Result = new RedirectToActionResult("Index", "TaskList", null);
                 }
