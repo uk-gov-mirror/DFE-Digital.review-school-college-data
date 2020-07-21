@@ -26,8 +26,11 @@ using Sustainsys.Saml2.AspNetCore2;
 using Sustainsys.Saml2.Metadata;
 using System.Threading.Tasks;
 using Dfe.CspdAlpha.Web.Infrastructure.CosmosDb.Repositories;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.TagHelpers;
 using AppInterface = Dfe.CspdAlpha.Web.Application.Application.Interfaces;
 using DomainInterface = Dfe.CspdAlpha.Web.Domain.Interfaces;
+using EnvironmentName = Microsoft.AspNetCore.Hosting.EnvironmentName;
 
 namespace Dfe.CspdAlpha.Web.Application
 {
@@ -54,6 +57,15 @@ namespace Dfe.CspdAlpha.Web.Application
                                  .Build();
                 config.Filters.Add(new AuthorizeFilter(policy));
             });
+
+            // This disables the CSRF token in order to facilitate easier QA for the time being
+            if (_env.IsStaging())
+            {
+                services.AddMvc().AddRazorPagesOptions(o =>
+                {
+                    o.Conventions.ConfigureFilter(new IgnoreAntiforgeryTokenAttribute());
+                }).InitializeTagHelper<FormTagHelper>((helper, context) => helper.Antiforgery = false);
+            }
 
             // configure SAML authentication
             var samlAuthOptions = Configuration.GetSection("SamlAuth").Get<SamlAuthOptions>();
