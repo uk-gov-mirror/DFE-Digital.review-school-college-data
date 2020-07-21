@@ -192,13 +192,16 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
                 EvidenceStatus = amendment.cr3d5_evidenceoption == cr3d5_EvidenceOption.UploadEvidenceNow ? EvidenceStatus.Now : amendment.cr3d5_evidenceoption == cr3d5_EvidenceOption.UploadEvidenceLater ? EvidenceStatus.Later : EvidenceStatus.NotRequired,
                 Pupil = new Pupil
                 {
+                    Id = new PupilId(amendment.cr3d5_pupilid),
+                    Urn = new URN(amendment.cr3d5_urn),
+                    LaEstab = amendment.cr3d5_laestab,
                     ForeName = amendment.cr3d5_forename,
                     LastName = amendment.cr3d5_surname,
                     DateOfBirth = amendment.cr3d5_dob ?? DateTime.MinValue,
-                    DateOfAdmission = amendment.cr3d5_admissiondate ?? DateTime.MinValue,
                     Gender = amendment.cr3d5_gender == cr3d5_Gender.Male ? Gender.Male : Gender.Female,
-                    Id = new PupilId(amendment.cr3d5_pupilid),
-                    Urn = new URN(amendment.cr3d5_urn)
+                    DateOfAdmission = amendment.cr3d5_admissiondate ?? DateTime.MinValue,
+                    YearGroup = amendment.cr3d5_yeargroup,
+                    PostCode = amendment.cr3d5_postcode
                 },
                 PriorAttainment = new PriorAttainment
                 {
