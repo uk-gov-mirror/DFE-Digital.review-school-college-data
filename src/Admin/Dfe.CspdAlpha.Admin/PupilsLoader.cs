@@ -49,6 +49,13 @@ namespace Dfe.CspdAlpha.Admin
                 log($"{pupilsCsvFilePath} loaded");
 
                 var batchNumber = 1;
+                string[] resultsFieldsToRemove = new[] 
+                    { 
+                        "PortlandStudentID", 
+                        "DFESNumber",
+                        "CandidateNumber",
+                        "SchoolCandidateNumber"
+                    };
 
                 foreach (IEnumerable<dynamic> batch in records.Batch(1000))
                 {
@@ -69,7 +76,14 @@ namespace Dfe.CspdAlpha.Admin
 
                         var perf = (IEnumerable<dynamic>)performanceLookup[pupilRow.PortlandStudentID];
 
-                        pupilRow.performance = perf.Select(r => new { r.Code, r.CodeValue });
+                        pupilRow.performance = perf.Select(r =>
+                        {
+                            var dict = (IDictionary<string, object>) r;
+
+                            resultsFieldsToRemove.Select(dict.Remove).ToList();
+
+                            return dict;
+                        });
                         System.Threading.Interlocked.Increment(ref _processedCount);
                     });
 
