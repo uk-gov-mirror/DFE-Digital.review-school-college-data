@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using Dfe.CspdAlpha.Web.Domain.Interfaces;
+using Dfe.CspdAlpha.Web.Infrastructure.CosmosDb.DTOs;
 using Microsoft.Azure.Cosmos;
 
 namespace Dfe.CspdAlpha.Web.Infrastructure.CosmosDb.Repositories

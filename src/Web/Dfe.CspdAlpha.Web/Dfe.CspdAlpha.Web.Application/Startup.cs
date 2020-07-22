@@ -25,6 +25,7 @@ using Sustainsys.Saml2;
 using Sustainsys.Saml2.AspNetCore2;
 using Sustainsys.Saml2.Metadata;
 using System.Threading.Tasks;
+using Dfe.CspdAlpha.Web.Infrastructure.CosmosDb.DTOs;
 using Dfe.CspdAlpha.Web.Infrastructure.CosmosDb.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
@@ -120,7 +121,7 @@ namespace Dfe.CspdAlpha.Web.Application
             services.AddSingleton<AppInterface.IAmendmentService, AmendmentService>();
         }
 
-        private static async Task<IReadRepository<Establishment>> IntialiseEstablishmentService(CosmosClient client, string database, string collection)
+        private static async Task<IReadRepository<EstablishmentsDTO>> IntialiseEstablishmentService(CosmosClient client, string database, string collection)
         {
             return new EstablishmentRepository(client, database, collection);
         }

@@ -11,6 +11,7 @@ namespace Dfe.CspdAlpha.Web.Domain.Entities
         public string Name { get; set; }
         public URN Urn { get; set; }
         public string LaEstab { get; set; }
+        public string SchoolType { get; set; }
         public List<PerformanceMeasure> CohortMeasures { get; set; }
         public List<PerformanceMeasure> PerformanceMeasures { get; set; }
     }

@@ -35,7 +35,9 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                 SchoolDetails = new SchoolDetails
                 {
                     SchoolName = establishmentData.Name,
-                    URN = urn
+                    URN = urn,
+                    LAEstab = establishmentData.LaEstab,
+                    SchoolType = establishmentData.SchoolType
                 },
                 HeadlineMeasures = establishmentData.PerformanceMeasures.Where(p => HEADLINE_MEASURES.Any(h => h == p.Name)).Select(m => new Measure{Name = m.Name, Data = m.Value}).ToList(),
                 AdditionalMeasures = establishmentData.PerformanceMeasures.Where(p => ADDITIONAL_MEASURES.Any(h => h == p.Name)).Select(m => new Measure{Name = m.Name, Data = m.Value}).ToList(),
@@ -79,7 +81,9 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             return new SchoolDetails
             {
                 SchoolName = establishmentData.Name,
-                URN = urn
+                URN = urn,
+                LAEstab = establishmentData.LaEstab,
+                SchoolType = establishmentData.SchoolType
             };
         }
 

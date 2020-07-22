@@ -42,7 +42,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         public IActionResult AddReason(AddReasonViewModel addReasonViewModel)
         {
             if (ModelState.IsValid)
-            {
+            { 
                 var addPupilAmendment = new AddPupilAmendmentViewModel { AddReasonViewModel = addReasonViewModel, URN = ClaimsHelper.GetURN(this.User), LaEstab = ClaimsHelper.GetLAESTAB(this.User), EvidenceFiles = new List<EvidenceFile>()};
                 HttpContext.Session.Set(ADD_PUPIL_AMENDMENT, addPupilAmendment);
                 return RedirectToAction("AddPupil");

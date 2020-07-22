@@ -5,7 +5,7 @@
 //     Changes to this file may cause incorrect behavior and will be lost if
 //     the code is regenerated.
 // </auto-generated>
-// Created via this command line: "C:\Users\arose\AppData\Roaming\MscrmTools\XrmToolBox\Plugins\DLaB.EarlyBoundGenerator\crmsvcutil.exe" /url:"https://cspd-dev.api.crm4.dynamics.com/XRMServices/2011/Organization.svc" /namespace:"Dfe.CspdAlpha.Web.Infrastructure.Crm" /out:"C:\Users\arose\OneDrive - Department for Education\Downloads\EBG\Entities.cs" /servicecontextname:"CrmServiceContext" /codecustomization:"DLaB.CrmSvcUtilExtensions.Entity.CustomizeCodeDomService,DLaB.CrmSvcUtilExtensions" /codegenerationservice:"DLaB.CrmSvcUtilExtensions.Entity.CustomCodeGenerationService,DLaB.CrmSvcUtilExtensions" /codewriterfilter:"DLaB.CrmSvcUtilExtensions.Entity.CodeWriterFilterService,DLaB.CrmSvcUtilExtensions" /namingservice:"DLaB.CrmSvcUtilExtensions.NamingService,DLaB.CrmSvcUtilExtensions" /metadataproviderservice:"DLaB.CrmSvcUtilExtensions.Entity.MetadataProviderService,DLaB.CrmSvcUtilExtensions" /username:"andy.rose@education.gov.uk" /password:"*******************" 
+// Created via this command line: "C:\Users\arose\AppData\Roaming\MscrmTools\XrmToolBox\Plugins\DLaB.EarlyBoundGenerator\crmsvcutil.exe" /url:"https://rscd-dev.api.crm4.dynamics.com/XRMServices/2011/Organization.svc" /namespace:"Dfe.CspdAlpha.Web.Infrastructure.Crm" /out:"C:\Users\arose\OneDrive - Department for Education\Downloads\EBG\Entities.cs" /servicecontextname:"CrmServiceContext" /codecustomization:"DLaB.CrmSvcUtilExtensions.Entity.CustomizeCodeDomService,DLaB.CrmSvcUtilExtensions" /codegenerationservice:"DLaB.CrmSvcUtilExtensions.Entity.CustomCodeGenerationService,DLaB.CrmSvcUtilExtensions" /codewriterfilter:"DLaB.CrmSvcUtilExtensions.Entity.CodeWriterFilterService,DLaB.CrmSvcUtilExtensions" /namingservice:"DLaB.CrmSvcUtilExtensions.NamingService,DLaB.CrmSvcUtilExtensions" /metadataproviderservice:"DLaB.CrmSvcUtilExtensions.Entity.MetadataProviderService,DLaB.CrmSvcUtilExtensions" /username:"andy.rose@education.gov.uk" /password:"****************" 
 //------------------------------------------------------------------------------
 
 [assembly: Microsoft.Xrm.Sdk.Client.ProxyTypesAssemblyAttribute()]
@@ -220,6 +220,26 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanging("cr3d5_Numberofamendments");
 				this.SetAttributeValue("cr3d5_numberofamendments", value);
 				this.OnPropertyChanged("cr3d5_Numberofamendments");
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("cr3d5_schooltype")]
+		public string cr3d5_Schooltype
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("cr3d5_schooltype");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("cr3d5_Schooltype");
+				this.SetAttributeValue("cr3d5_schooltype", value);
+				this.OnPropertyChanged("cr3d5_Schooltype");
 			}
 		}
 
@@ -1228,6 +1248,26 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanging("cr3d5_addreason");
 				this.SetAttributeValue("cr3d5_addreason", value);
 				this.OnPropertyChanged("cr3d5_addreason");
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("cr3d5_addreasontype")]
+		public virtual cr3d5_Pupiltype? cr3d5_addreasontype
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((cr3d5_Pupiltype?)(EntityOptionSetEnum.GetEnum(this, "cr3d5_addreasontype")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("cr3d5_addreasontype");
+				this.SetAttributeValue("cr3d5_addreasontype", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+				this.OnPropertyChanged("cr3d5_addreasontype");
 			}
 		}
 

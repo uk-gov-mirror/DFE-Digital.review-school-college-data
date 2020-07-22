@@ -1,16 +1,14 @@
-﻿using System;
+﻿using Dfe.CspdAlpha.Web.Domain.Interfaces;
+using Dfe.CspdAlpha.Web.Infrastructure.CosmosDb.DTOs;
+using Microsoft.Azure.Cosmos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using Dfe.CspdAlpha.Web.Domain.Core;
-using Dfe.CspdAlpha.Web.Domain.Entities;
-using Dfe.CspdAlpha.Web.Domain.Interfaces;
-using Microsoft.Azure.Cosmos;
-using Newtonsoft.Json.Linq;
 
 namespace Dfe.CspdAlpha.Web.Infrastructure.CosmosDb.Repositories
 {
-    public class EstablishmentRepository : IReadRepository<Establishment>
+    public class EstablishmentRepository : IReadRepository<EstablishmentsDTO>
     {
         private Container _container { get; }
 
@@ -19,36 +17,22 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.CosmosDb.Repositories
             _container = cosmosClient.GetContainer(database, collection);
         }
 
-        public Establishment GetById(string id)
+        public EstablishmentsDTO GetById(string id)
         {
-            var result = _container.ReadItemAsync<dynamic>(id, PartitionKey.None).Result;
-            if (result.StatusCode == HttpStatusCode.OK && result.Resource is JObject)
+            var result = _container.ReadItemAsync<EstablishmentsDTO>(id, PartitionKey.None).Result;
+            if (result.StatusCode == HttpStatusCode.OK)
             {
-                return ConvertToEstablishment(result.Resource as JObject, id);
+                return result.Resource;
             }
-
             return null;
         }
 
-        private Establishment ConvertToEstablishment(JObject establishment, string id)
-        {
-            return new Establishment
-            {
-                Urn = new URN(id),
-                LaEstab = establishment.Value<int>("DFESNumber").ToString(),
-                Name = establishment.Value<string>("SchoolName"),
-                CohortMeasures = new List<PerformanceMeasure>(),
-                PerformanceMeasures = establishment.Value<JArray>("performance").Select(p => new PerformanceMeasure
-                    { Name = p.Value<string>("Code"), Value = p.Value<string>("CodeValue") }).ToList()
-            };
-        }
-
-        public List<Establishment> Get()
+        public List<EstablishmentsDTO> Get()
         {
             throw new NotImplementedException();
         }
 
-        public IQueryable<Establishment> Query()
+        public IQueryable<EstablishmentsDTO> Query()
         {
             throw new NotImplementedException();
         }

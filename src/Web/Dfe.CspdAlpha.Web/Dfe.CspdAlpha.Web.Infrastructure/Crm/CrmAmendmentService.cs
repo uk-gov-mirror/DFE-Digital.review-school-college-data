@@ -7,7 +7,6 @@ using Microsoft.Xrm.Sdk.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Xrm.Sdk.Messages;
 
 namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 {
@@ -21,13 +20,13 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
     {
         private readonly IOrganizationService _organizationService;
         private readonly Guid _firstLineTeamId = Guid.Parse("469cdfc3-1aba-ea11-a812-000d3a4b2a11");
-        private IReadRepository<Establishment> _establshmentsRepository;
+        private IEstablishmentService _establishmentService;
 
         private const string fileUploadRelationshipName = "cr3d5_new_Amendment_Evidence_cr3d5_Fileupload";
 
-        public CrmAmendmentService(IOrganizationService organizationService, IReadRepository<Establishment> establshmentsRepository)
+        public CrmAmendmentService(IOrganizationService organizationService, IEstablishmentService establishmentService)
         {
-            _establshmentsRepository = establshmentsRepository;
+            _establishmentService = establishmentService;
             _organizationService = organizationService;
         }
 
@@ -41,12 +40,13 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
                 return establishmentDto;
             }
 
-            var establishment = _establshmentsRepository.GetById(urn);
+            var establishment = _establishmentService.GetByURN(new URN(urn));// _establshmentsRepository.GetById(urn);
             establishmentDto = new cr3d5_establishment
             {
                 cr3d5_name = establishment.Name,
                 cr3d5_Urn = urn,
                 cr3d5_LAEstab = establishment.LaEstab,
+                cr3d5_Schooltype = establishment.SchoolType,
                 cr3d5_Numberofamendments = 0
             };
             context.AddObject(establishmentDto);

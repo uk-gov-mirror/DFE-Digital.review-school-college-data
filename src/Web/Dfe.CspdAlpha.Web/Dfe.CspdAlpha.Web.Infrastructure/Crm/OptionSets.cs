@@ -5,7 +5,7 @@
 //     Changes to this file may cause incorrect behavior and will be lost if
 //     the code is regenerated.
 // </auto-generated>
-// Created via this command line: "C:\Users\arose\AppData\Roaming\MscrmTools\XrmToolBox\Plugins\DLaB.EarlyBoundGenerator\crmsvcutil.exe" /url:"https://cspd-dev.api.crm4.dynamics.com/XRMServices/2011/Organization.svc" /namespace:"Dfe.CspdAlpha.Web.Infrastructure.Crm" /out:"C:\Users\arose\OneDrive - Department for Education\Downloads\EBG\OptionSets.cs" /codecustomization:"DLaB.CrmSvcUtilExtensions.OptionSet.CustomizeCodeDomService,DLaB.CrmSvcUtilExtensions" /codegenerationservice:"DLaB.CrmSvcUtilExtensions.OptionSet.CustomCodeGenerationService,DLaB.CrmSvcUtilExtensions" /codewriterfilter:"DLaB.CrmSvcUtilExtensions.OptionSet.CodeWriterFilterService,DLaB.CrmSvcUtilExtensions" /namingservice:"DLaB.CrmSvcUtilExtensions.NamingService,DLaB.CrmSvcUtilExtensions" /metadataproviderservice:"DLaB.CrmSvcUtilExtensions.BaseMetadataProviderService,DLaB.CrmSvcUtilExtensions" /username:"andy.rose@education.gov.uk" /password:"*******************" 
+// Created via this command line: "C:\Users\arose\AppData\Roaming\MscrmTools\XrmToolBox\Plugins\DLaB.EarlyBoundGenerator\crmsvcutil.exe" /url:"https://rscd-dev.api.crm4.dynamics.com/XRMServices/2011/Organization.svc" /namespace:"Dfe.CspdAlpha.Web.Infrastructure.Crm" /out:"C:\Users\arose\OneDrive - Department for Education\Downloads\EBG\OptionSets.cs" /codecustomization:"DLaB.CrmSvcUtilExtensions.OptionSet.CustomizeCodeDomService,DLaB.CrmSvcUtilExtensions" /codegenerationservice:"DLaB.CrmSvcUtilExtensions.OptionSet.CustomCodeGenerationService,DLaB.CrmSvcUtilExtensions" /codewriterfilter:"DLaB.CrmSvcUtilExtensions.OptionSet.CodeWriterFilterService,DLaB.CrmSvcUtilExtensions" /namingservice:"DLaB.CrmSvcUtilExtensions.NamingService,DLaB.CrmSvcUtilExtensions" /metadataproviderservice:"DLaB.CrmSvcUtilExtensions.BaseMetadataProviderService,DLaB.CrmSvcUtilExtensions" /username:"andy.rose@education.gov.uk" /password:"****************" 
 //------------------------------------------------------------------------------
 
 namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
@@ -106,6 +106,20 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("Male", 0)]
 		Male = 978790000,
+	}
+
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.45")]
+	public enum cr3d5_Pupiltype
+	{
+
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Existing pupil", 1, "#0000ff")]
+		Existingpupil = 353910001,
+
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("New pupil", 0, "#0000ff")]
+		Newpupil = 353910000,
 	}
 
 	[System.Runtime.Serialization.DataContractAttribute()]

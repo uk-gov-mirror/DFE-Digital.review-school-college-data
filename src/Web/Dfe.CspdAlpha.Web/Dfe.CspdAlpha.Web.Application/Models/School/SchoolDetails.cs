@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,5 +9,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.School
     {
         public string SchoolName { get; set; }
         public string URN { get; set; }
+        public string LAEstab { get; set; }
+        public string SchoolType { get; set; }
     }
 }

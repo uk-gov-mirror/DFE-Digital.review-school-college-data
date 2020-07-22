@@ -5,6 +5,7 @@ using System.Text;
 using Dfe.CspdAlpha.Web.Domain.Core;
 using Dfe.CspdAlpha.Web.Domain.Entities;
 using Dfe.CspdAlpha.Web.Domain.Interfaces;
+using Dfe.CspdAlpha.Web.Infrastructure.CosmosDb.DTOs;
 
 namespace Dfe.CspdAlpha.Web.Infrastructure.CosmosDb.Service
 {
