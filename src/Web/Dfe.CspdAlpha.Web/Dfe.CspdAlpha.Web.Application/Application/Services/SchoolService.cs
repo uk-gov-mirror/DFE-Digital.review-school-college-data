@@ -63,9 +63,24 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             return confirmationRecord != null
                 ? new TaskListViewModel
                 {
+                    SchoolDetails = GetSchoolDetails(urn),
                     ReviewChecked = confirmationRecord.ReviewCompleted, DataConfirmed = confirmationRecord.DataConfirmed
                 }
-                : new TaskListViewModel();
+                : new TaskListViewModel
+                {
+                    SchoolDetails = GetSchoolDetails(urn)
+                };
+        }
+
+        private SchoolDetails GetSchoolDetails(string urn)
+        {
+            var urnValue = new URN(urn);
+            var establishmentData = _establishmentService.GetByURN(urnValue);
+            return new SchoolDetails
+            {
+                SchoolName = establishmentData.Name,
+                URN = urn
+            };
         }
 
         public bool UpdateConfirmation(TaskListViewModel taskListViewModel, string userId, string urn)

@@ -1,9 +1,10 @@
-using System.Diagnostics;
+using Dfe.CspdAlpha.Web.Application.Application.Extensions;
 using Dfe.CspdAlpha.Web.Application.Application.Helpers;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Diagnostics;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
@@ -18,6 +19,8 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
         public IActionResult Index()
         {
+            var urn = ClaimsHelper.GetURN(this.User);
+            HttpContext.Session.Set("URN", urn);
             return View();
         }
 

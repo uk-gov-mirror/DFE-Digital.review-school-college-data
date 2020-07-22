@@ -17,6 +17,19 @@
         <h1 class="govuk-heading-l govuk-!-margin-bottom-3">@ViewBag.Title</h1>
     </div>
 
+    <div class="govuk-grid-column-full">
+        <details class="govuk-details govuk-!-font-size-16" data-module="govuk-details">
+            <summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text">
+                    View school details
+                </span>
+            </summary>
+            <div class="govuk-details__text">
+                <partial name="_SchoolDetails" model="@Model.SchoolDetails" />
+            </div>
+        </details>
+    </div>
+
     <div class="govuk-grid-column-three-quarters">
         <p class="govuk-body">@Model.GetLeadText()</p>
     </div>
@@ -49,7 +62,7 @@
                                 Click to confirm you have reviewed the data
                             </span>
                             <form asp-action="Review" method="post">
-                                <input type="submit" class="govuk-button app-task-list__cta" data-module="govuk-button" value="Review"/>
+                                <input type="submit" class="govuk-button app-task-list__cta" data-module="govuk-button" value="Review" />
                             </form>
                         }
                     </li>
@@ -104,7 +117,7 @@
                         <li class="app-task-list__item app-task-list__item-review">
                             <span class="app-task-list__task-name">Click to confirm data</span>
                             <form asp-action="ConfrimData" method="post">
-                                <input type="submit" class="govuk-button app-task-list__cta" data-module="govuk-button" value="Confirm"/>
+                                <input type="submit" class="govuk-button app-task-list__cta" data-module="govuk-button" value="Confirm" />
                             </form>
                         </li>
                     }

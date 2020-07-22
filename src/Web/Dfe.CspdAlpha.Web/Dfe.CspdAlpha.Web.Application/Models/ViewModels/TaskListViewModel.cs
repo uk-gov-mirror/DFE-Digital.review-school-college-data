@@ -1,10 +1,12 @@
 using Dfe.CspdAlpha.Web.Application.Models.Common;
+using Dfe.CspdAlpha.Web.Application.Models.School;
 
 namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels
 {
     public class TaskListViewModel
     {
         public CheckDataNavigation CheckDataNavigationModel => new CheckDataNavigation(NavigationItem.TaskList);
+        public SchoolDetails SchoolDetails { get; set; }
         public bool ReviewChecked { get; set; }
         public bool DataConfirmed { get; set; }
 
