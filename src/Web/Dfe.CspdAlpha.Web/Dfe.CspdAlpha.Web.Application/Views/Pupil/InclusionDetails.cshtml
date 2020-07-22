@@ -11,7 +11,7 @@
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
-        <h1 class="govuk-heading-l govuk-!-margin-bottom-3">@ViewBag.Title</h1>
+        <h1 class="govuk-heading-l govuk-!-margin-bottom-3">Do you want to add this pupil to the performance tables?</h1>
     </div>
 
     <div class="govuk-grid-column-full">
@@ -35,12 +35,21 @@
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <div class="govuk-form-group">
-                <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
-                    <div class="govuk-checkboxes">
-                        <div class="govuk-checkboxes__item">
-                            <input class="govuk-checkboxes__input" asp-for="InclusionConfirmed" type="checkbox" value="true">
-                            <label class="govuk-label govuk-checkboxes__label" asp-for="InclusionConfirmed">
-                                Add this unlisted pupil to the performance table
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend">
+                        <h2 class="govuk-heading-s">Select one</h2>
+                    </legend>
+                    <div class="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="InclusionConfirmed-true" name="InclusionConfirmed" type="radio" value="true">
+                            <label class="govuk-label govuk-radios__label" for="InclusionConfirmed-true">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="InclusionConfirmed-false" name="InclusionConfirmed" type="radio" value="false">
+                            <label class="govuk-label govuk-radios__label" for="InclusionConfirmed-false">
+                                No
                             </label>
                         </div>
                     </div>
@@ -57,7 +66,7 @@
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
-        <a asp-action="CancelAmendment" class="app-modal__cancel-link">Cancel amendment</a>
+        <a asp-controller="TaskList" asp-action="Index" class="app-modal__cancel-link">Cancel amendment</a>
     </div>
 </div>
 <partial name="_CancelModalContent"/>
