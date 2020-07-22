@@ -6,7 +6,6 @@ import {initAll} from 'govuk-frontend';
 import accordionExtensions from '../AppModules/GovUkComponentExtensions/appAccordionExtensions';
 import AppRibbonNavigation from '../AppModules/Navigation/AppRibbonNavigation';
 import AppCancelDialog from '../AppModules/AppModals/AppCancelDialog';
-import AppPrint from '../AppModules/AppPrint';
 
 initAll();
 accordionExtensions();
@@ -24,7 +23,6 @@ if (document.getElementById('app-ribbon-nav')) {
   });
 }
 
-AppPrint();
 
 $('.app-modal__cancel-link').each(function(n, el) {
   new AppCancelDialog(el, {
