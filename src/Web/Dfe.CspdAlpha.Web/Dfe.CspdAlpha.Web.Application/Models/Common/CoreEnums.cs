@@ -10,7 +10,9 @@ namespace Dfe.CspdAlpha.Web.Application.Models.Common
         Female,
         Male
     }
-    public class CoreEnums
+    public enum AddReason
     {
+        New,
+        Existing
     }
 }

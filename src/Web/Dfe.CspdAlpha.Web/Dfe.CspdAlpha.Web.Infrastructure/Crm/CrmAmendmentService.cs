@@ -66,7 +66,9 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
             {
                 var amendmentDto = new new_Amendment();
                // Reason for adding
-                amendmentDto.cr3d5_addreason = amendment.AddReason;
+               amendmentDto.cr3d5_addreasontype = amendment.AddReason == AddReason.New
+                   ? cr3d5_Pupiltype.Newpupil
+                   : cr3d5_Pupiltype.Existingpupil;
                 // Pupil data
                 // don't need to set status as this will default to "Requested" in backend
                 amendmentDto.new_Name = amendment.Pupil.FullName;
@@ -188,7 +190,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
                 Reference = amendment.cr3d5_addpupilref,
                 Status = amendment.cr3d5_amendmentstatus.ToString(),
                 CreatedDate = amendment.CreatedOn ?? DateTime.MinValue,
-                AddReason = amendment.cr3d5_addreason,
+                AddReason = amendment.cr3d5_addreasontype == cr3d5_Pupiltype.Newpupil ? AddReason.New : AddReason.Existing,
                 EvidenceStatus = amendment.cr3d5_evidenceoption == cr3d5_EvidenceOption.UploadEvidenceNow ? EvidenceStatus.Now : amendment.cr3d5_evidenceoption == cr3d5_EvidenceOption.UploadEvidenceLater ? EvidenceStatus.Later : EvidenceStatus.NotRequired,
                 Pupil = new Pupil
                 {

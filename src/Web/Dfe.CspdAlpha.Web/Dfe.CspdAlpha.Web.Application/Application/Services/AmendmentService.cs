@@ -13,6 +13,7 @@ using Dfe.CspdAlpha.Web.Domain.Entities;
 using Dfe.CspdAlpha.Web.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Xrm.Sdk;
+using AddReason = Dfe.CspdAlpha.Web.Application.Models.Common.AddReason;
 using Gender = Dfe.CspdAlpha.Web.Application.Models.Common.Gender;
 using DomainInterfaces = Dfe.CspdAlpha.Web.Domain.Interfaces;
 
@@ -107,7 +108,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             var selectedEvidenceOption = addPupilAmendment.SelectedEvidenceOption;
             var result = _amendmentService.CreateAddPupilAmendment(new AddPupilAmendment
             {
-                AddReason = addPupilAmendment.AddReasonViewModel.Reason,
+                AddReason = addPupilAmendment.AddReasonViewModel.Reason == AddReason.New ? Domain.Core.Enums.AddReason.New: Domain.Core.Enums.AddReason.Existing,
                 Pupil = new Domain.Entities.Pupil
                 {
                     Urn = new URN(addPupilAmendment.URN),

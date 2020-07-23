@@ -23,7 +23,7 @@
                     <div class="govuk-radios">
                         @foreach (var reason in Model.Reasons)
                         {
-                            var id = "Gender" + reason.Key;
+                            var id = "Reason" + reason.Key;
                             <div class="govuk-radios__item">
                                 <input class="govuk-radios__input" asp-for="Reason" id="@id" type="radio" value="@reason.Key">
                                 <label class="govuk-label govuk-radios__label" for="@id">
