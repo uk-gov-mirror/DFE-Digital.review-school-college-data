@@ -7,11 +7,13 @@ namespace Dfe.CspdAlpha.Web.Application.Models.Common
 {
     public enum Gender
     {
+        Unknown,
         Female,
         Male
     }
     public enum AddReason
     {
+        Unknown,
         New,
         Existing
     }

@@ -58,7 +58,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             {
                 return RedirectToAction("AddReason");
             }
-            return View();
+            return View(addPupilAmendment.AddPupilViewModel ?? new AddPupilViewModel{AddReason = addPupilAmendment.AddReasonViewModel.Reason });
         }
 
         [HttpPost]
