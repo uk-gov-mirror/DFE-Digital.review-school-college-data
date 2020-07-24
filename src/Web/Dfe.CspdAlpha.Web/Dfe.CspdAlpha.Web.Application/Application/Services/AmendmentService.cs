@@ -113,7 +113,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                 {
                     Urn = new URN(addPupilAmendment.URN),
                     LaEstab = addPupilAmendment.LaEstab,
-                    Id = new PupilId(addPupilAmendment.AddPupilViewModel.PupilId),
+                    Id = addPupilAmendment.AddPupilViewModel.PupilId != null ? new PupilId(addPupilAmendment.AddPupilViewModel.PupilId) : null,
                     ForeName = addPupilAmendment.AddPupilViewModel.FirstName,
                     LastName = addPupilAmendment.AddPupilViewModel.LastName,
                     DateOfBirth = addPupilAmendment.AddPupilViewModel.DateOfBirth,

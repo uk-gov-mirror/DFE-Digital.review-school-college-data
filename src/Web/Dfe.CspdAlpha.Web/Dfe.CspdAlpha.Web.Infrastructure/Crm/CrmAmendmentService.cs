@@ -74,7 +74,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
                 amendmentDto.new_Name = amendment.Pupil.FullName;
                 amendmentDto.cr3d5_laestab = amendment.Pupil.LaEstab;
                 amendmentDto.cr3d5_urn = amendment.Pupil.Urn.Value;
-                amendmentDto.cr3d5_pupilid = amendment.Pupil.Id.Value;
+                amendmentDto.cr3d5_pupilid = amendment.Pupil.Id?.Value ?? string.Empty;
                 amendmentDto.cr3d5_forename = amendment.Pupil.ForeName;
                 amendmentDto.cr3d5_surname = amendment.Pupil.LastName;
                 amendmentDto.cr3d5_yeargroup = amendment.Pupil.YearGroup;
