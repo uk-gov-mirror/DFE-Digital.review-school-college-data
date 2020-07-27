@@ -7,6 +7,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
     public class AddPupilViewModel
     {
         public string PupilId { get; set; }
+        public string LAEstab { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int? DayOfBirth { get; set; }

@@ -1,10 +1,13 @@
+@using Dfe.CspdAlpha.Web.Application.Models.Common
 @using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
 @model AddPupilViewModel
 
 @{
     var isNewPupil = @Model.AddReason.ToString() == "New";
 
-    ViewData["Title"] = isNewPupil ? "Add a new pupil (not on any school roll)" : "Add a pupil";
+    ViewData["Title"] = Model.AddReason == AddReason.New ?
+        "Add a new pupil (not on any school roll)" :
+        "Add an existing pupil (previously on roll at another school)";
 }
 
 @section BackLink
@@ -28,8 +31,14 @@
         <div class="govuk-grid-column-two-thirds">
             <div class="govuk-form-group">
                 <input type="hidden" asp-for="AddReason" value="@Model.AddReason" />
-                @if (!isNewPupil)
+                @if (Model.AddReason == AddReason.Existing)
                 {
+                    <div class="govuk-form-group">
+                        <label class="govuk-label" asp-for="LAEstab">
+                            LAEstab of previous school
+                        </label>
+                        <input class="govuk-input govuk-input--width-20" asp-for="LAEstab" type="text">
+                    </div>
                     <div class="govuk-form-group">
                         <label class="govuk-label" asp-for="PupilId">
                             Pupil ID
