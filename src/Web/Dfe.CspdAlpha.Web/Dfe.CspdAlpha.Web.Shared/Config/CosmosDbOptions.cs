@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Dfe.CspdAlpha.Web.Application.Config
+namespace Dfe.CspdAlpha.Web.Shared.Config
 {
     public class CosmosDbOptions
     {
@@ -12,7 +7,9 @@ namespace Dfe.CspdAlpha.Web.Application.Config
         public string Key { get; set; }
 
         public string Database { get; set; }
+
         public string EstablishmentsCollection { get; set; }
+
         public string PupilsCollection { get; set; }
 
     }

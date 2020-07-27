@@ -38,7 +38,17 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                 Urn = urn,
                 AmendmentList = _amendmentService
                     .GetAddPupilAmendments(urnValue.Value)
-                    .Select(a => new Amendment { FirstName = a.Pupil.ForeName, LastName = a.Pupil.LastName, PupilId = a.Pupil.Id.Value, DateRequested = a.CreatedDate, ReferenceId = a.Reference, Id = a.Id, Status = a.Status, EvidenceStatus = a.EvidenceStatus })
+                    .Select(a => new Amendment
+                    {
+                        FirstName = a.Pupil.ForeName,
+                        LastName = a.Pupil.LastName,
+                        PupilId = a.Pupil.Id?.Value,
+                        DateRequested = a.CreatedDate,
+                        ReferenceId = a.Reference,
+                        Id = a.Id,
+                        Status = a.Status,
+                        EvidenceStatus = a.EvidenceStatus
+                    })
                     .OrderByDescending(a => a.DateRequested)
                     .ToList()
             };
@@ -51,7 +61,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             {
                 AddPupilViewModel = new AddPupilViewModel
                 {
-                    PupilId = amendment.Pupil.Id.Value,
+                    PupilId = amendment.Pupil.Id?.Value,
                     FirstName = amendment.Pupil.ForeName,
                     LastName = amendment.Pupil.LastName,
                     DayOfBirth = amendment.Pupil.DateOfBirth.Day,

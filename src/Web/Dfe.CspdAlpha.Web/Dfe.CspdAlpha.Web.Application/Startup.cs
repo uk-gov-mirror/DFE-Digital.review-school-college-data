@@ -1,10 +1,7 @@
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
 using Dfe.CspdAlpha.Web.Application.Application.Services;
-using Dfe.CspdAlpha.Web.Application.Config;
 using Dfe.CspdAlpha.Web.Application.Middleware;
-using Dfe.CspdAlpha.Web.Domain.Entities;
 using Dfe.CspdAlpha.Web.Domain.Interfaces;
-using Dfe.CspdAlpha.Web.Infrastructure.CosmosDb;
 using Dfe.CspdAlpha.Web.Infrastructure.Crm;
 using Dfe.CspdAlpha.Web.Infrastructure.Interfaces;
 using Dfe.CspdAlpha.Web.Infrastructure.CosmosDb.Service;
@@ -32,6 +29,7 @@ using Microsoft.AspNetCore.Mvc.TagHelpers;
 using AppInterface = Dfe.CspdAlpha.Web.Application.Application.Interfaces;
 using DomainInterface = Dfe.CspdAlpha.Web.Domain.Interfaces;
 using EnvironmentName = Microsoft.AspNetCore.Hosting.EnvironmentName;
+using Dfe.CspdAlpha.Web.Shared.Config;
 
 namespace Dfe.CspdAlpha.Web.Application
 {
@@ -97,6 +95,7 @@ namespace Dfe.CspdAlpha.Web.Application
             var cdsClient = new CdsServiceClient(dynamicsConnString);
 
             services.AddTransient<IOrganizationService, CdsServiceClient>(sp => cdsClient.Clone());
+            services.Configure<DynamicsOptions>(Configuration.GetSection("Dynamics"));
 
             services.AddSession(options =>
             {

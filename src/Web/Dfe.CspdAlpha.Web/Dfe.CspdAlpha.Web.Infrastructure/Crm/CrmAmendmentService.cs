@@ -2,6 +2,8 @@
 using Dfe.CspdAlpha.Web.Domain.Core.Enums;
 using Dfe.CspdAlpha.Web.Domain.Entities;
 using Dfe.CspdAlpha.Web.Domain.Interfaces;
+using Dfe.CspdAlpha.Web.Shared.Config;
+using Microsoft.Extensions.Options;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using System;
@@ -19,15 +21,19 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
     public class CrmAmendmentService : IAmendmentService
     {
         private readonly IOrganizationService _organizationService;
-        private readonly Guid _firstLineTeamId = Guid.Parse("469cdfc3-1aba-ea11-a812-000d3a4b2a11");
+        private readonly Guid _firstLineTeamId;
         private IEstablishmentService _establishmentService;
 
         private const string fileUploadRelationshipName = "cr3d5_new_Amendment_Evidence_cr3d5_Fileupload";
 
-        public CrmAmendmentService(IOrganizationService organizationService, IEstablishmentService establishmentService)
+        public CrmAmendmentService(
+            IOrganizationService organizationService, 
+            IEstablishmentService establishmentService,
+            IOptions<DynamicsOptions> config)
         {
             _establishmentService = establishmentService;
             _organizationService = organizationService;
+            _firstLineTeamId = config.Value.Helpdesk1stLineTeamId;
         }
 
         private cr3d5_establishment GetOrCreateEstablishment(string urn, CrmServiceContext context)
@@ -111,7 +117,6 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
                 // assign to helpdesk 1st line
                 amendmentDto.OwnerId = new EntityReference("team", _firstLineTeamId);
 
-                
                 // Save
                 context.AddObject(amendmentDto);
                 var result = context.SaveChanges();
@@ -194,7 +199,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
                 EvidenceStatus = amendment.cr3d5_evidenceoption == cr3d5_EvidenceOption.UploadEvidenceNow ? EvidenceStatus.Now : amendment.cr3d5_evidenceoption == cr3d5_EvidenceOption.UploadEvidenceLater ? EvidenceStatus.Later : EvidenceStatus.NotRequired,
                 Pupil = new Pupil
                 {
-                    Id = new PupilId(amendment.cr3d5_pupilid),
+                    Id = string.IsNullOrWhiteSpace(amendment.cr3d5_pupilid) ? null : new PupilId(amendment.cr3d5_pupilid),
                     Urn = new URN(amendment.cr3d5_urn),
                     LaEstab = amendment.cr3d5_laestab,
                     ForeName = amendment.cr3d5_forename,
