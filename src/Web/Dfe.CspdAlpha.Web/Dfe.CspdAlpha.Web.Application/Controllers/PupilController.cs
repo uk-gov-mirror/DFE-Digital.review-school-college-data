@@ -41,7 +41,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         [HttpPost]
         public IActionResult AddReason(AddReasonViewModel addReasonViewModel)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && addReasonViewModel.Reason != Models.Common.AddReason.Unknown)
             { 
                 var addPupilAmendment = new AddPupilAmendmentViewModel { AddReasonViewModel = addReasonViewModel, URN = ClaimsHelper.GetURN(this.User), LaEstab = ClaimsHelper.GetLAESTAB(this.User), EvidenceFiles = new List<EvidenceFile>()};
                 HttpContext.Session.Set(ADD_PUPIL_AMENDMENT, addPupilAmendment);
