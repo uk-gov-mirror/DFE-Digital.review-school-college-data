@@ -1,4 +1,4 @@
-﻿namespace Dfe.CspdAlpha.Web.Application.Config
+﻿namespace Dfe.CspdAlpha.Web.Shared.Config
 {
     public class BasicAuthOptions
     {
