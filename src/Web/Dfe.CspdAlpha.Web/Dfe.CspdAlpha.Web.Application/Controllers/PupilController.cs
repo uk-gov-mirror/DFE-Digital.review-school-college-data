@@ -43,7 +43,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         {
             if (ModelState.IsValid && addReasonViewModel.Reason != Models.Common.AddReason.Unknown)
             { 
-                var addPupilAmendment = new AddPupilAmendmentViewModel { AddReasonViewModel = addReasonViewModel, URN = ClaimsHelper.GetURN(this.User), LaEstab = ClaimsHelper.GetLAESTAB(this.User), EvidenceFiles = new List<EvidenceFile>()};
+                var addPupilAmendment = new AddPupilAmendmentViewModel { AddReasonViewModel = addReasonViewModel, URN = ClaimsHelper.GetURN(this.User), EvidenceFiles = new List<EvidenceFile>()};
                 HttpContext.Session.Set(ADD_PUPIL_AMENDMENT, addPupilAmendment);
                 return RedirectToAction("AddPupil");
             }
@@ -100,7 +100,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         public IActionResult AddEvidence()
         {
             var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
-            if (addPupilAmendment == null || addPupilAmendment.AddPriorAttainmentViewModel == null)
+            if (addPupilAmendment?.AddPriorAttainmentViewModel == null)
             {
                 return RedirectToAction("AddReason");
             }
@@ -121,7 +121,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                         return RedirectToAction("UploadEvidence");
                     case EvidenceOption.UploadLater:
                     case EvidenceOption.NotRequired:
-                        return RedirectToAction("InclusionDetails");
+                        return RedirectToAction("ConfirmAddPupil");
                     default:
                         return View(addPupilAmendment);
                 }
@@ -158,7 +158,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                     var uploadedEvidenceFiles = _amendmentService.UploadEvidence(evidenceFiles);
                     addPupilAmendment.EvidenceFiles.AddRange(uploadedEvidenceFiles);
                     HttpContext.Session.Set(ADD_PUPIL_AMENDMENT, addPupilAmendment);
-                    return RedirectToAction("InclusionDetails");
+                    return RedirectToAction("ConfirmAddPupil");
                 }
                 return View(new UploadEvidenceViewModel { AddPupilViewModel = addPupilAmendment.AddPupilViewModel });
             }
@@ -172,6 +172,62 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 }
                 var addPupilAmendment = _amendmentService.GetAddPupilAmendmentViewModel(new Guid(id));
                 return View(new UploadEvidenceViewModel { AddPupilViewModel = addPupilAmendment.AddPupilViewModel, Id = id });
+            }
+        }
+
+        public IActionResult ConfirmAddPupil()
+        {
+            var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
+            if (addPupilAmendment == null || addPupilAmendment.SelectedEvidenceOption == EvidenceOption.Unknown)
+            {
+                return RedirectToAction("AddReason");
+            }
+            return View(new ConfirmAddPupilViewModel{ AddPupilViewModel = addPupilAmendment.AddPupilViewModel, AddReasonViewModel = addPupilAmendment.AddReasonViewModel});
+        }
+
+        [HttpPost]
+        public IActionResult ConfirmAddPupil(ConfirmAddPupilViewModel confirmAddPupilViewModel)
+        {
+            // Ensure steps hasn't been manually skipped
+            var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
+            if (addPupilAmendment == null || addPupilAmendment.SelectedEvidenceOption == EvidenceOption.Unknown)
+            {
+                return RedirectToAction("AddReason");
+            }
+            // Cancel amendment
+            if (!confirmAddPupilViewModel.ConfirmAddPupil)
+            {
+                // Cancel amendment
+                HttpContext.Session.Remove(ADD_PUPIL_AMENDMENT);
+                return RedirectToAction("Index", "TaskList");
+            }
+
+            // Confirmation of existing pupil add amendment
+            if (confirmAddPupilViewModel.ConfirmAddPupil && addPupilAmendment.AddReasonViewModel.Reason == Models.Common.AddReason.Existing)
+            {
+                return RedirectToAction("InclusionDetails");
+            }
+
+            // Confirmation of new pupil add amendment
+            if (confirmAddPupilViewModel.ConfirmAddPupil &&
+                addPupilAmendment.AddReasonViewModel.Reason == Models.Common.AddReason.New &&
+                string.IsNullOrEmpty(confirmAddPupilViewModel.SelectedPupilId))
+            {
+                var matchesPupils = _schoolService.GetMatchedPupils(addPupilAmendment.AddPupilViewModel);
+                if (matchesPupils.Count == 0)
+                {
+                    return RedirectToAction("InclusionDetails");
+                }
+                else
+                {
+                    return View(new ConfirmAddPupilViewModel { AddPupilViewModel = addPupilAmendment.AddPupilViewModel, AddReasonViewModel = addPupilAmendment.AddReasonViewModel, MatchedPupils = matchesPupils});
+                }
+            }
+            else
+            {
+                addPupilAmendment.ExistingMatchedPupil = confirmAddPupilViewModel.SelectedPupilId != "0";
+                HttpContext.Session.Set(ADD_PUPIL_AMENDMENT, addPupilAmendment);
+                return RedirectToAction("InclusionDetails");
             }
         }
 

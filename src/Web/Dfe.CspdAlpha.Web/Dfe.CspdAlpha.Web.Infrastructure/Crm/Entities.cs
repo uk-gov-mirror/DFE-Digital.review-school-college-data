@@ -706,26 +706,6 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 		}
 
 		/// <summary>
-		/// 
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("cr3d5_evidencefileset")]
-		public Microsoft.Xrm.Sdk.EntityReference cr3d5_EvidenceFileSet
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("cr3d5_evidencefileset");
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.OnPropertyChanging("cr3d5_EvidenceFileSet");
-				this.SetAttributeValue("cr3d5_evidencefileset", value);
-				this.OnPropertyChanged("cr3d5_EvidenceFileSet");
-			}
-		}
-
-		/// <summary>
 		/// Required name field
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("cr3d5_filename")]
@@ -1962,6 +1942,26 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 			get
 			{
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("owninguser");
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_existingpupilfound")]
+		public virtual Field_Security_Permission_Type? rscd_ExistingPupilFound
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((Field_Security_Permission_Type?)(EntityOptionSetEnum.GetEnum(this, "rscd_existingpupilfound")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("rscd_ExistingPupilFound");
+				this.SetAttributeValue("rscd_existingpupilfound", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+				this.OnPropertyChanged("rscd_ExistingPupilFound");
 			}
 		}
 

@@ -59,6 +59,14 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             };
         }
 
+        public List<Pupil> GetMatchedPupils(AddPupilViewModel addPupil)
+        {
+            var matchedPupils =_pupilService
+                .FindMatchedPupils(new Domain.Entities.Pupil
+                    {ForeName = addPupil.FirstName, LastName = addPupil.LastName, DateOfBirth = addPupil.DateOfBirth}).ToList();
+            return    matchedPupils.Select(p => new Pupil {FirstName = p.ForeName, LastName = p.LastName, PupilId = p.Id.Value}).ToList();
+        }
+
         public TaskListViewModel GetConfirmationRecord(string userId, string urn)
         {
             var confirmationRecord = _confirmationService.GetConfirmationRecord(userId, urn);

@@ -11,5 +11,7 @@ namespace Dfe.CspdAlpha.Web.Domain.Interfaces
         Pupil GetById(PupilId id);
 
         List<Pupil> GetByUrn(URN urn);
+
+        List<Pupil> FindMatchedPupils(Pupil pupil);
     }
 }

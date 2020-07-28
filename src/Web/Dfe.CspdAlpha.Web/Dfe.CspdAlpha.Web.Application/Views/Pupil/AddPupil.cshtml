@@ -3,8 +3,6 @@
 @model AddPupilViewModel
 
 @{
-    var isNewPupil = @Model.AddReason.ToString() == "New";
-
     ViewData["Title"] = Model.AddReason == AddReason.New ?
         "Add a new pupil (not on any school roll)" :
         "Add an existing pupil (previously on roll at another school)";

@@ -124,6 +124,20 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.45")]
+	public enum Field_Security_Permission_Type
+	{
+
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Allowed", 1)]
+		Allowed = 4,
+
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Not Allowed", 0)]
+		NotAllowed = 0,
+	}
+
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.45")]
 	public enum new_Amendment_StatusCode
 	{
 

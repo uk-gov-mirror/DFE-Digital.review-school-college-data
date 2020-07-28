@@ -14,8 +14,8 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
     public class AddPupilAmendmentViewModel
     {
         public string URN { get; set; }
-        public string LaEstab { get; set; }
         public AddReasonViewModel AddReasonViewModel { get; set; }
+        public bool ExistingMatchedPupil { get; set; }
         public AddPupilViewModel AddPupilViewModel { get; set; }
         public AddPriorAttainmentViewModel AddPriorAttainmentViewModel { get; set; }
         public EvidenceOption SelectedEvidenceOption { get; set; }

@@ -75,20 +75,26 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
                amendmentDto.cr3d5_addreasontype = amendment.AddReason == AddReason.New
                    ? cr3d5_Pupiltype.Newpupil
                    : cr3d5_Pupiltype.Existingpupil;
+               if (amendment.AddReason == AddReason.New)
+               {
+                   amendmentDto.rscd_ExistingPupilFound = amendment.ExistingPupilFound
+                       ? Field_Security_Permission_Type.Allowed
+                       : Field_Security_Permission_Type.NotAllowed;
+               }
                 // Pupil data
                 // don't need to set status as this will default to "Requested" in backend
-                amendmentDto.new_Name = amendment.Pupil.FullName;
-                amendmentDto.cr3d5_laestab = amendment.Pupil.LaEstab;
+                amendmentDto.cr3d5_pupilid = amendment.AddReason == AddReason.Existing ? amendment.Pupil.Id.Value : string.Empty;
+                amendmentDto.cr3d5_laestab = amendment.AddReason == AddReason.Existing ? amendment.Pupil.LaEstab : string.Empty;
                 amendmentDto.cr3d5_urn = amendment.Pupil.Urn.Value;
-                amendmentDto.cr3d5_pupilid = amendment.Pupil.Id?.Value ?? string.Empty;
+                amendmentDto.new_Name = amendment.Pupil.FullName;
                 amendmentDto.cr3d5_forename = amendment.Pupil.ForeName;
                 amendmentDto.cr3d5_surname = amendment.Pupil.LastName;
-                amendmentDto.cr3d5_yeargroup = amendment.Pupil.YearGroup;
-                amendmentDto.cr3d5_postcode = amendment.Pupil.PostCode;
                 amendmentDto.cr3d5_gender =
                     amendment.Pupil.Gender == Gender.Male ? cr3d5_Gender.Male : cr3d5_Gender.Female;
                 amendmentDto.cr3d5_dob = amendment.Pupil.DateOfBirth;
                 amendmentDto.cr3d5_admissiondate = amendment.Pupil.DateOfAdmission;
+                amendmentDto.cr3d5_yeargroup = amendment.Pupil.YearGroup;
+                amendmentDto.cr3d5_postcode = amendment.Pupil.PostCode;
 
                 // prior attainment result
                 amendmentDto.cr3d5_priorattainmentresultfor = amendment.PriorAttainment.ResultFor;

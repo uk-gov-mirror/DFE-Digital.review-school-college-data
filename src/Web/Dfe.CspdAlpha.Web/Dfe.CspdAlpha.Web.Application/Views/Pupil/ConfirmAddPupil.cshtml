@@ -1,0 +1,91 @@
+@using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
+@model ConfirmAddPupilViewModel
+@{
+    ViewData["Title"] = Model.PageTitle();
+}
+
+@section BackLink
+{
+    <a class="govuk-back-link" asp-controller="Pupil" asp-action="AddEvidence">Back</a>
+}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-l govuk-!-margin-bottom-3">@ViewData["Title"]</h1>
+    </div>
+
+    <div class="govuk-grid-column-full">
+        <details class="govuk-details govuk-!-font-size-16" data-module="govuk-details">
+            <summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text">
+                    View pupil details
+                </span>
+            </summary>
+            <div class="govuk-details__text">
+                <partial name="_PupilDetails" model="@Model.AddPupilViewModel" />
+            </div>
+        </details>
+    </div>
+
+    <div class="govuk-grid-column-full">
+        <p class="govuk-body">Lorem ipsum...</p>
+    </div>
+</div>
+
+<form method="post">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-form-group">
+                @if (Model.MatchedPupils != null)
+                {
+                    var defaultLabel = Model.MatchedPupils.Count > 1 ? "Not the one above, continue with the added pupil" : "None of the above, continue with the added pupil";
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend">
+                            <h2 class="govuk-heading-s">Select an existing pupil</h2>
+                        </legend>
+                        <div class="govuk-radios">
+                            @foreach (var pupil in Model.MatchedPupils)
+                            {
+                                var id = "SelectedPupilId" + pupil.PupilId;
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="@id" name="SelectedPupilId" type="radio" value="@pupil.PupilId">
+                                    <label class="govuk-label govuk-radios__label" for="@id">
+                                        @if (string.IsNullOrWhiteSpace(pupil.PupilId))
+                                        {
+                                            <text>@pupil.Fullname</text>
+                                        }
+                                        else
+                                        {
+                                            <text>@pupil.Fullname (Pupil Id: @pupil.PupilId)</text>
+                                        }
+                                    </label>
+                                </div>
+                            }
+                            <legend class="govuk-fieldset__legend">
+                                <h2 class="govuk-heading-s">Select the new pupil</h2>
+                            </legend>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="SelectedPupilId-false" name="SelectedPupilId" type="radio" value="0">
+                                <label class="govuk-label govuk-radios__label" for="SelectedPupilId-false">
+                                    @defaultLabel
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                }
+                <fieldset class="govuk-fieldset">
+                    <p class="govuk-body">Do you want to continue?</p>
+                    <div>
+                        <button name="ConfirmAddPupil" value="true" class="govuk-button govuk-!-margin-right-1" data-module="govuk-button">
+                            @(Model.MatchedPupils == null ? "Yes" : "Continue")
+                        </button>
+                        <button name="ConfirmAddPupil" value="false" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+                            @(Model.MatchedPupils == null ? "No" : "Cancel")
+                        </button>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</form>
+

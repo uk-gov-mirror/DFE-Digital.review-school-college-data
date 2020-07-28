@@ -1,4 +1,6 @@
-﻿using Dfe.CspdAlpha.Web.Domain.Core;
+﻿using System;
+using System.Globalization;
+using Dfe.CspdAlpha.Web.Domain.Core;
 using Dfe.CspdAlpha.Web.Domain.Entities;
 
 namespace Dfe.CspdAlpha.Web.Infrastructure.CosmosDb.DTOs
@@ -10,7 +12,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.CosmosDb.DTOs
         public string DFESNumber { get; set; }
         public string Forename { get; set; }
         public string Surname { get; set; }
-        //public DateTime DOB { get; set; }
+        public int DOB { get; set; }
         public int Age { get; set; }
         public string Gender { get; set; }
         //public DateTime ENTRYDAT { get; set; }
@@ -26,7 +28,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.CosmosDb.DTOs
             LaEstab = DFESNumber,
             ForeName = Forename,
             LastName = Surname,
-            //DateOfBirth = DOB,
+            DateOfBirth = DateTime.ParseExact(DOB.ToString(), "yyyyMMdd", new CultureInfo("en-GB")),
             Age = Age,
             Gender = Gender == "M" ? Domain.Core.Enums.Gender.Male : Domain.Core.Enums.Gender.Female,
             //DateOfAdmission = ENTRYDAT,

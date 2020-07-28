@@ -119,11 +119,12 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             var result = _amendmentService.CreateAddPupilAmendment(new AddPupilAmendment
             {
                 AddReason = addPupilAmendment.AddReasonViewModel.Reason == AddReason.New ? Domain.Core.Enums.AddReason.New: Domain.Core.Enums.AddReason.Existing,
+                ExistingPupilFound = addPupilAmendment.ExistingMatchedPupil,
                 Pupil = new Domain.Entities.Pupil
                 {
                     Urn = new URN(addPupilAmendment.URN),
-                    LaEstab = addPupilAmendment.LaEstab,
-                    Id = addPupilAmendment.AddPupilViewModel.PupilId != null ? new PupilId(addPupilAmendment.AddPupilViewModel.PupilId) : null,
+                    LaEstab = addPupilAmendment.AddReasonViewModel.Reason == AddReason.Existing ? addPupilAmendment.AddPupilViewModel.LAEstab : null,
+                    Id = addPupilAmendment.AddReasonViewModel.Reason == AddReason.Existing ? new PupilId(addPupilAmendment.AddPupilViewModel.PupilId) : null,
                     ForeName = addPupilAmendment.AddPupilViewModel.FirstName,
                     LastName = addPupilAmendment.AddPupilViewModel.LastName,
                     DateOfBirth = addPupilAmendment.AddPupilViewModel.DateOfBirth,
