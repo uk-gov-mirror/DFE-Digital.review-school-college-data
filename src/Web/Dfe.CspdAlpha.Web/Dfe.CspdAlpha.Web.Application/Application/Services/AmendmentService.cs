@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
 using Dfe.CspdAlpha.Web.Application.Models.Common;
 using Dfe.CspdAlpha.Web.Application.Models.School;
@@ -12,7 +11,6 @@ using Dfe.CspdAlpha.Web.Domain.Core.Enums;
 using Dfe.CspdAlpha.Web.Domain.Entities;
 using Dfe.CspdAlpha.Web.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Xrm.Sdk;
 using AddReason = Dfe.CspdAlpha.Web.Application.Models.Common.AddReason;
 using Gender = Dfe.CspdAlpha.Web.Application.Models.Common.Gender;
 using DomainInterfaces = Dfe.CspdAlpha.Web.Domain.Interfaces;
