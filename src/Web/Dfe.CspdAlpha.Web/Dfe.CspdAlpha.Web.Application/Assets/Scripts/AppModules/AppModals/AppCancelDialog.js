@@ -18,7 +18,13 @@ class AppCancelDialog extends AppModal{
     $('.app-modal__button-positive').on('click', (e)=>{
       e.preventDefault();
       $('#app-modal-close').click();
-      window.location = this.el.getAttribute('href');
+      if (this.el.tagName.toLowerCase() === 'a') {
+        window.location = this.el.getAttribute('href');
+      } else {
+        $(this.el).off('click');
+        $(this.el).click();
+      }
+
     });
 
     $('.app-modal__button-negative').on('click',(e)=> {

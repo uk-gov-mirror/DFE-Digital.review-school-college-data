@@ -79,7 +79,7 @@
                         <button name="ConfirmAddPupil" value="true" class="govuk-button govuk-!-margin-right-1" data-module="govuk-button">
                             @(Model.MatchedPupils == null ? "Yes" : "Continue")
                         </button>
-                        <button name="ConfirmAddPupil" value="false" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+                        <button name="ConfirmAddPupil" value="false" class="govuk-button govuk-button--secondary app-modal__cancel-link" data-module="govuk-button">
                             @(Model.MatchedPupils == null ? "No" : "Cancel")
                         </button>
                     </div>
@@ -88,4 +88,4 @@
         </div>
     </div>
 </form>
-
+<partial name="_CancelModalContent"/>
