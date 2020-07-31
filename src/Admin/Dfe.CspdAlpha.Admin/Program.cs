@@ -4,21 +4,19 @@ namespace Dfe.CspdAlpha.Admin
 {
     class Program
     {
-        
-
         static void Main(string[] args)
         {
 
             if (args.Length == 0)
             {
-                Console.WriteLine("ERROR: No arguments specified. Please specify at least Loader type to run");
+                Console.WriteLine("ERROR: No arguments specified. Please specify at least task type to run");
 
                 return;
             }
 
-            var loader = args[0];
+            var task = args[0];
 
-            switch (loader)
+            switch (task)
             {
                 case nameof(SchoolsLoader):
 
@@ -44,9 +42,21 @@ namespace Dfe.CspdAlpha.Admin
                     PupilsLoader.Load(Console.WriteLine, args[1], args[2], args[3]);
                     break;
 
+                case nameof(AmendmentExport):
+
+                    if (args.Length != 2)
+                    {
+                        Console.WriteLine("ERROR: Please specify: [cdsConnectionString] ");
+
+                        return;
+                    }
+
+                    AmendmentExport.Export(Console.WriteLine, args[1]);
+                    break;
+
                 default:
 
-                    Console.WriteLine($"ERROR: Specified Loader '{loader}' is not valid");
+                    Console.WriteLine($"ERROR: Specified task '{task}' is not valid");
 
                     break;
             }
