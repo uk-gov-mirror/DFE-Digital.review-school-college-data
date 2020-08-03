@@ -103,7 +103,7 @@ namespace Dfe.CspdAlpha.Web.Application
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
             services.AddSession(options =>
-            {
+            { 
                 options.Cookie.IsEssential = true;
             });
             

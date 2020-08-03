@@ -37,12 +37,21 @@
             <div class="govuk-form-group">
                 @if (Model.MatchedPupils != null)
                 {
-                    var defaultLabel = Model.MatchedPupils.Count > 1 ? "Not the one above, continue with the added pupil" : "None of the above, continue with the added pupil";
+                    var defaultLabel = Model.MatchedPupils.Count == 1 ? "or select the existing pupil found" : "or select from one of the existing pupils found";
                     <fieldset class="govuk-fieldset">
-                        <legend class="govuk-fieldset__legend">
-                            <h2 class="govuk-heading-s">Select an existing pupil</h2>
-                        </legend>
                         <div class="govuk-radios">
+                            <legend class="govuk-fieldset__legend">
+                                <h2 class="govuk-heading-s">Continue to add this new pupil</h2>
+                            </legend>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="SelectedPupilId-false" name="SelectedPupilId" type="radio" value="0">
+                                <label class="govuk-label govuk-radios__label" for="SelectedPupilId-false">
+                                    @Model.AddPupilViewModel.FullName
+                                </label>
+                            </div>
+                            <legend class="govuk-fieldset__legend">
+                                <h2 class="govuk-heading-s">@defaultLabel</h2>
+                            </legend>
                             @foreach (var pupil in Model.MatchedPupils)
                             {
                                 var id = "SelectedPupilId" + pupil.PupilId;
@@ -60,21 +69,13 @@
                                     </label>
                                 </div>
                             }
-                            <legend class="govuk-fieldset__legend">
-                                <h2 class="govuk-heading-s">Select the new pupil</h2>
-                            </legend>
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="SelectedPupilId-false" name="SelectedPupilId" type="radio" value="0">
-                                <label class="govuk-label govuk-radios__label" for="SelectedPupilId-false">
-                                    @defaultLabel
-                                </label>
-                            </div>
                         </div>
                     </fieldset>
-
                 }
                 <fieldset class="govuk-fieldset">
-                    <p class="govuk-body">Do you want to continue?</p>
+                    <div>
+                        <p class="govuk-body">@Html.Raw(Model.MatchedPupils == null ?  "Do you want to continue?" : "&nbsp;")</p>
+                    </div>
                     <div>
                         <button name="ConfirmAddPupil" value="true" class="govuk-button govuk-!-margin-right-1" data-module="govuk-button">
                             @(Model.MatchedPupils == null ? "Yes" : "Continue")
