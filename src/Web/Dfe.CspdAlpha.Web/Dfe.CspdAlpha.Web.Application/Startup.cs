@@ -97,11 +97,16 @@ namespace Dfe.CspdAlpha.Web.Application
             services.AddTransient<IOrganizationService, CdsServiceClient>(sp => cdsClient.Clone());
             services.Configure<DynamicsOptions>(Configuration.GetSection("Dynamics"));
 
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
             services.AddSession(options =>
             {
                 options.Cookie.IsEssential = true;
-                options.Cookie.SameSite = SameSiteMode.None;
             });
+            
 
             services.AddApplicationInsightsTelemetry();
 
