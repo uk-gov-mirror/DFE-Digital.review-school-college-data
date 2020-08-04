@@ -3,14 +3,12 @@ using Microsoft.PowerPlatform.Cds.Client;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Query;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Dynamic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Xml;
 
@@ -24,15 +22,9 @@ namespace Dfe.CspdAlpha.Admin
         {
             var dynamicsConnString = cdsConnectionString;
             var cdsClient = new CdsServiceClient(dynamicsConnString);
-
-            // Set the number of records per page to retrieve.
-            int fetchCount = 50;
-
-            // Initialize the page number.
-            int pageNumber = 1;
-
-            // Initialize the number of records.
-            int recordCount = 0;
+            var fetchCount = 50;
+            var pageNumber = 1;
+            var recordCount = 0;
 
             // Specify the current paging cookie. For retrieving the first page, 
             // pagingCookie should be null.
@@ -63,26 +55,8 @@ namespace Dfe.CspdAlpha.Admin
                 "cr3d5_postcode"
             };
 
-            // TODO: Build fetchXml from list of requested attributes.
             string fetchXml = @"<fetch version='1.0'>
                                   <entity name='new_amendment'>
-                                    <attribute name='cr3d5_priorattainmentresultfor' />
-                                    <attribute name='cr3d5_dob' />
-                                    <attribute name='new_amendmentid' />
-                                    <attribute name='cr3d5_forename' />
-                                    <attribute name='cr3d5_includeinperformanceresults' />
-                                    <attribute name='cr3d5_priorattainmentacademicyear' />
-                                    <attribute name='cr3d5_priorattainmentlevel' />
-                                    <attribute name='cr3d5_pupilid' />
-                                    <attribute name='cr3d5_laestab' />
-                                    <attribute name='cr3d5_surname' />
-                                    <attribute name='cr3d5_priorattainmenttest' />
-                                    <attribute name='cr3d5_admissiondate' />
-                                    <attribute name='cr3d5_yeargroup' />
-                                    <attribute name='cr3d5_gender' />
-                                    <attribute name='cr3d5_urn' />
-                                    <attribute name='cr3d5_addpupilref' />
-                                    <attribute name='cr3d5_postcode' />
                                     <filter>
                                         <condition attribute='cr3d5_finaldecision' operator= 'eq' value='353910000' />
                                     </filter>
@@ -95,15 +69,17 @@ namespace Dfe.CspdAlpha.Admin
             log($"{nameof(AmendmentExport)} started");
 
             Directory.CreateDirectory("output");
-            var start = true;
+
+            // Build fetchXml XmlDoc with specified attributes.
+            var xmlDoc = CreateXmlDoc(fetchXml, attributes);
 
             using (var writer = File.CreateText("output/amendments.csv"))
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
             {
                 while (true)
                 {
-                    // Build fetchXml string with the placeholders.
-                    string xml = CreateXml(fetchXml, pagingCookie, pageNumber, fetchCount);
+                    // update fetchXml with new paging values
+                    var xml = CreateXml(xmlDoc, pagingCookie, pageNumber, fetchCount);
 
                     // Execute the fetch query and get the xml result.
                     RetrieveMultipleRequest fetchRequest1 = new RetrieveMultipleRequest
@@ -166,16 +142,25 @@ namespace Dfe.CspdAlpha.Admin
             log($"{recordCount} amendments exported");
         }
 
-        private static string CreateXml(string xml, string cookie, int page, int count)
+        private static XmlDocument CreateXmlDoc(string xml, string[] attributes)
         {
             StringReader stringReader = new StringReader(xml);
             var reader = new XmlTextReader(stringReader);
 
-            // Load document
             XmlDocument doc = new XmlDocument();
             doc.Load(reader);
 
-            return CreateXml(doc, cookie, page, count);
+            var entityNode = doc.DocumentElement.SelectSingleNode("/fetch/entity");
+
+            foreach (var attribute in attributes)
+            {
+                var attNode = doc.CreateElement("attribute");
+
+                attNode.SetAttribute("name", attribute);
+                entityNode.AppendChild(attNode);
+            }
+
+            return doc;
         }
 
         private static string CreateXml(XmlDocument doc, string cookie, int page, int count)
