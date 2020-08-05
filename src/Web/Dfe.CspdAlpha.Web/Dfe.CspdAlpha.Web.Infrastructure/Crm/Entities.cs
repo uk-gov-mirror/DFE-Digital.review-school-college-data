@@ -1948,6 +1948,26 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 		/// <summary>
 		/// 
 		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_amendmenttype")]
+		public virtual new_Amendment_rscd_Amendmenttype? rscd_Amendmenttype
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((new_Amendment_rscd_Amendmenttype?)(EntityOptionSetEnum.GetEnum(this, "rscd_amendmenttype")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("rscd_Amendmenttype");
+				this.SetAttributeValue("rscd_amendmenttype", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+				this.OnPropertyChanged("rscd_Amendmenttype");
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_existingpupilfound")]
 		public virtual Field_Security_Permission_Type? rscd_ExistingPupilFound
 		{
@@ -1962,6 +1982,26 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanging("rscd_ExistingPupilFound");
 				this.SetAttributeValue("rscd_existingpupilfound", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
 				this.OnPropertyChanged("rscd_ExistingPupilFound");
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_existingpupilid")]
+		public string rscd_ExistingpupilID
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("rscd_existingpupilid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("rscd_ExistingpupilID");
+				this.SetAttributeValue("rscd_existingpupilid", value);
+				this.OnPropertyChanged("rscd_ExistingpupilID");
 			}
 		}
 

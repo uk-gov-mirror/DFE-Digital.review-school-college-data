@@ -70,16 +70,18 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
             Guid amendmentId;
             using (var context = new CrmServiceContext(_organizationService))
             {
-                var amendmentDto = new new_Amendment();
-               // Reason for adding
+                var amendmentDto = new new_Amendment
+                {
+                    rscd_Amendmenttype = new_Amendment_rscd_Amendmenttype.Addpupil
+                };
+
+                // Reason for adding
                amendmentDto.cr3d5_addreasontype = amendment.AddReason == AddReason.New
                    ? cr3d5_Pupiltype.Newpupil
                    : cr3d5_Pupiltype.Existingpupil;
-               if (amendment.AddReason == AddReason.New)
+               if (amendment.AddReason == AddReason.New && !string.IsNullOrEmpty(amendment.ExistingPupilIDFound))
                {
-                   amendmentDto.rscd_ExistingPupilFound = amendment.ExistingPupilFound
-                       ? Field_Security_Permission_Type.Allowed
-                       : Field_Security_Permission_Type.NotAllowed;
+                   amendmentDto.rscd_ExistingpupilID = amendment.ExistingPupilIDFound;
                }
                 // Pupil data
                 // don't need to set status as this will default to "Requested" in backend

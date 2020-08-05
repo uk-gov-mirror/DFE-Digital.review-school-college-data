@@ -138,6 +138,20 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.45")]
+	public enum new_Amendment_rscd_Amendmenttype
+	{
+
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Add pupil", 0, "#0000ff")]
+		Addpupil = 501940000,
+
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Remove pupil", 1, "#0000ff")]
+		Removepupil = 501940001,
+	}
+
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.45")]
 	public enum new_Amendment_StatusCode
 	{
 

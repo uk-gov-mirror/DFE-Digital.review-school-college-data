@@ -216,7 +216,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             // Confirmation of new pupil add amendment with selection made
             if (addPupilAmendment.AddReasonViewModel.Reason == Models.Common.AddReason.New)
             {
-                addPupilAmendment.ExistingMatchedPupil = confirmAddPupilViewModel.SelectedPupilId != "0";
+                addPupilAmendment.ExistingMatchedPupil = confirmAddPupilViewModel.SelectedPupilId != "0" ? confirmAddPupilViewModel.SelectedPupilId : string.Empty;
                 HttpContext.Session.Set(ADD_PUPIL_AMENDMENT, addPupilAmendment);
                 return RedirectToAction("InclusionDetails");
             }
