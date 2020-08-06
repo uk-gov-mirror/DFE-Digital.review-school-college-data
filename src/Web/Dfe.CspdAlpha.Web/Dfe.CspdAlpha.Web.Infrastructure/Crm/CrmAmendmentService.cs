@@ -152,47 +152,54 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 
                 // Save
                 context.AddObject(amendmentDto);
-                new_Amendment removeDto = null;
-                if (amendmentDto.cr3d5_addreasontype == cr3d5_Pupiltype.Existingpupil)
-                {
-                    removeDto = new new_Amendment
-                    {
-                        rscd_Amendmenttype = new_Amendment_rscd_Amendmenttype.Removepupil,
-                        new_Name = amendment.Pupil.FullName,
-                        cr3d5_laestab = amendment.Pupil.LaEstab,
-                        cr3d5_pupilid = amendment.Pupil.Id.Value,
-                        cr3d5_forename = amendment.Pupil.ForeName,
-                        cr3d5_surname = amendment.Pupil.LastName,
-                        cr3d5_gender = amendment.Pupil.Gender == Gender.Male ? cr3d5_Gender.Male : cr3d5_Gender.Female,
-                        cr3d5_dob = amendment.Pupil.DateOfBirth,
-                        OwnerId = new EntityReference("team", _firstLineTeamId)
-                    };
-                    context.AddObject(removeDto);
-                }
-
                 var result = context.SaveChanges();
                 if (result.HasError)
                 {
                     throw result.FirstOrDefault(e => e.Error != null)?.Error ?? new ApplicationException();
                 }
+                // Relate to establishment
+                var amendmentEstablishment = GetOrCreateEstablishment(amendment.Pupil.Urn.Value, context);
+                RelateEstablishment(amendmentEstablishment, amendmentDto.Id, context);
 
-                RelateEstablishment(amendment.Pupil.Urn.Value, amendmentDto.Id, context);
-
-
-                if (amendmentDto.cr3d5_addreasontype == cr3d5_Pupiltype.Existingpupil && removeDto != null)
+                // If add existing pupil then create matching remove amendment if valid establishment
+                if (amendmentDto.cr3d5_addreasontype == cr3d5_Pupiltype.Existingpupil)
                 {
-                    RelateEstablishment(amendment.Pupil.LaEstab, removeDto.Id, context);
-
-                    var addExistingPupilRelationship = new Relationship("rscd_new_amendment_new_amendment");
-                    addExistingPupilRelationship.PrimaryEntityRole = EntityRole.Referencing;
-                    _organizationService.Associate(new_Amendment.EntityLogicalName, amendmentDto.Id, addExistingPupilRelationship, new EntityReferenceCollection
+                    var removeAmendmentEstablishment = GetOrCreateEstablishment(amendment.Pupil.LaEstab, context);
+                    if (removeAmendmentEstablishment != null)
                     {
-                        new EntityReference(new_Amendment.EntityLogicalName, removeDto.Id)
-                    });
-                    _organizationService.Associate(new_Amendment.EntityLogicalName, removeDto.Id, addExistingPupilRelationship, new EntityReferenceCollection
-                    {
-                        new EntityReference(new_Amendment.EntityLogicalName, amendmentDto.Id)
-                    });
+                        // Create remove amendment
+                        var removeDto = new new_Amendment
+                        {
+                            rscd_Amendmenttype = new_Amendment_rscd_Amendmenttype.Removepupil,
+                            new_Name = amendment.Pupil.FullName,
+                            cr3d5_laestab = amendment.Pupil.LaEstab,
+                            cr3d5_pupilid = amendment.Pupil.Id.Value,
+                            cr3d5_forename = amendment.Pupil.ForeName,
+                            cr3d5_surname = amendment.Pupil.LastName,
+                            cr3d5_gender = amendment.Pupil.Gender == Gender.Male ? cr3d5_Gender.Male : cr3d5_Gender.Female,
+                            cr3d5_dob = amendment.Pupil.DateOfBirth,
+                            OwnerId = new EntityReference("team", _firstLineTeamId)
+                        };
+                        context.AddObject(removeDto);
+                        result = context.SaveChanges();
+                        if (result.HasError)
+                        {
+                            throw result.FirstOrDefault(e => e.Error != null)?.Error ?? new ApplicationException();
+                        }
+                        // Relate to establishment
+                        RelateEstablishment(removeAmendmentEstablishment, removeDto.Id, context);
+                        // Create amendment relationship
+                        var addExistingPupilRelationship = new Relationship("rscd_new_amendment_new_amendment");
+                        addExistingPupilRelationship.PrimaryEntityRole = EntityRole.Referencing;
+                        _organizationService.Associate(new_Amendment.EntityLogicalName, amendmentDto.Id, addExistingPupilRelationship, new EntityReferenceCollection
+                        {
+                            new EntityReference(new_Amendment.EntityLogicalName, removeDto.Id)
+                        });
+                        _organizationService.Associate(new_Amendment.EntityLogicalName, removeDto.Id, addExistingPupilRelationship, new EntityReferenceCollection
+                        {
+                            new EntityReference(new_Amendment.EntityLogicalName, amendmentDto.Id)
+                        });
+                    }
                 }
 
                 var addPUp = context.CreateQuery<new_Amendment>().Single(e => e.Id == amendmentDto.Id);
@@ -209,9 +216,8 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
             return true;
         }
 
-        public void RelateEstablishment(string establishmentId, Guid amendmentId, CrmServiceContext context)
+        public void RelateEstablishment(cr3d5_establishment establishment, Guid amendmentId, CrmServiceContext context)
         {
-            var establishment = GetOrCreateEstablishment(establishmentId, context);
             var relationship = new Relationship("cr3d5_cr3d5_establishment_new_amendment");
             _organizationService.Associate(cr3d5_establishment.EntityLogicalName, establishment.Id, relationship, new EntityReferenceCollection
             {
