@@ -2006,6 +2006,26 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 		}
 
 		/// <summary>
+		/// Unique identifier for Amendment associated with Amendment.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_linkedamendmentid")]
+		public Microsoft.Xrm.Sdk.EntityReference rscd_LinkedamendmentId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("rscd_linkedamendmentid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("rscd_LinkedamendmentId");
+				this.SetAttributeValue("rscd_linkedamendmentid", value);
+				this.OnPropertyChanged("rscd_LinkedamendmentId");
+			}
+		}
+
+		/// <summary>
 		/// Status of the Amendment
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statecode")]
@@ -2134,6 +2154,26 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 		}
 
 		/// <summary>
+		/// 1:N rscd_new_amendment_new_amendment
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("rscd_new_amendment_new_amendment", Microsoft.Xrm.Sdk.EntityRole.Referenced)]
+		public System.Collections.Generic.IEnumerable<Dfe.CspdAlpha.Web.Infrastructure.Crm.new_Amendment> Referencedrscd_new_amendment_new_amendment
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<Dfe.CspdAlpha.Web.Infrastructure.Crm.new_Amendment>("rscd_new_amendment_new_amendment", Microsoft.Xrm.Sdk.EntityRole.Referenced);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("Referencedrscd_new_amendment_new_amendment");
+				this.SetRelatedEntities<Dfe.CspdAlpha.Web.Infrastructure.Crm.new_Amendment>("rscd_new_amendment_new_amendment", Microsoft.Xrm.Sdk.EntityRole.Referenced, value);
+				this.OnPropertyChanged("Referencedrscd_new_amendment_new_amendment");
+			}
+		}
+
+		/// <summary>
 		/// N:1 cr3d5_cr3d5_establishment_new_amendment
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("cr3d5_amendmentsid")]
@@ -2151,6 +2191,27 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanging("cr3d5_cr3d5_establishment_new_amendment");
 				this.SetRelatedEntity<Dfe.CspdAlpha.Web.Infrastructure.Crm.cr3d5_establishment>("cr3d5_cr3d5_establishment_new_amendment", null, value);
 				this.OnPropertyChanged("cr3d5_cr3d5_establishment_new_amendment");
+			}
+		}
+
+		/// <summary>
+		/// N:1 rscd_new_amendment_new_amendment
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_linkedamendmentid")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("rscd_new_amendment_new_amendment", Microsoft.Xrm.Sdk.EntityRole.Referencing)]
+		public Dfe.CspdAlpha.Web.Infrastructure.Crm.new_Amendment Referencingrscd_new_amendment_new_amendment
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntity<Dfe.CspdAlpha.Web.Infrastructure.Crm.new_Amendment>("rscd_new_amendment_new_amendment", Microsoft.Xrm.Sdk.EntityRole.Referencing);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("Referencingrscd_new_amendment_new_amendment");
+				this.SetRelatedEntity<Dfe.CspdAlpha.Web.Infrastructure.Crm.new_Amendment>("rscd_new_amendment_new_amendment", Microsoft.Xrm.Sdk.EntityRole.Referencing, value);
+				this.OnPropertyChanged("Referencingrscd_new_amendment_new_amendment");
 			}
 		}
 

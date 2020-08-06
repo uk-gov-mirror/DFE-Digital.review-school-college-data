@@ -36,21 +36,38 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
             _firstLineTeamId = config.Value.Helpdesk1stLineTeamId;
         }
 
-        private cr3d5_establishment GetOrCreateEstablishment(string urn, CrmServiceContext context)
+        private cr3d5_establishment GetOrCreateEstablishment(string id, CrmServiceContext context)
         {
             var establishmentDto =
                 context.cr3d5_establishmentSet.SingleOrDefault(
-                    e => e.cr3d5_Urn == urn);
+                    e => e.cr3d5_Urn == id);
+            if (establishmentDto == null)
+            {
+                establishmentDto =
+                    context.cr3d5_establishmentSet.SingleOrDefault(
+                        e => e.cr3d5_LAEstab == id);
+            }
             if (establishmentDto != null)
             {
                 return establishmentDto;
             }
 
-            var establishment = _establishmentService.GetByURN(new URN(urn));// _establshmentsRepository.GetById(urn);
+            Establishment establishment = null;
+            try
+            {
+                establishment = _establishmentService.GetByURN(new URN(id));
+            }
+            catch { }
+
+            if (establishment == null)
+            {
+                establishment = _establishmentService.GetByLAId(id);
+            }
+
             establishmentDto = new cr3d5_establishment
             {
                 cr3d5_name = establishment.Name,
-                cr3d5_Urn = urn,
+                cr3d5_Urn = establishment.Urn.Value,
                 cr3d5_LAEstab = establishment.LaEstab,
                 cr3d5_Schooltype = establishment.SchoolType,
                 cr3d5_Numberofamendments = 0
@@ -127,23 +144,52 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 
                 // Save
                 context.AddObject(amendmentDto);
+                new_Amendment removeDto = null;
+                if (amendmentDto.cr3d5_addreasontype == cr3d5_Pupiltype.Existingpupil)
+                {
+                    removeDto = new new_Amendment
+                    {
+                        rscd_Amendmenttype = new_Amendment_rscd_Amendmenttype.Removepupil,
+                        new_Name = amendment.Pupil.FullName,
+                        cr3d5_laestab = amendment.Pupil.LaEstab,
+                        cr3d5_pupilid = amendment.Pupil.Id.Value,
+                        cr3d5_forename = amendment.Pupil.ForeName,
+                        cr3d5_surname = amendment.Pupil.LastName,
+                        cr3d5_gender = amendment.Pupil.Gender == Gender.Male ? cr3d5_Gender.Male : cr3d5_Gender.Female,
+                        cr3d5_dob = amendment.Pupil.DateOfBirth,
+                        OwnerId = new EntityReference("team", _firstLineTeamId)
+                    };
+                    context.AddObject(removeDto);
+                }
+
                 var result = context.SaveChanges();
                 if (result.HasError)
                 {
                     throw result.FirstOrDefault(e => e.Error != null)?.Error ?? new ApplicationException();
                 }
 
+                RelateEstablishment(amendment.Pupil.Urn.Value, amendmentDto.Id, context);
+
+
+                if (amendmentDto.cr3d5_addreasontype == cr3d5_Pupiltype.Existingpupil && removeDto != null)
+                {
+                    RelateEstablishment(amendment.Pupil.LaEstab, removeDto.Id, context);
+
+                    var addExistingPupilRelationship = new Relationship("rscd_new_amendment_new_amendment");
+                    addExistingPupilRelationship.PrimaryEntityRole = EntityRole.Referencing;
+                    _organizationService.Associate(new_Amendment.EntityLogicalName, amendmentDto.Id, addExistingPupilRelationship, new EntityReferenceCollection
+                    {
+                        new EntityReference(new_Amendment.EntityLogicalName, removeDto.Id)
+                    });
+                    _organizationService.Associate(new_Amendment.EntityLogicalName, removeDto.Id, addExistingPupilRelationship, new EntityReferenceCollection
+                    {
+                        new EntityReference(new_Amendment.EntityLogicalName, amendmentDto.Id)
+                    });
+                }
+
                 var addPUp = context.CreateQuery<new_Amendment>().Single(e => e.Id == amendmentDto.Id);
                 id = addPUp?.cr3d5_addpupilref;
                 amendmentId = amendmentDto.Id;
-
-                // Link to an establishment entity
-                var establishment = GetOrCreateEstablishment(amendment.Pupil.Urn.Value, context);
-                var relationship = new Relationship("cr3d5_cr3d5_establishment_new_amendment");
-                _organizationService.Associate(cr3d5_establishment.EntityLogicalName, establishment.Id, relationship, new EntityReferenceCollection
-                {
-                    new EntityReference(new_Amendment.EntityLogicalName, amendmentDto.Id)
-                });
             }
 
             // Upload Evidence
@@ -153,6 +199,16 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
             }
 
             return true;
+        }
+
+        public void RelateEstablishment(string establishmentId, Guid amendmentId, CrmServiceContext context)
+        {
+            var establishment = GetOrCreateEstablishment(establishmentId, context);
+            var relationship = new Relationship("cr3d5_cr3d5_establishment_new_amendment");
+            _organizationService.Associate(cr3d5_establishment.EntityLogicalName, establishment.Id, relationship, new EntityReferenceCollection
+            {
+                new EntityReference(new_Amendment.EntityLogicalName, amendmentId)
+            });
         }
 
         public void RelateEvidence(Guid amendmentId, List<Evidence> evidenceList, bool updateEvidenceOption)

@@ -34,7 +34,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.CosmosDb.Repositories
 
         public IQueryable<EstablishmentsDTO> Query()
         {
-            throw new NotImplementedException();
+            return _container.GetItemLinqQueryable<EstablishmentsDTO>(true);
         }
     }
 }

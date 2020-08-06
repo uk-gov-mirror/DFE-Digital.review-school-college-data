@@ -3,6 +3,7 @@ using Dfe.CspdAlpha.Web.Domain.Entities;
 using Dfe.CspdAlpha.Web.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Dfe.CspdAlpha.Web.Infrastructure.CosmosDb.DTOs;
 
@@ -21,9 +22,10 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.CosmosDb.Service
             return _establishmentRepository.GetById(urn.Value).Establishment;
         }
 
-        public List<Establishment> GetByLAId(string laId)
+        public Establishment GetByLAId(string laId)
         {
-            throw new NotImplementedException();
+            var results = _establishmentRepository.Query().Where(e => e.DFESNumber == laId).ToList();
+            return results.Count > 0 ? results.First().Establishment : null;
         }
     }
 }

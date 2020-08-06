@@ -9,6 +9,6 @@ namespace Dfe.CspdAlpha.Web.Domain.Interfaces
     public interface IEstablishmentService
     {
         Establishment GetByURN(URN urn);
-        List<Establishment> GetByLAId(string laId);
+        Establishment GetByLAId(string laId);
     }
 }
