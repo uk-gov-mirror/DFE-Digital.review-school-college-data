@@ -38,6 +38,7 @@
                 @if (Model.MatchedPupils != null)
                 {
                     var defaultLabel = Model.MatchedPupils.Count == 1 ? "or select the existing pupil found" : "or select from one of the existing pupils found";
+                    <input type="hidden" asp-for="MatchedPupilCount" value="@Model.MatchedPupilCount"/>
                     <fieldset class="govuk-fieldset">
                         <div class="govuk-radios">
                             <legend class="govuk-fieldset__legend">

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Dfe.CspdAlpha.Web.Domain.Core.Enums;
 
 namespace Dfe.CspdAlpha.Web.Domain.Entities
@@ -10,6 +9,7 @@ namespace Dfe.CspdAlpha.Web.Domain.Entities
         public string Id { get; set; }
         public string Reference  { get; set; }
         public AddReason AddReason { get; set; }
+        public int MatchedPupilCount { get; set; }
         public string ExistingPupilIDFound { get; set; }
         public Pupil Pupil { get; set; }
         public PriorAttainment PriorAttainment { get; set; }

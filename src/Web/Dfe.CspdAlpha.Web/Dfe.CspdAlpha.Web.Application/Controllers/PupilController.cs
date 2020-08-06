@@ -212,11 +212,19 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 {
                     return RedirectToAction("InclusionDetails");
                 }
-                return View(new ConfirmAddPupilViewModel { AddPupilViewModel = addPupilAmendment.AddPupilViewModel, AddReasonViewModel = addPupilAmendment.AddReasonViewModel, MatchedPupils = matchesPupils, SelectedEvidenceOption = addPupilAmendment.SelectedEvidenceOption});
+                return View(new ConfirmAddPupilViewModel
+                {
+                    AddPupilViewModel = addPupilAmendment.AddPupilViewModel,
+                    AddReasonViewModel = addPupilAmendment.AddReasonViewModel,
+                    MatchedPupils = matchesPupils, SelectedEvidenceOption = addPupilAmendment.SelectedEvidenceOption,
+                    MatchedPupilCount = matchesPupils.Count
+                });
             }
+
             // Confirmation of new pupil add amendment with selection made
             if (addPupilAmendment.AddReasonViewModel.Reason == Models.Common.AddReason.New)
             {
+                addPupilAmendment.MatchedPupilCount = confirmAddPupilViewModel.MatchedPupilCount;
                 addPupilAmendment.ExistingMatchedPupil = confirmAddPupilViewModel.SelectedPupilId != "0" ? confirmAddPupilViewModel.SelectedPupilId : string.Empty;
                 HttpContext.Session.Set(ADD_PUPIL_AMENDMENT, addPupilAmendment);
                 return RedirectToAction("InclusionDetails");

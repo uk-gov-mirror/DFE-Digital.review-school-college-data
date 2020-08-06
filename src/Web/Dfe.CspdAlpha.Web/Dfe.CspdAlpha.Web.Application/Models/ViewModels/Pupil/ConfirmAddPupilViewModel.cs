@@ -8,7 +8,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
         public AddReasonViewModel AddReasonViewModel { get; set; }
         public AddPupilViewModel AddPupilViewModel { get; set; }
         public List<School.Pupil> MatchedPupils { get; set; }
-
+        public int MatchedPupilCount { get; set; }
         public string SelectedPupilId { get; set; }
         public bool ConfirmAddPupil { get; set; }
         public EvidenceOption SelectedEvidenceOption { get; set; }

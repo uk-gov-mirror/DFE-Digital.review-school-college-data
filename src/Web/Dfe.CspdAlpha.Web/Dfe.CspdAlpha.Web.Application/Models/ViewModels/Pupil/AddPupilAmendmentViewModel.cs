@@ -11,10 +11,12 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
         NotRequired
     }
 
+
     public class AddPupilAmendmentViewModel
     {
         public string URN { get; set; }
         public AddReasonViewModel AddReasonViewModel { get; set; }
+        public int MatchedPupilCount { get; set; }
         public string ExistingMatchedPupil { get; set; }
         public AddPupilViewModel AddPupilViewModel { get; set; }
         public AddPriorAttainmentViewModel AddPriorAttainmentViewModel { get; set; }

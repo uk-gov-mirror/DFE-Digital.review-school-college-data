@@ -1969,19 +1969,19 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 		/// 
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_existingpupilfound")]
-		public virtual Field_Security_Permission_Type? rscd_ExistingPupilFound
+		public virtual new_Amendment_rscd_existingpupilfound? rscd_existingpupilfound
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return ((Field_Security_Permission_Type?)(EntityOptionSetEnum.GetEnum(this, "rscd_existingpupilfound")));
+				return ((new_Amendment_rscd_existingpupilfound?)(EntityOptionSetEnum.GetEnum(this, "rscd_existingpupilfound")));
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.OnPropertyChanging("rscd_ExistingPupilFound");
+				this.OnPropertyChanging("rscd_existingpupilfound");
 				this.SetAttributeValue("rscd_existingpupilfound", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
-				this.OnPropertyChanged("rscd_ExistingPupilFound");
+				this.OnPropertyChanged("rscd_existingpupilfound");
 			}
 		}
 

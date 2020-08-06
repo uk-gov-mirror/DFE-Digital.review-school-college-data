@@ -118,6 +118,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             {
                 AddReason = addPupilAmendment.AddReasonViewModel.Reason == AddReason.New ? Domain.Core.Enums.AddReason.New: Domain.Core.Enums.AddReason.Existing,
                 ExistingPupilIDFound = addPupilAmendment.ExistingMatchedPupil,
+                MatchedPupilCount = addPupilAmendment.MatchedPupilCount,
                 Pupil = new Domain.Entities.Pupil
                 {
                     Urn = new URN(addPupilAmendment.URN),

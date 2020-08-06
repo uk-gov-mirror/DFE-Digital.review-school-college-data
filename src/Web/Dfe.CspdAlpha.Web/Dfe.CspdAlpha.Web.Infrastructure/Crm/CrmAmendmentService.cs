@@ -96,11 +96,19 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
                amendmentDto.cr3d5_addreasontype = amendment.AddReason == AddReason.New
                    ? cr3d5_Pupiltype.Newpupil
                    : cr3d5_Pupiltype.Existingpupil;
+               if (amendment.AddReason == AddReason.New && amendment.MatchedPupilCount > 0)
+               {
+                   amendmentDto.rscd_existingpupilfound = amendment.MatchedPupilCount > 1
+                       ? new_Amendment_rscd_existingpupilfound.Pupilsfound
+                       : new_Amendment_rscd_existingpupilfound.Pupilfound;
+               }
+
                if (amendment.AddReason == AddReason.New && !string.IsNullOrEmpty(amendment.ExistingPupilIDFound))
                {
                    amendmentDto.rscd_ExistingpupilID = amendment.ExistingPupilIDFound;
                }
-                // Pupil data
+
+               // Pupil data
                 // don't need to set status as this will default to "Requested" in backend
                 amendmentDto.cr3d5_pupilid = amendment.AddReason == AddReason.Existing ? amendment.Pupil.Id.Value : string.Empty;
                 amendmentDto.cr3d5_laestab = amendment.AddReason == AddReason.Existing ? amendment.Pupil.LaEstab : string.Empty;
