@@ -23,7 +23,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
 
             var text = MatchedPupils.Count > 1 ? "matches" : "match";
             return
-                $"We found {MatchedPupils.Count} similar {text} for the pupil you want to request to add. Please review and confirm selection.";
+                $"We found {MatchedPupils.Count} similar {text} for the pupil you want to request to add.";
         }
     }
 }
