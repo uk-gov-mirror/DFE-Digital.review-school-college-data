@@ -182,7 +182,8 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             {
                 return RedirectToAction("AddReason");
             }
-            return View(new ConfirmAddPupilViewModel{ AddPupilViewModel = addPupilAmendment.AddPupilViewModel, AddReasonViewModel = addPupilAmendment.AddReasonViewModel});
+            
+            return View(new ConfirmAddPupilViewModel{ AddPupilViewModel = addPupilAmendment.AddPupilViewModel, AddReasonViewModel = addPupilAmendment.AddReasonViewModel, SelectedEvidenceOption = addPupilAmendment.SelectedEvidenceOption});
         }
 
         [HttpPost]
@@ -211,7 +212,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 {
                     return RedirectToAction("InclusionDetails");
                 }
-                return View(new ConfirmAddPupilViewModel { AddPupilViewModel = addPupilAmendment.AddPupilViewModel, AddReasonViewModel = addPupilAmendment.AddReasonViewModel, MatchedPupils = matchesPupils});
+                return View(new ConfirmAddPupilViewModel { AddPupilViewModel = addPupilAmendment.AddPupilViewModel, AddReasonViewModel = addPupilAmendment.AddReasonViewModel, MatchedPupils = matchesPupils, SelectedEvidenceOption = addPupilAmendment.SelectedEvidenceOption});
             }
             // Confirmation of new pupil add amendment with selection made
             if (addPupilAmendment.AddReasonViewModel.Reason == Models.Common.AddReason.New)
@@ -226,6 +227,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 return RedirectToAction("InclusionDetails");
             }
 
+            confirmAddPupilViewModel.SelectedEvidenceOption = addPupilAmendment.SelectedEvidenceOption;
             return View(confirmAddPupilViewModel);
         }
 

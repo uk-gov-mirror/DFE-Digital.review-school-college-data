@@ -22,7 +22,5 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
         public List<EvidenceFile> EvidenceFiles { get; set; }
         public bool InclusionConfirmed { get; set; }
 
-        public string SelectedEvidenceBackOption =>
-            SelectedEvidenceOption == EvidenceOption.UploadNow ? "UploadEvidence" : "AddEvidence";
     }
 }
