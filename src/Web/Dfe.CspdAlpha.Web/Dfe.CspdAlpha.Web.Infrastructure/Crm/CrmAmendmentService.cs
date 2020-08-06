@@ -64,6 +64,12 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
                 establishment = _establishmentService.GetByLAId(id);
             }
 
+            if (establishment == null)
+            {
+                return null;
+            }
+
+
             establishmentDto = new cr3d5_establishment
             {
                 cr3d5_name = establishment.Name,
