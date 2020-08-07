@@ -230,7 +230,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 return RedirectToAction("InclusionDetails");
             }
             // Confirmation of existing pupil add amendment
-            if (addPupilAmendment.AddReasonViewModel.Reason == Models.Common.AddReason.Existing && !string.IsNullOrEmpty(addPupilAmendment.AddPupilViewModel.LastName))
+            if (addPupilAmendment.AddReasonViewModel.Reason == Models.Common.AddReason.Existing && !string.IsNullOrEmpty(addPupilAmendment.AddPupilViewModel.LAEstabbbv))
             {
                 return RedirectToAction("InclusionDetails");
             }
