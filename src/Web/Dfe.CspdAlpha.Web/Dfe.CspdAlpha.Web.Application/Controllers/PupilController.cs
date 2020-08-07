@@ -230,7 +230,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 return RedirectToAction("InclusionDetails");
             }
             // Confirmation of existing pupil add amendment
-            if (addPupilAmendment.AddReasonViewModel.Reason == Models.Common.AddReason.Existing && !string.IsNullOrEmpty(addPupilAmendment.AddPupilViewModel.LAEstabbbv))
+            if (addPupilAmendment.AddReasonViewModel.Reason == Models.Common.AddReason.Existing && !string.IsNullOrEmpty(addPupilAmendment.AddPupilViewModel.LAEstab))
             {
                 return RedirectToAction("InclusionDetails");
             }
@@ -250,10 +250,15 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         }
 
         [HttpPost]
-        public IActionResult InclusionDetails(bool inclusionConfirmed)
+        public IActionResult InclusionDetails(string InclusionConfirmed)
         {
+
             var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
-            addPupilAmendment.InclusionConfirmed = inclusionConfirmed;
+            if (string.IsNullOrEmpty(InclusionConfirmed))
+            {
+                return View(addPupilAmendment);
+            }
+            addPupilAmendment.InclusionConfirmed = InclusionConfirmed == "Yes";
             if (_amendmentService.CreateAddPupilAmendment(addPupilAmendment, out string id))
             {
                 HttpContext.Session.Remove(ADD_PUPIL_AMENDMENT);
