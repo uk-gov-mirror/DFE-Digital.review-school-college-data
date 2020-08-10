@@ -9,8 +9,10 @@ using System.Diagnostics;
 using System.Dynamic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Xml;
+using Microsoft.Xrm.Sdk.Metadata;
 
 namespace Dfe.CspdAlpha.Admin
 {
@@ -35,30 +37,34 @@ namespace Dfe.CspdAlpha.Admin
             // Currently this only filters on Final decision == Approved
             // For Beta more filter criteria would be needed, depending on how we define the data model to support the different key stages
             // and types of amendment.
-            string[] attributes = new[] { 
-                "cr3d5_priorattainmentresultfor", 
-                "cr3d5_dob",
-                "new_amendmentid",
-                "cr3d5_forename",
-                "cr3d5_includeinperformanceresults",
-                "cr3d5_priorattainmentacademicyear",
-                "cr3d5_priorattainmentlevel",
-                "cr3d5_pupilid",
-                "cr3d5_laestab",
-                "cr3d5_surname",
-                "cr3d5_priorattainmenttest",
-                "cr3d5_admissiondate",
-                "cr3d5_yeargroup",
-                "cr3d5_gender",
-                "cr3d5_urn",
-                "cr3d5_addpupilref",
-                "cr3d5_postcode"
+            var attributeDictionary = new Dictionary<string, string>
+            {
+                {"new_amendmentid", "AMENDMENT_ID"},
+                {"rscd_amendmenttype", "AMENDMENT_TYPE"},
+                {"cr3d5_addreasontype", "ADD_PUPIL_REASON"},
+                {"cr3d5_urn", "URN"},
+                {"cr3d5_laestab", "LAESTAB"},
+                {"cr3d5_pupilid", "PUPIL_ID"},
+                {"cr3d5_forename", "FORENAME"},
+                {"cr3d5_surname", "SURNAME"},
+                {"cr3d5_dob", "DATE_OF_BIRTH"},
+                {"cr3d5_gender", "GENDER"},
+                {"cr3d5_admissiondate", "ADMISSION_DATE"},
+                {"cr3d5_yeargroup", "YEAR_GROUP"},
+                {"cr3d5_postcode", "POSTCODE"},
+                {"cr3d5_includeinperformanceresults", "INCL_IN_PERF_RESULTS"},
+                {"cr3d5_addpupilref", "REFERENCE_NUMBER"},
+                {"cr3d5_priorattainmentresultfor", "PRIOR_ATTN_RESULT_FOR"},
+                {"cr3d5_priorattainmenttest", "PRIOR_ATTN_TEST"},
+                {"cr3d5_priorattainmentacademicyear", "PRIOR_ATTN_ACAMDEMIC_YEAR"},
+                {"cr3d5_priorattainmentlevel", "PRIOR_ATTN_LEVEL"}
             };
+
 
             string fetchXml = @"<fetch version='1.0'>
                                   <entity name='new_amendment'>
                                     <filter>
-                                        <condition attribute='cr3d5_finaldecision' operator= 'eq' value='353910000' />
+                                        <condition attribute='cr3d5_finaldecisionname' operator= 'eq' value='Approved' />
                                     </filter>
                                     <order attribute='new_amendmentid' />
                                   </entity>
@@ -71,7 +77,7 @@ namespace Dfe.CspdAlpha.Admin
             Directory.CreateDirectory("output");
 
             // Build fetchXml XmlDoc with specified attributes.
-            var xmlDoc = CreateXmlDoc(fetchXml, attributes);
+            var xmlDoc = CreateXmlDoc(fetchXml, attributeDictionary.Keys.ToArray());
 
             using (var writer = File.CreateText("output/amendments.csv"))
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
@@ -87,7 +93,11 @@ namespace Dfe.CspdAlpha.Admin
                         Query = new FetchExpression(xml)
                     };
 
-                    EntityCollection returnCollection = ((RetrieveMultipleResponse)cdsClient.Execute(fetchRequest1)).EntityCollection;
+                    EntityCollection returnCollection =
+                        ((RetrieveMultipleResponse) cdsClient.Execute(fetchRequest1)).EntityCollection;
+
+
+                    var optionsSets = GetOptionSets(cdsClient);
 
                     recordCount += returnCollection.Entities.Count;
 
@@ -97,20 +107,27 @@ namespace Dfe.CspdAlpha.Admin
                         // record. This makes things a bit trickier when writing to CSV as you can end up with values written against the wrong
                         // columns.
                         dynamic expandoObj = new ExpandoObject();
-                        var expandoDict = (IDictionary<string, object>)expandoObj;
+                        var expandoDict = (IDictionary<string, object>) expandoObj;
 
-                        foreach (var attribute in attributes)
+                        foreach (var attribute in attributeDictionary)
                         {
-                            var attributeFound = c.TryGetAttributeValue(attribute, out object recordAttributeValue);
+                            var attributeFound = c.TryGetAttributeValue(attribute.Key, out object recordAttributeValue);
 
                             if (attributeFound)
                             {
-                                expandoDict[attribute] = recordAttributeValue is OptionSetValue 
-                                    ? ((OptionSetValue)recordAttributeValue).Value.ToString() : recordAttributeValue.ToString();
+                                if (recordAttributeValue is OptionSetValue)
+                                {
+                                    expandoDict[attribute.Value] = optionsSets[attribute.Key]
+                                        .First(t => t.Item1 == ((OptionSetValue) recordAttributeValue).Value).Item2;
+                                }
+                                else
+                                {
+                                    expandoDict[attribute.Value] = recordAttributeValue.ToString();
+                                }
                             }
                             else
                             {
-                                expandoDict[attribute] = "";
+                                expandoDict[attribute.Value] = "";
                             }
                         }
 
@@ -140,6 +157,27 @@ namespace Dfe.CspdAlpha.Admin
             stopwatch.Stop();
             log($"{nameof(AmendmentExport)} finished in {stopwatch.Elapsed.Minutes}m {stopwatch.Elapsed.Seconds}s");
             log($"{recordCount} amendments exported");
+        }
+
+        private static Dictionary<string, List<Tuple<int, string>>> GetOptionSets(CdsServiceClient client)
+        {
+            var attributes = new[] { "rscd_amendmenttype", "cr3d5_addreasontype", "cr3d5_gender" };
+            var optionSetsLookup = new Dictionary<string, List<Tuple<int, string>>>();
+            var attrReq = new RetrieveAttributeRequest
+            {
+                EntityLogicalName = "new_amendment",
+                RetrieveAsIfPublished = true
+            };
+            foreach (var attribute in attributes)
+            {
+                attrReq.LogicalName = attribute;
+                var attrResponse = (RetrieveAttributeResponse)client.Execute(attrReq);
+                var attrMetaData = (EnumAttributeMetadata)attrResponse.AttributeMetadata;
+                var lookup = attrMetaData.OptionSet.Options.Select(o => new Tuple<int, string>(o.Value.Value, o.Label.UserLocalizedLabel.Label)).ToList();
+                optionSetsLookup.Add(attribute, lookup);
+            }
+
+            return optionSetsLookup;
         }
 
         private static XmlDocument CreateXmlDoc(string xml, string[] attributes)
