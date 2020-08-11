@@ -1,3 +1,4 @@
+@using Dfe.CspdAlpha.Web.Application.Models.Common
 @using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
 @model ConfirmAddPupilViewModel
 @{
@@ -79,10 +80,10 @@
                     </div>
                     <div>
                         <button name="ConfirmAddPupil" value="true" class="govuk-button govuk-!-margin-right-1" data-module="govuk-button">
-                            @(Model.MatchedPupils == null ? "Yes" : "Continue")
+                            @(Model.MatchedPupils == null && Model.AddReasonViewModel.Reason == AddReason.New ? "Yes" : "Continue")
                         </button>
                         <button name="ConfirmAddPupil" value="false" class="govuk-button govuk-button--secondary app-modal__cancel-link" data-module="govuk-button">
-                            @(Model.MatchedPupils == null ? "No" : "Cancel")
+                            @(Model.MatchedPupils == null && Model.AddReasonViewModel.Reason == AddReason.New ? "No" : "Cancel")
                         </button>
                     </div>
                 </fieldset>
