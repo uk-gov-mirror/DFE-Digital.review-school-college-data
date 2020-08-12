@@ -4,10 +4,13 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Dynamic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using Microsoft.Xrm.Sdk.Messages;
 
 namespace Dfe.CspdAlpha.Admin
 {
@@ -22,7 +25,7 @@ namespace Dfe.CspdAlpha.Admin
         private static volatile int _processedCount;
 
         public static void Load(
-            Action<string> log, string pupilsCsvFilePath, string pupilsPerfCsvFilePath, string giasCsvFilePath)
+            Action<string> log, string pupilsCsvFilePath, string pupilsPerfCsvFilePath, string giasCsvFilePath, string amendmentsCsvFilePath = null)
         {
             var stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -40,6 +43,7 @@ namespace Dfe.CspdAlpha.Admin
             }
 
             var giasLookup = new GiasLookup(log, giasCsvFilePath);
+            var amendmentsLookup = new AmendmentLookup(log, amendmentsCsvFilePath);
             var skippedPupils = new List<string>();
 
             using (var reader = new StreamReader(pupilsCsvFilePath))
@@ -61,16 +65,35 @@ namespace Dfe.CspdAlpha.Admin
                 {
                     Parallel.ForEach(batch, new ParallelOptions { MaxDegreeOfParallelism = MAX_PARALLELISM }, pupilRow =>
                     {
-                        var gias = giasLookup[pupilRow.DFESNumber];
-
+                        var laestab = (string)pupilRow.DFESNumber;
+                        var gias = giasLookup[laestab];
                         if (gias == null)
                         {
                             skippedPupils.Add($"{pupilRow.CandidateNumber} ({pupilRow.DFESNumber})");
-
                             return;
                         }
-                        
-                        pupilRow.URN = gias.urn;
+
+                        var pupilID = (string) pupilRow.UPN;
+                        if (amendmentsLookup.ExistingPupilLookup.ContainsKey(laestab + pupilID))
+                        {
+                            // Handle existing pupil
+                            var existingAmendment = amendmentsLookup.ExistingPupilLookup[laestab + pupilID];
+                            var newURN = (string) existingAmendment.urn;
+                            var newLAEstab = giasLookup.UrnLookup[newURN];
+                            pupilRow.URN = newURN;
+                            pupilRow.DFESNumber = newLAEstab;
+                            pupilRow.Forename = existingAmendment.forename;
+                            pupilRow.Surname = existingAmendment.surname;
+                            pupilRow.Gender = (string)existingAmendment.gender == "Male" ? "M" : "F";
+                            pupilRow.DOB = ConvertDate((string)existingAmendment.date_of_birth);
+                            pupilRow.PostCode = existingAmendment.postcode;
+                            pupilRow.ENTRYDAT = ConvertDate((string)existingAmendment.admission_date);
+                            pupilRow.ActualYearGroup = existingAmendment.year_group;
+                        }
+                        else
+                        {
+                            pupilRow.URN = gias.urn;
+                        }
                         pupilRow.Surname = $"{pupilRow.CandidateNumber}S";
                         pupilRow.Forename = $"{pupilRow.CandidateNumber}F";
 
@@ -94,7 +117,31 @@ namespace Dfe.CspdAlpha.Admin
                     log($"{batchNumber} batches processed");
                     batchNumber++;
                 }
+
+                var addPupils = new List<dynamic>();
+                foreach (var pupil in amendmentsLookup.NewPupilLookup)
+                {
+                    var urn = (string) pupil.urn;
+                    dynamic addPupil = new ExpandoObject();
+                    addPupil.DFESNumber = giasLookup.UrnLookup[urn];
+                    addPupil.id = pupil.pupil_id;
+                    addPupil.Forename = pupil.forename;
+                    addPupil.Surname = pupil.surname;
+                    addPupil.Gender = (string) pupil.gender == "Male" ? "M" : "F";
+                    addPupil.DOB = ConvertDate((string) pupil.date_of_birth);
+                    addPupil.PostCode = pupil.postcode;
+                    addPupil.ENTRYDAT = ConvertDate((string) pupil.admission_date);
+                    addPupil.ActualYearGroup = pupil.year_group;
+                    addPupil.performance = new string[0];
+                    addPupil.URN = urn;
+                    addPupils.Add(addPupil);
+                }
+                File.WriteAllText(
+                    "pupils_batch_" + batchNumber + ".json",
+                    JsonConvert.SerializeObject(addPupils, decimalConverter));
             }
+
+            
 
             stopwatch.Stop();
             log($"{nameof(PupilsLoader)} finished in {stopwatch.Elapsed.Minutes}m {stopwatch.Elapsed.Seconds}s");
@@ -103,6 +150,16 @@ namespace Dfe.CspdAlpha.Admin
             {
                 log($"{skippedPupils.Count} skipped pupils (no GIAS establishment record found): {string.Join(", ", skippedPupils)}");
             }
+        }
+
+        private static string ConvertDate(string date)
+        {
+            if (DateTime.TryParse(date, out var convertedDate))
+            {
+                return convertedDate.ToString("yyyyMMdd");
+            }
+
+            return string.Empty;
         }
     }
 }

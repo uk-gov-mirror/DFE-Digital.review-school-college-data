@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
 
 namespace Dfe.CspdAlpha.Admin
@@ -53,13 +54,15 @@ namespace Dfe.CspdAlpha.Admin
                     Parallel.ForEach(batch, new ParallelOptions { MaxDegreeOfParallelism = MAX_PARALLELISM }, schoolRow =>
                     {
                         var gias = giasLookup[schoolRow.DFESNumber];
-
-                        schoolRow.URN = gias.urn;
-                        schoolRow.SchoolType = gias.typeofestablishmentname;
-                        schoolRow.SchoolName = $"Test School {gias.urn}";
-                        var perf = (IEnumerable<dynamic>)performanceLookup[schoolRow.DFESNumber];
-                        schoolRow.performance = perf.Select(r => new { r.Code, r.SetName, r.CodeValue });
-                        System.Threading.Interlocked.Increment(ref _processedCount);
+                        if (gias != null)
+                        {
+                            schoolRow.URN = gias.urn;
+                            schoolRow.SchoolType = gias.typeofestablishmentname;
+                            schoolRow.SchoolName = $"Test School {gias.urn}";
+                            var perf = (IEnumerable<dynamic>) performanceLookup[schoolRow.DFESNumber];
+                            schoolRow.performance = perf.Select(r => new {r.Code, r.SetName, r.CodeValue});
+                            System.Threading.Interlocked.Increment(ref _processedCount);
+                        }
                     });
 
                     File.WriteAllText(

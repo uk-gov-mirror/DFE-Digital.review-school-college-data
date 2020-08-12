@@ -20,26 +20,32 @@ namespace Dfe.CspdAlpha.Admin
             {
                 case nameof(SchoolsLoader):
 
-                    if (args.Length != 4)
+                    if (args.Length < 4)
                     {
-                        Console.WriteLine("ERROR: Please specify: [schoolsRefCsvFilePath] [schoolsPerfCsvFilePath] [giasCsvFilePath] ");
+                        Console.WriteLine("ERROR: Please specify: [schoolsRefCsvFilePath] [schoolsPerfCsvFilePath] [giasCsvFilePath]");
 
                         return;
                     }
-
                     SchoolsLoader.Load(Console.WriteLine, args[1], args[2], args[3]);
                     break;
 
                 case nameof(PupilsLoader):
 
-                    if (args.Length != 4)
+                    if (args.Length < 4 || args.Length > 5)
                     {
-                        Console.WriteLine("ERROR: Please specify: [pupilsCsvFilePath] [pupilsPerfCsvFilePath] [giasCsvFilePath] ");
+                        Console.WriteLine("ERROR: Please specify: [pupilsCsvFilePath] [pupilsPerfCsvFilePath] [giasCsvFilePath]  ([amendmentsCsvFilePath] optional)");
 
                         return;
                     }
 
-                    PupilsLoader.Load(Console.WriteLine, args[1], args[2], args[3]);
+                    if (args.Length == 4)
+                    {
+                        PupilsLoader.Load(Console.WriteLine, args[1], args[2], args[3]);
+                    }
+                    else
+                    {
+                        PupilsLoader.Load(Console.WriteLine, args[1], args[2], args[3], args[4]);
+                    }
                     break;
 
                 case nameof(AmendmentExport):

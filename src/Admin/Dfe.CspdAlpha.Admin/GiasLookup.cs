@@ -9,6 +9,7 @@ namespace Dfe.CspdAlpha.Admin
     public class GiasLookup
     {
         private IDictionary<string, dynamic> _lookup;
+        public IDictionary<string, string> UrnLookup { get; set; }
         private Action<string> _log;
 
         public dynamic this[string i]
@@ -50,11 +51,13 @@ namespace Dfe.CspdAlpha.Admin
                 // TODO: we need to build the LAEstab/DFESNumber in GIAS however this can lead to duplicates possibly due to conversions
                 // This code assumes the last match is the valid one and overwrites any existing values
                 _lookup = new Dictionary<string, dynamic>();
+                UrnLookup = new Dictionary<string, string>();
 
                 foreach (var record in records)
                 {
                     var lacode = (string)record.lacode;
                     var establshmentnumber = (string)record.establishmentnumber;
+                    var urn = (string)record.urn;
 
                     if (string.IsNullOrEmpty(lacode) || string.IsNullOrEmpty(establshmentnumber))
                     {
@@ -71,6 +74,7 @@ namespace Dfe.CspdAlpha.Admin
                     {
                         _lookup.Add(key, record);
                     }
+                    UrnLookup.Add(urn, key);
                 }
 
                 log($"{giasCsvFilePath} loaded");
