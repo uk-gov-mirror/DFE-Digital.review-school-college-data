@@ -7,6 +7,11 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels
     public class HomeViewModel
     {
         private IConfiguration ConfigRoot;
+
+        public HomeViewModel()
+        {
+            
+        }
         public HomeViewModel(IConfiguration configRoot)
         {
             ConfigRoot = configRoot;
@@ -16,6 +21,6 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels
         [Required]
         public string SelectedKeyStage { get; set; }
 
-        public string CheckingStageText => ConfigRoot["CheckingPhase"] == "Late" ? "Key stage 4 Late checking exercise" : "Key stage 4 June checking exercise";
+        public string CheckingStageText => ConfigRoot != null && ConfigRoot["CheckingPhase"] == "Late" ? "Key stage 4 Late checking exercise" : "Key stage 4 June checking exercise";
     }
 }
