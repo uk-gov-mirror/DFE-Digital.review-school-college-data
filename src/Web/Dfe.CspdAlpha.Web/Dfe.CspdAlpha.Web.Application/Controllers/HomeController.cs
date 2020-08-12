@@ -5,15 +5,17 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
+using Microsoft.Extensions.Configuration;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private IConfiguration Configuration;
+        public HomeController(ILogger<HomeController> logger, IConfiguration configuration)
         {
+            Configuration = configuration;
             _logger = logger;
         }
 
@@ -21,7 +23,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         {
             var urn = ClaimsHelper.GetURN(this.User);
             HttpContext.Session.Set("URN", urn);
-            return View();
+            return View(new HomeViewModel(Configuration));
         }
 
         [HttpPost]
