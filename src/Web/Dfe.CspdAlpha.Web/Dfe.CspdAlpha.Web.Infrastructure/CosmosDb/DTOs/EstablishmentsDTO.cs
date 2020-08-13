@@ -22,13 +22,13 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.CosmosDb.DTOs
             Name = SchoolName,
             SchoolType = SchoolType,
             CohortMeasures = new List<PerformanceMeasure>(),
-            PerformanceMeasures = performance.Select(p => new PerformanceMeasure{Name = p.Code, Value = p.Value}).ToList()
+            PerformanceMeasures = performance.Select(p => new PerformanceMeasure{Name = p.Code, Value = p.CodeValue}).ToList()
         };
     }
 
     public class PerformanceDTO
     {
         public string Code { get; set; }
-        public string Value { get; set; }
+        public string CodeValue { get; set; }
     }
 }

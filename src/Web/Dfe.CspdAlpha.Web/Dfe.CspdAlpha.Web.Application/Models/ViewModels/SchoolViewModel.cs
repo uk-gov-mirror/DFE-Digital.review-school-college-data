@@ -14,5 +14,6 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels
         public List<Measure> CohortMeasures { get; set; }
         public List<Measure> HeadlineMeasures { get; set; }
         public List<Measure> AdditionalMeasures { get; set; }
+        public bool LateCheckingPhase { get; set; }
     }
 }
