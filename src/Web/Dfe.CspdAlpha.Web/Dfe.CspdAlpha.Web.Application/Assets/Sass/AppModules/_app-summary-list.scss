@@ -13,6 +13,22 @@
     }
   }
 
+  &.app-summary-list__school-scores {
+    .govuk-summary-list__key {
+      width: 45%;
+
+      @include govuk-media-query($until:tablet) {
+        width: auto;
+      }
+    }
+
+    @include govuk-media-query($until: tablet) {
+      .govuk-summary-list__value {
+        font-weight: bold;
+      }
+    }
+  }
+
   &.app-summary-list--mobile-inline {
     .govuk-summary-list__key,
     .govuk-summary-list__value {

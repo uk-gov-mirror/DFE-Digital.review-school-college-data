@@ -49,7 +49,7 @@
                     </h2>
                 </div>
                 <div id="accordion-content-0" class="govuk-accordion__section-content" aria-labelledby="accordion-heading-0">
-                    <dl class="govuk-summary-list app-summary-list">
+                    <dl class="govuk-summary-list app-summary-list app-summary-list__school-scores">
                         @foreach (var cohortMeasure in Model.CohortMeasures)
                         {
                             <div class="govuk-summary-list__row">
@@ -74,7 +74,7 @@
                     </h2>
                 </div>
                 <div id="accordion-content-1" class="govuk-accordion__section-content" aria-labelledby="accordion-heading-1">
-                    <dl class="govuk-summary-list app-summary-list">
+                    <dl class="govuk-summary-list app-summary-list app-summary-list__school-scores">
                         @foreach (var measure in Model.HeadlineMeasures)
                         {
                             <div class="govuk-summary-list__row">
@@ -98,7 +98,7 @@
                     </h2>
                 </div>
                 <div id="accordion-content-2" class="govuk-accordion__section-content" aria-labelledby="accordion-heading-2">
-                    <dl class="govuk-summary-list app-summary-list">
+                    <dl class="govuk-summary-list app-summary-list app-summary-list__school-scores">
                         @foreach (var measure in Model.AdditionalMeasures)
                         {
                             <div class="govuk-summary-list__row">
