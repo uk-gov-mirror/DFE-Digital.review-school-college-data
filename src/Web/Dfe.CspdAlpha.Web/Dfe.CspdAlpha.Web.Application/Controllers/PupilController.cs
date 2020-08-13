@@ -8,6 +8,7 @@ using Dfe.CspdAlpha.Web.Application.Application;
 using Dfe.CspdAlpha.Web.Application.Application.Helpers;
 using Dfe.CspdAlpha.Web.Application.Models.Common;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
@@ -18,17 +19,21 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         private readonly IAmendmentService _amendmentService;
         private const string ADD_PUPIL_AMENDMENT = "add-pupil-amendment";
         private const string ADD_PUPIL_AMENDMENT_ID = "add-pupil-amendment-id";
+        private bool LateChecking { get; }
 
         public PupilController(
             ISchoolService schoolService,
-            IAmendmentService amendmentService)
+            IAmendmentService amendmentService,
+            IConfiguration configuration)
         {
             _schoolService = schoolService;
             _amendmentService = amendmentService;
+            LateChecking = configuration["CheckingPhase"] == "Late";
         }
         public IActionResult Index(string urn)
         {
             var viewModel = _schoolService.GetPupilListViewModel(urn);
+            viewModel.LateCheckingPhase = LateChecking;
             return View(viewModel);
         }
 
