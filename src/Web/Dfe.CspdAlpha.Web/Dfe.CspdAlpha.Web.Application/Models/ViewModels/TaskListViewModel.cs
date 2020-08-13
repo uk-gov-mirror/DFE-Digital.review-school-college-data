@@ -9,12 +9,17 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels
         public SchoolDetails SchoolDetails { get; set; }
         public bool ReviewChecked { get; set; }
         public bool DataConfirmed { get; set; }
-
+        public bool LateCheckingPhase { get; set; }
+        public string ReviewedHeader => LateCheckingPhase ? "1. View data before requesting amendments" : "1. Review data before requesting amendments";
+        public string ReviewedCopy => LateCheckingPhase ? "Viewed" : "Reviewed";
+        public string NotReviewedCopy => LateCheckingPhase ? "Not viewed" : "Not reviewed";
         public string GetLeadText()
         {
             if (!ReviewChecked)
             {
-                return "Review your data before requesting amendments or confirming data.";
+                return LateCheckingPhase ?
+                    "View your data before requesting amendments or confirming data." :
+                    "Review your data before requesting amendments or confirming data.";
             }
             if (!DataConfirmed)
             {

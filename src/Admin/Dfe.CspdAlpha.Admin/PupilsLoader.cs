@@ -93,9 +93,9 @@ namespace Dfe.CspdAlpha.Admin
                         else
                         {
                             pupilRow.URN = gias.urn;
+                            pupilRow.Surname = $"{pupilRow.CandidateNumber}S";
+                            pupilRow.Forename = $"{pupilRow.CandidateNumber}F";
                         }
-                        pupilRow.Surname = $"{pupilRow.CandidateNumber}S";
-                        pupilRow.Forename = $"{pupilRow.CandidateNumber}F";
 
                         var perf = (IEnumerable<dynamic>)performanceLookup[pupilRow.PortlandStudentID];
 

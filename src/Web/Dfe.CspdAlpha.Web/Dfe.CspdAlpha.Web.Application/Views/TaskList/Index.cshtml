@@ -29,7 +29,12 @@
             </div>
         </details>
     </div>
-
+    @if (Model.LateCheckingPhase)
+    {
+        <div class="govuk-grid-column-three-quarters">
+            <p class="govuk-body">Key stage 4 Late results</p>
+        </div>
+    }
     <div class="govuk-grid-column-three-quarters">
         <p class="govuk-body">@Model.GetLeadText()</p>
     </div>
@@ -40,18 +45,18 @@
     <div class="govuk-grid-column-full">
         <ol class="app-task-list">
             <li>
-                <h2 class="app-task-list__section">1. Review data before requesting amendments</h2>
+                <h2 class="app-task-list__section">@Model.ReviewedHeader</h2>
                 <ul class="app-task-list__items">
                     <li class="app-task-list__item">
                         <span class="app-task-list__task-name"><a asp-controller="School">School performance</a></span>
-                        <span class="app-task-list__tag">@(Model.ReviewChecked ? "Reviewed" : "Not reviewed")</span>
+                        <span class="app-task-list__tag">@(Model.ReviewChecked ? Model.ReviewedCopy : Model.NotReviewedCopy)</span>
                     </li>
                     <li class="app-task-list__item">
                         <span class="app-task-list__task-name"><a asp-controller="Pupil">Pupil list</a></span>
-                        <span class="app-task-list__tag">@(Model.ReviewChecked ? "Reviewed" : "Not reviewed")</span>
+                        <span class="app-task-list__tag">@(Model.ReviewChecked ? Model.ReviewedCopy : Model.NotReviewedCopy)</span>
                     </li>
                     <li class="app-task-list__item app-task-list__item-review">
-                        <span class="app-task-list__task-name">Review data</span>
+                        <span class="app-task-list__task-name">@(Model.LateCheckingPhase ? "View data" : "Review data")</span>
                         @if (Model.ReviewChecked)
                         {
                             <span class="app-task-list__tag">Completed</span>
@@ -62,7 +67,7 @@
                                 Click to confirm you have reviewed the data
                             </span>
                             <form asp-action="Review" method="post">
-                                <input type="submit" class="govuk-button app-task-list__cta" data-module="govuk-button" value="Review" />
+                                <input type="submit" class="govuk-button app-task-list__cta" data-module="govuk-button" value="@(Model.LateCheckingPhase ? "View" : "Review")" />
                             </form>
                         }
                     </li>
@@ -71,7 +76,18 @@
             <li>
                 <h2 class="app-task-list__section">2. Request amendments</h2>
                 <ul class="app-task-list__items">
-                    @if (!Model.ReviewChecked)
+                    @if (!Model.ReviewChecked && Model.LateCheckingPhase)
+                    {
+                        <li class="app-task-list__item">
+                            <span class="app-task-list__task-name">Request to add results data</span>
+                            <span class="app-task-list__tag">Cannot start yet</span>
+                        </li>
+                        <li class="app-task-list__item">
+                            <span class="app-task-list__task-name">Request to amend/remove results data</span>
+                            <span class="app-task-list__tag">Cannot start yet</span>
+                        </li>
+                    }
+                    else if (!Model.ReviewChecked)
                     {
                         <li class="app-task-list__item">
                             <span class="app-task-list__task-name">Request to add a pupil</span>
@@ -83,6 +99,16 @@
                         </li>
                         <li class="app-task-list__item">
                             <span class="app-task-list__task-name">Request to remove a pupil from school measures</span>
+                            <span class="app-task-list__tag">Cannot start yet</span>
+                        </li>
+                    }
+                    else if (Model.LateCheckingPhase)
+                    {
+                        <li class="app-task-list__item">
+                            <span class="app-task-list__task-name"><a asp-controller="Results" asp-action="Add">Request to add results data</a></span>
+                        </li>
+                        <li class="app-task-list__item">
+                            <span class="app-task-list__task-name"><a asp-controller="Results" asp-action="AmendReason">Request to amend/remove results data</a></span>
                             <span class="app-task-list__tag">Cannot start yet</span>
                         </li>
                     }

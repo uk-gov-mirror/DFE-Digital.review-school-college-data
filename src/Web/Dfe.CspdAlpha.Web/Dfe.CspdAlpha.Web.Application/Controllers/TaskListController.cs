@@ -3,6 +3,7 @@ using Dfe.CspdAlpha.Web.Application.Application.Helpers;
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
@@ -10,51 +11,54 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
     {
         private ISchoolService _schoolService;
         private const string TASK_LIST = "task-list-{0}";
+        private bool LateChecking { get; }
+        private string UserID { get; set; }
 
-        public TaskListController(ISchoolService schoolService)
+        public TaskListController(ISchoolService schoolService, IConfiguration configuration)
         {
             _schoolService = schoolService;
+            LateChecking = configuration["CheckingPhase"] == "Late";
         }
 
         public IActionResult Index()
         {
-            var userId = ClaimsHelper.GetUserId(this.User);
-            var viewModel = HttpContext.Session.Get<TaskListViewModel>(string.Format(TASK_LIST, userId));
+            UserID = ClaimsHelper.GetUserId(this.User) + (LateChecking ? "-late" : string.Empty);
+            var viewModel = HttpContext.Session.Get<TaskListViewModel>(string.Format(TASK_LIST, UserID));
             if (viewModel == null)
             {
                 var urn = ClaimsHelper.GetURN(this.User);
-                viewModel = _schoolService.GetConfirmationRecord(userId, urn);
-                HttpContext.Session.Set(string.Format(TASK_LIST, userId), viewModel ?? new TaskListViewModel());
+                viewModel = _schoolService.GetConfirmationRecord(UserID, urn) ?? new TaskListViewModel();
+                viewModel.LateCheckingPhase = LateChecking;
+                HttpContext.Session.Set(string.Format(TASK_LIST, UserID), viewModel);
             }
-
             return View(viewModel);
         }
 
         [HttpPost]
         public IActionResult Review()
         {
-            var userId = ClaimsHelper.GetUserId(this.User);
-            var viewModel = HttpContext.Session.Get<TaskListViewModel>(string.Format(TASK_LIST, userId));
+            UserID = ClaimsHelper.GetUserId(this.User) + (LateChecking ? "-late" : string.Empty);
+            var viewModel = HttpContext.Session.Get<TaskListViewModel>(string.Format(TASK_LIST, UserID));
             viewModel.ReviewChecked = true;
             var urn = ClaimsHelper.GetURN(this.User);
-            _schoolService.UpdateConfirmation(viewModel, userId, urn);
-            HttpContext.Session.Set(string.Format(TASK_LIST, userId), viewModel);
+            _schoolService.UpdateConfirmation(viewModel, UserID, urn);
+            HttpContext.Session.Set(string.Format(TASK_LIST, UserID), viewModel);
             return RedirectToAction("Index");
         }
 
         [HttpPost]
         public IActionResult ConfrimData()
         {
-            var userId = ClaimsHelper.GetUserId(this.User);
-            var viewModel = HttpContext.Session.Get<TaskListViewModel>(string.Format(TASK_LIST, userId));
+            UserID = ClaimsHelper.GetUserId(this.User) + (LateChecking ? "-late" : string.Empty);
+            var viewModel = HttpContext.Session.Get<TaskListViewModel>(string.Format(TASK_LIST, UserID));
             if (viewModel == null || !viewModel.ReviewChecked)
             {
                 return RedirectToAction("Index");
             }
             viewModel.DataConfirmed = true;
             var urn = ClaimsHelper.GetURN(this.User);
-            _schoolService.UpdateConfirmation(viewModel, userId, urn);
-            HttpContext.Session.Set(string.Format(TASK_LIST, userId), viewModel);
+            _schoolService.UpdateConfirmation(viewModel, UserID, urn);
+            HttpContext.Session.Set(string.Format(TASK_LIST, UserID), viewModel);
             return RedirectToAction("Index");
         }
     }
