@@ -277,7 +277,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
             {
                 Id = amendment.Id.ToString(),
                 Reference = amendment.cr3d5_addpupilref,
-                Status = amendment.cr3d5_amendmentstatus.ToString(),
+                Status = GetStatus(amendment),
                 CreatedDate = amendment.CreatedOn ?? DateTime.MinValue,
                 AddReason = amendment.cr3d5_addreasontype == cr3d5_Pupiltype.Newpupil ? AddReason.New : AddReason.Existing,
                 EvidenceStatus = amendment.cr3d5_evidenceoption == cr3d5_EvidenceOption.UploadEvidenceNow ? EvidenceStatus.Now : amendment.cr3d5_evidenceoption == cr3d5_EvidenceOption.UploadEvidenceLater ? EvidenceStatus.Later : EvidenceStatus.NotRequired,
@@ -303,6 +303,28 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
                 },
                 InclusionConfirmed = amendment.cr3d5_includeinperformanceresults ?? false
             };
+        }
+
+        private string GetStatus(new_Amendment amendment)
+        {
+            if (amendment.cr3d5_firstlinedecision == cr3d5_Decision.Approved ||
+                amendment.cr3d5_firstlinedecision == cr3d5_Decision.Rejected)
+            {
+                return amendment.cr3d5_firstlinedecision.ToString();
+            }
+
+            if (amendment.cr3d5_secondlinedecision == cr3d5_Decision.Approved ||
+                amendment.cr3d5_secondlinedecision == cr3d5_Decision.Rejected)
+            {
+                return amendment.cr3d5_secondlinedecision.ToString();
+            }
+
+            if (amendment.cr3d5_finaldecision != null)
+            {
+                return amendment.cr3d5_finaldecision.ToString();
+            }
+
+            return amendment.cr3d5_amendmentstatus.ToString();
         }
 
 
