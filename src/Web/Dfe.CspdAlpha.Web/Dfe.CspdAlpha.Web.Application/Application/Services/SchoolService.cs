@@ -56,9 +56,9 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                     LAEstab = establishmentData.LaEstab,
                     SchoolType = establishmentData.SchoolType
                 },
-                HeadlineMeasures = establishmentData.PerformanceMeasures.Where(p => HEADLINE_SCORES.Any(h => h.Key == p.Name)).Select(m => new Measure{Name = HEADLINE_SCORES[m.Name], Data = m.Value}).ToList(),
-                AdditionalMeasures = establishmentData.PerformanceMeasures.Where(p => ADDITIONAL_SCORES.Any(h => h.Key == p.Name)).Select(m => new Measure{Name = ADDITIONAL_SCORES[m.Name], Data = m.Value}).ToList(),
-                CohortMeasures = establishmentData.PerformanceMeasures.Where(p => COHORT_SCORES.Any(h => h.Key == p.Name)).Select(m => new Measure{Name = COHORT_SCORES[m.Name], Data = m.Value}).ToList()
+                HeadlineMeasures = establishmentData.PerformanceMeasures.Where(p => HEADLINE_SCORES.Any(h => h.Key == p.Name)).Select(m => new Measure{Name = HEADLINE_SCORES[m.Name], Data = m.Value}).OrderBy(s => s.Name).ToList(),
+                AdditionalMeasures = establishmentData.PerformanceMeasures.Where(p => ADDITIONAL_SCORES.Any(h => h.Key == p.Name)).Select(m => new Measure{Name = ADDITIONAL_SCORES[m.Name], Data = m.Value}).OrderBy(s => s.Name).ToList(),
+                CohortMeasures = establishmentData.PerformanceMeasures.Where(p => COHORT_SCORES.Any(h => h.Key == p.Name)).Select(m => new Measure{Name = COHORT_SCORES[m.Name], Data = m.Value}).OrderBy(s => s.Name).ToList()
             };
         }
 
