@@ -6,8 +6,8 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
 {
     public class AddPupilViewModel
     {
-        public string PupilId { get; set; }
-        public string LAEstab { get; set; }
+        public string SchoolID { get; set; }
+        public string UPN { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int? DayOfBirth { get; set; }
@@ -24,6 +24,8 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
 
         public string FullName => string.Join(" ", new[] {FirstName, LastName}.Where(n => !string.IsNullOrEmpty(n)));
 
-        public AddReason AddReason { get; set; }
+        public AddReason AddReason => !string.IsNullOrEmpty(UPN) && !string.IsNullOrEmpty(SchoolID)
+            ? AddReason.Existing
+            : AddReason.New;
     }
 }

@@ -1,14 +1,14 @@
-@using Dfe.CspdAlpha.Web.Application.Models.Common
 @using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
 @model ConfirmAddPupilViewModel
 @{
-    ViewData["Title"] = Model.PageTitle();
+    ViewData["Title"] = "Confirm you want to request to add a pupil";
 }
 
 @section BackLink
 {
     <a class="govuk-back-link" asp-controller="Pupil" asp-action="@Model.SelectedEvidenceBackOption">Back</a>
 }
+
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
         <h1 class="govuk-heading-l govuk-!-margin-bottom-3">@ViewData["Title"]</h1>
@@ -36,54 +36,16 @@
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <div class="govuk-form-group">
-                @if (Model.MatchedPupils != null)
-                {
-                    var defaultLabel = Model.MatchedPupils.Count == 1 ? "or select the existing pupil found" : "or select from one of the existing pupils found";
-                    <input type="hidden" asp-for="MatchedPupilCount" value="@Model.MatchedPupilCount"/>
-                    <fieldset class="govuk-fieldset">
-                        <div class="govuk-radios">
-                            <legend class="govuk-fieldset__legend">
-                                <h2 class="govuk-heading-s">Continue to add this new pupil</h2>
-                            </legend>
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="SelectedPupilId-false" name="SelectedPupilId" type="radio" value="0">
-                                <label class="govuk-label govuk-radios__label" for="SelectedPupilId-false">
-                                    @Model.AddPupilViewModel.FullName
-                                </label>
-                            </div>
-                            <legend class="govuk-fieldset__legend">
-                                <h2 class="govuk-heading-s">@defaultLabel</h2>
-                            </legend>
-                            @foreach (var pupil in Model.MatchedPupils)
-                            {
-                                var id = "SelectedPupilId" + pupil.PupilId;
-                                <div class="govuk-radios__item">
-                                    <input class="govuk-radios__input" id="@id" name="SelectedPupilId" type="radio" value="@pupil.PupilId">
-                                    <label class="govuk-label govuk-radios__label" for="@id">
-                                        @if (string.IsNullOrWhiteSpace(pupil.PupilId))
-                                        {
-                                            <text>@pupil.Fullname</text>
-                                        }
-                                        else
-                                        {
-                                            <text>@pupil.Fullname (Pupil Id: @pupil.PupilId)</text>
-                                        }
-                                    </label>
-                                </div>
-                            }
-                        </div>
-                    </fieldset>
-                }
                 <fieldset class="govuk-fieldset">
                     <div>
-                        <p class="govuk-body">@Html.Raw(Model.MatchedPupils == null ?  "Do you want to continue?" : "&nbsp;")</p>
+                        <p class="govuk-body">Do you want to continue?</p>
                     </div>
                     <div>
                         <button name="ConfirmAddPupil" value="true" class="govuk-button govuk-!-margin-right-1" data-module="govuk-button">
-                            @(Model.MatchedPupils == null && Model.AddReasonViewModel.Reason == AddReason.New ? "Yes" : "Continue")
+                            Yes
                         </button>
                         <button name="ConfirmAddPupil" value="false" class="govuk-button govuk-button--secondary app-modal__cancel-link" data-module="govuk-button">
-                            @(Model.MatchedPupils == null && Model.AddReasonViewModel.Reason == AddReason.New ? "No" : "Cancel")
+                            No
                         </button>
                     </div>
                 </fieldset>

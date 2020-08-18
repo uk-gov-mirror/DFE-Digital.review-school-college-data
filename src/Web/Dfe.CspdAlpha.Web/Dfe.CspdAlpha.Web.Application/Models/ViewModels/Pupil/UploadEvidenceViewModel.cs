@@ -1,8 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Dfe.CspdAlpha.Web.Application.Models.Common;
+using System.Collections.Generic;
 
 namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
 {

@@ -3,14 +3,12 @@
 @model AddPupilViewModel
 
 @{
-    ViewData["Title"] = Model.AddReason == AddReason.New ?
-        "Add a new pupil (not on any school roll)" :
-        "Add an existing pupil (previously on roll at another school)";
+    ViewData["Title"] = "Request to add a pupil";
 }
 
 @section BackLink
 {
-    <a class="govuk-back-link" asp-controller="Pupil" asp-action="AddReason">Back</a>
+    <a class="govuk-back-link" asp-controller="TaskList" asp-action="Index">Back</a>
 }
 
 
@@ -28,22 +26,19 @@
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <div class="govuk-form-group">
-                <input type="hidden" asp-for="AddReason" value="@Model.AddReason" />
-                @if (Model.AddReason == AddReason.Existing)
-                {
-                    <div class="govuk-form-group">
-                        <label class="govuk-label" asp-for="LAEstab">
-                            LAEstab of previous school
-                        </label>
-                        <input class="govuk-input govuk-input--width-20" asp-for="LAEstab" type="text">
-                    </div>
-                    <div class="govuk-form-group">
-                        <label class="govuk-label" asp-for="PupilId">
-                            Pupil ID (optional)
-                        </label>
-                        <input class="govuk-input govuk-input--width-20" asp-for="PupilId" type="text">
-                    </div>
-                }
+                <div class="govuk-form-group">
+                    <label class="govuk-label" asp-for="SchoolID">
+                        URN (Unique Reference Number) or LAESTAB (Local Authority Establishment Number) or previous school (optional)
+                        <span class="label-example">For example: URN 123456, LAESTAB 1234567</span>
+                    </label>
+                    <input class="govuk-input govuk-input--width-20" asp-for="SchoolID" type="text">
+                </div>
+                <div class="govuk-form-group">
+                    <label class="govuk-label" asp-for="UPN">
+                        UPN (Unique Pupil Number) (optional)
+                    </label>
+                    <input class="govuk-input govuk-input--width-20" asp-for="UPN" type="text">
+                </div>
                 <div class="govuk-form-group">
                     <label class="govuk-label" asp-for="FirstName">
                         First name
@@ -150,17 +145,45 @@
                     </fieldset>
                 </div>
                 <div class="govuk-form-group">
-                    <label class="govuk-label" asp-for="YearGroup">
-                        Year group
-                    </label>
-                    <select class="govuk-select govuk-input--width-20" asp-for="YearGroup" type="text">
-                        <option>Please select</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                    </select>
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                            <h2 class="govuk-fieldset__heading govuk-!-font-weight-regular">
+                                Year group
+                            </h2>
+                        </legend>
+                        <div class="govuk-radios govuk-radios--inline">
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="YearGroup-7" name="YearGroup" type="radio" value="7">
+                                <label class="govuk-label govuk-radios__label" for="YearGroup-7">
+                                    7
+                                </label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="YearGroup-8" name="YearGroup" type="radio" value="8">
+                                <label class="govuk-label govuk-radios__label" for="YearGroup-8">
+                                    8
+                                </label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="YearGroup-9" name="YearGroup" type="radio" value="9">
+                                <label class="govuk-label govuk-radios__label" for="YearGroup-9">
+                                    9
+                                </label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="YearGroup-10" name="YearGroup" type="radio" value="10">
+                                <label class="govuk-label govuk-radios__label" for="YearGroup-10">
+                                    10
+                                </label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="YearGroup-11" name="YearGroup" type="radio" value="11">
+                                <label class="govuk-label govuk-radios__label" for="YearGroup-11">
+                                    11
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
                 </div>
                 <div class="govuk-form-group">
                     <label class="govuk-label" asp-for="PostCode">
