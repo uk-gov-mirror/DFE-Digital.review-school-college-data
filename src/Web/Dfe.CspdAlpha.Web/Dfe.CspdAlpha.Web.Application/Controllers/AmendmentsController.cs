@@ -19,7 +19,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         public IActionResult Index(string urn)
         {
 
-            var amendments = _amendmentService.GetAmendmentsListViewModel(urn);
+            var amendments = _amendmentService.GetAmendmentsListViewModel(urn, LateChecking);
             amendments.LateCheckingPhase = LateChecking;
             return View(amendments);
         }
