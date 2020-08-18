@@ -36,8 +36,15 @@
                     <tr class="govuk-table__row">
                         <th scope="col" class="govuk-table__header">First name</th>
                         <th scope="col" class="govuk-table__header">Last name</th>
+                        @if (!Model.LateCheckingPhase)
+                        {
+                            <th scope="col" class="govuk-table__header">Pupil ID</th>
+                        }
                         <th scope="col" class="govuk-table__header">Date requested</th>
-                        <th scope="col" class="govuk-table__header">Checking window</th>
+                        @if (Model.LateCheckingPhase)
+                        {
+                            <th scope="col" class="govuk-table__header">Checking window</th>
+                        }
                         <th scope="col" class="govuk-table__header">View requested amendment</th>
                         <th scope="col" class="govuk-table__header">Upload evidence</th>
                         <th scope="col" class="govuk-table__header">Cancel amendment</th>
@@ -51,8 +58,15 @@
                     <tr class="govuk-table__row">
                         <td class="govuk-table__cell" data-label="First name">@amendment.FirstName</td>
                         <td class="govuk-table__cell" data-label="Last name">@amendment.LastName</td>
+                        @if (!Model.LateCheckingPhase)
+                        {
+                            <td class="govuk-table__cell" data-label="Pupil ID">@amendment.PupilId</td>
+                        }
                         <td class="govuk-table__cell" data-label="Date requested">@amendment.DateRequested.ToString("dd/MM/yyyy")</td>
-                        <td class="govuk-table__cell" data-label="Checking window">June</td>
+                        @if (Model.LateCheckingPhase)
+                        {
+                            <td class="govuk-table__cell" data-label="Checking window">June</td>
+                        }
                         <td class="govuk-table__cell" data-label="View requested amendment"><a asp-controller="Amendments" asp-action="View" asp-route-id="@amendment.Id">View</a></td>
                         <td class="govuk-table__cell" data-label="Upload evidence">
                             @if (amendment.Status == "Cancelled")

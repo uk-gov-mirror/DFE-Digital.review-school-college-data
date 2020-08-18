@@ -1,22 +1,26 @@
 using System;
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
     public class AmendmentsController : Controller
     {
         private readonly IAmendmentService _amendmentService;
+        private bool LateChecking { get; }
 
-        public AmendmentsController(IAmendmentService amendmentService)
+        public AmendmentsController(IAmendmentService amendmentService, IConfiguration configuration)
         {
             _amendmentService = amendmentService;
+            LateChecking = configuration["CheckingPhase"] == "Late";
         }
 
         public IActionResult Index(string urn)
         {
 
             var amendments = _amendmentService.GetAmendmentsListViewModel(urn);
+            amendments.LateCheckingPhase = LateChecking;
             return View(amendments);
         }
 
