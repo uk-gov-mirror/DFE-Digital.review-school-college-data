@@ -117,14 +117,14 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             var selectedEvidenceOption = addPupilAmendment.SelectedEvidenceOption;
             var result = _amendmentService.CreateAddPupilAmendment(new AddPupilAmendment
             {
-                AddReason = addPupilAmendment.AddPupilViewModel.AddReason == AddReason.New ? Domain.Core.Enums.AddReason.New: Domain.Core.Enums.AddReason.Existing,
+                AddReason = addPupilAmendment.AddReason == AddReason.New ? Domain.Core.Enums.AddReason.New: Domain.Core.Enums.AddReason.Existing,
                 ExistingPupilIDFound = addPupilAmendment.ExistingMatchedPupil,
                 MatchedPupilCount = addPupilAmendment.MatchedPupilCount,
                 Pupil = new Domain.Entities.Pupil
                 {
                     Urn = new URN(addPupilAmendment.URN),
-                    LaEstab = addPupilAmendment.AddPupilViewModel.AddReason == AddReason.Existing ? addPupilAmendment.AddPupilViewModel.SchoolID : null,
-                    Id = addPupilAmendment.AddPupilViewModel.AddReason == AddReason.Existing ? new PupilId(addPupilAmendment.AddPupilViewModel.UPN) : null,
+                    LaEstab = addPupilAmendment.AddReason == AddReason.Existing ? addPupilAmendment.AddPupilViewModel.SchoolID : null,
+                    Id = addPupilAmendment.AddReason == AddReason.Existing ? new PupilId(addPupilAmendment.AddPupilViewModel.UPN) : null,
                     ForeName = addPupilAmendment.AddPupilViewModel.FirstName,
                     LastName = addPupilAmendment.AddPupilViewModel.LastName,
                     DateOfBirth = addPupilAmendment.AddPupilViewModel.DateOfBirth,

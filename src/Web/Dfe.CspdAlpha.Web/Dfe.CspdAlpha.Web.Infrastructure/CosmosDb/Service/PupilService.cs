@@ -20,7 +20,8 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.CosmosDb.Service
 
         public Pupil GetById(PupilId id)
         {
-            return _pupilRepository.GetById(id.Value).Pupil;
+            var matchedPupil = _pupilRepository.Query().Where(p => p.UPN == id.Value).ToList();
+            return matchedPupil.Any() ? matchedPupil.SingleOrDefault().Pupil : null;
         }
 
         public List<Pupil> GetByUrn(URN urn)

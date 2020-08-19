@@ -13,19 +13,35 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
         public int? DayOfBirth { get; set; }
         public int? MonthOfBirth { get; set; }
         public int? YearOfBirth { get; set; }
-        public DateTime DateOfBirth => new DateTime(YearOfBirth.Value, MonthOfBirth.Value, DayOfBirth.Value);
+
+        public DateTime DateOfBirth
+        {
+            get => new DateTime(YearOfBirth.Value, MonthOfBirth.Value, DayOfBirth.Value);
+            set
+            {
+                DayOfBirth = value.Day;
+                MonthOfBirth = value.Month;
+                YearOfBirth = value.Year;
+            }
+        }
         public Gender Gender { get; set; }
         public int? DayOfAdmission { get; set; }
         public int? MonthOfAdmission { get; set; }
         public int? YearOfAdmission { get; set; }
-        public DateTime DateOfAdmission => new DateTime(YearOfAdmission.Value, MonthOfAdmission.Value, DayOfAdmission.Value);
+        public DateTime DateOfAdmission
+        {
+            get => new DateTime(YearOfAdmission.Value, MonthOfAdmission.Value, DayOfAdmission.Value);
+            set
+            {
+                DayOfAdmission = value.Day;
+                MonthOfAdmission = value.Month;
+                YearOfAdmission = value.Year;
+            }
+        }
+
         public string YearGroup { get; set; }
         public string PostCode { get; set; }
 
         public string FullName => string.Join(" ", new[] {FirstName, LastName}.Where(n => !string.IsNullOrEmpty(n)));
-
-        public AddReason AddReason => !string.IsNullOrEmpty(UPN) && !string.IsNullOrEmpty(SchoolID)
-            ? AddReason.Existing
-            : AddReason.New;
     }
 }

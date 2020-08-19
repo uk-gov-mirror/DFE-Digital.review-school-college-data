@@ -7,6 +7,8 @@ using Dfe.CspdAlpha.Web.Domain.Entities;
 using Dfe.CspdAlpha.Web.Domain.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using Dfe.CspdAlpha.Web.Domain.Core.Enums;
+using Microsoft.Crm.Sdk.Messages;
 using Pupil = Dfe.CspdAlpha.Web.Application.Models.School.Pupil;
 
 namespace Dfe.CspdAlpha.Web.Application.Application.Services
@@ -73,6 +75,29 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                     .Select(p => new Pupil {FirstName = p.ForeName, LastName = p.LastName, PupilId = p.Id.Value})
                     .OrderBy(p => p.FirstName)
                     .ToList()
+            };
+        }
+
+        public Pupil GetMatchedPupil(string upn)
+        {
+            var pupil = _pupilService.GetById(new PupilId(upn));
+            if (pupil == null)
+            {
+                return null;
+            }
+            return new Pupil
+            {
+                PupilId = upn,
+                Urn = pupil.Urn.Value,
+                LaEstab = pupil.LaEstab,
+                FirstName = pupil.ForeName,
+                LastName = pupil.LastName,
+                DateOfBirth = pupil.DateOfBirth,
+                Gender = pupil.Gender == Gender.Male ? Models.Common.Gender.Male : Models.Common.Gender.Female,
+                DateOfAdmission = pupil.DateOfAdmission,
+                Age = pupil.Age,
+                YearGroup = pupil.YearGroup,
+                PostCode = pupil.PostCode
             };
         }
 

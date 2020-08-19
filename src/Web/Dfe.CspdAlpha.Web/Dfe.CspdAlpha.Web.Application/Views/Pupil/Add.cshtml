@@ -1,9 +1,11 @@
 @using Dfe.CspdAlpha.Web.Application.Models.Common
 @using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
+@using Microsoft.AspNetCore.Mvc.ModelBinding
 @model AddPupilViewModel
 
 @{
     ViewData["Title"] = "Request to add a pupil";
+    var showError = !ViewData.ModelState.IsValid;
 }
 
 @section BackLink
@@ -11,7 +13,25 @@
     <a class="govuk-back-link" asp-controller="TaskList" asp-action="Index">Back</a>
 }
 
-
+@if (showError)
+{
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary">
+                <h2 class="govuk-error-summary__title" id="error-summary-title">
+                    There is a problem
+                </h2>
+                <div class="govuk-error-summary__body">
+                    <ul class="govuk-list govuk-error-summary__list">
+                        <li>
+                            <a href="#UPN">Enter a valid UPN</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
         <h1 class="govuk-heading-l govuk-!-margin-bottom-3">@ViewBag.Title</h1>
@@ -33,10 +53,16 @@
                     </label>
                     <input class="govuk-input govuk-input--width-20" asp-for="SchoolID" type="text">
                 </div>
-                <div class="govuk-form-group">
+                <div class="govuk-form-group @(showError ? "govuk-form-group--error" : string.Empty)">
                     <label class="govuk-label" asp-for="UPN">
                         UPN (Unique Pupil Number) (optional)
                     </label>
+                    @if (showError)
+                    {
+                        <span id="UPN-error" class="govuk-error-message">
+                            <span class="govuk-visually-hidden">Error:</span> Enter a valid UPN
+                        </span>
+                    }
                     <input class="govuk-input govuk-input--width-20" asp-for="UPN" type="text">
                 </div>
                 <div class="govuk-form-group">
@@ -196,7 +222,7 @@
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
-            <input type="submit" class="govuk-button" data-module="govuk-button" value="Continue"/>
+            <input type="submit" class="govuk-button" data-module="govuk-button" value="Continue" />
         </div>
     </div>
 </form>
@@ -207,4 +233,4 @@
     </div>
 </div>
 
-<partial name="_CancelModalContent"/>
+<partial name="_CancelModalContent" />

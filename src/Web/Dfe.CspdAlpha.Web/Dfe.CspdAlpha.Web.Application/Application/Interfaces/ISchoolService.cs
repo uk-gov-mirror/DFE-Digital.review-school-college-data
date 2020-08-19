@@ -13,6 +13,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Interfaces
         SchoolViewModel GetSchoolViewModel(string urn);
         PupilListViewModel GetPupilListViewModel(string urn);
 
+        Pupil GetMatchedPupil(string upn);
         List<Pupil> GetMatchedPupils(AddPupilViewModel addPupil);
 
         bool UpdateConfirmation(TaskListViewModel taskListViewModel, string userId, string urn);

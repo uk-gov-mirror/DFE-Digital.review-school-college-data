@@ -11,6 +11,7 @@ namespace Dfe.CspdAlpha.Web.Domain.Entities
         public PupilId Id { get; set; }
         public PupilStatus Status { get; set; }
         public URN Urn { get; set; }
+        public string UPN { get; set; }
         public string LaEstab { get; set; }
         public string ForeName { get; set; }
         public string LastName { get; set; }

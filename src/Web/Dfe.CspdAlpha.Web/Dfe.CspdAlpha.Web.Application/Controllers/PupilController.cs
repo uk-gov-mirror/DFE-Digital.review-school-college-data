@@ -45,17 +45,44 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         [HttpPost]
         public IActionResult Add(AddPupilViewModel addPupilViewModel)
         {
-            //TODO: add backend checking
+            if (!string.IsNullOrEmpty(addPupilViewModel.UPN))
+            {
+                var existingPupil = _schoolService.GetMatchedPupil(addPupilViewModel.UPN);
+                if (existingPupil == null)
+                {
+                    ModelState.AddModelError("UPN", "Enter a valid UPN");
+                }
+                else
+                {
+                    addPupilViewModel.SchoolID = existingPupil.LaEstab;
+                    addPupilViewModel.FirstName = existingPupil.FirstName;
+                    addPupilViewModel.LastName = existingPupil.LastName;
+                    addPupilViewModel.DateOfBirth = existingPupil.DateOfBirth;
+                    addPupilViewModel.Gender = existingPupil.Gender;
+                    addPupilViewModel.DateOfAdmission = existingPupil.DateOfAdmission;
+                    addPupilViewModel.YearGroup = existingPupil.YearGroup;
+                    addPupilViewModel.PostCode = existingPupil.PostCode;
+                    var addPupilAmendment = new AddPupilAmendmentViewModel
+                    {
+                        URN = ClaimsHelper.GetURN(this.User),
+                        AddPupilViewModel = addPupilViewModel,
+                        EvidenceFiles = new List<EvidenceFile>()
+                    };
+                    HttpContext.Session.Set(ADD_PUPIL_AMENDMENT, addPupilAmendment);
+                    return RedirectToAction("ExistingMatch");
+                }
+            }
+
             if (ModelState.IsValid)
             {
                 var addPupilAmendment = new AddPupilAmendmentViewModel
                 {
-                    AddPupilViewModel = addPupilViewModel,
                     URN = ClaimsHelper.GetURN(this.User),
+                    AddPupilViewModel = addPupilViewModel,
                     EvidenceFiles = new List<EvidenceFile>()
                 };
                 HttpContext.Session.Set(ADD_PUPIL_AMENDMENT, addPupilAmendment);
-                return RedirectToAction("AddResult");
+                return RedirectToAction("Add", "PriorAttainment");
             }
 
             return View(addPupilViewModel);

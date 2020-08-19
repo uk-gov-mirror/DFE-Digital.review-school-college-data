@@ -23,10 +23,16 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.CosmosDb.Repositories
 
         public PupilDTO GetById(string id)
         {
-            var result = _container.ReadItemAsync<PupilDTO>(id, PartitionKey.None).Result;
-            if (result.StatusCode == HttpStatusCode.OK)
+            try
             {
-                return result.Resource;
+                var result = _container.ReadItemAsync<PupilDTO>(id, PartitionKey.None).Result;
+                if (result.StatusCode == HttpStatusCode.OK)
+                {
+                    return result.Resource;
+                }
+            }
+            catch 
+            {
             }
 
             return null;
