@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Dfe.CspdAlpha.Web.Application.Models.Common;
+using DateTime = System.DateTime;
 
 namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
 {
@@ -22,6 +23,21 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
                 DayOfBirth = value.Day;
                 MonthOfBirth = value.Month;
                 YearOfBirth = value.Year;
+            }
+        }
+
+        public int Age
+        {
+            get
+            {
+                var now = DateTime.Now;
+                var age = now.Year - DateOfBirth.Year;
+                if (DateOfBirth.DayOfYear < now.DayOfYear)
+                {
+                    age--;
+                }
+
+                return age;
             }
         }
         public Gender Gender { get; set; }

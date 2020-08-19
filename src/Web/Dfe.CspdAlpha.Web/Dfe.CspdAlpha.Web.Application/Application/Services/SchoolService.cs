@@ -8,7 +8,6 @@ using Dfe.CspdAlpha.Web.Domain.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 using Dfe.CspdAlpha.Web.Domain.Core.Enums;
-using Microsoft.Crm.Sdk.Messages;
 using Pupil = Dfe.CspdAlpha.Web.Application.Models.School.Pupil;
 
 namespace Dfe.CspdAlpha.Web.Application.Application.Services
@@ -33,8 +32,6 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             {"P8PUP", "Number of pupils included in Progress 8 measure" },
             {"SENSE4", "Number of pupils at the end of key stage 4 with special educational needs (SEN) with a statement or Education, health and care (EHC) plan" }
         };
-        private readonly List<string> HEADLINE_MEASURES = new List<string> { "P8_BANDING", "PTEBACC_E_PTQ_EE", "PTL2BASICS_95" };
-        private readonly List<string> ADDITIONAL_MEASURES = new List<string> { "PTL2BASICS_94", "ATT8SCR", "EBACCAPS" };
         private IPupilService _pupilService;
         private IConfirmationService _confirmationService;
 
@@ -43,6 +40,12 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             _confirmationService = confirmationService;
             _pupilService = pupilService;
             _establishmentService = establishmentService;
+        }
+
+        public string GetSchoolName(string laestab)
+        {
+            var school = _establishmentService.GetByLAId(laestab);
+            return school != null ? school.Name : string.Empty;
         }
 
         public SchoolViewModel GetSchoolViewModel(string urn)

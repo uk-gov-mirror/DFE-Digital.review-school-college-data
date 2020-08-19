@@ -91,6 +91,18 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             return View(addPupilViewModel);
         }
 
+        public IActionResult ExistingMatch()
+        {
+            var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
+            if (addPupilAmendment.AddPupilViewModel == null)
+            {
+                return RedirectToAction("Add");
+            }
+
+            var school = _schoolService.GetSchoolName(addPupilAmendment.AddPupilViewModel.SchoolID);
+            return View(new ExistingMatchViewModel{AddPupilViewModel = addPupilAmendment.AddPupilViewModel, SchoolName = school});
+        }
+
         public IActionResult AddEvidence()
         {
             var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
