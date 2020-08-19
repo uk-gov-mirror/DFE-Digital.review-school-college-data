@@ -57,6 +57,15 @@
       }
     }
   }
+
+  &.app-summary-list--70 {
+    @include govuk-media-query($from: tablet) {
+      width: 70%;
+      .govuk-summary-list__key {
+        width: 40%;
+      }
+    }
+  }
 }
 
 .govuk-accordion__section-content {
