@@ -5,7 +5,7 @@ using DateTime = System.DateTime;
 
 namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
 {
-    public class AddPupilViewModel
+    public class PupilViewModel
     {
         public string SchoolID { get; set; }
         public string UPN { get; set; }
@@ -14,7 +14,6 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
         public int? DayOfBirth { get; set; }
         public int? MonthOfBirth { get; set; }
         public int? YearOfBirth { get; set; }
-
         public DateTime DateOfBirth
         {
             get => new DateTime(YearOfBirth.Value, MonthOfBirth.Value, DayOfBirth.Value);
@@ -25,7 +24,6 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
                 YearOfBirth = value.Year;
             }
         }
-
         public int Age
         {
             get
@@ -54,7 +52,6 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
                 YearOfAdmission = value.Year;
             }
         }
-
         public string YearGroup { get; set; }
         public string PostCode { get; set; }
 

@@ -25,6 +25,5 @@ namespace Dfe.CspdAlpha.Web.Domain.Entities
         public string PostCode { get; set; }
         public bool FSM6 { get; set; }
         public List<Result> Results { get; set; }
-
      }
 }

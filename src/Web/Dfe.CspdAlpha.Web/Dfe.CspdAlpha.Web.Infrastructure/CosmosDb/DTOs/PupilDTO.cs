@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using Dfe.CspdAlpha.Web.Domain.Core;
 using Dfe.CspdAlpha.Web.Domain.Entities;
 
@@ -20,7 +22,8 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.CosmosDb.DTOs
         public string ActualYearGroup { get; set; }
         public string PostCode { get; set; }
         public string FSM6 { get; set; }
-        //public List<Result> Results { get; set; }
+        
+        public List<ResultDTO> performance { get; set; }
 
         public Pupil Pupil => new Pupil
         {
@@ -36,8 +39,8 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.CosmosDb.DTOs
             DateOfAdmission = DateTime.ParseExact(ENTRYDAT.ToString(), "yyyyMMdd", new CultureInfo("en-GB")),
             YearGroup = ActualYearGroup,
             PostCode = PostCode,
-            FSM6 = FSM6 == "1"
+            FSM6 = FSM6 == "1",
+            Results = performance.Select(p => new Result{ SubjectCode = p.SubjectCode, ExamYear = p.ExamYear, TestMark = p.TestMark, ScaledScore = p.ScaledScore}).ToList()
         };
-
     }
 }

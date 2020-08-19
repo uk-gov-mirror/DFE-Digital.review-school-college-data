@@ -11,11 +11,6 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
     {
         private const string ADD_PUPIL_AMENDMENT = "add-pupil-amendment";
 
-        public PriorAttainmentController()
-        {
-
-        }
-
         public IActionResult Add()
         {
             var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
@@ -49,6 +44,18 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 return View(model);
             }
             return View(result);
+        }
+
+        public IActionResult View()
+        {
+            var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
+            if (addPupilAmendment == null || addPupilAmendment.AddPupilViewModel == null ||
+                addPupilAmendment.AddReason != AddReason.Existing)
+            {
+                return RedirectToAction("Add", "Pupil");
+            }
+
+            return View(new ExistingResultsViewModel(addPupilAmendment.Results, addPupilAmendment.AddPupilViewModel));
         }
     }
 }

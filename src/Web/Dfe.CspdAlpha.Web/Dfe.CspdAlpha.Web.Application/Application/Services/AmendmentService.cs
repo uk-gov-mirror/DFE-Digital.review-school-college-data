@@ -58,7 +58,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             var amendment = _amendmentService.GetAddPupilAmendmentDetail(id);
             return new AmendmentViewModel
             {
-                AddPupilViewModel = new AddPupilViewModel
+                AddPupilViewModel = new PupilViewModel
                 {
                     UPN = amendment.Pupil.Id?.Value,
                     FirstName = amendment.Pupil.ForeName,

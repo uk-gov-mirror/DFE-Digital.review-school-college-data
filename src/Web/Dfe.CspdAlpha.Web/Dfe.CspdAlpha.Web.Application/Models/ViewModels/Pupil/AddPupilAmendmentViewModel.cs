@@ -16,7 +16,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
     public class AddPupilAmendmentViewModel
     {
         public string URN { get; set; }
-        public AddPupilViewModel AddPupilViewModel { get; set; }
+        public PupilViewModel AddPupilViewModel { get; set; }
         public AddReason AddReason
         {
             get
@@ -32,7 +32,5 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
         public List<PriorAttainmentResultViewModel> Results { get; set; }
         public EvidenceOption SelectedEvidenceOption { get; set; }
         public List<EvidenceFile> EvidenceFiles { get; set; }
-        //public int MatchedPupilCount { get; set; }
-        //public string ExistingMatchedPupil { get; set; }
     }
 }

@@ -1,0 +1,149 @@
+@using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Results
+@model ExistingResultsViewModel
+@{
+    ViewData["Title"] = "Key stage 2 prior attaiment results for " + Model.PupilViewModel.FullName;
+}
+
+@section BackLink
+{
+    <a class="govuk-back-link" asp-controller="Pupil" asp-action="Add">Back</a>
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-l govuk-!-margin-bottom-3">@ViewBag.Title</h1>
+    </div>
+
+    <div class="govuk-grid-column-full">
+        <p class="govuk-body">Lorem ipsum...</p>
+    </div>
+</div>
+<div class="govuk-grid-row govuk-!-padding-top-2">
+    <div class="app-grid-column-two-thirds--always">
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-3">Key stage 2 Reading</h2>
+    </div>
+</div>
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <dl class="govuk-summary-list app-summary-list app-summary-list--mobile-inline">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Exam year
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @(Model.Reading?.ExamYear ?? "Not recorded")
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Test mark
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @(Model.Reading?.TestMark ?? "Not recorded")
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Scaled score
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @(Model.Reading?.ScaledScore ?? "Not recorded")
+                </dd>
+            </div>
+        </dl>
+    </div>
+</div>
+<div class="govuk-grid-row govuk-!-padding-top-2">
+    <div class="app-grid-column-two-thirds--always">
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-3">Key stage 2 Writing</h2>
+    </div>
+</div>
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <dl class="govuk-summary-list app-summary-list app-summary-list--mobile-inline">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Exam year
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @(Model.Writing?.ExamYear ?? "Not recorded")
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Test mark
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @(Model.Writing?.TestMark ?? "Not recorded")
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Scaled score
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @(Model.Writing?.ScaledScore ?? "Not recorded")
+                </dd>
+            </div>
+        </dl>
+    </div>
+</div>
+<div class="govuk-grid-row govuk-!-padding-top-2">
+    <div class="app-grid-column-two-thirds--always">
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-3">Key stage 2 Maths</h2>
+    </div>
+</div>
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <dl class="govuk-summary-list app-summary-list app-summary-list--mobile-inline">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Exam year
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @(Model.Maths?.ExamYear ?? "Not recorded")
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Test mark
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @(Model.Maths?.TestMark ?? "Not recorded")
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Scaled score
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @(Model.Maths?.ScaledScore ?? "Not recorded")
+                </dd>
+            </div>
+        </dl>
+    </div>
+</div>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <div>
+            <p class="govuk-body">Do you want to edit prior attainment results?</p>
+        </div>
+        <a asp-action="Edit" class="govuk-button govuk-button--secondary">Edit</a>
+    </div>
+    <div class="govuk-grid-column-full">
+        <div>
+            <p class="govuk-body">or continue to upload evidence</p>
+        </div>
+        <a asp-controller="Pupil" asp-action="AddEvidence" class="govuk-button govuk-button--secondary">Continue</a>
+    </div>
+</div>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <a asp-controller="TaskList" asp-action="Index" class="app-modal__cancel-link">Cancel amendment</a>
+    </div>
+</div>
+
+<partial name="_CancelModalContent" />
+<script webpack-src="submit-evidence"></script>

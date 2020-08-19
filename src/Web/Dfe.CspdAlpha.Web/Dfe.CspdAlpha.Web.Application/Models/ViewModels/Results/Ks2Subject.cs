@@ -7,6 +7,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Results
 {
     public enum Ks2Subject
     {
+        Unknown,
         Reading,
         Writing,
         Maths

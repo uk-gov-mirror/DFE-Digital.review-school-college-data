@@ -7,8 +7,9 @@ using Dfe.CspdAlpha.Web.Domain.Entities;
 using Dfe.CspdAlpha.Web.Domain.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Results;
 using Dfe.CspdAlpha.Web.Domain.Core.Enums;
-using Pupil = Dfe.CspdAlpha.Web.Application.Models.School.Pupil;
+using Dfe.CspdAlpha.Web.Infrastructure.Crm;
 
 namespace Dfe.CspdAlpha.Web.Application.Application.Services
 {
@@ -75,41 +76,49 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                 Urn = urn,
                 Pupils = _pupilService
                     .GetByUrn(urnValue)
-                    .Select(p => new Pupil {FirstName = p.ForeName, LastName = p.LastName, PupilId = p.Id.Value})
+                    .Select(p => new PupilListEntry { FirstName = p.ForeName, LastName = p.LastName, PupilId = p.Id.Value})
                     .OrderBy(p => p.FirstName)
                     .ToList()
             };
         }
 
-        public Pupil GetMatchedPupil(string upn)
+        public MatchedPupilViewModel GetMatchedPupil(string upn)
         {
             var pupil = _pupilService.GetById(new PupilId(upn));
             if (pupil == null)
             {
                 return null;
             }
-            return new Pupil
+            return new MatchedPupilViewModel()
             {
-                PupilId = upn,
-                Urn = pupil.Urn.Value,
-                LaEstab = pupil.LaEstab,
+                PupilViewModel = new PupilViewModel { 
+                UPN = upn,
+                SchoolID = pupil.LaEstab,
                 FirstName = pupil.ForeName,
                 LastName = pupil.LastName,
                 DateOfBirth = pupil.DateOfBirth,
                 Gender = pupil.Gender == Gender.Male ? Models.Common.Gender.Male : Models.Common.Gender.Female,
                 DateOfAdmission = pupil.DateOfAdmission,
-                Age = pupil.Age,
                 YearGroup = pupil.YearGroup,
                 PostCode = pupil.PostCode
+                },
+                Results = pupil.Results.Select(r => new PriorAttainmentResultViewModel{Subject = GetSubject(r.SubjectCode), ExamYear = r.ExamYear, TestMark = r.TestMark, ScaledScore = r.ScaledScore}).Where(r => r.Subject != Ks2Subject.Unknown).ToList()
             };
         }
 
-        public List<Pupil> GetMatchedPupils(AddPupilViewModel addPupil)
+        private Ks2Subject GetSubject(string subjectCode)
         {
-            var matchedPupils =_pupilService
-                .FindMatchedPupils(new Domain.Entities.Pupil
-                    {ForeName = addPupil.FirstName, LastName = addPupil.LastName, DateOfBirth = addPupil.DateOfBirth}).ToList();
-            return    matchedPupils.Select(p => new Pupil {FirstName = p.ForeName, LastName = p.LastName, PupilId = p.Id.Value}).ToList();
+            switch (subjectCode)
+            {
+                case "9982":
+                    return Ks2Subject.Maths;
+                case "9984":
+                    return Ks2Subject.Reading;
+                case "9985":
+                    return Ks2Subject.Writing;
+                default:
+                    return Ks2Subject.Unknown;
+            }
         }
 
         public TaskListViewModel GetConfirmationRecord(string userId, string urn)

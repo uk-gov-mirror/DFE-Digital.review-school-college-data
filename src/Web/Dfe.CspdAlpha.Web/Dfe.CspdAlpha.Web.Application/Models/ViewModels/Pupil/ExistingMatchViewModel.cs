@@ -7,7 +7,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
 {
     public class ExistingMatchViewModel
     {
-        public AddPupilViewModel AddPupilViewModel { get; set; }
+        public PupilViewModel AddPupilViewModel { get; set; }
         public string SchoolName { get; set; }
     }
 }

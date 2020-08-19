@@ -8,8 +8,15 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
     {
         public CheckDataNavigation CheckDataNavigationModel => new CheckDataNavigation(NavigationItem.PupilList);
         public string Urn { get; set; }
-        public List<School.Pupil> Pupils { get; set; }
+        public List<PupilListEntry> Pupils { get; set; }
         public string PupilsJson => JsonConvert.SerializeObject(Pupils);
         public bool LateCheckingPhase { get; set; }
+    }
+
+    public class PupilListEntry
+    {
+        public string PupilId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
     }
 }

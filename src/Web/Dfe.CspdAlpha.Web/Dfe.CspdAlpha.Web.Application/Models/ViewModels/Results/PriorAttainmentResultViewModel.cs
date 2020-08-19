@@ -1,14 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
+using System.Collections.Generic;
 
 namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Results
 {
     public class PriorAttainmentResultViewModel
     {
-        public AddPupilViewModel AddPupilViewModel { get; set; }
+        public PupilViewModel AddPupilViewModel { get; set; }
 
         public List<Ks2Subject> Ks2Subjects { get; set; }
         public Ks2Subject Subject { get; set; }

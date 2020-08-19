@@ -5,7 +5,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments
 {
     public class AmendmentViewModel
     {
-        public AddPupilViewModel AddPupilViewModel { get; set; }
+        public PupilViewModel AddPupilViewModel { get; set; }
         //public AddPriorAttainmentViewModel AddPriorAttainmentViewModel { get; set; }
 
         public string PupilAge
