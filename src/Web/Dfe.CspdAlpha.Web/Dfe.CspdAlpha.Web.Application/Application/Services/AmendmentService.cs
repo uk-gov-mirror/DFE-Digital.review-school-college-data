@@ -73,13 +73,13 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                     YearGroup = amendment.Pupil.YearGroup,
                     PostCode = amendment.Pupil.PostCode
                 },
-                AddPriorAttainmentViewModel = new AddPriorAttainmentViewModel
-                {
-                    ResultFor = amendment.PriorAttainment.ResultFor,
-                    Test = amendment.PriorAttainment.Test,
-                    Level = amendment.PriorAttainment.AttainmentLevel,
-                    AcademicYear = amendment.PriorAttainment.AcademicYear
-                }
+                //AddPriorAttainmentViewModel = new AddPriorAttainmentViewModel
+                //{
+                //    ResultFor = amendment.PriorAttainment.ResultFor,
+                //    Test = amendment.PriorAttainment.Test,
+                //    Level = amendment.PriorAttainment.AttainmentLevel,
+                //    AcademicYear = amendment.PriorAttainment.AcademicYear
+                //}
             };
         }
 
@@ -118,8 +118,8 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             var result = _amendmentService.CreateAddPupilAmendment(new AddPupilAmendment
             {
                 AddReason = addPupilAmendment.AddReason == AddReason.New ? Domain.Core.Enums.AddReason.New: Domain.Core.Enums.AddReason.Existing,
-                ExistingPupilIDFound = addPupilAmendment.ExistingMatchedPupil,
-                MatchedPupilCount = addPupilAmendment.MatchedPupilCount,
+                // ExistingPupilIDFound = addPupilAmendment.ExistingMatchedPupil,//TODO: get rid
+                // MatchedPupilCount = addPupilAmendment.MatchedPupilCount, //TODO: get rid
                 Pupil = new Domain.Entities.Pupil
                 {
                     Urn = new URN(addPupilAmendment.URN),
@@ -136,12 +136,12 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                     PostCode = addPupilAmendment.AddPupilViewModel.PostCode
                 },
                 InclusionConfirmed = true,
-                PriorAttainment = new PriorAttainment
+                PriorAttainment = new PriorAttainment // TODO: all need sorting
                 {
-                    ResultFor = addPupilAmendment.AddPriorAttainmentViewModel.ResultFor,
-                    Test = addPupilAmendment.AddPriorAttainmentViewModel.Test,
-                    AcademicYear = addPupilAmendment.AddPriorAttainmentViewModel.AcademicYear,
-                    AttainmentLevel = addPupilAmendment.AddPriorAttainmentViewModel.Level,
+                    //ResultFor = addPupilAmendment.AddPriorAttainmentViewModel.ResultFor,
+                    //Test = addPupilAmendment.AddPriorAttainmentViewModel.Test,
+                    //AcademicYear = addPupilAmendment.AddPriorAttainmentViewModel.AcademicYear,
+                    //AttainmentLevel = addPupilAmendment.AddPriorAttainmentViewModel.Level,
                 },
                 EvidenceStatus = selectedEvidenceOption == EvidenceOption.UploadNow ?
                     EvidenceStatus.Now : selectedEvidenceOption == EvidenceOption.UploadLater ?

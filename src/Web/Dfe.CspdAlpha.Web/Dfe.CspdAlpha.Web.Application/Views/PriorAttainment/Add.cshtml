@@ -1,0 +1,119 @@
+@using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
+@using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Results
+@model PriorAttainmentResultViewModel
+@{
+    ViewData["Title"] = "Add Key stage 2 prior attaiment results for " + Model.AddPupilViewModel.FullName + " (optional)";
+}
+
+@section BackLink
+{
+    <a class="govuk-back-link" asp-controller="Pupil" asp-action="Add">Back</a>
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-l govuk-!-margin-bottom-3">@ViewBag.Title</h1>
+    </div>
+
+    <div class="govuk-grid-column-full">
+        <details class="govuk-details govuk-!-font-size-16" data-module="govuk-details">
+            <summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text">
+                    View pupil details
+                </span>
+            </summary>
+            <div class="govuk-details__text">
+                <partial name="_PupilDetails" model="@Model.AddPupilViewModel" />
+            </div>
+        </details>
+    </div>
+
+    <div class="govuk-grid-column-full">
+        <p class="govuk-body">Lorem ipsum...</p>
+    </div>
+</div>
+
+<form method="post">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-form-group">
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                            <h2 class="govuk-fieldset__heading govuk-!-font-weight-regular">
+                                Key stage 2
+                            </h2>
+                        </legend>
+                        <div class="govuk-radios">
+                            @if (Model.Ks2Subjects.All(r => r != Ks2Subject.Reading))
+                            {
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="Subject-Reading" name="Subject" type="radio" value="Reading">
+                                    <label class="govuk-label govuk-radios__label" for="Subject-Reading">
+                                        Reading
+                                    </label>
+                                </div>
+                            }
+                            @if (Model.Ks2Subjects.All(r => r != Ks2Subject.Writing))
+                            {
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="Subject-Writing" name="Subject" type="radio" value="Writing">
+                                    <label class="govuk-label govuk-radios__label" for="Subject-Writing">
+                                        Writing
+                                    </label>
+                                </div>
+                            }
+                            @if (Model.Ks2Subjects.All(r => r != Ks2Subject.Maths))
+                            {
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="Subject-Maths" name="Subject" type="radio" value="Maths">
+                                    <label class="govuk-label govuk-radios__label" for="Subject-Maths">
+                                        Maths
+                                    </label>
+                                </div>
+                            }
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="govuk-form-group">
+                    <label class="govuk-label" asp-for="ExamYear">
+                        Exam year
+                    </label>
+                    <input class="govuk-input govuk-input--width-20" asp-for="ExamYear" type="text">
+                </div>
+                <div class="govuk-form-group">
+                    <label class="govuk-label" asp-for="TestMark">
+                        Test mark
+                    </label>
+                    <input class="govuk-input govuk-input--width-20" asp-for="TestMark" type="text">
+                </div>
+                <div class="govuk-form-group">
+                    <label class="govuk-label" asp-for="ScaledScore">
+                        Scaled score
+                    </label>
+                    <input class="govuk-input govuk-input--width-20" asp-for="ScaledScore" type="text">
+                </div>
+            </div>
+        </div>
+        <div class="govuk-grid-column-two-thirds">
+            <div>
+                <p class="govuk-body">Add more prior attainment results</p>
+            </div>
+            <button class="govuk-button govuk-button--secondary" id="add-button">Add</button>
+        </div>
+    </div>
+</form>
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <a asp-controller="Pupil" asp-action="AddEvidence" class="govuk-button govuk-button--secondary">Continue</a>
+    </div>
+</div>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <a asp-controller="TaskList" asp-action="Index" class="app-modal__cancel-link">Cancel amendment</a>
+    </div>
+</div>
+
+<partial name="_CancelModalContent" />
+<script webpack-src="submit-evidence"></script>

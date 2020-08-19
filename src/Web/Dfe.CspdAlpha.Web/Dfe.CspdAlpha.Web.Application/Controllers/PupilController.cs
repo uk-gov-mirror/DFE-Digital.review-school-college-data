@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using Dfe.CspdAlpha.Web.Application.Application;
 using Dfe.CspdAlpha.Web.Application.Application.Helpers;
 using Dfe.CspdAlpha.Web.Application.Models.Common;
+using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Results;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 
@@ -66,6 +67,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                     {
                         URN = ClaimsHelper.GetURN(this.User),
                         AddPupilViewModel = addPupilViewModel,
+                        Results = new List<PriorAttainmentResultViewModel>(), //TODO: fill this out
                         EvidenceFiles = new List<EvidenceFile>()
                     };
                     HttpContext.Session.Set(ADD_PUPIL_AMENDMENT, addPupilAmendment);
@@ -79,6 +81,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 {
                     URN = ClaimsHelper.GetURN(this.User),
                     AddPupilViewModel = addPupilViewModel,
+                    Results = new List<PriorAttainmentResultViewModel>(),
                     EvidenceFiles = new List<EvidenceFile>()
                 };
                 HttpContext.Session.Set(ADD_PUPIL_AMENDMENT, addPupilAmendment);
@@ -88,33 +91,10 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             return View(addPupilViewModel);
         }
 
-        public IActionResult AddResult()
-        {
-            var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
-            if (addPupilAmendment == null || addPupilAmendment.AddPupilViewModel == null)
-            {
-                return RedirectToAction("Add");
-            }
-            return View(addPupilAmendment);
-        }
-
-        [HttpPost]
-        public IActionResult AddResult(AddPriorAttainmentViewModel addPriorAttainmentViewModel)
-        {
-            var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
-            addPupilAmendment.AddPriorAttainmentViewModel = addPriorAttainmentViewModel;
-            if (ModelState.IsValid)
-            {
-                HttpContext.Session.Set(ADD_PUPIL_AMENDMENT, addPupilAmendment);
-                return RedirectToAction("AddEvidence");
-            }
-            return View(addPupilAmendment);
-        }
-
         public IActionResult AddEvidence()
         {
             var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
-            if (addPupilAmendment?.AddPriorAttainmentViewModel == null)
+            if (addPupilAmendment.AddPupilViewModel == null)
             {
                 return RedirectToAction("Add");
             }
