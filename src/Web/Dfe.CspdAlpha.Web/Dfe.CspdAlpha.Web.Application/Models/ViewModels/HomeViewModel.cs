@@ -21,6 +21,6 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels
         [Required]
         public string SelectedKeyStage { get; set; }
 
-        public string CheckingStageText => ConfigRoot != null && ConfigRoot["CheckingPhase"] == "Late" ? "Key stage 4 Late checking exercise" : "Key stage 4 June checking exercise";
+        public string CheckingStageText => ConfigRoot != null && ConfigRoot["CheckingPhase"] == "Late" ? "Key stage 4 Late results" : "Key stage 4 June checking exercise";
     }
 }
