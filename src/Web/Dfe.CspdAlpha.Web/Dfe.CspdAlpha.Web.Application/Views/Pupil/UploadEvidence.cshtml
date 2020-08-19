@@ -1,7 +1,7 @@
 @using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
 @model UploadEvidenceViewModel
 @{
-    ViewData["Title"] = "Upload evidence for " + Model.AddPupilViewModel.FullName;
+    ViewData["Title"] = "Upload evidence for " + Model.PupilViewModel.FullName;
     ViewBag.ContentClass = "app-detail-page-main";
     string referer = Context.Request.Headers["Referer"].ToString();
 }
@@ -33,7 +33,7 @@
                 </span>
             </summary>
             <div class="govuk-details__text">
-                <partial name="_PupilDetails" model="@Model.AddPupilViewModel" />
+                <partial name="_PupilDetails" model="@Model.PupilViewModel" />
             </div>
         </details>
     </div>

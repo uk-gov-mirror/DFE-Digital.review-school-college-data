@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Results;
 using Dfe.CspdAlpha.Web.Domain.Core.Enums;
-using Dfe.CspdAlpha.Web.Infrastructure.Crm;
 
 namespace Dfe.CspdAlpha.Web.Application.Application.Services
 {

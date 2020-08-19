@@ -27,7 +27,7 @@
                     Previous school URN (Unique Reference Number) or LAESTAB (Local Authority Establishment Number)
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @Model.AddPupilViewModel.SchoolID
+                    @Model.PupilViewModel.SchoolID
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -43,7 +43,7 @@
                     UPN
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @Model.AddPupilViewModel.UPN
+                    @Model.PupilViewModel.UPN
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -51,7 +51,7 @@
                     First name
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @Model.AddPupilViewModel.FirstName
+                    @Model.PupilViewModel.FirstName
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -59,7 +59,7 @@
                     Last name
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @Model.AddPupilViewModel.LastName
+                    @Model.PupilViewModel.LastName
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -67,7 +67,7 @@
                     Date of birth
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @Model.AddPupilViewModel.DateOfBirth.ToString("dd/MM/yyyy")
+                    @Model.PupilViewModel.DateOfBirth.ToString("dd/MM/yyyy")
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -75,7 +75,7 @@
                     Age
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @Model.AddPupilViewModel.Age
+                    @Model.PupilViewModel.Age
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -83,7 +83,7 @@
                     Gender
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @Model.AddPupilViewModel.Gender
+                    @Model.PupilViewModel.Gender
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -91,7 +91,7 @@
                     Admission date
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @Model.AddPupilViewModel.DateOfAdmission.ToString("dd/MM/yyyy")
+                    @Model.PupilViewModel.DateOfAdmission.ToString("dd/MM/yyyy")
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -99,7 +99,7 @@
                     Year group
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @Model.AddPupilViewModel.YearGroup
+                    @Model.PupilViewModel.YearGroup
                 </dd>
             </div>
         </dl>
@@ -111,7 +111,7 @@
         <div>
             <p class="govuk-body-s">Continue to view prior results</p>
         </div>
-        <a asp-controller="PriorAttainment" asp-action="View" class="govuk-button govuk-button--secondary">Continue</a>
+        <a asp-controller="PriorAttainment" asp-action="View" class="govuk-button">Continue</a>
     </div>
 </div>
 

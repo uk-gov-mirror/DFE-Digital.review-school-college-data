@@ -58,7 +58,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             var amendment = _amendmentService.GetAddPupilAmendmentDetail(id);
             return new AmendmentViewModel
             {
-                AddPupilViewModel = new PupilViewModel
+                PupilViewModel = new PupilViewModel
                 {
                     UPN = amendment.Pupil.Id?.Value,
                     FirstName = amendment.Pupil.ForeName,
@@ -123,17 +123,17 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                 Pupil = new Domain.Entities.Pupil
                 {
                     Urn = new URN(addPupilAmendment.URN),
-                    LaEstab = addPupilAmendment.AddReason == AddReason.Existing ? addPupilAmendment.AddPupilViewModel.SchoolID : null,
-                    Id = addPupilAmendment.AddReason == AddReason.Existing ? new PupilId(addPupilAmendment.AddPupilViewModel.UPN) : null,
-                    ForeName = addPupilAmendment.AddPupilViewModel.FirstName,
-                    LastName = addPupilAmendment.AddPupilViewModel.LastName,
-                    DateOfBirth = addPupilAmendment.AddPupilViewModel.DateOfBirth,
-                    Gender = addPupilAmendment.AddPupilViewModel.Gender == Gender.Male
+                    LaEstab = addPupilAmendment.AddReason == AddReason.Existing ? addPupilAmendment.PupilViewModel.SchoolID : null,
+                    Id = addPupilAmendment.AddReason == AddReason.Existing ? new PupilId(addPupilAmendment.PupilViewModel.UPN) : null,
+                    ForeName = addPupilAmendment.PupilViewModel.FirstName,
+                    LastName = addPupilAmendment.PupilViewModel.LastName,
+                    DateOfBirth = addPupilAmendment.PupilViewModel.DateOfBirth,
+                    Gender = addPupilAmendment.PupilViewModel.Gender == Gender.Male
                         ? Domain.Core.Enums.Gender.Male
                         : Domain.Core.Enums.Gender.Female,
-                    DateOfAdmission = addPupilAmendment.AddPupilViewModel.DateOfAdmission,
-                    YearGroup = addPupilAmendment.AddPupilViewModel.YearGroup,
-                    PostCode = addPupilAmendment.AddPupilViewModel.PostCode
+                    DateOfAdmission = addPupilAmendment.PupilViewModel.DateOfAdmission,
+                    YearGroup = addPupilAmendment.PupilViewModel.YearGroup,
+                    PostCode = addPupilAmendment.PupilViewModel.PostCode
                 },
                 InclusionConfirmed = true,
                 PriorAttainment = new PriorAttainment // TODO: all need sorting

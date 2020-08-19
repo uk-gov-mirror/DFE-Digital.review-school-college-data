@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using Dfe.CspdAlpha.Web.Application.Application.Extensions;
 using Dfe.CspdAlpha.Web.Application.Models.Common;
@@ -14,14 +15,14 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         public IActionResult Add()
         {
             var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
-            if (addPupilAmendment == null || addPupilAmendment.AddPupilViewModel == null ||
+            if (addPupilAmendment == null || addPupilAmendment.PupilViewModel == null ||
                 addPupilAmendment.AddReason != AddReason.New)
             {
                 return RedirectToAction("Add", "Pupil");
             }
             var model = new PriorAttainmentResultViewModel
             {
-                AddPupilViewModel = addPupilAmendment.AddPupilViewModel,
+                PupilViewModel = addPupilAmendment.PupilViewModel,
                 Ks2Subjects = addPupilAmendment.Results.Select(r => r.Subject).ToList()
             };
             return View(model);
@@ -38,7 +39,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 ModelState.Clear();
                 var model = new PriorAttainmentResultViewModel
                 {
-                    AddPupilViewModel = addPupilAmendment.AddPupilViewModel,
+                    PupilViewModel = addPupilAmendment.PupilViewModel,
                     Ks2Subjects = addPupilAmendment.Results.Select(r => r.Subject).ToList()
                 };
                 return View(model);
@@ -49,13 +50,38 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         public IActionResult View()
         {
             var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
-            if (addPupilAmendment == null || addPupilAmendment.AddPupilViewModel == null ||
+            if (addPupilAmendment == null || addPupilAmendment.PupilViewModel == null ||
                 addPupilAmendment.AddReason != AddReason.Existing)
             {
                 return RedirectToAction("Add", "Pupil");
             }
 
-            return View(new ExistingResultsViewModel(addPupilAmendment.Results, addPupilAmendment.AddPupilViewModel));
+            return View(new ExistingResultsViewModel(addPupilAmendment.Results, addPupilAmendment.PupilViewModel));
+        }
+
+        public IActionResult Edit()
+        {
+            var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
+            if (addPupilAmendment == null || addPupilAmendment.PupilViewModel == null ||
+                addPupilAmendment.AddReason != AddReason.Existing)
+            {
+                return RedirectToAction("Add", "Pupil");
+            }
+            return View(new ExistingResultsViewModel(addPupilAmendment.Results, addPupilAmendment.PupilViewModel));
+        }
+
+        [HttpPost]
+        public IActionResult Edit(ExistingResultsViewModel results)
+        {
+            var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
+            addPupilAmendment.Results = new List<PriorAttainmentResultViewModel>
+            {
+                results.Reading,
+                results.Writing,
+                results.Maths
+            };
+            HttpContext.Session.Set(ADD_PUPIL_AMENDMENT, addPupilAmendment);
+            return RedirectToAction("AddEvidence", "Pupil");
         }
     }
 }

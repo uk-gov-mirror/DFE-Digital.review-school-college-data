@@ -1,7 +1,7 @@
 @using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments
 @model AmendmentViewModel
 @{
-    ViewData["Title"] = "Request for pupil addition:<br/> " + Model.AddPupilViewModel.FullName;
+    ViewData["Title"] = "Request for pupil addition:<br/> " + Model.PupilViewModel.FullName;
     ViewBag.ContentClass = "app-detail-page-main";
 }
 
@@ -31,7 +31,7 @@
                     Pupil ID
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @Model.AddPupilViewModel.UPN
+                    @Model.PupilViewModel.UPN
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -39,7 +39,7 @@
                     First name
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @Model.AddPupilViewModel.FirstName
+                    @Model.PupilViewModel.FirstName
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -47,7 +47,7 @@
                     Last name
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @Model.AddPupilViewModel.LastName
+                    @Model.PupilViewModel.LastName
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -55,7 +55,7 @@
                     Date of birth
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @Model.AddPupilViewModel.DateOfBirth.ToString("dd/MM/yyyy")
+                    @Model.PupilViewModel.DateOfBirth.ToString("dd/MM/yyyy")
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -71,7 +71,7 @@
                     Gender
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @Model.AddPupilViewModel.Gender
+                    @Model.PupilViewModel.Gender
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -79,7 +79,7 @@
                     Admission date
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @Model.AddPupilViewModel.DateOfAdmission.ToString("dd/MM/yyyy")
+                    @Model.PupilViewModel.DateOfAdmission.ToString("dd/MM/yyyy")
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -87,7 +87,7 @@
                     Year group
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @Model.AddPupilViewModel.YearGroup
+                    @Model.PupilViewModel.YearGroup
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -95,7 +95,7 @@
                     Postcode
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @Model.AddPupilViewModel.PostCode
+                    @Model.PupilViewModel.PostCode
                 </dd>
             </div>
         </dl>

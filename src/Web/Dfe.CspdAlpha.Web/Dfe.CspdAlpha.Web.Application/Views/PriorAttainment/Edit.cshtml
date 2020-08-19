@@ -1,0 +1,120 @@
+@using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Results
+@model ExistingResultsViewModel
+@{
+    ViewData["Title"] = "Edit Key stage 2 prior attaiment results for " + Model.PupilViewModel.FullName;
+}
+
+@section BackLink
+{
+    <a class="govuk-back-link" asp-controller="Pupil" asp-action="ExistingMatch">Back</a>
+}
+<form method="post">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <h1 class="govuk-heading-l govuk-!-margin-bottom-3">@ViewBag.Title</h1>
+        </div>
+
+        <div class="govuk-grid-column-full">
+            <p class="govuk-body">Lorem ipsum...</p>
+        </div>
+    </div>
+
+    <div class="govuk-grid-row govuk-!-padding-top-2">
+        <div class="app-grid-column-two-thirds--always">
+            <h2 class="govuk-heading-m govuk-!-margin-bottom-3">Key stage 2 Reading</h2>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <input type="hidden" asp-for="Reading.Subject" value="Reading" />
+            <div class="govuk-form-group">
+                <label class="govuk-label" asp-for="Reading.ExamYear">
+                    Exam year
+                </label>
+                <input class="govuk-input govuk-input--width-20" asp-for="Reading.ExamYear" type="text">
+            </div>
+            <div class="govuk-form-group">
+                <label class="govuk-label" asp-for="Reading.TestMark">
+                    Test mark
+                </label>
+                <input class="govuk-input govuk-input--width-20" asp-for="Reading.TestMark" type="text">
+            </div>
+            <div class="govuk-form-group">
+                <label class="govuk-label" asp-for="Reading.ScaledScore">
+                    Scaled score
+                </label>
+                <input class="govuk-input govuk-input--width-20" asp-for="Reading.ScaledScore" type="text">
+            </div>
+        </div>
+    </div>
+    <div class="govuk-grid-row govuk-!-padding-top-2">
+        <div class="app-grid-column-two-thirds--always">
+            <h2 class="govuk-heading-m govuk-!-margin-bottom-3">Key stage 2 Writing</h2>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <input type="hidden" asp-for="Writing.Subject" value="Writing" />
+            <div class="govuk-form-group">
+                <label class="govuk-label" asp-for="Writing.ExamYear">
+                    Exam year
+                </label>
+                <input class="govuk-input govuk-input--width-20" asp-for="Writing.ExamYear" type="text">
+            </div>
+            <div class="govuk-form-group">
+                <label class="govuk-label" asp-for="Writing.TestMark">
+                    Test mark
+                </label>
+                <input class="govuk-input govuk-input--width-20" asp-for="Writing.TestMark" type="text">
+            </div>
+            <div class="govuk-form-group">
+                <label class="govuk-label" asp-for="Writing.ScaledScore">
+                    Scaled score
+                </label>
+                <input class="govuk-input govuk-input--width-20" asp-for="Writing.ScaledScore" type="text">
+            </div>
+        </div>
+    </div>
+    <div class="govuk-grid-row govuk-!-padding-top-2">
+        <div class="app-grid-column-two-thirds--always">
+            <h2 class="govuk-heading-m govuk-!-margin-bottom-3">Key stage 2 Maths</h2>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <input type="hidden" asp-for="Maths.Subject" value="Maths" />
+            <div class="govuk-form-group">
+                <label class="govuk-label" asp-for="Maths.ExamYear">
+                    Exam year
+                </label>
+                <input class="govuk-input govuk-input--width-20" asp-for="Maths.ExamYear" type="text">
+            </div>
+            <div class="govuk-form-group">
+                <label class="govuk-label" asp-for="Maths.TestMark">
+                    Test mark
+                </label>
+                <input class="govuk-input govuk-input--width-20" asp-for="Maths.TestMark" type="text">
+            </div>
+            <div class="govuk-form-group">
+                <label class="govuk-label" asp-for="Maths.ScaledScore">
+                    Scaled score
+                </label>
+                <input class="govuk-input govuk-input--width-20" asp-for="Maths.ScaledScore" type="text">
+            </div>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <button class="govuk-button" id="add-button">Save and continue</button>
+        </div>
+    </div>
+</form>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <a asp-controller="TaskList" asp-action="Index" class="app-modal__cancel-link">Cancel amendment</a>
+    </div>
+</div>
+
+<partial name="_CancelModalContent" />
+<script webpack-src="submit-evidence"></script>

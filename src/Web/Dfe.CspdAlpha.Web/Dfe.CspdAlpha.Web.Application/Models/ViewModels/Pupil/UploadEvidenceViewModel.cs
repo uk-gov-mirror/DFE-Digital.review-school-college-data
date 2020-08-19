@@ -6,7 +6,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
     public class UploadEvidenceViewModel
     {
         public string Id { get; set; }
-        public PupilViewModel AddPupilViewModel { get; set; }
+        public PupilViewModel PupilViewModel { get; set; }
         public List<EvidenceFile> EvidenceFiles { get; set; }
     }
 }

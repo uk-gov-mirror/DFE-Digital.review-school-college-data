@@ -6,7 +6,7 @@
 
 @section BackLink
 {
-    <a class="govuk-back-link" asp-controller="Pupil" asp-action="Add">Back</a>
+    <a class="govuk-back-link" asp-controller="Pupil" asp-action="ExistingMatch">Back</a>
 }
 
 <div class="govuk-grid-row">
@@ -129,13 +129,13 @@
         <div>
             <p class="govuk-body">Do you want to edit prior attainment results?</p>
         </div>
-        <a asp-action="Edit" class="govuk-button govuk-button--secondary">Edit</a>
+        <a asp-action="Edit" class="govuk-button">Edit</a>
     </div>
     <div class="govuk-grid-column-full">
         <div>
             <p class="govuk-body">or continue to upload evidence</p>
         </div>
-        <a asp-controller="Pupil" asp-action="AddEvidence" class="govuk-button govuk-button--secondary">Continue</a>
+        <a asp-controller="Pupil" asp-action="AddEvidence" class="govuk-button">Continue</a>
     </div>
 </div>
 

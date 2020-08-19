@@ -1,12 +1,20 @@
+@using Dfe.CspdAlpha.Web.Application.Models.Common
 @using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
 @model AddPupilAmendmentViewModel
 @{
-    ViewData["Title"] = "Upload evidence for " + Model.AddPupilViewModel.FullName;
+    ViewData["Title"] = "Upload evidence for " + Model.PupilViewModel.FullName;
 }
 
 @section BackLink
 {
-    <a class="govuk-back-link" asp-controller="Pupil" asp-action="AddResult">Back</a>
+    @if (Model.AddReason == AddReason.New)
+    {
+        <a class="govuk-back-link" asp-controller="PriorAttainment" asp-action="Add">Back</a>
+    }
+    else
+    {
+        <a class="govuk-back-link" asp-controller="PriorAttainment" asp-action="View">Back</a>
+    }
 }
 
 <div class="govuk-grid-row">
@@ -22,7 +30,7 @@
                 </span>
             </summary>
             <div class="govuk-details__text">
-                <partial name="_PupilDetails" model="@Model.AddPupilViewModel" />
+                <partial name="_PupilDetails" model="@Model.PupilViewModel" />
             </div>
         </details>
     </div>
@@ -31,7 +39,7 @@
         <p class="govuk-body">Lorem ipsum...</p>
     </div>
 </div>
-<form method="post"  enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <div class="govuk-grid-row">
@@ -76,5 +84,5 @@
         <a asp-controller="TaskList" asp-action="Index" class="app-modal__cancel-link">Cancel amendment</a>
     </div>
 </div>
-<partial name="_CancelModalContent"/>
+<partial name="_CancelModalContent" />
 

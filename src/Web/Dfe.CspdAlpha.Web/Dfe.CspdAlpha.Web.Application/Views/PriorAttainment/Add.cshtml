@@ -1,7 +1,7 @@
 @using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Results
 @model PriorAttainmentResultViewModel
 @{
-    ViewData["Title"] = "Add Key stage 2 prior attaiment results for " + Model.AddPupilViewModel.FullName + " (optional)";
+    ViewData["Title"] = "Add Key stage 2 prior attaiment results for " + Model.PupilViewModel.FullName + " (optional)";
 }
 
 @section BackLink
@@ -22,7 +22,7 @@
                 </span>
             </summary>
             <div class="govuk-details__text">
-                <partial name="_PupilDetails" model="@Model.AddPupilViewModel" />
+                <partial name="_PupilDetails" model="@Model.PupilViewModel" />
             </div>
         </details>
     </div>
