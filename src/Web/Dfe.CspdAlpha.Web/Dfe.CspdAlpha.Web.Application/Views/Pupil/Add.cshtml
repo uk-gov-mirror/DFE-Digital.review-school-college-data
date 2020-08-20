@@ -63,7 +63,7 @@
                             <span class="govuk-visually-hidden">Error:</span> Enter a valid UPN
                         </span>
                     }
-                    <input class="govuk-input govuk-input--width-20" asp-for="UPN" type="text">
+                    <input class="govuk-input govuk-input--width-20 @(showError ? "govuk-input--error" : string.Empty)" asp-for="UPN" type="text">
                 </div>
                 <div class="govuk-form-group">
                     <label class="govuk-label" asp-for="FirstName">
