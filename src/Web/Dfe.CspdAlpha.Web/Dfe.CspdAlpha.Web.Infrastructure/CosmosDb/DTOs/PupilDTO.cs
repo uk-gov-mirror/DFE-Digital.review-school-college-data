@@ -20,8 +20,6 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.CosmosDb.DTOs
         public string Gender { get; set; }
         public int ENTRYDAT { get; set; }
         public string ActualYearGroup { get; set; }
-        public string PostCode { get; set; }
-        public string FSM6 { get; set; }
         
         public List<ResultDTO> performance { get; set; }
 
@@ -38,8 +36,6 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.CosmosDb.DTOs
             Gender = Gender == "M" ? Domain.Core.Enums.Gender.Male : Domain.Core.Enums.Gender.Female,
             DateOfAdmission = DateTime.ParseExact(ENTRYDAT.ToString(), "yyyyMMdd", new CultureInfo("en-GB")),
             YearGroup = ActualYearGroup,
-            PostCode = PostCode,
-            FSM6 = FSM6 == "1",
             Results = performance.Select(p => new Result{ SubjectCode = p.SubjectCode, ExamYear = p.ExamYear, TestMark = p.TestMark, ScaledScore = p.ScaledScore}).ToList()
         };
     }

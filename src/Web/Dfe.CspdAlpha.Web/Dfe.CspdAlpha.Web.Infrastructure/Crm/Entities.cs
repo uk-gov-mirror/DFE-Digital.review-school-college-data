@@ -1494,106 +1494,6 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 		/// <summary>
 		/// 
 		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("cr3d5_postcode")]
-		public string cr3d5_postcode
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetAttributeValue<string>("cr3d5_postcode");
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.OnPropertyChanging("cr3d5_postcode");
-				this.SetAttributeValue("cr3d5_postcode", value);
-				this.OnPropertyChanged("cr3d5_postcode");
-			}
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("cr3d5_priorattainmentacademicyear")]
-		public string cr3d5_priorattainmentacademicyear
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetAttributeValue<string>("cr3d5_priorattainmentacademicyear");
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.OnPropertyChanging("cr3d5_priorattainmentacademicyear");
-				this.SetAttributeValue("cr3d5_priorattainmentacademicyear", value);
-				this.OnPropertyChanged("cr3d5_priorattainmentacademicyear");
-			}
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("cr3d5_priorattainmentlevel")]
-		public string cr3d5_priorattainmentlevel
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetAttributeValue<string>("cr3d5_priorattainmentlevel");
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.OnPropertyChanging("cr3d5_priorattainmentlevel");
-				this.SetAttributeValue("cr3d5_priorattainmentlevel", value);
-				this.OnPropertyChanged("cr3d5_priorattainmentlevel");
-			}
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("cr3d5_priorattainmentresultfor")]
-		public string cr3d5_priorattainmentresultfor
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetAttributeValue<string>("cr3d5_priorattainmentresultfor");
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.OnPropertyChanging("cr3d5_priorattainmentresultfor");
-				this.SetAttributeValue("cr3d5_priorattainmentresultfor", value);
-				this.OnPropertyChanged("cr3d5_priorattainmentresultfor");
-			}
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("cr3d5_priorattainmenttest")]
-		public string cr3d5_priorattainmenttest
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetAttributeValue<string>("cr3d5_priorattainmenttest");
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.OnPropertyChanging("cr3d5_priorattainmenttest");
-				this.SetAttributeValue("cr3d5_priorattainmenttest", value);
-				this.OnPropertyChanged("cr3d5_priorattainmenttest");
-			}
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("cr3d5_pupilid")]
 		public string cr3d5_pupilid
 		{
@@ -1966,46 +1866,6 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 		}
 
 		/// <summary>
-		/// 
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_existingpupilfound")]
-		public virtual new_Amendment_rscd_existingpupilfound? rscd_existingpupilfound
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return ((new_Amendment_rscd_existingpupilfound?)(EntityOptionSetEnum.GetEnum(this, "rscd_existingpupilfound")));
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.OnPropertyChanging("rscd_existingpupilfound");
-				this.SetAttributeValue("rscd_existingpupilfound", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
-				this.OnPropertyChanged("rscd_existingpupilfound");
-			}
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_existingpupilid")]
-		public string rscd_ExistingpupilID
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetAttributeValue<string>("rscd_existingpupilid");
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.OnPropertyChanging("rscd_ExistingpupilID");
-				this.SetAttributeValue("rscd_existingpupilid", value);
-				this.OnPropertyChanged("rscd_ExistingpupilID");
-			}
-		}
-
-		/// <summary>
 		/// Unique identifier for Amendment associated with Amendment.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_linkedamendmentid")]
@@ -2022,6 +1882,186 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanging("rscd_LinkedamendmentId");
 				this.SetAttributeValue("rscd_linkedamendmentid", value);
 				this.OnPropertyChanged("rscd_LinkedamendmentId");
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_mathsexamyear")]
+		public string rscd_MathsExamYear
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("rscd_mathsexamyear");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("rscd_MathsExamYear");
+				this.SetAttributeValue("rscd_mathsexamyear", value);
+				this.OnPropertyChanged("rscd_MathsExamYear");
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_mathsscaledscore")]
+		public string rscd_MathsScaledScore
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("rscd_mathsscaledscore");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("rscd_MathsScaledScore");
+				this.SetAttributeValue("rscd_mathsscaledscore", value);
+				this.OnPropertyChanged("rscd_MathsScaledScore");
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_mathstestmark")]
+		public string rscd_MathsTestMark
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("rscd_mathstestmark");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("rscd_MathsTestMark");
+				this.SetAttributeValue("rscd_mathstestmark", value);
+				this.OnPropertyChanged("rscd_MathsTestMark");
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_readingexamyear")]
+		public string rscd_ReadingExamYear
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("rscd_readingexamyear");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("rscd_ReadingExamYear");
+				this.SetAttributeValue("rscd_readingexamyear", value);
+				this.OnPropertyChanged("rscd_ReadingExamYear");
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_readingscaledscore")]
+		public string rscd_ReadingScaledScore
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("rscd_readingscaledscore");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("rscd_ReadingScaledScore");
+				this.SetAttributeValue("rscd_readingscaledscore", value);
+				this.OnPropertyChanged("rscd_ReadingScaledScore");
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_readingtestmark")]
+		public string rscd_ReadingTestMark
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("rscd_readingtestmark");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("rscd_ReadingTestMark");
+				this.SetAttributeValue("rscd_readingtestmark", value);
+				this.OnPropertyChanged("rscd_ReadingTestMark");
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_writingexamyear")]
+		public string rscd_WritingExamYear
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("rscd_writingexamyear");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("rscd_WritingExamYear");
+				this.SetAttributeValue("rscd_writingexamyear", value);
+				this.OnPropertyChanged("rscd_WritingExamYear");
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_writingscaledscore")]
+		public string rscd_WritingScaledScore
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("rscd_writingscaledscore");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("rscd_WritingScaledScore");
+				this.SetAttributeValue("rscd_writingscaledscore", value);
+				this.OnPropertyChanged("rscd_WritingScaledScore");
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_writingtestmark")]
+		public string rscd_WritingTestMark
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("rscd_writingtestmark");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("rscd_WritingTestMark");
+				this.SetAttributeValue("rscd_writingtestmark", value);
+				this.OnPropertyChanged("rscd_WritingTestMark");
 			}
 		}
 

@@ -6,6 +6,7 @@ using Dfe.CspdAlpha.Web.Application.Models.Common;
 using Dfe.CspdAlpha.Web.Application.Models.School;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
+using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Results;
 using Dfe.CspdAlpha.Web.Domain.Core;
 using Dfe.CspdAlpha.Web.Domain.Core.Enums;
 using Dfe.CspdAlpha.Web.Domain.Entities;
@@ -14,6 +15,7 @@ using Microsoft.AspNetCore.Http;
 using AddReason = Dfe.CspdAlpha.Web.Application.Models.Common.AddReason;
 using Gender = Dfe.CspdAlpha.Web.Application.Models.Common.Gender;
 using DomainInterfaces = Dfe.CspdAlpha.Web.Domain.Interfaces;
+using Ks2Subject = Dfe.CspdAlpha.Web.Application.Models.ViewModels.Results.Ks2Subject;
 
 namespace Dfe.CspdAlpha.Web.Application.Application.Services
 {
@@ -70,16 +72,10 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                     DayOfAdmission = amendment.Pupil.DateOfAdmission.Day,
                     MonthOfAdmission = amendment.Pupil.DateOfAdmission.Month,
                     YearOfAdmission = amendment.Pupil.DateOfAdmission.Year,
-                    YearGroup = amendment.Pupil.YearGroup,
-                    PostCode = amendment.Pupil.PostCode
+                    YearGroup = amendment.Pupil.YearGroup
                 },
-                //AddPriorAttainmentViewModel = new AddPriorAttainmentViewModel
-                //{
-                //    ResultFor = amendment.PriorAttainment.ResultFor,
-                //    Test = amendment.PriorAttainment.Test,
-                //    Level = amendment.PriorAttainment.AttainmentLevel,
-                //    AcademicYear = amendment.PriorAttainment.AcademicYear
-                //}
+                Results = amendment.PriorAttainmentResults.Select(r => new PriorAttainmentResultViewModel() { Subject = GetSubject(r.Subject), ExamYear = r.ExamYear, TestMark = r.TestMark, ScaledScore = r.ScaledScore }).ToList(),
+
             };
         }
 
@@ -118,13 +114,11 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             var result = _amendmentService.CreateAddPupilAmendment(new AddPupilAmendment
             {
                 AddReason = addPupilAmendment.AddReason == AddReason.New ? Domain.Core.Enums.AddReason.New: Domain.Core.Enums.AddReason.Existing,
-                // ExistingPupilIDFound = addPupilAmendment.ExistingMatchedPupil,//TODO: get rid
-                // MatchedPupilCount = addPupilAmendment.MatchedPupilCount, //TODO: get rid
-                Pupil = new Domain.Entities.Pupil
+                Pupil = new Pupil
                 {
                     Urn = new URN(addPupilAmendment.URN),
                     LaEstab = addPupilAmendment.AddReason == AddReason.Existing ? addPupilAmendment.PupilViewModel.SchoolID : null,
-                    Id = addPupilAmendment.AddReason == AddReason.Existing ? new PupilId(addPupilAmendment.PupilViewModel.UPN) : null,
+                    UPN = addPupilAmendment.AddReason == AddReason.Existing ? addPupilAmendment.PupilViewModel.UPN : null,
                     ForeName = addPupilAmendment.PupilViewModel.FirstName,
                     LastName = addPupilAmendment.PupilViewModel.LastName,
                     DateOfBirth = addPupilAmendment.PupilViewModel.DateOfBirth,
@@ -132,23 +126,45 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                         ? Domain.Core.Enums.Gender.Male
                         : Domain.Core.Enums.Gender.Female,
                     DateOfAdmission = addPupilAmendment.PupilViewModel.DateOfAdmission,
-                    YearGroup = addPupilAmendment.PupilViewModel.YearGroup,
-                    PostCode = addPupilAmendment.PupilViewModel.PostCode
+                    YearGroup = addPupilAmendment.PupilViewModel.YearGroup
                 },
                 InclusionConfirmed = true,
-                PriorAttainment = new PriorAttainment // TODO: all need sorting
-                {
-                    //ResultFor = addPupilAmendment.AddPriorAttainmentViewModel.ResultFor,
-                    //Test = addPupilAmendment.AddPriorAttainmentViewModel.Test,
-                    //AcademicYear = addPupilAmendment.AddPriorAttainmentViewModel.AcademicYear,
-                    //AttainmentLevel = addPupilAmendment.AddPriorAttainmentViewModel.Level,
-                },
+                PriorAttainmentResults = addPupilAmendment.Results.Select(r => new PriorAttainment{ Subject = GetSubject(r.Subject), ExamYear = r.ExamYear, TestMark = r.TestMark, ScaledScore = r.ScaledScore}).ToList(),
                 EvidenceStatus = selectedEvidenceOption == EvidenceOption.UploadNow ?
                     EvidenceStatus.Now : selectedEvidenceOption == EvidenceOption.UploadLater ?
                         EvidenceStatus.Later : EvidenceStatus.NotRequired,
                 EvidenceList = addPupilAmendment.EvidenceFiles.Any() ? addPupilAmendment.EvidenceFiles.Select(e => new Evidence { Id = e.Id, Name = e.Name }).ToList() : new List<Evidence>()
             }, out id);
             return result;
+        }
+
+        private Ks2Subject GetSubject(Domain.Core.Enums.Ks2Subject subject)
+        {
+            switch (subject)
+            {
+                case Domain.Core.Enums.Ks2Subject.Reading:
+                    return Ks2Subject.Reading;
+                case Domain.Core.Enums.Ks2Subject.Writing:
+                    return Ks2Subject.Writing;
+                case Domain.Core.Enums.Ks2Subject.Maths:
+                    return Ks2Subject.Maths;
+                default:
+                    return Ks2Subject.Unknown;
+            }
+        }
+        private Domain.Core.Enums.Ks2Subject GetSubject(Ks2Subject subject)
+        {
+            switch (subject)
+            {
+                case Ks2Subject.Reading:
+                    return Domain.Core.Enums.Ks2Subject.Reading;
+                case Ks2Subject.Writing:
+                    return Domain.Core.Enums.Ks2Subject.Writing;
+                case Ks2Subject.Maths:
+                    return Domain.Core.Enums.Ks2Subject.Maths;
+                default:
+                    return Domain.Core.Enums.Ks2Subject.Unknown;
+            }
         }
     }
 }

@@ -138,20 +138,6 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.45")]
-	public enum new_Amendment_rscd_existingpupilfound
-	{
-
-		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Pupil found", 0, "#0000ff")]
-		Pupilfound = 501940000,
-
-		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Pupils found", 1, "#0000ff")]
-		Pupilsfound = 501940001,
-	}
-
-	[System.Runtime.Serialization.DataContractAttribute()]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.45")]
 	public enum new_Amendment_StatusCode
 	{
 

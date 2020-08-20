@@ -102,21 +102,9 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
                amendmentDto.cr3d5_addreasontype = amendment.AddReason == AddReason.New
                    ? cr3d5_Pupiltype.Newpupil
                    : cr3d5_Pupiltype.Existingpupil;
-               if (amendment.AddReason == AddReason.New && amendment.MatchedPupilCount > 0)
-               {
-                   amendmentDto.rscd_existingpupilfound = amendment.MatchedPupilCount > 1
-                       ? new_Amendment_rscd_existingpupilfound.Pupilsfound
-                       : new_Amendment_rscd_existingpupilfound.Pupilfound;
-               }
-
-               if (amendment.AddReason == AddReason.New && !string.IsNullOrEmpty(amendment.ExistingPupilIDFound))
-               {
-                   amendmentDto.rscd_ExistingpupilID = amendment.ExistingPupilIDFound;
-               }
 
                // Pupil data
-                // don't need to set status as this will default to "Requested" in backend
-                amendmentDto.cr3d5_pupilid = amendment.AddReason == AddReason.Existing ? amendment.Pupil.Id.Value : string.Empty;
+                amendmentDto.cr3d5_pupilid = amendment.AddReason == AddReason.Existing ? amendment.Pupil.UPN : string.Empty;
                 amendmentDto.cr3d5_laestab = amendment.AddReason == AddReason.Existing ? amendment.Pupil.LaEstab : string.Empty;
                 amendmentDto.cr3d5_urn = amendment.Pupil.Urn.Value;
                 amendmentDto.new_Name = amendment.Pupil.FullName;
@@ -127,13 +115,29 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
                 amendmentDto.cr3d5_dob = amendment.Pupil.DateOfBirth;
                 amendmentDto.cr3d5_admissiondate = amendment.Pupil.DateOfAdmission;
                 amendmentDto.cr3d5_yeargroup = amendment.Pupil.YearGroup;
-                amendmentDto.cr3d5_postcode = amendment.Pupil.PostCode;
 
                 // prior attainment result
-                amendmentDto.cr3d5_priorattainmentresultfor = amendment.PriorAttainment.ResultFor;
-                amendmentDto.cr3d5_priorattainmenttest = amendment.PriorAttainment.Test;
-                amendmentDto.cr3d5_priorattainmentacademicyear = amendment.PriorAttainment.AcademicYear;
-                amendmentDto.cr3d5_priorattainmentlevel = amendment.PriorAttainment.AttainmentLevel;
+                if (amendment.PriorAttainmentResults.Any(r => r.Subject == Ks2Subject.Reading))
+                {
+                    var readingResult = amendment.PriorAttainmentResults.First(r => r.Subject == Ks2Subject.Reading);
+                    amendmentDto.rscd_ReadingExamYear = readingResult.ExamYear;
+                    amendmentDto.rscd_ReadingTestMark = readingResult.TestMark;
+                    amendmentDto.rscd_ReadingScaledScore = readingResult.ScaledScore;
+                }
+                if (amendment.PriorAttainmentResults.Any(r => r.Subject == Ks2Subject.Writing))
+                {
+                    var writingResult = amendment.PriorAttainmentResults.First(r => r.Subject == Ks2Subject.Writing);
+                    amendmentDto.rscd_WritingExamYear = writingResult.ExamYear;
+                    amendmentDto.rscd_WritingTestMark = writingResult.TestMark;
+                    amendmentDto.rscd_WritingScaledScore = writingResult.ScaledScore;
+                }
+                if (amendment.PriorAttainmentResults.Any(r => r.Subject == Ks2Subject.Maths))
+                {
+                    var mathsResult = amendment.PriorAttainmentResults.First(r => r.Subject == Ks2Subject.Maths);
+                    amendmentDto.rscd_MathsExamYear = mathsResult.ExamYear;
+                    amendmentDto.rscd_MathsTestMark = mathsResult.TestMark;
+                    amendmentDto.rscd_MathsScaledScore = mathsResult.ScaledScore;
+                }
 
                 // Inclusion details
                 amendmentDto.cr3d5_includeinperformanceresults = amendment.InclusionConfirmed;
@@ -179,7 +183,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
                             rscd_Amendmenttype = new_Amendment_rscd_Amendmenttype.Removepupil,
                             new_Name = amendment.Pupil.FullName,
                             cr3d5_laestab = amendment.Pupil.LaEstab,
-                            cr3d5_pupilid = amendment.Pupil.Id.Value,
+                            cr3d5_pupilid = amendment.Pupil.UPN,
                             cr3d5_forename = amendment.Pupil.ForeName,
                             cr3d5_surname = amendment.Pupil.LastName,
                             cr3d5_gender = amendment.Pupil.Gender == Gender.Male ? cr3d5_Gender.Male : cr3d5_Gender.Female,
@@ -291,18 +295,48 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
                     DateOfBirth = amendment.cr3d5_dob ?? DateTime.MinValue,
                     Gender = amendment.cr3d5_gender == cr3d5_Gender.Male ? Gender.Male : Gender.Female,
                     DateOfAdmission = amendment.cr3d5_admissiondate ?? DateTime.MinValue,
-                    YearGroup = amendment.cr3d5_yeargroup,
-                    PostCode = amendment.cr3d5_postcode
+                    YearGroup = amendment.cr3d5_yeargroup
                 },
-                PriorAttainment = new PriorAttainment
-                {
-                    ResultFor = amendment.cr3d5_priorattainmentresultfor,
-                    Test = amendment.cr3d5_priorattainmenttest,
-                    AttainmentLevel = amendment.cr3d5_priorattainmentlevel,
-                    AcademicYear = amendment.cr3d5_priorattainmentacademicyear
-                },
+                PriorAttainmentResults = GetPriorAttainmentResult(amendment),
                 InclusionConfirmed = amendment.cr3d5_includeinperformanceresults ?? false
             };
+        }
+
+        private List<PriorAttainment> GetPriorAttainmentResult(new_Amendment amendment)
+        {
+            var results = new List<PriorAttainment>();
+            if (!string.IsNullOrEmpty(amendment.rscd_ReadingExamYear))
+            {
+                results.Add(new PriorAttainment
+                {
+                    Subject = Ks2Subject.Reading,
+                    ExamYear = amendment.rscd_ReadingExamYear,
+                    TestMark = amendment.rscd_ReadingTestMark,
+                    ScaledScore = amendment.rscd_ReadingScaledScore
+                });
+            }
+            if (!string.IsNullOrEmpty(amendment.rscd_WritingExamYear))
+            {
+                results.Add(new PriorAttainment
+                {
+                    Subject = Ks2Subject.Writing,
+                    ExamYear = amendment.rscd_WritingExamYear,
+                    TestMark = amendment.rscd_WritingTestMark,
+                    ScaledScore = amendment.rscd_WritingScaledScore
+                });
+            }
+            if (!string.IsNullOrEmpty(amendment.rscd_MathsExamYear))
+            {
+                results.Add(new PriorAttainment
+                {
+                    Subject = Ks2Subject.Maths,
+                    ExamYear = amendment.rscd_MathsExamYear,
+                    TestMark = amendment.rscd_MathsTestMark,
+                    ScaledScore = amendment.rscd_MathsScaledScore
+                });
+            }
+
+            return results;
         }
 
         private string GetStatus(new_Amendment amendment)

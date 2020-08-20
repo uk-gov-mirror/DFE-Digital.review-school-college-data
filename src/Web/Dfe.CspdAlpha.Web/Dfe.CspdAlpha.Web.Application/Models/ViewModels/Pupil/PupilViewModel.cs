@@ -53,8 +53,6 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
             }
         }
         public string YearGroup { get; set; }
-        public string PostCode { get; set; }
-
         public string FullName => string.Join(" ", new[] {FirstName, LastName}.Where(n => !string.IsNullOrEmpty(n)));
     }
 }

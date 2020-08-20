@@ -22,8 +22,6 @@ namespace Dfe.CspdAlpha.Web.Domain.Entities
         public Gender Gender { get; set; }
         public DateTime DateOfAdmission { get; set; }
         public string YearGroup { get; set; }
-        public string PostCode { get; set; }
-        public bool FSM6 { get; set; }
         public List<Result> Results { get; set; }
      }
 }

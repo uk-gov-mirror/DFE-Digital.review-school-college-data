@@ -8,7 +8,7 @@ using Dfe.CspdAlpha.Web.Domain.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Results;
-using Dfe.CspdAlpha.Web.Domain.Core.Enums;
+using DomainEnums = Dfe.CspdAlpha.Web.Domain.Core.Enums;
 
 namespace Dfe.CspdAlpha.Web.Application.Application.Services
 {
@@ -88,20 +88,28 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             {
                 return null;
             }
+
             return new MatchedPupilViewModel()
             {
-                PupilViewModel = new PupilViewModel { 
-                UPN = upn,
-                SchoolID = pupil.LaEstab,
-                FirstName = pupil.ForeName,
-                LastName = pupil.LastName,
-                DateOfBirth = pupil.DateOfBirth,
-                Gender = pupil.Gender == Gender.Male ? Models.Common.Gender.Male : Models.Common.Gender.Female,
-                DateOfAdmission = pupil.DateOfAdmission,
-                YearGroup = pupil.YearGroup,
-                PostCode = pupil.PostCode
+                PupilViewModel = new PupilViewModel
+                {
+                    UPN = upn,
+                    SchoolID = pupil.LaEstab,
+                    FirstName = pupil.ForeName,
+                    LastName = pupil.LastName,
+                    DateOfBirth = pupil.DateOfBirth,
+                    Gender = pupil.Gender == DomainEnums.Gender.Male
+                        ? Models.Common.Gender.Male
+                        : Models.Common.Gender.Female,
+                    DateOfAdmission = pupil.DateOfAdmission,
+                    YearGroup = pupil.YearGroup
                 },
-                Results = pupil.Results.Select(r => new PriorAttainmentResultViewModel{Subject = GetSubject(r.SubjectCode), ExamYear = r.ExamYear, TestMark = r.TestMark, ScaledScore = r.ScaledScore}).Where(r => r.Subject != Ks2Subject.Unknown).ToList()
+                Results = pupil.Results
+                    .Select(r => new PriorAttainmentResultViewModel
+                    {
+                        Subject = GetSubject(r.SubjectCode), ExamYear = r.ExamYear, TestMark = r.TestMark,
+                        ScaledScore = r.ScaledScore
+                    }).Where(r => r.Subject != Ks2Subject.Unknown).ToList()
             };
         }
 
