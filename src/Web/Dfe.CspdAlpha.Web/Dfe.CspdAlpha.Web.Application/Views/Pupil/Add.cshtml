@@ -1,6 +1,5 @@
 @using Dfe.CspdAlpha.Web.Application.Models.Common
 @using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
-@using Microsoft.AspNetCore.Mvc.ModelBinding
 @model PupilViewModel
 
 @{
@@ -122,13 +121,13 @@
                         </legend>
                         <div class="govuk-radios">
                             <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="Gender-Male" name="Gender" type="radio" value="Male">
+                                <input class="govuk-radios__input" id="Gender-Male" name="Gender" type="radio" value="Male" @(Model != null && Model.Gender == Gender.Male ? "checked": string.Empty)>
                                 <label class="govuk-label govuk-radios__label" for="Gender-Male">
                                     Male
                                 </label>
                             </div>
                             <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="Gender-Female" name="Gender" type="radio" value="Female">
+                                <input class="govuk-radios__input" id="Gender-Female" name="Gender" type="radio" value="Female" @(Model != null && Model.Gender == Gender.Female ? "checked": string.Empty)>
                                 <label class="govuk-label govuk-radios__label" for="Gender-Female">
                                     Female
                                 </label>
@@ -181,31 +180,31 @@
                         </legend>
                         <div class="govuk-radios">
                             <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="YearGroup-7" name="YearGroup" type="radio" value="7">
+                                <input class="govuk-radios__input" id="YearGroup-7" name="YearGroup" type="radio" value="7" @(Model != null && Model.YearGroup == "7" ? "checked": string.Empty)>
                                 <label class="govuk-label govuk-radios__label" for="YearGroup-7">
                                     7
                                 </label>
                             </div>
                             <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="YearGroup-8" name="YearGroup" type="radio" value="8">
+                                <input class="govuk-radios__input" id="YearGroup-8" name="YearGroup" type="radio" value="8" @(Model != null && Model.YearGroup == "8" ? "checked": string.Empty)>
                                 <label class="govuk-label govuk-radios__label" for="YearGroup-8">
                                     8
                                 </label>
                             </div>
                             <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="YearGroup-9" name="YearGroup" type="radio" value="9">
+                                <input class="govuk-radios__input" id="YearGroup-9" name="YearGroup" type="radio" value="9" @(Model != null && Model.YearGroup == "9" ? "checked": string.Empty)>
                                 <label class="govuk-label govuk-radios__label" for="YearGroup-9">
                                     9
                                 </label>
                             </div>
                             <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="YearGroup-10" name="YearGroup" type="radio" value="10">
+                                <input class="govuk-radios__input" id="YearGroup-10" name="YearGroup" type="radio" value="10" @(Model != null && Model.YearGroup == "10" ? "checked": string.Empty)>
                                 <label class="govuk-label govuk-radios__label" for="YearGroup-10">
                                     10
                                 </label>
                             </div>
                             <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="YearGroup-11" name="YearGroup" type="radio" value="11">
+                                <input class="govuk-radios__input" id="YearGroup-11" name="YearGroup" type="radio" value="11" @(Model != null && Model.YearGroup == "11" ? "checked": string.Empty)>
                                 <label class="govuk-label govuk-radios__label" for="YearGroup-11">
                                     11
                                 </label>

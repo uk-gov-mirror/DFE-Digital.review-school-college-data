@@ -40,7 +40,8 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
         public IActionResult Add()
         {
-            return View();
+            var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
+            return View(addPupilAmendment?.PupilViewModel);
         }
 
         [HttpPost]

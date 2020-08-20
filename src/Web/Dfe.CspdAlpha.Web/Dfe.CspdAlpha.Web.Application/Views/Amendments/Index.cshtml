@@ -99,7 +99,7 @@
                         </td>
                         <td class="govuk-table__cell" data-label="Ref ID">@amendment.ReferenceId</td>
                         <td class="govuk-table__cell" data-label="Status">
-                            @if (amendment.Status != "Cancelled" && amendment.EvidenceStatus == EvidenceStatus.Later)
+                            @if (!Model.LateCheckingPhase && amendment.Status != "Cancelled" && amendment.EvidenceStatus == EvidenceStatus.Later)
                             {
                                 <span>Awaiting evidence</span>
                             }

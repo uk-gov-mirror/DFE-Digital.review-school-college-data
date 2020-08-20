@@ -9,7 +9,7 @@
 @section BackLink
 {
 
-    @if (referer.IndexOf("AddEvidence") > -1)
+    @if (referer.IndexOf("AddEvidence") > -1 || referer.IndexOf("ConfirmAddPupil") > 1)
     {
         <a class="govuk-back-link" asp-controller="Pupil" asp-action="AddEvidence">Back</a>
     }
