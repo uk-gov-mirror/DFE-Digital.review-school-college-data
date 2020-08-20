@@ -35,6 +35,12 @@
             <p class="govuk-body">Key stage 4 Late results</p>
         </div>
     }
+    else
+    {
+        <div class="govuk-grid-column-three-quarters">
+            <p class="govuk-body">Key stage 4 June checking exercise</p>
+        </div>
+    }
     <div class="govuk-grid-column-three-quarters">
         <p class="govuk-body">@Model.GetLeadText()</p>
     </div>
@@ -56,7 +62,7 @@
                         <span class="app-task-list__tag">@(Model.ReviewChecked ? Model.ReviewedCopy : Model.NotReviewedCopy)</span>
                     </li>
                     <li class="app-task-list__item app-task-list__item-review">
-                        <span class="app-task-list__task-name">@(Model.LateCheckingPhase ? "View data" : "Review data")</span>
+                        <span class="app-task-list__task-name">View data</span>
                         @if (Model.ReviewChecked)
                         {
                             <span class="app-task-list__tag">Completed</span>
@@ -64,10 +70,10 @@
                         else
                         {
                             <span class="app-task-list__description">
-                                Click to confirm you have reviewed the data
+                                Click to confirm you have viewed the data
                             </span>
                             <form asp-action="Review" method="post">
-                                <input type="submit" class="govuk-button app-task-list__cta" data-module="govuk-button" value="@(Model.LateCheckingPhase ? "View" : "Review")" />
+                                <input type="submit" class="govuk-button app-task-list__cta" data-module="govuk-button" value="View" />
                             </form>
                         }
                     </li>
