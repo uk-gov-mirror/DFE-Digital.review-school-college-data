@@ -48,9 +48,9 @@
             <div class="govuk-form-group">
                 <div class="govuk-form-group">
                     <label class="govuk-label" asp-for="SchoolID">
-                        URN (Unique Reference Number) or LAESTAB (Local Authority Establishment Number) or previous school (optional)
-                        <span class="label-example">For example: URN 123456, LAESTAB 1234567</span>
+                        Previous school URN (Unique Reference Number) or LAESTAB (Local Authority Establishment Number) (optional)
                     </label>
+                    <div class="govuk-hint">For example: URN 123456, LAESTAB 1234567</div>
                     <input class="govuk-input govuk-input--width-20" asp-for="SchoolID" type="text">
                 </div>
                 <div class="govuk-form-group @(showError ? "govuk-form-group--error" : string.Empty)">
@@ -84,6 +84,7 @@
                                 Date of birth
                             </h2>
                         </legend>
+                        <div class="govuk-hint">For example: 12 11 2007</div>
                         <div class="govuk-date-input" id="date-of-birth">
                             <div class="govuk-date-input__item">
                                 <div class="govuk-form-group">
@@ -142,6 +143,7 @@
                                 Admission date
                             </h2>
                         </legend>
+                        <div class="govuk-hint">For example: 12 11 2007</div>
                         <div class="govuk-date-input" id="date-of-admission">
                             <div class="govuk-date-input__item">
                                 <div class="govuk-form-group">
