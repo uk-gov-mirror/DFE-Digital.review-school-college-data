@@ -51,13 +51,17 @@ namespace Dfe.CspdAlpha.Admin
                 {"cr3d5_gender", "GENDER"},
                 {"cr3d5_admissiondate", "ADMISSION_DATE"},
                 {"cr3d5_yeargroup", "YEAR_GROUP"},
-                {"cr3d5_postcode", "POSTCODE"},
                 {"cr3d5_includeinperformanceresults", "INCL_IN_PERF_RESULTS"},
                 {"cr3d5_addpupilref", "REFERENCE_NUMBER"},
-                {"cr3d5_priorattainmentresultfor", "PRIOR_ATTN_RESULT_FOR"},
-                {"cr3d5_priorattainmenttest", "PRIOR_ATTN_TEST"},
-                {"cr3d5_priorattainmentacademicyear", "PRIOR_ATTN_ACAMDEMIC_YEAR"},
-                {"cr3d5_priorattainmentlevel", "PRIOR_ATTN_LEVEL"}
+                {"rscd_readingexamyear", "PA_READING_EXAM_YEAR"},
+                {"rscd_readingtestmark", "PA_READING_TEST_MARK"},
+                {"rscd_readingscaledscore", "PA_READING_SCALED_SCORE"},
+                {"rscd_writingexamyear", "PA_WRITING_EXAM_YEAR"},
+                {"rscd_writingtestmark", "PA_WRITING_TEST_MARK"},
+                {"rscd_writingscaledscore", "PA_WRITING_SCALED_SCORE"},
+                {"rscd_mathsexamyear", "PA_MATHS_EXAM_YEAR"},
+                {"rscd_mathstestmark", "PA_MATHS_TEST_MARK"},
+                {"rscd_mathsscaledscore", "PA_MATHS_SCALED_SCORE"}
             };
 
 
