@@ -20,6 +20,12 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             {
                 return RedirectToAction("Add", "Pupil");
             }
+            if (addPupilAmendment.Results.Count == 3)
+            {
+                string referer = HttpContext.Request.Headers["Referer"].ToString();
+                var action = referer.Contains("AddEvidence") ? "Add" : "AddEvidence";
+                return RedirectToAction(action, "Pupil");
+            }
             var model = new PriorAttainmentResultViewModel
             {
                 PupilViewModel = addPupilAmendment.PupilViewModel,
@@ -36,6 +42,10 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             {
                 addPupilAmendment.Results.Add(result);
                 HttpContext.Session.Set(ADD_PUPIL_AMENDMENT, addPupilAmendment);
+                if (addPupilAmendment.Results.Count == 3)
+                {
+                    return RedirectToAction("AddEvidence", "Pupil");
+                }
                 ModelState.Clear();
                 var model = new PriorAttainmentResultViewModel
                 {

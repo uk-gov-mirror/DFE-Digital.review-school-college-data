@@ -82,13 +82,6 @@ namespace Dfe.CspdAlpha.Admin
                             var newLAEstab = giasLookup.UrnLookup[newURN];
                             pupilRow.URN = newURN;
                             pupilRow.DFESNumber = newLAEstab;
-                            pupilRow.Forename = existingAmendment.forename;
-                            pupilRow.Surname = existingAmendment.surname;
-                            pupilRow.Gender = (string)existingAmendment.gender == "Male" ? "M" : "F";
-                            pupilRow.DOB = ConvertDate((string)existingAmendment.date_of_birth);
-                            pupilRow.PostCode = existingAmendment.postcode;
-                            pupilRow.ENTRYDAT = ConvertDate((string)existingAmendment.admission_date);
-                            pupilRow.ActualYearGroup = existingAmendment.year_group;
                         }
                         else
                         {
@@ -129,7 +122,6 @@ namespace Dfe.CspdAlpha.Admin
                     addPupil.Surname = pupil.surname;
                     addPupil.Gender = (string) pupil.gender == "Male" ? "M" : "F";
                     addPupil.DOB = ConvertDate((string) pupil.date_of_birth);
-                    addPupil.PostCode = pupil.postcode;
                     addPupil.ENTRYDAT = ConvertDate((string) pupil.admission_date);
                     addPupil.ActualYearGroup = pupil.year_group;
                     addPupil.performance = new string[0];
