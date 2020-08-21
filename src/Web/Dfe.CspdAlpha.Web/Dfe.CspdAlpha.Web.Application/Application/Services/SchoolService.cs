@@ -107,10 +107,17 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                 Results = pupil.Results
                     .Select(r => new PriorAttainmentResultViewModel
                     {
-                        Subject = GetSubject(r.SubjectCode), ExamYear = r.ExamYear, TestMark = r.TestMark,
-                        ScaledScore = r.ScaledScore
+                        Subject = GetSubject(r.SubjectCode),
+                        ExamYear = ValidateValue(r.ExamYear),
+                        TestMark = ValidateValue(r.TestMark),
+                        ScaledScore = ValidateValue(r.ScaledScore)
                     }).Where(r => r.Subject != Ks2Subject.Unknown).ToList()
             };
+        }
+
+        private string ValidateValue(string value)
+        {
+            return string.IsNullOrWhiteSpace(value) || value.Trim().ToLower() == "null" ? string.Empty : value.Trim();
         }
 
         private Ks2Subject GetSubject(string subjectCode)
