@@ -9,10 +9,10 @@
   list-style: none;
   display: flex;
   justify-content: flex-start;
+  position: relative;
 
   @include govuk-media-query($until: tablet) {
     display: block;
-    position: relative;
   }
 }
 

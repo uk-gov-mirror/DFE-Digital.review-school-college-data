@@ -11,14 +11,14 @@ class AppRibbonNavigation {
   init() {
     let rowY = this.links.eq(0).offset().top;
     let overspillCount = 0;
-    let tabBarWidth = this.container.width();
+    let tabBarWidth = this.container.width() -56;
     const self = this;
 
     $.each(this.links, function(n, lnk) {
       let offset = $(lnk).offset();
       let topShift = $(lnk).height();
 
-      if (offset.top > rowY || offset.left + $(lnk).width() > tabBarWidth) {
+      if (offset.top > rowY || offset.left + $(lnk).outerWidth() > tabBarWidth) {
         const hiddenLinks = $(self.links).slice(n);
         hiddenLinks.addClass('app-ribbon-nav__overflow-item hidden');
 
