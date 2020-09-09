@@ -25,13 +25,24 @@
                     </h2>
                 </legend>
                 <div class="govuk-radios">
-                    <div class="govuk-radios__item app-radios-multiline__item">
-                        <input class="govuk-radios__input" id="select-a-key-stage-ks4" name="select-a-key-stage" type="radio" value="ks4">
-                        <label class="govuk-label govuk-radios__label" for="select-a-key-stage-ks4">
-                            Key stage 4
-                            <span class="app-radios-multiline__label-row">@Model.CheckingStageText</span>
-                        </label>
-                    </div>
+                    <feature name="KS4-June">
+                        <div class="govuk-radios__item app-radios-multiline__item">
+                            <input class="govuk-radios__input" asp-for="SelectedKeyStage" id="SelectedKeyStage-KS4-June" type="radio" value="kS4-June">
+                            <label class="govuk-label govuk-radios__label" for="SelectedKeyStage-KS4-June">
+                                Key stage 4
+                                <span class="app-radios-multiline__label-row">Key stage 4 June checking exercise</span>
+                            </label>
+                        </div>
+                    </feature>
+                    <feature name="KS4-Late">
+                        <div class="govuk-radios__item app-radios-multiline__item">
+                            <input class="govuk-radios__input" asp-for="SelectedKeyStage" id="SelectedKeyStage-KS4-Late" type="radio" value="kS4-Late">
+                            <label class="govuk-label govuk-radios__label" for="SelectedKeyStage-KS4-Late">
+                                Key stage 4
+                                <span class="app-radios-multiline__label-row">Key stage 4 Late results</span>
+                            </label>
+                        </div>
+                    </feature>
                 </div>
             </fieldset>
         </div>

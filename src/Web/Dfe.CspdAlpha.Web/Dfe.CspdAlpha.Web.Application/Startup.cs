@@ -28,8 +28,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
 using AppInterface = Dfe.CspdAlpha.Web.Application.Application.Interfaces;
 using DomainInterface = Dfe.CspdAlpha.Web.Domain.Interfaces;
-using EnvironmentName = Microsoft.AspNetCore.Hosting.EnvironmentName;
 using Dfe.CspdAlpha.Web.Shared.Config;
+using Microsoft.FeatureManagement;
 
 namespace Dfe.CspdAlpha.Web.Application
 {
@@ -56,6 +56,9 @@ namespace Dfe.CspdAlpha.Web.Application
                                  .Build();
                 config.Filters.Add(new AuthorizeFilter(policy));
             });
+
+            // Adds feature management for Azure App Configuration
+            services.AddFeatureManagement();
 
             // This disables the CSRF token in order to facilitate easier QA for the time being
             if (_env.IsStaging())
@@ -178,14 +181,16 @@ namespace Dfe.CspdAlpha.Web.Application
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name: "school",
-                    pattern: "school/{urn}/{controller}/{action}/{id?}",
-                    defaults: new {controller = "School", action = "Index"});
+                    name: "checking-phase",
+                    pattern: "{phase}/{urn}/{controller}/{action}/{id?}",
+                    defaults: new {controller = "TaskList", action = "Index"});
 
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            app.UseAzureAppConfiguration();
         }
     }
 }
