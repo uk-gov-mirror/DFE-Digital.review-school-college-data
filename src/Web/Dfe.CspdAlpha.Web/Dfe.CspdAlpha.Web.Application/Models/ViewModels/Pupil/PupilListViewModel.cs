@@ -6,7 +6,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
 {
     public class PupilListViewModel
     {
-        public CheckDataNavigation CheckDataNavigationModel => new CheckDataNavigation(NavigationItem.PupilList);
+        public CheckDataNavigation CheckDataNavigationModel => new CheckDataNavigation(NavigationItem.PupilList, LateCheckingPhase);
         public string Urn { get; set; }
         public List<PupilListEntry> Pupils { get; set; }
         public string PupilsJson => JsonConvert.SerializeObject(Pupils);

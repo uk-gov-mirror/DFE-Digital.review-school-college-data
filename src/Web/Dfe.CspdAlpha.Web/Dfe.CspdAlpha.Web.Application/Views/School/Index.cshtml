@@ -33,6 +33,7 @@
 
     <div class="govuk-grid-column-three-quarters">
         <p class="govuk-body">@CheckingWindowHelper.GetCheckingWindowDescription(Model.CheckingWindow)</p>
+        <p>@Html.Raw(Model.DataDescription)</p>
     </div>
     <div class="govuk-grid-column-one-quarter app-align-right govuk-!-padding-bottom-4">
         <a class="print-link" href="javascript:window.print()">Print</a>

@@ -5,7 +5,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels
 {
     public class TaskListViewModel
     {
-        public CheckDataNavigation CheckDataNavigationModel => new CheckDataNavigation(NavigationItem.TaskList);
+        public CheckDataNavigation CheckDataNavigationModel => new CheckDataNavigation(NavigationItem.TaskList , LateCheckingPhase);
         public SchoolDetails SchoolDetails { get; set; }
         public bool ReviewChecked { get; set; }
         public bool DataConfirmed { get; set; }

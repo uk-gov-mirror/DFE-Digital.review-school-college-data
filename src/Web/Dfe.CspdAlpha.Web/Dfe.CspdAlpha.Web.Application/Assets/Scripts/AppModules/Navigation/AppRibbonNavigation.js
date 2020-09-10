@@ -11,7 +11,7 @@ class AppRibbonNavigation {
   init() {
     let rowY = this.links.eq(0).offset().top;
     let overspillCount = 0;
-    let tabBarWidth = this.container.width() -56;
+    let tabBarWidth = this.container.width() -80;
     const self = this;
 
     $.each(this.links, function(n, lnk) {
