@@ -54,7 +54,7 @@
                 <h2 class="app-task-list__section">@Model.ReviewedHeader</h2>
                 <ul class="app-task-list__items">
                     <li class="app-task-list__item">
-                        <span class="app-task-list__task-name"><a asp-controller="School">School performance</a></span>
+                        <span class="app-task-list__task-name"><a asp-controller="School">School performance@(Model.LateCheckingPhase ? " summary" : String.Empty)</a></span>
                         <span class="app-task-list__tag">@(Model.ReviewChecked ? Model.ReviewedCopy : Model.NotReviewedCopy)</span>
                     </li>
                     <li class="app-task-list__item">

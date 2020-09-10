@@ -11,9 +11,9 @@
   justify-content: flex-start;
   position: relative;
 
-  @include govuk-media-query($until: tablet) {
-    display: block;
-  }
+  //@include govuk-media-query($until: tablet) {
+  //  display: block;
+  //}
 }
 
 .app-ribbon-nav__list-item {
@@ -28,15 +28,17 @@
 
 .app-ribbon-nav__link {
   display: block;
-  padding: govuk-spacing(3);
+  padding: govuk-spacing(2) govuk-spacing(3) govuk-spacing(2) govuk-spacing(3);
   text-decoration: none;
   font-weight: bold;
   border-bottom: 4px solid govuk-colour('light-grey');
   color: $govuk-link-colour;
+  height: 36px;
 
   @include govuk-media-query($until: tablet) {
     font-size: 14px;
-    padding: govuk-spacing(2) 8px;
+    padding: govuk-spacing(2) 4px;
+    height: 28px;
   }
 
   &:focus {
@@ -55,11 +57,15 @@
 }
 
 .app-ribbon-nav__list-item--active {
-  background-color: govuk-tint(govuk-colour('mid-grey'), 50);
-
   .app-ribbon-nav__link {
     border-color: $govuk-link-colour;
     color: $govuk-link-colour;
+  }
+}
+
+.app-ribbon-nav__list-item--tall {
+  .app-ribbon-nav__link {
+    padding-bottom: govuk-spacing(2);
   }
 }
 

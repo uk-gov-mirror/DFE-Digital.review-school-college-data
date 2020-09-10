@@ -16,14 +16,17 @@ namespace Dfe.CspdAlpha.Web.Application.Models.Common
     {
         public List<CheckDataNavigationItem> NavigationItems { get; set; }
 
-        public CheckDataNavigation(NavigationItem navigationItem)
+        public CheckDataNavigation(NavigationItem navigationItem, bool lateChecking = false)
         {
+            var performanceLabel = lateChecking ? "School performance<br>summary" : "School performance";
+            var performanceNavClass = lateChecking ? "app-ribbon-nav__list-item--tall" : String.Empty;
+            
             NavigationItems = new List<CheckDataNavigationItem>
             {
                 new CheckDataNavigationItem {Label = "Task list", Controller = "TaskList", Active = navigationItem == NavigationItem.TaskList},
-                new CheckDataNavigationItem {Label = "School performance", Controller = "School", Active = navigationItem == NavigationItem.SchoolPerformance},
+                new CheckDataNavigationItem {Label = performanceLabel, Controller = "School", Active = navigationItem == NavigationItem.SchoolPerformance, LabelClass = performanceNavClass},
                 new CheckDataNavigationItem {Label = "Pupil list", Controller = "Pupil", Active = navigationItem == NavigationItem.PupilList},
-                new CheckDataNavigationItem {Label = "Requested amendments", Controller = "Amendments", Active = navigationItem == NavigationItem.Amendments}
+                new CheckDataNavigationItem {Label = "Requested<br>amendments", Controller = "Amendments", Active = navigationItem == NavigationItem.Amendments, LabelClass = "app-ribbon-nav__list-item--tall"}
             };
         }
     }
@@ -33,5 +36,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.Common
         public string Label { get; set; }
         public string Controller { get; set; }
         public bool Active { get; set; }
+
+        public string LabelClass { get; set; }
     }
 }

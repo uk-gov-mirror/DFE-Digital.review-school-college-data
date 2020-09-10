@@ -9,11 +9,13 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels
 {
     public class SchoolViewModel
     {
-        public CheckDataNavigation CheckDataNavigationModel => new CheckDataNavigation(NavigationItem.SchoolPerformance);
+        public CheckDataNavigation CheckDataNavigationModel => new CheckDataNavigation(NavigationItem.SchoolPerformance, LateCheckingPhase);
         public SchoolDetails SchoolDetails { get; set; }
         public List<Measure> CohortMeasures { get; set; }
         public List<Measure> HeadlineMeasures { get; set; }
         public List<Measure> AdditionalMeasures { get; set; }
         public bool LateCheckingPhase { get; set; }
+
+        public string DataDescription { get; set; }
     }
 }
