@@ -9,7 +9,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels
         public SchoolDetails SchoolDetails { get; set; }
         public bool ReviewChecked { get; set; }
         public bool DataConfirmed { get; set; }
-        public bool LateCheckingPhase { get; set; }
+        public CheckingWindow CheckingWindow { get; set; }
 
         public string ReviewedHeader = "1. View data before requesting amendments";
 

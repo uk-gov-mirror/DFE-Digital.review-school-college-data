@@ -1,3 +1,4 @@
+@using Dfe.CspdAlpha.Web.Application.Application.Helpers
 @using Dfe.CspdAlpha.Web.Application.Models.ViewModels
 @model SchoolViewModel
 @{
@@ -10,7 +11,7 @@
     <text>&nbsp;</text>
 }
 
-<partial name="_CheckDataNavigation" model="@Model.CheckDataNavigationModel"/>
+<partial name="_CheckDataNavigation" model="@Model.CheckDataNavigationModel" />
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
@@ -25,14 +26,13 @@
                 </span>
             </summary>
             <div class="govuk-details__text">
-                <partial name="_SchoolDetails" model="@Model.SchoolDetails"/>
+                <partial name="_SchoolDetails" model="@Model.SchoolDetails" />
             </div>
         </details>
     </div>
 
     <div class="govuk-grid-column-three-quarters">
-        <p class="govuk-body">@(Model.LateCheckingPhase ? "Kay stage 4 Late results" : "Key stage 4 June checking exercise")</p>
-
+        <p class="govuk-body">@CheckingWindowHelper.GetCheckingWindowDescription(Model.CheckingWindow)</p>
     </div>
     <div class="govuk-grid-column-one-quarter app-align-right govuk-!-padding-bottom-4">
         <a class="print-link" href="javascript:window.print()">Print</a>

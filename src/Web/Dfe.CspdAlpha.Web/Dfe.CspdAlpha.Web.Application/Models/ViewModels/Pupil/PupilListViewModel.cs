@@ -10,7 +10,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
         public string Urn { get; set; }
         public List<PupilListEntry> Pupils { get; set; }
         public string PupilsJson => JsonConvert.SerializeObject(Pupils);
-        public bool LateCheckingPhase { get; set; }
+        public CheckingWindow CheckingWindow { get; set; }
     }
 
     public class PupilListEntry

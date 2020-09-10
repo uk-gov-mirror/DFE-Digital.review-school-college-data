@@ -10,7 +10,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments
         public CheckDataNavigation CheckDataNavigationModel => new CheckDataNavigation(NavigationItem.Amendments);
         public string Urn { get; set; }
         public List<Amendment> AmendmentList { get; set; }
-        public bool LateCheckingPhase { get; set; }
+        public CheckingWindow CheckingWindow { get; set; }
         public string AmendmentListJson => JsonConvert.SerializeObject(AmendmentList);
     }
 }
