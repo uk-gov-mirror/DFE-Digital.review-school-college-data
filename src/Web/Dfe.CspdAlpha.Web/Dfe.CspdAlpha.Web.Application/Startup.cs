@@ -30,6 +30,7 @@ using AppInterface = Dfe.CspdAlpha.Web.Application.Application.Interfaces;
 using DomainInterface = Dfe.CspdAlpha.Web.Domain.Interfaces;
 using EnvironmentName = Microsoft.AspNetCore.Hosting.EnvironmentName;
 using Dfe.CspdAlpha.Web.Shared.Config;
+using Dfe.CspdAlpha.Web.Infrastructure.SharePoint;
 
 namespace Dfe.CspdAlpha.Web.Application
 {
@@ -106,13 +107,14 @@ namespace Dfe.CspdAlpha.Web.Application
             { 
                 options.Cookie.IsEssential = true;
             });
-            
+
+            services.Configure<SharePointOptions>(Configuration.GetSection("SharePoint"));
+
 
             services.AddApplicationInsightsTelemetry();
 
             var cosmosDbOptions = Configuration.GetSection("CosmosDb").Get<CosmosDbOptions>();
             var client = new CosmosClient(cosmosDbOptions.Account, cosmosDbOptions.Key);
-
 
             services.AddSingleton(IntialisePupilService(client, cosmosDbOptions.Database, cosmosDbOptions.PupilsCollection).GetAwaiter().GetResult());
             services.AddSingleton<IPupilService, PupilService>();
@@ -120,7 +122,7 @@ namespace Dfe.CspdAlpha.Web.Application
             services.AddSingleton<IEstablishmentService, EstablishmentService>();
             services.AddSingleton<DomainInterface.IAmendmentService, CrmAmendmentService>();
             services.AddSingleton<IConfirmationService, CrmConfirmationService>();
-            services.AddSingleton<IFileUploadService, FileUploadService>();
+            services.AddSingleton<IFileUploadService, SharePointFileUploadService>();
             services.AddSingleton<ISchoolService, SchoolService>();
             services.AddSingleton<AppInterface.IAmendmentService, AmendmentService>();
         }
