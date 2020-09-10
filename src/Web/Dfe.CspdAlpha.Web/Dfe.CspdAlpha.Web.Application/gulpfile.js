@@ -9,6 +9,8 @@ const postcss = require('gulp-postcss');
 const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
 const gulpStylelint = require('gulp-stylelint');
+const hash = require('gulp-hash-filename');
+
 //const eslint = require('gulp-eslint');
 
 const scssPath = './Assets/Sass/*.scss';
@@ -36,6 +38,7 @@ function prodCss() {
   return src(scssPath)
     .pipe(sass())
     .pipe(postcss([autoprefixer(), cssnano()]))
+    .pipe(hash())
     .pipe(dest(cssDest));
 }
 
@@ -45,6 +48,7 @@ function devCss() {
     .pipe(sourcemaps.init())
     .pipe(sass())
     .pipe(postcss([autoprefixer()]))
+    .pipe(hash())
     .pipe(sourcemaps.write('./sourcemaps'))
     .pipe(dest(cssDest));
 }
