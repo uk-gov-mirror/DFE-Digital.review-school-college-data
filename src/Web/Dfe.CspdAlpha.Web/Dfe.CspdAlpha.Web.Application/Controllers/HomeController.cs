@@ -12,10 +12,8 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private IConfiguration Configuration;
-        public HomeController(ILogger<HomeController> logger, IConfiguration configuration)
+        public HomeController(ILogger<HomeController> logger)
         {
-            Configuration = configuration;
             _logger = logger;
         }
 
@@ -23,7 +21,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         {
             var urn = ClaimsHelper.GetURN(this.User);
             HttpContext.Session.Set("URN", urn);
-            return View(new HomeViewModel(Configuration));
+            return View(new HomeViewModel());
         }
 
         [HttpPost]
@@ -31,8 +29,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         {
             if (ModelState.IsValid)
             {
-                var urn = ClaimsHelper.GetURN(this.User);
-                return RedirectToAction("Index", "TaskList", new { urn = urn });
+                return RedirectToAction("Index", "TaskList", new { phase = homeViewModel.SelectedKeyStage.ToLower(), urn = ClaimsHelper.GetURN(this.User) });
             }
 
             return View(homeViewModel);
