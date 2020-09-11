@@ -7,7 +7,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments
 {
     public class AmendmentsListViewModel
     {
-        public CheckDataNavigation CheckDataNavigationModel => new CheckDataNavigation(NavigationItem.Amendments , LateCheckingPhase);
+        public CheckDataNavigation CheckDataNavigationModel => new CheckDataNavigation(NavigationItem.Amendments , CheckingWindow);
         public string Urn { get; set; }
         public List<Amendment> AmendmentList { get; set; }
         public CheckingWindow CheckingWindow { get; set; }
