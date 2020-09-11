@@ -218,9 +218,9 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
             }
 
             // Upload Evidence
-            if (amendment.EvidenceStatus == EvidenceStatus.Now && amendment.EvidenceList.Any())
+            if (amendment.HasUploadedEvidence)
             {
-                RelateEvidence(amendmentId, amendment.EvidenceList, false);
+                RelateEvidence(amendmentId, amendment.EvidenceFolderName, false);
             }
 
             return true;
@@ -233,6 +233,27 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
             {
                 new EntityReference(new_Amendment.EntityLogicalName, amendmentId)
             });
+        }
+
+        public void RelateEvidence(Guid amendmentId, string evidenceFolderName, bool updateEvidenceOption)
+        {
+            // https://community.dynamics.com/crm/f/microsoft-dynamics-crm-forum/203503/adding-a-sharepointdocumentlocation-programmatically/528485
+            Entity sharepointdocumentlocation = new Entity("sharepointdocumentlocation");
+             sharepointdocumentlocation["name"] = evidenceFolderName;
+
+            // TODO: Currently hard-coded to a document location record that points to the "Amendment" sub-folder. Will need to change
+            // this to support different entities.
+            sharepointdocumentlocation["parentsiteorlocation"] = new EntityReference(
+                "sharepointdocumentlocation", Guid.Parse("34b250ed-aaf2-ea11-a815-000d3abb8438"));
+            sharepointdocumentlocation["relativeurl"] = evidenceFolderName;
+            sharepointdocumentlocation["regardingobjectid"] = new EntityReference(new_Amendment.EntityLogicalName, amendmentId);
+
+            Guid sharepointdocumentlocationid = _organizationService.Create(sharepointdocumentlocation);
+
+            if (updateEvidenceOption)
+            {
+                UpdateEvidenceStatus(amendmentId);
+            }
         }
 
         public void RelateEvidence(Guid amendmentId, List<Evidence> evidenceList, bool updateEvidenceOption)

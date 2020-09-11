@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Dfe.CspdAlpha.Web.Application.Models.Common;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
@@ -15,9 +14,10 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Interfaces
         AmendmentViewModel GetAddPupilAmendmentViewModel(Guid id);
 
         bool CancelAmendment(string id);
-        List<EvidenceFile> UploadEvidence(List<IFormFile> files);
 
-        void RelateEvidence(Guid amendmentId, List<EvidenceFile> evidenceList);
+        string UploadEvidence(List<IFormFile> files);
+
+        void RelateEvidence(Guid amendmentId, string evidenceFolderName);
 
         bool CreateAddPupilAmendment(AddPupilAmendmentViewModel addPupilAmendment, out string id);
     }

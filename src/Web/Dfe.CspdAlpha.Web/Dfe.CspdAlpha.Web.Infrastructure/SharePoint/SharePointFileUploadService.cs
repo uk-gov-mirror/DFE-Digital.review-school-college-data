@@ -34,7 +34,8 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.SharePoint
                     // Each sliced upload requires a unique id
                     Guid uploadId = Guid.NewGuid();
 
-                    List uploadLibrary = ctx.Web.Lists.GetByTitle("File upload");
+                    // TODO: Library name would be dynamic, based on type of amendment (dependent on amendment data model)
+                    List uploadLibrary = ctx.Web.Lists.GetByTitle("Amendment");
 
                     // create dedicated folder if one has not already been created for this amendment
                     FolderCollection folders = uploadLibrary.RootFolder.Folders;
