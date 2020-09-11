@@ -19,7 +19,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
             _organizationService = organizationService;
         }
 
-        public FileUploadResult UploadFile(Stream file, string filename, string mimeType)
+        public FileUploadResult UploadFile(Stream file, string filename, string mimeType, string folderName)
         {
             // TODO: Change this method to use the Web API to make it async
             // https://docs.microsoft.com/en-us/powerapps/developer/common-data-service/file-attributes#upload-file-data

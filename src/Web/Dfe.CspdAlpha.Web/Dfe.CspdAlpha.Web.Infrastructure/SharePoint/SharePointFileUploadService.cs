@@ -1,9 +1,11 @@
 ﻿using Dfe.CspdAlpha.Web.Infrastructure.Interfaces;
 using Dfe.CspdAlpha.Web.Infrastructure.Models;
 using Dfe.CspdAlpha.Web.Shared.Config;
+using Microsoft.Extensions.Options;
 using Microsoft.SharePoint.Client;
 using System;
 using System.IO;
+using System.Linq;
 
 namespace Dfe.CspdAlpha.Web.Infrastructure.SharePoint
 {
@@ -11,12 +13,12 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.SharePoint
     {
         private readonly SharePointOptions _options;
 
-        public SharePointFileUploadService(SharePointOptions options)
+        public SharePointFileUploadService(IOptions<SharePointOptions> options)
         {
-            _options = options;
+            _options = options.Value;
         }
 
-        public FileUploadResult UploadFile(Stream file, string filename, string mimeType)
+        public FileUploadResult UploadFile(Stream file, string filename, string mimeType, string folderName)
         {
             // TODO: Consider updating this to use PnP Core when it supports .NET Standard (https://github.com/pnp/PnP-Sites-Core)
             Uri site = new Uri(_options.SiteUrl);
@@ -32,26 +34,27 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.SharePoint
                     // Each sliced upload requires a unique id
                     Guid uploadId = Guid.NewGuid();
 
-                    // Ensure that target library exists, create if is missing
-                    if (!LibraryExists(ctx, ctx.Web, libraryName))
-                    {
-                        CreateLibrary(ctx, ctx.Web, libraryName);
-                    }
+                    List uploadLibrary = ctx.Web.Lists.GetByTitle("File upload");
 
-                    // Get to folder to upload into 
-                    List docs = ctx.Web.Lists.GetByTitle(libraryName);
-                    ctx.Load(docs, l => l.RootFolder);
-
-                    // Get the information about the folder that will hold the file
-                    ctx.Load(docs.RootFolder, f => f.ServerRelativeUrl);
+                    // create dedicated folder if one has not already been created for this amendment
+                    FolderCollection folders = uploadLibrary.RootFolder.Folders;
+                    ctx.Load(folders);
                     ctx.ExecuteQuery();
+
+                    folderName = folderName.Trim();
+
+                    var targetFolder = folders.FirstOrDefault(x => x.Name == folderName);
+
+                    if (targetFolder == null)
+                    {
+                        // create folder
+                        targetFolder = folders.Add(folderName);
+                        ctx.Load(targetFolder);
+                        ctx.ExecuteQuery();
+                    }
 
                     // Calculate block size in bytes
                     int blockSize = fileChunkSizeInMB * 1024 * 1024;
-
-                    // Get the information about the folder that will hold the file
-                    ctx.Load(docs.RootFolder, f => f.ServerRelativeUrl);
-                    ctx.ExecuteQuery();
 
                     // Get the size of the file
                     long fileSize = file.Length;
@@ -63,7 +66,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.SharePoint
                         fileInfo.ContentStream = file;
                         fileInfo.Url = filename;
                         fileInfo.Overwrite = true;
-                        uploadFile = docs.RootFolder.Files.Add(fileInfo);
+                        uploadFile = targetFolder.Files.Add(fileInfo);
                         ctx.Load(uploadFile);
                         ctx.ExecuteQuery();
                     }
@@ -94,7 +97,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.SharePoint
                                         fileInfo.ContentStream = contentStream;
                                         fileInfo.Url = filename;
                                         fileInfo.Overwrite = true;
-                                        uploadFile = docs.RootFolder.Files.Add(fileInfo);
+                                        uploadFile = targetFolder.Files.Add(fileInfo);
 
                                         // Start upload by uploading the first slice. 
                                         using (MemoryStream s = new MemoryStream(buffer))
@@ -114,7 +117,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.SharePoint
                                 {
                                     // Get a reference to our file
                                     uploadFile = ctx.Web.GetFileByServerRelativeUrl(
-                                        docs.RootFolder.ServerRelativeUrl + System.IO.Path.AltDirectorySeparatorChar + filename);
+                                        targetFolder.ServerRelativeUrl + System.IO.Path.AltDirectorySeparatorChar + filename);
 
                                     if (totalBytesRead == fileSize)
                                     {

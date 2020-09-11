@@ -87,13 +87,16 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
         public List<EvidenceFile> UploadEvidence(List<IFormFile> files)
         {
             var fileIdList = new List<EvidenceFile>();
+            var now = DateTime.UtcNow;
+            var folderName = $"{now:yyyy-MM-dd-HH-mm-ss}-{Guid.NewGuid()}";
+
             foreach (var file in files)
             {
                 using (var fs = file.OpenReadStream())
                 {
                     if (fs.Length > 0)
                     {
-                        var fileId = _fileUploadService.UploadFile(fs, file.FileName, file.ContentType);
+                        var fileId = _fileUploadService.UploadFile(fs, file.FileName, file.ContentType, folderName);
                         fileIdList.Add(new EvidenceFile { Id = fileId.FileId.ToString(), Name = fileId.FileName });
                     }
                 }
