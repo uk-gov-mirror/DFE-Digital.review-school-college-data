@@ -38,6 +38,8 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.SharePoint
                     List uploadLibrary = ctx.Web.Lists.GetByTitle("Amendment");
 
                     // create dedicated folder if one has not already been created for this amendment
+                    // TODO: Re-work interface so that folder is created ahead of uploading first file, then this
+                    // check can be removed.
                     FolderCollection folders = uploadLibrary.RootFolder.Folders;
                     ctx.Load(folders);
                     ctx.ExecuteQuery();
@@ -144,8 +146,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.SharePoint
                                         }
                                     }
                                 }
-
-                            } // while ((bytesRead = br.Read(buffer, 0, buffer.Length)) > 0)
+                            }
                         }
                     }
                 }
