@@ -30,6 +30,7 @@
     "eslint": "^6.8.0",
     "glob": "^7.1.6",
     "gulp": "^4.0.2",
+    "gulp-hash-filename": "^3.0.0",
     "gulp-postcss": "^8.0.0",
     "gulp-run": "^1.7.1",
     "gulp-sass": "^4.1.0",

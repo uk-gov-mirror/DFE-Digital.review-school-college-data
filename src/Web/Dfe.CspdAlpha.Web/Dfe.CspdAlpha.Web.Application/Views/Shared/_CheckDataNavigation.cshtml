@@ -5,8 +5,8 @@
             <ul class="app-ribbon-nav__list">
                 @foreach (var navigationItem in Model.NavigationItems)
                 {
-                    <li class="app-ribbon-nav__list-item @(navigationItem.Active ? "app-ribbon-nav__list-item--active" : string.Empty)">
-                        <a class="app-ribbon-nav__link" asp-controller="@navigationItem.Controller" asp-action="Index">@navigationItem.Label</a>
+                    <li class="app-ribbon-nav__list-item @navigationItem.LabelClass  @(navigationItem.Active ? "app-ribbon-nav__list-item--active" : string.Empty)">
+                        <a class="app-ribbon-nav__link" asp-controller="@navigationItem.Controller" asp-action="Index">@Html.Raw(navigationItem.Label)</a>
                     </li>
                 }
             </ul>

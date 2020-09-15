@@ -9,7 +9,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Interfaces
 {
     public interface IAmendmentService
     {
-        AmendmentsListViewModel GetAmendmentsListViewModel(string urn, bool lateChecking);
+        AmendmentsListViewModel GetAmendmentsListViewModel(string urn, CheckingWindow checkingWindow);
 
         AmendmentViewModel GetAddPupilAmendmentViewModel(Guid id);
 

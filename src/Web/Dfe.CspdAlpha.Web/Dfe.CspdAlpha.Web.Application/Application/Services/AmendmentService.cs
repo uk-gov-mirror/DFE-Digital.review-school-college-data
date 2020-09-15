@@ -30,7 +30,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             _amendmentService = amendmentService;
         }
 
-        public AmendmentsListViewModel GetAmendmentsListViewModel(string urn, bool lateChecking = false)
+        public AmendmentsListViewModel GetAmendmentsListViewModel(string urn, CheckingWindow checkingWindow)
         {
             var urnValue = new URN(urn);
             return new AmendmentsListViewModel
@@ -38,7 +38,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                 Urn = urn,
                 AmendmentList = _amendmentService
                     .GetAddPupilAmendments(urnValue.Value)
-                    .Where(a => !lateChecking || (a.Status == "Approved" || a.Status =="Rejected"))
+                    .Where(a => checkingWindow != CheckingWindow.KS4Late || (a.Status == "Approved" || a.Status =="Rejected"))
                     .Select(a => new Amendment
                     {
                         FirstName = a.Pupil.ForeName,

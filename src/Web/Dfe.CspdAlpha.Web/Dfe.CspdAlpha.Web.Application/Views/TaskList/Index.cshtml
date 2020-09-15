@@ -1,3 +1,5 @@
+@using Dfe.CspdAlpha.Web.Application.Application.Helpers
+@using Dfe.CspdAlpha.Web.Application.Models.Common
 @using Dfe.CspdAlpha.Web.Application.Models.ViewModels
 @model TaskListViewModel
 @{
@@ -7,7 +9,7 @@
 
 @section BackLink
 {
-    <a class="govuk-back-link" asp-controller="Home" asp-action="Index">Back to homepage</a>
+    <a class="govuk-back-link" href="/">Back to homepage</a>
 }
 
 <partial name="_CheckDataNavigation" model="@Model.CheckDataNavigationModel" />
@@ -29,18 +31,9 @@
             </div>
         </details>
     </div>
-    @if (Model.LateCheckingPhase)
-    {
-        <div class="govuk-grid-column-three-quarters">
-            <p class="govuk-body">Key stage 4 Late results</p>
-        </div>
-    }
-    else
-    {
-        <div class="govuk-grid-column-three-quarters">
-            <p class="govuk-body">Key stage 4 June checking exercise</p>
-        </div>
-    }
+    <div class="govuk-grid-column-three-quarters">
+        <p class="govuk-body">@CheckingWindowHelper.GetCheckingWindowDescription(Model.CheckingWindow)</p>
+    </div>
     <div class="govuk-grid-column-three-quarters">
         <p class="govuk-body">@Model.GetLeadText()</p>
     </div>
@@ -54,7 +47,7 @@
                 <h2 class="app-task-list__section">@Model.ReviewedHeader</h2>
                 <ul class="app-task-list__items">
                     <li class="app-task-list__item">
-                        <span class="app-task-list__task-name"><a asp-controller="School">School performance</a></span>
+                        <span class="app-task-list__task-name"><a asp-controller="School">School performance@(Model.CheckingWindow == CheckingWindow.KS4Late ? " summary" : String.Empty)</a></span>
                         <span class="app-task-list__tag">@(Model.ReviewChecked ? Model.ReviewedCopy : Model.NotReviewedCopy)</span>
                     </li>
                     <li class="app-task-list__item">
@@ -81,59 +74,7 @@
             </li>
             <li>
                 <h2 class="app-task-list__section">2. Request amendments</h2>
-                <ul class="app-task-list__items">
-                    @if (!Model.ReviewChecked && Model.LateCheckingPhase)
-                    {
-                        <li class="app-task-list__item">
-                            <span class="app-task-list__task-name">Request to add results data</span>
-                            <span class="app-task-list__tag">Cannot start yet</span>
-                        </li>
-                        <li class="app-task-list__item">
-                            <span class="app-task-list__task-name">Request to amend/remove results data</span>
-                            <span class="app-task-list__tag">Cannot start yet</span>
-                        </li>
-                    }
-                    else if (!Model.ReviewChecked)
-                    {
-                        <li class="app-task-list__item">
-                            <span class="app-task-list__task-name">Request to add a pupil</span>
-                            <span class="app-task-list__tag">Cannot start yet</span>
-                        </li>
-                        <li class="app-task-list__item">
-                            <span class="app-task-list__task-name">Request to remove an incorrect pupil</span>
-                            <span class="app-task-list__tag">Cannot start yet</span>
-                        </li>
-                        <li class="app-task-list__item">
-                            <span class="app-task-list__task-name">Request to remove a pupil from school measures</span>
-                            <span class="app-task-list__tag">Cannot start yet</span>
-                        </li>
-                    }
-                    else if (Model.LateCheckingPhase)
-                    {
-                        <li class="app-task-list__item">
-                            <span class="app-task-list__task-name"><a asp-controller="Results" asp-action="Add">Request to add results data</a></span>
-                            <span class="app-task-list__tag">Cannot start yet</span>
-                        </li>
-                        <li class="app-task-list__item">
-                            <span class="app-task-list__task-name"><a asp-controller="Results" asp-action="AmendReason">Request to amend/remove results data</a></span>
-                            <span class="app-task-list__tag">Cannot start yet</span>
-                        </li>
-                    }
-                    else
-                    {
-                        <li class="app-task-list__item">
-                            <span class="app-task-list__task-name"><a asp-controller="Pupil" asp-action="Add">Request to add a pupil</a></span>
-                        </li>
-                        <li class="app-task-list__item">
-                            <span class="app-task-list__task-name"><a asp-controller="Pupil" asp-action="Remove">Request to remove an incorrect pupil</a></span>
-                            <span class="app-task-list__tag">Cannot start yet</span>
-                        </li>
-                        <li class="app-task-list__item">
-                            <span class="app-task-list__task-name"><a asp-controller="Pupil" asp-action="RemoveFromResults">Request to remove a pupil from school measures</a></span>
-                            <span class="app-task-list__tag">Cannot start yet</span>
-                        </li>
-                    }
-                </ul>
+                <partial name="./Partial/_TaskOptions_@Model.CheckingWindow.ToString().ToLower()" model="@Model.ReviewChecked" />
             </li>
             <li>
                 <h2 class="app-task-list__section">3. Confirm data</h2>

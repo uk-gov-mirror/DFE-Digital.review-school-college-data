@@ -27,7 +27,8 @@ namespace Dfe.CspdAlpha.Web.Application.Application
         {
             if (_allowedActions.All(a => !a.Equals(context.RouteData.Values["action"].ToString(), StringComparison.InvariantCultureIgnoreCase)))
             {
-                var userId = ClaimsHelper.GetUserId(context.HttpContext.User);
+                var checkingWindow = CheckingWindowHelper.GetCheckingWindow(context.RouteData);
+                var userId = ClaimsHelper.GetUserId(context.HttpContext.User) + checkingWindow.ToString();
                 var viewModel = context.HttpContext.Session.Get<TaskListViewModel>(string.Format(TASK_LIST, userId));
                 if (viewModel == null || !viewModel.ReviewChecked)
                 {

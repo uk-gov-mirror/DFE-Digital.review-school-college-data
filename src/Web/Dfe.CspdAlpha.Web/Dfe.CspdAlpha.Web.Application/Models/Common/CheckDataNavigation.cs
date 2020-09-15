@@ -1,7 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Dfe.CspdAlpha.Web.Application.Models.Common
 {
@@ -16,15 +13,51 @@ namespace Dfe.CspdAlpha.Web.Application.Models.Common
     {
         public List<CheckDataNavigationItem> NavigationItems { get; set; }
 
-        public CheckDataNavigation(NavigationItem navigationItem)
+        public CheckDataNavigation(NavigationItem navigationItem, CheckingWindow checkingWindow)
         {
             NavigationItems = new List<CheckDataNavigationItem>
             {
                 new CheckDataNavigationItem {Label = "Task list", Controller = "TaskList", Active = navigationItem == NavigationItem.TaskList},
-                new CheckDataNavigationItem {Label = "School performance", Controller = "School", Active = navigationItem == NavigationItem.SchoolPerformance},
+                new CheckDataNavigationItem {Label = GetLabel(checkingWindow), Controller = "School", Active = navigationItem == NavigationItem.SchoolPerformance, LabelClass = GetNavClass(checkingWindow)},
                 new CheckDataNavigationItem {Label = "Pupil list", Controller = "Pupil", Active = navigationItem == NavigationItem.PupilList},
-                new CheckDataNavigationItem {Label = "Requested amendments", Controller = "Amendments", Active = navigationItem == NavigationItem.Amendments}
+                new CheckDataNavigationItem {Label = "Requested<br>amendments", Controller = "Amendments", Active = navigationItem == NavigationItem.Amendments, LabelClass = "app-ribbon-nav__list-item--tall"}
             };
+        }
+
+        private string GetLabel(CheckingWindow checkingWindow)
+        {
+            switch (checkingWindow)
+            {
+                case CheckingWindow.KS4Late:
+                    return "School performance<br>summary";
+                case CheckingWindow.Unknown:
+                case CheckingWindow.KS2:
+                case CheckingWindow.KS2Errata:
+                case CheckingWindow.KS4June:
+                case CheckingWindow.KS4Errata:
+                case CheckingWindow.KS5:
+                case CheckingWindow.KS5Errata:
+                default:
+                    return "School performance";
+            }
+        }
+
+        private string GetNavClass(CheckingWindow checkingWindow)
+        {
+            switch (checkingWindow)
+            {
+                case CheckingWindow.KS4Late:
+                    return "app-ribbon-nav__list-item--tall";
+                case CheckingWindow.Unknown:
+                case CheckingWindow.KS2:
+                case CheckingWindow.KS2Errata:
+                case CheckingWindow.KS4June:
+                case CheckingWindow.KS4Errata:
+                case CheckingWindow.KS5:
+                case CheckingWindow.KS5Errata:
+                default:
+                    return string.Empty;
+            }
         }
     }
 
@@ -33,5 +66,9 @@ namespace Dfe.CspdAlpha.Web.Application.Models.Common
         public string Label { get; set; }
         public string Controller { get; set; }
         public bool Active { get; set; }
+
+        public string LabelClass { get; set; }
     }
 }
+
+
