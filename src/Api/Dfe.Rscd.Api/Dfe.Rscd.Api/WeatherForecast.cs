@@ -1,6 +1,6 @@
 using System;
 
-namespace Dfe.CspdAlpha.Api
+namespace Dfe.Rscd.Api
 {
     public class WeatherForecast
     {

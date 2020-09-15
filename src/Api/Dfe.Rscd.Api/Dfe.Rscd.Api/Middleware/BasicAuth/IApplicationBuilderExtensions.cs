@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 
-namespace Dfe.CspdAlpha.Api.Middleware.BasicAuth
+namespace Dfe.Rscd.Api.Middleware.BasicAuth
 {
     public static class IApplicationBuilderExtensions
     {

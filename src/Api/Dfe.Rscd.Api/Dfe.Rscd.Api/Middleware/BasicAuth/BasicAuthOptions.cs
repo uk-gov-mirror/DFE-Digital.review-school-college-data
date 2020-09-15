@@ -1,4 +1,4 @@
-﻿namespace Dfe.CspdAlpha.Api.Middleware.BasicAuth
+﻿namespace Dfe.Rscd.Api.Middleware.BasicAuth
 {
     public class BasicAuthOptions
     {

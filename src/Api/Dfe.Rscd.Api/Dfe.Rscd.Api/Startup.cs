@@ -1,4 +1,4 @@
-using Dfe.CspdAlpha.Api.Middleware.BasicAuth;
+using Dfe.Rscd.Api.Middleware.BasicAuth;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -7,7 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
 
-namespace Dfe.CspdAlpha.Api
+namespace Dfe.Rscd.Api
 {
     public class Startup
     {
@@ -46,10 +46,10 @@ namespace Dfe.CspdAlpha.Api
         {
             app.UseSwagger();
             app.UseSwaggerUI(c =>
-                {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Review school and college data API V1");
-                    c.RoutePrefix = string.Empty;
-                }
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Review school and college data API V1");
+                c.RoutePrefix = string.Empty;
+            }
             );
 
             if (env.IsDevelopment())

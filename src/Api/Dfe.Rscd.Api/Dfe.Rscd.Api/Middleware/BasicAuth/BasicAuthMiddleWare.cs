@@ -6,7 +6,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dfe.CspdAlpha.Api.Middleware.BasicAuth
+namespace Dfe.Rscd.Api.Middleware.BasicAuth
 {
     public class BasicAuthMiddleware
     {
