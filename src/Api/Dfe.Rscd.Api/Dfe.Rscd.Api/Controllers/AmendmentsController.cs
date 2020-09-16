@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Dfe.Rscd.Api.Domain.Entities;
+﻿using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Domain.Interfaces;
 using Dfe.Rscd.Api.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Dfe.Rscd.Api.Controllers
 {
@@ -22,13 +19,14 @@ namespace Dfe.Rscd.Api.Controllers
             _amendmentService = amendmentService;
         }
 
+        // TODO: Not sure if we need a get all amendments endpoint as we will likely have a dedicated end point for the amendments export
         // GET: api/Amendments
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
+        //[HttpGet]
+        //public IEnumerable<string> Get()
+        //{
 
-            return new string[] { "value1", "value2" };
-        }
+        //    return new string[] { "value1", "value2" };
+        //}
 
         // GET: api/Amendments/5
         [HttpGet("{id}", Name = "Get")]

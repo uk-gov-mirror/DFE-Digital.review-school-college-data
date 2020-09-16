@@ -100,6 +100,7 @@ namespace Dfe.CspdAlpha.Web.Application
             services.AddTransient<IOrganizationService, CdsServiceClient>(sp => cdsClient.Clone());
             services.Configure<DynamicsOptions>(Configuration.GetSection("Dynamics"));
 
+            // Session config
             services.Configure<CookiePolicyOptions>(options =>
             {
                 options.CheckConsentNeeded = context => true;
@@ -110,8 +111,10 @@ namespace Dfe.CspdAlpha.Web.Application
                 options.Cookie.IsEssential = true;
             });
             
-
+            // Application insights config
             services.AddApplicationInsightsTelemetry();
+
+
 
             var cosmosDbOptions = Configuration.GetSection("CosmosDb").Get<CosmosDbOptions>();
             var client = new CosmosClient(cosmosDbOptions.Account, cosmosDbOptions.Key);
