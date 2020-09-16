@@ -17,15 +17,14 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
     /// </summary>
     /// <remarks>Currently uses Dynamics SDK (OrganizationServiceContext), which curiously 
     /// doesn't seem to support async calls. Will probably want to switch to use Web API
-    /// at some point.</remarks>
+    /// at some point.
+    /// UPDATE: Async support is planned at some point: https://github.com/microsoft/PowerPlatform-CdsServiceClient/issues/7</remarks>
     public class CrmAmendmentService : IAmendmentService
     {
         private readonly IOrganizationService _organizationService;
         private readonly Guid _firstLineTeamId;
         private readonly Guid _sharePointDocumentLocationRecordId;
         private IEstablishmentService _establishmentService;
-
-        private const string fileUploadRelationshipName = "cr3d5_new_Amendment_Evidence_cr3d5_Fileupload";
 
         public CrmAmendmentService(
             IOrganizationService organizationService, 
@@ -259,24 +258,6 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
             }
         }
 
-        public void RelateEvidence(Guid amendmentId, List<Evidence> evidenceList, bool updateEvidenceOption)
-        {
-            var relatedFileUploads = new EntityReferenceCollection();
-            foreach (var evidence in evidenceList)
-            {
-                relatedFileUploads.Add(new EntityReference(cr3d5_Fileupload.EntityLogicalName, new Guid(evidence.Id)));
-            }
-
-            var relationship = new Relationship(fileUploadRelationshipName);
-            _organizationService.Associate(new_Amendment.EntityLogicalName, amendmentId, relationship,
-                relatedFileUploads);
-            
-            if (updateEvidenceOption)
-            {
-                UpdateEvidenceStatus(amendmentId);
-            }
-        }
-
         public IEnumerable<AddPupilAmendment> GetAddPupilAmendments(int laestab)
         {
             using (var context = new CrmServiceContext(_organizationService))
@@ -392,10 +373,6 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
             {
                 var amendment = context.new_AmendmentSet.Where(
                     x => x.Id == amendmentId).FirstOrDefault();
-
-                // TODO: Get relationship name from attribute
-                var relationship = new Relationship(fileUploadRelationshipName);
-                context.LoadProperty(amendment, relationship);
 
                 return Convert(amendment);
             }
