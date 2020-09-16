@@ -22,6 +22,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
     {
         private readonly IOrganizationService _organizationService;
         private readonly Guid _firstLineTeamId;
+        private readonly Guid _sharePointDocumentLocationRecordId;
         private IEstablishmentService _establishmentService;
 
         private const string fileUploadRelationshipName = "cr3d5_new_Amendment_Evidence_cr3d5_Fileupload";
@@ -34,6 +35,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
             _establishmentService = establishmentService;
             _organizationService = organizationService;
             _firstLineTeamId = config.Value.Helpdesk1stLineTeamId;
+            _sharePointDocumentLocationRecordId = config.Value.SharePointDocumentLocationRecordId;
         }
 
         private cr3d5_establishment GetOrCreateEstablishment(string id, CrmServiceContext context)
@@ -218,9 +220,9 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
             }
 
             // Upload Evidence
-            if (amendment.EvidenceStatus == EvidenceStatus.Now && amendment.EvidenceList.Any())
+            if (amendment.HasUploadedEvidence)
             {
-                RelateEvidence(amendmentId, amendment.EvidenceList, false);
+                RelateEvidence(amendmentId, amendment.EvidenceFolderName, false);
             }
 
             return true;
@@ -233,6 +235,28 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
             {
                 new EntityReference(new_Amendment.EntityLogicalName, amendmentId)
             });
+        }
+
+        public void RelateEvidence(Guid amendmentId, string evidenceFolderName, bool updateEvidenceOption)
+        {
+            // https://community.dynamics.com/crm/f/microsoft-dynamics-crm-forum/203503/adding-a-sharepointdocumentlocation-programmatically/528485
+            Entity sharepointdocumentlocation = new Entity("sharepointdocumentlocation");
+            sharepointdocumentlocation["name"] = evidenceFolderName;
+            sharepointdocumentlocation["description"] = amendmentId.ToString();
+
+            // TODO: Currently hard-coded to a document location record that points to the "Amendment" sub-folder. Will need to decide
+            // on final folder structure for organising file uploads - possibly have a folder per checking window ({year}/{checking-window})
+            sharepointdocumentlocation["parentsiteorlocation"] = new EntityReference(
+                "sharepointdocumentlocation", _sharePointDocumentLocationRecordId);
+            sharepointdocumentlocation["relativeurl"] = evidenceFolderName;
+            sharepointdocumentlocation["regardingobjectid"] = new EntityReference(new_Amendment.EntityLogicalName, amendmentId);
+
+            Guid sharepointdocumentlocationid = _organizationService.Create(sharepointdocumentlocation);
+
+            if (updateEvidenceOption)
+            {
+                UpdateEvidenceStatus(amendmentId);
+            }
         }
 
         public void RelateEvidence(Guid amendmentId, List<Evidence> evidenceList, bool updateEvidenceOption)

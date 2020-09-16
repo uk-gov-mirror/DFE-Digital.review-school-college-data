@@ -58,8 +58,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                     {
                         URN = ClaimsHelper.GetURN(this.User),
                         PupilViewModel = existingPupil.PupilViewModel,
-                        Results = existingPupil.Results, 
-                        EvidenceFiles = new List<EvidenceFile>()
+                        Results = existingPupil.Results
                     };
                     HttpContext.Session.Set(ADD_PUPIL_AMENDMENT, addPupilAmendment);
                     return RedirectToAction("ExistingMatch");
@@ -72,8 +71,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 {
                     URN = ClaimsHelper.GetURN(this.User),
                     PupilViewModel = addPupilViewModel,
-                    Results = new List<PriorAttainmentResultViewModel>(),
-                    EvidenceFiles = new List<EvidenceFile>()
+                    Results = new List<PriorAttainmentResultViewModel>()
                 };
                 HttpContext.Session.Set(ADD_PUPIL_AMENDMENT, addPupilAmendment);
                 return RedirectToAction("Add", "PriorAttainment");
@@ -150,13 +148,15 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             if (id == null)
             {
                 var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
+
                 if (ModelState.IsValid)
                 {
-                    var uploadedEvidenceFiles = _amendmentService.UploadEvidence(evidenceFiles);
-                    addPupilAmendment.EvidenceFiles.AddRange(uploadedEvidenceFiles);
+                    addPupilAmendment.EvidenceFolderName = _amendmentService.UploadEvidence(evidenceFiles);
                     HttpContext.Session.Set(ADD_PUPIL_AMENDMENT, addPupilAmendment);
+
                     return RedirectToAction("ConfirmAddPupil");
                 }
+
                 return View(new UploadEvidenceViewModel { PupilViewModel = addPupilAmendment.PupilViewModel });
             }
             else

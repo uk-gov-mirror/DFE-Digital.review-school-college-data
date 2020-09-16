@@ -12,7 +12,6 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
         NotRequired
     }
 
-
     public class AddPupilAmendmentViewModel
     {
         public string URN { get; set; }
@@ -31,6 +30,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
         }
         public List<PriorAttainmentResultViewModel> Results { get; set; }
         public EvidenceOption SelectedEvidenceOption { get; set; }
-        public List<EvidenceFile> EvidenceFiles { get; set; }
+
+        public string EvidenceFolderName { get; set; }
     }
 }

@@ -5,6 +5,6 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Interfaces
 {
     public interface IFileUploadService
     {
-        FileUploadResult UploadFile(Stream file, string filename, string mimeType);
+        FileUploadResult UploadFile(Stream file, string filename, string mimeType, string folderName);
     }
 }

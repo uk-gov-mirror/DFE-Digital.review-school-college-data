@@ -13,8 +13,16 @@ namespace Dfe.CspdAlpha.Web.Domain.Entities
         public List<PriorAttainment> PriorAttainmentResults { get; set; }
         public bool InclusionConfirmed { get; set; }
         public EvidenceStatus EvidenceStatus { get; set; }
-        public List<Evidence> EvidenceList { get; set; }
+
+        public string EvidenceFolderName { get; set; }
+
         public string Status { get; set; }
+
         public DateTime CreatedDate { get; set; }
+
+        public bool HasUploadedEvidence 
+        {
+            get => !string.IsNullOrWhiteSpace(this.EvidenceFolderName);
+        }
     }
 }
