@@ -15,7 +15,6 @@ namespace Dfe.CspdAlpha.Web.Domain.Interfaces
 
         AddPupilAmendment GetAddPupilAmendmentDetail(Guid amendmentId);
 
-
         bool CancelAddPupilAmendment(Guid amendmentId);
     }
 }
