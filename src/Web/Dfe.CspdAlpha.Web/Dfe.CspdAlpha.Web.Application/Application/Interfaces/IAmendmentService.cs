@@ -15,7 +15,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Interfaces
 
         bool CancelAmendment(string id);
 
-        string UploadEvidence(List<IFormFile> files);
+        string UploadEvidence(IEnumerable<IFormFile> files);
 
         void RelateEvidence(Guid amendmentId, string evidenceFolderName);
 
