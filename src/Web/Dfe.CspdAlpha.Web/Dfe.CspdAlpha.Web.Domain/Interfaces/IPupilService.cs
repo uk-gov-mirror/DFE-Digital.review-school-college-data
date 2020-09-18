@@ -8,6 +8,7 @@ namespace Dfe.CspdAlpha.Web.Domain.Interfaces
 {
     public interface IPupilService
     {
+        Pupil GetById(string id);
         Pupil GetById(PupilId id);
 
         List<Pupil> GetByUrn(URN urn);

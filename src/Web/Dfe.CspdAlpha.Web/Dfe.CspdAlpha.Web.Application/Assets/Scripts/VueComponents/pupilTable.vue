@@ -26,10 +26,11 @@
       pupils: Array,
       columns: Array,
       urn: String,
+      checkingWindowURL: String,
     },
     methods: {
       viewLink: function(pupilId){
-        const href = '/school/' + this.urn + '/Pupil/View/' + pupilId
+        const href = '/' + checkingWindowURL + '/' + this.urn + '/Pupil/View/' + pupilId
         return `<a href="${href}">View pupil</a>`
       },
     }

@@ -15,6 +15,7 @@ const pupilListApp = new Vue({
     pupils: [],
     searchText: '',
     urn: '',
+    checkingWindowURL: '',
     columns: ['First name', 'Last name', 'UPN', 'View pupil'],
     isLoading: false,
   },
@@ -25,6 +26,7 @@ const pupilListApp = new Vue({
     });
 
     this.urn = window.urn;
+    this.checkingWindowURL = window.checkingWindowURL;
   },
   methods: {
     filterPupils: function(){

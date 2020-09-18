@@ -81,19 +81,25 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             };
         }
 
-        public MatchedPupilViewModel GetMatchedPupil(string upn)
+        public MatchedPupilViewModel GetPupil(string id)
         {
-            var pupil = _pupilService.GetById(new PupilId(upn));
+            var pupil = _pupilService.GetById(id);
             if (pupil == null)
             {
                 return null;
             }
 
+            return GetMatchedPupilViewModel(pupil);
+        }
+
+        private MatchedPupilViewModel GetMatchedPupilViewModel(Pupil pupil)
+        {
             return new MatchedPupilViewModel()
             {
                 PupilViewModel = new PupilViewModel
                 {
-                    UPN = upn,
+                    URN = pupil.Urn.Value,
+                    UPN = pupil.UPN,
                     SchoolID = pupil.LaEstab,
                     FirstName = pupil.ForeName,
                     LastName = pupil.LastName,
@@ -113,6 +119,17 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                         ScaledScore = ValidateValue(r.ScaledScore)
                     }).Where(r => r.Subject != Ks2Subject.Unknown).ToList()
             };
+        }
+
+        public MatchedPupilViewModel GetMatchedPupil(string upn)
+        {
+            var pupil = _pupilService.GetById(new PupilId(upn));
+            if (pupil == null)
+            {
+                return null;
+            }
+
+            return GetMatchedPupilViewModel(pupil);
         }
 
         private string ValidateValue(string value)

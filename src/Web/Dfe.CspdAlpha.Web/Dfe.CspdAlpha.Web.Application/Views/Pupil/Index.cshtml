@@ -28,6 +28,7 @@
 <script type="text/javascript">
       var pupilsJson = @Html.Raw(Model.PupilsJson);
       var urn = '@Model.Urn';
+      var checkingWindowURL = '@CheckingWindowHelper.GetCheckingWindowURL(Model.CheckingWindow)';
 </script>
 <div id="pupil-list-app">
     <div class="govuk-grid-row">

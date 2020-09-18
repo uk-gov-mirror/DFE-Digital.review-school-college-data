@@ -1,15 +1,14 @@
-using System;
+using Dfe.CspdAlpha.Web.Application.Application;
 using Dfe.CspdAlpha.Web.Application.Application.Extensions;
+using Dfe.CspdAlpha.Web.Application.Application.Helpers;
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using Dfe.CspdAlpha.Web.Application.Application;
-using Dfe.CspdAlpha.Web.Application.Application.Helpers;
-using Dfe.CspdAlpha.Web.Application.Models.Common;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Results;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using System;
+using System.Collections.Generic;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
@@ -33,6 +32,13 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         {
             var viewModel = _schoolService.GetPupilListViewModel(urn);
             viewModel.CheckingWindow = CheckingWindowHelper.GetCheckingWindow(RouteData);
+            return View(viewModel);
+        }
+
+        public IActionResult View(string id)
+        {
+            var viewModel = _schoolService.GetPupil(id);
+            //viewModel.CheckingWindow = CheckingWindowHelper.GetCheckingWindow(RouteData);
             return View(viewModel);
         }
 

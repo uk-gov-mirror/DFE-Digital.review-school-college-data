@@ -18,6 +18,12 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.CosmosDb.Service
             _pupilRepository = pupilRepository;
         }
 
+        public Pupil GetById(string id)
+        {
+            var matchedPupil = _pupilRepository.Query().Where(p => p.id == id).ToList();
+            return matchedPupil.Any() ? matchedPupil.SingleOrDefault().Pupil : null;
+        }
+
         public Pupil GetById(PupilId id)
         {
             var matchedPupil = _pupilRepository.Query().Where(p => p.UPN == id.Value).ToList();

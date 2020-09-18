@@ -1,0 +1,218 @@
+@using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
+@using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Results
+@model MatchedPupilViewModel
+@{
+    ViewData["Title"] = "View Pupil: " + Model.PupilViewModel.FullName;
+    ViewBag.ContentClass = "app-detail-page-main";
+}
+
+@section BackLink
+{
+    <a class="govuk-back-link" asp-controller="Pupil" asp-action="Index">Back</a>
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l govuk-!-margin-bottom-3">@Html.Raw(ViewBag.Title)</h1>
+    </div>
+</div>
+<div class="govuk-grid-row govuk-!-padding-top-2">
+    <div class="app-grid-column-two-thirds--always">
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-3">Pupil details</h2>
+    </div>
+    <div class="app-grid-column-one-third--always app-align-right">
+        <a class="print-link" href="javascript:window.print()">Print</a>
+    </div>
+</div>
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <dl class="govuk-summary-list app-summary-list app-summary-list--mobile-inline">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Previous school URN (Unique Reference Number) or LAESTAB (Local Authority Establishment Number)
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Model.PupilViewModel.URN
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    UPN
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Model.PupilViewModel.UPN
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    First name
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Model.PupilViewModel.FirstName
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Last name
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Model.PupilViewModel.LastName
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Date of birth
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Model.PupilViewModel.DateOfBirth.ToString("dd/MM/yyyy")
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Age
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Model.PupilViewModel.Age
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Gender
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Model.PupilViewModel.Gender
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Admission date
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Model.PupilViewModel.DateOfAdmission.ToString("dd/MM/yyyy")
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Year group
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Model.PupilViewModel.YearGroup
+                </dd>
+            </div>
+        </dl>
+    </div>
+</div>
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds app-padding-top-mobile-2">
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-3">Pupil prior attainment results</h2>
+    </div>
+</div>
+<div class="govuk-grid-row">
+    @{
+        var reading = Model.Results.FirstOrDefault(r => r.Subject == Ks2Subject.Reading);
+    }
+    <div class="govuk-grid-column-two-thirds app-padding-top-mobile-2">
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-3">Key stage 2 Reading</h2>
+    </div>
+    <div class="govuk-grid-column-two-thirds">
+        <dl class="govuk-summary-list app-summary-list app-summary-list--mobile-inline" id="qa-target-reading">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Exam year
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @MatchedPupilViewModel.RenderValue(reading?.ExamYear)
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Test mark
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @MatchedPupilViewModel.RenderValue(reading?.TestMark)
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Scaled score
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @MatchedPupilViewModel.RenderValue(reading?.ScaledScore)
+                </dd>
+            </div>
+        </dl>
+    </div>
+</div>
+<div class="govuk-grid-row">
+    @{
+        var writing = Model.Results.FirstOrDefault(r => r.Subject == Ks2Subject.Writing);
+    }
+    <div class="govuk-grid-column-two-thirds app-padding-top-mobile-2">
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-3">Key stage 2 Writing</h2>
+    </div>
+    <div class="govuk-grid-column-two-thirds">
+        <dl class="govuk-summary-list app-summary-list app-summary-list--mobile-inline" id="qa-target-reading">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Exam year
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @MatchedPupilViewModel.RenderValue(writing?.ExamYear)
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Teacher assessment
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @MatchedPupilViewModel.RenderValue(writing?.TestMark)
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Scaled score
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @MatchedPupilViewModel.RenderValue(writing?.ScaledScore)
+                </dd>
+            </div>
+        </dl>
+    </div>
+</div>
+<div class="govuk-grid-row">
+    @{
+        var maths = Model.Results.FirstOrDefault(r => r.Subject == Ks2Subject.Maths);
+    }
+    <div class="govuk-grid-column-two-thirds app-padding-top-mobile-2">
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-3">Key stage 2 Maths</h2>
+    </div>
+    <div class="govuk-grid-column-two-thirds">
+        <dl class="govuk-summary-list app-summary-list app-summary-list--mobile-inline" id="qa-target-reading">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Exam year
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @MatchedPupilViewModel.RenderValue(maths?.ExamYear)
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Test mark
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @MatchedPupilViewModel.RenderValue(maths?.TestMark)
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Scaled score
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @MatchedPupilViewModel.RenderValue(maths?.ScaledScore)
+                </dd>
+            </div>
+        </dl>
+    </div>
+</div>
+
