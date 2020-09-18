@@ -11,7 +11,7 @@
       <tr class="govuk-table__row" v-for="pupil in pupils">
         <td class="govuk-table__cell" data-label="First name">{{pupil.FirstName}}</td>
         <td class="govuk-table__cell" data-label="Last name">{{pupil.LastName}}</td>
-        <td class="govuk-table__cell" data-label="Pupil ID">{{pupil.PupilId}}</td>
+        <td class="govuk-table__cell" data-label="UPN">{{pupil.UPN}}</td>
         <td class="govuk-table__cell" v-html="viewLink(pupil.PupilId)"></td>
       </tr>
     </tbody>

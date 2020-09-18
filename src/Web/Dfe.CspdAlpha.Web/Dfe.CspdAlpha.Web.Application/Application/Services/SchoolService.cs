@@ -75,7 +75,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                 Urn = urn,
                 Pupils = _pupilService
                     .GetByUrn(urnValue)
-                    .Select(p => new PupilListEntry { FirstName = p.ForeName, LastName = p.LastName, PupilId = p.Id.Value})
+                    .Select(p => new PupilListEntry { FirstName = p.ForeName, LastName = p.LastName, PupilId = p.Id.Value, UPN = p.UPN})
                     .OrderBy(p => p.FirstName)
                     .ToList()
             };
