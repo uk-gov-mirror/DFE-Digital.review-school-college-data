@@ -84,28 +84,28 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             return _amendmentService.CancelAddPupilAmendment(new Guid(id));
         }
 
-        public List<EvidenceFile> UploadEvidence(List<IFormFile> files)
+        public string UploadEvidence(List<IFormFile> files)
         {
-            var fileIdList = new List<EvidenceFile>();
+            var now = DateTime.UtcNow;
+            var folderName = $"{now:yyyy-MM-dd-HH-mm-ss}-{Guid.NewGuid()}";
+
             foreach (var file in files)
             {
                 using (var fs = file.OpenReadStream())
                 {
                     if (fs.Length > 0)
                     {
-                        var fileId = _fileUploadService.UploadFile(fs, file.FileName, file.ContentType);
-                        fileIdList.Add(new EvidenceFile { Id = fileId.FileId.ToString(), Name = fileId.FileName });
+                        _fileUploadService.UploadFile(fs, file.FileName, file.ContentType, folderName);
                     }
                 }
-
             }
 
-            return fileIdList;
+            return folderName;
         }
 
-        public void RelateEvidence(Guid amendmentId, List<EvidenceFile> evidenceList)
+        public void RelateEvidence(Guid amendmentId, string evidenceFolderName)
         {
-            _amendmentService.RelateEvidence(amendmentId, evidenceList.Select(e => new Evidence{Id = e.Id, Name = e.Name}).ToList(), true);
+            _amendmentService.RelateEvidence(amendmentId, evidenceFolderName, true);
         }
 
         public bool CreateAddPupilAmendment(AddPupilAmendmentViewModel addPupilAmendment, out string id)
@@ -133,7 +133,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                 EvidenceStatus = selectedEvidenceOption == EvidenceOption.UploadNow ?
                     EvidenceStatus.Now : selectedEvidenceOption == EvidenceOption.UploadLater ?
                         EvidenceStatus.Later : EvidenceStatus.NotRequired,
-                EvidenceList = addPupilAmendment.EvidenceFiles.Any() ? addPupilAmendment.EvidenceFiles.Select(e => new Evidence { Id = e.Id, Name = e.Name }).ToList() : new List<Evidence>()
+                EvidenceFolderName = addPupilAmendment.EvidenceFolderName
             }, out id);
             return result;
         }

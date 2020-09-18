@@ -1,4 +1,3 @@
-using System.IO;
 using System.Threading.Tasks;
 using Dfe.CspdAlpha.Web.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Http;
@@ -25,7 +24,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             //TODO: Usual security controls around file uploads
 
             var result = _fileUploadService.UploadFile(
-                file.OpenReadStream(), file.FileName, file.ContentType);
+                file.OpenReadStream(), file.FileName, file.ContentType, null);
 
             return Task.FromResult((IActionResult)Json(result));
         }

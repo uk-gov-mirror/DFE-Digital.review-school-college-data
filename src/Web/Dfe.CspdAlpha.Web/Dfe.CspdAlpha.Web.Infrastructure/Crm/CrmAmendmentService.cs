@@ -17,14 +17,14 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
     /// </summary>
     /// <remarks>Currently uses Dynamics SDK (OrganizationServiceContext), which curiously 
     /// doesn't seem to support async calls. Will probably want to switch to use Web API
-    /// at some point.</remarks>
+    /// at some point.
+    /// UPDATE: Async support is planned at some point: https://github.com/microsoft/PowerPlatform-CdsServiceClient/issues/7</remarks>
     public class CrmAmendmentService : IAmendmentService
     {
         private readonly IOrganizationService _organizationService;
         private readonly Guid _firstLineTeamId;
+        private readonly Guid _sharePointDocumentLocationRecordId;
         private IEstablishmentService _establishmentService;
-
-        private const string fileUploadRelationshipName = "cr3d5_new_Amendment_Evidence_cr3d5_Fileupload";
 
         public CrmAmendmentService(
             IOrganizationService organizationService, 
@@ -34,6 +34,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
             _establishmentService = establishmentService;
             _organizationService = organizationService;
             _firstLineTeamId = config.Value.Helpdesk1stLineTeamId;
+            _sharePointDocumentLocationRecordId = config.Value.SharePointDocumentLocationRecordId;
         }
 
         private cr3d5_establishment GetOrCreateEstablishment(string id, CrmServiceContext context)
@@ -218,9 +219,9 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
             }
 
             // Upload Evidence
-            if (amendment.EvidenceStatus == EvidenceStatus.Now && amendment.EvidenceList.Any())
+            if (amendment.HasUploadedEvidence)
             {
-                RelateEvidence(amendmentId, amendment.EvidenceList, false);
+                RelateEvidence(amendmentId, amendment.EvidenceFolderName, false);
             }
 
             return true;
@@ -235,18 +236,22 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
             });
         }
 
-        public void RelateEvidence(Guid amendmentId, List<Evidence> evidenceList, bool updateEvidenceOption)
+        public void RelateEvidence(Guid amendmentId, string evidenceFolderName, bool updateEvidenceOption)
         {
-            var relatedFileUploads = new EntityReferenceCollection();
-            foreach (var evidence in evidenceList)
-            {
-                relatedFileUploads.Add(new EntityReference(cr3d5_Fileupload.EntityLogicalName, new Guid(evidence.Id)));
-            }
+            // https://community.dynamics.com/crm/f/microsoft-dynamics-crm-forum/203503/adding-a-sharepointdocumentlocation-programmatically/528485
+            Entity sharepointdocumentlocation = new Entity("sharepointdocumentlocation");
+            sharepointdocumentlocation["name"] = evidenceFolderName;
+            sharepointdocumentlocation["description"] = amendmentId.ToString();
 
-            var relationship = new Relationship(fileUploadRelationshipName);
-            _organizationService.Associate(new_Amendment.EntityLogicalName, amendmentId, relationship,
-                relatedFileUploads);
-            
+            // TODO: Currently hard-coded to a document location record that points to the "Amendment" sub-folder. Will need to decide
+            // on final folder structure for organising file uploads - possibly have a folder per checking window ({year}/{checking-window})
+            sharepointdocumentlocation["parentsiteorlocation"] = new EntityReference(
+                "sharepointdocumentlocation", _sharePointDocumentLocationRecordId);
+            sharepointdocumentlocation["relativeurl"] = evidenceFolderName;
+            sharepointdocumentlocation["regardingobjectid"] = new EntityReference(new_Amendment.EntityLogicalName, amendmentId);
+
+            Guid sharepointdocumentlocationid = _organizationService.Create(sharepointdocumentlocation);
+
             if (updateEvidenceOption)
             {
                 UpdateEvidenceStatus(amendmentId);
@@ -368,10 +373,6 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
             {
                 var amendment = context.new_AmendmentSet.Where(
                     x => x.Id == amendmentId).FirstOrDefault();
-
-                // TODO: Get relationship name from attribute
-                var relationship = new Relationship(fileUploadRelationshipName);
-                context.LoadProperty(amendment, relationship);
 
                 return Convert(amendment);
             }
