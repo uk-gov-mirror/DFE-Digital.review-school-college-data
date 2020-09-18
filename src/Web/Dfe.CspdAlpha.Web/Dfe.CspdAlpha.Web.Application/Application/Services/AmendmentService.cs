@@ -84,23 +84,28 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             return _amendmentService.CancelAddPupilAmendment(new Guid(id));
         }
 
-        public string UploadEvidence(List<IFormFile> files)
+        public string UploadEvidence(IEnumerable<IFormFile> files)
         {
             var now = DateTime.UtcNow;
             var folderName = $"{now:yyyy-MM-dd-HH-mm-ss}-{Guid.NewGuid()}";
+            var validFileReceived = false;
 
             foreach (var file in files)
             {
+                if (file.Length == 0)
+                {
+                    continue;
+                }
+
+                validFileReceived = true;
+
                 using (var fs = file.OpenReadStream())
                 {
-                    if (fs.Length > 0)
-                    {
-                        _fileUploadService.UploadFile(fs, file.FileName, file.ContentType, folderName);
-                    }
+                    _fileUploadService.UploadFile(fs, file.FileName, file.ContentType, folderName);
                 }
             }
 
-            return folderName;
+            return validFileReceived ? folderName : null;
         }
 
         public void RelateEvidence(Guid amendmentId, string evidenceFolderName)
