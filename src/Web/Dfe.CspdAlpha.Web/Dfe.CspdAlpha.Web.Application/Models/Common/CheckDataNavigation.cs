@@ -22,6 +22,12 @@ namespace Dfe.CspdAlpha.Web.Application.Models.Common
                 new CheckDataNavigationItem {Label = "Pupil list", Controller = "Pupil", Active = navigationItem == NavigationItem.PupilList},
                 new CheckDataNavigationItem {Label = "Requested<br>amendments", Controller = "Amendments", Active = navigationItem == NavigationItem.Amendments, LabelClass = "app-ribbon-nav__list-item--tall"}
             };
+
+             // 42959 also specifies KS2 June, but we don't have that yet 21.09.2020
+            if (checkingWindow == CheckingWindow.KS4June)
+            {
+                NavigationItems.RemoveAt(1);
+            }
         }
 
         private string GetLabel(CheckingWindow checkingWindow)
