@@ -121,7 +121,7 @@
                     Exam year
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @MatchedPupilViewModel.RenderValue(reading?.ExamYear)
+                    @Html.FormatValue(string.IsNullOrWhiteSpace(reading?.ExamYear) ? "Not recorded" : reading.ExamYear, "{0}")
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -129,7 +129,7 @@
                     Test mark
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @MatchedPupilViewModel.RenderValue(reading?.TestMark)
+                    @Html.FormatValue(string.IsNullOrWhiteSpace(reading?.TestMark) ? "Not recorded" : reading.TestMark, "{0}")
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -137,7 +137,7 @@
                     Scaled score
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @MatchedPupilViewModel.RenderValue(reading?.ScaledScore)
+                    @Html.FormatValue(string.IsNullOrWhiteSpace(reading?.ScaledScore) ? "Not recorded" : reading.ScaledScore, "{0}")
                 </dd>
             </div>
         </dl>
@@ -157,7 +157,7 @@
                     Exam year
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @MatchedPupilViewModel.RenderValue(writing?.ExamYear)
+                    @Html.FormatValue(string.IsNullOrWhiteSpace(writing?.ExamYear) ? "Not recorded" : writing.ExamYear, "{0}")
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -165,7 +165,7 @@
                     Teacher assessment
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @MatchedPupilViewModel.RenderValue(writing?.TestMark)
+                    @Html.FormatValue(string.IsNullOrWhiteSpace(writing?.TestMark) ? "Not recorded" : writing.TestMark, "{0}")
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -173,7 +173,7 @@
                     Scaled score
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @MatchedPupilViewModel.RenderValue(writing?.ScaledScore)
+                    @Html.FormatValue(string.IsNullOrWhiteSpace(writing?.ScaledScore) ? "Not recorded" : writing.ScaledScore, "{0}")
                 </dd>
             </div>
         </dl>
@@ -193,7 +193,7 @@
                     Exam year
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @MatchedPupilViewModel.RenderValue(maths?.ExamYear)
+                    @Html.FormatValue(string.IsNullOrWhiteSpace(maths?.ExamYear) ? "Not recorded" : maths.ExamYear, "{0}")
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -201,7 +201,7 @@
                     Test mark
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @MatchedPupilViewModel.RenderValue(maths?.TestMark)
+                    @Html.FormatValue(string.IsNullOrWhiteSpace(maths?.TestMark) ? "Not recorded" : maths.TestMark, "{0}")
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -209,7 +209,7 @@
                     Scaled score
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @MatchedPupilViewModel.RenderValue(maths?.ScaledScore)
+                    @Html.FormatValue(string.IsNullOrWhiteSpace(maths?.ScaledScore) ? "Not recorded" : maths.ScaledScore, "{0}")
                 </dd>
             </div>
         </dl>
