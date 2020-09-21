@@ -1,7 +1,8 @@
 @using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments
+@using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Results
 @model AmendmentViewModel
 @{
-    ViewData["Title"] = "Request for pupil addition:<br/> " + Model.PupilViewModel.FullName;
+    ViewData["Title"] = "Requested amendment for: " + Model.PupilViewModel.FullName;
     ViewBag.ContentClass = "app-detail-page-main";
 }
 
@@ -28,7 +29,15 @@
         <dl class="govuk-summary-list app-summary-list app-summary-list--mobile-inline">
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Pupil ID
+                    Previous school URN (Unique Reference Number) or LAESTAB (Local Authority Establishment Number)
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Model.PupilViewModel.SchoolID
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    UPN
                 </dt>
                 <dd class="govuk-summary-list__value">
                     @Model.PupilViewModel.UPN
@@ -98,43 +107,111 @@
         <h2 class="govuk-heading-m govuk-!-margin-bottom-3">Pupil prior attainment results</h2>
     </div>
 </div>
-
-@*<div class="govuk-grid-row">
+<div class="govuk-grid-row">
+    @{
+        var reading = Model.Results.FirstOrDefault(r => r.Subject == Ks2Subject.Reading);
+    }
+    <div class="govuk-grid-column-two-thirds app-padding-top-mobile-2">
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-3">Key stage 2 Reading</h2>
+    </div>
     <div class="govuk-grid-column-two-thirds">
-        <dl class="govuk-summary-list app-summary-list app-summary-list--mobile-inline">
+        <dl class="govuk-summary-list app-summary-list app-summary-list--mobile-inline" id="qa-target-reading">
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Results for
+                    Exam year
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @Model.AddPriorAttainmentViewModel.ResultFor.Replace("resultfor", "Result for ")
+                    @Html.FormatValue(string.IsNullOrWhiteSpace(reading?.ExamYear) ? "Not recorded" : reading.ExamYear, "{0}")
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Test
+                    Test mark
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @Model.AddPriorAttainmentViewModel.Test.Replace("test", "Test ")
+                    @Html.FormatValue(string.IsNullOrWhiteSpace(reading?.TestMark) ? "Not recorded" : reading.TestMark, "{0}")
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Academic year
+                    Scaled score
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @Model.AddPriorAttainmentViewModel.AcademicYear.Replace("academicyear", "Academic year ")
-                </dd>
-            </div>
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Level
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    @Model.AddPriorAttainmentViewModel.Level.Replace("level", "Level ")
+                    @Html.FormatValue(string.IsNullOrWhiteSpace(reading?.ScaledScore) ? "Not recorded" : reading.ScaledScore, "{0}")
                 </dd>
             </div>
         </dl>
     </div>
-</div>*@
-
+</div>
+<div class="govuk-grid-row">
+    @{
+        var writing = Model.Results.FirstOrDefault(r => r.Subject == Ks2Subject.Writing);
+    }
+    <div class="govuk-grid-column-two-thirds app-padding-top-mobile-2">
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-3">Key stage 2 Writing</h2>
+    </div>
+    <div class="govuk-grid-column-two-thirds">
+        <dl class="govuk-summary-list app-summary-list app-summary-list--mobile-inline" id="qa-target-reading">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Exam year
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Html.FormatValue(string.IsNullOrWhiteSpace(writing?.ExamYear) ? "Not recorded" : writing.ExamYear, "{0}")
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Teacher assessment
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Html.FormatValue(string.IsNullOrWhiteSpace(writing?.TestMark) ? "Not recorded" : writing.TestMark, "{0}")
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Scaled score
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Html.FormatValue(string.IsNullOrWhiteSpace(writing?.ScaledScore) ? "Not recorded" : writing.ScaledScore, "{0}")
+                </dd>
+            </div>
+        </dl>
+    </div>
+</div>
+<div class="govuk-grid-row">
+    @{
+        var maths = Model.Results.FirstOrDefault(r => r.Subject == Ks2Subject.Maths);
+    }
+    <div class="govuk-grid-column-two-thirds app-padding-top-mobile-2">
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-3">Key stage 2 Maths</h2>
+    </div>
+    <div class="govuk-grid-column-two-thirds">
+        <dl class="govuk-summary-list app-summary-list app-summary-list--mobile-inline" id="qa-target-reading">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Exam year
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Html.FormatValue(string.IsNullOrWhiteSpace(maths?.ExamYear) ? "Not recorded" : maths.ExamYear , "{0}")
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Test mark
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Html.FormatValue(string.IsNullOrWhiteSpace(maths?.TestMark) ? "Not recorded" : maths.TestMark, "{0}")
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Scaled score
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Html.FormatValue(string.IsNullOrWhiteSpace(maths?.ScaledScore) ? "Not recorded" : maths.ScaledScore, "{0}")
+                </dd>
+            </div>
+        </dl>
+    </div>
+</div>
