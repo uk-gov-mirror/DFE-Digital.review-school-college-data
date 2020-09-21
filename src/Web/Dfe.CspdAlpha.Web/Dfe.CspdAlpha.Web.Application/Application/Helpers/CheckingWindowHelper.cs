@@ -13,6 +13,8 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Helpers
                     return CheckingWindow.KS4June;
                 case "ks4-late":
                     return CheckingWindow.KS4Late;
+                case "ks5":
+                    return CheckingWindow.KS5;
                 default:
                     return CheckingWindow.Unknown;
             }
@@ -34,7 +36,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Helpers
                 case CheckingWindow.KS4Errata:
                     break;
                 case CheckingWindow.KS5:
-                    break;
+                    return "ks5";
                 case CheckingWindow.KS5Errata:
                     break;
                 default:
@@ -60,7 +62,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Helpers
                 case CheckingWindow.KS4Errata:
                     break;
                 case CheckingWindow.KS5:
-                    break;
+                    return "16 to 18 September checking exercise";
                 case CheckingWindow.KS5Errata:
                     break;
                 default:
