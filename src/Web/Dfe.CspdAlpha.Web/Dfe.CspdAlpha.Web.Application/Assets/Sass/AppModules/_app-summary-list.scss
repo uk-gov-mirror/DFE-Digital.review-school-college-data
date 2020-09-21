@@ -1,5 +1,5 @@
 .app-summary-list {
-  font-size: 16px;
+  @include govuk-font(19);
 
   .govuk-summary-list__key,
   .govuk-summary-list__value {
@@ -64,6 +64,13 @@
       .govuk-summary-list__key {
         width: 40%;
       }
+    }
+  }
+
+  &.app-summary-list--pupil-details {
+    .govuk-summary-list__key {
+      float: left;
+      width: 40%;
     }
   }
 }
