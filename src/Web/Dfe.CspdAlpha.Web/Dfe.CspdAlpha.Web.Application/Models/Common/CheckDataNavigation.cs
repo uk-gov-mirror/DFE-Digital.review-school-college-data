@@ -20,7 +20,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.Common
                 new CheckDataNavigationItem {Label = "Task list", Controller = "TaskList", Active = navigationItem == NavigationItem.TaskList},
                 new CheckDataNavigationItem {Label = GetLabel(checkingWindow), Controller = "School", Active = navigationItem == NavigationItem.SchoolPerformance, LabelClass = GetNavClass(checkingWindow)},
                 new CheckDataNavigationItem {Label = "Pupil list", Controller = "Pupil", Active = navigationItem == NavigationItem.PupilList},
-                new CheckDataNavigationItem {Label = "Requested<br>amendments", Controller = "Amendments", Active = navigationItem == NavigationItem.Amendments, LabelClass = "app-ribbon-nav__list-item--tall"}
+                new CheckDataNavigationItem {Label = "Requested amendments", Controller = "Amendments", Active = navigationItem == NavigationItem.Amendments, LabelClass = "app-ribbon-nav__list-item--tall"}
             };
 
              // 42959 also specifies KS2 June, but we don't have that yet 21.09.2020
