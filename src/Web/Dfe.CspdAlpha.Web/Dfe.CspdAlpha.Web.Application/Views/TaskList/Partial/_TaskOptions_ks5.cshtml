@@ -1,10 +1,17 @@
 @using Dfe.CspdAlpha.Web.Application.Models.ViewModels
 @model TaskListViewModel
+
 <li>
     <h2 class="app-task-list__section">@Model.ReviewedHeader</h2>
     <ul class="app-task-list__items">
         <li class="app-task-list__item">
-            <span class="app-task-list__task-name"><a asp-controller="Pupil">Pupil list</a></span>
+            <span class="app-task-list__task-name">
+                <a asp-controller="School">School performance summary</a>
+            </span>
+            <span class="app-task-list__tag">@(Model.ReviewChecked ? Model.ReviewedCopy : Model.NotReviewedCopy)</span>
+        </li>
+        <li class="app-task-list__item">
+            <span class="app-task-list__task-name"><a asp-controller="Pupil">Student list</a></span>
             <span class="app-task-list__tag">@(Model.ReviewChecked ? Model.ReviewedCopy : Model.NotReviewedCopy)</span>
         </li>
         <li class="app-task-list__item app-task-list__item-review">
@@ -31,35 +38,40 @@
         @if (Model.ReviewChecked)
         {
             <li class="app-task-list__item">
-                <span class="app-task-list__task-name"><a asp-controller="Pupil" asp-action="Add">Request to add a pupil</a></span>
+                <span class="app-task-list__task-name"><a asp-controller="Pupil" asp-action="Add">Request to add a student</a></span>
             </li>
             <li class="app-task-list__item">
-                <span class="app-task-list__task-name"><a asp-controller="Pupil" asp-action="Remove">Request to remove an incorrect pupil</a></span>
+                <span class="app-task-list__task-name"><a asp-controller="Pupil" asp-action="Remove">Request to remove a student</a></span>
                 <span class="app-task-list__tag">Cannot start yet</span>
             </li>
             <li class="app-task-list__item">
-                <span class="app-task-list__task-name"><a asp-controller="Pupil" asp-action="RemoveFromResults">Request to remove a pupil from school measures</a></span>
+                <span class="app-task-list__task-name"><a asp-controller="Results" asp-action="Add">Request to add a result</a></span>
+                <span class="app-task-list__tag">Cannot start yet</span>
+            </li>
+            <li class="app-task-list__item">
+                <span class="app-task-list__task-name"><a asp-controller="Results" asp-action="Amend">Request to amend/remove a result</a></span>
                 <span class="app-task-list__tag">Cannot start yet</span>
             </li>
         }
         else
         {
             <li class="app-task-list__item">
-                <span class="app-task-list__task-name">Request to add a pupil</span>
+                <span class="app-task-list__task-name">Request to add a student</span>
                 <span class="app-task-list__tag">Cannot start yet</span>
             </li>
             <li class="app-task-list__item">
-                <span class="app-task-list__task-name">Request to remove an incorrect pupil</span>
+                <span class="app-task-list__task-name">Request to remove a student</span>
                 <span class="app-task-list__tag">Cannot start yet</span>
             </li>
             <li class="app-task-list__item">
-                <span class="app-task-list__task-name">Request to remove a pupil from school measures</span>
+                <span class="app-task-list__task-name">Request to add a result</span>
+                <span class="app-task-list__tag">Cannot start yet</span>
+            </li>
+            <li class="app-task-list__item">
+                <span class="app-task-list__task-name">Request to amend/remove a result</span>
                 <span class="app-task-list__tag">Cannot start yet</span>
             </li>
         }
     </ul>
 </li>
-
-
-
 

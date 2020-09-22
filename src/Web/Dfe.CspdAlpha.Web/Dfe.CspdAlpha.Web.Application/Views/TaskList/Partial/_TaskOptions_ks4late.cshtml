@@ -1,6 +1,41 @@
-@model bool
+@using Dfe.CspdAlpha.Web.Application.Models.ViewModels
+@model TaskListViewModel
+
+<li>
+    <h2 class="app-task-list__section">@Model.ReviewedHeader</h2>
     <ul class="app-task-list__items">
-        @if (Model)
+        <li class="app-task-list__item">
+            <span class="app-task-list__task-name">
+                <a asp-controller="School">School performance summary</a>
+            </span>
+            <span class="app-task-list__tag">@(Model.ReviewChecked ? Model.ReviewedCopy : Model.NotReviewedCopy)</span>
+        </li>
+        <li class="app-task-list__item">
+            <span class="app-task-list__task-name"><a asp-controller="Pupil">Pupil list</a></span>
+            <span class="app-task-list__tag">@(Model.ReviewChecked ? Model.ReviewedCopy : Model.NotReviewedCopy)</span>
+        </li>
+        <li class="app-task-list__item app-task-list__item-review">
+            <span class="app-task-list__task-name">View data</span>
+            @if (Model.ReviewChecked)
+            {
+                <span class="app-task-list__tag">Completed</span>
+            }
+            else
+            {
+                <span class="app-task-list__description">
+                    Click to confirm you have viewed the data
+                </span>
+                <form asp-action="Review" method="post">
+                    <input type="submit" class="govuk-button app-task-list__cta" data-module="govuk-button" value="View" />
+                </form>
+            }
+        </li>
+    </ul>
+</li>
+<li>
+    <h2 class="app-task-list__section">2. Request amendments</h2>
+    <ul class="app-task-list__items">
+        @if (Model.ReviewChecked)
         {
             <li class="app-task-list__item">
                 <span class="app-task-list__task-name"><a asp-controller="Results" asp-action="Add">Request to add results data</a></span>
@@ -23,3 +58,4 @@
             </li>
         }
     </ul>
+</li>
