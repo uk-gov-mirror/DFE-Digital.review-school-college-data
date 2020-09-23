@@ -6,7 +6,6 @@ using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Results;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 
@@ -22,23 +21,23 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
         public PupilController(
             ISchoolService schoolService,
-            IAmendmentService amendmentService,
-            IConfiguration configuration)
+            IAmendmentService amendmentService
+            )
         {
             _schoolService = schoolService;
             _amendmentService = amendmentService;
         }
+
         public IActionResult Index(string urn)
         {
-            var viewModel = _schoolService.GetPupilListViewModel(urn);
+            var viewModel = _schoolService.GetPupilListViewModel(RouteData.Values["phase"].ToString(), urn);
             viewModel.CheckingWindow = CheckingWindowHelper.GetCheckingWindow(RouteData);
             return View(viewModel);
         }
 
         public IActionResult View(string id)
         {
-            var viewModel = _schoolService.GetPupil(id);
-            //viewModel.CheckingWindow = CheckingWindowHelper.GetCheckingWindow(RouteData);
+            var viewModel = _schoolService.GetPupil(RouteData.Values["phase"].ToString(), id);
             return View(viewModel);
         }
 
@@ -53,7 +52,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         {
             if (!string.IsNullOrEmpty(addPupilViewModel.UPN))
             {
-                var existingPupil = _schoolService.GetMatchedPupil(addPupilViewModel.UPN);
+                var existingPupil = _schoolService.GetMatchedPupil(RouteData.Values["phase"].ToString(), addPupilViewModel.UPN);
                 if (existingPupil == null)
                 {
                     ModelState.AddModelError("UPN", "Enter a valid UPN");

@@ -2,7 +2,8 @@
 @using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
 @model PupilListViewModel
 @{
-    ViewBag.Title = "Pupil list";
+    var ks5View = Model.CheckingWindow.ToString().StartsWith("KS5");
+    ViewBag.Title = ks5View ? "Student list" : "Pupil list";
     ViewBag.ContentClass = "app-detail-page-main";
 }
 
@@ -33,12 +34,17 @@
 <div id="pupil-list-app">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
-            <pupil-search v-model="searchText" />
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="pupil-search">
+                    Search for a @(ks5View ? "student" : "pupil") 
+                </label>
+                <pupil-search v-model="searchText" />
+            </div>
         </div>
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
-            <pupil-table :urn="urn" :pupils="filteredPupils" :columns="columns" />
+            <pupil-table :urn="urn" :pupils="filteredPupils" :columns="columns" :checkingWindowURL="checkingWindowURL" />
         </div>
     </div>
     <div class="govuk-grid-row">

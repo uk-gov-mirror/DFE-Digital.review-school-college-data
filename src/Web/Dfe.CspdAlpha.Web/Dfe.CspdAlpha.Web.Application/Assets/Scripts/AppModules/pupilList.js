@@ -16,17 +16,21 @@ const pupilListApp = new Vue({
     searchText: '',
     urn: '',
     checkingWindowURL: '',
-    columns: ['First name', 'Last name', 'UPN', 'View pupil'],
-    isLoading: false,
+    columns: [],
+    isLoading: false
   },
   mounted: function() {
     this.pupils = window.pupilsJson.map((pupil) => {
       pupil.fullname = pupil.FirstName.toLowerCase() + ' ' + pupil.LastName.toLowerCase();
       return pupil;
     });
-
-    this.urn = window.urn;
     this.checkingWindowURL = window.checkingWindowURL;
+    if (this.checkingWindowURL.indexOf('ks5') > -1) {
+      this.columns = ['First name', 'Last name', 'UPN/ULN', 'View student'];
+    } else {
+      this.columns = ['First name', 'Last name', 'UPN', 'View pupil'];
+    }
+    this.urn = window.urn;
   },
   methods: {
     filterPupils: function(){

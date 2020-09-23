@@ -1,47 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Dfe.CspdAlpha.Web.Domain.Core;
+﻿using Dfe.CspdAlpha.Web.Domain.Core;
 using Dfe.CspdAlpha.Web.Domain.Entities;
 using Dfe.CspdAlpha.Web.Domain.Interfaces;
 using Dfe.CspdAlpha.Web.Infrastructure.CosmosDb.DTOs;
+using Dfe.CspdAlpha.Web.Infrastructure.CosmosDb.Repositories;
+using Microsoft.Azure.Cosmos;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Dfe.CspdAlpha.Web.Infrastructure.CosmosDb.Service
 {
     public class PupilService : IPupilService
     {
-        private IReadRepository<PupilDTO> _pupilRepository;
+        private Database _cosmosDB;
 
-        public PupilService(IReadRepository<PupilDTO> pupilRepository)
+        public PupilService(CosmosClient cosmosClient, string database)
         {
-            _pupilRepository = pupilRepository;
+            _cosmosDB = cosmosClient.GetDatabase(database);
         }
 
-        public Pupil GetById(string id)
+        public Pupil GetById(string checkingWindow, string id)
         {
-            var matchedPupil = _pupilRepository.Query().Where(p => p.id == id).ToList();
+            var matchedPupil = GetRepository(checkingWindow).Query().Where(p => p.id == id).ToList();
             return matchedPupil.Any() ? matchedPupil.SingleOrDefault().Pupil : null;
         }
 
-        public Pupil GetById(PupilId id)
+
+        public Pupil GetById(string checkingWindow, PupilId id)
         {
-            var matchedPupil = _pupilRepository.Query().Where(p => p.UPN == id.Value).ToList();
+            var matchedPupil = GetRepository(checkingWindow).Query().Where(p => p.UPN == id.Value).ToList();
             return matchedPupil.Any() ? matchedPupil.SingleOrDefault().Pupil : null;
         }
 
-        public List<Pupil> GetByUrn(URN urn)
+        public List<Pupil> GetByUrn(string checkingWindow, URN urn)
         {
-            var dtos = _pupilRepository.Query().Where(p => p.URN == urn.Value).ToList();
+            var dtos = GetRepository(checkingWindow).Query().Where(p => p.URN == urn.Value).ToList();
             return dtos.Select(p => p.Pupil).ToList();
         }
-
-        public List<Pupil> FindMatchedPupils(Pupil pupil)
+        private IReadRepository<PupilDTO> GetRepository(string checkingWindow)
         {
-            var dob = int.Parse(pupil.DateOfBirth.ToString("yyyyMMdd"));
-            var matchedPupils =  _pupilRepository.Query().Where(p =>
-                p.Forename == pupil.ForeName && p.Surname == pupil.LastName && p.DOB == dob).ToList();
-             return   matchedPupils.Select(p => p.Pupil).ToList();
+            var container = _cosmosDB.GetContainer(checkingWindow + "_pupils_2019");
+            return new PupilRepository(container);
         }
     }
 }

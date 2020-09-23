@@ -119,8 +119,7 @@ namespace Dfe.CspdAlpha.Web.Application
             var cosmosDbOptions = Configuration.GetSection("CosmosDb").Get<CosmosDbOptions>();
             var client = new CosmosClient(cosmosDbOptions.Account, cosmosDbOptions.Key);
 
-            services.AddSingleton(IntialisePupilService(client, cosmosDbOptions.Database, cosmosDbOptions.PupilsCollection).GetAwaiter().GetResult());
-            services.AddSingleton<IPupilService, PupilService>();
+            services.AddSingleton<IPupilService>(x => new PupilService(client, cosmosDbOptions.Database));
             services.AddSingleton(IntialiseEstablishmentService(client, cosmosDbOptions.Database, cosmosDbOptions.EstablishmentsCollection).GetAwaiter().GetResult());
             services.AddSingleton<IEstablishmentService, EstablishmentService>();
             services.AddSingleton<DomainInterface.IAmendmentService, CrmAmendmentService>();
@@ -133,10 +132,6 @@ namespace Dfe.CspdAlpha.Web.Application
         private static async Task<IReadRepository<EstablishmentsDTO>> IntialiseEstablishmentService(CosmosClient client, string database, string collection)
         {
             return new EstablishmentRepository(client, database, collection);
-        }
-        private static async Task<IReadRepository<PupilDTO>> IntialisePupilService(CosmosClient client, string database, string collection)
-        {
-            return new PupilRepository(client, database, collection);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

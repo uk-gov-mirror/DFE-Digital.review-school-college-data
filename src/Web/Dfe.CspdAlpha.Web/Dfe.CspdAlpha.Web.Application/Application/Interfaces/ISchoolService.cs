@@ -8,10 +8,10 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Interfaces
     {
         string GetSchoolName(string laestab);
         SchoolViewModel GetSchoolViewModel(string urn);
-        PupilListViewModel GetPupilListViewModel(string urn);
 
-        MatchedPupilViewModel GetPupil(string id);
-        MatchedPupilViewModel GetMatchedPupil(string upn);
+        PupilListViewModel GetPupilListViewModel(string checkingWindow, string urn);
+        MatchedPupilViewModel GetPupil(string checkingWindow, string id);
+        MatchedPupilViewModel GetMatchedPupil(string checkingWindow, string upn);
 
         bool UpdateConfirmation(TaskListViewModel taskListViewModel, string userId, string urn);
         TaskListViewModel GetConfirmationRecord(string userId, string urn);
