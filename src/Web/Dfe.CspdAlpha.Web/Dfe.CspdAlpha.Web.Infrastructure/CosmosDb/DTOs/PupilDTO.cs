@@ -44,7 +44,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.CosmosDb.DTOs
 
         private DateTime GetDateTime(string date)
         {
-            return !string.IsNullOrWhiteSpace(date) && DateTime.TryParseExact(date.ToString(), "yyyyMMMdd",
+            return !string.IsNullOrWhiteSpace(date) && DateTime.TryParseExact(date.ToString(), "yyyyMMdd",
                        new CultureInfo("en-GB"), DateTimeStyles.None,
                        out var result)
                 ? result
