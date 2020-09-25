@@ -69,6 +69,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                     MonthOfBirth = amendment.Pupil.DateOfBirth.Month,
                     YearOfBirth = amendment.Pupil.DateOfBirth.Year,
                     Gender = amendment.Pupil.Gender == Domain.Core.Enums.Gender.Male ? Gender.Male : Gender.Female,
+                    Age = amendment.Pupil.Age,
                     DayOfAdmission = amendment.Pupil.DateOfAdmission.Day,
                     MonthOfAdmission = amendment.Pupil.DateOfAdmission.Month,
                     YearOfAdmission = amendment.Pupil.DateOfAdmission.Year,

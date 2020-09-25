@@ -22,7 +22,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments
 
                 var dob = PupilViewModel.DateOfBirth;
                 var today = DateTime.Today;
-                return (today.Year - dob.Year - (today.DayOfYear < dob.DayOfYear ? 1 : 0)).ToString();
+                return (today.Year - dob.Year - (today.DayOfYear > dob.DayOfYear ? 1 : 0)).ToString();
             }
         }
     }
