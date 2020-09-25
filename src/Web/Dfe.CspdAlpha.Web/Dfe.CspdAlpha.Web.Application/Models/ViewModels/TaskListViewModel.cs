@@ -27,8 +27,19 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels
                 return "You can now request amendments or confirm data.";
             }
 
+            var checkingWindow = CheckingWindow.ToString();
+            if (checkingWindow.StartsWith("KS2"))
+            {
+                return
+                    "You have confirmed your Key stage 2 data. You can continue to request further amendments until the end of the checking exercise window.";
+            }
+            if (checkingWindow.StartsWith("KS4"))
+            {
+                return
+                    "You have confirmed your Key stage 4 data. You can continue to request further amendments until the end of the checking exercise window.";
+            }
             return
-                "You have confirmed your Key stage 4 data. You can continue to request further amendments until the end of the checking exercise window.";
+                "You have confirmed your 16 to 18 data. You can continue to request further amendments until the end of the checking exercise window.";
         }
     }
 }
