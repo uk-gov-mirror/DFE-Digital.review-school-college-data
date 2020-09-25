@@ -25,20 +25,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
                 YearOfBirth = value.Year;
             }
         }
-        public int Age
-        {
-            get
-            {
-                var now = DateTime.Now;
-                var age = now.Year - DateOfBirth.Year;
-                if (DateOfBirth.DayOfYear < now.DayOfYear)
-                {
-                    age--;
-                }
-
-                return age;
-            }
-        }
+        public int Age { get; set; }
         public Gender Gender { get; set; }
         public int? DayOfAdmission { get; set; }
         public int? MonthOfAdmission { get; set; }

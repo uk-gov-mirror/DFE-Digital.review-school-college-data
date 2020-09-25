@@ -114,6 +114,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                     FirstName = pupil.ForeName,
                     LastName = pupil.LastName,
                     DateOfBirth = pupil.DateOfBirth,
+                    Age = pupil.Age,
                     Gender = pupil.Gender == DomainEnums.Gender.Male
                         ? Models.Common.Gender.Male
                         : Models.Common.Gender.Female,
