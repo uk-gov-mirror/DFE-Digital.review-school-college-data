@@ -11,7 +11,7 @@ using System.Collections.Generic;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
-    [TasksReviewedFilter("Index")]
+    [TasksReviewedFilter("Index,View")]
     public class PupilController : Controller
     {
         private ISchoolService _schoolService;
