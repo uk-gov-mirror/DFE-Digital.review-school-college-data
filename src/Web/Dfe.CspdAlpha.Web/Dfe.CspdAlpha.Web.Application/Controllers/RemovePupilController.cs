@@ -32,10 +32,19 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                     ClaimsHelper.GetURN(this.User), viewModel.PupilID, viewModel.Name);
                 if (pupilsFound.Pupils.Count == 0 || pupilsFound.Pupils.Count > 1)
                 {
-                    return View("ResultsList", viewModel);
+                    return View("ResultsList", new ResultsViewModel
+                    {
+                        PupilListViewModel = pupilsFound
+                    });
                 }
-                RedirectToAction("Pupil", new {id = pupilsFound.Pupils.First().PupilId});
+                return RedirectToAction("MatchedPupil", new {id = pupilsFound.Pupils.First().PupilId});
             }
+            return View(viewModel);
+        }
+
+        public IActionResult MatchedPupil(string id)
+        {
+            var viewModel = _schoolService.GetPupil(RouteData.Values["phase"].ToString(), id);
             return View(viewModel);
         }
     }

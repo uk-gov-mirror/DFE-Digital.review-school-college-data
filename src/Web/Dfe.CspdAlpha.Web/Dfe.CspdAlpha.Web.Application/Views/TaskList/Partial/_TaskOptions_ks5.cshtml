@@ -38,19 +38,18 @@
         @if (Model.ReviewChecked)
         {
         <li class="app-task-list__item">
-            <span class="app-task-list__task-name"><a asp-controller="Pupil" asp-action="Add">Request to add a student</a></span>
+            <span class="app-task-list__task-name">Request to add a student</span>
             <span class="app-task-list__tag">Cannot start yet</span>
-            </li>
+        </li>
             <li class="app-task-list__item">
                 <span class="app-task-list__task-name"><a asp-controller="RemovePupil">Request to remove a student</a></span>
+            </li>
+            <li class="app-task-list__item">
+                <span class="app-task-list__task-name">Request to add a result</span>
                 <span class="app-task-list__tag">Cannot start yet</span>
             </li>
             <li class="app-task-list__item">
-                <span class="app-task-list__task-name"><a asp-controller="Results" asp-action="Add">Request to add a result</a></span>
-                <span class="app-task-list__tag">Cannot start yet</span>
-            </li>
-            <li class="app-task-list__item">
-                <span class="app-task-list__task-name"><a asp-controller="Results" asp-action="Amend">Request to amend/remove a result</a></span>
+                <span class="app-task-list__task-name">Request to amend/remove a result</span>
                 <span class="app-task-list__tag">Cannot start yet</span>
             </li>
         }
