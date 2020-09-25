@@ -10,6 +10,7 @@ namespace Dfe.CspdAlpha.Web.Domain.Interfaces
     {
         Pupil GetById(string checkingWindow, string id);
         Pupil GetById(string checkingWindow, PupilId id);
-        List<Pupil> GetByUrn(string checkingWindow, URN urn); 
+        List<Pupil> GetByUrn(string checkingWindow, URN urn);
+        List<Pupil> QueryPupils(string checkingWindow, PupilQuery query); 
     }
 }

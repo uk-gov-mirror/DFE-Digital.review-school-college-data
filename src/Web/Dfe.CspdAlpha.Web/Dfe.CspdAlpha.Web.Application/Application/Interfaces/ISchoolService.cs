@@ -10,6 +10,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Interfaces
         SchoolViewModel GetSchoolViewModel(string urn);
 
         PupilListViewModel GetPupilListViewModel(string checkingWindow, string urn);
+        PupilListViewModel GetPupilListViewModel(string checkingWindow, string urn, string id, string name);
         MatchedPupilViewModel GetPupil(string checkingWindow, string id);
         MatchedPupilViewModel GetMatchedPupil(string checkingWindow, string upn);
 

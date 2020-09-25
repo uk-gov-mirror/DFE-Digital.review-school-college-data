@@ -17,7 +17,7 @@ namespace Dfe.CspdAlpha.Admin
             get { return false; }
         }
 
-        private string[] conversionWhiteList = new[] {"URN", "DFESNumber", "TELNUM", "SchoolID", "CandidateNumber"};
+        private string[] conversionWhiteList = new[] {"URN", "DFESNumber", "TELNUM", "SchoolID", "CandidateNumber", "UPN", "ULN"};
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {

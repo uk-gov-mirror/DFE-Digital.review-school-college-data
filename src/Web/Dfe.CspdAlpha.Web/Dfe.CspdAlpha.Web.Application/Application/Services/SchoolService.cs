@@ -67,18 +67,27 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             };
         }
 
-        public PupilListViewModel GetPupilListViewModel(string checkingWindow, string urn)
+        public PupilListViewModel GetPupilListViewModel(string checkingWindow, string urn, string id, string name)
         {
-            var urnValue = new URN(urn);
+            return GetPupilListViewModel(checkingWindow, new PupilQuery { URN = urn, Name = name, ID = id});
+        }
+
+        private PupilListViewModel GetPupilListViewModel(string checkingWindow, PupilQuery query)
+        {
             return new PupilListViewModel
             {
-                Urn = urn,
+                Urn = query.URN,
                 Pupils = _pupilService
-                    .GetByUrn(checkingWindow, urnValue)
+                    .QueryPupils(checkingWindow, query)
                     .Select(p => new PupilListEntry { FirstName = p.ForeName, LastName = p.LastName, PupilId = p.Id.Value, UPN = p.UPN })
                     .OrderBy(p => p.FirstName)
                     .ToList()
             };
+        }
+
+        public PupilListViewModel GetPupilListViewModel(string checkingWindow, string urn)
+        {
+            return GetPupilListViewModel(checkingWindow, new PupilQuery {URN = urn});
         }
 
         public MatchedPupilViewModel GetPupil(string checkingWindow, string id)
