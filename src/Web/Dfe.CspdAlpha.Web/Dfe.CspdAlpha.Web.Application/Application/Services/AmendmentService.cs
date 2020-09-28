@@ -128,6 +128,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                     ForeName = addPupilAmendment.PupilViewModel.FirstName,
                     LastName = addPupilAmendment.PupilViewModel.LastName,
                     DateOfBirth = addPupilAmendment.PupilViewModel.DateOfBirth,
+                    Age = addPupilAmendment.PupilViewModel.Age,
                     Gender = addPupilAmendment.PupilViewModel.Gender == Gender.Male
                         ? Domain.Core.Enums.Gender.Male
                         : Domain.Core.Enums.Gender.Female,

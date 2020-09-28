@@ -89,6 +89,18 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
             return establishmentDto;
         }
 
+
+        private string GetAge(AddPupilAmendment amendment)
+        {
+            if (amendment.AddReason == AddReason.Existing)
+            {
+                return amendment.Pupil.Age.ToString();
+            }
+
+            var age = DateTime.Now.Year - amendment.Pupil.DateOfBirth.Year;
+            return amendment.Pupil.DateOfBirth.DayOfYear > DateTime.Now.DayOfYear ? (--age).ToString() : age.ToString();
+        }
+
         public bool CreateAddPupilAmendment(AddPupilAmendment amendment, out string id)
         {
             Guid amendmentId;
@@ -114,6 +126,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
                 amendmentDto.cr3d5_gender =
                     amendment.Pupil.Gender == Gender.Male ? cr3d5_Gender.Male : cr3d5_Gender.Female;
                 amendmentDto.cr3d5_dob = amendment.Pupil.DateOfBirth;
+                amendmentDto.rscd_Age = GetAge(amendment);
                 amendmentDto.cr3d5_admissiondate = amendment.Pupil.DateOfAdmission;
                 amendmentDto.cr3d5_yeargroup = amendment.Pupil.YearGroup;
 
@@ -298,6 +311,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
                     ForeName = amendment.cr3d5_forename,
                     LastName = amendment.cr3d5_surname,
                     DateOfBirth = amendment.cr3d5_dob ?? DateTime.MinValue,
+                    Age = int.TryParse(amendment.rscd_Age, out var age) ? age : 0,
                     Gender = amendment.cr3d5_gender == cr3d5_Gender.Male ? Gender.Male : Gender.Female,
                     DateOfAdmission = amendment.cr3d5_admissiondate ?? DateTime.MinValue,
                     YearGroup = amendment.cr3d5_yeargroup
@@ -306,6 +320,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
                 InclusionConfirmed = amendment.cr3d5_includeinperformanceresults ?? false
             };
         }
+
 
         private List<PriorAttainment> GetPriorAttainmentResult(new_Amendment amendment)
         {
