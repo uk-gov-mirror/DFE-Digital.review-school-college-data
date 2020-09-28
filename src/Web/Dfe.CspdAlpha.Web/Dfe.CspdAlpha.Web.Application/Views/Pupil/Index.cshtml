@@ -19,6 +19,20 @@
         <h1 class="govuk-heading-l govuk-!-margin-bottom-3">@ViewBag.Title</h1>
     </div>
 
+    <div class="govuk-grid-column-full">
+        <details class="govuk-details govuk-!-font-size-16" data-module="govuk-details">
+            <summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text">
+                    View school details
+                </span>
+            </summary>
+            <div class="govuk-details__text">
+                <partial name="_SchoolDetails" model="@Model.SchoolDetails" />
+            </div>
+        </details>
+    </div>
+
+
     <div class="govuk-grid-column-three-quarters">
         <p class="govuk-body">@CheckingWindowHelper.GetCheckingWindowDescription(Model.CheckingWindow)</p>
     </div>

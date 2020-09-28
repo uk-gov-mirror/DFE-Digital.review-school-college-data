@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Dfe.CspdAlpha.Web.Application.Models.Common;
+using Dfe.CspdAlpha.Web.Application.Models.School;
 using Newtonsoft.Json;
 
 namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
@@ -8,6 +9,8 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
     {
         public CheckDataNavigation CheckDataNavigationModel => new CheckDataNavigation(NavigationItem.PupilList, CheckingWindow);
         public string Urn { get; set; }
+
+        public SchoolDetails SchoolDetails { get; set; }
         public List<PupilListEntry> Pupils { get; set; }
         public string PupilsJson => JsonConvert.SerializeObject(Pupils);
         public CheckingWindow CheckingWindow { get; set; }

@@ -77,6 +77,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             return new PupilListViewModel
             {
                 Urn = query.URN,
+                SchoolDetails = GetSchoolDetails(query.URN),
                 Pupils = _pupilService
                     .QueryPupils(checkingWindow, query)
                     .Select(p => new PupilListEntry { FirstName = p.ForeName, LastName = p.LastName, PupilId = p.Id.Value, UPN = p.UPN })
