@@ -73,7 +73,7 @@ namespace Dfe.CspdAlpha.Admin
                             return;
                         }
 
-                        var pupilID = (string) pupilRow.UPN;
+                        var pupilID = string.Empty; // (string) pupilRow.UPN;
                         if (amendmentsLookup.ExistingPupilLookup.ContainsKey(laestab + pupilID))
                         {
                             // Handle existing pupil

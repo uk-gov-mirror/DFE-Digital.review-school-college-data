@@ -8,10 +8,9 @@ namespace Dfe.CspdAlpha.Web.Domain.Interfaces
 {
     public interface IPupilService
     {
-        Pupil GetById(PupilId id);
-
-        List<Pupil> GetByUrn(URN urn);
-
-        List<Pupil> FindMatchedPupils(Pupil pupil);
+        Pupil GetById(string checkingWindow, string id);
+        Pupil GetById(string checkingWindow, PupilId id);
+        List<Pupil> GetByUrn(string checkingWindow, URN urn);
+        List<Pupil> QueryPupils(string checkingWindow, PupilQuery query); 
     }
 }

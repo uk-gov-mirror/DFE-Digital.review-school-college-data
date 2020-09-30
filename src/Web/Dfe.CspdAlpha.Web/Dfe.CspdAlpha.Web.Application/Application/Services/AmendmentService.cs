@@ -69,6 +69,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                     MonthOfBirth = amendment.Pupil.DateOfBirth.Month,
                     YearOfBirth = amendment.Pupil.DateOfBirth.Year,
                     Gender = amendment.Pupil.Gender == Domain.Core.Enums.Gender.Male ? Gender.Male : Gender.Female,
+                    Age = amendment.Pupil.Age,
                     DayOfAdmission = amendment.Pupil.DateOfAdmission.Day,
                     MonthOfAdmission = amendment.Pupil.DateOfAdmission.Month,
                     YearOfAdmission = amendment.Pupil.DateOfAdmission.Year,
@@ -84,23 +85,28 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             return _amendmentService.CancelAddPupilAmendment(new Guid(id));
         }
 
-        public string UploadEvidence(List<IFormFile> files)
+        public string UploadEvidence(IEnumerable<IFormFile> files)
         {
             var now = DateTime.UtcNow;
             var folderName = $"{now:yyyy-MM-dd-HH-mm-ss}-{Guid.NewGuid()}";
+            var validFileReceived = false;
 
             foreach (var file in files)
             {
+                if (file.Length == 0)
+                {
+                    continue;
+                }
+
+                validFileReceived = true;
+
                 using (var fs = file.OpenReadStream())
                 {
-                    if (fs.Length > 0)
-                    {
-                        _fileUploadService.UploadFile(fs, file.FileName, file.ContentType, folderName);
-                    }
+                    _fileUploadService.UploadFile(fs, file.FileName, file.ContentType, folderName);
                 }
             }
 
-            return folderName;
+            return validFileReceived ? folderName : null;
         }
 
         public void RelateEvidence(Guid amendmentId, string evidenceFolderName)
@@ -122,6 +128,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                     ForeName = addPupilAmendment.PupilViewModel.FirstName,
                     LastName = addPupilAmendment.PupilViewModel.LastName,
                     DateOfBirth = addPupilAmendment.PupilViewModel.DateOfBirth,
+                    Age = addPupilAmendment.PupilViewModel.Age,
                     Gender = addPupilAmendment.PupilViewModel.Gender == Gender.Male
                         ? Domain.Core.Enums.Gender.Male
                         : Domain.Core.Enums.Gender.Female,

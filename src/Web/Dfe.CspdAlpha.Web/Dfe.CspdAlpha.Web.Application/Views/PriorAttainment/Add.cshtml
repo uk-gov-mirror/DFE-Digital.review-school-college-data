@@ -1,7 +1,7 @@
 @using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Results
 @model PriorAttainmentResultViewModel
 @{
-    ViewData["Title"] = "Add Key stage 2 prior attaiment results for " + Model.PupilViewModel.FullName + " (optional)";
+    ViewData["Title"] = "Add Key stage 2 prior attainment results for " + Model.PupilViewModel.FullName + " (optional)";
 }
 
 @section BackLink
@@ -10,7 +10,7 @@
 }
 
 <div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
+    <div class="govuk-grid-column-three-quarters">
         <h1 class="govuk-heading-l govuk-!-margin-bottom-3">@ViewBag.Title</h1>
     </div>
 
@@ -43,7 +43,7 @@
                                 Key stage 2
                             </h2>
                         </legend>
-                        <div class="govuk-radios">
+                        <div class="govuk-radios" id="subject-selection">
                             @if (Model.Ks2Subjects.All(r => r != Ks2Subject.Reading))
                             {
                                 <div class="govuk-radios__item">
@@ -81,7 +81,7 @@
                     <input class="govuk-input govuk-input--width-20" asp-for="ExamYear" type="text">
                 </div>
                 <div class="govuk-form-group">
-                    <label class="govuk-label" asp-for="TestMark">
+                    <label class="govuk-label" asp-for="TestMark" id="test-mark-label">
                         Test mark
                     </label>
                     <input class="govuk-input govuk-input--width-20" asp-for="TestMark" type="text">

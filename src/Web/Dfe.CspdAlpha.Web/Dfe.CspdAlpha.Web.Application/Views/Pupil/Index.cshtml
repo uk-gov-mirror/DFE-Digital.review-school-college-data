@@ -2,7 +2,8 @@
 @using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
 @model PupilListViewModel
 @{
-    ViewBag.Title = "Key stage 4 pupil list";
+    var ks5View = Model.CheckingWindow.ToString().StartsWith("KS5");
+    ViewBag.Title = ks5View ? "Student list" : "Pupil list";
     ViewBag.ContentClass = "app-detail-page-main";
 }
 
@@ -18,6 +19,20 @@
         <h1 class="govuk-heading-l govuk-!-margin-bottom-3">@ViewBag.Title</h1>
     </div>
 
+    <div class="govuk-grid-column-full">
+        <details class="govuk-details govuk-!-font-size-16" data-module="govuk-details">
+            <summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text">
+                    View school details
+                </span>
+            </summary>
+            <div class="govuk-details__text">
+                <partial name="_SchoolDetails" model="@Model.SchoolDetails" />
+            </div>
+        </details>
+    </div>
+
+
     <div class="govuk-grid-column-three-quarters">
         <p class="govuk-body">@CheckingWindowHelper.GetCheckingWindowDescription(Model.CheckingWindow)</p>
     </div>
@@ -28,16 +43,22 @@
 <script type="text/javascript">
       var pupilsJson = @Html.Raw(Model.PupilsJson);
       var urn = '@Model.Urn';
+      var checkingWindowURL = '@CheckingWindowHelper.GetCheckingWindowURL(Model.CheckingWindow)';
 </script>
 <div id="pupil-list-app">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
-            <pupil-search v-model="searchText" />
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="pupil-search">
+                    Search for a @(ks5View ? "student" : "pupil") 
+                </label>
+                <pupil-search v-model="searchText" />
+            </div>
         </div>
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
-            <pupil-table :urn="urn" :pupils="filteredPupils" :columns="columns" />
+            <pupil-table :urn="urn" :pupils="filteredPupils" :columns="columns" :checkingWindowURL="checkingWindowURL" />
         </div>
     </div>
     <div class="govuk-grid-row">

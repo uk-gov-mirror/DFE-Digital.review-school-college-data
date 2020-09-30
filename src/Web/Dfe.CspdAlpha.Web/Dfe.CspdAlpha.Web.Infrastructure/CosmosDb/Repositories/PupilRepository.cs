@@ -16,6 +16,12 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.CosmosDb.Repositories
             _container = cosmosClient.GetContainer(database, collection);
         }
 
+        public PupilRepository(Container collection)
+        {
+            _container = collection;
+        }
+
+
         public List<PupilDTO> Get()
         {
             throw new NotImplementedException();

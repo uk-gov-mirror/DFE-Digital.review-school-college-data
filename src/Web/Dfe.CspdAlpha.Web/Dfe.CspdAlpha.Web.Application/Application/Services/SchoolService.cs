@@ -67,37 +67,55 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             };
         }
 
-        public PupilListViewModel GetPupilListViewModel(string urn)
+        public PupilListViewModel GetPupilListViewModel(string checkingWindow, string urn, string id, string name)
         {
-            var urnValue = new URN(urn);
+            return GetPupilListViewModel(checkingWindow, new PupilQuery { URN = urn, Name = name, ID = id});
+        }
+
+        private PupilListViewModel GetPupilListViewModel(string checkingWindow, PupilQuery query)
+        {
             return new PupilListViewModel
             {
-                Urn = urn,
+                Urn = query.URN,
+                SchoolDetails = GetSchoolDetails(query.URN),
                 Pupils = _pupilService
-                    .GetByUrn(urnValue)
-                    .Select(p => new PupilListEntry { FirstName = p.ForeName, LastName = p.LastName, PupilId = p.Id.Value})
+                    .QueryPupils(checkingWindow, query)
+                    .Select(p => new PupilListEntry { FirstName = p.ForeName, LastName = p.LastName, PupilId = p.Id.Value, UPN = p.UPN })
                     .OrderBy(p => p.FirstName)
                     .ToList()
             };
         }
 
-        public MatchedPupilViewModel GetMatchedPupil(string upn)
+        public PupilListViewModel GetPupilListViewModel(string checkingWindow, string urn)
         {
-            var pupil = _pupilService.GetById(new PupilId(upn));
+            return GetPupilListViewModel(checkingWindow, new PupilQuery {URN = urn});
+        }
+
+        public MatchedPupilViewModel GetPupil(string checkingWindow, string id)
+        {
+            var pupil = _pupilService.GetById(checkingWindow, id);
             if (pupil == null)
             {
                 return null;
             }
 
+            return GetMatchedPupilViewModel(pupil);
+        }
+
+
+        private MatchedPupilViewModel GetMatchedPupilViewModel(Pupil pupil)
+        {
             return new MatchedPupilViewModel()
             {
                 PupilViewModel = new PupilViewModel
                 {
-                    UPN = upn,
+                    URN = pupil.Urn.Value,
+                    UPN = pupil.UPN,
                     SchoolID = pupil.LaEstab,
                     FirstName = pupil.ForeName,
                     LastName = pupil.LastName,
                     DateOfBirth = pupil.DateOfBirth,
+                    Age = pupil.Age,
                     Gender = pupil.Gender == DomainEnums.Gender.Male
                         ? Models.Common.Gender.Male
                         : Models.Common.Gender.Female,
@@ -113,6 +131,17 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                         ScaledScore = ValidateValue(r.ScaledScore)
                     }).Where(r => r.Subject != Ks2Subject.Unknown).ToList()
             };
+        }
+
+        public MatchedPupilViewModel GetMatchedPupil(string checkingWindow, string upn)
+        {
+            var pupil = _pupilService.GetById(checkingWindow, new PupilId(upn));
+            if (pupil == null)
+            {
+                return null;
+            }
+
+            return GetMatchedPupilViewModel(pupil);
         }
 
         private string ValidateValue(string value)
