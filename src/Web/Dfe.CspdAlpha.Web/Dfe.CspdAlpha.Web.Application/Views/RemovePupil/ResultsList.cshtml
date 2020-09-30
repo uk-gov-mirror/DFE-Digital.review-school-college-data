@@ -2,12 +2,14 @@
 @{
     ViewBag.Title = Model.PageTitle;
 }
+
 @section BackLink
 {
     <a class="govuk-back-link" asp-controller="RemovePupil" asp-action="Index">Back</a>
 }
+
 <div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
+    <div class="govuk-grid-column-three-quarters">
         <h1 class="govuk-heading-xl govuk-!-margin-bottom-4">@ViewBag.Title</h1>
     </div>
 </div>
@@ -21,57 +23,40 @@
 }
 else
 {
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-three-quarters">
-            <p class="govuk-body">View the students below to select one to request to remove</p>
-        </div>
-    </div>
     <form asp-action="MatchedPupil" method="get">
         <div class="govuk-grid-row">
-            <div class="govuk-grid-column-full">
-                <table class="govuk-table app-pupil-list-table">
-                    <thead class="govuk-table__head">
-                        <tr class="govuk-table__row">
-                            <th class="govuk-table__header">
-                                Select
-                            </th>
-                            <th class="govuk-table__header">
-                                First name
-                            </th>
-                            <th class="govuk-table__header">
-                                Last name
-                            </th>
-                            <th class="govuk-table__header">
-                                UPN/ULN
-                            </th>
-                            <th class="govuk-table__header">
-                                View student
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody class="govuk-table__body">
+            <div class="govuk-grid-column-three-quarters">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-legend govuk-fieldset__legend--s govuk-!-margin-bottom-4">Select one</legend>
+                    <div class="govuk-form-group">
                         @foreach (var student in Model.PupilListViewModel.Pupils)
                         {
-                            <tr class="govuk-table__row" v-for="pupil in pupils">
-                                <td class="govuk-table__cell" data-label="Select">
-                                    <input type="radio" name="id" id="PupilId-@student.PupilId" value="@student.PupilId" />
-                                </td>
-                                <td class="govuk-table__cell" data-label="First name">@student.FirstName</td>
-                                <td class="govuk-table__cell" data-label="Last name">@student.LastName</td>
-                                <td class="govuk-table__cell" data-label="UPN">@student.UPN</td>
-                                <td class="govuk-table__cell"><a asp-controller="Pupil" asp-action="View" asp-route-id="@student.PupilId">View student</a></td>
-                            </tr>
+                            <div class="govuk-radios">
+                                <div class="govuk-radios__item app-radios-multiline__item app-radios-search-result">
+                                    <input type="radio" name="id" id="PupilId-@student.PupilId" value="@student.PupilId" class="govuk-radios__input"/>
+                                    <label class="govuk-label govuk-radios__label govuk-!-margin-bottom-0" for="PupilId-@student.PupilId">
+                                        @student.FirstName @student.LastName
+                                        <span class="app-radios-multiline__label-row">ULN @student.UPN</span>
+                                    </label>
+                                </div>
+
+                            </div>
+                            <p class="app-align--below-radios">
+                                <a asp-controller="Pupil" asp-action="View" asp-route-id="@student.PupilId">View student</a>
+                            </p>
                         }
-                    </tbody>
-                </table>
+
+                    </div>
+                </fieldset>
             </div>
         </div>
+
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-three-quarters">
                 <p class="govuk-body">Continue to remove selected student</p>
             </div>
             <div class="govuk-grid-column-full">
-                <input type="submit" class="govuk-button" data-module="govuk-button" value="Continue" />
+                <input type="submit" class="govuk-button" data-module="govuk-button" value="Continue"/>
             </div>
         </div>
     </form>
