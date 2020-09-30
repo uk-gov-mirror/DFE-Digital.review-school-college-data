@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Dfe.Rscd.Api.Controllers
 {
@@ -29,11 +30,20 @@ namespace Dfe.Rscd.Api.Controllers
         //}
 
         // GET: api/Amendments/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(string id, string checkingwindow)
+        [HttpGet]
+        [Route("{urn}")]
+        [SwaggerOperation(
+            Summary = "Searches for schools requested amendments",
+            Description = "Searches for requested amendments in CRM recorded against the supplied URN.",
+            OperationId = "GetAmendmentsByURN",
+            Tags = new[] {"Amendments"}
+            )]
+        [ProducesResponseType(typeof(GetResponse<List<AddPupilAmendment>>), 200)]
+        public IActionResult Get([FromRoute, SwaggerParameter("The URN of the school requesting amendments", Required = true)] string urn,
+            [FromRoute, SwaggerParameter("The checking window to request amendments from", Required = true)] string checkingwindow)
         {
             var lateChecking = checkingwindow == "ks4-late";
-            var amendments = _amendmentService.GetAddPupilAmendments(id)
+            var amendments = _amendmentService.GetAddPupilAmendments(urn)
                 .Where(a => !lateChecking || (a.Status == "Approved" || a.Status == "Rejected"))
                 .OrderByDescending(o => o.CreatedDate)
                 .ToList();
@@ -41,7 +51,7 @@ namespace Dfe.Rscd.Api.Controllers
             {
                 Result = amendments
             };
-            return JsonConvert.SerializeObject(response);
+            return Ok(response);
         }
 
         // POST: api/Amendments
