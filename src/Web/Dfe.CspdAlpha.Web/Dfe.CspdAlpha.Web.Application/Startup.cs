@@ -89,10 +89,10 @@ namespace Dfe.CspdAlpha.Web.Application
                     });
             });
 
-            if (_env.IsStaging())
-            {
+            //if (_env.IsStaging())
+            //
                 services.Configure<BasicAuthOptions>(Configuration.GetSection("BasicAuth"));
-            }
+            //}
 
             // Dynamics 365 configuration
             var dynamicsConnString = Configuration.GetConnectionString("DynamicsCds");
@@ -165,10 +165,10 @@ namespace Dfe.CspdAlpha.Web.Application
             app.UseHttpsRedirection();
 
             // staging = all hosted non-production environments
-            if (env.IsStaging())
-            {
+            //if (env.IsStaging())
+            //{
                 app.UseBasicAuth();
-            }
+            //}
 
             app.UseRouting();
 

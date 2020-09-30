@@ -77,6 +77,9 @@ namespace Dfe.Rscd.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            // This needs to come before swagger
+            app.UseBasicAuth();
+
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
@@ -94,7 +97,7 @@ namespace Dfe.Rscd.Api
 
             app.UseRouting();
 
-            app.UseBasicAuth();
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
