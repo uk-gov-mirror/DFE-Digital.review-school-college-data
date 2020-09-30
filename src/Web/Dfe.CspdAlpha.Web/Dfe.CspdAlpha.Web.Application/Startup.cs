@@ -31,6 +31,10 @@ using DomainInterface = Dfe.CspdAlpha.Web.Domain.Interfaces;
 using Dfe.CspdAlpha.Web.Shared.Config;
 using Dfe.CspdAlpha.Web.Infrastructure.SharePoint;
 using Microsoft.FeatureManagement;
+using FluentValidation.AspNetCore;
+using Dfe.CspdAlpha.Web.Application.Validators.Pupil;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Dfe.CspdAlpha.Web.Application.TagHelpers;
 
 namespace Dfe.CspdAlpha.Web.Application
 {
@@ -56,7 +60,12 @@ namespace Dfe.CspdAlpha.Web.Application
                                  .RequireAuthenticatedUser()
                                  .Build();
                 config.Filters.Add(new AuthorizeFilter(policy));
-            });
+            })
+            .AddFluentValidation(fv =>
+                {
+                    fv.RegisterValidatorsFromAssemblyContaining<AddPupilDetailsViewModelValidator>();
+                    fv.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
+                });
 
             // Adds feature management for Azure App Configuration
             services.AddFeatureManagement();
@@ -64,10 +73,12 @@ namespace Dfe.CspdAlpha.Web.Application
             // This disables the CSRF token in order to facilitate easier QA for the time being
             if (_env.IsStaging())
             {
-                services.AddMvc().AddRazorPagesOptions(o =>
-                {
-                    o.Conventions.ConfigureFilter(new IgnoreAntiforgeryTokenAttribute());
-                }).InitializeTagHelper<FormTagHelper>((helper, context) => helper.Antiforgery = false);
+                services.AddMvc()
+                    .AddRazorPagesOptions(o =>
+                    {
+                        o.Conventions.ConfigureFilter(new IgnoreAntiforgeryTokenAttribute());
+                    })
+                    .InitializeTagHelper<FormTagHelper>((helper, context) => helper.Antiforgery = false);
             }
 
             // configure SAML authentication
@@ -127,6 +138,7 @@ namespace Dfe.CspdAlpha.Web.Application
             services.AddSingleton<IFileUploadService, SharePointFileUploadService>();
             services.AddSingleton<ISchoolService, SchoolService>();
             services.AddSingleton<AppInterface.IAmendmentService, AmendmentService>();
+            services.AddTransient<IHtmlGenerator, HtmlGenerator>();
         }
 
         private static async Task<IReadRepository<EstablishmentsDTO>> IntialiseEstablishmentService(CosmosClient client, string database, string collection)
