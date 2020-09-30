@@ -18,14 +18,13 @@
                 <div class="govuk-radios__item">
                     <input class="govuk-radios__input" asp-for="SearchType" id="SearchType-PupilID" type="radio" value="PupilID" data-aria-controls="conditional-SearchType-conditional">
                     <label class="govuk-label govuk-radios__label" for="SearchType-PupilID">
-                        UPN (Unique Pupil Number) or<br />
-                        ULN (Unique Learner Number)
+                       ULN (Unique Learner Number)
                     </label>
                 </div>
                 <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-SearchType-conditional">
                     <div class="govuk-form-group">
                         <label class="govuk-label" asp-for="PupilID">
-                            Enter a UPN or ULN
+                            Enter a ULN
                         </label>
                         <input class="govuk-input govuk-!-width-one-third" asp-for="PupilID" type="text">
                         <input type="submit" class="govuk-button" data-module="govuk-button" value="Submit" />
