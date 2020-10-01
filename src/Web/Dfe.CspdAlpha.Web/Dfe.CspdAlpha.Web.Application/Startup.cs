@@ -1,3 +1,7 @@
+using System;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
 using Dfe.CspdAlpha.Web.Application.Application.Services;
 using Dfe.CspdAlpha.Web.Application.Middleware;
@@ -30,6 +34,7 @@ using AppInterface = Dfe.CspdAlpha.Web.Application.Application.Interfaces;
 using DomainInterface = Dfe.CspdAlpha.Web.Domain.Interfaces;
 using Dfe.CspdAlpha.Web.Shared.Config;
 using Dfe.CspdAlpha.Web.Infrastructure.SharePoint;
+using Dfe.Rscd.Web.ApiClient;
 using Microsoft.FeatureManagement;
 
 namespace Dfe.CspdAlpha.Web.Application
@@ -89,10 +94,10 @@ namespace Dfe.CspdAlpha.Web.Application
                     });
             });
 
-            //if (_env.IsStaging())
-            //
+            if (_env.IsStaging())
+            {
                 services.Configure<BasicAuthOptions>(Configuration.GetSection("BasicAuth"));
-            //}
+            }
 
             // Dynamics 365 configuration
             var dynamicsConnString = Configuration.GetConnectionString("DynamicsCds");
@@ -130,6 +135,17 @@ namespace Dfe.CspdAlpha.Web.Application
             services.AddSingleton<IFileUploadService, SharePointFileUploadService>();
             services.AddSingleton<ISchoolService, SchoolService>();
             services.AddSingleton<AppInterface.IAmendmentService, AmendmentService>();
+
+            var apiOptions = Configuration.GetSection("Api").Get<ApiOptions>();
+            services.AddHttpClient<IClient, Client>(client =>
+            {
+                client.BaseAddress = new Uri(apiOptions.URL);
+                if (!string.IsNullOrWhiteSpace(apiOptions.UserName) && !string.IsNullOrWhiteSpace(apiOptions.Password))
+                {
+                    var encodedCredentials = Convert.ToBase64String(Encoding.ASCII.GetBytes($"{apiOptions.UserName}:{apiOptions.Password}"));
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", encodedCredentials);
+                }
+            });
         }
 
         private static async Task<IReadRepository<EstablishmentsDTO>> IntialiseEstablishmentService(CosmosClient client, string database, string collection)
@@ -165,10 +181,10 @@ namespace Dfe.CspdAlpha.Web.Application
             app.UseHttpsRedirection();
 
             // staging = all hosted non-production environments
-            //if (env.IsStaging())
-            //{
+            if (env.IsStaging())
+            {
                 app.UseBasicAuth();
-            //}
+            }
 
             app.UseRouting();
 

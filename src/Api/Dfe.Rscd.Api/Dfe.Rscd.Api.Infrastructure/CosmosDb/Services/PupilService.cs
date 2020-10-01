@@ -18,9 +18,9 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.Services
             _pupilRepository = pupilRepository;
         }
 
-        public Pupil GetById(PupilId id)
+        public Pupil GetById(string id)
         {
-            var matchedPupil = _pupilRepository.Query().Where(p => p.UPN == id.Value).ToList();
+            var matchedPupil = _pupilRepository.Query().Where(p => p.UPN == id).ToList();
             return matchedPupil.Any() ? matchedPupil.SingleOrDefault().Pupil : null;
         }
 

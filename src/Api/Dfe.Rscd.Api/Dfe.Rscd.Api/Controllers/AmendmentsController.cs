@@ -49,7 +49,8 @@ namespace Dfe.Rscd.Api.Controllers
                 .ToList();
             var response = new GetResponse<List<AddPupilAmendment>>
             {
-                Result = amendments
+                Result = amendments,
+                Error = new Error()
             };
             return Ok(response);
         }

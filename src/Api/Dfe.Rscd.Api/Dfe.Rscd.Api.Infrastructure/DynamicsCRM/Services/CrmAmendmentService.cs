@@ -282,7 +282,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
                 EvidenceStatus = amendment.cr3d5_evidenceoption == cr3d5_EvidenceOption.UploadEvidenceNow ? EvidenceStatus.Now : amendment.cr3d5_evidenceoption == cr3d5_EvidenceOption.UploadEvidenceLater ? EvidenceStatus.Later : EvidenceStatus.NotRequired,
                 Pupil = new Pupil
                 {
-                    Id = string.IsNullOrWhiteSpace(amendment.cr3d5_pupilid) ? null : new PupilId(amendment.cr3d5_pupilid),
+                    Id = string.IsNullOrWhiteSpace(amendment.cr3d5_pupilid) ? string.Empty : amendment.cr3d5_pupilid,
                     Urn = new URN(amendment.cr3d5_urn),
                     LaEstab = amendment.cr3d5_laestab,
                     ForeName = amendment.cr3d5_forename,

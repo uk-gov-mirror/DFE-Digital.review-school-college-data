@@ -22,9 +22,12 @@ namespace Dfe.Rscd.Api
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly IWebHostEnvironment _env;
+
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            _env = env;
         }
 
         public IConfiguration Configuration { get; }
@@ -58,7 +61,10 @@ namespace Dfe.Rscd.Api
             services.Configure<DynamicsOptions>(Configuration.GetSection("Dynamics"));
 
 
-            services.Configure<BasicAuthOptions>(Configuration.GetSection("BasicAuth"));
+            if (_env.IsStaging())
+            {
+                services.Configure<BasicAuthOptions>(Configuration.GetSection("BasicAuth"));
+            }
             var cosmosDbOptions = Configuration.GetSection("CosmosDb").Get<CosmosDbOptions>();
             var client = new CosmosClient(cosmosDbOptions.Account, cosmosDbOptions.Key);
 
@@ -78,7 +84,10 @@ namespace Dfe.Rscd.Api
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             // This needs to come before swagger
-            app.UseBasicAuth();
+            if (env.IsStaging())
+            {
+                app.UseBasicAuth();
+            }
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
@@ -97,7 +106,6 @@ namespace Dfe.Rscd.Api
 
             app.UseRouting();
 
-            app.UseAuthentication();
 
             app.UseAuthorization();
 

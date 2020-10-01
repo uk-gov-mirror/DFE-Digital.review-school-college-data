@@ -1,21 +1,25 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Dfe.CspdAlpha.Web.Application.Application.Helpers;
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
 using Dfe.CspdAlpha.Web.Application.Models.Common;
 using Dfe.CspdAlpha.Web.Application.Models.School;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Results;
-using Dfe.CspdAlpha.Web.Domain.Core;
-using Dfe.CspdAlpha.Web.Domain.Core.Enums;
-using Dfe.CspdAlpha.Web.Domain.Entities;
 using Dfe.CspdAlpha.Web.Infrastructure.Interfaces;
+using Dfe.Rscd.Web.ApiClient;
 using Microsoft.AspNetCore.Http;
+using AddPupilAmendment = Dfe.CspdAlpha.Web.Domain.Entities.AddPupilAmendment;
 using AddReason = Dfe.CspdAlpha.Web.Application.Models.Common.AddReason;
 using Gender = Dfe.CspdAlpha.Web.Application.Models.Common.Gender;
 using DomainInterfaces = Dfe.CspdAlpha.Web.Domain.Interfaces;
+using EvidenceStatus = Dfe.CspdAlpha.Web.Domain.Core.Enums.EvidenceStatus;
 using Ks2Subject = Dfe.CspdAlpha.Web.Application.Models.ViewModels.Results.Ks2Subject;
+using PriorAttainment = Dfe.CspdAlpha.Web.Domain.Entities.PriorAttainment;
+using Pupil = Dfe.CspdAlpha.Web.Domain.Entities.Pupil;
+using URN = Dfe.CspdAlpha.Web.Domain.Core.URN;
 
 namespace Dfe.CspdAlpha.Web.Application.Application.Services
 {
@@ -23,37 +27,58 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
     {
         private DomainInterfaces.IAmendmentService _amendmentService;
         private IFileUploadService _fileUploadService;
+        private IClient _apiClient;
 
-        public AmendmentService(DomainInterfaces.IAmendmentService amendmentService, IFileUploadService fileUploadService)
+        public AmendmentService(DomainInterfaces.IAmendmentService amendmentService, IFileUploadService fileUploadService, IClient apiClient )
         {
+            _apiClient = apiClient;
             _fileUploadService = fileUploadService;
             _amendmentService = amendmentService;
         }
 
         public AmendmentsListViewModel GetAmendmentsListViewModel(string urn, CheckingWindow checkingWindow)
         {
-            var urnValue = new URN(urn);
-            return new AmendmentsListViewModel
+            var checkingWindowURL = CheckingWindowHelper.GetCheckingWindowURL(checkingWindow);
+            var amendments = _apiClient.AmendmentsAsync(urn, checkingWindowURL).GetAwaiter().GetResult();
+
+            return  new AmendmentsListViewModel
             {
                 Urn = urn,
-                AmendmentList = _amendmentService
-                    .GetAddPupilAmendments(urnValue.Value)
-                    .Where(a => checkingWindow != CheckingWindow.KS4Late || (a.Status == "Approved" || a.Status =="Rejected"))
+                AmendmentList = amendments.Result
                     .Select(a => new Amendment
                     {
                         FirstName = a.Pupil.ForeName,
                         LastName = a.Pupil.LastName,
-                        PupilId = a.Pupil.Id?.Value,
-                        DateRequested = a.CreatedDate,
+                        PupilId = a.Pupil.Id,
+                        DateRequested = a.CreatedDate.DateTime,
                         ReferenceId = a.Reference,
                         Id = a.Id,
                         Status = a.Status,
-                        EvidenceStatus = a.EvidenceStatus
+                        EvidenceStatus = GetEvidenceStatus(a.EvidenceStatus)
                     })
                     .OrderByDescending(a => a.DateRequested)
                     .ToList()
             };
         }
+
+        private EvidenceStatus GetEvidenceStatus(Rscd.Web.ApiClient.EvidenceStatus evidenceStatus)
+        {
+            switch (evidenceStatus)
+            {
+                case Rscd.Web.ApiClient.EvidenceStatus._1:
+                    return EvidenceStatus.Now;
+                case Rscd.Web.ApiClient.EvidenceStatus._2:
+                    return EvidenceStatus.Later;
+                case Rscd.Web.ApiClient.EvidenceStatus._3:
+                    return EvidenceStatus.NotRequired;
+                case Rscd.Web.ApiClient.EvidenceStatus._0:
+                default:
+                    return EvidenceStatus.Unknown;
+
+            }
+        }
+
+
 
         public AmendmentViewModel GetAddPupilAmendmentViewModel(Guid id)
         {

@@ -8,7 +8,7 @@ namespace Dfe.Rscd.Api.Domain.Entities
 {
     public class Pupil
     {
-        public PupilId Id { get; set; }
+        public string Id { get; set; }
         public PupilStatus Status { get; set; }
         public URN Urn { get; set; }
         public string UPN { get; set; }

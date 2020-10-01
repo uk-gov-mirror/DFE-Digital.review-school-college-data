@@ -25,7 +25,7 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs
 
         public Pupil Pupil => new Pupil
         {
-            Id = new PupilId(id),
+            Id = id,
             Urn = new URN(URN),
             UPN = UPN,
             LaEstab = DFESNumber,

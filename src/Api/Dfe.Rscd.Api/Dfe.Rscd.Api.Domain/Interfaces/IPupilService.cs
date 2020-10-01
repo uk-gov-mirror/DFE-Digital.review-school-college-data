@@ -6,7 +6,7 @@ namespace Dfe.Rscd.Api.Domain.Interfaces
 {
     public interface IPupilService
     {
-        Pupil GetById(PupilId id);
+        Pupil GetById(string id);
 
         List<Pupil> GetByUrn(URN urn);
 
