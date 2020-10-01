@@ -3,3 +3,9 @@
     padding-top: govuk-spacing(2);
   }
 }
+
+.app-padding-top-mobile-4 {
+  @include govuk-media-query($until: tablet) {
+    padding-top: govuk-spacing(4);
+  }
+}
