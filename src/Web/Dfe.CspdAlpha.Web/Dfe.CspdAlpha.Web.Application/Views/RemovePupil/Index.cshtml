@@ -14,10 +14,11 @@
     </div>
 </div>
 <div class="govuk-grid-row">
-    <div class="govuk-grid-column-three-quarters">
+    <div class="govuk-grid-column-full">
         <p>Enter ULN or student name</p>
         <form method="post">
             <fieldset class="govuk-fieldset" aria-describedby="how-contacted-conditional-hint">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Select one</legend>
                 <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
                     <div class="govuk-form-group">
                         <div class="govuk-radios__item">
@@ -32,7 +33,11 @@
                                     Enter a ULN
                                 </label>
                                 <input class="govuk-input govuk-!-width-one-third" asp-for="PupilID" type="text">
-                                <input type="submit" class="govuk-button app-button--inline" data-module="govuk-button" value="Submit"/>
+
+                            </div>
+                             <div class="govuk-form-group">
+                                 <input type="submit" class="govuk-button" data-module="govuk-button" value="Search"/>
+
                             </div>
                         </div>
                     </div>
@@ -48,8 +53,11 @@
                                 <label class="govuk-label" asp-for="Name">
                                     Enter a student name
                                 </label>
-                                <input class="govuk-input govuk-!-width-one-third" asp-for="Name" type="text">
-                                <input type="submit" class="govuk-button app-button--inline" data-module="govuk-button" value="Submit"/>
+                                <input class="govuk-input govuk-!-width-two-thirds" asp-for="Name" type="text">
+
+                            </div>
+                            <div class="govuk-form-group">
+                                <input type="submit" class="govuk-button" data-module="govuk-button" value="Search"/>
                             </div>
                         </div>
                     </div>
