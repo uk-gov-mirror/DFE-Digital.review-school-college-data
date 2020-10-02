@@ -26,7 +26,7 @@ const pupilListApp = new Vue({
     });
     this.checkingWindowURL = window.checkingWindowURL;
     if (this.checkingWindowURL.indexOf('ks5') > -1) {
-      this.columns = ['First name', 'Last name', 'UPN/ULN', 'View student'];
+      this.columns = ['First name', 'Last name', 'ULN', 'View student'];
     } else {
       this.columns = ['First name', 'Last name', 'UPN', 'View pupil'];
     }
