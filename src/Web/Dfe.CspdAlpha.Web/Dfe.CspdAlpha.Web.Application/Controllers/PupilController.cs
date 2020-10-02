@@ -2,8 +2,11 @@ using Dfe.CspdAlpha.Web.Application.Application;
 using Dfe.CspdAlpha.Web.Application.Application.Extensions;
 using Dfe.CspdAlpha.Web.Application.Application.Helpers;
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
+using Dfe.CspdAlpha.Web.Application.Models.Common;
+using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Common;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Results;
+using Dfe.CspdAlpha.Web.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -49,45 +52,55 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         public IActionResult Add()
         {
             var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
-            return View(addPupilAmendment?.PupilViewModel);
+
+            return View(
+                addPupilAmendment == null
+                ? null : MapToAddPupilDetailsViewModel(addPupilAmendment?.PupilViewModel));
         }
 
         [HttpPost]
-        public IActionResult Add(PupilViewModel addPupilViewModel)
+        public IActionResult Add(AddPupilDetailsViewModel addPupilDetailsViewModel)
         {
-            if (!string.IsNullOrEmpty(addPupilViewModel.UPN))
+            MatchedPupilViewModel existingPupil = null;
+
+            if (!string.IsNullOrEmpty(addPupilDetailsViewModel.UPN))
             {
-                var existingPupil = _schoolService.GetMatchedPupil(CheckingWindow, addPupilViewModel.UPN);
+                existingPupil = _schoolService.GetMatchedPupil(CheckingWindow, addPupilDetailsViewModel.UPN);
                 if (existingPupil == null)
                 {
-                    ModelState.AddModelError("UPN", "Enter a valid UPN");
-                }
-                else
-                {
-                    var addPupilAmendment = new AddPupilAmendmentViewModel
-                    {
-                        URN = ClaimsHelper.GetURN(this.User),
-                        PupilViewModel = existingPupil.PupilViewModel,
-                        Results = existingPupil.Results
-                    };
-                    HttpContext.Session.Set(ADD_PUPIL_AMENDMENT, addPupilAmendment);
-                    return RedirectToAction("ExistingMatch");
+                    ModelState.AddModelError(nameof(addPupilDetailsViewModel.UPN), "Enter a valid UPN");
                 }
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var addPupilAmendment = new AddPupilAmendmentViewModel
+                return View(addPupilDetailsViewModel);
+            }
+
+            if (existingPupil != null)
+            {
+                var amendment = new AddPupilAmendmentViewModel
                 {
                     URN = ClaimsHelper.GetURN(this.User),
-                    PupilViewModel = addPupilViewModel,
-                    Results = new List<PriorAttainmentResultViewModel>()
+                    PupilViewModel = existingPupil.PupilViewModel,
+                    Results = existingPupil.Results
                 };
-                HttpContext.Session.Set(ADD_PUPIL_AMENDMENT, addPupilAmendment);
-                return RedirectToAction("Add", "PriorAttainment");
+
+                HttpContext.Session.Set(ADD_PUPIL_AMENDMENT, amendment);
+
+                return RedirectToAction("ExistingMatch");
             }
 
-            return View(addPupilViewModel);
+            var addPupilAmendment = new AddPupilAmendmentViewModel
+            {
+                URN = ClaimsHelper.GetURN(this.User),
+                PupilViewModel = MapToPupilViewModel(addPupilDetailsViewModel),
+                Results = new List<PriorAttainmentResultViewModel>()
+            };
+
+            HttpContext.Session.Set(ADD_PUPIL_AMENDMENT, addPupilAmendment);
+
+            return RedirectToAction("Add", "PriorAttainment");
         }
 
         public IActionResult ExistingMatch()
@@ -99,7 +112,13 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             }
 
             var school = _establishmentService.GetSchoolName(CheckingWindow, addPupilAmendment.PupilViewModel.SchoolID);
-            return View(new ExistingMatchViewModel{ PupilViewModel = addPupilAmendment.PupilViewModel, SchoolName = school});
+
+            return View(
+                new ExistingMatchViewModel
+                {
+                    PupilViewModel = addPupilAmendment.PupilViewModel,
+                    SchoolName = school
+                });
         }
 
         public IActionResult AddEvidence()
@@ -139,11 +158,12 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             if (id == null)
             {
                 var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
+
                 if (addPupilAmendment == null || addPupilAmendment.SelectedEvidenceOption != EvidenceOption.UploadNow)
                 {
                     return RedirectToAction("Add");
                 }
-                return View(new UploadEvidenceViewModel{ PupilViewModel = addPupilAmendment.PupilViewModel });
+                return View(new UploadEvidenceViewModel { PupilViewModel = addPupilAmendment.PupilViewModel });
             }
             else
             {
@@ -189,8 +209,13 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             {
                 return RedirectToAction("Add");
             }
-            
-            return View(new ConfirmAddPupilViewModel{ PupilViewModel = addPupilAmendment.PupilViewModel, SelectedEvidenceOption = addPupilAmendment.SelectedEvidenceOption});
+
+            return View(
+                new ConfirmAddPupilViewModel
+                {
+                    PupilViewModel = addPupilAmendment.PupilViewModel,
+                    SelectedEvidenceOption = addPupilAmendment.SelectedEvidenceOption
+                });
         }
 
         [HttpPost]
@@ -233,6 +258,38 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         {
             HttpContext.Session.Remove(ADD_PUPIL_AMENDMENT);
             return RedirectToAction("Index");
+        }
+
+        // TODO: Remove as part of refactoring of view models (each view model should exist to serve the needs of a single view)
+        private PupilViewModel MapToPupilViewModel(AddPupilDetailsViewModel addPupilDetails)
+        {
+            return new PupilViewModel
+            {
+                SchoolID = addPupilDetails.SchoolID,
+                UPN = addPupilDetails.UPN,
+                FirstName = addPupilDetails.FirstName,
+                LastName = addPupilDetails.LastName,
+                DateOfBirth = addPupilDetails.DateOfBirth.Date.Value,
+                Gender = addPupilDetails.Gender.Value,
+                DateOfAdmission = addPupilDetails.DateOfAdmission.Date.Value,
+                YearGroup = addPupilDetails.YearGroup
+            };
+        }
+
+        // TODO: Remove as part of refactoring of view models (each view model should exist to serve the needs of a single view)
+        private AddPupilDetailsViewModel MapToAddPupilDetailsViewModel(PupilViewModel pupil)
+        {
+            return new AddPupilDetailsViewModel
+            {
+                SchoolID = pupil.SchoolID,
+                UPN = pupil.UPN,
+                FirstName = pupil.FirstName,
+                LastName = pupil.LastName,
+                DateOfBirth = new DateViewModel(pupil.DateOfBirth.Date),
+                Gender = pupil.Gender,
+                DateOfAdmission = new DateViewModel(pupil.DateOfAdmission.Date),
+                YearGroup = pupil.YearGroup
+            };
         }
     }
 }

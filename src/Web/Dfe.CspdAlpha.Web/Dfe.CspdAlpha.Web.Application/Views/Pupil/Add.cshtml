@@ -1,10 +1,8 @@
-@using Dfe.CspdAlpha.Web.Application.Models.Common
 @using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
-@model PupilViewModel
+@model AddPupilDetailsViewModel
 
 @{
     ViewData["Title"] = "Request to add a pupil";
-    var showError = !ViewData.ModelState.IsValid;
 }
 
 @section BackLink
@@ -12,25 +10,8 @@
     <a class="govuk-back-link" asp-controller="TaskList" asp-action="Index">Back</a>
 }
 
-@if (showError)
-{
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full">
-            <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary">
-                <h2 class="govuk-error-summary__title" id="error-summary-title">
-                    There is a problem
-                </h2>
-                <div class="govuk-error-summary__body">
-                    <ul class="govuk-list govuk-error-summary__list">
-                        <li>
-                            <a href="#UPN">Enter a valid UPN</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-}
+<div asp-validation-summary="All"></div>
+
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
         <h1 class="govuk-heading-l govuk-!-margin-bottom-3">@ViewBag.Title</h1>
@@ -52,31 +33,25 @@
                     <div class="govuk-hint">For example: URN 123456, LAESTAB 1234567</div>
                     <input class="govuk-input govuk-input--width-20" asp-for="SchoolID" type="text">
                 </div>
-                <div class="govuk-form-group @(showError ? "govuk-form-group--error" : string.Empty)">
+                <div class="govuk-form-group" asp-for="UPN">
                     <label class="govuk-label" asp-for="UPN">
                         UPN (Unique Pupil Number) (optional)
                     </label>
-                    @if (showError)
-                    {
-                        <span id="UPN-error" class="govuk-error-message">
-                            <span class="govuk-visually-hidden">Error:</span> Enter a valid UPN
-                        </span>
-                    }
-                    <input class="govuk-input govuk-input--width-20 @(showError ? "govuk-input--error" : string.Empty)" asp-for="UPN" type="text">
+                    <input class="govuk-input govuk-input--width-20" asp-for="UPN" type="text">
                 </div>
-                <div class="govuk-form-group">
+                <div class="govuk-form-group" asp-for="FirstName">
                     <label class="govuk-label" asp-for="FirstName">
                         First name
                     </label>
                     <input class="govuk-input govuk-input--width-20" asp-for="FirstName" type="text">
                 </div>
-                <div class="govuk-form-group">
+                <div class="govuk-form-group" asp-for="LastName">
                     <label class="govuk-label" asp-for="LastName">
                         Last name
                     </label>
                     <input class="govuk-input govuk-input--width-20" asp-for="LastName" type="text">
                 </div>
-                <div class="govuk-form-group">
+                <div class="govuk-form-group" asp-for="DateOfBirth">
                     <fieldset class="govuk-fieldset" role="group">
                         <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                             <h2 class="govuk-fieldset__heading  govuk-!-font-weight-regular">
@@ -84,50 +59,50 @@
                             </h2>
                         </legend>
                         <div class="govuk-hint">For example: 12 11 2007</div>
-                        <div class="govuk-date-input" id="date-of-birth">
+                        <div class="govuk-date-input" id="date-of-birth" asp-for="DateOfBirth">
                             <div class="govuk-date-input__item">
                                 <div class="govuk-form-group">
-                                    <label class="govuk-label govuk-date-input__label" asp-for="DayOfBirth">
+                                    <label class="govuk-label govuk-date-input__label" asp-for="DateOfBirth.Day">
                                         Day
                                     </label>
-                                    <input class="govuk-input govuk-date-input__input govuk-input--width-2" asp-for="DayOfBirth" type="text" pattern="[0-9]*" inputmode="numeric">
+                                    <input class="govuk-input govuk-date-input__input govuk-input--width-2" asp-for="DateOfBirth.Day" type="text" pattern="[0-9]*" inputmode="numeric">
                                 </div>
                             </div>
                             <div class="govuk-date-input__item">
                                 <div class="govuk-form-group">
-                                    <label class="govuk-label govuk-date-input__label" asp-for="MonthOfBirth">
+                                    <label class="govuk-label govuk-date-input__label" asp-for="DateOfBirth.Month">
                                         Month
                                     </label>
-                                    <input class="govuk-input govuk-date-input__input govuk-input--width-2" asp-for="MonthOfBirth" type="text" pattern="[0-9]*" inputmode="numeric">
+                                    <input class="govuk-input govuk-date-input__input govuk-input--width-2" asp-for="DateOfBirth.Month" type="text" pattern="[0-9]*" inputmode="numeric">
                                 </div>
                             </div>
                             <div class="govuk-date-input__item">
                                 <div class="govuk-form-group">
-                                    <label class="govuk-label govuk-date-input__label" asp-for="YearOfBirth">
+                                    <label class="govuk-label govuk-date-input__label" asp-for="DateOfBirth.Year">
                                         Year
                                     </label>
-                                    <input class="govuk-input govuk-date-input__input govuk-input--width-4" asp-for="YearOfBirth" type="text" pattern="[0-9]*" inputmode="numeric">
+                                    <input class="govuk-input govuk-date-input__input govuk-input--width-4" asp-for="DateOfBirth.Year" type="text" pattern="[0-9]*" inputmode="numeric">
                                 </div>
                             </div>
                         </div>
                     </fieldset>
                 </div>
-                <div class="govuk-form-group">
+                <div class="govuk-form-group" asp-for="Gender">
                     <fieldset class="govuk-fieldset">
                         <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                             <h2 class="govuk-fieldset__heading govuk-!-font-weight-regular">
                                 Gender
                             </h2>
                         </legend>
-                        <div class="govuk-radios">
+                        <div class="govuk-radios" asp-for="Gender">
                             <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="Gender-Male" name="Gender" type="radio" value="Male" @(Model != null && Model.Gender == Gender.Male ? "checked": string.Empty)>
+                                <input class="govuk-radios__input" id="Gender-Male" asp-for="Gender" type="radio" value="Male">
                                 <label class="govuk-label govuk-radios__label" for="Gender-Male">
                                     Male
                                 </label>
                             </div>
                             <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="Gender-Female" name="Gender" type="radio" value="Female" @(Model != null && Model.Gender == Gender.Female ? "checked": string.Empty)>
+                                <input class="govuk-radios__input" id="Gender-Female" asp-for="Gender" type="radio" value="Female">
                                 <label class="govuk-label govuk-radios__label" for="Gender-Female">
                                     Female
                                 </label>
@@ -135,7 +110,7 @@
                         </div>
                     </fieldset>
                 </div>
-                <div class="govuk-form-group">
+                <div class="govuk-form-group" asp-for="DateOfAdmission">
                     <fieldset class="govuk-fieldset" role="group">
                         <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                             <h2 class="govuk-fieldset__heading  govuk-!-font-weight-regular">
@@ -143,68 +118,68 @@
                             </h2>
                         </legend>
                         <div class="govuk-hint">For example: 12 11 2007</div>
-                        <div class="govuk-date-input" id="date-of-admission">
+                        <div class="govuk-date-input" id="date-of-admission" asp-for="DateOfAdmission">
                             <div class="govuk-date-input__item">
                                 <div class="govuk-form-group">
-                                    <label class="govuk-label govuk-date-input__label" asp-for="DayOfAdmission">
+                                    <label class="govuk-label govuk-date-input__label" asp-for="DateOfAdmission.Day">
                                         Day
                                     </label>
-                                    <input class="govuk-input govuk-date-input__input govuk-input--width-2" asp-for="DayOfAdmission" type="text" pattern="[0-9]*" inputmode="numeric">
+                                    <input class="govuk-input govuk-date-input__input govuk-input--width-2" asp-for="DateOfAdmission.Day" type="text" pattern="[0-9]*" inputmode="numeric">
                                 </div>
                             </div>
                             <div class="govuk-date-input__item">
                                 <div class="govuk-form-group">
-                                    <label class="govuk-label govuk-date-input__label" asp-for="MonthOfAdmission">
+                                    <label class="govuk-label govuk-date-input__label" asp-for="DateOfAdmission.Month">
                                         Month
                                     </label>
-                                    <input class="govuk-input govuk-date-input__input govuk-input--width-2" asp-for="MonthOfAdmission" type="text" pattern="[0-9]*" inputmode="numeric">
+                                    <input class="govuk-input govuk-date-input__input govuk-input--width-2" asp-for="DateOfAdmission.Month" type="text" pattern="[0-9]*" inputmode="numeric">
                                 </div>
                             </div>
                             <div class="govuk-date-input__item">
                                 <div class="govuk-form-group">
-                                    <label class="govuk-label govuk-date-input__label" asp-for="YearOfAdmission">
+                                    <label class="govuk-label govuk-date-input__label" asp-for="DateOfAdmission.Year">
                                         Year
                                     </label>
-                                    <input class="govuk-input govuk-date-input__input govuk-input--width-4" asp-for="YearOfAdmission" type="text" pattern="[0-9]*" inputmode="numeric">
+                                    <input class="govuk-input govuk-date-input__input govuk-input--width-4" asp-for="DateOfAdmission.Year" type="text" pattern="[0-9]*" inputmode="numeric">
                                 </div>
                             </div>
                         </div>
                     </fieldset>
                 </div>
-                <div class="govuk-form-group">
+                <div class="govuk-form-group" asp-for="YearGroup">
                     <fieldset class="govuk-fieldset">
                         <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                             <h2 class="govuk-fieldset__heading govuk-!-font-weight-regular">
                                 Year group
                             </h2>
                         </legend>
-                        <div class="govuk-radios">
+                        <div class="govuk-radios" asp-for="YearGroup">
                             <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="YearGroup-7" name="YearGroup" type="radio" value="7" @(Model != null && Model.YearGroup == "7" ? "checked": string.Empty)>
+                                <input class="govuk-radios__input" id="YearGroup-7" asp-for="YearGroup" type="radio" value="7">
                                 <label class="govuk-label govuk-radios__label" for="YearGroup-7">
                                     7
                                 </label>
                             </div>
                             <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="YearGroup-8" name="YearGroup" type="radio" value="8" @(Model != null && Model.YearGroup == "8" ? "checked": string.Empty)>
-                                <label class="govuk-label govuk-radios__label" for="YearGroup-8">
+                                <input class="govuk-radios__input" id="YearGroup-8" asp-for="YearGroup" type="radio" value="8">
+                                <label class="govuk-label govuk-radios__label" id="YearGroup-8">
                                     8
                                 </label>
                             </div>
                             <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="YearGroup-9" name="YearGroup" type="radio" value="9" @(Model != null && Model.YearGroup == "9" ? "checked": string.Empty)>
+                                <input class="govuk-radios__input" id="YearGroup-9" asp-for="YearGroup" type="radio" value="9">
                                 <label class="govuk-label govuk-radios__label" for="YearGroup-9">
                                     9
                                 </label>
                             </div>
                             <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="YearGroup-10" name="YearGroup" type="radio" value="10" @(Model != null && Model.YearGroup == "10" ? "checked": string.Empty)>
+                                <input class="govuk-radios__input" id="YearGroup-10" asp-for="YearGroup" type="radio" value="10">
                                 <label class="govuk-label govuk-radios__label" for="YearGroup-10">
                                     10
                                 </label>
                             </div>
                             <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="YearGroup-11" name="YearGroup" type="radio" value="11" @(Model != null && Model.YearGroup == "11" ? "checked": string.Empty)>
+                                <input class="govuk-radios__input" id="YearGroup-11" asp-for="YearGroup" type="radio" value="11">
                                 <label class="govuk-label govuk-radios__label" for="YearGroup-11">
                                     11
                                 </label>
