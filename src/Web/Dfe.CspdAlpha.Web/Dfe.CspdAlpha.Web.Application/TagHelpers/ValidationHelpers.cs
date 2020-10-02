@@ -63,7 +63,7 @@ namespace Dfe.CspdAlpha.Web.Application.TagHelpers
                 var metadata = viewData.ModelMetadata;
                 var modelStateDictionary = viewData.ModelState;
                 var entries = new Dictionary<string, ModelStateEntry>();
-                Visit(modelStateDictionary.Root, metadata, entries);
+                Visit(viewData.TemplateInfo.HtmlFieldPrefix, modelStateDictionary.Root, metadata, entries);
 
                 if (entries.Count < modelStateDictionary.Count)
                 {
@@ -84,15 +84,18 @@ namespace Dfe.CspdAlpha.Web.Application.TagHelpers
         }
 
         private static void Visit(
+            string parentName,
             ModelStateEntry modelStateEntry,
             ModelMetadata metadata,
             IDictionary<string, ModelStateEntry> orderedModelStateEntries)
         {
+            var fieldName = string.IsNullOrWhiteSpace(parentName) ? metadata.Name : $"{parentName}.{metadata.Name}";
+
             if (metadata.ElementMetadata != null && modelStateEntry.Children != null)
             {
                 foreach (var indexEntry in modelStateEntry.Children)
                 {
-                    Visit(indexEntry, metadata.ElementMetadata, orderedModelStateEntries);
+                    Visit(fieldName, indexEntry, metadata.ElementMetadata, orderedModelStateEntries);
                 }
             }
             else
@@ -103,14 +106,14 @@ namespace Dfe.CspdAlpha.Web.Application.TagHelpers
                     var propertyModelStateEntry = modelStateEntry.GetModelStateForProperty(propertyMetadata.PropertyName);
                     if (propertyModelStateEntry != null)
                     {
-                        Visit(propertyModelStateEntry, propertyMetadata, orderedModelStateEntries);
+                        Visit(fieldName, propertyModelStateEntry, propertyMetadata, orderedModelStateEntries);
                     }
                 }
             }
 
             if (!modelStateEntry.IsContainerNode)
             {
-                orderedModelStateEntries.Add(metadata.Name, modelStateEntry);
+                orderedModelStateEntries.Add(fieldName, modelStateEntry);
             }
         }
     }

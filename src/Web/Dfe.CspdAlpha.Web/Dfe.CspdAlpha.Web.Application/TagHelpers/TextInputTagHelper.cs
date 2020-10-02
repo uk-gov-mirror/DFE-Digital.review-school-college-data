@@ -3,21 +3,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using System.Text.Encodings.Web;
 
 namespace Dfe.CspdAlpha.Web.Application.TagHelpers
 {
     /// <summary>
-    /// Adds GOV.UK Frontend validation markup to the input element.
+    /// Adds GOV.UK Frontend validation markup to the text input element.
     /// </summary>
-    [HtmlTargetElement("input", Attributes = "asp-for", TagStructure = TagStructure.WithoutEndTag)]
-    public class InputTagHelper : TagHelper
+    [HtmlTargetElement("input", Attributes = MarkupConstants.Classes.AspFor + ",[type=text]", TagStructure = TagStructure.WithoutEndTag)]
+    public class TextInputTagHelper : TagHelper
     {
         [HtmlAttributeNotBound]
         [ViewContext]
         public ViewContext ViewContext { get; set; }
 
-        [HtmlAttributeName("asp-for")]
+        [HtmlAttributeName(MarkupConstants.Classes.AspFor)]
         public ModelExpression For { get; set; }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
@@ -32,13 +31,13 @@ namespace Dfe.CspdAlpha.Web.Application.TagHelpers
             {
                 var builder = new TagBuilder("input");
 
-                builder.AddCssClass("govuk-input--error");
+                builder.AddCssClass(MarkupConstants.Classes.InputError);
                 output.MergeAttributes(builder);
-                output.RemoveClass("input-validation-error", HtmlEncoder.Default);
 
-                output.PreElement.AppendFormat("<span id=\"{0}-error\" class=\"govuk-error-message\">" +
-                    "<span class=\"govuk-visually-hidden\">Error:</span> {1}</span>",
-                    For.Name, entry.Errors[0].ErrorMessage);
+                output.PreElement.AppendFormat(
+                    MarkupConstants.Elements.SpanErrorMessageFormat,
+                    For.Name,
+                    entry.Errors[0].ErrorMessage);
             }
         }
     }

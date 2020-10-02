@@ -133,7 +133,7 @@ namespace Dfe.CspdAlpha.Web.Application.TagHelpers
             rowDiv.AddCssClass("govuk-grid-row");
             rowDiv.InnerHtml.AppendHtml(columnDiv);
 
-            // TODO: Discuss with Jon what validation summary is required by frontend validation
+            // TODO: Discuss with Jon what validation summary markup is required by frontend validation
             if (viewData.ModelState.IsValid)
             {
                 rowDiv.Attributes.Add("style", "display:none");

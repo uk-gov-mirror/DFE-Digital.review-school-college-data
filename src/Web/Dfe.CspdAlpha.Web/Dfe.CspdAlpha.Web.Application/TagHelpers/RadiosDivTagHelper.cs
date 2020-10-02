@@ -1,16 +1,15 @@
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Dfe.CspdAlpha.Web.Application.TagHelpers
 {
     /// <summary>
-    /// Parent div for form input elements. Applies validation markup as necessary.
+    /// Parent div for a set of radio button elements. Applies validation markup as necessary.
     /// </summary>
-    [HtmlTargetElement("div", Attributes = MarkupConstants.Classes.AspFor + ",[class^='govuk-form-group']")]
-    public class FormGroupDivTagHelper : TagHelper
+    [HtmlTargetElement("div", Attributes = MarkupConstants.Classes.AspFor + ",[class^='govuk-radios']")]
+    public class RadiosDivTagHelper : TagHelper
     {
         [HtmlAttributeNotBound]
         [ViewContext]
@@ -29,10 +28,8 @@ namespace Dfe.CspdAlpha.Web.Application.TagHelpers
 
             if (entry != null && entry.Errors.Count > 0)
             {
-                var builder = new TagBuilder("div");
-
-                builder.AddCssClass("govuk-form-group--error");
-                output.MergeAttributes(builder);
+                output.PreElement.AppendFormat(
+                    MarkupConstants.Elements.SpanErrorMessageFormat, For.Name, entry.Errors[0].ErrorMessage);
             }
         }
     }
