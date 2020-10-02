@@ -46,7 +46,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         public IActionResult View(string id)
         {
             var viewModel = _schoolService.GetPupil(CheckingWindow, id);
-            return View(viewModel);
+            return View(new ViewPupilViewModel{CheckingWindow = CheckingWindow, MatchedPupilViewModel = viewModel});
         }
 
         public IActionResult Add()
