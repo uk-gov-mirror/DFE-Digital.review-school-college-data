@@ -12,34 +12,10 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
         public string UPN { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public int? DayOfBirth { get; set; }
-        public int? MonthOfBirth { get; set; }
-        public int? YearOfBirth { get; set; }
-        public DateTime DateOfBirth
-        {
-            get => new DateTime(YearOfBirth.Value, MonthOfBirth.Value, DayOfBirth.Value);
-            set
-            {
-                DayOfBirth = value.Day;
-                MonthOfBirth = value.Month;
-                YearOfBirth = value.Year;
-            }
-        }
+        public DateTime DateOfBirth { get; set; }
         public int Age { get; set; }
         public Gender Gender { get; set; }
-        public int? DayOfAdmission { get; set; }
-        public int? MonthOfAdmission { get; set; }
-        public int? YearOfAdmission { get; set; }
-        public DateTime DateOfAdmission
-        {
-            get => new DateTime(YearOfAdmission.Value, MonthOfAdmission.Value, DayOfAdmission.Value);
-            set
-            {
-                DayOfAdmission = value.Day;
-                MonthOfAdmission = value.Month;
-                YearOfAdmission = value.Year;
-            }
-        }
+        public DateTime DateOfAdmission { get; set; }
         public string YearGroup { get; set; }
         public string FullName => string.Join(" ", new[] {FirstName, LastName}.Where(n => !string.IsNullOrEmpty(n)));
     }

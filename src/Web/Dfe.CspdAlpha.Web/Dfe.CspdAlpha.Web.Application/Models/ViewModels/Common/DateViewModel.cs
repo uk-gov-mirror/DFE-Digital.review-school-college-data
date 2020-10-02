@@ -4,6 +4,17 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Common
 {
     public class DateViewModel
     {
+        public DateViewModel()
+        {
+        }
+
+        public DateViewModel(DateTime date)
+        {
+            Day = date.Day;
+            Month = date.Month;
+            Year = date.Year;
+        }
+
         public int? Day { get; set; }
 
         public int? Month { get; set; }

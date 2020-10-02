@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Moq;
 using Xunit;
 
-namespace Dfe.Rscd.Web.UnitTests.Application
+namespace Dfe.Rscd.Web.UnitTests.Application.Services
 {
     public class AmendmentServiceTests
     {
