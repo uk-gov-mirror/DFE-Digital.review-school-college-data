@@ -12,9 +12,9 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.Repositories
     {
         private Container _container { get; }
 
-        public EstablishmentRepository(CosmosClient cosmosClient, string database, string collection)
+        public EstablishmentRepository(Container container)
         {
-            _container = cosmosClient.GetContainer(database, collection);
+            _container = container;
         }
 
         public EstablishmentsDTO GetById(string id)

@@ -1,41 +1,57 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Dfe.Rscd.Api.Domain.Core;
+﻿using Dfe.Rscd.Api.Domain.Core;
+using Dfe.Rscd.Api.Domain.Core.Enums;
 using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Domain.Interfaces;
-using Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs;
+using Dfe.Rscd.Api.Infrastructure.CosmosDb.Repositories;
+using Microsoft.Azure.Cosmos;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.Services
 {
     public class PupilService : IPupilService
     {
-        private IReadRepository<PupilDTO> _pupilRepository;
+        private Database _cosmosDb;
 
-        public PupilService(IReadRepository<PupilDTO> pupilRepository)
+        public PupilService(Database cosmosDB)
         {
-            _pupilRepository = pupilRepository;
+            _cosmosDb = cosmosDB;
         }
 
-        public Pupil GetById(string id)
+        public Pupil GetById(CheckingWindow checkingWindow, string id)
         {
-            var matchedPupil = _pupilRepository.Query().Where(p => p.UPN == id).ToList();
-            return matchedPupil.Any() ? matchedPupil.SingleOrDefault().Pupil : null;
+            var matchedPupil = GetRepository(checkingWindow).GetById(id);
+            return matchedPupil.Pupil;
         }
 
-        public List<Pupil> GetByUrn(URN urn)
+        public List<Pupil> QueryPupils(CheckingWindow checkingWindow, PupilsSearchRequest query)
         {
-            var dtos = _pupilRepository.Query().Where(p => p.URN == urn.Value).ToList();
+            var repoQuery = GetRepository(checkingWindow).Query();
+            if (!string.IsNullOrWhiteSpace(query.URN))
+            {
+                repoQuery = repoQuery.Where(p => p.URN == query.URN);
+            }
+            if (!string.IsNullOrWhiteSpace(query.ID))
+            {
+                repoQuery = repoQuery.Where(p => p.UPN.StartsWith(query.ID) || p.ULN.StartsWith(query.ID));
+            }
+            if (!string.IsNullOrWhiteSpace(query.Name))
+            {
+                var nameParts = query.Name.Split(' ');
+                foreach (var namePart in nameParts)
+                {
+                    repoQuery = repoQuery.Where(p => p.Forename.StartsWith(namePart) || p.Surname.StartsWith(namePart));
+                }
+            }
+
+            var dtos = repoQuery.ToList();
             return dtos.Select(p => p.Pupil).ToList();
         }
 
-        public List<Pupil> FindMatchedPupils(Pupil pupil)
+        private PupilRepository GetRepository(CheckingWindow checkingWindow)
         {
-            var dob = int.Parse(pupil.DateOfBirth.ToString("yyyyMMdd"));
-            var matchedPupils = _pupilRepository.Query().Where(p =>
-               p.Forename == pupil.ForeName && p.Surname == pupil.LastName && p.DOB == dob).ToList();
-            return matchedPupils.Select(p => p.Pupil).ToList();
+            var container = _cosmosDb.GetContainer(checkingWindow.ToString().ToLower() + "_pupils_2019");
+            return new PupilRepository(container);
         }
     }
 }

@@ -3,26 +3,36 @@ using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Domain.Interfaces;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs;
 using System.Linq;
+using Dfe.Rscd.Api.Domain.Core.Enums;
+using Dfe.Rscd.Api.Infrastructure.CosmosDb.Repositories;
+using Microsoft.Azure.Cosmos;
 
 namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.Services
 {
     public class EstablishmentService : IEstablishmentService
     {
-        private IReadRepository<EstablishmentsDTO> _establishmentRepository;
+        private Database _cosmosDb;
 
-        public EstablishmentService(IReadRepository<EstablishmentsDTO> establishmentRepository)
+        public EstablishmentService(Database cosmosDB)
         {
-            _establishmentRepository = establishmentRepository;
+            _cosmosDb = cosmosDB;
         }
-        public Establishment GetByURN(URN urn)
+        public Establishment GetByURN(CheckingWindow checkingWindow, URN urn)
         {
-            return _establishmentRepository.GetById(urn.Value).Establishment;
+
+            return GetRepository(checkingWindow).GetById(urn.Value).Establishment;
         }
 
-        public Establishment GetByLAId(string laId)
+        public Establishment GetByLAId(CheckingWindow checkingWindow, string laId)
         {
-            var results = _establishmentRepository.Query().Where(e => e.DFESNumber == laId).ToList();
+            var results = GetRepository(checkingWindow).Query().Where(e => e.DFESNumber == laId).ToList();
             return results.Count > 0 ? results.First().Establishment : null;
+        }
+
+        private IReadRepository<EstablishmentsDTO> GetRepository(CheckingWindow checkingWindow)
+        {
+            var container = _cosmosDb.GetContainer(checkingWindow.ToString().ToLower() + "_establishments_2019");
+            return new EstablishmentRepository(container);
         }
     }
 }

@@ -4,122 +4,96 @@ using Dfe.CspdAlpha.Web.Application.Models.ViewModels;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
 using Dfe.CspdAlpha.Web.Domain.Core;
 using Dfe.CspdAlpha.Web.Domain.Entities;
-using Dfe.CspdAlpha.Web.Domain.Interfaces;
-using System.Collections.Generic;
-using System.Linq;
+using Dfe.CspdAlpha.Web.Domain.Interfaces;using System.Linq;
+using Dfe.CspdAlpha.Web.Application.Application.Helpers;
+using Dfe.CspdAlpha.Web.Application.Models.Common;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Results;
-using DomainEnums = Dfe.CspdAlpha.Web.Domain.Core.Enums;
+using Dfe.Rscd.Web.ApiClient;
+using Establishment = Dfe.Rscd.Web.ApiClient.Establishment;
+using Gender = Dfe.Rscd.Web.ApiClient.Gender;
+using Ks2Subject = Dfe.CspdAlpha.Web.Application.Models.ViewModels.Results.Ks2Subject;
 
 namespace Dfe.CspdAlpha.Web.Application.Application.Services
 {
     public class SchoolService : ISchoolService
     {
-        private IEstablishmentService _establishmentService;
-        private readonly Dictionary<string, string> HEADLINE_SCORES = new Dictionary<string, string>
-        {
-            {"P8MEA", "Progress 8 measure after adjustment for extreme scores" },
-            {"ATT8SCR", "Average Attainment 8 score per pupil" },
-            {"PTEBACC_95", "Percentage of pupils achieving the English Baccalaureate with 9-5 passes" }
-        };
-        private readonly Dictionary<string, string> ADDITIONAL_SCORES = new Dictionary<string, string>
-        {
-            {"EBACCAPS", "Average EBacc APS score per pupil" },
-            {"PTEBACC", "Percentage of pupils achieving the English Baccalaureate with 9-4 passes" }
-        };
-        private readonly Dictionary<string, string> COHORT_SCORES = new Dictionary<string, string>
-        {
-            {"TPUP", "Number of pupils at the end of key stage 4" },
-            {"P8PUP", "Number of pupils included in Progress 8 measure" },
-            {"SENSE4", "Number of pupils at the end of key stage 4 with special educational needs (SEN) with a statement or Education, health and care (EHC) plan" }
-        };
-        private IPupilService _pupilService;
         private IConfirmationService _confirmationService;
+        private IClient _apiClient;
 
-        public SchoolService(IEstablishmentService establishmentService, IPupilService pupilService, IConfirmationService confirmationService)
+        public SchoolService(IConfirmationService confirmationService, IClient apiClient)
         {
+            _apiClient = apiClient;
             _confirmationService = confirmationService;
-            _pupilService = pupilService;
-            _establishmentService = establishmentService;
         }
 
-        public string GetSchoolName(string laestab)
-        {
-            var school = _establishmentService.GetByLAId(laestab);
-            return school != null ? school.Name : string.Empty;
-        }
 
-        public SchoolViewModel GetSchoolViewModel(string urn)
+        private Establishment GetEstablishmentData(CheckingWindow checkingWindow, string urn)
         {
-            var urnValue = new URN(urn);
-            var establishmentData = _establishmentService.GetByURN(urnValue);
-            return new SchoolViewModel
+            var school = _apiClient.EstablishmentsAsync(urn, checkingWindow.ToString().ToLower()).GetAwaiter().GetResult();
+            if (string.IsNullOrWhiteSpace(school.Error.ErrorMessage))
             {
-                SchoolDetails = new SchoolDetails
-                {
-                    SchoolName = establishmentData.Name,
-                    URN = urn,
-                    LAEstab = establishmentData.LaEstab,
-                    SchoolType = establishmentData.SchoolType
-                },
-                HeadlineMeasures = establishmentData.PerformanceMeasures.Where(p => HEADLINE_SCORES.Any(h => h.Key == p.Name)).Select(m => new Measure{Name = HEADLINE_SCORES[m.Name], Data = m.Value}).OrderBy(s => s.Name).ToList(),
-                AdditionalMeasures = establishmentData.PerformanceMeasures.Where(p => ADDITIONAL_SCORES.Any(h => h.Key == p.Name)).Select(m => new Measure{Name = ADDITIONAL_SCORES[m.Name], Data = m.Value}).OrderBy(s => s.Name).ToList(),
-                CohortMeasures = establishmentData.PerformanceMeasures.Where(p => COHORT_SCORES.Any(h => h.Key == p.Name)).Select(m => new Measure{Name = COHORT_SCORES[m.Name], Data = m.Value}).OrderBy(s => s.Name).ToList()
-            };
+                return school.Result;
+            }
+            return null;
         }
 
-        public PupilListViewModel GetPupilListViewModel(string checkingWindow, string urn, string id, string name)
+        public PupilListViewModel GetPupilListViewModel(CheckingWindow checkingWindow, string urn, string id, string name)
         {
             return GetPupilListViewModel(checkingWindow, new PupilQuery { URN = urn, Name = name, ID = id});
         }
 
-        private PupilListViewModel GetPupilListViewModel(string checkingWindow, PupilQuery query)
+        public PupilListViewModel GetPupilListViewModel(CheckingWindow checkingWindow, string urn)
         {
+            return GetPupilListViewModel(checkingWindow, new PupilQuery {URN = urn});
+        }
+
+        private PupilListViewModel GetPupilListViewModel(CheckingWindow checkingWindow, PupilQuery query)
+        {
+            var checkingWindowURL = CheckingWindowHelper.GetCheckingWindowURL(checkingWindow);
+            var schoolDetails = GetSchoolDetails(checkingWindow, query.URN);
+            var pupilDetails = _apiClient.Search2Async(query.URN, query.Name, query.ID, checkingWindowURL).GetAwaiter().GetResult();
             return new PupilListViewModel
             {
                 Urn = query.URN,
-                SchoolDetails = GetSchoolDetails(query.URN),
-                Pupils = _pupilService
-                    .QueryPupils(checkingWindow, query)
-                    .Select(p => new PupilListEntry { FirstName = p.ForeName, LastName = p.LastName, PupilId = p.Id.Value, UPN = p.UPN })
+                SchoolDetails = schoolDetails,
+                Pupils = pupilDetails.Result
+                    .Select(p => new PupilListEntry { FirstName = p.ForeName, LastName = p.LastName, PupilId = p.Id, UPN = p.Upn })
                     .OrderBy(p => p.FirstName)
                     .ToList()
             };
         }
 
-        public PupilListViewModel GetPupilListViewModel(string checkingWindow, string urn)
-        {
-            return GetPupilListViewModel(checkingWindow, new PupilQuery {URN = urn});
-        }
 
-        public MatchedPupilViewModel GetPupil(string checkingWindow, string id)
+        public MatchedPupilViewModel GetPupil(CheckingWindow checkingWindow, string id)
         {
-            var pupil = _pupilService.GetById(checkingWindow, id);
+            var checkingWindowURL = CheckingWindowHelper.GetCheckingWindowURL(checkingWindow);
+            var pupil = _apiClient.PupilsAsync(id, checkingWindowURL).GetAwaiter().GetResult();
             if (pupil == null)
             {
                 return null;
             }
 
-            return GetMatchedPupilViewModel(pupil);
+            return GetMatchedPupilViewModel(pupil.Result);
         }
 
 
-        private MatchedPupilViewModel GetMatchedPupilViewModel(Pupil pupil)
+        private MatchedPupilViewModel GetMatchedPupilViewModel(Rscd.Web.ApiClient.Pupil pupil)
         {
             return new MatchedPupilViewModel()
             {
                 PupilViewModel = new PupilViewModel
                 {
                     URN = pupil.Urn.Value,
-                    UPN = pupil.UPN,
+                    UPN = pupil.Upn,
                     SchoolID = pupil.LaEstab,
                     FirstName = pupil.ForeName,
                     LastName = pupil.LastName,
-                    DateOfBirth = pupil.DateOfBirth,
+                    DateOfBirth = pupil.DateOfBirth.Date,
                     Age = pupil.Age,
-                    Gender = pupil.Gender == DomainEnums.Gender.Male
+                    Gender = pupil.Gender == Gender._1
                         ? Models.Common.Gender.Male
                         : Models.Common.Gender.Female,
-                    DateOfAdmission = pupil.DateOfAdmission,
+                    DateOfAdmission = pupil.DateOfAdmission.Date,
                     YearGroup = pupil.YearGroup
                 },
                 Results = pupil.Results
@@ -133,15 +107,17 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             };
         }
 
-        public MatchedPupilViewModel GetMatchedPupil(string checkingWindow, string upn)
+        public MatchedPupilViewModel GetMatchedPupil(CheckingWindow checkingWindow, string upn)
         {
-            var pupil = _pupilService.GetById(checkingWindow, new PupilId(upn));
-            if (pupil == null)
+            var checkingWindowURL = CheckingWindowHelper.GetCheckingWindowURL(checkingWindow);
+            var pupil = _apiClient.Search2Async(string.Empty, string.Empty, upn, checkingWindowURL).GetAwaiter()
+                .GetResult();
+            if (pupil == null || pupil.Result == null || pupil.Result.Count == 0 || pupil.Result.Count > 1)
             {
                 return null;
             }
 
-            return GetMatchedPupilViewModel(pupil);
+            return GetMatchedPupilViewModel(pupil.Result.First());
         }
 
         private string ValidateValue(string value)
@@ -164,25 +140,24 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             }
         }
 
-        public TaskListViewModel GetConfirmationRecord(string userId, string urn)
+        public TaskListViewModel GetConfirmationRecord(CheckingWindow checkingWindow, string userId, string urn)
         {
             var confirmationRecord = _confirmationService.GetConfirmationRecord(userId, urn);
             return confirmationRecord != null
                 ? new TaskListViewModel
                 {
-                    SchoolDetails = GetSchoolDetails(urn),
+                    SchoolDetails = GetSchoolDetails(checkingWindow, urn),
                     ReviewChecked = confirmationRecord.ReviewCompleted, DataConfirmed = confirmationRecord.DataConfirmed
                 }
                 : new TaskListViewModel
                 {
-                    SchoolDetails = GetSchoolDetails(urn)
+                    SchoolDetails = GetSchoolDetails(checkingWindow, urn)
                 };
         }
 
-        private SchoolDetails GetSchoolDetails(string urn)
+        private SchoolDetails GetSchoolDetails(CheckingWindow checkingWindow, string urn)
         {
-            var urnValue = new URN(urn);
-            var establishmentData = _establishmentService.GetByURN(urnValue);
+            var establishmentData = GetEstablishmentData(checkingWindow, urn);
             return new SchoolDetails
             {
                 SchoolName = establishmentData.Name,

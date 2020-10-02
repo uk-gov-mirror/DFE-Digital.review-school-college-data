@@ -31,7 +31,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
             _firstLineTeamId = config.Value.Helpdesk1stLineTeamId;
         }
 
-        private cr3d5_establishment GetOrCreateEstablishment(string id, CrmServiceContext context)
+        private cr3d5_establishment GetOrCreateEstablishment(CheckingWindow checkingWindow, string id, CrmServiceContext context)
         {
             var establishmentDto =
                 context.cr3d5_establishmentSet.SingleOrDefault(
@@ -50,13 +50,13 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
             Establishment establishment = null;
             try
             {
-                establishment = _establishmentService.GetByURN(new URN(id));
+                establishment = _establishmentService.GetByURN(checkingWindow, new URN(id));
             }
             catch { }
 
             if (establishment == null)
             {
-                establishment = _establishmentService.GetByLAId(id);
+                establishment = _establishmentService.GetByLAId(checkingWindow, id);
             }
 
             if (establishment == null)
@@ -83,7 +83,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
             return establishmentDto;
         }
 
-        public bool CreateAddPupilAmendment(AddPupilAmendment amendment, out string id)
+        public bool CreateAddPupilAmendment(CheckingWindow checkingWindow, AddPupilAmendment amendment, out string id)
         {
             Guid amendmentId;
             using (var context = new CrmServiceContext(_organizationService))
@@ -163,13 +163,13 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
                     throw result.FirstOrDefault(e => e.Error != null)?.Error ?? new ApplicationException();
                 }
                 // Relate to establishment
-                var amendmentEstablishment = GetOrCreateEstablishment(amendment.Pupil.Urn.Value, context);
+                var amendmentEstablishment = GetOrCreateEstablishment(checkingWindow, amendment.Pupil.Urn.Value, context);
                 RelateEstablishment(amendmentEstablishment, amendmentDto.Id, context);
 
                 // If add existing pupil then create matching remove amendment if valid establishment
                 if (amendmentDto.cr3d5_addreasontype == cr3d5_Pupiltype.Existingpupil)
                 {
-                    var removeAmendmentEstablishment = GetOrCreateEstablishment(amendment.Pupil.LaEstab, context);
+                    var removeAmendmentEstablishment = GetOrCreateEstablishment(checkingWindow, amendment.Pupil.LaEstab, context);
                     if (removeAmendmentEstablishment != null)
                     {
                         // Create remove amendment
@@ -259,14 +259,16 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
             }
         }
 
-        public IEnumerable<AddPupilAmendment> GetAddPupilAmendments(string urn)
+        public IEnumerable<AddPupilAmendment> GetAddPupilAmendments(CheckingWindow checkingWindow, string urn)
         {
             using (var context = new CrmServiceContext(_organizationService))
             {
                 var amendments = context.new_AmendmentSet.Where(
                     x => x.cr3d5_urn == urn).ToList();
 
-                return amendments.Select(Convert);
+                return amendments.Select(Convert)
+                    .Where(a => checkingWindow != CheckingWindow.KS4Late || (a.Status == "Approved" || a.Status == "Rejected"))
+                    .OrderByDescending(o => o.CreatedDate);
             }
         }
 

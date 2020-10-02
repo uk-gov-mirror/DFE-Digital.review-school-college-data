@@ -11,9 +11,9 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.Repositories
     public class PupilRepository : IReadRepository<PupilDTO>
     {
         private Container _container { get; }
-        public PupilRepository(CosmosClient cosmosClient, string database, string collection)
+        public PupilRepository(Container container)
         {
-            _container = cosmosClient.GetContainer(database, collection);
+            _container = container;
         }
 
         public List<PupilDTO> Get()

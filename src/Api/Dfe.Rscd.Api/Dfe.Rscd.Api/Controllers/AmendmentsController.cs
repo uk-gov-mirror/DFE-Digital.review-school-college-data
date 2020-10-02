@@ -1,10 +1,12 @@
-﻿using Dfe.Rscd.Api.Domain.Entities;
+﻿using System;
+using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Domain.Interfaces;
 using Dfe.Rscd.Api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
+using Dfe.Rscd.Api.Domain.Core.Enums;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Dfe.Rscd.Api.Controllers
@@ -20,14 +22,6 @@ namespace Dfe.Rscd.Api.Controllers
             _amendmentService = amendmentService;
         }
 
-        // TODO: Not sure if we need a get all amendments endpoint as we will likely have a dedicated end point for the amendments export
-        // GET: api/Amendments
-        //[HttpGet]
-        //public IEnumerable<string> Get()
-        //{
-
-        //    return new string[] { "value1", "value2" };
-        //}
 
         // GET: api/Amendments/5
         [HttpGet]
@@ -42,10 +36,12 @@ namespace Dfe.Rscd.Api.Controllers
         public IActionResult Get([FromRoute, SwaggerParameter("The URN of the school requesting amendments", Required = true)] string urn,
             [FromRoute, SwaggerParameter("The checking window to request amendments from", Required = true)] string checkingwindow)
         {
+            CheckingWindow checkingWindow;
+            Enum.TryParse(checkingwindow.Replace("-", string.Empty), true,
+                out checkingWindow);
             var lateChecking = checkingwindow == "ks4-late";
-            var amendments = _amendmentService.GetAddPupilAmendments(urn)
-                .Where(a => !lateChecking || (a.Status == "Approved" || a.Status == "Rejected"))
-                .OrderByDescending(o => o.CreatedDate)
+
+            var amendments = _amendmentService.GetAddPupilAmendments(checkingWindow, urn)
                 .ToList();
             var response = new GetResponse<List<AddPupilAmendment>>
             {

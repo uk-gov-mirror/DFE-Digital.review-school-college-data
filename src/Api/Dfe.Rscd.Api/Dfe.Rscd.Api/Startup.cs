@@ -1,7 +1,5 @@
 using Dfe.Rscd.Api.Domain.Interfaces;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Config;
-using Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs;
-using Dfe.Rscd.Api.Infrastructure.CosmosDb.Repositories;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Services;
 using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Config;
 using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services;
@@ -16,7 +14,6 @@ using Microsoft.OpenApi.Models;
 using Microsoft.PowerPlatform.Cds.Client;
 using Microsoft.Xrm.Sdk;
 using System;
-using System.Threading.Tasks;
 
 namespace Dfe.Rscd.Api
 {
@@ -66,17 +63,13 @@ namespace Dfe.Rscd.Api
                 services.Configure<BasicAuthOptions>(Configuration.GetSection("BasicAuth"));
             }
             var cosmosDbOptions = Configuration.GetSection("CosmosDb").Get<CosmosDbOptions>();
-            var client = new CosmosClient(cosmosDbOptions.Account, cosmosDbOptions.Key);
-
-            services.AddSingleton(IntialiseEstablishmentService(client, cosmosDbOptions.Database, cosmosDbOptions.EstablishmentsCollection).GetAwaiter().GetResult());
-            services.AddSingleton<IEstablishmentService, EstablishmentService>();
+            var cosmosDatabase = new CosmosClient(cosmosDbOptions.Account, cosmosDbOptions.Key).GetDatabase(cosmosDbOptions.Database);
+            services.AddSingleton<IEstablishmentService>(x =>
+                new EstablishmentService(cosmosDatabase));
+            services.AddSingleton<IPupilService>(x =>
+                new PupilService(cosmosDatabase));
             services.AddSingleton<IAmendmentService, CrmAmendmentService>();
 
-        }
-
-        private static async Task<IReadRepository<EstablishmentsDTO>> IntialiseEstablishmentService(CosmosClient client, string database, string collection)
-        {
-            return new EstablishmentRepository(client, database, collection);
         }
 
 

@@ -1,6 +1,7 @@
 using Dfe.CspdAlpha.Web.Application.Application.Services;
 using Dfe.CspdAlpha.Web.Domain.Interfaces;
 using Dfe.CspdAlpha.Web.Infrastructure.Interfaces;
+using Dfe.Rscd.Web.ApiClient;
 using Microsoft.AspNetCore.Http;
 using Moq;
 using Xunit;
@@ -15,7 +16,8 @@ namespace Dfe.Rscd.Web.UnitTests.Application
             // Arrange
             var mockDomainAmendmentService = new Mock<IAmendmentService>();
             var mockFileUploadService = new Mock<IFileUploadService>();
-            var service = new AmendmentService(mockDomainAmendmentService.Object, mockFileUploadService.Object);
+            var mockApiClientService = new Mock<IClient>();
+            var service = new AmendmentService(mockDomainAmendmentService.Object, mockFileUploadService.Object, mockApiClientService.Object);
             var file = new FormFile(new System.IO.MemoryStream(), 0, 10, "test.txt", "test.txt")
             {
                 Headers = new HeaderDictionary
@@ -37,7 +39,8 @@ namespace Dfe.Rscd.Web.UnitTests.Application
             // Arrange
             var mockDomainAmendmentService = new Mock<IAmendmentService>();
             var mockFileUploadService = new Mock<IFileUploadService>();
-            var service = new AmendmentService(mockDomainAmendmentService.Object, mockFileUploadService.Object);
+            var mockApiClientService = new Mock<IClient>();
+            var service = new AmendmentService(mockDomainAmendmentService.Object, mockFileUploadService.Object, mockApiClientService.Object);
 
             // Act
             var folderName = service.UploadEvidence(new[] { new FormFile(new System.IO.MemoryStream(), 0, 0, "", "") });

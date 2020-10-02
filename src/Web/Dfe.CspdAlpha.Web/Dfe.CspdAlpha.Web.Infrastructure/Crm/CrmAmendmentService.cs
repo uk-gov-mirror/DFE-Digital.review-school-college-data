@@ -24,20 +24,17 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
         private readonly IOrganizationService _organizationService;
         private readonly Guid _firstLineTeamId;
         private readonly Guid _sharePointDocumentLocationRecordId;
-        private IEstablishmentService _establishmentService;
 
         public CrmAmendmentService(
             IOrganizationService organizationService, 
-            IEstablishmentService establishmentService,
             IOptions<DynamicsOptions> config)
         {
-            _establishmentService = establishmentService;
             _organizationService = organizationService;
             _firstLineTeamId = config.Value.Helpdesk1stLineTeamId;
             _sharePointDocumentLocationRecordId = config.Value.SharePointDocumentLocationRecordId;
         }
 
-        private cr3d5_establishment GetOrCreateEstablishment(string id, CrmServiceContext context)
+        private cr3d5_establishment GetOrCreateEstablishment( string id, CrmServiceContext context)
         {
             var establishmentDto =
                 context.cr3d5_establishmentSet.SingleOrDefault(
@@ -56,13 +53,13 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
             Establishment establishment = null;
             try
             {
-                establishment = _establishmentService.GetByURN(new URN(id));
+                //establishment = _establishmentService.GetByURN(new URN(id));
             }
             catch { }
 
             if (establishment == null)
             {
-                establishment = _establishmentService.GetByLAId(id);
+                //establishment = _establishmentService.GetByLAId(id);
             }
 
             if (establishment == null)
@@ -182,13 +179,13 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
                     throw result.FirstOrDefault(e => e.Error != null)?.Error ?? new ApplicationException();
                 }
                 // Relate to establishment
-                var amendmentEstablishment = GetOrCreateEstablishment(amendment.Pupil.Urn.Value, context);
+                var amendmentEstablishment = GetOrCreateEstablishment( amendment.Pupil.Urn.Value, context);
                 RelateEstablishment(amendmentEstablishment, amendmentDto.Id, context);
 
                 // If add existing pupil then create matching remove amendment if valid establishment
                 if (amendmentDto.cr3d5_addreasontype == cr3d5_Pupiltype.Existingpupil)
                 {
-                    var removeAmendmentEstablishment = GetOrCreateEstablishment(amendment.Pupil.LaEstab, context);
+                    var removeAmendmentEstablishment = GetOrCreateEstablishment( amendment.Pupil.LaEstab, context);
                     if (removeAmendmentEstablishment != null)
                     {
                         // Create remove amendment
@@ -271,27 +268,6 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
             }
         }
 
-        public IEnumerable<AddPupilAmendment> GetAddPupilAmendments(int laestab)
-        {
-            using (var context = new CrmServiceContext(_organizationService))
-            {
-                var amendments = context.new_AmendmentSet.Where(
-                    x => x.cr3d5_laestab == laestab.ToString()).ToList();
-
-                return amendments.Select(Convert);
-            }
-        }
-
-        public IEnumerable<AddPupilAmendment> GetAddPupilAmendments(string urn)
-        {
-            using (var context = new CrmServiceContext(_organizationService))
-            {
-                var amendments = context.new_AmendmentSet.Where(
-                    x => x.cr3d5_urn == urn).ToList();
-
-                return amendments.Select(Convert);
-            }
-        }
 
         private AddPupilAmendment Convert(new_Amendment amendment)
         {

@@ -12,6 +12,7 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs
         public string id { get; set; }
         public string URN { get; set; }
         public string UPN { get; set; }
+        public string ULN { get; set; }
         public string DFESNumber { get; set; }
         public string Forename { get; set; }
         public string Surname { get; set; }
@@ -27,16 +28,21 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs
         {
             Id = id,
             Urn = new URN(URN),
-            UPN = UPN,
+            UPN = UPN ?? ULN,
             LaEstab = DFESNumber,
             ForeName = Forename,
             LastName = Surname,
-            DateOfBirth = DateTime.ParseExact(DOB.ToString(), "yyyyMMdd", new CultureInfo("en-GB")),
+            DateOfBirth = GetDateTime(DOB.ToString()),
             Age = Age,
             Gender = Gender == "M" ? Domain.Core.Enums.Gender.Male : Domain.Core.Enums.Gender.Female,
-            DateOfAdmission = DateTime.ParseExact(ENTRYDAT.ToString(), "yyyyMMdd", new CultureInfo("en-GB")),
+            DateOfAdmission = GetDateTime(ENTRYDAT.ToString()),
             YearGroup = ActualYearGroup,
             Results = performance.Select(p => new Result { SubjectCode = p.SubjectCode, ExamYear = p.ExamYear, TestMark = p.TestMark, ScaledScore = p.ScaledScore }).ToList()
         };
+
+        private DateTime GetDateTime(string dateString)
+        {
+            return DateTime.TryParseExact(dateString, "yyyyMMdd", new CultureInfo("en-GB"), DateTimeStyles.None, out var date ) ? date : DateTime.MinValue;
+        }
     }
 }
