@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using Dfe.CspdAlpha.Web.Application.Models.Common;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
@@ -19,29 +20,33 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
     {
         private ISchoolService _schoolService;
         private readonly IAmendmentService _amendmentService;
+        private IEstablishmentService _establishmentService;
         private const string ADD_PUPIL_AMENDMENT = "add-pupil-amendment";
         private const string ADD_PUPIL_AMENDMENT_ID = "add-pupil-amendment-id";
+        private CheckingWindow CheckingWindow => CheckingWindowHelper.GetCheckingWindow(RouteData);
 
         public PupilController(
             ISchoolService schoolService,
+            IEstablishmentService establishmentService,
             IAmendmentService amendmentService
             )
         {
+            _establishmentService = establishmentService;
             _schoolService = schoolService;
             _amendmentService = amendmentService;
         }
 
         public IActionResult Index(string urn)
         {
-            var viewModel = _schoolService.GetPupilListViewModel(RouteData.Values["phase"].ToString(), urn);
+            var viewModel = _schoolService.GetPupilListViewModel(CheckingWindow, urn);
             viewModel.CheckingWindow = CheckingWindowHelper.GetCheckingWindow(RouteData);
             return View(viewModel);
         }
 
         public IActionResult View(string id)
         {
-            var viewModel = _schoolService.GetPupil(RouteData.Values["phase"].ToString(), id);
-            return View(viewModel);
+            var viewModel = _schoolService.GetPupil(CheckingWindow, id);
+            return View(new ViewPupilViewModel{CheckingWindow = CheckingWindow, MatchedPupilViewModel = viewModel});
         }
 
         public IActionResult Add()
@@ -60,9 +65,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
             if (!string.IsNullOrEmpty(addPupilDetailsViewModel.UPN))
             {
-                existingPupil = _schoolService.GetMatchedPupil(
-                    RouteData.Values["phase"].ToString(), addPupilDetailsViewModel.UPN);
-
+                existingPupil = _schoolService.GetMatchedPupil(CheckingWindow, addPupilDetailsViewModel.UPN);
                 if (existingPupil == null)
                 {
                     ModelState.AddModelError(nameof(addPupilDetailsViewModel.UPN), "Enter a valid UPN");
@@ -108,7 +111,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 return RedirectToAction("Add");
             }
 
-            var school = _schoolService.GetSchoolName(addPupilAmendment.PupilViewModel.SchoolID);
+            var school = _establishmentService.GetSchoolName(CheckingWindow, addPupilAmendment.PupilViewModel.SchoolID);
 
             return View(
                 new ExistingMatchViewModel

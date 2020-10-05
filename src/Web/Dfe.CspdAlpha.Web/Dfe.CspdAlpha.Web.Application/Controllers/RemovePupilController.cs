@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dfe.CspdAlpha.Web.Application.Application.Helpers;
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
+using Dfe.CspdAlpha.Web.Application.Models.Common;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,6 +13,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
     public class RemovePupilController : Controller
     {
         private ISchoolService _schoolService;
+        private CheckingWindow CheckingWindow => CheckingWindowHelper.GetCheckingWindow(RouteData);
 
         public RemovePupilController(ISchoolService schoolService)
         {
@@ -28,7 +30,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         {
             if (ModelState.IsValid)
             {
-                var pupilsFound = _schoolService.GetPupilListViewModel(RouteData.Values["phase"].ToString(),
+                var pupilsFound = _schoolService.GetPupilListViewModel(CheckingWindow,
                     ClaimsHelper.GetURN(this.User), viewModel.PupilID, viewModel.Name);
                 if (pupilsFound.Pupils.Count == 0 || pupilsFound.Pupils.Count > 1)
                 {
@@ -44,7 +46,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
         public IActionResult MatchedPupil(string id)
         {
-            var viewModel = _schoolService.GetPupil(RouteData.Values["phase"].ToString(), id);
+            var viewModel = _schoolService.GetPupil(CheckingWindow, id);
             return View(viewModel);
         }
     }

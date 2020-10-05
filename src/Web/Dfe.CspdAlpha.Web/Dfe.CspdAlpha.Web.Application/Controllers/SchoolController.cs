@@ -7,17 +7,18 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
     public class SchoolController : Controller
     {
-        private readonly ISchoolService _schoolService;
+        private readonly IEstablishmentService _establishmentService;
 
-        public SchoolController(ISchoolService schoolService, IConfiguration configuration)
+        public SchoolController(IEstablishmentService establishmentService1, IConfiguration configuration)
         {
-            _schoolService = schoolService;
+            _establishmentService = establishmentService1;
         }
 
         public IActionResult Index(string urn)
         {
-            var viewModel = _schoolService.GetSchoolViewModel(urn);
-            viewModel.CheckingWindow = CheckingWindowHelper.GetCheckingWindow(RouteData);
+            var checkingWindow = CheckingWindowHelper.GetCheckingWindow(RouteData);
+            var viewModel = _establishmentService.GetSchoolViewModel(checkingWindow, urn);
+            viewModel.CheckingWindow = checkingWindow;
             viewModel.DataDescription = "This is provisional data for 2018/19.";
             return View(viewModel);
         }

@@ -4,33 +4,32 @@ using Dfe.CspdAlpha.Web.Application.Middleware;
 using Dfe.CspdAlpha.Web.Domain.Interfaces;
 using Dfe.CspdAlpha.Web.Infrastructure.Crm;
 using Dfe.CspdAlpha.Web.Infrastructure.Interfaces;
-using Dfe.CspdAlpha.Web.Infrastructure.CosmosDb.Service;
+using Dfe.CspdAlpha.Web.Infrastructure.SharePoint;
+using Dfe.CspdAlpha.Web.Shared.Config;
+using Dfe.Rscd.Web.ApiClient;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.StaticFiles;
-using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.FeatureManagement;
 using Microsoft.PowerPlatform.Cds.Client;
 using Microsoft.Xrm.Sdk;
 using Sustainsys.Saml2;
 using Sustainsys.Saml2.AspNetCore2;
 using Sustainsys.Saml2.Metadata;
-using System.Threading.Tasks;
-using Dfe.CspdAlpha.Web.Infrastructure.CosmosDb.DTOs;
-using Dfe.CspdAlpha.Web.Infrastructure.CosmosDb.Repositories;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.TagHelpers;
+using System;
+using System.Net.Http.Headers;
+using System.Text;
 using AppInterface = Dfe.CspdAlpha.Web.Application.Application.Interfaces;
 using DomainInterface = Dfe.CspdAlpha.Web.Domain.Interfaces;
-using Dfe.CspdAlpha.Web.Shared.Config;
-using Dfe.CspdAlpha.Web.Infrastructure.SharePoint;
-using Microsoft.FeatureManagement;
 using FluentValidation.AspNetCore;
 using Dfe.CspdAlpha.Web.Application.Validators.Pupil;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
@@ -112,6 +111,7 @@ namespace Dfe.CspdAlpha.Web.Application
             services.AddTransient<IOrganizationService, CdsServiceClient>(sp => cdsClient.Clone());
             services.Configure<DynamicsOptions>(Configuration.GetSection("Dynamics"));
 
+            // Session config
             services.Configure<CookiePolicyOptions>(options =>
             {
                 options.CheckConsentNeeded = context => true;
@@ -124,26 +124,27 @@ namespace Dfe.CspdAlpha.Web.Application
 
             services.Configure<SharePointOptions>(Configuration.GetSection("SharePoint"));
 
-
+            // Application insights config
             services.AddApplicationInsightsTelemetry();
 
-            var cosmosDbOptions = Configuration.GetSection("CosmosDb").Get<CosmosDbOptions>();
-            var client = new CosmosClient(cosmosDbOptions.Account, cosmosDbOptions.Key);
-
-            services.AddSingleton<IPupilService>(x => new PupilService(client, cosmosDbOptions.Database));
-            services.AddSingleton(IntialiseEstablishmentService(client, cosmosDbOptions.Database, cosmosDbOptions.EstablishmentsCollection).GetAwaiter().GetResult());
-            services.AddSingleton<IEstablishmentService, EstablishmentService>();
             services.AddSingleton<DomainInterface.IAmendmentService, CrmAmendmentService>();
             services.AddSingleton<IConfirmationService, CrmConfirmationService>();
             services.AddSingleton<IFileUploadService, SharePointFileUploadService>();
             services.AddSingleton<ISchoolService, SchoolService>();
+            services.AddSingleton<AppInterface.IEstablishmentService, EstablishmentService>();
             services.AddSingleton<AppInterface.IAmendmentService, AmendmentService>();
             services.AddTransient<IHtmlGenerator, HtmlGenerator>();
-        }
 
-        private static async Task<IReadRepository<EstablishmentsDTO>> IntialiseEstablishmentService(CosmosClient client, string database, string collection)
-        {
-            return new EstablishmentRepository(client, database, collection);
+            var apiOptions = Configuration.GetSection("Api").Get<ApiOptions>();
+            services.AddHttpClient<IClient, Client>(client =>
+            {
+                client.BaseAddress = new Uri(apiOptions.URL);
+                if (!string.IsNullOrWhiteSpace(apiOptions.UserName) && !string.IsNullOrWhiteSpace(apiOptions.Password))
+                {
+                    var encodedCredentials = Convert.ToBase64String(Encoding.ASCII.GetBytes($"{apiOptions.UserName}:{apiOptions.Password}"));
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", encodedCredentials);
+                }
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

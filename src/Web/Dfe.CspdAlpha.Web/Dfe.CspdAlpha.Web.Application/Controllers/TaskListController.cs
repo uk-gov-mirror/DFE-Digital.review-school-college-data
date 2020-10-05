@@ -27,7 +27,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             if (viewModel == null)
             {
                 var urn = ClaimsHelper.GetURN(this.User);
-                viewModel = _schoolService.GetConfirmationRecord(UserID, urn) ?? new TaskListViewModel();
+                viewModel = _schoolService.GetConfirmationRecord(CheckingWindow, UserID, urn) ?? new TaskListViewModel();
                 viewModel.CheckingWindow = CheckingWindow;
                 HttpContext.Session.Set(string.Format(TASK_LIST, UserID), viewModel);
             }

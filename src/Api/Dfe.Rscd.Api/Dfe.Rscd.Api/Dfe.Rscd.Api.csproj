@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>e5b15163-c064-4415-b35f-ef35f807e047</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="5.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Dfe.Rscd.Api.Domain\Dfe.Rscd.Api.Domain.csproj" />
+    <ProjectReference Include="..\Dfe.Rscd.Api.Infrastructure\Dfe.Rscd.Api.Infrastructure.csproj" />
+  </ItemGroup>
+
+
+</Project>
