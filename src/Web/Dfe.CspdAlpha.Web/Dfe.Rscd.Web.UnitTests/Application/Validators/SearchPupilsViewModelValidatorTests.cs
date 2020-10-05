@@ -12,7 +12,7 @@ namespace Dfe.Rscd.Web.UnitTests.Application.Validators
             // Arrange
             var viewModel = new SearchPupilsViewModel()
             {
-                SearchType = "PupilID",
+                SearchType = QueryType.PupilID,
                 PupilID = "79"
             };
 
@@ -31,7 +31,7 @@ namespace Dfe.Rscd.Web.UnitTests.Application.Validators
             // Arrange
             var viewModel = new SearchPupilsViewModel()
             {
-                SearchType = "PupilID",
+                SearchType = QueryType.PupilID,
                 PupilID = " "
             };
 
@@ -50,7 +50,7 @@ namespace Dfe.Rscd.Web.UnitTests.Application.Validators
             // Arrange
             var viewModel = new SearchPupilsViewModel()
             {
-                SearchType = "Name",
+                SearchType = QueryType.Name,
                 Name = "Hector d'Arras Sausage-Hausen, Jr."
             };
 
@@ -69,7 +69,7 @@ namespace Dfe.Rscd.Web.UnitTests.Application.Validators
             // Arrange
             var viewModel = new SearchPupilsViewModel()
             {
-                SearchType = "Name",
+                SearchType = QueryType.Name,
                 Name = " "
             };
 
@@ -87,7 +87,7 @@ namespace Dfe.Rscd.Web.UnitTests.Application.Validators
             // Arrange
             var viewModel = new SearchPupilsViewModel()
             {
-                SearchType = "Name",
+                SearchType = QueryType.Name,
                 Name = "R2-D2"
             };
 

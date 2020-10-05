@@ -8,11 +8,14 @@
     <a class="govuk-back-link" asp-controller="RemovePupil" asp-action="Index">Back</a>
 }
 
+<div asp-validation-summary="All"></div>
+
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-three-quarters">
         <h1 class="govuk-heading-xl govuk-!-margin-bottom-4">@ViewBag.Title</h1>
     </div>
 </div>
+
 @if (Model.PupilListViewModel.Pupils.Count == 0)
 {
     <div class="govuk-grid-row">
@@ -23,31 +26,31 @@
 }
 else
 {
-    <form asp-action="MatchedPupil" method="get">
+    <form asp-action="Results" method="post">
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-three-quarters">
-                <fieldset class="govuk-fieldset">
-                    <legend class="govuk-legend govuk-fieldset__legend--s govuk-!-margin-bottom-4">Select one</legend>
-                    <div class="govuk-form-group">
+                <div class="govuk-form-group" asp-for="SelectedID">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-legend govuk-fieldset__legend--s govuk-!-margin-bottom-4">
+                            Select one
+                        </legend>
                         @foreach (var student in Model.PupilListViewModel.Pupils)
                         {
-                            <div class="govuk-radios">
+                            <div class="govuk-radios" asp-for="SelectedID">
                                 <div class="govuk-radios__item app-radios-multiline__item app-radios-search-result">
-                                    <input type="radio" name="id" id="PupilId-@student.PupilId" value="@student.PupilId" class="govuk-radios__input"/>
+                                    <input type="radio" asp-for="SelectedID" id="PupilId-@student.PupilId" value="@student.PupilId" class="govuk-radios__input" />
                                     <label class="govuk-label govuk-radios__label govuk-!-margin-bottom-0" for="PupilId-@student.PupilId">
                                         @student.FirstName @student.LastName
                                         <span class="app-radios-multiline__label-row">ULN @student.UPN</span>
                                     </label>
                                 </div>
-
                             </div>
                             <p class="app-align--below-radios govuk-body-s">
                                 <a asp-controller="RemovePupil" asp-action="MatchedPupil" asp-route-id="@student.PupilId">View student</a>
                             </p>
                         }
-
-                    </div>
-                </fieldset>
+                    </fieldset>
+                </div>
             </div>
         </div>
 
@@ -56,8 +59,10 @@ else
                 <p class="govuk-body">Continue to remove selected student</p>
             </div>
             <div class="govuk-grid-column-full">
-                <input type="submit" class="govuk-button" data-module="govuk-button" value="Continue"/>
+                <input type="submit" class="govuk-button" data-module="govuk-button" value="Continue" />
             </div>
         </div>
-    </form>
+        <input type="hidden" asp-for="SearchType" />
+        <input type="hidden" asp-for="Query"/>
+</form>
 }

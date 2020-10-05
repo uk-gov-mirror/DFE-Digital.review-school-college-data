@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
@@ -36,7 +37,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
         public IActionResult Index(string urn)
         {
-            var viewModel = _schoolService.GetPupilListViewModel(CheckingWindow, urn);
+            var viewModel = _schoolService.GetPupilListViewModel(CheckingWindow, new SearchQuery{URN = urn});
             viewModel.CheckingWindow = CheckingWindowHelper.GetCheckingWindow(RouteData);
             return View(viewModel);
         }

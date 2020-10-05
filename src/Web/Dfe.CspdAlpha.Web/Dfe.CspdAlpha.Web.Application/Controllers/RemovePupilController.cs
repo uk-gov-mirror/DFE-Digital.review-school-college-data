@@ -27,18 +27,35 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         {
             if (ModelState.IsValid)
             {
-                var pupilsFound = _schoolService.GetPupilListViewModel(CheckingWindow,
-                    ClaimsHelper.GetURN(this.User), viewModel.PupilID, viewModel.Name);
-                if (pupilsFound.Pupils.Count == 0 || pupilsFound.Pupils.Count > 1)
-                {
-                    return View("ResultsList", new ResultsViewModel
-                    {
-                        PupilListViewModel = pupilsFound
-                    });
-                }
-                return RedirectToAction("MatchedPupil", new {id = pupilsFound.Pupils.First().PupilId});
+                return RedirectToAction("Results", new { viewModel.SearchType, Query = viewModel.PupilID ?? viewModel.Name });
             }
             return View(viewModel);
+        }
+
+        public IActionResult Results(SearchQuery viewModel)
+        {
+            var pupilsFound = _schoolService.GetPupilListViewModel(CheckingWindow, viewModel);
+            if (pupilsFound.Pupils.Count == 0 || pupilsFound.Pupils.Count > 1)
+            {
+                return View( new ResultsViewModel
+                {
+                    PupilListViewModel = pupilsFound
+                });
+            }
+            return RedirectToAction("MatchedPupil", new { id = pupilsFound.Pupils.First().PupilId });
+        }
+
+        [HttpPost]
+        public IActionResult Results(ResultsViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction("MatchedPupil", new { id = viewModel.SelectedID });
+            }
+            viewModel.PupilListViewModel = _schoolService.GetPupilListViewModel(CheckingWindow, new SearchQuery { Query = viewModel.Query, URN = viewModel.URN, SearchType = viewModel.SearchType});
+
+            return View(viewModel);
+
         }
 
         public IActionResult MatchedPupil(string id)

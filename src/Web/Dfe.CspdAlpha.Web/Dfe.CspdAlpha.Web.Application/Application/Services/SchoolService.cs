@@ -2,11 +2,11 @@ using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
 using Dfe.CspdAlpha.Web.Application.Models.School;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
-using Dfe.CspdAlpha.Web.Domain.Core;
 using Dfe.CspdAlpha.Web.Domain.Entities;
 using Dfe.CspdAlpha.Web.Domain.Interfaces;using System.Linq;
 using Dfe.CspdAlpha.Web.Application.Application.Helpers;
 using Dfe.CspdAlpha.Web.Application.Models.Common;
+using Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Results;
 using Dfe.Rscd.Web.ApiClient;
 using Establishment = Dfe.Rscd.Web.ApiClient.Establishment;
@@ -26,7 +26,6 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             _confirmationService = confirmationService;
         }
 
-
         private Establishment GetEstablishmentData(CheckingWindow checkingWindow, string urn)
         {
             var school = _apiClient.EstablishmentsAsync(urn, checkingWindow.ToString().ToLower()).GetAwaiter().GetResult();
@@ -37,24 +36,14 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             return null;
         }
 
-        public PupilListViewModel GetPupilListViewModel(CheckingWindow checkingWindow, string urn, string id, string name)
-        {
-            return GetPupilListViewModel(checkingWindow, new PupilQuery { URN = urn, Name = name, ID = id});
-        }
-
-        public PupilListViewModel GetPupilListViewModel(CheckingWindow checkingWindow, string urn)
-        {
-            return GetPupilListViewModel(checkingWindow, new PupilQuery {URN = urn});
-        }
-
-        private PupilListViewModel GetPupilListViewModel(CheckingWindow checkingWindow, PupilQuery query)
+        public PupilListViewModel GetPupilListViewModel(CheckingWindow checkingWindow, SearchQuery searchQuery)
         {
             var checkingWindowURL = CheckingWindowHelper.GetCheckingWindowURL(checkingWindow);
-            var schoolDetails = GetSchoolDetails(checkingWindow, query.URN);
-            var pupilDetails = _apiClient.Search2Async(query.URN, query.Name, query.ID, checkingWindowURL).GetAwaiter().GetResult();
+            var schoolDetails = GetSchoolDetails(checkingWindow, searchQuery.URN);
+            var pupilDetails = _apiClient.Search2Async(searchQuery.URN, searchQuery.SearchType == QueryType.Name ? searchQuery.Query : string.Empty, searchQuery.SearchType == QueryType.PupilID ? searchQuery.Query : string.Empty, checkingWindowURL).GetAwaiter().GetResult();
             return new PupilListViewModel
             {
-                Urn = query.URN,
+                Urn = searchQuery.URN,
                 SchoolDetails = schoolDetails,
                 Pupils = pupilDetails.Result
                     .Select(p => new PupilListEntry { FirstName = p.ForeName, LastName = p.LastName, PupilId = p.Id, UPN = p.Upn })
@@ -62,7 +51,6 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                     .ToList()
             };
         }
-
 
         public MatchedPupilViewModel GetPupil(CheckingWindow checkingWindow, string id)
         {
