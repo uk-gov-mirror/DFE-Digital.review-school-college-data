@@ -6,12 +6,10 @@ using Dfe.CspdAlpha.Web.Application.Models.Common;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Common;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Results;
-using Dfe.CspdAlpha.Web.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using Dfe.CspdAlpha.Web.Application.Models.Common;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
 {

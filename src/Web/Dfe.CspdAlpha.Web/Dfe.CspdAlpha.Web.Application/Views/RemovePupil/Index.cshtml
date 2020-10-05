@@ -8,6 +8,8 @@
     <a class="govuk-back-link" asp-controller="TaskList" asp-action="Index">Back</a>
 }
 
+<div asp-validation-summary="All"></div>
+
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-three-quarters">
         <h1 class="govuk-heading-xl govuk-!-margin-bottom-4">@ViewBag.Title</h1>
@@ -28,15 +30,15 @@
                             </label>
                         </div>
                         <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-SearchType-conditional">
-                            <div class="govuk-form-group">
+                            <div class="govuk-form-group" asp-for="PupilID">
                                 <label class="govuk-label" asp-for="PupilID">
                                     Enter a ULN
                                 </label>
                                 <input class="govuk-input govuk-!-width-one-third" asp-for="PupilID" type="text">
 
                             </div>
-                             <div class="govuk-form-group">
-                                 <input type="submit" class="govuk-button" data-module="govuk-button" value="Search"/>
+                            <div class="govuk-form-group">
+                                <input type="submit" class="govuk-button" data-module="govuk-button" value="Search" />
 
                             </div>
                         </div>
@@ -49,7 +51,7 @@
                             </label>
                         </div>
                         <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-SearchType-conditional-2">
-                            <div class="govuk-form-group">
+                            <div class="govuk-form-group" asp-for="Name">
                                 <label class="govuk-label" asp-for="Name">
                                     Enter a student name
                                 </label>
@@ -57,7 +59,7 @@
 
                             </div>
                             <div class="govuk-form-group">
-                                <input type="submit" class="govuk-button" data-module="govuk-button" value="Search"/>
+                                <input type="submit" class="govuk-button" data-module="govuk-button" value="Search" />
                             </div>
                         </div>
                     </div>
