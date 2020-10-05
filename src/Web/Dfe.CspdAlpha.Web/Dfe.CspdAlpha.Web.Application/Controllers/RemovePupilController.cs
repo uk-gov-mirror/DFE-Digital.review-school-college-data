@@ -63,5 +63,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             var viewModel = _schoolService.GetPupil(CheckingWindow, id);
             return View(viewModel);
         }
+
+
     }
 }

@@ -2,7 +2,7 @@
 @model ViewPupilViewModel
 @{
     var phase = Model.CheckingWindow.ToString().ToLower().Substring(0, 3);
-    ViewData["Title"] = phase == "ks5" ? "View student: " : "View pupil: " + Model.MatchedPupilViewModel.PupilViewModel.FullName;
+    ViewData["Title"] = (phase == "ks5" ? "View student: " : "View pupil: ") + Model.MatchedPupilViewModel.PupilViewModel.FullName;
     ViewBag.ContentClass = "app-detail-page-main";
 }
 
