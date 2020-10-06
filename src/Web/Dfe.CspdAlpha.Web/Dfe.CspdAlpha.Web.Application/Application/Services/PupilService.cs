@@ -55,7 +55,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                     LastName = pupil.LastName,
                     DateOfBirth = pupil.DateOfBirth.Date,
                     Age = pupil.Age,
-                    Gender = pupil.Gender == Rscd.Web.ApiClient.Gender._1
+                    Gender = pupil.Gender == Rscd.Web.ApiClient.Gender.Male
                         ? Models.Common.Gender.Male
                         : Models.Common.Gender.Female,
                     DateOfAdmission = pupil.DateOfAdmission.Date,

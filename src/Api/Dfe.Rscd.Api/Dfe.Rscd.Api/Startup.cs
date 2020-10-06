@@ -14,6 +14,7 @@ using Microsoft.OpenApi.Models;
 using Microsoft.PowerPlatform.Cds.Client;
 using Microsoft.Xrm.Sdk;
 using System;
+using System.Text.Json.Serialization;
 
 namespace Dfe.Rscd.Api
 {
@@ -32,23 +33,29 @@ namespace Dfe.Rscd.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers()
+                .AddJsonOptions(x =>
+                {
+                    x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                });
 
             services.AddSwaggerGen(c =>
+            {
                 c.SwaggerDoc(
                     "v1",
                     new OpenApiInfo
                     {
                         Title = "Review school and college data API - V1",
                         Version = "V1",
-                        Description = "Provides a restful API for intergating with the RSCD Dynamics CRM Common Data Service and CosmosDB data sources",
+                        Description =
+                            "Provides a restful API for intergating with the RSCD Dynamics CRM Common Data Service and CosmosDB data sources",
                         License = new OpenApiLicense
                         {
                             Name = "MIT License",
                             Url = new Uri("https://opensource.org/licenses/MIT")
                         }
-                    })
-            );
+                    });
+            });
 
             // Dynamics 365 configuration
             var dynamicsConnString = Configuration.GetConnectionString("DynamicsCds");

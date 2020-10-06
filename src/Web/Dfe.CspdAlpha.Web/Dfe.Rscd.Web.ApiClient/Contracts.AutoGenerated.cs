@@ -94,30 +94,40 @@ namespace Dfe.Rscd.Web.ApiClient
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.2.1.0 (Newtonsoft.Json v12.0.0.0)")]
     public enum AddReason
     {
-        _0 = 0,
+        [System.Runtime.Serialization.EnumMember(Value = @"New")]
+        New = 0,
     
-        _1 = 1,
+        [System.Runtime.Serialization.EnumMember(Value = @"Existing")]
+        Existing = 1,
     
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.2.1.0 (Newtonsoft.Json v12.0.0.0)")]
     public enum PupilStatus
     {
-        _0 = 0,
+        [System.Runtime.Serialization.EnumMember(Value = @"Unknown")]
+        Unknown = 0,
     
-        _1 = 1,
+        [System.Runtime.Serialization.EnumMember(Value = @"_401")]
+        _401 = 1,
     
-        _2 = 2,
+        [System.Runtime.Serialization.EnumMember(Value = @"_403")]
+        _403 = 2,
     
-        _3 = 3,
+        [System.Runtime.Serialization.EnumMember(Value = @"_407")]
+        _407 = 3,
     
-        _4 = 4,
+        [System.Runtime.Serialization.EnumMember(Value = @"_412")]
+        _412 = 4,
     
-        _5 = 5,
+        [System.Runtime.Serialization.EnumMember(Value = @"_421")]
+        _421 = 5,
     
-        _6 = 6,
+        [System.Runtime.Serialization.EnumMember(Value = @"_425")]
+        _425 = 6,
     
-        _7 = 7,
+        [System.Runtime.Serialization.EnumMember(Value = @"_428")]
+        _428 = 7,
     
     }
     
@@ -133,11 +143,14 @@ namespace Dfe.Rscd.Web.ApiClient
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.2.1.0 (Newtonsoft.Json v12.0.0.0)")]
     public enum Gender
     {
-        _0 = 0,
+        [System.Runtime.Serialization.EnumMember(Value = @"Unknown")]
+        Unknown = 0,
     
-        _1 = 1,
+        [System.Runtime.Serialization.EnumMember(Value = @"Female")]
+        Female = 1,
     
-        _2 = 2,
+        [System.Runtime.Serialization.EnumMember(Value = @"Male")]
+        Male = 2,
     
     }
     
@@ -193,6 +206,7 @@ namespace Dfe.Rscd.Web.ApiClient
         public string Id { get; set; }
     
         [Newtonsoft.Json.JsonProperty("status", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public PupilStatus Status { get; set; }
     
         [Newtonsoft.Json.JsonProperty("urn", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
@@ -220,6 +234,7 @@ namespace Dfe.Rscd.Web.ApiClient
         public int Age { get; set; }
     
         [Newtonsoft.Json.JsonProperty("gender", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public Gender Gender { get; set; }
     
         [Newtonsoft.Json.JsonProperty("dateOfAdmission", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
@@ -237,13 +252,17 @@ namespace Dfe.Rscd.Web.ApiClient
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.2.1.0 (Newtonsoft.Json v12.0.0.0)")]
     public enum Ks2Subject
     {
-        _0 = 0,
+        [System.Runtime.Serialization.EnumMember(Value = @"Unknown")]
+        Unknown = 0,
     
-        _1 = 1,
+        [System.Runtime.Serialization.EnumMember(Value = @"Reading")]
+        Reading = 1,
     
-        _2 = 2,
+        [System.Runtime.Serialization.EnumMember(Value = @"Writing")]
+        Writing = 2,
     
-        _3 = 3,
+        [System.Runtime.Serialization.EnumMember(Value = @"Maths")]
+        Maths = 3,
     
     }
     
@@ -251,6 +270,7 @@ namespace Dfe.Rscd.Web.ApiClient
     public partial class PriorAttainment 
     {
         [Newtonsoft.Json.JsonProperty("subject", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public Ks2Subject Subject { get; set; }
     
         [Newtonsoft.Json.JsonProperty("examYear", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
@@ -268,13 +288,17 @@ namespace Dfe.Rscd.Web.ApiClient
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.2.1.0 (Newtonsoft.Json v12.0.0.0)")]
     public enum EvidenceStatus
     {
-        _0 = 0,
+        [System.Runtime.Serialization.EnumMember(Value = @"Unknown")]
+        Unknown = 0,
     
-        _1 = 1,
+        [System.Runtime.Serialization.EnumMember(Value = @"Now")]
+        Now = 1,
     
-        _2 = 2,
+        [System.Runtime.Serialization.EnumMember(Value = @"Later")]
+        Later = 2,
     
-        _3 = 3,
+        [System.Runtime.Serialization.EnumMember(Value = @"NotRequired")]
+        NotRequired = 3,
     
     }
     
@@ -300,6 +324,7 @@ namespace Dfe.Rscd.Web.ApiClient
         public string Reference { get; set; }
     
         [Newtonsoft.Json.JsonProperty("addReason", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public AddReason AddReason { get; set; }
     
         [Newtonsoft.Json.JsonProperty("pupil", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
@@ -312,6 +337,7 @@ namespace Dfe.Rscd.Web.ApiClient
         public bool InclusionConfirmed { get; set; }
     
         [Newtonsoft.Json.JsonProperty("evidenceStatus", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public EvidenceStatus EvidenceStatus { get; set; }
     
         [Newtonsoft.Json.JsonProperty("evidenceList", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]

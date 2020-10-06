@@ -65,20 +65,71 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
         {
             switch (evidenceStatus)
             {
-                case Rscd.Web.ApiClient.EvidenceStatus._1:
+                case Rscd.Web.ApiClient.EvidenceStatus.Now:
                     return EvidenceStatus.Now;
-                case Rscd.Web.ApiClient.EvidenceStatus._2:
+                case Rscd.Web.ApiClient.EvidenceStatus.Later:
                     return EvidenceStatus.Later;
-                case Rscd.Web.ApiClient.EvidenceStatus._3:
+                case Rscd.Web.ApiClient.EvidenceStatus.NotRequired:
                     return EvidenceStatus.NotRequired;
-                case Rscd.Web.ApiClient.EvidenceStatus._0:
+                case Rscd.Web.ApiClient.EvidenceStatus.Unknown:
                 default:
                     return EvidenceStatus.Unknown;
 
             }
         }
 
+        public Dictionary<string, string> GetRemoveReasons(string reason = null)
+        {
+            if (reason == "329")
+            {
+                return new Dictionary<string, string>
+                {
+                    { "01", "Excluded" },
+                    { "02", "Left on health grounds" },
+                    { "03", "Pregnancy" },
+                    { "04", "Exceptional circumstances" },
+                    { "05", "Imprisoned/Trial" },
+                    { "06", "Safeguarding" },
+                    { "07", "Not ESFA funded" },
+                    { "08", "Too old - age not eligible for reporting" },
+                    { "09", "Year 11 student - wrong year group" },
+                    { "10", "Census error" }
+                };
+            }
 
+            if (reason == "330")
+            {
+                return new Dictionary<string, string>
+                {
+                    { "01", "Part-time learner" },
+                    { "02", "Work based learner at FE College" },
+                    { "03", "On a one year course of study" },
+                    { "04", "Work experience" },
+                    { "05", "Below level 2 students" },
+                    { "06", "Left for apprenticeship but previously on roll" },
+                    { "07", "Withdrawn from exam/no exams taken" },
+                    { "08", "Not at end of studies" },
+                    { "09", "Left country permanently" },
+                    { "10", "Private candidate" },
+                    { "12", "Small programme" },
+                    { "13", "Died" },
+                    { "14", "SEN" },
+                    { "15", "Non-attendance" },
+                    { "16", "Moved provider" },
+                    { "20", "Previously reported" },
+                    { "21", "Dual registered" }
+                };
+            }
+            return new Dictionary<string, string>
+            {
+                { "325", "Not at the end of 16 to 18 study" },
+                { "326", "International student" },
+                { "327", "Deceased" },
+                { "328", "Not on roll" },
+                { "329", "Other - with evidence" },
+                { "330", "Other - evidence not required" },
+            };
+        }
 
         public AmendmentViewModel GetAddPupilAmendmentViewModel(Guid id)
         {

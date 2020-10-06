@@ -7,5 +7,6 @@ namespace Dfe.CspdAlpha.Web.Application.Models.Amendments.AmendmentTypes
         public AmendmentType AmendmentType => AmendmentType.RemovePupil;
         public PupilDetails PupilDetails { get; set; }
         public string Reason { get; set; }
+        public string SubReason { get; set; }
     }
 }

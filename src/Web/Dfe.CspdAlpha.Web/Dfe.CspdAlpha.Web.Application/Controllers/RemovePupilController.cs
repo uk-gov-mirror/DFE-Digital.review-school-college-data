@@ -1,12 +1,12 @@
+using Dfe.CspdAlpha.Web.Application.Application.Extensions;
 using Dfe.CspdAlpha.Web.Application.Application.Helpers;
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
+using Dfe.CspdAlpha.Web.Application.Models.Amendments;
+using Dfe.CspdAlpha.Web.Application.Models.Amendments.AmendmentTypes;
 using Dfe.CspdAlpha.Web.Application.Models.Common;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
-using Dfe.CspdAlpha.Web.Application.Models.Amendments;
-using Dfe.CspdAlpha.Web.Application.Models.Amendments.AmendmentTypes;
-using Dfe.CspdAlpha.Web.Application.Application.Extensions;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
@@ -14,10 +14,12 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
     {
         private const string REMOVE_PUPIL_AMENDMENT = "remove-pupil-amendment";
         private IPupilService _pupilService;
+        private IAmendmentService _amendmentService;
         private CheckingWindow CheckingWindow => CheckingWindowHelper.GetCheckingWindow(RouteData);
 
-        public RemovePupilController(IPupilService pupilService)
+        public RemovePupilController(IPupilService pupilService, IAmendmentService amendmentService)
         {
+            _amendmentService = amendmentService;
             _pupilService = pupilService;
         }
 
@@ -90,27 +92,42 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
         public IActionResult Reason()
         {
-            var reasonPupilAmendment = HttpContext.Session.Get<Amendment<RemovePupil>>(REMOVE_PUPIL_AMENDMENT);
-            return View(new ReasonViewModel{PupilDetails = reasonPupilAmendment.AmendmentDetail.PupilDetails});
+            var removePupilAmendment = HttpContext.Session.Get<Amendment<RemovePupil>>(REMOVE_PUPIL_AMENDMENT);
+            return View(new ReasonViewModel{PupilDetails = removePupilAmendment.AmendmentDetail.PupilDetails, Reasons = _amendmentService.GetRemoveReasons()});
         }
 
         [HttpPost]
         public IActionResult Reason(ReasonViewModel viewModel)
         {
-            var reasonPupilAmendment = HttpContext.Session.Get<Amendment<RemovePupil>>(REMOVE_PUPIL_AMENDMENT);
+            var removePupilAmendment = HttpContext.Session.Get<Amendment<RemovePupil>>(REMOVE_PUPIL_AMENDMENT);
             if (ModelState.IsValid)
             {
-                reasonPupilAmendment.AmendmentDetail.Reason = viewModel.SelectedReason;
+                removePupilAmendment.AmendmentDetail.Reason = viewModel.SelectedReason;
+                HttpContext.Session.Set(REMOVE_PUPIL_AMENDMENT, removePupilAmendment);
+                if (new[] {"329", "330"}.Any(r => r == viewModel.SelectedReason))
+                {
+                    return RedirectToAction("SubReason");
+                }
             }
-            return View(new ReasonViewModel { PupilDetails = reasonPupilAmendment.AmendmentDetail.PupilDetails });
+            return View(new ReasonViewModel { PupilDetails = removePupilAmendment.AmendmentDetail.PupilDetails, Reasons = _amendmentService.GetRemoveReasons() });
         }
 
         public IActionResult SubReason()
         {
-            var reasonPupilAmendment = HttpContext.Session.Get<Amendment<RemovePupil>>(REMOVE_PUPIL_AMENDMENT);
-            return View(new ReasonViewModel { PupilDetails = reasonPupilAmendment.AmendmentDetail.PupilDetails });
+            var removePupilAmendment = HttpContext.Session.Get<Amendment<RemovePupil>>(REMOVE_PUPIL_AMENDMENT);
+            return View(new SubReasonViewModel { PupilDetails = removePupilAmendment.AmendmentDetail.PupilDetails, Reasons = _amendmentService.GetRemoveReasons(removePupilAmendment.AmendmentDetail.Reason) });
         }
 
-
+        [HttpPost]
+        public IActionResult SubReason(SubReasonViewModel viewModel)
+        {
+            var removePupilAmendment = HttpContext.Session.Get<Amendment<RemovePupil>>(REMOVE_PUPIL_AMENDMENT);
+            if (ModelState.IsValid)
+            {
+                removePupilAmendment.AmendmentDetail.SubReason = viewModel.SelectedReason;
+                HttpContext.Session.Set(REMOVE_PUPIL_AMENDMENT, removePupilAmendment);
+            }
+            return View(new SubReasonViewModel { PupilDetails = removePupilAmendment.AmendmentDetail.PupilDetails, Reasons = _amendmentService.GetRemoveReasons(removePupilAmendment.AmendmentDetail.Reason) });
+        }
     }
 }
