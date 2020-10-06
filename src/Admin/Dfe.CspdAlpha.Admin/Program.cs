@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 
 namespace Dfe.CspdAlpha.Admin
 {
@@ -6,7 +9,6 @@ namespace Dfe.CspdAlpha.Admin
     {
         static void Main(string[] args)
         {
-
             if (args.Length == 0)
             {
                 Console.WriteLine("ERROR: No arguments specified. Please specify at least task type to run");

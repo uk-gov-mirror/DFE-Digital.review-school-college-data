@@ -8,9 +8,7 @@ using System.Dynamic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
-using Microsoft.Xrm.Sdk.Messages;
 
 namespace Dfe.CspdAlpha.Admin
 {
@@ -86,8 +84,9 @@ namespace Dfe.CspdAlpha.Admin
                         else
                         {
                             pupilRow.URN = gias.urn;
-                            pupilRow.Surname = $"{pupilRow.CandidateNumber}S";
-                            pupilRow.Forename = $"{pupilRow.CandidateNumber}F";
+                            var anonymisedName = ConvertToAlphaCharaters(pupilRow.CandidateNumber);
+                            pupilRow.Surname = $"{anonymisedName}S";
+                            pupilRow.Forename = $"{anonymisedName}F";
                         }
 
                         var perf = (IEnumerable<dynamic>)performanceLookup[pupilRow.PortlandStudentID];
@@ -143,6 +142,25 @@ namespace Dfe.CspdAlpha.Admin
                 log($"{skippedPupils.Count} skipped pupils (no GIAS establishment record found): {string.Join(", ", skippedPupils)}");
             }
         }
+
+        private static string ConvertToAlphaCharaters(string candidateNumber)
+        {
+            return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(new string(candidateNumber.Select(c => charDictionary[c]).ToArray()));
+        }
+
+        private static Dictionary<char, char> charDictionary => new Dictionary<char, char>
+        {
+            {'1', 'a' },
+            {'2', 'b' },
+            {'3', 'c' },
+            {'4', 'd' },
+            {'5', 'e' },
+            {'6', 'f' },
+            {'7', 'g' },
+            {'8', 'h' },
+            {'9', 'i' },
+            {'0', 'j' }
+        };
 
         private static string ConvertDate(string date)
         {
