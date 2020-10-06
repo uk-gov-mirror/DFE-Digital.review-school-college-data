@@ -1,3 +1,4 @@
+@using Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil
 @model Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil.SearchPupilsViewModel
 @{
     ViewBag.Title = "Search for a student to request to remove";
@@ -29,7 +30,7 @@
                                 ULN (Unique Learner Number)
                             </label>
                         </div>
-                        <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-SearchType-conditional">
+                        <div class="govuk-radios__conditional govuk-radios__conditional--hidden" asp-for="PupilID" id="conditional-SearchType-conditional">
                             <div class="govuk-form-group" asp-for="PupilID">
                                 <label class="govuk-label" asp-for="PupilID">
                                     Enter a ULN
@@ -50,7 +51,7 @@
                                 Student name
                             </label>
                         </div>
-                        <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-SearchType-conditional-2">
+                        <div class="govuk-radios__conditional govuk-radios__conditional--hidden" asp-for="Name" id="conditional-SearchType-conditional-2">
                             <div class="govuk-form-group" asp-for="Name">
                                 <label class="govuk-label" asp-for="Name">
                                     Enter a student name

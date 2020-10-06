@@ -85,7 +85,7 @@ namespace Dfe.CspdAlpha.Web.Application.TagHelpers
                     if (!string.IsNullOrEmpty(errorText))
                     {
                         var errorLink = new TagBuilder("a");
-                        errorLink.Attributes.Add("href", $"#{modelState.Key}-error");
+                        errorLink.Attributes.Add("href", $"#{modelState.Key}");
                         errorLink.InnerHtml.SetContent(errorText);
 
                         var listItem = new TagBuilder("li");
@@ -130,13 +130,13 @@ namespace Dfe.CspdAlpha.Web.Application.TagHelpers
             columnDiv.InnerHtml.AppendHtml(summaryDiv);
 
             var rowDiv = new TagBuilder("div");
+            rowDiv.Attributes.Add("id", "error-summary-container");
             rowDiv.AddCssClass("govuk-grid-row");
             rowDiv.InnerHtml.AppendHtml(columnDiv);
 
-            // TODO: Discuss with Jon what validation summary markup is required by frontend validation
             if (viewData.ModelState.IsValid)
             {
-                rowDiv.Attributes.Add("style", "display:none");
+                rowDiv.AddCssClass("hidden");
             }
 
             return rowDiv;
