@@ -1,8 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Dfe.CspdAlpha.Web.Domain.Core.Enums;
+using System;
 
 namespace Dfe.CspdAlpha.Web.Application.Models.School
 {

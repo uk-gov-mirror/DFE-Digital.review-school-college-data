@@ -122,6 +122,18 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             return null;
         }
 
+        public SchoolDetails GetSchoolDetails(CheckingWindow checkingWindow, string urn)
+        {
+            var establishmentData = GetEstablishmentData(checkingWindow, urn);
+            return new SchoolDetails
+            {
+                SchoolName = establishmentData.Name,
+                URN = urn,
+                LAEstab = establishmentData.LaEstab,
+                SchoolType = establishmentData.SchoolType
+            };
+        }
+
         public string GetSchoolName(CheckingWindow checkingWindow, string laestab)
         {
             var checkingWindowURL = CheckingWindowHelper.GetCheckingWindowURL(checkingWindow);

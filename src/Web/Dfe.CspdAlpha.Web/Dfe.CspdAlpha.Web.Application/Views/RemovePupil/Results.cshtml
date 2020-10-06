@@ -16,7 +16,7 @@
     </div>
 </div>
 
-@if (Model.PupilListViewModel.Pupils.Count == 0)
+@if (Model.PupilList.Count == 0)
 {
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-three-quarters">
@@ -34,19 +34,19 @@ else
                         <legend class="govuk-legend govuk-fieldset__legend--s govuk-!-margin-bottom-4">
                             Select one
                         </legend>
-                        @foreach (var student in Model.PupilListViewModel.Pupils)
+                        @foreach (var student in Model.PupilList)
                         {
                             <div class="govuk-radios" asp-for="SelectedID">
                                 <div class="govuk-radios__item app-radios-multiline__item app-radios-search-result">
-                                    <input type="radio" asp-for="SelectedID" id="PupilId-@student.PupilId" value="@student.PupilId" class="govuk-radios__input" />
-                                    <label class="govuk-label govuk-radios__label govuk-!-margin-bottom-0" for="PupilId-@student.PupilId">
+                                    <input type="radio" asp-for="SelectedID" id="PupilId-@student.ID" value="@student.ID" class="govuk-radios__input" />
+                                    <label class="govuk-label govuk-radios__label govuk-!-margin-bottom-0" for="PupilId-@student.ID">
                                         @student.FirstName @student.LastName
                                         <span class="app-radios-multiline__label-row">ULN @student.UPN</span>
                                     </label>
                                 </div>
                             </div>
                             <p class="app-align--below-radios govuk-body-s">
-                                <a asp-controller="RemovePupil" asp-action="MatchedPupil" asp-route-id="@student.PupilId">View student</a>
+                                <a asp-controller="RemovePupil" asp-action="MatchedPupil" asp-route-id="@student.ID">View student</a>
                             </p>
                         }
                     </fieldset>

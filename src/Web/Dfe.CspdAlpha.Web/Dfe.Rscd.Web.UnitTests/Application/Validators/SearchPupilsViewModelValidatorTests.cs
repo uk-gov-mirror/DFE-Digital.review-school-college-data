@@ -1,5 +1,6 @@
 ﻿using Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil;
 using Dfe.CspdAlpha.Web.Application.Validators.Pupil;
+using Dfe.CspdAlpha.Web.Application.Validators.RemovePupil;
 using Xunit;
 
 namespace Dfe.Rscd.Web.UnitTests.Application.Validators

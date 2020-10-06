@@ -1,4 +1,5 @@
-using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
+using System.Collections.Generic;
+using Dfe.CspdAlpha.Web.Application.Models.Common;
 
 namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil
 {
@@ -7,9 +8,9 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil
         public string URN { get; set; }
         public QueryType SearchType { get; set; }
         public string Query { get; set; }
-        public PupilListViewModel PupilListViewModel { get; set; }
+        public List<PupilDetails> PupilList { get; set; }
         public string SelectedID { get; set; }
-        public string PageTitle => PupilListViewModel?.Pupils?.Count == 0
+        public string PageTitle => PupilList?.Count == 0
             ? "No matches found"
             : "We found multiple matches for the student you want to request to remove";
     }

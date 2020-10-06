@@ -8,19 +8,9 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
     public class PupilListViewModel
     {
         public CheckDataNavigation CheckDataNavigationModel => new CheckDataNavigation(NavigationItem.PupilList, CheckingWindow);
-        public string Urn { get; set; }
-
         public SchoolDetails SchoolDetails { get; set; }
-        public List<PupilListEntry> Pupils { get; set; }
+        public List<PupilDetails> Pupils { get; set; }
         public string PupilsJson => JsonConvert.SerializeObject(Pupils);
         public CheckingWindow CheckingWindow { get; set; }
-    }
-
-    public class PupilListEntry
-    {
-        public string PupilId { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string UPN { get; set; }
     }
 }

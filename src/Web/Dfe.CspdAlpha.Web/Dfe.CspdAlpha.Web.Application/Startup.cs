@@ -131,7 +131,8 @@ namespace Dfe.CspdAlpha.Web.Application
             services.AddSingleton<IConfirmationService, CrmConfirmationService>();
             services.AddSingleton<IFileUploadService, SharePointFileUploadService>();
             services.AddSingleton<ISchoolService, SchoolService>();
-            services.AddSingleton<AppInterface.IEstablishmentService, EstablishmentService>();
+            services.AddSingleton<IEstablishmentService, EstablishmentService>();
+            services.AddSingleton<IPupilService, PupilService>();
             services.AddSingleton<AppInterface.IAmendmentService, AmendmentService>();
             services.AddTransient<IHtmlGenerator, HtmlGenerator>();
 

@@ -1,7 +1,7 @@
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil;
 using FluentValidation;
 
-namespace Dfe.CspdAlpha.Web.Application.Validators.Pupil
+namespace Dfe.CspdAlpha.Web.Application.Validators.RemovePupil
 {
     public class SearchPupilsViewModelValidator : AbstractValidator<SearchPupilsViewModel>
     {

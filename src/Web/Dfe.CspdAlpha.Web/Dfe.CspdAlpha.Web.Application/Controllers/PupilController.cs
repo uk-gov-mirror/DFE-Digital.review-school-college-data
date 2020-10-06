@@ -17,34 +17,39 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
     [TasksReviewedFilter("Index,View")]
     public class PupilController : Controller
     {
-        private ISchoolService _schoolService;
         private readonly IAmendmentService _amendmentService;
         private IEstablishmentService _establishmentService;
+        private IPupilService _pupilService;
         private const string ADD_PUPIL_AMENDMENT = "add-pupil-amendment";
         private const string ADD_PUPIL_AMENDMENT_ID = "add-pupil-amendment-id";
         private CheckingWindow CheckingWindow => CheckingWindowHelper.GetCheckingWindow(RouteData);
 
         public PupilController(
-            ISchoolService schoolService,
+            IPupilService pupilService,
             IEstablishmentService establishmentService,
             IAmendmentService amendmentService
             )
         {
+            _pupilService = pupilService;
             _establishmentService = establishmentService;
-            _schoolService = schoolService;
             _amendmentService = amendmentService;
         }
 
         public IActionResult Index(string urn)
         {
-            var viewModel = _schoolService.GetPupilListViewModel(CheckingWindow, new SearchQuery{URN = urn});
-            viewModel.CheckingWindow = CheckingWindowHelper.GetCheckingWindow(RouteData);
+            var pupilList = _pupilService.GetPupilDetailsList(CheckingWindow, new SearchQuery { URN = urn });
+            var viewModel = new PupilListViewModel
+            {
+                CheckingWindow = CheckingWindow,
+                Pupils = pupilList,
+                SchoolDetails = _establishmentService.GetSchoolDetails(CheckingWindow, urn)
+            };
             return View(viewModel);
         }
 
         public IActionResult View(string id)
         {
-            var viewModel = _schoolService.GetPupil(CheckingWindow, id);
+            var viewModel = _pupilService.GetPupil(CheckingWindow, id);
             return View(new ViewPupilViewModel{CheckingWindow = CheckingWindow, MatchedPupilViewModel = viewModel});
         }
 
@@ -64,7 +69,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
             if (!string.IsNullOrEmpty(addPupilDetailsViewModel.UPN))
             {
-                existingPupil = _schoolService.GetMatchedPupil(CheckingWindow, addPupilDetailsViewModel.UPN);
+                existingPupil = _pupilService.GetMatchedPupil(CheckingWindow, addPupilDetailsViewModel.UPN);
                 if (existingPupil == null)
                 {
                     ModelState.AddModelError(nameof(addPupilDetailsViewModel.UPN), "Enter a valid UPN");

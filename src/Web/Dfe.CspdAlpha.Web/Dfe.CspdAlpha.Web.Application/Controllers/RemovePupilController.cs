@@ -4,17 +4,21 @@ using Dfe.CspdAlpha.Web.Application.Models.Common;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using Dfe.CspdAlpha.Web.Application.Models.Amendments;
+using Dfe.CspdAlpha.Web.Application.Models.Amendments.AmendmentTypes;
+using Dfe.CspdAlpha.Web.Application.Application.Extensions;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
     public class RemovePupilController : Controller
     {
-        private ISchoolService _schoolService;
+        private const string REMOVE_PUPIL_AMENDMENT = "remove-pupil-amendment";
+        private IPupilService _pupilService;
         private CheckingWindow CheckingWindow => CheckingWindowHelper.GetCheckingWindow(RouteData);
 
-        public RemovePupilController(ISchoolService schoolService)
+        public RemovePupilController(IPupilService pupilService)
         {
-            _schoolService = schoolService;
+            _pupilService = pupilService;
         }
 
         public IActionResult Index()
@@ -34,15 +38,15 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
         public IActionResult Results(SearchQuery viewModel)
         {
-            var pupilsFound = _schoolService.GetPupilListViewModel(CheckingWindow, viewModel);
-            if (pupilsFound.Pupils.Count == 0 || pupilsFound.Pupils.Count > 1)
+            var pupilsFound = _pupilService.GetPupilDetailsList(CheckingWindow, viewModel);
+            if (pupilsFound.Count == 0 || pupilsFound.Count > 1)
             {
                 return View( new ResultsViewModel
                 {
-                    PupilListViewModel = pupilsFound
+                    PupilList = pupilsFound
                 });
             }
-            return RedirectToAction("MatchedPupil", new { id = pupilsFound.Pupils.First().PupilId });
+            return RedirectToAction("MatchedPupil", new { id = pupilsFound.First().ID });
         }
 
         [HttpPost]
@@ -52,16 +56,59 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             {
                 return RedirectToAction("MatchedPupil", new { id = viewModel.SelectedID });
             }
-            viewModel.PupilListViewModel = _schoolService.GetPupilListViewModel(CheckingWindow, new SearchQuery { Query = viewModel.Query, URN = viewModel.URN, SearchType = viewModel.SearchType});
+            viewModel.PupilList = _pupilService.GetPupilDetailsList(CheckingWindow, new SearchQuery { Query = viewModel.Query, URN = viewModel.URN, SearchType = viewModel.SearchType});
 
             return View(viewModel);
-
         }
 
-        public IActionResult MatchedPupil(string id)
+        public IActionResult MatchedPupil(string id, string urn)
         {
-            var viewModel = _schoolService.GetPupil(CheckingWindow, id);
+            var viewModel = _pupilService.GetPupil(CheckingWindow, id);
+            var removePupilAmendment = new Amendment<RemovePupil>
+            {
+                URN = urn,
+                CheckingWindow = CheckingWindowHelper.GetCheckingWindow(RouteData),
+                AmendmentDetail = new RemovePupil
+                {
+                    PupilDetails = new PupilDetails
+                    {
+                        ID = id,
+                        UPN = viewModel.PupilViewModel.UPN,
+                        FirstName = viewModel.PupilViewModel.FirstName,
+                        LastName = viewModel.PupilViewModel.LastName,
+                        DateOfBirth = viewModel.PupilViewModel.DateOfBirth,
+                        Age = viewModel.PupilViewModel.Age,
+                        Gender = viewModel.PupilViewModel.Gender,
+                        DateOfAdmission = viewModel.PupilViewModel.DateOfAdmission,
+                        YearGroup = viewModel.PupilViewModel.YearGroup
+                    }
+                }
+            };
+            HttpContext.Session.Set(REMOVE_PUPIL_AMENDMENT, removePupilAmendment);
             return View(viewModel);
+        }
+
+        public IActionResult Reason()
+        {
+            var reasonPupilAmendment = HttpContext.Session.Get<Amendment<RemovePupil>>(REMOVE_PUPIL_AMENDMENT);
+            return View(new ReasonViewModel{PupilDetails = reasonPupilAmendment.AmendmentDetail.PupilDetails});
+        }
+
+        [HttpPost]
+        public IActionResult Reason(ReasonViewModel viewModel)
+        {
+            var reasonPupilAmendment = HttpContext.Session.Get<Amendment<RemovePupil>>(REMOVE_PUPIL_AMENDMENT);
+            if (ModelState.IsValid)
+            {
+                reasonPupilAmendment.AmendmentDetail.Reason = viewModel.SelectedReason;
+            }
+            return View(new ReasonViewModel { PupilDetails = reasonPupilAmendment.AmendmentDetail.PupilDetails });
+        }
+
+        public IActionResult SubReason()
+        {
+            var reasonPupilAmendment = HttpContext.Session.Get<Amendment<RemovePupil>>(REMOVE_PUPIL_AMENDMENT);
+            return View(new ReasonViewModel { PupilDetails = reasonPupilAmendment.AmendmentDetail.PupilDetails });
         }
 
 

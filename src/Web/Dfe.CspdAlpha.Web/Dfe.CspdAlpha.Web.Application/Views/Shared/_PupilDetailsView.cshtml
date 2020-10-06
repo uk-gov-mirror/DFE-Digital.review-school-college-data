@@ -1,0 +1,69 @@
+@using Dfe.CspdAlpha.Web.Application.Models.Common
+@model PupilDetails
+
+    <dl class="govuk-summary-list app-summary-list">
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+                ULN (Unique Learner Number)
+            </dt>
+            <dd class="govuk-summary-list__value">
+                @Model.UPN
+            </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+                First name
+            </dt>
+            <dd class="govuk-summary-list__value">
+                @Model.FirstName
+            </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+                Last name
+            </dt>
+            <dd class="govuk-summary-list__value">
+                @Model.LastName
+            </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+                Date of birth
+            </dt>
+            <dd class="govuk-summary-list__value">
+                @Model.DateOfBirth.ToString("dd-MMM-yyyy")
+            </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+                Age
+            </dt>
+            <dd class="govuk-summary-list__value">
+                @Model.Age
+            </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+                Gender
+            </dt>
+            <dd class="govuk-summary-list__value">
+                @Model.Gender
+            </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+                Admission date
+            </dt>
+            <dd class="govuk-summary-list__value">
+                @Model.DateOfAdmission.ToString("dd-MMM-yyyy")
+            </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+                Year group
+            </dt>
+            <dd class="govuk-summary-list__value">
+                @Model.YearGroup
+            </dd>
+        </div>
+    </dl>
