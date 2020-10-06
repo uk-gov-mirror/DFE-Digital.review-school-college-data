@@ -7,6 +7,7 @@ using Dfe.CspdAlpha.Web.Application.Models.Common;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
@@ -52,18 +53,19 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         }
 
         [HttpPost]
-        public IActionResult Results(ResultsViewModel viewModel)
+        public IActionResult Results(ResultsViewModel viewModel, string urn)
         {
             if (ModelState.IsValid)
             {
-                return RedirectToAction("MatchedPupil", new { id = viewModel.SelectedID });
+                SavePupilToSession(viewModel.SelectedID, urn);
+                return RedirectToAction("Reason");
             }
             viewModel.PupilList = _pupilService.GetPupilDetailsList(CheckingWindow, new SearchQuery { Query = viewModel.Query, URN = viewModel.URN, SearchType = viewModel.SearchType});
 
             return View(viewModel);
         }
 
-        public IActionResult MatchedPupil(string id, string urn)
+        private MatchedPupilViewModel SavePupilToSession(string id, string urn)
         {
             var viewModel = _pupilService.GetPupil(CheckingWindow, id);
             var removePupilAmendment = new Amendment<RemovePupil>
@@ -87,6 +89,12 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 }
             };
             HttpContext.Session.Set(REMOVE_PUPIL_AMENDMENT, removePupilAmendment);
+            return viewModel;
+        }
+
+        public IActionResult MatchedPupil(string id, string urn)
+        {
+            var viewModel = SavePupilToSession(id, urn);
             return View(viewModel);
         }
 
