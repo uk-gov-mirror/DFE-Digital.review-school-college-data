@@ -1,8 +1,15 @@
 using System;
+using Dfe.CspdAlpha.Web.Application.Application.Extensions;
 using Dfe.CspdAlpha.Web.Application.Application.Helpers;
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
+using Dfe.CspdAlpha.Web.Application.Models.Amendments;
+using Dfe.CspdAlpha.Web.Application.Models.Amendments.AmendmentTypes;
+using Dfe.CspdAlpha.Web.Application.Models.Common;
+using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
@@ -42,6 +49,57 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 return View(amendment);
             }
             return RedirectToAction("Error", "Home");
+        }
+
+        public IActionResult Confirm()
+        {
+            return View(GetConfirmViewModel());
+        }
+
+        [HttpPost]
+        public IActionResult Confirm(ConfirmViewModel viewModel)
+        {
+            // Ensure steps haven't been manually skipped
+            //var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
+            //if (addPupilAmendment == null || addPupilAmendment.SelectedEvidenceOption == EvidenceOption.Unknown)
+            //{
+            //    return RedirectToAction("Add");
+            //}
+
+            // Cancel amendment
+            if (!viewModel.ConfirmAmendment)
+            {
+                // Cancel amendment
+                HttpContext.Session.Remove(Constants.AMENDMENT_SESSION_KEY);
+                return RedirectToAction("Index", "TaskList");
+            }
+
+            // Create amendment and redirect to amendment received page
+            if (_amendmentService.CreateAddPupilAmendment(addPupilAmendment, out string id))
+            {
+                HttpContext.Session.Remove(Constants.AMENDMENT_SESSION_KEY);
+                HttpContext.Session.Set(Constants.NEW_AMENDMENT_ID, id);
+                return RedirectToAction("Received");
+            }
+
+            return View(GetConfirmViewModel());
+        }
+
+        private ConfirmViewModel GetConfirmViewModel()
+        {
+            var serializedAmendment = HttpContext.Session.GetString(Constants.AMENDMENT_SESSION_KEY);
+            if (serializedAmendment.Contains("RemovePupil"))
+            {
+                var amendment = JsonConvert.DeserializeObject<Amendment<RemovePupil>>(serializedAmendment, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All });
+                return new ConfirmViewModel{PupilDetails = amendment.AmendmentDetail.PupilDetails, AmendmentType = amendment.AmendmentDetail.AmendmentType};
+            }
+            return null;
+        }
+
+        public IActionResult Received()
+        {
+            var addPupilAmendmentId = HttpContext.Session.Get<string>(Constants.NEW_AMENDMENT_ID);
+            return View("AmendmentReceived", addPupilAmendmentId);
         }
     }
 }

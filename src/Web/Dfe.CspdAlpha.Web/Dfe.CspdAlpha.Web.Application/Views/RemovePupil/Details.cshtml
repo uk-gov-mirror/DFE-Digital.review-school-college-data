@@ -1,0 +1,66 @@
+@using Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil
+@model DetailsViewModel
+@{
+    ViewData["Title"] = "Select a reason for request to remove a student";
+}
+
+@section BackLink
+{
+    <a class="govuk-back-link" asp-controller="RemovePupil" asp-action="MatchedPupil" asp-route-id="@Model.PupilDetails.ID">Back</a>
+}
+
+<div asp-validation-summary="All"></div>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-l govuk-!-margin-bottom-3">@ViewData["Title"]</h1>
+    </div>
+
+    <div class="govuk-grid-column-full">
+        <details class="govuk-details govuk-!-font-size-16" data-module="govuk-details">
+            <summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text">
+                    View pupil details
+                </span>
+            </summary>
+            <div class="govuk-details__text">
+                <partial name="_PupilDetailsView" model="@Model.PupilDetails" />
+            </div>
+        </details>
+    </div>
+
+    <div class="govuk-grid-column-full">
+        <p class="govuk-body">Lorem ipsum...</p>
+    </div>
+</div>
+
+<form method="post">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-three-quarters">
+            <div class="govuk-character-count" data-module="govuk-character-count" data-maxlength="500">
+                <div class="govuk-form-group" asp-for="AmendmentDetails">
+                    <label class="govuk-label" asp-for="AmendmentDetails">
+                        Provide details
+                    </label>
+                    <textarea class="govuk-textarea govuk-js-character-count" asp-for="AmendmentDetails" rows="5" aria-describedby="AmendmentDetails-info"></textarea>
+                </div>
+                <div id="AmendmentDetails-info" class="govuk-hint govuk-character-count__message" aria-live="polite">
+                    You can enter up to 500 characters
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <input type="submit" class="govuk-button" data-module="govuk-button" value="Continue" />
+        </div>
+    </div>
+</form>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <a asp-controller="TaskList" asp-action="Index" class="app-modal__cancel-link">Cancel amendment</a>
+    </div>
+</div>
+<partial name="_CancelModalContent" />

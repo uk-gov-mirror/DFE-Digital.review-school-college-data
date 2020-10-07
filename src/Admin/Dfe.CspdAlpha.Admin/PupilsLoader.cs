@@ -70,6 +70,12 @@ namespace Dfe.CspdAlpha.Admin
                             skippedPupils.Add($"{pupilRow.CandidateNumber} ({pupilRow.DFESNumber})");
                             return;
                         }
+                        var anonymisedName = ConvertToAlphaCharaters((string)pupilRow.CandidateNumber);
+                        if (string.IsNullOrEmpty(anonymisedName))
+                        {
+                            skippedPupils.Add($"{pupilRow.PortlandStudentID}");
+                            return;
+                        }
 
                         var pupilID = string.Empty; // (string) pupilRow.UPN;
                         if (amendmentsLookup.ExistingPupilLookup.ContainsKey(laestab + pupilID))
@@ -84,7 +90,6 @@ namespace Dfe.CspdAlpha.Admin
                         else
                         {
                             pupilRow.URN = gias.urn;
-                            var anonymisedName = ConvertToAlphaCharaters(pupilRow.CandidateNumber);
                             pupilRow.Surname = $"{anonymisedName}S";
                             pupilRow.Forename = $"{anonymisedName}F";
                         }
@@ -145,7 +150,7 @@ namespace Dfe.CspdAlpha.Admin
 
         private static string ConvertToAlphaCharaters(string candidateNumber)
         {
-            return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(new string(candidateNumber.Select(c => charDictionary[c]).ToArray()));
+            return string.IsNullOrEmpty(candidateNumber) ? null : CultureInfo.CurrentCulture.TextInfo.ToTitleCase(new string(candidateNumber.Select(c => charDictionary.ContainsKey(c) ? charDictionary[c] : c).ToArray()));
         }
 
         private static Dictionary<char, char> charDictionary => new Dictionary<char, char>

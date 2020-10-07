@@ -13,7 +13,6 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
     public class RemovePupilController : Controller
     {
-        private const string REMOVE_PUPIL_AMENDMENT = "remove-pupil-amendment";
         private IPupilService _pupilService;
         private IAmendmentService _amendmentService;
         private CheckingWindow CheckingWindow => CheckingWindowHelper.GetCheckingWindow(RouteData);
@@ -68,7 +67,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         private MatchedPupilViewModel SavePupilToSession(string id, string urn)
         {
             var viewModel = _pupilService.GetPupil(CheckingWindow, id);
-            var removePupilAmendment = new Amendment<RemovePupil>
+            var removePupilAmendment = new Amendment<IAmendmentType>
             {
                 URN = urn,
                 CheckingWindow = CheckingWindowHelper.GetCheckingWindow(RouteData),
@@ -88,7 +87,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                     }
                 }
             };
-            HttpContext.Session.Set(REMOVE_PUPIL_AMENDMENT, removePupilAmendment);
+            HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, removePupilAmendment);
             return viewModel;
         }
 
@@ -100,21 +99,26 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
         public IActionResult Reason()
         {
-            var removePupilAmendment = HttpContext.Session.Get<Amendment<RemovePupil>>(REMOVE_PUPIL_AMENDMENT);
+            var removePupilAmendment = HttpContext.Session.Get<Amendment<RemovePupil>>(Constants.AMENDMENT_SESSION_KEY);
             return View(new ReasonViewModel{PupilDetails = removePupilAmendment.AmendmentDetail.PupilDetails, Reasons = _amendmentService.GetRemoveReasons()});
         }
 
         [HttpPost]
         public IActionResult Reason(ReasonViewModel viewModel)
         {
-            var removePupilAmendment = HttpContext.Session.Get<Amendment<RemovePupil>>(REMOVE_PUPIL_AMENDMENT);
+            var removePupilAmendment = HttpContext.Session.Get<Amendment<RemovePupil>>(Constants.AMENDMENT_SESSION_KEY);
             if (ModelState.IsValid)
             {
                 removePupilAmendment.AmendmentDetail.Reason = viewModel.SelectedReason;
-                HttpContext.Session.Set(REMOVE_PUPIL_AMENDMENT, removePupilAmendment);
+                HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, removePupilAmendment);
                 if (new[] {"329", "330"}.Any(r => r == viewModel.SelectedReason))
                 {
                     return RedirectToAction("SubReason");
+                }
+
+                if (viewModel.SelectedReason == "325")
+                {
+                    return RedirectToAction("Details");
                 }
             }
             return View(new ReasonViewModel { PupilDetails = removePupilAmendment.AmendmentDetail.PupilDetails, Reasons = _amendmentService.GetRemoveReasons() });
@@ -122,20 +126,41 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
         public IActionResult SubReason()
         {
-            var removePupilAmendment = HttpContext.Session.Get<Amendment<RemovePupil>>(REMOVE_PUPIL_AMENDMENT);
+            var removePupilAmendment = HttpContext.Session.Get<Amendment<RemovePupil>>(Constants.AMENDMENT_SESSION_KEY);
             return View(new SubReasonViewModel { PupilDetails = removePupilAmendment.AmendmentDetail.PupilDetails, Reasons = _amendmentService.GetRemoveReasons(removePupilAmendment.AmendmentDetail.Reason) });
         }
 
         [HttpPost]
         public IActionResult SubReason(SubReasonViewModel viewModel)
         {
-            var removePupilAmendment = HttpContext.Session.Get<Amendment<RemovePupil>>(REMOVE_PUPIL_AMENDMENT);
+            var removePupilAmendment = HttpContext.Session.Get<Amendment<RemovePupil>>(Constants.AMENDMENT_SESSION_KEY);
             if (ModelState.IsValid)
             {
                 removePupilAmendment.AmendmentDetail.SubReason = viewModel.SelectedReason;
-                HttpContext.Session.Set(REMOVE_PUPIL_AMENDMENT, removePupilAmendment);
+                HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, removePupilAmendment);
             }
             return View(new SubReasonViewModel { PupilDetails = removePupilAmendment.AmendmentDetail.PupilDetails, Reasons = _amendmentService.GetRemoveReasons(removePupilAmendment.AmendmentDetail.Reason) });
+        }
+
+        public IActionResult Details()
+        {
+            var removePupilAmendment = HttpContext.Session.Get<Amendment<RemovePupil>>(Constants.AMENDMENT_SESSION_KEY);
+            return View(new DetailsViewModel {PupilDetails = removePupilAmendment.AmendmentDetail.PupilDetails});
+        }
+
+        [HttpPost]
+        public IActionResult Details(DetailsViewModel viewModel)
+        {
+            var removePupilAmendment = HttpContext.Session.Get<Amendment<RemovePupil>>(Constants.AMENDMENT_SESSION_KEY);
+            if (ModelState.IsValid)
+            {
+                removePupilAmendment.AmendmentDetail.Detail = viewModel.AmendmentDetails;
+                HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, removePupilAmendment);
+                return RedirectToAction("Confirm","Amendments");
+            }
+
+            viewModel.PupilDetails = removePupilAmendment.AmendmentDetail.PupilDetails;
+            return View(viewModel);
         }
     }
 }
