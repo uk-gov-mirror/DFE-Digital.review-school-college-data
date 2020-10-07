@@ -114,7 +114,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
         }
         private ApiClient.Establishment GetEstablishmentData(CheckingWindow checkingWindow, string urn)
         {
-            var school = _apiClient.EstablishmentsAsync(urn, checkingWindow.ToString().ToLower()).GetAwaiter().GetResult();
+            var school = _apiClient.GetEstablishmentByURNAsync(urn, checkingWindow.ToString().ToLower()).GetAwaiter().GetResult();
             if (string.IsNullOrWhiteSpace(school.Error.ErrorMessage))
             {
                 return school.Result;
@@ -137,7 +137,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
         public string GetSchoolName(CheckingWindow checkingWindow, string laestab)
         {
             var checkingWindowURL = CheckingWindowHelper.GetCheckingWindowURL(checkingWindow);
-            var school = _apiClient.SearchAsync(laestab, checkingWindowURL).GetAwaiter().GetResult();
+            var school = _apiClient.SearchTEstablishmentsAsync(laestab, checkingWindowURL).GetAwaiter().GetResult();
             return school != null ? school.Result.Name : string.Empty;
         }
     }

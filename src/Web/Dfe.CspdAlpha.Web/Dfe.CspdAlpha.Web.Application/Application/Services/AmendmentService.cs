@@ -40,7 +40,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
         public AmendmentsListViewModel GetAmendmentsListViewModel(string urn, CheckingWindow checkingWindow)
         {
             var checkingWindowURL = CheckingWindowHelper.GetCheckingWindowURL(checkingWindow);
-            var amendments = _apiClient.AmendmentsAsync(urn, checkingWindowURL).GetAwaiter().GetResult();
+            var amendments = _apiClient.GetAmendmentsByURNAsync(urn, checkingWindowURL).GetAwaiter().GetResult();
 
             return  new AmendmentsListViewModel
             {
@@ -151,7 +151,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                 },
                 Urn = amendment.URN
             };
-            var result = _apiClient.Amendments2Async(checkingWindowURL, amendmentDto).GetAwaiter().GetResult();
+            var result = _apiClient.CreateAmendmentAsync(checkingWindowURL, amendmentDto).GetAwaiter().GetResult();
             return result.Result;
         }
 

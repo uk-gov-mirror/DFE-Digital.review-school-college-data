@@ -42,17 +42,23 @@ namespace Dfe.Rscd.Web.ApiClient
         partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
         partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
     
+        /// <summary>Searches for schools requested amendments</summary>
+        /// <param name="urn">The URN of the school requesting amendments</param>
+        /// <param name="checkingwindow">The checking window to request amendments from</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<AddPupilAmendmentListGetResponse> AmendmentsAsync(string urn, string checkingwindow)
+        public System.Threading.Tasks.Task<AddPupilAmendmentListGetResponse> GetAmendmentsByURNAsync(string urn, string checkingwindow)
         {
-            return AmendmentsAsync(urn, checkingwindow, System.Threading.CancellationToken.None);
+            return GetAmendmentsByURNAsync(urn, checkingwindow, System.Threading.CancellationToken.None);
         }
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>Searches for schools requested amendments</summary>
+        /// <param name="urn">The URN of the school requesting amendments</param>
+        /// <param name="checkingwindow">The checking window to request amendments from</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<AddPupilAmendmentListGetResponse> AmendmentsAsync(string urn, string checkingwindow, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<AddPupilAmendmentListGetResponse> GetAmendmentsByURNAsync(string urn, string checkingwindow, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("api/{checkingwindow}/Amendments/{urn}");
@@ -116,20 +122,27 @@ namespace Dfe.Rscd.Web.ApiClient
             }
         }
     
+        /// <summary>Creates an amendment in CRM</summary>
+        /// <param name="body">Amendment to add to CRM</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<StringGetResponse> Amendments2Async(string checkingwindow, Amendment body)
+        public System.Threading.Tasks.Task<StringGetResponse> CreateAmendmentAsync(string checkingwindow, Amendment body)
         {
-            return Amendments2Async(checkingwindow, body, System.Threading.CancellationToken.None);
+            return CreateAmendmentAsync(checkingwindow, body, System.Threading.CancellationToken.None);
         }
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>Creates an amendment in CRM</summary>
+        /// <param name="body">Amendment to add to CRM</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<StringGetResponse> Amendments2Async(string checkingwindow, Amendment body, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<StringGetResponse> CreateAmendmentAsync(string checkingwindow, Amendment body, System.Threading.CancellationToken cancellationToken)
         {
             if (checkingwindow == null)
                 throw new System.ArgumentNullException("checkingwindow");
+    
+            if (body == null)
+                throw new System.ArgumentNullException("body");
     
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("api/{checkingwindow}/Amendments");
@@ -195,17 +208,23 @@ namespace Dfe.Rscd.Web.ApiClient
             }
         }
     
+        /// <summary>Searches for a school</summary>
+        /// <param name="urn">The URN of the school requesting amendments</param>
+        /// <param name="checkingwindow">The checking window to request amendments from</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<EstablishmentGetResponse> EstablishmentsAsync(string urn, string checkingwindow)
+        public System.Threading.Tasks.Task<EstablishmentGetResponse> GetEstablishmentByURNAsync(string urn, string checkingwindow)
         {
-            return EstablishmentsAsync(urn, checkingwindow, System.Threading.CancellationToken.None);
+            return GetEstablishmentByURNAsync(urn, checkingwindow, System.Threading.CancellationToken.None);
         }
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>Searches for a school</summary>
+        /// <param name="urn">The URN of the school requesting amendments</param>
+        /// <param name="checkingwindow">The checking window to request amendments from</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<EstablishmentGetResponse> EstablishmentsAsync(string urn, string checkingwindow, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<EstablishmentGetResponse> GetEstablishmentByURNAsync(string urn, string checkingwindow, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("api/{checkingwindow}/Establishments/{urn}");
@@ -269,17 +288,21 @@ namespace Dfe.Rscd.Web.ApiClient
             }
         }
     
+        /// <summary>Searches for schools or colleges.</summary>
+        /// <param name="checkingwindow">The checking window to request amendments from</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<EstablishmentGetResponse> SearchAsync(string dFESNumber, string checkingwindow)
+        public System.Threading.Tasks.Task<EstablishmentGetResponse> SearchTEstablishmentsAsync(string dFESNumber, string checkingwindow)
         {
-            return SearchAsync(dFESNumber, checkingwindow, System.Threading.CancellationToken.None);
+            return SearchTEstablishmentsAsync(dFESNumber, checkingwindow, System.Threading.CancellationToken.None);
         }
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>Searches for schools or colleges.</summary>
+        /// <param name="checkingwindow">The checking window to request amendments from</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<EstablishmentGetResponse> SearchAsync(string dFESNumber, string checkingwindow, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<EstablishmentGetResponse> SearchTEstablishmentsAsync(string dFESNumber, string checkingwindow, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("api/{checkingwindow}/Establishments/search?");
@@ -357,17 +380,23 @@ namespace Dfe.Rscd.Web.ApiClient
             }
         }
     
+        /// <summary>Searches for a pupil</summary>
+        /// <param name="id">The id of the pupil requesting amendments</param>
+        /// <param name="checkingwindow">The checking window to request pupil from</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<PupilGetResponse> PupilsAsync(string id, string checkingwindow)
+        public System.Threading.Tasks.Task<PupilGetResponse> GetPupilByIdAsync(string id, string checkingwindow)
         {
-            return PupilsAsync(id, checkingwindow, System.Threading.CancellationToken.None);
+            return GetPupilByIdAsync(id, checkingwindow, System.Threading.CancellationToken.None);
         }
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>Searches for a pupil</summary>
+        /// <param name="id">The id of the pupil requesting amendments</param>
+        /// <param name="checkingwindow">The checking window to request pupil from</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<PupilGetResponse> PupilsAsync(string id, string checkingwindow, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<PupilGetResponse> GetPupilByIdAsync(string id, string checkingwindow, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("api/{checkingwindow}/Pupils/{id}");
@@ -431,17 +460,21 @@ namespace Dfe.Rscd.Web.ApiClient
             }
         }
     
+        /// <summary>Searches for a pupil or pupils.</summary>
+        /// <param name="checkingwindow">The checking window to request pupil or pupils from</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<PupilIEnumerableGetResponse> Search2Async(string uRN, string name, string iD, string checkingwindow)
+        public System.Threading.Tasks.Task<PupilIEnumerableGetResponse> SearchPupilsAsync(string uRN, string name, string iD, string checkingwindow)
         {
-            return Search2Async(uRN, name, iD, checkingwindow, System.Threading.CancellationToken.None);
+            return SearchPupilsAsync(uRN, name, iD, checkingwindow, System.Threading.CancellationToken.None);
         }
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>Searches for a pupil or pupils.</summary>
+        /// <param name="checkingwindow">The checking window to request pupil or pupils from</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<PupilIEnumerableGetResponse> Search2Async(string uRN, string name, string iD, string checkingwindow, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<PupilIEnumerableGetResponse> SearchPupilsAsync(string uRN, string name, string iD, string checkingwindow, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("api/{checkingwindow}/Pupils/search?");

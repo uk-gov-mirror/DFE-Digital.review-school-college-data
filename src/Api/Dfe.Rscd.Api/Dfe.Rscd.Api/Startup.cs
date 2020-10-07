@@ -55,6 +55,7 @@ namespace Dfe.Rscd.Api
                             Url = new Uri("https://opensource.org/licenses/MIT")
                         }
                     });
+                c.EnableAnnotations();
             });
 
             // Dynamics 365 configuration

@@ -23,7 +23,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
         public List<PupilDetails> GetPupilDetailsList(CheckingWindow checkingWindow, SearchQuery searchQuery)
         {
             var checkingWindowURL = CheckingWindowHelper.GetCheckingWindowURL(checkingWindow);
-            var pupilDetails = _apiClient.Search2Async(searchQuery.URN, searchQuery.SearchType == QueryType.Name ? searchQuery.Query : string.Empty, searchQuery.SearchType == QueryType.PupilID ? searchQuery.Query : string.Empty, checkingWindowURL).GetAwaiter().GetResult();
+            var pupilDetails = _apiClient.SearchPupilsAsync(searchQuery.URN, searchQuery.SearchType == QueryType.Name ? searchQuery.Query : string.Empty, searchQuery.SearchType == QueryType.PupilID ? searchQuery.Query : string.Empty, checkingWindowURL).GetAwaiter().GetResult();
             return pupilDetails.Result
                 .Select(p => new PupilDetails {FirstName = p.ForeName, LastName = p.LastName, ID = p.Id, UPN = p.Upn})
                 .OrderBy(p => p.FirstName)
@@ -33,7 +33,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
         public MatchedPupilViewModel GetPupil(CheckingWindow checkingWindow, string id)
         {
             var checkingWindowURL = CheckingWindowHelper.GetCheckingWindowURL(checkingWindow);
-            var pupil = _apiClient.PupilsAsync(id, checkingWindowURL).GetAwaiter().GetResult();
+            var pupil = _apiClient.GetPupilByIdAsync(id, checkingWindowURL).GetAwaiter().GetResult();
             if (pupil == null)
             {
                 return null;
@@ -75,7 +75,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
         public MatchedPupilViewModel GetMatchedPupil(CheckingWindow checkingWindow, string upn)
         {
             var checkingWindowURL = CheckingWindowHelper.GetCheckingWindowURL(checkingWindow);
-            var pupil = _apiClient.Search2Async(string.Empty, string.Empty, upn, checkingWindowURL).GetAwaiter()
+            var pupil = _apiClient.SearchPupilsAsync(string.Empty, string.Empty, upn, checkingWindowURL).GetAwaiter()
                 .GetResult();
             if (pupil == null || pupil.Result == null || pupil.Result.Count == 0 || pupil.Result.Count > 1)
             {
