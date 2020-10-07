@@ -1,15 +1,13 @@
-using System;
 using Dfe.CspdAlpha.Web.Application.Application.Extensions;
 using Dfe.CspdAlpha.Web.Application.Application.Helpers;
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
 using Dfe.CspdAlpha.Web.Application.Models.Amendments;
-using Dfe.CspdAlpha.Web.Application.Models.Amendments.AmendmentTypes;
 using Dfe.CspdAlpha.Web.Application.Models.Common;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
+using System;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
@@ -53,7 +51,8 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
         public IActionResult Confirm()
         {
-            return View(GetConfirmViewModel());
+            var removePupilAmendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
+            return View(new ConfirmViewModel{AmendmentType = removePupilAmendment.AmendmentDetail.AmendmentType, PupilDetails = removePupilAmendment.AmendmentDetail.PupilDetails});
         }
 
         [HttpPost]
@@ -74,32 +73,24 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 return RedirectToAction("Index", "TaskList");
             }
 
+            var amendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
+            var id = _amendmentService.CreateAmendment(amendment);
             // Create amendment and redirect to amendment received page
-            if (_amendmentService.CreateAddPupilAmendment(addPupilAmendment, out string id))
+            if (!string.IsNullOrWhiteSpace(id))
             {
                 HttpContext.Session.Remove(Constants.AMENDMENT_SESSION_KEY);
                 HttpContext.Session.Set(Constants.NEW_AMENDMENT_ID, id);
                 return RedirectToAction("Received");
             }
 
-            return View(GetConfirmViewModel());
-        }
-
-        private ConfirmViewModel GetConfirmViewModel()
-        {
-            var serializedAmendment = HttpContext.Session.GetString(Constants.AMENDMENT_SESSION_KEY);
-            if (serializedAmendment.Contains("RemovePupil"))
-            {
-                var amendment = JsonConvert.DeserializeObject<Amendment<RemovePupil>>(serializedAmendment, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All });
-                return new ConfirmViewModel{PupilDetails = amendment.AmendmentDetail.PupilDetails, AmendmentType = amendment.AmendmentDetail.AmendmentType};
-            }
-            return null;
+            var removePupilAmendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
+            return View(new ConfirmViewModel { AmendmentType = removePupilAmendment.AmendmentDetail.AmendmentType, PupilDetails = removePupilAmendment.AmendmentDetail.PupilDetails });
         }
 
         public IActionResult Received()
         {
-            var addPupilAmendmentId = HttpContext.Session.Get<string>(Constants.NEW_AMENDMENT_ID);
-            return View("AmendmentReceived", addPupilAmendmentId);
+            var amendmentId = HttpContext.Session.Get<string>(Constants.NEW_AMENDMENT_ID);
+            return View("Received", amendmentId);
         }
     }
 }

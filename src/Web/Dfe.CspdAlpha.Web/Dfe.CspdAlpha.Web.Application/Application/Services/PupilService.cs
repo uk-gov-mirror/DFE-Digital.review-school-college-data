@@ -5,7 +5,7 @@ using Dfe.CspdAlpha.Web.Application.Models.Common;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Results;
-using Dfe.Rscd.Web.ApiClient;
+using ApiClient = Dfe.Rscd.Web.ApiClient;
 using System.Linq;
 using Ks2Subject = Dfe.CspdAlpha.Web.Application.Models.ViewModels.Results.Ks2Subject;
 
@@ -13,9 +13,9 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
 {
     public class PupilService : IPupilService
     {
-        private IClient _apiClient;
+        private ApiClient.IClient _apiClient;
 
-        public PupilService(IClient apiClient)
+        public PupilService(ApiClient.IClient apiClient)
         {
             _apiClient = apiClient;
         }
@@ -42,7 +42,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             return GetMatchedPupilViewModel(pupil.Result);
         }
 
-        private MatchedPupilViewModel GetMatchedPupilViewModel(Pupil pupil)
+        private MatchedPupilViewModel GetMatchedPupilViewModel(ApiClient.Pupil pupil)
         {
             return new MatchedPupilViewModel()
             {

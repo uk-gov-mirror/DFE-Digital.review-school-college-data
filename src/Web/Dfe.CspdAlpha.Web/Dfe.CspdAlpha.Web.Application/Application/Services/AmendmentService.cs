@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using Dfe.CspdAlpha.Web.Application.Application.Helpers;
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
+using Dfe.CspdAlpha.Web.Application.Models.Amendments;
 using Dfe.CspdAlpha.Web.Application.Models.Common;
-using Dfe.CspdAlpha.Web.Application.Models.School;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Results;
 using Dfe.CspdAlpha.Web.Infrastructure.Interfaces;
-using Dfe.Rscd.Web.ApiClient;
+using ApiClient = Dfe.Rscd.Web.ApiClient;
 using Microsoft.AspNetCore.Http;
 using AddPupilAmendment = Dfe.CspdAlpha.Web.Domain.Entities.AddPupilAmendment;
 using AddReason = Dfe.CspdAlpha.Web.Application.Models.Common.AddReason;
+using Amendment = Dfe.CspdAlpha.Web.Application.Models.School.Amendment;
 using Gender = Dfe.CspdAlpha.Web.Application.Models.Common.Gender;
 using DomainInterfaces = Dfe.CspdAlpha.Web.Domain.Interfaces;
 using EvidenceStatus = Dfe.CspdAlpha.Web.Domain.Core.Enums.EvidenceStatus;
@@ -27,9 +28,9 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
     {
         private DomainInterfaces.IAmendmentService _amendmentService;
         private IFileUploadService _fileUploadService;
-        private IClient _apiClient;
+        private ApiClient.IClient _apiClient;
 
-        public AmendmentService(DomainInterfaces.IAmendmentService amendmentService, IFileUploadService fileUploadService, IClient apiClient )
+        public AmendmentService(DomainInterfaces.IAmendmentService amendmentService, IFileUploadService fileUploadService, ApiClient.IClient apiClient )
         {
             _apiClient = apiClient;
             _fileUploadService = fileUploadService;
@@ -129,6 +130,29 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                 { "329", "Other - with evidence" },
                 { "330", "Other - evidence not required" },
             };
+        }
+
+        public string CreateAmendment(Dfe.CspdAlpha.Web.Application.Models.Amendments.Amendment amendment)
+        {
+            var checkingWindowURL = CheckingWindowHelper.GetCheckingWindowURL(amendment.CheckingWindow);
+            var amendmentDto = new ApiClient.Amendment
+            {
+                CheckingWindow = ApiClient.CheckingWindow.KS5,
+                AmendmentType = amendment.AmendmentDetail.AmendmentType == AmendmentType.RemovePupil ? ApiClient.AmendmentType.RemovePupil : ApiClient.AmendmentType.AddPupil,
+                Pupil = new ApiClient.Pupil
+                {
+                    Id = amendment.AmendmentDetail.PupilDetails.ID,
+                    ForeName = amendment.AmendmentDetail.PupilDetails.FirstName,
+                    LastName = amendment.AmendmentDetail.PupilDetails.LastName,
+                    Gender = amendment.AmendmentDetail.PupilDetails.Gender == Gender.Male ? ApiClient.Gender.Male : ApiClient.Gender.Female,
+                    DateOfBirth = amendment.AmendmentDetail.PupilDetails.DateOfBirth,
+                    Age = amendment.AmendmentDetail.PupilDetails.Age,
+                    Upn = amendment.AmendmentDetail.PupilDetails.UPN
+                },
+                Urn = amendment.URN
+            };
+            var result = _apiClient.Amendments2Async(checkingWindowURL, amendmentDto).GetAwaiter().GetResult();
+            return result.Result;
         }
 
         public AmendmentViewModel GetAddPupilAmendmentViewModel(Guid id)

@@ -10,6 +10,7 @@ using Microsoft.Xrm.Sdk.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Extensions;
 
 namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
 {
@@ -81,6 +82,45 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
             }
 
             return establishmentDto;
+        }
+
+        public string CreateAmendment(Amendment amendment)
+        {
+            Guid amendmentId;
+            using (var context = new CrmServiceContext(_organizationService))
+            {
+                var amendmentDto = new new_Amendment
+                {
+                    rscd_Amendmenttype = amendment.AmendmentType.ToCRMAmendmentType()
+                };
+
+                // pupil details
+                amendmentDto.cr3d5_pupilid = amendment.Pupil.UPN;
+                amendmentDto.cr3d5_laestab = amendment.Pupil.LaEstab;
+                amendmentDto.cr3d5_urn = amendment.URN;
+                amendmentDto.new_Name = amendment.Pupil.FullName;
+                amendmentDto.cr3d5_forename = amendment.Pupil.ForeName;
+                amendmentDto.cr3d5_surname = amendment.Pupil.LastName;
+                amendmentDto.cr3d5_gender = amendment.Pupil.Gender.ToCRMAmendmentType();
+                amendmentDto.cr3d5_dob = amendment.Pupil.DateOfBirth;
+
+                // assign to helpdesk 1st line
+                amendmentDto.OwnerId = new EntityReference("team", _firstLineTeamId);
+
+                // Save
+                context.AddObject(amendmentDto);
+                var result = context.SaveChanges();
+                if (result.HasError)
+                {
+                    throw result.FirstOrDefault(e => e.Error != null)?.Error ?? new ApplicationException();
+                }
+                // Relate to establishment
+                var amendmentEstablishment = GetOrCreateEstablishment(amendment.CheckingWindow, amendment.URN, context);
+                RelateEstablishment(amendmentEstablishment, amendmentDto.Id, context);
+ 
+                var addPUp = context.CreateQuery<new_Amendment>().Single(e => e.Id == amendmentDto.Id);
+                return addPUp?.cr3d5_addpupilref;
+            }
         }
 
         public bool CreateAddPupilAmendment(CheckingWindow checkingWindow, AddPupilAmendment amendment, out string id)

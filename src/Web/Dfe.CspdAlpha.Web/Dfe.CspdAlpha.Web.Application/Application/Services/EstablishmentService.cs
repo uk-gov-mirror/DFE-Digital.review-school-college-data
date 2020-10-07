@@ -1,6 +1,6 @@
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
 using Dfe.CspdAlpha.Web.Application.Models.Common;
-using Dfe.Rscd.Web.ApiClient;
+using ApiClient = Dfe.Rscd.Web.ApiClient;
 using System.Linq;
 using Dfe.CspdAlpha.Web.Application.Application.Helpers;
 using Dfe.CspdAlpha.Web.Application.Models.School;
@@ -18,9 +18,9 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             Cohort
         }
 
-        private IClient _apiClient;
+        private ApiClient.IClient _apiClient;
 
-        public EstablishmentService(IClient apiClient)
+        public EstablishmentService(ApiClient.IClient apiClient)
         {
             _apiClient = apiClient;
         }
@@ -112,7 +112,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                 CohortMeasures = establishmentData.PerformanceMeasures.Where(p => cohortFields.Any(h => h.Key == p.Name)).Select(m => new Measure { Name = cohortFields[m.Name], Data = m.Value }).OrderBy(s => s.Name).ToList()
             };
         }
-        private Establishment GetEstablishmentData(CheckingWindow checkingWindow, string urn)
+        private ApiClient.Establishment GetEstablishmentData(CheckingWindow checkingWindow, string urn)
         {
             var school = _apiClient.EstablishmentsAsync(urn, checkingWindow.ToString().ToLower()).GetAwaiter().GetResult();
             if (string.IsNullOrWhiteSpace(school.Error.ErrorMessage))

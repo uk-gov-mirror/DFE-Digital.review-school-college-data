@@ -1,12 +1,11 @@
-using Dfe.CspdAlpha.Web.Application.Models.Amendments.AmendmentTypes;
 using Dfe.CspdAlpha.Web.Application.Models.Common;
 
 namespace Dfe.CspdAlpha.Web.Application.Models.Amendments
 {
-    public class Amendment<T>  where T : BaseAmendmentType
+    public class Amendment : IAmendment
     {
         public string URN { get; set; }
         public CheckingWindow CheckingWindow { get; set; }
-        public T AmendmentDetail { get; set; }
+        public IAmendmentType AmendmentDetail { get; set; }
     }
 }

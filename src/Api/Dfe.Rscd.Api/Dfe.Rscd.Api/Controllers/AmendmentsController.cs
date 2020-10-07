@@ -23,7 +23,7 @@ namespace Dfe.Rscd.Api.Controllers
         }
 
 
-        // GET: api/Amendments/5
+        // GET: api/Amendments/123456
         [HttpGet]
         [Route("{urn}")]
         [SwaggerOperation(
@@ -53,20 +53,34 @@ namespace Dfe.Rscd.Api.Controllers
 
         // POST: api/Amendments
         [HttpPost]
-        public void Post([FromBody] string value)
+        [SwaggerOperation(
+            Summary = "Creates an amendment in CRM",
+            Description = "Creates an amendment linked to an establishment and checking phase in CRM",
+            OperationId = "CreateAmendment",
+            Tags = new[] { "Amendments" }
+        )]
+        [ProducesResponseType(typeof(GetResponse<string>), 200)]
+        public IActionResult Post([FromBody, SwaggerRequestBody("Amendment to add to CRM", Required = true)] Amendment amendment)
         {
+            var amendmentReference = _amendmentService.CreateAmendment(amendment);
+            var response = new GetResponse<string>
+            {
+                Result = amendmentReference,
+                Error = new Error()
+            };
+            return Ok(response);
         }
 
         // PUT: api/Amendments/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+        //[HttpPut("{id}")]
+        //public void Put(int id, [FromBody] string value)
+        //{
+        //}
 
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        //// DELETE: api/ApiWithActions/5
+        //[HttpDelete("{id}")]
+        //public void Delete(int id)
+        //{
+        //}
     }
 }
