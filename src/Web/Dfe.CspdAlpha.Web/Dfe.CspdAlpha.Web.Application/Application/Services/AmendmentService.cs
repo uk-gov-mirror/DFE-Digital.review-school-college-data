@@ -92,8 +92,8 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                     { "05", "Imprisoned/Trial" },
                     { "06", "Safeguarding" },
                     { "07", "Not ESFA funded" },
-                    { "08", "Too old - age not eligible for reporting" },
-                    { "09", "Year 11 student - wrong year group" },
+                    { "08", "Age not eligible" },
+                    { "09", "Wrong year group" },
                     { "10", "Census error" }
                 };
             }
