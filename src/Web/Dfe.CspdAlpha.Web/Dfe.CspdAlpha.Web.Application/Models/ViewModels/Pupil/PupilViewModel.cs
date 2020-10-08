@@ -7,6 +7,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
 {
     public class PupilViewModel
     {
+        public string ID { get; set; }
         public string SchoolID { get; set; }
         public string URN { get; set; }
         public string UPN { get; set; }

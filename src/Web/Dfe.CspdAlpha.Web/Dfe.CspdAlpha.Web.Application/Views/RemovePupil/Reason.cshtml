@@ -6,7 +6,18 @@
 
 @section BackLink
 {
-    <a class="govuk-back-link" asp-controller="RemovePupil" asp-action="MatchedPupil" asp-route-id="@Model.PupilDetails.ID">Back</a>
+    @if (!string.IsNullOrWhiteSpace(Model.Query))
+    {
+        <a class="govuk-back-link" asp-action="Results" asp-route-searchtype="@Model.SearchType" asp-route-query="@Model.Query">Back</a>
+    }
+    else if (!string.IsNullOrWhiteSpace(Model.MatchedId))
+    {
+        <a class="govuk-back-link" asp-action="MatchedPupil" asp-route-id="@Model.MatchedId" asp-route-query="@Model.Query">Back</a>
+    }
+    else
+    {
+        <a class="govuk-back-link" asp-action="Index">Back</a>
+    }
 }
 
 <div asp-validation-summary="All"></div>

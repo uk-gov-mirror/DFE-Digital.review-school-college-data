@@ -43,7 +43,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             var pupilsFound = _pupilService.GetPupilDetailsList(CheckingWindow, viewModel);
             if (pupilsFound.Count == 0 || pupilsFound.Count > 1)
             {
-                return View( new ResultsViewModel
+                return View(new ResultsViewModel
                 {
                     PupilList = pupilsFound
                 });
@@ -57,7 +57,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             if (ModelState.IsValid)
             {
                 SavePupilToSession(viewModel.SelectedID, urn);
-                return RedirectToAction("Reason");
+                return RedirectToAction("Reason", new { searchType= viewModel.SearchType, query = viewModel.Query });
             }
             viewModel.PupilList = _pupilService.GetPupilDetailsList(CheckingWindow, new SearchQuery { Query = viewModel.Query, URN = viewModel.URN, SearchType = viewModel.SearchType});
 
@@ -97,10 +97,10 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             return View(viewModel);
         }
 
-        public IActionResult Reason()
+        public IActionResult Reason(QueryType searchType, string query, string matchedId)
         {
             var removePupilAmendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
-            return View(new ReasonViewModel{PupilDetails = removePupilAmendment.AmendmentDetail.PupilDetails, Reasons = _amendmentService.GetRemoveReasons()});
+            return View(new ReasonViewModel{ PupilDetails = removePupilAmendment.AmendmentDetail.PupilDetails, Reasons = _amendmentService.GetRemoveReasons(), SearchType = searchType, Query = query, MatchedId = matchedId});
         }
 
         [HttpPost]

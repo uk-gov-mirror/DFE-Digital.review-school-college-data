@@ -48,6 +48,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             {
                 PupilViewModel = new PupilViewModel
                 {
+                    ID = pupil.Id,
                     URN = pupil.Urn.Value,
                     UPN = pupil.Upn,
                     SchoolID = pupil.LaEstab,
