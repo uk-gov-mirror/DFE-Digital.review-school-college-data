@@ -7,6 +7,8 @@ namespace Dfe.Rscd.Api.Domain.Interfaces
 {
     public interface IAmendmentService
     {
+        IEnumerable<IDictionary<string, object>> GetAmendments();
+
         IEnumerable<AddPupilAmendment> GetAddPupilAmendments(CheckingWindow checkingWindow, string urn);
 
         string CreateAmendment(Amendment amendment);
