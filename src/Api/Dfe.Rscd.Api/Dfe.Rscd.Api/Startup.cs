@@ -15,6 +15,7 @@ using Microsoft.PowerPlatform.Cds.Client;
 using Microsoft.Xrm.Sdk;
 using System;
 using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace Dfe.Rscd.Api
 {
@@ -37,7 +38,8 @@ namespace Dfe.Rscd.Api
                 .AddJsonOptions(x =>
                 {
                     x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-                });
+                })
+                .AddNewtonsoftJson(o => { o.SerializerSettings.TypeNameHandling = TypeNameHandling.Auto; });
 
             services.AddSwaggerGen(c =>
             {

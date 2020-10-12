@@ -22,6 +22,21 @@ namespace Dfe.Rscd.Web.ApiClient
         /// <param name="checkingwindow">The checking window to request amendments from</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<AmendmentListGetResponse> GetAmendmentsAsync(string urn, string checkingwindow);
+    
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>Searches for schools requested amendments</summary>
+        /// <param name="urn">The URN of the school requesting amendments</param>
+        /// <param name="checkingwindow">The checking window to request amendments from</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<AmendmentListGetResponse> GetAmendmentsAsync(string urn, string checkingwindow, System.Threading.CancellationToken cancellationToken);
+    
+        /// <summary>Searches for schools requested amendments</summary>
+        /// <param name="urn">The URN of the school requesting amendments</param>
+        /// <param name="checkingwindow">The checking window to request amendments from</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<AddPupilAmendmentListGetResponse> GetAmendmentsByURNAsync(string urn, string checkingwindow);
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -36,14 +51,14 @@ namespace Dfe.Rscd.Web.ApiClient
         /// <param name="body">Amendment to add to CRM</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<StringGetResponse> CreateAmendmentAsync(string checkingwindow, Amendment body);
+        System.Threading.Tasks.Task<StringGetResponse> CreateAmendmentAsync(string checkingwindow, AmendmentDTO body);
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Creates an amendment in CRM</summary>
         /// <param name="body">Amendment to add to CRM</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<StringGetResponse> CreateAmendmentAsync(string checkingwindow, Amendment body, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<StringGetResponse> CreateAmendmentAsync(string checkingwindow, AmendmentDTO body, System.Threading.CancellationToken cancellationToken);
     
         /// <summary>Searches for a school</summary>
         /// <param name="urn">The URN of the school requesting amendments</param>
@@ -104,13 +119,42 @@ namespace Dfe.Rscd.Web.ApiClient
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.2.1.0 (Newtonsoft.Json v12.0.0.0)")]
-    public enum AddReason
+    public enum CheckingWindow
     {
-        [System.Runtime.Serialization.EnumMember(Value = @"New")]
-        New = 0,
+        [System.Runtime.Serialization.EnumMember(Value = @"Unknown")]
+        Unknown = 0,
     
-        [System.Runtime.Serialization.EnumMember(Value = @"Existing")]
-        Existing = 1,
+        [System.Runtime.Serialization.EnumMember(Value = @"KS2")]
+        KS2 = 1,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"KS2Errata")]
+        KS2Errata = 2,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"KS4June")]
+        KS4June = 3,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"KS4Late")]
+        KS4Late = 4,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"KS4Errata")]
+        KS4Errata = 5,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"KS5")]
+        KS5 = 6,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"KS5Errata")]
+        KS5Errata = 7,
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.2.1.0 (Newtonsoft.Json v12.0.0.0)")]
+    public enum AmendmentType
+    {
+        [System.Runtime.Serialization.EnumMember(Value = @"AddPupil")]
+        AddPupil = 0,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"RemovePupil")]
+        RemovePupil = 1,
     
     }
     
@@ -262,6 +306,115 @@ namespace Dfe.Rscd.Web.ApiClient
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.2.1.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class Evidence 
+    {
+        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Id { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Name { get; set; }
+    
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.2.1.0 (Newtonsoft.Json v12.0.0.0)")]
+    public enum EvidenceStatus
+    {
+        [System.Runtime.Serialization.EnumMember(Value = @"Unknown")]
+        Unknown = 0,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"Now")]
+        Now = 1,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"Later")]
+        Later = 2,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"NotRequired")]
+        NotRequired = 3,
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.2.1.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class IAmendmentType 
+    {
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.2.1.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class Amendment 
+    {
+        [Newtonsoft.Json.JsonProperty("checkingWindow", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        public CheckingWindow CheckingWindow { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("amendmentType", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        public AmendmentType AmendmentType { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Id { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("reference", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Reference { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("urn", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Urn { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("pupil", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public Pupil Pupil { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("evidence", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public Evidence Evidence { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("evidenceStatus", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        public EvidenceStatus EvidenceStatus { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("amendmentDetail", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public IAmendmentType AmendmentDetail { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("createdDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.DateTimeOffset CreatedDate { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("status", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Status { get; set; }
+    
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.2.1.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class Error 
+    {
+        [Newtonsoft.Json.JsonProperty("errorMessage", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string ErrorMessage { get; set; }
+    
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.2.1.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class AmendmentListGetResponse 
+    {
+        [Newtonsoft.Json.JsonProperty("result", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.ICollection<Amendment> Result { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("error", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public Error Error { get; set; }
+    
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.2.1.0 (Newtonsoft.Json v12.0.0.0)")]
+    public enum AddReason
+    {
+        [System.Runtime.Serialization.EnumMember(Value = @"New")]
+        New = 0,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"Existing")]
+        Existing = 1,
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.2.1.0 (Newtonsoft.Json v12.0.0.0)")]
     public enum Ks2Subject
     {
         [System.Runtime.Serialization.EnumMember(Value = @"Unknown")]
@@ -293,35 +446,6 @@ namespace Dfe.Rscd.Web.ApiClient
     
         [Newtonsoft.Json.JsonProperty("scaledScore", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string ScaledScore { get; set; }
-    
-    
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.2.1.0 (Newtonsoft.Json v12.0.0.0)")]
-    public enum EvidenceStatus
-    {
-        [System.Runtime.Serialization.EnumMember(Value = @"Unknown")]
-        Unknown = 0,
-    
-        [System.Runtime.Serialization.EnumMember(Value = @"Now")]
-        Now = 1,
-    
-        [System.Runtime.Serialization.EnumMember(Value = @"Later")]
-        Later = 2,
-    
-        [System.Runtime.Serialization.EnumMember(Value = @"NotRequired")]
-        NotRequired = 3,
-    
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.2.1.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class Evidence 
-    {
-        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Id { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Name { get; set; }
     
     
     }
@@ -365,15 +489,6 @@ namespace Dfe.Rscd.Web.ApiClient
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.2.1.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class Error 
-    {
-        [Newtonsoft.Json.JsonProperty("errorMessage", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string ErrorMessage { get; set; }
-    
-    
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.2.1.0 (Newtonsoft.Json v12.0.0.0)")]
     public partial class AddPupilAmendmentListGetResponse 
     {
         [Newtonsoft.Json.JsonProperty("result", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
@@ -386,64 +501,44 @@ namespace Dfe.Rscd.Web.ApiClient
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.2.1.0 (Newtonsoft.Json v12.0.0.0)")]
-    public enum CheckingWindow
+    public partial class RemovePupil 
     {
-        [System.Runtime.Serialization.EnumMember(Value = @"Unknown")]
-        Unknown = 0,
+        [Newtonsoft.Json.JsonProperty("reason", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Reason { get; set; }
     
-        [System.Runtime.Serialization.EnumMember(Value = @"KS2")]
-        KS2 = 1,
+        [Newtonsoft.Json.JsonProperty("subReason", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string SubReason { get; set; }
     
-        [System.Runtime.Serialization.EnumMember(Value = @"KS2Errata")]
-        KS2Errata = 2,
+        [Newtonsoft.Json.JsonProperty("detail", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Detail { get; set; }
     
-        [System.Runtime.Serialization.EnumMember(Value = @"KS4June")]
-        KS4June = 3,
-    
-        [System.Runtime.Serialization.EnumMember(Value = @"KS4Late")]
-        KS4Late = 4,
-    
-        [System.Runtime.Serialization.EnumMember(Value = @"KS4Errata")]
-        KS4Errata = 5,
-    
-        [System.Runtime.Serialization.EnumMember(Value = @"KS5")]
-        KS5 = 6,
-    
-        [System.Runtime.Serialization.EnumMember(Value = @"KS5Errata")]
-        KS5Errata = 7,
     
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.2.1.0 (Newtonsoft.Json v12.0.0.0)")]
-    public enum AmendmentType
+    public partial class AddPupil 
     {
-        [System.Runtime.Serialization.EnumMember(Value = @"AddPupil")]
-        AddPupil = 0,
+        [Newtonsoft.Json.JsonProperty("reason", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        public AddReason Reason { get; set; }
     
-        [System.Runtime.Serialization.EnumMember(Value = @"RemovePupil")]
-        RemovePupil = 1,
+        [Newtonsoft.Json.JsonProperty("priorAttainmentResults", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.ICollection<PriorAttainment> PriorAttainmentResults { get; set; }
+    
     
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.2.1.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class Amendment 
+    public partial class AmendmentDTO 
     {
-        [Newtonsoft.Json.JsonProperty("checkingWindow", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public CheckingWindow CheckingWindow { get; set; }
+        [Newtonsoft.Json.JsonProperty("amendment", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public Amendment Amendment { get; set; }
     
-        [Newtonsoft.Json.JsonProperty("amendmentType", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public AmendmentType AmendmentType { get; set; }
+        [Newtonsoft.Json.JsonProperty("removePupil", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public RemovePupil RemovePupil { get; set; }
     
-        [Newtonsoft.Json.JsonProperty("urn", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Urn { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("pupil", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public Pupil Pupil { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("evidence", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public Evidence Evidence { get; set; }
+        [Newtonsoft.Json.JsonProperty("addPupil", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public AddPupil AddPupil { get; set; }
     
     
     }

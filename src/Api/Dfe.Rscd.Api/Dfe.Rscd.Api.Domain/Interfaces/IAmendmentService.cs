@@ -11,19 +11,20 @@ namespace Dfe.Rscd.Api.Domain.Interfaces
 
         string CreateAmendment(Amendment amendment);
 
+        IEnumerable<Amendment> GetAmendments(CheckingWindow checkingWindow, string urn);
 
 
 
 
 
 
-        IEnumerable<AddPupilAmendment> GetAddPupilAmendments(int laestab);
+        //IEnumerable<AddPupilAmendment> GetAddPupilAmendments(int laestab);
 
-        bool CreateAddPupilAmendment(CheckingWindow checkingWindow, AddPupilAmendment amendment, out string id);
-        void RelateEvidence(Guid amendmentId, List<Evidence> evidenceList, bool updateEvidenceOption);
-        AddPupilAmendment GetAddPupilAmendmentDetail(Guid amendmentId);
+        //bool CreateAddPupilAmendment(CheckingWindow checkingWindow, AddPupilAmendment amendment, out string id);
+        //void RelateEvidence(Guid amendmentId, List<Evidence> evidenceList, bool updateEvidenceOption);
+        //AddPupilAmendment GetAddPupilAmendmentDetail(Guid amendmentId);
 
 
-        bool CancelAddPupilAmendment(Guid amendmentId);
+        //bool CancelAddPupilAmendment(Guid amendmentId);
     }
 }

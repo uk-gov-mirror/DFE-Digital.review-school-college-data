@@ -40,6 +40,30 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
         public AmendmentsListViewModel GetAmendmentsListViewModel(string urn, CheckingWindow checkingWindow)
         {
             var checkingWindowURL = CheckingWindowHelper.GetCheckingWindowURL(checkingWindow);
+            if (checkingWindow == CheckingWindow.KS5)
+            {
+                var ks5Amendments = _apiClient.GetAmendmentsAsync(urn, checkingWindowURL).GetAwaiter().GetResult();
+                return new AmendmentsListViewModel
+                {
+                    Urn = urn,
+                    AmendmentList = ks5Amendments.Result
+                        .Select(a => new Amendment
+                        {
+                            FirstName = a.Pupil.ForeName,
+                            LastName = a.Pupil.LastName,
+                            PupilId = a.Pupil.Id,
+                            DateRequested = a.CreatedDate.DateTime,
+                            ReferenceId = a.Reference,
+                            Id = a.Id,
+                            Status = a.Status,
+                            EvidenceStatus = GetEvidenceStatus(a.EvidenceStatus)
+                        })
+                        .OrderByDescending(a => a.DateRequested)
+                        .ToList()
+                };
+
+            }
+
             var amendments = _apiClient.GetAmendmentsByURNAsync(urn, checkingWindowURL).GetAwaiter().GetResult();
 
             return  new AmendmentsListViewModel
@@ -135,7 +159,8 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
         public string CreateAmendment(Dfe.CspdAlpha.Web.Application.Models.Amendments.Amendment amendment)
         {
             var checkingWindowURL = CheckingWindowHelper.GetCheckingWindowURL(amendment.CheckingWindow);
-            var amendmentDto = new ApiClient.Amendment
+            var amendmentDto = new ApiClient.AmendmentDTO();
+            amendmentDto.Amendment = new ApiClient.Amendment
             {
                 CheckingWindow = ApiClient.CheckingWindow.KS5,
                 AmendmentType = amendment.AmendmentDetail.AmendmentType == AmendmentType.RemovePupil ? ApiClient.AmendmentType.RemovePupil : ApiClient.AmendmentType.AddPupil,
@@ -151,9 +176,22 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                 },
                 Urn = amendment.URN
             };
+            if (amendmentDto.Amendment.AmendmentType == ApiClient.AmendmentType.RemovePupil)
+            {
+                var removeAmendment = (Dfe.CspdAlpha.Web.Application.Models.Amendments.AmendmentTypes.RemovePupil) amendment.AmendmentDetail;
+                amendmentDto.RemovePupil = new ApiClient.RemovePupil
+                {
+                    Reason = removeAmendment.Reason,
+                    SubReason = removeAmendment.SubReason,
+                    Detail = removeAmendment.Detail
+                };
+            }
+
             var result = _apiClient.CreateAmendmentAsync(checkingWindowURL, amendmentDto).GetAwaiter().GetResult();
+
             return result.Result;
         }
+
 
         public AmendmentViewModel GetAddPupilAmendmentViewModel(Guid id)
         {

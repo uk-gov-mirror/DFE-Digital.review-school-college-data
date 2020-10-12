@@ -34,6 +34,7 @@ using FluentValidation.AspNetCore;
 using Dfe.CspdAlpha.Web.Application.Validators.Pupil;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Dfe.CspdAlpha.Web.Application.TagHelpers;
+using Newtonsoft.Json;
 
 namespace Dfe.CspdAlpha.Web.Application
 {
@@ -64,8 +65,8 @@ namespace Dfe.CspdAlpha.Web.Application
                 {
                     fv.RegisterValidatorsFromAssemblyContaining<AddPupilDetailsViewModelValidator>();
                     fv.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
-                });
-
+                }).AddNewtonsoftJson(o => { o.SerializerSettings.TypeNameHandling = TypeNameHandling.All; });
+            
             // Adds feature management for Azure App Configuration
             services.AddFeatureManagement();
 
@@ -79,6 +80,8 @@ namespace Dfe.CspdAlpha.Web.Application
                     })
                     .InitializeTagHelper<FormTagHelper>((helper, context) => helper.Antiforgery = false);
             }
+
+            //services.AddControllers().AddJsonOptions()
 
             // configure SAML authentication
             var samlAuthOptions = Configuration.GetSection("SamlAuth").Get<SamlAuthOptions>();
