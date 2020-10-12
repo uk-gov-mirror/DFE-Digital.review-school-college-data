@@ -8,6 +8,9 @@ using System.Linq;
 using Dfe.Rscd.Api.Domain.Core.Enums;
 using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Models;
 using Swashbuckle.AspNetCore.Annotations;
+using System.IO;
+using CsvHelper;
+using System.Globalization;
 
 namespace Dfe.Rscd.Api.Controllers
 {
@@ -49,7 +52,6 @@ namespace Dfe.Rscd.Api.Controllers
             };
             return Ok(response);
         }
-
 
 
         // GET: api/Amendments/123456
@@ -100,6 +102,42 @@ namespace Dfe.Rscd.Api.Controllers
                 Error = new Error()
             };
             return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("/api/[controller]")]
+        [Consumes("text/csv")]
+        [Produces("text/csv")]
+        [SwaggerOperation(
+            Summary = "Generates CSV file of all recorded accepted amendments",
+            Description = "Generates CSV file of all recorded accepted amendments.",
+            OperationId = "DownloadAmendmentsCsv",
+            Tags = new[] { "Amendments" }
+            )]
+        [ProducesResponseType(typeof(string), 200)]
+        public IActionResult Get()
+        {
+            // TODO: This is a temporary download endpoint and not considered the final solution
+            // for exporting amendments to the data pipeline (or any other consumers).
+            // This is also likely to become an expensive operation, so caching will be important.
+            var amendments = _amendmentService.GetAmendments();
+
+            var stream = new MemoryStream();
+            using (TextWriter writeFile = new StreamWriter(stream, leaveOpen: true))
+            {
+                var csv = new CsvWriter(writeFile, CultureInfo.InvariantCulture);
+
+                foreach (var amendment in amendments)
+                {
+                    csv.WriteRecord(amendment);
+                    csv.NextRecord();
+                }
+            }
+
+            stream.Position = 0;
+
+            return File(
+                stream, "text/csv", $"Amendments-{DateTime.UtcNow:yyyyMMddTHHmmss}.csv");
         }
 
 
