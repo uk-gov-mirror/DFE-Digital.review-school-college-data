@@ -39,16 +39,17 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                 return null;
             }
 
-            return GetMatchedPupilViewModel(pupil.Result);
+            return GetMatchedPupilViewModel(pupil.Result, checkingWindow);
         }
 
-        private MatchedPupilViewModel GetMatchedPupilViewModel(ApiClient.Pupil pupil)
+        private MatchedPupilViewModel GetMatchedPupilViewModel(ApiClient.Pupil pupil, CheckingWindow checkingWindow)
         {
             return new MatchedPupilViewModel()
             {
                 PupilViewModel = new PupilViewModel
                 {
                     ID = pupil.Id,
+                    Keystage = GetKeyStage(checkingWindow),
                     URN = pupil.Urn.Value,
                     UPN = pupil.Upn,
                     SchoolID = pupil.LaEstab,
@@ -73,6 +74,25 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             };
         }
 
+        private Keystage GetKeyStage(CheckingWindow checkingWindow)
+        {
+            var checkingWindowString = checkingWindow.ToString();
+            if (checkingWindowString.ToLower().StartsWith("ks2"))
+            {
+                return Keystage.KS2;
+            }
+            if (checkingWindowString.ToLower().StartsWith("ks4"))
+            {
+                return Keystage.KS4;
+            }
+            if (checkingWindowString.ToLower().StartsWith("ks5"))
+            {
+                return Keystage.KS5;
+            }
+
+            return Keystage.Unknown;
+        }
+
         public MatchedPupilViewModel GetMatchedPupil(CheckingWindow checkingWindow, string upn)
         {
             var checkingWindowURL = CheckingWindowHelper.GetCheckingWindowURL(checkingWindow);
@@ -83,7 +103,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                 return null;
             }
 
-            return GetMatchedPupilViewModel(pupil.Result.First());
+            return GetMatchedPupilViewModel(pupil.Result.First(), checkingWindow);
         }
 
         private string ValidateValue(string value)

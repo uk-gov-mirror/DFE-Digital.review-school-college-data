@@ -29,4 +29,12 @@ namespace Dfe.CspdAlpha.Web.Application.Models.Common
         KS5,
         KS5Errata
     }
+
+    public enum Keystage
+    {
+        Unknown,
+        KS2,
+        KS4,
+        KS5
+    }
 }
