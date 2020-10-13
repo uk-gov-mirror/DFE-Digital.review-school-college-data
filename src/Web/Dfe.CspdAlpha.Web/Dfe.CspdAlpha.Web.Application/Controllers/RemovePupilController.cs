@@ -76,6 +76,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 {
                     PupilDetails = new PupilDetails
                     {
+                        Keystage = viewModel.PupilViewModel.Keystage,
                         ID = id,
                         UPN = viewModel.PupilViewModel.UPN,
                         FirstName = viewModel.PupilViewModel.FirstName,
