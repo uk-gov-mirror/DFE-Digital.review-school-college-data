@@ -40,7 +40,7 @@
             <div class="govuk-character-count" data-module="govuk-character-count" data-maxlength="500">
                 <div class="govuk-form-group" asp-for="AmendmentDetails">
                     <label class="govuk-label" asp-for="AmendmentDetails">
-                        Provide details
+                        @Model.DetailsHeader
                     </label>
                     <textarea class="govuk-textarea govuk-js-character-count" asp-for="AmendmentDetails" rows="5" aria-describedby="AmendmentDetails-info"></textarea>
                 </div>

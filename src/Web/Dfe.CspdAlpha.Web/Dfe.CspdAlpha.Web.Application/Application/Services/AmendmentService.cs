@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Dfe.CspdAlpha.Web.Application.Application.Extensions;
 using Dfe.CspdAlpha.Web.Application.Application.Helpers;
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
-using Dfe.CspdAlpha.Web.Application.Models.Amendments;
 using Dfe.CspdAlpha.Web.Application.Models.Common;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
@@ -162,20 +162,21 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             var amendmentDto = new ApiClient.AmendmentDTO();
             amendmentDto.Amendment = new ApiClient.Amendment
             {
-                CheckingWindow = ApiClient.CheckingWindow.KS5,
-                AmendmentType = amendment.AmendmentDetail.AmendmentType == AmendmentType.RemovePupil ? ApiClient.AmendmentType.RemovePupil : ApiClient.AmendmentType.AddPupil,
+                CheckingWindow = amendment.CheckingWindow.ToApiCheckingWindow(),
+                AmendmentType = amendment.AmendmentDetail.AmendmentType.ToApiAmendmentType(),
                 Pupil = new ApiClient.Pupil
                 {
                     Id = amendment.AmendmentDetail.PupilDetails.ID,
                     ForeName = amendment.AmendmentDetail.PupilDetails.FirstName,
                     LastName = amendment.AmendmentDetail.PupilDetails.LastName,
-                    Gender = amendment.AmendmentDetail.PupilDetails.Gender == Gender.Male ? ApiClient.Gender.Male : ApiClient.Gender.Female,
+                    Gender = amendment.AmendmentDetail.PupilDetails.Gender.ToApiGender(),
                     DateOfBirth = amendment.AmendmentDetail.PupilDetails.DateOfBirth,
                     Age = amendment.AmendmentDetail.PupilDetails.Age,
                     Upn = amendment.AmendmentDetail.PupilDetails.UPN
                 },
                 Urn = amendment.URN
             };
+            // TODO: need to add other amendment types here
             if (amendmentDto.Amendment.AmendmentType == ApiClient.AmendmentType.RemovePupil)
             {
                 var removeAmendment = (Dfe.CspdAlpha.Web.Application.Models.Amendments.AmendmentTypes.RemovePupil) amendment.AmendmentDetail;

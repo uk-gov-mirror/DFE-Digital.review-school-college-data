@@ -1,0 +1,54 @@
+using Dfe.CspdAlpha.Web.Application.Models.Common;
+using ApiCheckingWindow = Dfe.Rscd.Web.ApiClient.CheckingWindow;
+namespace Dfe.CspdAlpha.Web.Application.Application.Extensions
+{
+    public static class CheckingWindowExtensions
+    {
+        public static CheckingWindow ToApplicationCheckingWindow(
+            this ApiCheckingWindow checkingWindow)
+        {
+            switch (checkingWindow)
+            {
+                case ApiCheckingWindow.KS2:
+                    return CheckingWindow.KS2;
+                case ApiCheckingWindow.KS2Errata:
+                    return CheckingWindow.KS2Errata;
+                case ApiCheckingWindow.KS4June:
+                    return CheckingWindow.KS4June;
+                case ApiCheckingWindow.KS4Late:
+                    return CheckingWindow.KS4Late;
+                case ApiCheckingWindow.KS4Errata:
+                    return CheckingWindow.KS4Errata;
+                case ApiCheckingWindow.KS5:
+                    return CheckingWindow.KS5;
+                case ApiCheckingWindow.KS5Errata:
+                    return CheckingWindow.KS5Errata;
+            }
+
+            return CheckingWindow.Unknown;
+        }
+        public static ApiCheckingWindow ToApiCheckingWindow(
+            this CheckingWindow checkingWindow)
+        {
+            switch (checkingWindow)
+            {
+                case CheckingWindow.KS2:
+                    return ApiCheckingWindow.KS2;
+                case CheckingWindow.KS2Errata:
+                    return ApiCheckingWindow.KS2Errata;
+                case CheckingWindow.KS4June:
+                    return ApiCheckingWindow.KS4June;
+                case CheckingWindow.KS4Late:
+                    return ApiCheckingWindow.KS4Late;
+                case CheckingWindow.KS4Errata:
+                    return ApiCheckingWindow.KS4Errata;
+                case CheckingWindow.KS5:
+                    return ApiCheckingWindow.KS5;
+                case CheckingWindow.KS5Errata:
+                    return ApiCheckingWindow.KS5Errata;
+            }
+
+            return ApiCheckingWindow.Unknown;
+        }
+    }
+}

@@ -117,7 +117,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                     return RedirectToAction("SubReason");
                 }
 
-                if (viewModel.SelectedReason == "325")
+                if (new[] { "325", "328" }.Any(r => r == viewModel.SelectedReason))
                 {
                     return RedirectToAction("Details");
                 }
@@ -148,22 +148,24 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         public IActionResult Details()
         {
             var removePupilAmendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
-            return View(new DetailsViewModel {PupilDetails = removePupilAmendment.AmendmentDetail.PupilDetails});
+            var amendmentDetail = (RemovePupil)removePupilAmendment.AmendmentDetail;
+            return View(new DetailsViewModel {PupilDetails = removePupilAmendment.AmendmentDetail.PupilDetails, Reason = amendmentDetail.Reason});
         }
 
         [HttpPost]
         public IActionResult Details(DetailsViewModel viewModel)
         {
             var removePupilAmendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
+            var amendmentDetail = (RemovePupil)removePupilAmendment.AmendmentDetail;
             if (ModelState.IsValid)
             {
-                var amendmentDetail = (RemovePupil)removePupilAmendment.AmendmentDetail;
                 amendmentDetail.Detail = viewModel.AmendmentDetails;
                 HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, removePupilAmendment);
                 return RedirectToAction("Confirm","Amendments");
             }
 
             viewModel.PupilDetails = removePupilAmendment.AmendmentDetail.PupilDetails;
+            viewModel.Reason = amendmentDetail.Reason;
             return View(viewModel);
         }
     }
