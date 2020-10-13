@@ -1,3 +1,4 @@
+@using Dfe.CspdAlpha.Web.Application.Application.Extensions
 @using Dfe.CspdAlpha.Web.Application.Models.School;
 @using Dfe.CspdAlpha.Web.Domain.Core.Enums;
 @model List<Amendment>
@@ -7,6 +8,7 @@
             <th scope="col" class="govuk-table__header">First name</th>
             <th scope="col" class="govuk-table__header">Last name</th>
             <th scope="col" class="govuk-table__header">Date requested</th>
+            <th scope="col" class="govuk-table__header">Checking window</th>
             <th scope="col" class="govuk-table__header">View requested amendment</th>
             <th scope="col" class="govuk-table__header">Upload evidence</th>
             <th scope="col" class="govuk-table__header">Cancel amendment</th>
@@ -21,6 +23,7 @@
                 <td class="govuk-table__cell" data-label="First name">@amendment.FirstName</td>
                 <td class="govuk-table__cell" data-label="Last name">@amendment.LastName</td>
                 <td class="govuk-table__cell" data-label="Date requested">@amendment.DateRequested.ToString("dd/MM/yyyy")</td>
+                <td class="govuk-table__cell" data-label="Checking window">@amendment.CheckingWindow.ToCheckingWindowLabel()</td>
                 <td class="govuk-table__cell" data-label="View requested amendment"><a asp-controller="Amendments" asp-action="View" asp-route-id="@amendment.Id">View</a></td>
                 <td class="govuk-table__cell" data-label="Upload evidence">
                     @if (amendment.Status == "Cancelled")

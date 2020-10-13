@@ -6,7 +6,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments
     public class ConfirmViewModel
     {
         public PupilDetails PupilDetails { get; set; }
-        public string PupilLabel => PupilDetails.Keystage == Keystage.KS5 ? "student" : "pupil";
+        public string PupilLabel => PupilDetails?.Keystage == Keystage.KS5 ? "student" : "pupil";
         public AmendmentType AmendmentType { get; set; }
         public bool ConfirmAmendment { get; set; }
 

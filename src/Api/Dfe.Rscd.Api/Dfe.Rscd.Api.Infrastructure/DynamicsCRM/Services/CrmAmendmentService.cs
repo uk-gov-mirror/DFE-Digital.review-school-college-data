@@ -546,7 +546,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
                 return amendment.rscd_Decisionfinal.ToString();
             }
 
-            return amendment.rscd_Decisionfinal.ToString();
+            return amendment.rscd_Amendmentstatus.ToString();
         }
 
         //public AddPupilAmendment GetAddPupilAmendmentDetail(Guid amendmentId)

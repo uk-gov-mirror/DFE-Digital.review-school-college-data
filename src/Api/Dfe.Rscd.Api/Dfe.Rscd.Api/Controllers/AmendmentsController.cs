@@ -1,16 +1,16 @@
-﻿using System;
+﻿using CsvHelper;
+using Dfe.Rscd.Api.Domain.Core.Enums;
 using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Domain.Interfaces;
+using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Models;
 using Dfe.Rscd.Api.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
-using Dfe.Rscd.Api.Domain.Core.Enums;
-using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Models;
 using Swashbuckle.AspNetCore.Annotations;
-using System.IO;
-using CsvHelper;
+using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
+using System.Linq;
 
 namespace Dfe.Rscd.Api.Controllers
 {
@@ -139,20 +139,5 @@ namespace Dfe.Rscd.Api.Controllers
             return File(
                 stream, "text/csv", $"Amendments-{DateTime.UtcNow:yyyyMMddTHHmmss}.csv");
         }
-
-
-
-
-        // PUT: api/Amendments/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
-
-        //// DELETE: api/ApiWithActions/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
     }
 }

@@ -1,10 +1,12 @@
 using Dfe.CspdAlpha.Web.Domain.Core.Enums;
 using System;
+using Dfe.CspdAlpha.Web.Application.Models.Common;
 
 namespace Dfe.CspdAlpha.Web.Application.Models.School
 {
     public class Amendment
     {
+        public CheckingWindow CheckingWindow { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string PupilId { get; set; }

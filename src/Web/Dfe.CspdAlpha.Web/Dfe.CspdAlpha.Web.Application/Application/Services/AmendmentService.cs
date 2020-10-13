@@ -49,6 +49,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                     AmendmentList = ks5Amendments.Result
                         .Select(a => new Amendment
                         {
+                            CheckingWindow = a.CheckingWindow.ToApplicationCheckingWindow(),
                             FirstName = a.Pupil.ForeName,
                             LastName = a.Pupil.LastName,
                             PupilId = a.Pupil.Id,

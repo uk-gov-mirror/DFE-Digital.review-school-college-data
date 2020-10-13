@@ -3440,6 +3440,26 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 		/// <summary>
 		/// 
 		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_amendmentstatus")]
+		public virtual new_amendmentStatus? rscd_Amendmentstatus
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((new_amendmentStatus?)(EntityOptionSetEnum.GetEnum(this, "rscd_amendmentstatus")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("rscd_Amendmentstatus");
+				this.SetAttributeValue("rscd_amendmentstatus", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+				this.OnPropertyChanged("rscd_Amendmentstatus");
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_amendmenttype")]
 		public virtual rscd_Amendmenttype? rscd_Amendmenttype
 		{
