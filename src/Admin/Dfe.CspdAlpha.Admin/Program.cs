@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
 
 namespace Dfe.CspdAlpha.Admin
 {
@@ -48,18 +45,6 @@ namespace Dfe.CspdAlpha.Admin
                     {
                         PupilsLoader.Load(Console.WriteLine, args[1], args[2], args[3], args[4]);
                     }
-                    break;
-
-                case nameof(AmendmentExport):
-
-                    if (args.Length != 2)
-                    {
-                        Console.WriteLine("ERROR: Please specify: [cdsConnectionString] ");
-
-                        return;
-                    }
-
-                    AmendmentExport.Export(Console.WriteLine, args[1]);
                     break;
 
                 default:
