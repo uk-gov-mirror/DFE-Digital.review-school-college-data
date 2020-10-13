@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
+using Dfe.CspdAlpha.Web.Application.Models.Amendments.AmendmentTypes;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
@@ -51,8 +52,32 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
         public IActionResult Confirm()
         {
-            var removePupilAmendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
-            return View(new ConfirmViewModel{AmendmentType = removePupilAmendment.AmendmentDetail.AmendmentType, PupilDetails = removePupilAmendment.AmendmentDetail.PupilDetails});
+            var amendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
+            return View(GetConfirmViewModel(amendment));
+        }
+
+        private ConfirmViewModel GetConfirmViewModel(Amendment amendment)
+        {
+            var viewModel = new ConfirmViewModel
+            {
+                AmendmentType = amendment.AmendmentDetail.AmendmentType,
+                PupilDetails = amendment.AmendmentDetail.PupilDetails,
+                BackController = amendment.AmendmentDetail.AmendmentType.ToString(),
+            };
+            if (viewModel.AmendmentType == AmendmentType.RemovePupil)
+            {
+                var removePupil = (RemovePupil) amendment.AmendmentDetail;
+                switch (removePupil.Reason)
+                {
+                    case "325":
+                    case "328":
+                    default:
+                        viewModel.BackAction = "Details";
+                        break;
+                }
+            }
+
+            return viewModel;
         }
 
         [HttpPost]
@@ -83,8 +108,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 return RedirectToAction("Received");
             }
 
-            var removePupilAmendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
-            return View(new ConfirmViewModel { AmendmentType = removePupilAmendment.AmendmentDetail.AmendmentType, PupilDetails = removePupilAmendment.AmendmentDetail.PupilDetails });
+            return View(GetConfirmViewModel(amendment));
         }
 
         public IActionResult Received()
