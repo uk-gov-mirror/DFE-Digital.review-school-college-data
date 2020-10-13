@@ -1,11 +1,19 @@
-@using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
-@model MatchedPupilViewModel
+@using Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil
+@model RemovePupilViewModel
 @{
     ViewData["Title"] = "This is a match for the student you want to request to remove";
 }
 @section BackLink
 {
-    <a class="govuk-back-link" asp-controller="RemovePupil" asp-action="Index">Back</a>
+    @if (Model.QueryType == QueryType.None)
+    {
+        <a class="govuk-back-link" asp-controller="RemovePupil" asp-action="Index">Back</a>
+
+    }
+    else
+    {
+        <a class="govuk-back-link" asp-controller="RemovePupil" asp-action="Results" asp-route-SearchType="@Model.QueryType" asp-route-Query="@Model.query">Back</a>
+    }
 }
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-three-quarters">

@@ -46,7 +46,7 @@ else
                                 </div>
                             </div>
                             <p class="app-align--below-radios govuk-body-s">
-                                <a asp-controller="RemovePupil" asp-action="MatchedPupil" asp-route-id="@student.ID">View student</a>
+                                <a asp-controller="RemovePupil" asp-action="MatchedPupil" asp-route-id="@student.ID" asp-route-Query="@Model.Query" asp-route-SearchType="@Model.SearchType">View student</a>
                             </p>
                         }
                     </fieldset>
