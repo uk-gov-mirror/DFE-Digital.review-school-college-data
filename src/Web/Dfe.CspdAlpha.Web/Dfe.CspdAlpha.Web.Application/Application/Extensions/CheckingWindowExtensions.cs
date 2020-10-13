@@ -62,13 +62,13 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Extensions
                 case CheckingWindow.KS2Errata:
                     break;
                 case CheckingWindow.KS4June:
-                    return "KS4  June";
+                    return "June";
                 case CheckingWindow.KS4Late:
-                    return "KS4 Sep";
+                    return "Sep";
                 case CheckingWindow.KS4Errata:
                     break;
                 case CheckingWindow.KS5:
-                    return "KS5 Sep";
+                    return "Sep";
                 case CheckingWindow.KS5Errata:
                     break;
                 default:

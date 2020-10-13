@@ -63,6 +63,15 @@ else
             </div>
         </div>
         <input type="hidden" asp-for="SearchType" />
-        <input type="hidden" asp-for="Query"/>
-</form>
+        <input type="hidden" asp-for="Query" />
+    </form>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <a asp-controller="TaskList" asp-action="Index" class="app-modal__cancel-link">Cancel amendment</a>
+        </div>
+    </div>
+    <partial name="_CancelModalContent" />
 }
+
+
+
