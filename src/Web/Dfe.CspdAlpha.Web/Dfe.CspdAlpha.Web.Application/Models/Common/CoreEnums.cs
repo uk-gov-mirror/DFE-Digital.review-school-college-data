@@ -32,4 +32,13 @@ namespace Dfe.CspdAlpha.Web.Application.Models.Common
         KS4,
         KS5
     }
+
+    public enum EvidenceOption
+    {
+        Unknown,
+        UploadNow,
+        UploadLater,
+        NotRequired
+    }
+
 }

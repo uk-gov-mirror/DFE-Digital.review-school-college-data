@@ -136,7 +136,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddEvidence(EvidenceOption selectedEvidenceOption)
+        public IActionResult AddEvidence(Models.ViewModels.Pupil.EvidenceOption selectedEvidenceOption)
         {
             var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
             addPupilAmendment.SelectedEvidenceOption = selectedEvidenceOption;
@@ -145,10 +145,10 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             {
                 switch (selectedEvidenceOption)
                 {
-                    case EvidenceOption.UploadNow:
+                    case Models.ViewModels.Pupil.EvidenceOption.UploadNow:
                         return RedirectToAction("UploadEvidence");
-                    case EvidenceOption.UploadLater:
-                    case EvidenceOption.NotRequired:
+                    case Models.ViewModels.Pupil.EvidenceOption.UploadLater:
+                    case Models.ViewModels.Pupil.EvidenceOption.NotRequired:
                         return RedirectToAction("ConfirmAddPupil");
                     default:
                         return View(addPupilAmendment);
@@ -163,7 +163,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             {
                 var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
 
-                if (addPupilAmendment == null || addPupilAmendment.SelectedEvidenceOption != EvidenceOption.UploadNow)
+                if (addPupilAmendment == null || addPupilAmendment.SelectedEvidenceOption != Models.ViewModels.Pupil.EvidenceOption.UploadNow)
                 {
                     return RedirectToAction("Add");
                 }
@@ -209,7 +209,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         public IActionResult ConfirmAddPupil()
         {
             var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
-            if (addPupilAmendment == null || addPupilAmendment.SelectedEvidenceOption == EvidenceOption.Unknown)
+            if (addPupilAmendment == null || addPupilAmendment.SelectedEvidenceOption == Models.ViewModels.Pupil.EvidenceOption.Unknown)
             {
                 return RedirectToAction("Add");
             }
@@ -227,7 +227,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         {
             // Ensure steps haven't been manually skipped
             var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
-            if (addPupilAmendment == null || addPupilAmendment.SelectedEvidenceOption == EvidenceOption.Unknown)
+            if (addPupilAmendment == null || addPupilAmendment.SelectedEvidenceOption == Models.ViewModels.Pupil.EvidenceOption.Unknown)
             {
                 return RedirectToAction("Add");
             }

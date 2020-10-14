@@ -15,6 +15,10 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil
             {
                 return "Provide details fo why the student was not on roll during the attendance year";
             }
+            if (Reason == "328")
+            {
+                return "Provide details fo why the student was not at the end of the 16 to 18 study";
+            }
 
             return "Provide details";
         }

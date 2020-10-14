@@ -3620,6 +3620,26 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 		/// <summary>
 		/// 
 		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_evidencestatus")]
+		public virtual rscd_Evidencestatus? rscd_Evidencestatus
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((rscd_Evidencestatus?)(EntityOptionSetEnum.GetEnum(this, "rscd_evidencestatus")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("rscd_Evidencestatus");
+				this.SetAttributeValue("rscd_evidencestatus", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+				this.OnPropertyChanged("rscd_Evidencestatus");
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_externalnote")]
 		public string rscd_Externalnote
 		{

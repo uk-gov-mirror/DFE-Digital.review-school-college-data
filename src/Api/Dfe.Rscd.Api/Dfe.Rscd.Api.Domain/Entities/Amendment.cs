@@ -12,7 +12,7 @@ namespace Dfe.Rscd.Api.Domain.Entities
         public string Reference { get; set; }
         public string URN { get; set; }
         public Pupil Pupil { get; set; }
-        public Evidence Evidence { get; set; }
+        public string EvidenceFolderName { get; set; }
         public EvidenceStatus EvidenceStatus { get; set; }
         public IAmendmentType AmendmentDetail { get; set; }   
         public DateTime CreatedDate { get; set; }
