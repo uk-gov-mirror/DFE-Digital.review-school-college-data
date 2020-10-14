@@ -1,3 +1,4 @@
+using System.Linq;
 using Dfe.CspdAlpha.Web.Application.Models.Common;
 
 namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil
@@ -17,6 +18,17 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil
             }
 
             return "Provide details";
+        }
+
+        public string GetBackAction()
+        {
+
+            if (Reason == "329")
+            {
+                return "SubReason";
+            }
+
+            return "Reason";
         }
     }
 }
