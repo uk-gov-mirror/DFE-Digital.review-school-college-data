@@ -50,7 +50,7 @@
         <div class="govuk-grid-column-full">
             <div class="govuk-form-group">
                 <label class="govuk-label" for="pupil-search">
-                    Search for a @(ks5View ? "student" : "pupil") 
+                    Search for a @(ks5View ? "student" : "pupil") <span class="govuk-visually-hidden"> by name or @(ks5View ? "ULN" : "UPN")</span>
                 </label>
                 <pupil-search v-model="searchText" />
             </div>
@@ -58,7 +58,7 @@
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
-            <pupil-table :urn="urn" :pupils="filteredPupils" :columns="columns" :checkingWindowURL="checkingWindowURL" />
+            <pupil-table :urn="urn" :pupils="filteredPupils" :columns="columns" />
         </div>
     </div>
     <div class="govuk-grid-row">

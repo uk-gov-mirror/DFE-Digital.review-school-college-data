@@ -15,17 +15,19 @@ const pupilListApp = new Vue({
     pupils: [],
     searchText: '',
     urn: '',
-    checkingWindowURL: '',
     columns: [],
     isLoading: false
   },
   mounted: function() {
     this.pupils = window.pupilsJson.map((pupil) => {
-      pupil.fullname = pupil.FirstName.toLowerCase() + ' ' + pupil.LastName.toLowerCase();
+      if (typeof pupil.ULN !== 'undefined'){
+        pupil.searchCriteria = pupil.FirstName.toLowerCase() + ' ' + pupil.LastName.toLowerCase() + ' ' + pupil.ULN.toLowerCase();
+      } else {
+        pupil.searchCriteria = pupil.FirstName.toLowerCase() + ' ' + pupil.LastName.toLowerCase() + ' ' + pupil.UPN.toLowerCase();
+      }
       return pupil;
     });
-    this.checkingWindowURL = window.checkingWindowURL;
-    if (this.checkingWindowURL.indexOf('ks5') > -1) {
+    if (window.checkingWindowURL.indexOf('ks5') > -1) {
       this.columns = ['First name', 'Last name', 'ULN', 'View student'];
     } else {
       this.columns = ['First name', 'Last name', 'UPN', 'View pupil'];
@@ -36,7 +38,7 @@ const pupilListApp = new Vue({
     filterPupils: function(){
       const searchText = this.searchText;
       this.filteredPupils = this.pupils.filter((pupil) => {
-        return pupil.fullname.indexOf(searchText) > -1;
+        return pupil.searchCriteria.indexOf(searchText) > -1;
       });
     },
     clearSearch: function(){
@@ -49,7 +51,7 @@ const pupilListApp = new Vue({
     filteredPupils: function(){
       const searchText = this.searchText.toLowerCase();
       return this.pupils.filter((pupil) => {
-        return pupil.fullname.indexOf(searchText) > -1;
+        return pupil.searchCriteria.indexOf(searchText) > -1;
       });
     },
     isFiltering: function(){
