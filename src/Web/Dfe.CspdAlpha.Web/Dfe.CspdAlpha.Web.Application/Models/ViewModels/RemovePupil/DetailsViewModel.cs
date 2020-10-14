@@ -1,3 +1,4 @@
+using System.Linq;
 using Dfe.CspdAlpha.Web.Application.Models.Common;
 
 namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil
@@ -13,7 +14,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil
         {
             if (Reason == "328")
             {
-                return "Provide details fo why the student was not on roll during the attendance year";
+                return "Provide details for why the student was not on roll during the attendance year";
             }
             if (Reason == "328")
             {
@@ -21,6 +22,17 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil
             }
 
             return "Provide details";
+        }
+
+        public string GetBackAction()
+        {
+
+            if (Reason == "329")
+            {
+                return "SubReason";
+            }
+
+            return "Reason";
         }
     }
 }

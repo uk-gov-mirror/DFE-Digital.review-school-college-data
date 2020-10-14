@@ -1,12 +1,12 @@
 @using Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil
 @model DetailsViewModel
 @{
-    ViewData["Title"] = "Select a reason for request to remove a student";
+    ViewData["Title"] = "Provide details of your request to remove a student";
 }
 
 @section BackLink
 {
-    <a class="govuk-back-link" asp-controller="RemovePupil" asp-action="MatchedPupil" asp-route-id="@Model.PupilDetails.ID">Back</a>
+    <a class="govuk-back-link"  asp-action="@Model.GetBackAction()" asp-route-id="@Model.PupilDetails.ID">Back</a>
 }
 
 <div asp-validation-summary="All"></div>
