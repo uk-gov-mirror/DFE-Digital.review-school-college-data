@@ -19,12 +19,11 @@ class AppUpload {
         this.updateFileList();
       }
     });
-
-    document.getElementById('upload-button-next').addEventListener('click', (e)=>{
-      if (!$('.govuk-file-upload').filter(':visible')[0].files[0] && this.fileNames.length === 0) {
-        e.preventDefault();
-      }
-    });
+    //document.getElementById('upload-button-next').addEventListener('click', (e)=>{
+    //  if (!$('.govuk-file-upload').filter(':visible')[0].files[0] && this.fileNames.length === 0) {
+    //    e.preventDefault();
+    //  }
+    //});
   }
 
   removeFileFromCollection(fileName) {

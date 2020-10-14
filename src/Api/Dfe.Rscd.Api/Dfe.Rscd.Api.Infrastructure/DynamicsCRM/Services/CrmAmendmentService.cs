@@ -26,6 +26,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
         private readonly IOrganizationService _organizationService;
         private readonly Guid _firstLineTeamId;
         private IEstablishmentService _establishmentService;
+        private readonly Guid _sharePointDocumentLocationRecordId;
 
         private const string fileUploadRelationshipName = "cr3d5_new_Amendment_Evidence_cr3d5_Fileupload";
 
@@ -40,6 +41,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
             _establishmentService = establishmentService;
             _organizationService = organizationService;
             _firstLineTeamId = config.Value.Helpdesk1stLineTeamId;
+            _sharePointDocumentLocationRecordId = config.Value.SharePointDocumentLocationRecordId;
         }
 
         private cr3d5_establishment GetOrCreateEstablishment(CheckingWindow checkingWindow, string id,
@@ -122,6 +124,8 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
                     amendmentDto.rscd_Yeargroup = amendment.Pupil.YearGroup;
                 }
 
+                amendmentDto.rscd_Evidencestatus = amendment.EvidenceStatus.ToCRMEvidenceStatus();
+
                 // TODO: default statuses for now
                 amendmentDto.rscd_Outcome = rscd_Outcome.AwaitingDfEreview;
                 amendmentDto.rscd_Recordedby = "RSCD Website";
@@ -159,11 +163,39 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
                 var amendmentEstablishment = GetOrCreateEstablishment(amendment.CheckingWindow, amendment.URN, context);
                 RelateEstablishmentToAmendment(amendmentEstablishment, amendmentDto.Id, context);
 
+                // RelateEvidence
+                if (amendmentDto.rscd_Evidencestatus == rscd_Evidencestatus.Now)
+                {
+                    RelateEvidence(amendmentDto.Id, amendment.EvidenceFolderName, false);
+                }
 
                 var addPUp = context.CreateQuery<rscd_Amendment>().Single(e => e.Id == amendmentDto.Id);
                 return addPUp?.rscd_Referencenumber;
             }
         }
+
+        public void RelateEvidence(Guid amendmentId, string evidenceFolderName, bool updateEvidenceOption)
+        {
+            // https://community.dynamics.com/crm/f/microsoft-dynamics-crm-forum/203503/adding-a-sharepointdocumentlocation-programmatically/528485
+            Entity sharepointdocumentlocation = new Entity("sharepointdocumentlocation");
+            sharepointdocumentlocation["name"] = evidenceFolderName;
+            sharepointdocumentlocation["description"] = amendmentId.ToString();
+
+            // TODO: Currently hard-coded to a document location record that points to the "Amendment" sub-folder. Will need to decide
+            // on final folder structure for organising file uploads - possibly have a folder per checking window ({year}/{checking-window})
+            sharepointdocumentlocation["parentsiteorlocation"] = new EntityReference(
+                "sharepointdocumentlocation", _sharePointDocumentLocationRecordId);
+            sharepointdocumentlocation["relativeurl"] = evidenceFolderName;
+            sharepointdocumentlocation["regardingobjectid"] = new EntityReference(rscd_Amendment.EntityLogicalName, amendmentId);
+
+            Guid sharepointdocumentlocationid = _organizationService.Create(sharepointdocumentlocation);
+
+            if (updateEvidenceOption)
+            {
+                //UpdateEvidenceStatus(amendmentId); //TODO: this needs fixing for amendment view
+            }
+        }
+
 
         public void RelateEstablishmentToAmendment(cr3d5_establishment establishment, Guid amendmentId,
             CrmServiceContext context)
@@ -376,7 +408,6 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
                 Id = amendment.Id.ToString(),
                 Reference = amendment.rscd_Referencenumber,
                 Status = GetStatus(amendment),
-                Evidence = new Evidence(),
                 EvidenceStatus = EvidenceStatus.NotRequired,
                 URN = urn,
                 Pupil = new Pupil

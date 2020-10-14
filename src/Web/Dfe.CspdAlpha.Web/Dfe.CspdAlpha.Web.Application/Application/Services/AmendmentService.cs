@@ -167,15 +167,17 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                 AmendmentType = amendment.AmendmentDetail.AmendmentType.ToApiAmendmentType(),
                 Pupil = new ApiClient.Pupil
                 {
-                    Id = amendment.AmendmentDetail.PupilDetails.ID,
-                    ForeName = amendment.AmendmentDetail.PupilDetails.FirstName,
-                    LastName = amendment.AmendmentDetail.PupilDetails.LastName,
-                    Gender = amendment.AmendmentDetail.PupilDetails.Gender.ToApiGender(),
-                    DateOfBirth = amendment.AmendmentDetail.PupilDetails.DateOfBirth,
-                    Age = amendment.AmendmentDetail.PupilDetails.Age,
-                    Upn = amendment.AmendmentDetail.PupilDetails.UPN
+                    Id = amendment.PupilDetails.ID,
+                    ForeName = amendment.PupilDetails.FirstName,
+                    LastName = amendment.PupilDetails.LastName,
+                    Gender = amendment.PupilDetails.Gender.ToApiGender(),
+                    DateOfBirth = amendment.PupilDetails.DateOfBirth,
+                    Age = amendment.PupilDetails.Age,
+                    Upn = amendment.PupilDetails.UPN
                 },
-                Urn = amendment.URN
+                Urn = amendment.URN,
+                EvidenceStatus = amendment.EvidenceOption.ToApiEvidenceStatus(),
+                EvidenceFolderName = amendment.EvidenceFolderName
             };
             // TODO: need to add other amendment types here
             if (amendmentDto.Amendment.AmendmentType == ApiClient.AmendmentType.RemovePupil)
@@ -273,8 +275,8 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                 },
                 InclusionConfirmed = true,
                 PriorAttainmentResults = addPupilAmendment.Results.Select(r => new PriorAttainment{ Subject = GetSubject(r.Subject), ExamYear = r.ExamYear, TestMark = r.TestMark, ScaledScore = r.ScaledScore}).ToList(),
-                EvidenceStatus = selectedEvidenceOption == EvidenceOption.UploadNow ?
-                    EvidenceStatus.Now : selectedEvidenceOption == EvidenceOption.UploadLater ?
+                EvidenceStatus = selectedEvidenceOption == Models.ViewModels.Pupil.EvidenceOption.UploadNow ?
+                    EvidenceStatus.Now : selectedEvidenceOption == Models.ViewModels.Pupil.EvidenceOption.UploadLater ?
                         EvidenceStatus.Later : EvidenceStatus.NotRequired,
                 EvidenceFolderName = addPupilAmendment.EvidenceFolderName
             }, out id);

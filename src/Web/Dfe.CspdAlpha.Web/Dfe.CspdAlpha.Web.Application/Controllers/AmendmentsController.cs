@@ -61,7 +61,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             var viewModel = new ConfirmViewModel
             {
                 AmendmentType = amendment.AmendmentDetail.AmendmentType,
-                PupilDetails = amendment.AmendmentDetail.PupilDetails,
+                PupilDetails = amendment.PupilDetails,
                 BackController = amendment.AmendmentDetail.AmendmentType.ToString(),
             };
             if (viewModel.AmendmentType == AmendmentType.RemovePupil)
@@ -85,7 +85,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         {
             // Ensure steps haven't been manually skipped
             //var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
-            //if (addPupilAmendment == null || addPupilAmendment.SelectedEvidenceOption == EvidenceOption.Unknown)
+            //if (addPupilAmendment == null || addPupilAmendment.EvidenceOption == EvidenceOption.Unknown)
             //{
             //    return RedirectToAction("Add");
             //}

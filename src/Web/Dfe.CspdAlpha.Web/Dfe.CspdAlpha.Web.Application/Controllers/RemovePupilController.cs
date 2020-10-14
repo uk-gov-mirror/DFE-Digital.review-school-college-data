@@ -72,22 +72,20 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             {
                 URN = urn,
                 CheckingWindow = CheckingWindowHelper.GetCheckingWindow(RouteData),
-                AmendmentDetail = new RemovePupil
+                PupilDetails = new PupilDetails
                 {
-                    PupilDetails = new PupilDetails
-                    {
-                        Keystage = viewModel.PupilViewModel.Keystage,
-                        ID = id,
-                        UPN = viewModel.PupilViewModel.UPN,
-                        FirstName = viewModel.PupilViewModel.FirstName,
-                        LastName = viewModel.PupilViewModel.LastName,
-                        DateOfBirth = viewModel.PupilViewModel.DateOfBirth,
-                        Age = viewModel.PupilViewModel.Age,
-                        Gender = viewModel.PupilViewModel.Gender,
-                        DateOfAdmission = viewModel.PupilViewModel.DateOfAdmission,
-                        YearGroup = viewModel.PupilViewModel.YearGroup
-                    }
-                }
+                    Keystage = viewModel.PupilViewModel.Keystage,
+                    ID = id,
+                    UPN = viewModel.PupilViewModel.UPN,
+                    FirstName = viewModel.PupilViewModel.FirstName,
+                    LastName = viewModel.PupilViewModel.LastName,
+                    DateOfBirth = viewModel.PupilViewModel.DateOfBirth,
+                    Age = viewModel.PupilViewModel.Age,
+                    Gender = viewModel.PupilViewModel.Gender,
+                    DateOfAdmission = viewModel.PupilViewModel.DateOfAdmission,
+                    YearGroup = viewModel.PupilViewModel.YearGroup
+                },
+                AmendmentDetail = new RemovePupil()
             };
             HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, removePupilAmendment);
             return new RemovePupilViewModel {PupilViewModel = viewModel.PupilViewModel};
@@ -104,7 +102,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         public IActionResult Reason(QueryType searchType, string query, string matchedId)
         {
             var removePupilAmendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
-            return View(new ReasonViewModel{ PupilDetails = removePupilAmendment.AmendmentDetail.PupilDetails, Reasons = _amendmentService.GetRemoveReasons(), SearchType = searchType, Query = query, MatchedId = matchedId});
+            return View(new ReasonViewModel{ PupilDetails = removePupilAmendment.PupilDetails, Reasons = _amendmentService.GetRemoveReasons(), SearchType = searchType, Query = query, MatchedId = matchedId});
         }
 
         [HttpPost]
@@ -115,9 +113,10 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             {
                 var amendmentDetail = (RemovePupil)removePupilAmendment.AmendmentDetail;
                 amendmentDetail.Reason = viewModel.SelectedReason;
+                removePupilAmendment.EvidenceOption = viewModel.SelectedReason == "329" ? EvidenceOption.UploadNow : EvidenceOption.NotRequired;
                 HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, removePupilAmendment);
                 if (new[] {"329", "330"}.Any(r => r == viewModel.SelectedReason))
-                {
+                { 
                     return RedirectToAction("SubReason");
                 }
 
@@ -126,14 +125,14 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                     return RedirectToAction("Details");
                 }
             }
-            return View(new ReasonViewModel { PupilDetails = removePupilAmendment.AmendmentDetail.PupilDetails, Reasons = _amendmentService.GetRemoveReasons() });
+            return View(new ReasonViewModel { PupilDetails = removePupilAmendment.PupilDetails, Reasons = _amendmentService.GetRemoveReasons() });
         }
 
         public IActionResult SubReason()
         {
             var removePupilAmendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
             var amendmentDetail = (RemovePupil)removePupilAmendment.AmendmentDetail;
-            return View(new SubReasonViewModel { PupilDetails = removePupilAmendment.AmendmentDetail.PupilDetails, Reasons = _amendmentService.GetRemoveReasons(amendmentDetail.Reason) });
+            return View(new SubReasonViewModel { PupilDetails = removePupilAmendment.PupilDetails, Reasons = _amendmentService.GetRemoveReasons(amendmentDetail.Reason) });
         }
 
         [HttpPost]
@@ -145,15 +144,16 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             {
                 amendmentDetail.SubReason = viewModel.SelectedReason;
                 HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, removePupilAmendment);
+                return RedirectToAction("Details");
             }
-            return View(new SubReasonViewModel { PupilDetails = removePupilAmendment.AmendmentDetail.PupilDetails, Reasons = _amendmentService.GetRemoveReasons(amendmentDetail.Reason) });
+            return View(new SubReasonViewModel { PupilDetails = removePupilAmendment.PupilDetails, Reasons = _amendmentService.GetRemoveReasons(amendmentDetail.Reason) });
         }
 
         public IActionResult Details()
         {
             var removePupilAmendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
             var amendmentDetail = (RemovePupil)removePupilAmendment.AmendmentDetail;
-            return View(new DetailsViewModel {PupilDetails = removePupilAmendment.AmendmentDetail.PupilDetails, Reason = amendmentDetail.Reason});
+            return View(new DetailsViewModel {PupilDetails = removePupilAmendment.PupilDetails, Reason = amendmentDetail.Reason});
         }
 
         [HttpPost]
@@ -165,10 +165,14 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             {
                 amendmentDetail.Detail = viewModel.AmendmentDetails;
                 HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, removePupilAmendment);
+                if (removePupilAmendment.EvidenceOption == EvidenceOption.UploadNow)
+                {
+                    return RedirectToAction("Upload", "Evidence");
+                }
                 return RedirectToAction("Confirm","Amendments");
             }
 
-            viewModel.PupilDetails = removePupilAmendment.AmendmentDetail.PupilDetails;
+            viewModel.PupilDetails = removePupilAmendment.PupilDetails;
             viewModel.Reason = amendmentDetail.Reason;
             return View(viewModel);
         }

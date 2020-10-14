@@ -1,4 +1,5 @@
 @using Dfe.CspdAlpha.Web.Application.Models.Common
+@using OldEvidenceOption = Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil.EvidenceOption
 @using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
 @model AddPupilAmendmentViewModel
 @{
@@ -48,19 +49,19 @@
                         <fieldset class="govuk-fieldset">
                             <div class="govuk-radios">
                                 <div class="govuk-radios__item app-radios-multiline__item">
-                                    <input class="govuk-radios__input" name="SelectedEvidenceOption" id="SelectedEvidenceOption-0" type="radio" value="UploadNow" @(Model.SelectedEvidenceOption == EvidenceOption.UploadNow ? "checked" : string.Empty)>
+                                    <input class="govuk-radios__input" name="EvidenceOption" id="SelectedEvidenceOption-0" type="radio" value="UploadNow" @(Model.SelectedEvidenceOption == OldEvidenceOption.UploadNow ? "checked" : string.Empty)>
                                     <label class="govuk-label govuk-radios__label" for="SelectedEvidenceOption-0">
                                         I will provide electronic evidence now
                                     </label>
                                 </div>
                                 <div class="govuk-radios__item app-radios-multiline__item">
-                                    <input class="govuk-radios__input" name="SelectedEvidenceOption" id="SelectedEvidenceOption-1" type="radio" value="UploadLater" @(Model.SelectedEvidenceOption == EvidenceOption.UploadLater ? "checked" : string.Empty)>
+                                    <input class="govuk-radios__input" name="EvidenceOption" id="SelectedEvidenceOption-1" type="radio" value="UploadLater" @(Model.SelectedEvidenceOption == OldEvidenceOption.UploadLater ? "checked" : string.Empty)>
                                     <label class="govuk-label govuk-radios__label" for="SelectedEvidenceOption-1">
                                         I will provide electronic evidence before 5pm on DD/MM/YYYY
                                     </label>
                                 </div>
                                 <div class="govuk-radios__item app-radios-multiline__item">
-                                    <input class="govuk-radios__input" name="SelectedEvidenceOption" id="SelectedEvidenceOption-2" type="radio" value="NotRequired" @(Model.SelectedEvidenceOption == EvidenceOption.NotRequired ? "checked" : string.Empty)>
+                                    <input class="govuk-radios__input" name="EvidenceOption" id="SelectedEvidenceOption-2" type="radio" value="NotRequired" @(Model.SelectedEvidenceOption == OldEvidenceOption.NotRequired ? "checked" : string.Empty)>
                                     <label class="govuk-label govuk-radios__label" for="SelectedEvidenceOption-2">
                                         I don't need to provide electronic evidence
                                     </label>
