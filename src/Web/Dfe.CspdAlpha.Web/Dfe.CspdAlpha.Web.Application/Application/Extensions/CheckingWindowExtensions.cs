@@ -1,4 +1,5 @@
 using Dfe.CspdAlpha.Web.Application.Models.Common;
+using Microsoft.Crm.Sdk.Messages;
 using ApiCheckingWindow = Dfe.Rscd.Web.ApiClient.CheckingWindow;
 namespace Dfe.CspdAlpha.Web.Application.Application.Extensions
 {
@@ -75,6 +76,25 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Extensions
                     break;
             }
             return string.Empty;
+        }
+
+        public static Keystage ToKeyStage(this CheckingWindow checkingWindow)
+        {
+            switch (checkingWindow)
+            {
+                case CheckingWindow.KS2:
+                case CheckingWindow.KS2Errata:
+                    return Keystage.KS2;
+                case CheckingWindow.KS4June:
+                case CheckingWindow.KS4Late:
+                case CheckingWindow.KS4Errata:
+                    return Keystage.KS4;
+                case CheckingWindow.KS5:
+                case CheckingWindow.KS5Errata:
+                    return Keystage.KS5;
+                default:
+                    return Keystage.Unknown;
+            }
         }
 
     }

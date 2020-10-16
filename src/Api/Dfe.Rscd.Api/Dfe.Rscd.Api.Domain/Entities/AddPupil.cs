@@ -1,13 +1,14 @@
-﻿using System;
+﻿using Dfe.Rscd.Api.Domain.Core.Enums;
+using Dfe.Rscd.Api.Domain.Interfaces;
 using System.Collections.Generic;
-using System.Text;
-using Dfe.Rscd.Api.Domain.Core.Enums;
 
 namespace Dfe.Rscd.Api.Domain.Entities
 {
-    public class AddPupil
+    public class AddPupil : IAmendmentType
     {
         public AddReason Reason { get; set; }
+        public string PreviousSchoolURN { get; set; }
+        public string PreviousSchoolLAEstab { get; set; }
         public List<PriorAttainment> PriorAttainmentResults { get; set; }
     }
 }

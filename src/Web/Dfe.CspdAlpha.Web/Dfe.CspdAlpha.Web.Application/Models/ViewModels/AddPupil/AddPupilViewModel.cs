@@ -1,9 +1,13 @@
-using Dfe.CspdAlpha.Web.Application.Models.Common;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Common;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Dfe.CspdAlpha.Web.Application.Models.Common;
 
-namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
+namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.AddPupil
 {
-    public class AddPupilDetailsViewModel
+    public class AddPupilViewModel
     {
         public string SchoolID { get; set; }
 

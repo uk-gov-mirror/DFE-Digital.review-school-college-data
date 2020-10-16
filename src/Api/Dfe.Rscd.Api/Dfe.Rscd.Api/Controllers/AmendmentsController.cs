@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Extensions;
 
 namespace Dfe.Rscd.Api.Controllers
 {
@@ -27,7 +28,28 @@ namespace Dfe.Rscd.Api.Controllers
 
         // GET: api/Amendments/123456
         [HttpGet]
-        [Route("getamendments/{urn}")]
+        [Route("id/{id}")]
+        [SwaggerOperation(
+            Summary = "Returns the requested amendment",
+            Description = "Returns the amendent specified by the id",
+            OperationId = "GetAmendment",
+            Tags = new[] { "Amendments" }
+        )]
+        [ProducesResponseType(typeof(GetResponse<Amendment>), 200)]
+        public IActionResult GetAmendment([FromRoute, SwaggerParameter("The id of the requested amendment", Required = true)] string id)
+        {
+            var amendment = _amendmentService.GetAmendment(id);
+            var response = new GetResponse<Amendment>
+            {
+                Result = amendment,
+                Error = new Error()
+            };
+            return Ok(response);
+        }
+
+        // GET: api/Amendments/123456
+        [HttpGet]
+        [Route("urn/{urn}")]
         [SwaggerOperation(
             Summary = "Searches for schools requested amendments",
             Description = "Searches for requested amendments in CRM recorded against the supplied URN.",
@@ -38,12 +60,7 @@ namespace Dfe.Rscd.Api.Controllers
         public IActionResult GetAmendments([FromRoute, SwaggerParameter("The URN of the school requesting amendments", Required = true)] string urn,
             [FromRoute, SwaggerParameter("The checking window to request amendments from", Required = true)] string checkingwindow)
         {
-            CheckingWindow checkingWindow;
-            Enum.TryParse(checkingwindow.Replace("-", string.Empty), true,
-                out checkingWindow);
-            var lateChecking = checkingwindow == "ks4-late";
-
-            var amendments = _amendmentService.GetAmendments(checkingWindow, urn)
+            var amendments = _amendmentService.GetAmendments(checkingwindow.ToDomainCheckingWindow(), urn)
                 .ToList();
             var response = new GetResponse<List<Amendment>>
             {
@@ -53,34 +70,6 @@ namespace Dfe.Rscd.Api.Controllers
             return Ok(response);
         }
 
-
-        // GET: api/Amendments/123456
-        [HttpGet]
-        [Route("{urn}")]
-        [SwaggerOperation(
-            Summary = "Searches for schools requested amendments",
-            Description = "Searches for requested amendments in CRM recorded against the supplied URN.",
-            OperationId = "GetAmendmentsByURN",
-            Tags = new[] {"Amendments"}
-            )]
-        [ProducesResponseType(typeof(GetResponse<List<AddPupilAmendment>>), 200)]
-        public IActionResult Get([FromRoute, SwaggerParameter("The URN of the school requesting amendments", Required = true)] string urn,
-            [FromRoute, SwaggerParameter("The checking window to request amendments from", Required = true)] string checkingwindow)
-        {
-            CheckingWindow checkingWindow;
-            Enum.TryParse(checkingwindow.Replace("-", string.Empty), true,
-                out checkingWindow);
-            var lateChecking = checkingwindow == "ks4-late";
-
-            var amendments = _amendmentService.GetAddPupilAmendments(checkingWindow, urn)
-                .ToList();
-            var response = new GetResponse<List<AddPupilAmendment>>
-            {
-                Result = amendments,
-                Error = new Error()
-            };
-            return Ok(response);
-        }
 
         // POST: api/Amendments
         [HttpPost]
@@ -94,11 +83,58 @@ namespace Dfe.Rscd.Api.Controllers
         public IActionResult Post([FromBody, SwaggerRequestBody("Amendment to add to CRM", Required = true)] AmendmentDTO amendmentDto)
         {
             var amendment = amendmentDto.Amendment;
-            amendment.AmendmentDetail = amendmentDto.RemovePupil;
+            if (amendment.AmendmentType == AmendmentType.AddPupil)
+            {
+                amendment.AmendmentDetail = amendmentDto.AddPupil;
+            }
+            else
+            {
+                amendment.AmendmentDetail =  amendmentDto.RemovePupil;
+            }
             var amendmentReference = _amendmentService.CreateAmendment(amendment);
             var response = new GetResponse<string>
             {
                 Result = amendmentReference,
+                Error = new Error()
+            };
+            return Ok(response);
+        }
+
+        [HttpPut]
+        [Route("relateevidence")]
+        [SwaggerOperation(
+            Summary = "Relates evidence to an amendment",
+            Description = "Creates an entity relationship between an amendment and evidence documents",
+            OperationId = "RelateEvidence",
+            Tags = new[] { "Amendments", "Evidence" }
+        )]
+        [ProducesResponseType(typeof(GetResponse<bool>), 200)]
+        public IActionResult RelateEvidence([FromBody, SwaggerRequestBody("Amendment to add to CRM", Required = true)] RelateEvidenceDTO relateEvidenceDto)
+        {
+            _amendmentService.RelateEvidence(relateEvidenceDto.AmendmentID, relateEvidenceDto.EvidenceFolderName, true);
+            var response = new GetResponse<bool>
+            {
+                Result = true,
+                Error = new Error()
+            };
+            return Ok(response);
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        [SwaggerOperation(
+            Summary = "Cancel and amendment",
+            Description = "Cancels the amendment related to the provided id",
+            OperationId = "CancelAmendment",
+            Tags = new[] {"Amendments"})]
+        [ProducesResponseType(typeof(GetResponse<bool>), 200)]
+        public IActionResult Delete([FromRoute, SwaggerParameter("The id of the amendment to cancel", Required = true)]
+            string id)
+        {
+            var result = _amendmentService.CancelAmendment(id);
+            var response = new GetResponse<bool>
+            {
+                Result = result,
                 Error = new Error()
             };
             return Ok(response);

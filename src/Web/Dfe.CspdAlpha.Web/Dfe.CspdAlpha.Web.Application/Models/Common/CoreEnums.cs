@@ -41,4 +41,12 @@ namespace Dfe.CspdAlpha.Web.Application.Models.Common
         NotRequired
     }
 
+    public enum Ks2Subject
+    {
+        Unknown,
+        Reading,
+        Writing,
+        Maths
+    }
+
 }

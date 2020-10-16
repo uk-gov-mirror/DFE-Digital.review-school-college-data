@@ -7,26 +7,11 @@ namespace Dfe.Rscd.Api.Domain.Interfaces
 {
     public interface IAmendmentService
     {
+        Amendment GetAmendment(string id);
         IEnumerable<IDictionary<string, object>> GetAmendments();
-
-        IEnumerable<AddPupilAmendment> GetAddPupilAmendments(CheckingWindow checkingWindow, string urn);
-
         string CreateAmendment(Amendment amendment);
-
+        void RelateEvidence(string amendmentId, string evidenceFolderName, bool updateEvidenceOption);
+        bool CancelAmendment(string amendmentId);
         IEnumerable<Amendment> GetAmendments(CheckingWindow checkingWindow, string urn);
-
-
-
-
-
-
-        //IEnumerable<AddPupilAmendment> GetAddPupilAmendments(int laestab);
-
-        //bool CreateAddPupilAmendment(CheckingWindow checkingWindow, AddPupilAmendment amendment, out string id);
-        //void RelateEvidence(Guid amendmentId, List<Evidence> evidenceList, bool updateEvidenceOption);
-        //AddPupilAmendment GetAddPupilAmendmentDetail(Guid amendmentId);
-
-
-        //bool CancelAddPupilAmendment(Guid amendmentId);
     }
 }

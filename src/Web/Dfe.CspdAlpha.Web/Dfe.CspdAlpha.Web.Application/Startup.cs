@@ -1,12 +1,13 @@
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
 using Dfe.CspdAlpha.Web.Application.Application.Services;
 using Dfe.CspdAlpha.Web.Application.Middleware;
-using Dfe.CspdAlpha.Web.Domain.Interfaces;
-using Dfe.CspdAlpha.Web.Infrastructure.Crm;
+using Dfe.CspdAlpha.Web.Application.TagHelpers;
+using Dfe.CspdAlpha.Web.Application.Validators.AddPupil;
 using Dfe.CspdAlpha.Web.Infrastructure.Interfaces;
 using Dfe.CspdAlpha.Web.Infrastructure.SharePoint;
 using Dfe.CspdAlpha.Web.Shared.Config;
 using Dfe.Rscd.Web.ApiClient;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -15,6 +16,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,19 +24,13 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.FeatureManagement;
 using Microsoft.PowerPlatform.Cds.Client;
 using Microsoft.Xrm.Sdk;
+using Newtonsoft.Json;
 using Sustainsys.Saml2;
 using Sustainsys.Saml2.AspNetCore2;
 using Sustainsys.Saml2.Metadata;
 using System;
 using System.Net.Http.Headers;
 using System.Text;
-using AppInterface = Dfe.CspdAlpha.Web.Application.Application.Interfaces;
-using DomainInterface = Dfe.CspdAlpha.Web.Domain.Interfaces;
-using FluentValidation.AspNetCore;
-using Dfe.CspdAlpha.Web.Application.Validators.Pupil;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Dfe.CspdAlpha.Web.Application.TagHelpers;
-using Newtonsoft.Json;
 
 namespace Dfe.CspdAlpha.Web.Application
 {
@@ -63,7 +59,7 @@ namespace Dfe.CspdAlpha.Web.Application
             })
             .AddFluentValidation(fv =>
                 {
-                    fv.RegisterValidatorsFromAssemblyContaining<AddPupilDetailsViewModelValidator>();
+                    fv.RegisterValidatorsFromAssemblyContaining<AddPupilViewModelValidator>();
                     fv.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
                 }).AddNewtonsoftJson(o => { o.SerializerSettings.TypeNameHandling = TypeNameHandling.All; });
             
@@ -107,13 +103,6 @@ namespace Dfe.CspdAlpha.Web.Application
                 services.Configure<BasicAuthOptions>(Configuration.GetSection("BasicAuth"));
             }
 
-            // Dynamics 365 configuration
-            var dynamicsConnString = Configuration.GetConnectionString("DynamicsCds");
-            var cdsClient = new CdsServiceClient(dynamicsConnString);
-
-            services.AddTransient<IOrganizationService, CdsServiceClient>(sp => cdsClient.Clone());
-            services.Configure<DynamicsOptions>(Configuration.GetSection("Dynamics"));
-
             // Session config
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -130,13 +119,12 @@ namespace Dfe.CspdAlpha.Web.Application
             // Application insights config
             services.AddApplicationInsightsTelemetry();
 
-            services.AddSingleton<DomainInterface.IAmendmentService, CrmAmendmentService>();
-            services.AddSingleton<IConfirmationService, CrmConfirmationService>();
             services.AddSingleton<IFileUploadService, SharePointFileUploadService>();
             services.AddSingleton<ISchoolService, SchoolService>();
             services.AddSingleton<IEstablishmentService, EstablishmentService>();
             services.AddSingleton<IPupilService, PupilService>();
-            services.AddSingleton<AppInterface.IAmendmentService, AmendmentService>();
+            services.AddSingleton<IEvidenceService, EvidenceService>();
+            services.AddSingleton<IAmendmentService, AmendmentService>();
             services.AddTransient<IHtmlGenerator, HtmlGenerator>();
 
             var apiOptions = Configuration.GetSection("Api").Get<ApiOptions>();

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using Dfe.Rscd.Api.Domain.Core;
 using Dfe.Rscd.Api.Domain.Entities;
 
 namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs
@@ -27,7 +26,7 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs
         public Pupil Pupil => new Pupil
         {
             Id = id,
-            Urn = new URN(URN),
+            URN = URN,
             UPN = UPN ?? ULN,
             LaEstab = DFESNumber,
             ForeName = Forename,

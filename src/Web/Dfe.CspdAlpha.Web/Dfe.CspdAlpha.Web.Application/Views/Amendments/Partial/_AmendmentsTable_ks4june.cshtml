@@ -1,5 +1,5 @@
+@using Dfe.CspdAlpha.Web.Application.Models.Common
 @using Dfe.CspdAlpha.Web.Application.Models.School;
-@using Dfe.CspdAlpha.Web.Domain.Core.Enums;
 @model List<Amendment>
 <table class="govuk-table app-pupil-list-table">
     <thead class="govuk-table__head">
@@ -29,18 +29,18 @@
                     {
                         <span>Not applicable</span>
                     }
-                    else if (amendment.EvidenceStatus == EvidenceStatus.Now)
+                    else if (amendment.EvidenceStatus == EvidenceOption.UploadNow)
                     {
                         <span>Uploaded</span>
                     }
-                    else if (amendment.EvidenceStatus == EvidenceStatus.NotRequired)
+                    else if (amendment.EvidenceStatus == EvidenceOption.NotRequired)
                     {
                         <span>Not required</span>
 
                     }
                     else
                     {
-                        <a asp-controller="Pupil" asp-action="UploadEvidence" asp-route-id="@amendment.Id">Upload</a>
+                        <a asp-controller="Evidence" asp-action="Upload" asp-route-id="@amendment.Id">Upload</a>
                     }
                 </td>
                 <td class="govuk-table__cell" data-label="Cancel amendment">
@@ -55,7 +55,7 @@
                 </td>
                 <td class="govuk-table__cell" data-label="Ref ID">@amendment.ReferenceId</td>
                 <td class="govuk-table__cell" data-label="Status">
-                    @if (amendment.Status != "Cancelled" && amendment.EvidenceStatus == EvidenceStatus.Later)
+                    @if (amendment.Status != "Cancelled" && amendment.EvidenceStatus == EvidenceOption.UploadLater)
                     {
                         <span>Awaiting evidence</span>
                     }

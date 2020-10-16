@@ -41,7 +41,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             var viewModel = HttpContext.Session.Get<TaskListViewModel>(string.Format(TASK_LIST, UserID));
             viewModel.ReviewChecked = true;
             var urn = ClaimsHelper.GetURN(this.User);
-            _schoolService.UpdateConfirmation(viewModel, UserID, urn);
+            _schoolService.UpdateConfirmation(CheckingWindow, viewModel, UserID, urn);
             HttpContext.Session.Set(string.Format(TASK_LIST, UserID), viewModel);
             return RedirectToAction("Index");
         }
@@ -57,7 +57,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             }
             viewModel.DataConfirmed = true;
             var urn = ClaimsHelper.GetURN(this.User);
-            _schoolService.UpdateConfirmation(viewModel, UserID, urn);
+            _schoolService.UpdateConfirmation(CheckingWindow, viewModel, UserID, urn);
             HttpContext.Session.Set(string.Format(TASK_LIST, UserID), viewModel);
             return RedirectToAction("Index");
         }

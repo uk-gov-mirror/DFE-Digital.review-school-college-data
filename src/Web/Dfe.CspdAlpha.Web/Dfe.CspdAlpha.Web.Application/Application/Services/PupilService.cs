@@ -7,7 +7,6 @@ using Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Results;
 using ApiClient = Dfe.Rscd.Web.ApiClient;
 using System.Linq;
-using Ks2Subject = Dfe.CspdAlpha.Web.Application.Models.ViewModels.Results.Ks2Subject;
 
 namespace Dfe.CspdAlpha.Web.Application.Application.Services
 {
@@ -50,9 +49,10 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                 {
                     ID = pupil.Id,
                     Keystage = GetKeyStage(checkingWindow),
-                    URN = pupil.Urn.Value,
-                    UPN = pupil.Upn,
+                    URN = pupil.Urn,
                     SchoolID = pupil.LaEstab,
+                    UPN = pupil.Upn,
+                    ULN = pupil.Uln,
                     FirstName = pupil.ForeName,
                     LastName = pupil.LastName,
                     DateOfBirth = pupil.DateOfBirth.Date,

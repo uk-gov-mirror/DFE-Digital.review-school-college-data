@@ -1,7 +1,7 @@
 @using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Results
 @model ExistingResultsViewModel
 @{
-    ViewData["Title"] = "Edit Key stage 2 prior attainment results for " + Model.PupilViewModel.FullName;
+    ViewData["Title"] = "Edit Key stage 2 prior attainment results for " + Model.PupilDetails.FullName;
 }
 
 @section BackLink
@@ -26,7 +26,7 @@
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-            <input type="hidden" asp-for="Reading.Subject" value="Reading" />
+            <input type="hidden" asp-for="Reading.Ks2Subject" value="Reading" />
             <div class="govuk-form-group">
                 <label class="govuk-label" asp-for="Reading.ExamYear">
                     Exam year
@@ -34,10 +34,10 @@
                 <input class="govuk-input govuk-input--width-20" asp-for="Reading.ExamYear" type="text">
             </div>
             <div class="govuk-form-group">
-                <label class="govuk-label" asp-for="Reading.TestMark">
+                <label class="govuk-label" asp-for="Reading.Mark">
                     Test mark
                 </label>
-                <input class="govuk-input govuk-input--width-20" asp-for="Reading.TestMark" type="text">
+                <input class="govuk-input govuk-input--width-20" asp-for="Reading.Mark" type="text">
             </div>
             <div class="govuk-form-group">
                 <label class="govuk-label" asp-for="Reading.ScaledScore">
@@ -54,7 +54,7 @@
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-            <input type="hidden" asp-for="Writing.Subject" value="Writing" />
+            <input type="hidden" asp-for="Writing.Ks2Subject" value="Writing" />
             <div class="govuk-form-group">
                 <label class="govuk-label" asp-for="Writing.ExamYear">
                     Exam year
@@ -62,10 +62,10 @@
                 <input class="govuk-input govuk-input--width-20" asp-for="Writing.ExamYear" type="text">
             </div>
             <div class="govuk-form-group">
-                <label class="govuk-label" asp-for="Writing.TestMark">
+                <label class="govuk-label" asp-for="Writing.Mark">
                     Teacher assessment
                 </label>
-                <input class="govuk-input govuk-input--width-20" asp-for="Writing.TestMark" type="text">
+                <input class="govuk-input govuk-input--width-20" asp-for="Writing.Mark" type="text">
             </div>
             <div class="govuk-form-group">
                 <label class="govuk-label" asp-for="Writing.ScaledScore">
@@ -82,7 +82,7 @@
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-            <input type="hidden" asp-for="Maths.Subject" value="Maths" />
+            <input type="hidden" asp-for="Maths.Ks2Subject" value="Maths" />
             <div class="govuk-form-group">
                 <label class="govuk-label" asp-for="Maths.ExamYear">
                     Exam year
@@ -90,10 +90,10 @@
                 <input class="govuk-input govuk-input--width-20" asp-for="Maths.ExamYear" type="text">
             </div>
             <div class="govuk-form-group">
-                <label class="govuk-label" asp-for="Maths.TestMark">
+                <label class="govuk-label" asp-for="Maths.Mark">
                     Test mark
                 </label>
-                <input class="govuk-input govuk-input--width-20" asp-for="Maths.TestMark" type="text">
+                <input class="govuk-input govuk-input--width-20" asp-for="Maths.Mark" type="text">
             </div>
             <div class="govuk-form-group">
                 <label class="govuk-label" asp-for="Maths.ScaledScore">

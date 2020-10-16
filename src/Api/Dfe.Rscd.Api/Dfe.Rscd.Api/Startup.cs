@@ -79,6 +79,7 @@ namespace Dfe.Rscd.Api
             services.AddSingleton<IPupilService>(x =>
                 new PupilService(cosmosDatabase));
             services.AddSingleton<IAmendmentService, CrmAmendmentService>();
+            services.AddSingleton<IConfirmationService, CrmConfirmationService>();
 
         }
 

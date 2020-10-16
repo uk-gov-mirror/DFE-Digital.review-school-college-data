@@ -1,4 +1,3 @@
-using Dfe.CspdAlpha.Web.Domain.Core.Enums;
 using System;
 using Dfe.CspdAlpha.Web.Application.Models.Common;
 
@@ -14,6 +13,6 @@ namespace Dfe.CspdAlpha.Web.Application.Models.School
         public string ReferenceId { get; set; }
         public string Id { get; set; }
         public string Status { get; set; }
-        public EvidenceStatus EvidenceStatus { get; set; }
+        public EvidenceOption EvidenceStatus { get; set; }
     }
 }

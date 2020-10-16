@@ -6,9 +6,9 @@ namespace Dfe.Rscd.Api.Domain.Entities
 {
     public class Amendment
     {
+        public string Id { get; set; }
         public CheckingWindow CheckingWindow { get; set; }
         public AmendmentType AmendmentType { get; set; }
-        public string Id { get; set; }
         public string Reference { get; set; }
         public string URN { get; set; }
         public Pupil Pupil { get; set; }

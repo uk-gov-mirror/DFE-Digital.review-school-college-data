@@ -3060,23 +3060,23 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 		}
 
 		/// <summary>
-		/// N:1 rscd_Amendment_Addpupilamendment_rscd_Add
+		/// N:1 rscd_Amendment_Addpupil
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_addpupilamendment")]
-		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("rscd_Amendment_Addpupilamendment_rscd_Add")]
-		public Dfe.CspdAlpha.Web.Infrastructure.Crm.rscd_Amendment rscd_Amendment_Addpupilamendment_rscd_Add
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("rscd_Amendment_Addpupil")]
+		public Dfe.CspdAlpha.Web.Infrastructure.Crm.rscd_Amendment rscd_Amendment_Addpupil
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntity<Dfe.CspdAlpha.Web.Infrastructure.Crm.rscd_Amendment>("rscd_Amendment_Addpupilamendment_rscd_Add", null);
+				return this.GetRelatedEntity<Dfe.CspdAlpha.Web.Infrastructure.Crm.rscd_Amendment>("rscd_Amendment_Addpupil", null);
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.OnPropertyChanging("rscd_Amendment_Addpupilamendment_rscd_Add");
-				this.SetRelatedEntity<Dfe.CspdAlpha.Web.Infrastructure.Crm.rscd_Amendment>("rscd_Amendment_Addpupilamendment_rscd_Add", null, value);
-				this.OnPropertyChanged("rscd_Amendment_Addpupilamendment_rscd_Add");
+				this.OnPropertyChanging("rscd_Amendment_Addpupil");
+				this.SetRelatedEntity<Dfe.CspdAlpha.Web.Infrastructure.Crm.rscd_Amendment>("rscd_Amendment_Addpupil", null, value);
+				this.OnPropertyChanged("rscd_Amendment_Addpupil");
 			}
 		}
 
@@ -3860,6 +3860,26 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 		/// <summary>
 		/// 
 		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_urn")]
+		public string rscd_URN
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("rscd_urn");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("rscd_URN");
+				this.SetAttributeValue("rscd_urn", value);
+				this.OnPropertyChanged("rscd_URN");
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_yeargroup")]
 		public string rscd_Yeargroup
 		{
@@ -3986,42 +4006,42 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 		}
 
 		/// <summary>
-		/// 1:N rscd_Amendment_Addpupilamendment_rscd_Add
+		/// 1:N rscd_Amendment_Addpupil
 		/// </summary>
-		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("rscd_Amendment_Addpupilamendment_rscd_Add")]
-		public System.Collections.Generic.IEnumerable<Dfe.CspdAlpha.Web.Infrastructure.Crm.rscd_Addpupil> rscd_Amendment_Addpupilamendment_rscd_Add
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("rscd_Amendment_Addpupil")]
+		public System.Collections.Generic.IEnumerable<Dfe.CspdAlpha.Web.Infrastructure.Crm.rscd_Addpupil> rscd_Amendment_Addpupil
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntities<Dfe.CspdAlpha.Web.Infrastructure.Crm.rscd_Addpupil>("rscd_Amendment_Addpupilamendment_rscd_Add", null);
+				return this.GetRelatedEntities<Dfe.CspdAlpha.Web.Infrastructure.Crm.rscd_Addpupil>("rscd_Amendment_Addpupil", null);
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.OnPropertyChanging("rscd_Amendment_Addpupilamendment_rscd_Add");
-				this.SetRelatedEntities<Dfe.CspdAlpha.Web.Infrastructure.Crm.rscd_Addpupil>("rscd_Amendment_Addpupilamendment_rscd_Add", null, value);
-				this.OnPropertyChanged("rscd_Amendment_Addpupilamendment_rscd_Add");
+				this.OnPropertyChanging("rscd_Amendment_Addpupil");
+				this.SetRelatedEntities<Dfe.CspdAlpha.Web.Infrastructure.Crm.rscd_Addpupil>("rscd_Amendment_Addpupil", null, value);
+				this.OnPropertyChanged("rscd_Amendment_Addpupil");
 			}
 		}
 
 		/// <summary>
-		/// 1:N rscd_Amendment_Removepupilamendment_rscd_
+		/// 1:N rscd_Amendment_Removepupil
 		/// </summary>
-		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("rscd_Amendment_Removepupilamendment_rscd_")]
-		public System.Collections.Generic.IEnumerable<Dfe.CspdAlpha.Web.Infrastructure.Crm.rscd_Removepupil> rscd_Amendment_Removepupilamendment_rscd_
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("rscd_Amendment_Removepupil")]
+		public System.Collections.Generic.IEnumerable<Dfe.CspdAlpha.Web.Infrastructure.Crm.rscd_Removepupil> rscd_Amendment_Removepupil
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntities<Dfe.CspdAlpha.Web.Infrastructure.Crm.rscd_Removepupil>("rscd_Amendment_Removepupilamendment_rscd_", null);
+				return this.GetRelatedEntities<Dfe.CspdAlpha.Web.Infrastructure.Crm.rscd_Removepupil>("rscd_Amendment_Removepupil", null);
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.OnPropertyChanging("rscd_Amendment_Removepupilamendment_rscd_");
-				this.SetRelatedEntities<Dfe.CspdAlpha.Web.Infrastructure.Crm.rscd_Removepupil>("rscd_Amendment_Removepupilamendment_rscd_", null, value);
-				this.OnPropertyChanged("rscd_Amendment_Removepupilamendment_rscd_");
+				this.OnPropertyChanging("rscd_Amendment_Removepupil");
+				this.SetRelatedEntities<Dfe.CspdAlpha.Web.Infrastructure.Crm.rscd_Removepupil>("rscd_Amendment_Removepupil", null, value);
+				this.OnPropertyChanged("rscd_Amendment_Removepupil");
 			}
 		}
 
@@ -4713,23 +4733,23 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 		}
 
 		/// <summary>
-		/// N:1 rscd_Amendment_Removepupilamendment_rscd_
+		/// N:1 rscd_Amendment_Removepupil
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_removepupilamendment")]
-		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("rscd_Amendment_Removepupilamendment_rscd_")]
-		public Dfe.CspdAlpha.Web.Infrastructure.Crm.rscd_Amendment rscd_Amendment_Removepupilamendment_rscd_
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("rscd_Amendment_Removepupil")]
+		public Dfe.CspdAlpha.Web.Infrastructure.Crm.rscd_Amendment rscd_Amendment_Removepupil
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntity<Dfe.CspdAlpha.Web.Infrastructure.Crm.rscd_Amendment>("rscd_Amendment_Removepupilamendment_rscd_", null);
+				return this.GetRelatedEntity<Dfe.CspdAlpha.Web.Infrastructure.Crm.rscd_Amendment>("rscd_Amendment_Removepupil", null);
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.OnPropertyChanging("rscd_Amendment_Removepupilamendment_rscd_");
-				this.SetRelatedEntity<Dfe.CspdAlpha.Web.Infrastructure.Crm.rscd_Amendment>("rscd_Amendment_Removepupilamendment_rscd_", null, value);
-				this.OnPropertyChanged("rscd_Amendment_Removepupilamendment_rscd_");
+				this.OnPropertyChanging("rscd_Amendment_Removepupil");
+				this.SetRelatedEntity<Dfe.CspdAlpha.Web.Infrastructure.Crm.rscd_Amendment>("rscd_Amendment_Removepupil", null, value);
+				this.OnPropertyChanged("rscd_Amendment_Removepupil");
 			}
 		}
 

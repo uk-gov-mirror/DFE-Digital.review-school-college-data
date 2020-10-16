@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Dfe.CspdAlpha.Web.Application.Models.Common;
 using Dfe.Rscd.Web.ApiClient;
-using Gender = Dfe.CspdAlpha.Web.Application.Models.Common.Gender;
 
 namespace Dfe.CspdAlpha.Web.Application.Application.Extensions
 {

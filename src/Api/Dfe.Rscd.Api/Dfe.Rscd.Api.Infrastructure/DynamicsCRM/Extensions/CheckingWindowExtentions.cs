@@ -6,6 +6,12 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Extensions
 {
     public static class CheckingWindowExtentions
     {
+        public static CheckingWindow ToDomainCheckingWindow(this string checkingWindowName)
+        {
+            Enum.TryParse(checkingWindowName.Replace("-", string.Empty), true, out CheckingWindow checkingWindow);
+            return checkingWindow;
+        }
+
         public static rscd_Checkingwindow ToCRMCheckingWindow(this CheckingWindow checkingwindow)
         {
             switch (checkingwindow)
@@ -28,7 +34,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Extensions
                     throw new ApplicationException();
             }
         }
-        public static CheckingWindow ToCDomainCheckingWindow(this rscd_Checkingwindow checkingwindow)
+        public static CheckingWindow ToDomainCheckingWindow(this rscd_Checkingwindow checkingwindow)
         {
             switch (checkingwindow)
             {

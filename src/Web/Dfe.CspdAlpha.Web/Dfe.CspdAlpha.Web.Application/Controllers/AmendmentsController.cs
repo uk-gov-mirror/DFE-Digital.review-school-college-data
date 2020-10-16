@@ -4,9 +4,7 @@ using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
 using Dfe.CspdAlpha.Web.Application.Models.Amendments;
 using Dfe.CspdAlpha.Web.Application.Models.Common;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using System;
 using Dfe.CspdAlpha.Web.Application.Models.Amendments.AmendmentTypes;
 
@@ -15,8 +13,9 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
     public class AmendmentsController : Controller
     {
         private readonly IAmendmentService _amendmentService;
+        private CheckingWindow CheckingWindow => CheckingWindowHelper.GetCheckingWindow(RouteData);
 
-        public AmendmentsController(IAmendmentService amendmentService, IConfiguration configuration)
+        public AmendmentsController(IAmendmentService amendmentService)
         {
             _amendmentService = amendmentService;
         }
@@ -31,7 +30,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
         public IActionResult Cancel(string id)
         {
-            if (_amendmentService.CancelAmendment(id))
+            if (_amendmentService.CancelAmendment(CheckingWindow, id))
             {
                 return RedirectToAction("Index");
             }
@@ -42,7 +41,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         [ActionName("View")]
         public IActionResult ViewAmendment(string id)
         {
-            var amendment = _amendmentService.GetAddPupilAmendmentViewModel(new Guid(id));
+            var amendment = _amendmentService.GetAmendment(CheckingWindow, new Guid(id));
             if (amendment != null)
             {
                 return View(amendment);

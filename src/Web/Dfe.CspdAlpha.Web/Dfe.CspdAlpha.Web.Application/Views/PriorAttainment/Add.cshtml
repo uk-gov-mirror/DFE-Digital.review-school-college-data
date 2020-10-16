@@ -1,12 +1,13 @@
 @using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Results
+@using Dfe.CspdAlpha.Web.Application.Models.Common
 @model PriorAttainmentResultViewModel
 @{
-    ViewData["Title"] = "Add Key stage 2 prior attainment results for " + Model.PupilViewModel.FullName + " (optional)";
+    ViewData["Title"] = "Add Key stage 2 prior attainment results for " + Model.PupilDetails.FullName + " (optional)";
 }
 
 @section BackLink
 {
-    <a class="govuk-back-link" asp-controller="Pupil" asp-action="Add">Back</a>
+    <a class="govuk-back-link" asp-controller="AddPupil" asp-action="Index">Back</a>
 }
 
 <div class="govuk-grid-row">
@@ -22,7 +23,7 @@
                 </span>
             </summary>
             <div class="govuk-details__text">
-                <partial name="_PupilDetails" model="@Model.PupilViewModel" />
+                <partial name="_PupilDetailsView" model="@Model.PupilDetails" />
             </div>
         </details>
     </div>
@@ -107,7 +108,7 @@
         <div>
             <p class="govuk-body">or continue to upload evidence</p>
         </div>
-        <a asp-controller="Pupil" asp-action="AddEvidence" class="govuk-button">Continue</a>
+        <a asp-controller="Evidence" asp-action="Index" class="govuk-button">Continue</a>
     </div>
 </div>
 
