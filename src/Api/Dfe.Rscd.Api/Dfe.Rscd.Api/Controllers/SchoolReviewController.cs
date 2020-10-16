@@ -26,10 +26,15 @@ namespace Dfe.Rscd.Api.Controllers
             Tags = new[] { "School review record" }
         )]
         [ProducesResponseType(typeof(GetResponse<ConfirmationRecord>), 200)]
+        [ProducesResponseType(404)]
         public IActionResult Get([FromRoute, SwaggerParameter("The id of the user requesting the school review record", Required = true)] string userid,
             [FromRoute, SwaggerParameter("The urn of the school requesting the school review record", Required = true)] string urn)
         {
             var schoolReviewRecord = _confirmationService.GetConfirmationRecord(userid, urn);
+            if (schoolReviewRecord == null)
+            {
+                return NotFound();
+            }
             var response = new GetResponse<ConfirmationRecord>
             {
                 Result = schoolReviewRecord,
