@@ -20,7 +20,7 @@ const pupilListApp = new Vue({
   },
   mounted: function() {
     this.pupils = window.pupilsJson.map((pupil) => {
-      if (typeof pupil.ULN !== 'undefined'){
+      if (pupil.ULN){
         pupil.searchCriteria = pupil.FirstName.toLowerCase() + ' ' + pupil.LastName.toLowerCase() + ' ' + pupil.ULN.toLowerCase();
       } else {
         pupil.searchCriteria = pupil.FirstName.toLowerCase() + ' ' + pupil.LastName.toLowerCase() + ' ' + pupil.UPN.toLowerCase();
