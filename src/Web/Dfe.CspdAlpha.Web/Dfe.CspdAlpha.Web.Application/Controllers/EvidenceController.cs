@@ -102,8 +102,12 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 if (ModelState.IsValid)
                 {
                     amendment.EvidenceFolderName = _evidenceService.UploadEvidence(viewModel.EvidenceFiles);
-                    HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, amendment);
-                    return RedirectToAction("Confirm", "Amendments");
+                    if (!string.IsNullOrWhiteSpace(amendment.EvidenceFolderName))
+                    {
+                        HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, amendment);
+                        return RedirectToAction("Confirm", "Amendments");
+                    }
+                    ModelState.AddModelError("EvidenceFiles", "Upload file");
                 }
 
                 viewModel.PupilDetails = amendment.PupilDetails;
