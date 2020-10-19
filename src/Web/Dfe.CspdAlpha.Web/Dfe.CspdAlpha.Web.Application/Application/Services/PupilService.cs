@@ -24,7 +24,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             var checkingWindowURL = CheckingWindowHelper.GetCheckingWindowURL(checkingWindow);
             var pupilDetails = _apiClient.SearchPupilsAsync(searchQuery.URN, searchQuery.SearchType == QueryType.Name ? searchQuery.Query : string.Empty, searchQuery.SearchType == QueryType.PupilID ? searchQuery.Query : string.Empty, checkingWindowURL).GetAwaiter().GetResult();
             return pupilDetails.Result
-                .Select(p => new PupilDetails {FirstName = p.ForeName, LastName = p.LastName, ID = p.Id, UPN = p.Upn})
+                .Select(p => new PupilDetails {FirstName = p.ForeName, LastName = p.LastName, ID = p.Id, UPN = p.Upn, ULN = p.Uln})
                 .OrderBy(p => p.FirstName)
                 .ToList();
         }
