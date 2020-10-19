@@ -101,10 +101,5 @@
         <a asp-action="Reason" asp-route-matchedId="@Model.PupilViewModel.ID" class="govuk-button" data-module="govuk-button">Continue</a>
     </div>
 </div>
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
-        <a asp-controller="TaskList" asp-action="Index" class="app-modal__cancel-link">Cancel amendment</a>
-    </div>
-</div>
-<partial name="_CancelModalContent" />
 
+<partial name="_CancelAmendment" />

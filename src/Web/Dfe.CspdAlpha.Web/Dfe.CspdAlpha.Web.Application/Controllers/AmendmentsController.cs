@@ -38,6 +38,12 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             return RedirectToAction("Error", "Home");
         }
 
+        public IActionResult Clear()
+        {
+            HttpContext.Session.Remove(Constants.AMENDMENT_SESSION_KEY);
+            return RedirectToAction("Index", "TaskList");
+        }
+
         [ActionName("View")]
         public IActionResult ViewAmendment(string id)
         {

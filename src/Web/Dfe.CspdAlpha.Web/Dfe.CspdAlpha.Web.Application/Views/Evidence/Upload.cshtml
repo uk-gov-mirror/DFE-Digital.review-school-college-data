@@ -38,7 +38,7 @@
 <form method="post" id="upload-form" enctype="multipart/form-data">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds" id="app-upload__files-container">
-            <div class="govuk-form-group app-upload__element"  asp-for="EvidenceFiles">
+            <div class="govuk-form-group app-upload__element" asp-for="EvidenceFiles">
                 <label class="govuk-label" asp-for="EvidenceFiles">
                     Upload file
                 </label>
@@ -62,11 +62,5 @@
     </div>
 </form>
 
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
-        <a asp-controller="TaskList" asp-action="Index" class="app-modal__cancel-link">Cancel amendment</a>
-    </div>
-</div>
-
-<partial name="_CancelModalContent" />
+<partial name="_CancelAmendment" />
 <script webpack-src="submit-evidence"></script>
