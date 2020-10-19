@@ -110,8 +110,8 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                     LastName = addPupilViewModel.LastName,
                     Gender = addPupilViewModel.Gender.Value,
                     DateOfBirth = addPupilViewModel.DateOfBirth.Date.Value,
+                    Age = CalculateAge(addPupilViewModel.DateOfBirth.Date.Value),
                     DateOfAdmission = addPupilViewModel.DateOfAdmission.Date.Value,
-                    //Age = addPupilViewModel.Age,
                     UPN = addPupilViewModel.UPN,
                     YearGroup = addPupilViewModel.YearGroup,
                     Keystage = CheckingWindow.ToKeyStage(),
@@ -129,6 +129,12 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, addPupilAmendment);
 
             return RedirectToAction("Add", "PriorAttainment");
+        }
+
+        private int CalculateAge(DateTime dateOfBirth)
+        {
+            var age = DateTime.Now.Year - dateOfBirth.Year;
+            return dateOfBirth.DayOfYear > DateTime.Now.DayOfYear ? age - 1 : age;
         }
 
         public IActionResult MatchedPupil(string urn)
