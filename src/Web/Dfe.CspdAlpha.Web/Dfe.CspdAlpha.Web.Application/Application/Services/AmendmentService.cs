@@ -119,7 +119,8 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                     Age = amendment.PupilDetails.Age,
                     Upn = amendment.PupilDetails.UPN,
                     Uln = amendment.PupilDetails.ULN,
-                    LaEstab = amendment.PupilDetails.LAEstab
+                    LaEstab = amendment.PupilDetails.LAEstab,
+                    YearGroup = amendment.PupilDetails.YearGroup
                 },
                 EvidenceStatus = amendment.EvidenceOption.ToApiEvidenceStatus(),
                 EvidenceFolderName = amendment.EvidenceFolderName

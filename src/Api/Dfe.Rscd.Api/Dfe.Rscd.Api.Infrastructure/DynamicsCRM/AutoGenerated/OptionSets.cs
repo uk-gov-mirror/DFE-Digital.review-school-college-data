@@ -32,20 +32,20 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 	{
 
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Approved", 0)]
-		Approved = 978790000,
+		[OptionSetMetadataAttribute("Approved and escalated", 2)]
+		Approvedandescalated = 100000001,
 
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Escalated and approved", 2)]
-		Escalatedandapproved = 100000001,
+		[OptionSetMetadataAttribute("Approved and final", 0)]
+		Approvedandfinal = 978790000,
 
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Escalated and rejected", 3)]
-		Escalatedandrejected = 353910001,
+		[OptionSetMetadataAttribute("Rejected and escalated", 3)]
+		Rejectedandescalated = 353910001,
 
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Rejected", 1)]
-		Rejected = 978790001,
+		[OptionSetMetadataAttribute("Rejected and final", 1)]
+		Rejectedandfinal = 978790001,
 	}
 
 	[System.Runtime.Serialization.DataContractAttribute()]
@@ -86,12 +86,12 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 	{
 
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Approved", 0)]
-		Approved = 353910000,
+		[OptionSetMetadataAttribute("Approved and final", 0)]
+		Approvedandfinal = 353910000,
 
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Rejected", 1)]
-		Rejected = 353910001,
+		[OptionSetMetadataAttribute("Rejected and final", 1)]
+		Rejectedandfinal = 353910001,
 	}
 
 	[System.Runtime.Serialization.DataContractAttribute()]
@@ -152,7 +152,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.45")]
-	public enum new_amendmentStatus
+	public enum new_amendmentstatus
 	{
 
 		[System.Runtime.Serialization.EnumMemberAttribute()]
@@ -298,16 +298,40 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 	{
 
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Approved", 0)]
-		Approved = 501940000,
+		[OptionSetMetadataAttribute("Approved and final", 5)]
+		Approvedandfinal = 501940005,
+
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Auto approved", 0)]
+		Autoapproved = 501940000,
+
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Auto rejected", 1)]
+		Autorejected = 501940001,
 
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("Awaiting DfE review", 2)]
 		AwaitingDfEreview = 501940002,
 
 		[System.Runtime.Serialization.EnumMemberAttribute()]
-		[OptionSetMetadataAttribute("Rejected", 1)]
-		Rejected = 501940001,
+		[OptionSetMetadataAttribute("Awaiting evidence", 8)]
+		Awaitingevidence = 501940008,
+
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Awaiting Reviewer 2", 3)]
+		AwaitingReviewer2 = 501940003,
+
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Awaiting Reviewer 3", 4)]
+		AwaitingReviewer3 = 501940004,
+
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Cancelled", 7)]
+		Cancelled = 501940007,
+
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Rejected and final", 6)]
+		Rejectedandfinal = 501940006,
 	}
 
 	[System.Runtime.Serialization.DataContractAttribute()]

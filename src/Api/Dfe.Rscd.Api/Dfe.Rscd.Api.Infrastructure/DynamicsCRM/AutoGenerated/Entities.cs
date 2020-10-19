@@ -829,12 +829,12 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 		/// 
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("cr3d5_amendmentstatus")]
-		public virtual new_amendmentStatus? cr3d5_amendmentstatus
+		public virtual new_amendmentstatus? cr3d5_amendmentstatus
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return ((new_amendmentStatus?)(EntityOptionSetEnum.GetEnum(this, "cr3d5_amendmentstatus")));
+				return ((new_amendmentstatus?)(EntityOptionSetEnum.GetEnum(this, "cr3d5_amendmentstatus")));
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
@@ -3395,6 +3395,26 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 		}
 
 		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_age")]
+		public System.Nullable<int> rscd_Age
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("rscd_age");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("rscd_Age");
+				this.SetAttributeValue("rscd_age", value);
+				this.OnPropertyChanged("rscd_Age");
+			}
+		}
+
+		/// <summary>
 		/// Unique identifier for entity instances
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_amendmentid")]
@@ -3441,12 +3461,12 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 		/// 
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_amendmentstatus")]
-		public virtual new_amendmentStatus? rscd_Amendmentstatus
+		public virtual new_amendmentstatus? rscd_Amendmentstatus
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return ((new_amendmentStatus?)(EntityOptionSetEnum.GetEnum(this, "rscd_amendmentstatus")));
+				return ((new_amendmentstatus?)(EntityOptionSetEnum.GetEnum(this, "rscd_amendmentstatus")));
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
@@ -3574,6 +3594,26 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanging("rscd_Decision2");
 				this.SetAttributeValue("rscd_decision2", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
 				this.OnPropertyChanged("rscd_Decision2");
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_decision3")]
+		public virtual cr3d5_Finaldecision? rscd_decision3
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((cr3d5_Finaldecision?)(EntityOptionSetEnum.GetEnum(this, "rscd_decision3")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("rscd_decision3");
+				this.SetAttributeValue("rscd_decision3", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+				this.OnPropertyChanged("rscd_decision3");
 			}
 		}
 
@@ -3754,6 +3794,26 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanging("rscd_Outcome");
 				this.SetAttributeValue("rscd_outcome", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
 				this.OnPropertyChanged("rscd_Outcome");
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_recorded_by")]
+		public Microsoft.Xrm.Sdk.EntityReference rscd_recorded_by
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("rscd_recorded_by");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("rscd_recorded_by");
+				this.SetAttributeValue("rscd_recorded_by", value);
+				this.OnPropertyChanged("rscd_recorded_by");
 			}
 		}
 

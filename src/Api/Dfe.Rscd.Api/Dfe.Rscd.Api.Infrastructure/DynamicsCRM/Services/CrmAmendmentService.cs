@@ -68,6 +68,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
                     LastName = amendment.rscd_Lastname,
                     Gender = amendment.rscd_Gender.Value.ToDomainGenderType(),
                     DateOfBirth = amendment.rscd_Dateofbirth.Value,
+                    Age = amendment.rscd_Age.HasValue ? amendment.rscd_Age.Value : 0,
                     DateOfAdmission = amendment.rscd_Dateofadmission.GetValueOrDefault(),
                     YearGroup = amendment.rscd_Yeargroup,
                     UPN = amendment.rscd_UPN,
@@ -82,14 +83,14 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
 
         private string GetStatus(rscd_Amendment amendment)
         {
-            if (amendment.rscd_Decision1 == cr3d5_Decision.Approved ||
-                amendment.rscd_Decision1 == cr3d5_Decision.Rejected)
+            if (amendment.rscd_Decision1 == cr3d5_Decision.Approvedandfinal ||
+                amendment.rscd_Decision1 == cr3d5_Decision.Rejectedandfinal)
             {
                 return amendment.rscd_Decision1.ToString();
             }
 
-            if (amendment.rscd_Decision2 == cr3d5_Decision.Approved ||
-                amendment.rscd_Decision2 == cr3d5_Decision.Rejected)
+            if (amendment.rscd_Decision2 == cr3d5_Decision.Approvedandfinal ||
+                amendment.rscd_Decision2 == cr3d5_Decision.Rejectedandfinal)
             {
                 return amendment.rscd_Decision2.ToString();
             }
@@ -154,7 +155,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
                     return amendment.rscd_Checkingwindow == rscd_Checkingwindow.KS4June;
                 case CheckingWindow.KS4Late:
                     return (amendment.rscd_Checkingwindow == rscd_Checkingwindow.KS4June &&
-                            new[] { new_amendmentStatus.Accepted, new_amendmentStatus.Rejected }.Any(s =>
+                            new[] { new_amendmentstatus.Accepted, new_amendmentstatus.Rejected}.Any(s =>
                                 s == amendment.rscd_Amendmentstatus)) ||
                            amendment.rscd_Checkingwindow == rscd_Checkingwindow.KS4Late;
                 case CheckingWindow.KS5:
@@ -184,6 +185,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
                 amendmentDto.rscd_Lastname = amendment.Pupil.LastName;
                 amendmentDto.rscd_Gender = amendment.Pupil.Gender.ToCRMGenderType();
                 amendmentDto.rscd_Dateofbirth = amendment.Pupil.DateOfBirth;
+                amendmentDto.rscd_Age = amendment.Pupil.Age;
                 if (ks4Windows.Any(w => w == amendmentDto.rscd_Checkingwindow))
                 {
                     amendmentDto.rscd_Dateofadmission = amendment.Pupil.DateOfAdmission;
@@ -403,12 +405,12 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
             var cols = new ColumnSet("rscd_amendmentstatus");
             var amendment = (rscd_Amendment)_organizationService.Retrieve(rscd_Amendment.EntityLogicalName, new Guid(id), cols);
 
-            if (amendment == null || amendment.rscd_Amendmentstatus == new_amendmentStatus.Cancelled)
+            if (amendment == null || amendment.rscd_Amendmentstatus == new_amendmentstatus.Cancelled)
             {
                 return false;
             }
 
-            amendment.rscd_Amendmentstatus = new_amendmentStatus.Cancelled;
+            amendment.rscd_Amendmentstatus = new_amendmentstatus.Cancelled;
 
             _organizationService.Update(amendment);
             return true;
