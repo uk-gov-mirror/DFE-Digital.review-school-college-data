@@ -77,6 +77,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                     Keystage = viewModel.PupilViewModel.Keystage,
                     ID = id,
                     UPN = viewModel.PupilViewModel.UPN,
+                    ULN = viewModel.PupilViewModel.ULN,
                     FirstName = viewModel.PupilViewModel.FirstName,
                     LastName = viewModel.PupilViewModel.LastName,
                     DateOfBirth = viewModel.PupilViewModel.DateOfBirth,

@@ -2,14 +2,28 @@
 @model PupilDetails
 
     <dl class="govuk-summary-list app-summary-list app-summary-list--70">
-        <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">
-                ULN (Unique Learner Number)
-            </dt>
-            <dd class="govuk-summary-list__value">
-                @Model.UPN
-            </dd>
-        </div>
+        @if (Model.Keystage == Keystage.KS5)
+        {
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    ULN (Unique Learner Number)
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Model.ULN
+                </dd>
+            </div>
+        }
+        else
+        {
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    UPN (Unique Pupil Number)
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Model.UPN
+                </dd>
+            </div>
+        }
         <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
                 First name

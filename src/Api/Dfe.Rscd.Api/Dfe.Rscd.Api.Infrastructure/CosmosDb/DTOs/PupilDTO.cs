@@ -27,7 +27,8 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs
         {
             Id = id,
             URN = URN,
-            UPN = UPN ?? ULN,
+            UPN = UPN,
+            ULN = ULN,
             LaEstab = DFESNumber,
             ForeName = Forename,
             LastName = Surname,

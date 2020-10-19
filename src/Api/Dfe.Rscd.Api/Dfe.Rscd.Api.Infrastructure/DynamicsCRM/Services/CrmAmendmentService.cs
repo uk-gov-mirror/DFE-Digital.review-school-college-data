@@ -177,7 +177,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
                 };
 
                 // pupil details
-                amendmentDto.rscd_UPN = amendment.Pupil.UPN; // TODO: need to set up ULN
+                amendmentDto.rscd_UPN = amendment.Pupil.UPN; 
                 amendmentDto.rscd_ULN = amendment.Pupil.ULN;
                 amendmentDto.rscd_Name = amendment.Pupil.FullName;
                 amendmentDto.rscd_Firstname = amendment.Pupil.ForeName;
