@@ -6,6 +6,11 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Results
 {
     public class ExistingResultsViewModel
     {
+        public ExistingResultsViewModel()
+        {
+            // Required for model binding
+        }
+
         public ExistingResultsViewModel(List<PriorAttainmentResult> results, PupilDetails pupilDetails)
         {
             PupilDetails = pupilDetails;

@@ -80,6 +80,7 @@ namespace Dfe.Rscd.Api.Controllers
             Tags = new[] { "Amendments" }
         )]
         [ProducesResponseType(typeof(GetResponse<string>), 200)]
+        [ProducesResponseType(400)]
         public IActionResult Post([FromBody, SwaggerRequestBody("Amendment to add to CRM", Required = true)] AmendmentDTO amendmentDto)
         {
             var amendment = amendmentDto.Amendment;
@@ -91,13 +92,29 @@ namespace Dfe.Rscd.Api.Controllers
             {
                 amendment.AmendmentDetail =  amendmentDto.RemovePupil;
             }
-            var amendmentReference = _amendmentService.CreateAmendment(amendment);
-            var response = new GetResponse<string>
+
+            try
             {
-                Result = amendmentReference,
-                Error = new Error()
-            };
-            return Ok(response);
+                var amendmentReference = _amendmentService.CreateAmendment(amendment);
+                var response = new GetResponse<string>
+                {
+                    Result = amendmentReference,
+                    Error = new Error()
+                };
+                return Ok(response);
+            }
+            catch (Exception e)
+            {
+                var response = new GetResponse<string>
+                {
+                    Result = string.Empty,
+                    Error = new Error
+                    {
+                        ErrorMessage = e.Message
+                    }
+                };
+                return BadRequest(response);
+            }
         }
 
         [HttpPut]

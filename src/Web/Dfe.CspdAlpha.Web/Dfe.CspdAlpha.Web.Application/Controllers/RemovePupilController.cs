@@ -208,5 +208,21 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             viewModel.Reason = removePupil.Reason;
             return View(viewModel);
         }
+
+        public IActionResult InternationalStudent()
+        {
+            var amendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
+            if (amendment == null)
+            {
+                return RedirectToAction("Index");
+            }
+            var removePupil = (RemovePupil)amendment.AmendmentDetail;
+            return View(new InternationalStudentViewModel
+            {
+                PupilDetails = amendment.PupilDetails,
+                //CountryOfOrigin = removePupil.,
+                //Language = removePupil.Detail
+            });
+        }
     }
 }
