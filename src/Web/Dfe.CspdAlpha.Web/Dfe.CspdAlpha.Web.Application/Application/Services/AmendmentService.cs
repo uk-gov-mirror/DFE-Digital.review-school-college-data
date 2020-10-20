@@ -1,13 +1,12 @@
 using Dfe.CspdAlpha.Web.Application.Application.Extensions;
 using Dfe.CspdAlpha.Web.Application.Application.Helpers;
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
+using Dfe.CspdAlpha.Web.Application.Models.Amendments;
+using Dfe.CspdAlpha.Web.Application.Models.Amendments.AmendmentTypes;
 using Dfe.CspdAlpha.Web.Application.Models.Common;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
-using Amendment = Dfe.CspdAlpha.Web.Application.Models.School.Amendment;
 using ApiClient = Dfe.Rscd.Web.ApiClient;
 
 namespace Dfe.CspdAlpha.Web.Application.Application.Services
@@ -29,7 +28,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             {
                 Urn = urn,
                 AmendmentList = amendments.Result
-                    .Select(a => new Amendment
+                    .Select(a => new AmendmentListItem
                     {
                         CheckingWindow = a.CheckingWindow.ToApplicationCheckingWindow(),
                         FirstName = a.Pupil.ForeName,
@@ -99,7 +98,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             };
         }
 
-        public string CreateAmendment(Dfe.CspdAlpha.Web.Application.Models.Amendments.Amendment amendment)
+        public string CreateAmendment(Amendment amendment)
         {
             var checkingWindowURL = CheckingWindowHelper.GetCheckingWindowURL(amendment.CheckingWindow);
             var amendmentDto = new ApiClient.AmendmentDTO();
@@ -160,26 +159,55 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             return result.Result;
         }
 
-        public AmendmentViewModel GetAmendment(CheckingWindow checkingWindow, Guid id)
+        public Amendment GetAmendment(CheckingWindow checkingWindow, string id)
         {
-            var getAmendmentResult = _apiClient.GetAmendmentAsync(id.ToString(), checkingWindow.ToString()).GetAwaiter()
-                .GetResult();
-            var pupil = getAmendmentResult.Result.Pupil;
-            return new AmendmentViewModel
+            var response = _apiClient.GetAmendmentAsync(id, checkingWindow.ToString()).GetAwaiter().GetResult();
+            var apiAmendment = response.Result.Amendment;
+            var amendment = new Amendment
             {
-                PupilViewModel = new PupilViewModel
+                CheckingWindow = apiAmendment.CheckingWindow.ToApplicationCheckingWindow(),
+                URN = apiAmendment.Urn,
+                PupilDetails = new PupilDetails
                 {
-                    UPN = pupil.Upn,
-                    FirstName = pupil.ForeName,
-                    LastName = pupil.LastName,
-                    DateOfBirth = pupil.DateOfBirth.Date,
-                    Gender = pupil.Gender.ToApplicationGender(),
-                    Age = pupil.Age,
-                    DateOfAdmission = pupil.DateOfAdmission.Date,
-                    YearGroup = pupil.YearGroup
-                }
-                // Results = amendment.PriorAttainmentResults.Select(r => new PriorAttainmentResultViewModel() { Subject = GetSubject(r.Subject), ExamYear = r.ExamYear, TestMark = r.TestMark, ScaledScore = r.ScaledScore }).ToList(),
+                    ID = apiAmendment.Pupil.Id,
+                    Keystage = apiAmendment.CheckingWindow.ToKeyStage(),
+                    URN = apiAmendment.Pupil.Urn,
+                    LAEstab = apiAmendment.Pupil.LaEstab,
+                    UPN = apiAmendment.Pupil.Upn,
+                    ULN = apiAmendment.Pupil.Uln,
+                    FirstName = apiAmendment.Pupil.ForeName,
+                    LastName = apiAmendment.Pupil.LastName,
+                    DateOfBirth = apiAmendment.Pupil.DateOfBirth.Date,
+                    Age = apiAmendment.Pupil.Age,
+                    Gender = apiAmendment.Pupil.Gender.ToApplicationGender(),
+                    DateOfAdmission = apiAmendment.Pupil.DateOfAdmission.Date,
+                    YearGroup = apiAmendment.Pupil.YearGroup
+                },
+                EvidenceOption = apiAmendment.EvidenceStatus.ToApplicationEvidenceOption()
             };
+            if(apiAmendment.AmendmentType == ApiClient.AmendmentType.AddPupil)
+            {
+                var apiAddPupil = response.Result.AddPupil;
+                amendment.AmendmentDetail = new AddPupil
+                {
+                    AddReason = apiAddPupil.Reason == ApiClient.AddReason.New ? AddReason.New : AddReason.Existing,
+                    PreviousSchoolURN = apiAddPupil.PreviousSchoolURN,
+                    PreviousSchoolLAEstab = apiAddPupil.PreviousSchoolLAEstab,
+                    PriorAttainmentResults = apiAddPupil.PriorAttainmentResults.Select(r => new PriorAttainmentResult{ Ks2Subject = r.Subject.ToApplicationKs2Subject(), ExamYear = r.ExamYear, Mark = r.TestMark, ScaledScore = r.ScaledScore} ).ToList()
+                };
+            }
+            else
+            {
+                var apiRemovePupil = response.Result.RemovePupil;
+                amendment.AmendmentDetail = new RemovePupil
+                {
+                    Reason = apiRemovePupil.Reason,
+                    SubReason = apiRemovePupil.SubReason,
+                    Detail = apiRemovePupil.Detail
+                };
+            }
+
+            return amendment;
         }
 
         public bool CancelAmendment(CheckingWindow checkingWindow, string id)

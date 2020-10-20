@@ -1,9 +1,9 @@
 using System;
 using Dfe.CspdAlpha.Web.Application.Models.Common;
 
-namespace Dfe.CspdAlpha.Web.Application.Models.School
+namespace Dfe.CspdAlpha.Web.Application.Models.Amendments
 {
-    public class Amendment
+    public class AmendmentListItem
     {
         public CheckingWindow CheckingWindow { get; set; }
         public string FirstName { get; set; }

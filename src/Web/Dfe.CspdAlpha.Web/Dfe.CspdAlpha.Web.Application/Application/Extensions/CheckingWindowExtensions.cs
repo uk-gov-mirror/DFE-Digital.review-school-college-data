@@ -97,5 +97,25 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Extensions
             }
         }
 
+        public static Keystage ToKeyStage(this ApiCheckingWindow checkingWindow)
+        {
+            switch (checkingWindow)
+            {
+                case ApiCheckingWindow.KS2:
+                case ApiCheckingWindow.KS2Errata:
+                    return Keystage.KS2;
+                case ApiCheckingWindow.KS4June:
+                case ApiCheckingWindow.KS4Late:
+                case ApiCheckingWindow.KS4Errata:
+                    return Keystage.KS4;
+                case ApiCheckingWindow.KS5:
+                case ApiCheckingWindow.KS5Errata:
+                    return Keystage.KS5;
+                default:
+                    return Keystage.Unknown;
+            }
+        }
+
+
     }
 }

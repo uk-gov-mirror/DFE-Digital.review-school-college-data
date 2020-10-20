@@ -130,7 +130,12 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
                         Reason = addPupil.rscd_Reason.Value.ToDomainAddReason(),
                         PreviousSchoolLAEstab = addPupil.rscd_PreviousschoolLAESTAB,
                         PreviousSchoolURN = addPupil.rscd_PreviousschoolURN,
-                        PriorAttainmentResults = new List<PriorAttainment>()
+                        PriorAttainmentResults = new List<PriorAttainment>
+                        {
+                            new PriorAttainment {Subject = Ks2Subject.Reading, ExamYear = addPupil.rscd_Readingexamyear, TestMark = addPupil.rscd_Readingexammark, ScaledScore = addPupil.rscd_Readingscaledscore},
+                            new PriorAttainment {Subject = Ks2Subject.Writing, ExamYear = addPupil.rscd_Writingexamyear, TestMark = addPupil.rscd_Writingteacherassessment, ScaledScore = addPupil.rscd_Writingscaledscore},
+                            new PriorAttainment {Subject = Ks2Subject.Maths, ExamYear = addPupil.rscd_Mathsexamyear, TestMark = addPupil.rscd_Mathsexammark, ScaledScore = addPupil.rscd_Mathsscaledscore}
+                        }
                     };
                 }
             }
@@ -142,8 +147,11 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
             {
                 var amendments = context.rscd_AmendmentSet.Where(a => a.rscd_URN == urn).ToList();
 
-                return amendments.Where(a => ValidAmendmentForCheckingWindow(checkingWindow, a)).Select(Convert)
-                    .OrderByDescending(o => o.CreatedDate);
+                return amendments.Where(a => ValidAmendmentForCheckingWindow(checkingWindow, a))
+                    .OrderByDescending(o => o.CreatedOn)
+                    .Skip(0)
+                    .Take(30)
+                    .Select(Convert);
             }
         }
 

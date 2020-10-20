@@ -74,21 +74,9 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             //Upload for amendment in progress
             else
             {
-                var amendment = _amendmentService.GetAmendment(CheckingWindow, new Guid(id));
-                var pupilDetails = new PupilDetails
-                {
-                    UPN = amendment.PupilViewModel.UPN,
-                    FirstName = amendment.PupilViewModel.FirstName,
-                    LastName = amendment.PupilViewModel.LastName,
-                    DateOfBirth = amendment.PupilViewModel.DateOfBirth,
-                    Gender = amendment.PupilViewModel.Gender,
-                    Age = amendment.PupilViewModel.Age,
-                    DateOfAdmission = amendment.PupilViewModel.DateOfAdmission,
-                    YearGroup = amendment.PupilViewModel.YearGroup,
-                    Keystage = amendment.PupilViewModel.Keystage
-                };
+                var amendment = _amendmentService.GetAmendment(CheckingWindow, id);
 
-                return View(new UploadViewModel { PupilDetails = pupilDetails});
+                return View(new UploadViewModel { PupilDetails = amendment.PupilDetails });
             }
         }
 
@@ -122,21 +110,9 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                     _amendmentService.RelateEvidence(CheckingWindow, id, uploadedEvidenceFiles);
                     return RedirectToAction("Index", "Amendments");
                 }
-                var amendment = _amendmentService.GetAmendment(CheckingWindow, new Guid(id));
-                var pupilDetails = new PupilDetails
-                {
-                    UPN = amendment.PupilViewModel.UPN,
-                    FirstName = amendment.PupilViewModel.FirstName,
-                    LastName = amendment.PupilViewModel.LastName,
-                    DateOfBirth = amendment.PupilViewModel.DateOfBirth,
-                    Gender = amendment.PupilViewModel.Gender,
-                    Age = amendment.PupilViewModel.Age,
-                    DateOfAdmission = amendment.PupilViewModel.DateOfAdmission,
-                    YearGroup = amendment.PupilViewModel.YearGroup,
-                    Keystage = amendment.PupilViewModel.Keystage
-                };
+                var amendment = _amendmentService.GetAmendment(CheckingWindow, id);
 
-                return View(new UploadViewModel { PupilDetails = pupilDetails });
+                return View(new UploadViewModel { PupilDetails = amendment.PupilDetails });
             }
         }
     }

@@ -1,4 +1,5 @@
 ﻿using Dfe.Rscd.Api.Domain.Entities;
+using Newtonsoft.Json;
 
 namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Models
 {

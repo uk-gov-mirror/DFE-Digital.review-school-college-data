@@ -35,13 +35,19 @@ namespace Dfe.Rscd.Api.Controllers
             OperationId = "GetAmendment",
             Tags = new[] { "Amendments" }
         )]
-        [ProducesResponseType(typeof(GetResponse<Amendment>), 200)]
+        [ProducesResponseType(typeof(GetResponse<AmendmentDTO>), 200)]
         public IActionResult GetAmendment([FromRoute, SwaggerParameter("The id of the requested amendment", Required = true)] string id)
         {
             var amendment = _amendmentService.GetAmendment(id);
-            var response = new GetResponse<Amendment>
+            var amendmentDto = new AmendmentDTO
             {
-                Result = amendment,
+                Amendment = amendment,
+                AddPupil = amendment.AmendmentType == AmendmentType.AddPupil ? (AddPupil)amendment.AmendmentDetail : new AddPupil(),
+                RemovePupil = amendment.AmendmentType == AmendmentType.RemovePupil ? (RemovePupil)amendment.AmendmentDetail : new RemovePupil()
+            };
+            var response = new GetResponse<AmendmentDTO>
+            {
+                Result = amendmentDto,
                 Error = new Error()
             };
             return Ok(response);

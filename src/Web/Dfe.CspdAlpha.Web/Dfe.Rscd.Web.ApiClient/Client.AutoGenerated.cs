@@ -46,7 +46,7 @@ namespace Dfe.Rscd.Web.ApiClient
         /// <param name="id">The id of the requested amendment</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<AmendmentGetResponse> GetAmendmentAsync(string id, string checkingwindow)
+        public System.Threading.Tasks.Task<AmendmentDTOGetResponse> GetAmendmentAsync(string id, string checkingwindow)
         {
             return GetAmendmentAsync(id, checkingwindow, System.Threading.CancellationToken.None);
         }
@@ -56,7 +56,7 @@ namespace Dfe.Rscd.Web.ApiClient
         /// <param name="id">The id of the requested amendment</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<AmendmentGetResponse> GetAmendmentAsync(string id, string checkingwindow, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<AmendmentDTOGetResponse> GetAmendmentAsync(string id, string checkingwindow, System.Threading.CancellationToken cancellationToken)
         {
             if (checkingwindow == null)
                 throw new System.ArgumentNullException("checkingwindow");
@@ -96,7 +96,7 @@ namespace Dfe.Rscd.Web.ApiClient
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<AmendmentGetResponse>(response_, headers_).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<AmendmentDTOGetResponse>(response_, headers_).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -268,6 +268,16 @@ namespace Dfe.Rscd.Web.ApiClient
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
+                        }
+                        else
+                        if (status_ == 400)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ProblemDetails>("Bad Request", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         {

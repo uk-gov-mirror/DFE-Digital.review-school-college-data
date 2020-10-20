@@ -47,10 +47,10 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         [ActionName("View")]
         public IActionResult ViewAmendment(string id)
         {
-            var amendment = _amendmentService.GetAmendment(CheckingWindow, new Guid(id));
+            var amendment = _amendmentService.GetAmendment(CheckingWindow, id);
             if (amendment != null)
             {
-                return View(amendment);
+                return View(new AmendmentViewModel{ Amendment = amendment});
             }
             return RedirectToAction("Error", "Home");
         }

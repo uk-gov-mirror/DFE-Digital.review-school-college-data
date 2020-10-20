@@ -14,7 +14,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Interfaces
 
         string CreateAmendment(Amendment amendment);
 
-        AmendmentViewModel GetAmendment(CheckingWindow checkingWindow, Guid id);
+        Amendment GetAmendment(CheckingWindow checkingWindow, string id);
 
         bool CancelAmendment(CheckingWindow checkingWindow, string id);
 
