@@ -45,6 +45,45 @@ namespace Dfe.Rscd.Web.UnitTests.Application.Validators
         }
 
         [Fact]
+        public void SearchPupilsViewModel_IsInvalid_GivenSearchTypeIsPupilIDAndInvalidULN()
+        {
+            // Arrange
+            var viewModel = new SearchPupilsViewModel()
+            {
+                SearchType = QueryType.PupilID,
+                PupilID = "abc"
+            };
+
+            var validator = new SearchPupilsViewModelValidator();
+
+            // Act
+            var result = validator.Validate(viewModel);
+
+            // Assert
+            Assert.False(result.IsValid);
+        }
+
+        [Fact]
+        public void SearchPupilsViewModel_IsInvalid_GivenSearchTypeIsPupilIDAndTooLongULN()
+        {
+            // Arrange
+            var viewModel = new SearchPupilsViewModel()
+            {
+                SearchType = QueryType.PupilID,
+                PupilID = "12345678901"
+            };
+
+            var validator = new SearchPupilsViewModelValidator();
+
+            // Act
+            var result = validator.Validate(viewModel);
+
+            // Assert
+            Assert.False(result.IsValid);
+        }
+
+
+        [Fact]
         public void SearchPupilsViewModel_IsValid_GivenSearcgTypeIsNameAndValidName()
         {
             // Arrange
