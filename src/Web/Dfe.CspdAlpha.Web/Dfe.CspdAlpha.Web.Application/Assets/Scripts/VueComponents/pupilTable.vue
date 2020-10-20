@@ -11,7 +11,7 @@
       <tr class="govuk-table__row" v-for="pupil in pupils">
         <td class="govuk-table__cell" data-label="First name">{{pupil.FirstName}}</td>
         <td class="govuk-table__cell" data-label="Last name">{{pupil.LastName}}</td>
-        <td class="govuk-table__cell" data-label="UPN">{{pupil.UPN}}</td>
+        <td class="govuk-table__cell" v-bind:data-label="idBinding">{{pupil[idBinding]}}</td>
         <td class="govuk-table__cell" v-html="viewLink(pupil.ID)"></td>
       </tr>
     </tbody>
@@ -25,6 +25,7 @@
     props: {
       pupils: Array,
       columns: Array,
+      idBinding: String,
       urn: String,
       checkingWindowURL: String,
     },

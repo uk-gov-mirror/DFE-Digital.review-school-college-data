@@ -13,6 +13,7 @@ const pupilListApp = new Vue({
   },
   data: {
     pupils: [],
+    idBinding: '',
     searchText: '',
     urn: '',
     columns: [],
@@ -22,15 +23,20 @@ const pupilListApp = new Vue({
     this.pupils = window.pupilsJson.map((pupil) => {
       if (pupil.ULN){
         pupil.searchCriteria = pupil.FirstName.toLowerCase() + ' ' + pupil.LastName.toLowerCase() + ' ' + pupil.ULN.toLowerCase();
-      } else {
+      }
+      else if (pupil.UPN){
         pupil.searchCriteria = pupil.FirstName.toLowerCase() + ' ' + pupil.LastName.toLowerCase() + ' ' + pupil.UPN.toLowerCase();
+      } else {
+        pupil.searchCriteria = pupil.FirstName.toLowerCase() + ' ' + pupil.LastName.toLowerCase();
       }
       return pupil;
     });
     if (window.checkingWindowURL.indexOf('ks5') > -1) {
       this.columns = ['First name', 'Last name', 'ULN', 'View student'];
+      this.idBinding = 'ULN';
     } else {
       this.columns = ['First name', 'Last name', 'UPN', 'View pupil'];
+      this.idBinding = 'UPN';
     }
     this.urn = window.urn;
   },
