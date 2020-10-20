@@ -149,8 +149,8 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
 
                 return amendments.Where(a => ValidAmendmentForCheckingWindow(checkingWindow, a))
                     .OrderByDescending(o => o.CreatedOn)
-                    .Skip(0)
-                    .Take(30)
+                    //.Skip(0)
+                    //.Take(30)
                     .Select(Convert);
             }
         }
