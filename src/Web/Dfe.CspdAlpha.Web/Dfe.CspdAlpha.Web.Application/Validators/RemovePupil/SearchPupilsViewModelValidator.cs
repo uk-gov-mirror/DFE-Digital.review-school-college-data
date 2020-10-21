@@ -10,7 +10,7 @@ namespace Dfe.CspdAlpha.Web.Application.Validators.RemovePupil
             RuleFor(x => x.PupilID)
                 .NotEmpty()
                 .When(x => x.SearchType == QueryType.PupilID)
-                .WithMessage("Enter a valid ULN");
+                .WithMessage("Enter a ULN");
 
             RuleFor(x => x.PupilID)
                 .Matches(@"^[0-9]+$")
