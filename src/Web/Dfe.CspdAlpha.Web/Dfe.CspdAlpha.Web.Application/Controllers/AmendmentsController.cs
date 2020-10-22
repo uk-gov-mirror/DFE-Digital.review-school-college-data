@@ -66,20 +66,28 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             var viewModel = new ConfirmViewModel
             {
                 AmendmentType = amendment.AmendmentDetail.AmendmentType,
-                PupilDetails = amendment.PupilDetails,
-                BackController = amendment.AmendmentDetail.AmendmentType.ToString(),
+                PupilDetails = amendment.PupilDetails
             };
             if (viewModel.AmendmentType == AmendmentType.RemovePupil)
             {
-                var removePupil = (RemovePupil) amendment.AmendmentDetail;
-                switch (removePupil.Reason)
+                viewModel.BackController = "RemovePupil";
+                var reason = ((RemovePupil) amendment.AmendmentDetail).Reason;
+                switch (reason)
                 {
+                    case "327":
+                        viewModel.BackAction = "Reason";
+                        break;
                     case "325":
                     case "328":
                     default:
                         viewModel.BackAction = "Details";
                         break;
                 }
+            }
+            else if (viewModel.AmendmentType == AmendmentType.AddPupil)
+            {
+                viewModel.BackController = "Evidence";
+                viewModel.BackAction = amendment.EvidenceOption == EvidenceOption.UploadNow ? "Upload" : "Index";
             }
 
             return viewModel;
@@ -89,11 +97,11 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         public IActionResult Confirm(ConfirmViewModel viewModel)
         {
             // Ensure steps haven't been manually skipped
-            //var addPupilAmendment = HttpContext.Session.Get<AddPupilAmendmentViewModel>(ADD_PUPIL_AMENDMENT);
-            //if (addPupilAmendment == null || addPupilAmendment.EvidenceOption == EvidenceOption.Unknown)
-            //{
-            //    return RedirectToAction("Add");
-            //}
+            var amendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
+            if (amendment == null)
+            {
+                return RedirectToAction("Index", "TaskList");
+            }
 
             // Cancel amendment
             if (!viewModel.ConfirmAmendment)
@@ -103,7 +111,6 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 return RedirectToAction("Index", "TaskList");
             }
 
-            var amendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
             var id = _amendmentService.CreateAmendment(amendment);
             // Create amendment and redirect to amendment received page
             if (!string.IsNullOrWhiteSpace(id))

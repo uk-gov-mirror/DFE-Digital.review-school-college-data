@@ -130,6 +130,10 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 removePupil.Reason = viewModel.SelectedReason;
                 amendment.EvidenceOption = viewModel.SelectedReason == "329" ? EvidenceOption.UploadNow : EvidenceOption.NotRequired;
                 HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, amendment);
+                if (new[] { "327" }.Any(r => r == viewModel.SelectedReason))
+                {
+                    return RedirectToAction("Confirm", "Amendments");
+                }
                 if (new[] {"329", "330"}.Any(r => r == viewModel.SelectedReason))
                 { 
                     return RedirectToAction("SubReason");
