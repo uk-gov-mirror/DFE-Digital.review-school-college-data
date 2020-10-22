@@ -110,7 +110,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
                 using (var context = new CrmServiceContext(_organizationService))
                 {
                     var removePupil = context.rscd_RemovepupilSet
-                        .Where(x => x.rscd_Removepupilamendment.Id == amendment.Id).FirstOrDefault();
+                        .Where(x => x.Id == amendment.rscd_Removepupil.Id).First();
                     return new RemovePupil
                     {
                         Reason = removePupil.rscd_Reason,
@@ -124,7 +124,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
                 using (var context = new CrmServiceContext(_organizationService))
                 {
                     var addPupil = context.rscd_AddpupilSet
-                        .Where(x => x.rscd_Addpupilamendment.Id == amendment.Id).FirstOrDefault();
+                        .Where(x => x.Id == amendment.rscd_Addpupil.Id).First();
                     return new AddPupil
                     {
                         Reason = addPupil.rscd_Reason.Value.ToDomainAddReason(),
@@ -269,19 +269,19 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
                 if (amendmentDto.rscd_Amendmenttype == rscd_Amendmenttype.Removeapupil)
                 {
                     var relationship = new Relationship("rscd_Amendment_Removepupil");
-                    _organizationService.Associate(rscd_Amendment.EntityLogicalName, amendmentDto.Id, relationship,
+                    _organizationService.Associate(rscd_Removepupil.EntityLogicalName, removeDto.Id, relationship,
                         new EntityReferenceCollection
                         {
-                            new EntityReference(rscd_Removepupil.EntityLogicalName, removeDto.Id)
+                            new EntityReference(rscd_Amendment.EntityLogicalName, amendmentDto.Id)
                         });
                 }
                 if (amendmentDto.rscd_Amendmenttype == rscd_Amendmenttype.Addapupil)
                 {
                     var relationship = new Relationship("rscd_Amendment_Addpupil");
-                    _organizationService.Associate(rscd_Amendment.EntityLogicalName, amendmentDto.Id, relationship,
+                    _organizationService.Associate(rscd_Addpupil.EntityLogicalName, addDto.Id, relationship,
                         new EntityReferenceCollection
                         {
-                            new EntityReference(rscd_Addpupil.EntityLogicalName, addDto.Id)
+                            new EntityReference(rscd_Amendment.EntityLogicalName, amendmentDto.Id)
                         });
                 }
 
