@@ -74,6 +74,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 var reason = ((RemovePupil) amendment.AmendmentDetail).Reason;
                 switch (reason)
                 {
+                    case "326":
                     case "327":
                         viewModel.BackAction = "Reason";
                         break;
