@@ -41,7 +41,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
             _sharePointDocumentLocationRecordId = config.Value.SharePointDocumentLocationRecordId;
         }
 
-        public Amendment GetAmendment(string id)
+        public Amendment GetAmendment(CheckingWindow checkingWindow, string id)
         {
             var amendmentId = new Guid(id);
             using (var context = new CrmServiceContext(_organizationService))
@@ -49,11 +49,11 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
                 var amendment = context.rscd_AmendmentSet.FirstOrDefault(
                     x => x.Id == amendmentId);
 
-                return amendment != null ? Convert(amendment) : null;
+                return amendment != null ? Convert(checkingWindow, amendment) : null;
             }
         }
 
-        private Amendment Convert(rscd_Amendment amendment)
+        private Amendment Convert(CheckingWindow checkingWindow, rscd_Amendment amendment)
         {
             return new Amendment
             {
@@ -76,31 +76,44 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
                 },
                 EvidenceStatus = amendment.rscd_Evidencestatus.Value.ToDomainEvidenceStatus(),
                 CreatedDate = amendment.CreatedOn.Value,
-                Status = GetStatus(amendment),
+                Status = GetStatus(checkingWindow, amendment),
                 AmendmentDetail = GetAdmendmentDetails(amendment)
             };
         }
 
-        private string GetStatus(rscd_Amendment amendment)
+        // TODO: API should return an enum for status
+        private string GetStatus(CheckingWindow checkingWindow, rscd_Amendment amendment)
         {
-            if (amendment.rscd_Decision1 == cr3d5_Decision.Approvedandfinal ||
-                amendment.rscd_Decision1 == cr3d5_Decision.Rejectedandfinal)
+            // TODO: Branching on checking window is ugly - we need to refactor this class
+            if (checkingWindow == CheckingWindow.KS4Late 
+                && amendment.rscd_Checkingwindow == rscd_Checkingwindow.KS4June)
             {
-                return amendment.rscd_Decision1.ToString();
+                switch (amendment.rscd_Outcome)
+                {
+                    case rscd_Outcome.AwaitingDfEreview:
+                    case rscd_Outcome.AwaitingReviewer2:
+                    case rscd_Outcome.AwaitingReviewer3:
+
+                        return "Requested";
+
+                    default:
+
+                        return amendment.rscd_Outcome.ToString();
+                }
+
             }
 
-            if (amendment.rscd_Decision2 == cr3d5_Decision.Approvedandfinal ||
-                amendment.rscd_Decision2 == cr3d5_Decision.Rejectedandfinal)
+            switch (amendment.rscd_Outcome)
             {
-                return amendment.rscd_Decision2.ToString();
-            }
+                case rscd_Outcome.Awaitingevidence:
+                case rscd_Outcome.Cancelled:
 
-            if (amendment.rscd_Decisionfinal != null)
-            {
-                return amendment.rscd_Decisionfinal.ToString();
-            }
+                    return amendment.rscd_Outcome.ToString();
 
-            return amendment.rscd_Amendmentstatus.ToString();
+                default:
+
+                    return "Requested";
+            }
         }
 
         private IAmendmentType GetAdmendmentDetails(rscd_Amendment amendment)
@@ -110,7 +123,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
                 using (var context = new CrmServiceContext(_organizationService))
                 {
                     var removePupil = context.rscd_RemovepupilSet
-                        .Where(x => x.rscd_Removepupilamendment.Id == amendment.Id).FirstOrDefault();
+                        .Where(x => x.Id == amendment.rscd_Removepupil.Id).First();
                     return new RemovePupil
                     {
                         Reason = removePupil.rscd_Reason,
@@ -124,7 +137,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
                 using (var context = new CrmServiceContext(_organizationService))
                 {
                     var addPupil = context.rscd_AddpupilSet
-                        .Where(x => x.rscd_Addpupilamendment.Id == amendment.Id).FirstOrDefault();
+                        .Where(x => x.Id == amendment.rscd_Addpupil.Id).First();
                     return new AddPupil
                     {
                         Reason = addPupil.rscd_Reason.Value.ToDomainAddReason(),
@@ -151,7 +164,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
                     .OrderByDescending(o => o.CreatedOn)
                     //.Skip(0)
                     //.Take(30)
-                    .Select(Convert);
+                    .Select(x => Convert(checkingWindow, x));
             }
         }
 
@@ -163,8 +176,11 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
                     return amendment.rscd_Checkingwindow == rscd_Checkingwindow.KS4June;
                 case CheckingWindow.KS4Late:
                     return (amendment.rscd_Checkingwindow == rscd_Checkingwindow.KS4June &&
-                            new[] { new_amendmentstatus.Accepted, new_amendmentstatus.Rejected}.Any(s =>
-                                s == amendment.rscd_Amendmentstatus)) ||
+                            new[] { rscd_Outcome.Approvedandfinal, 
+                                    rscd_Outcome.Rejectedandfinal,
+                                    rscd_Outcome.Autoapproved,
+                                    rscd_Outcome.Autorejected}.Any(s =>
+                                s == amendment.rscd_Outcome)) ||
                            amendment.rscd_Checkingwindow == rscd_Checkingwindow.KS4Late;
                 case CheckingWindow.KS5:
                     return amendment.rscd_Checkingwindow == rscd_Checkingwindow.KS5;
@@ -203,7 +219,8 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
                 amendmentDto.rscd_Evidencestatus = amendment.EvidenceStatus.ToCRMEvidenceStatus();
 
                 // TODO: default statuses for now
-                amendmentDto.rscd_Outcome = rscd_Outcome.AwaitingDfEreview;
+                amendmentDto.rscd_Outcome = amendment.EvidenceStatus == EvidenceStatus.Later 
+                    ? rscd_Outcome.Awaitingevidence : rscd_Outcome.AwaitingDfEreview;
                 amendmentDto.rscd_Recordedby = "RSCD Website";
 
                 // assign to helpdesk 1st line
@@ -269,19 +286,19 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
                 if (amendmentDto.rscd_Amendmenttype == rscd_Amendmenttype.Removeapupil)
                 {
                     var relationship = new Relationship("rscd_Amendment_Removepupil");
-                    _organizationService.Associate(rscd_Amendment.EntityLogicalName, amendmentDto.Id, relationship,
+                    _organizationService.Associate(rscd_Removepupil.EntityLogicalName, removeDto.Id, relationship,
                         new EntityReferenceCollection
                         {
-                            new EntityReference(rscd_Removepupil.EntityLogicalName, removeDto.Id)
+                            new EntityReference(rscd_Amendment.EntityLogicalName, amendmentDto.Id)
                         });
                 }
                 if (amendmentDto.rscd_Amendmenttype == rscd_Amendmenttype.Addapupil)
                 {
                     var relationship = new Relationship("rscd_Amendment_Addpupil");
-                    _organizationService.Associate(rscd_Amendment.EntityLogicalName, amendmentDto.Id, relationship,
+                    _organizationService.Associate(rscd_Addpupil.EntityLogicalName, addDto.Id, relationship,
                         new EntityReferenceCollection
                         {
-                            new EntityReference(rscd_Addpupil.EntityLogicalName, addDto.Id)
+                            new EntityReference(rscd_Amendment.EntityLogicalName, amendmentDto.Id)
                         });
                 }
 
@@ -396,29 +413,33 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
 
         private bool UpdateEvidenceStatus(Guid amendmentId)
         {
-            var cols = new ColumnSet("rscd_evidencestatus");
+            var cols = new ColumnSet("rscd_evidencestatus", "rscd_outcome");
             var amendment =
                 (rscd_Amendment) _organizationService.Retrieve(rscd_Amendment.EntityLogicalName, amendmentId, cols);
+
             if (amendment == null || amendment.rscd_Evidencestatus == rscd_Evidencestatus.Now)
             {
                 return false;
             }
+
             amendment.rscd_Evidencestatus = rscd_Evidencestatus.Now;
+            amendment.rscd_Outcome = rscd_Outcome.AwaitingDfEreview;
+
             _organizationService.Update(amendment);
             return true;
         }
 
         public bool CancelAmendment(string id)
         {
-            var cols = new ColumnSet("rscd_amendmentstatus");
+            var cols = new ColumnSet("rscd_outcome");
             var amendment = (rscd_Amendment)_organizationService.Retrieve(rscd_Amendment.EntityLogicalName, new Guid(id), cols);
 
-            if (amendment == null || amendment.rscd_Amendmentstatus == new_amendmentstatus.Cancelled)
+            if (amendment == null || amendment.rscd_Outcome == rscd_Outcome.Cancelled)
             {
                 return false;
             }
 
-            amendment.rscd_Amendmentstatus = new_amendmentstatus.Cancelled;
+            amendment.rscd_Outcome = rscd_Outcome.Cancelled;
 
             _organizationService.Update(amendment);
             return true;

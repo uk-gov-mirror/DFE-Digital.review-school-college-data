@@ -36,9 +36,10 @@ namespace Dfe.Rscd.Api.Controllers
             Tags = new[] { "Amendments" }
         )]
         [ProducesResponseType(typeof(GetResponse<AmendmentDTO>), 200)]
-        public IActionResult GetAmendment([FromRoute, SwaggerParameter("The id of the requested amendment", Required = true)] string id)
+        public IActionResult GetAmendment([FromRoute, SwaggerParameter("The id of the requested amendment", Required = true)] string id,
+            [FromRoute, SwaggerParameter("The checking window to request amendments from", Required = true)] string checkingwindow)
         {
-            var amendment = _amendmentService.GetAmendment(id);
+            var amendment = _amendmentService.GetAmendment(checkingwindow.ToDomainCheckingWindow(), id);
             var amendmentDto = new AmendmentDTO
             {
                 Amendment = amendment,
