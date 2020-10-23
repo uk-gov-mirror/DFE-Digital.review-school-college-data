@@ -7,5 +7,6 @@ namespace Dfe.Rscd.Api.Domain.Entities
         public string  Reason { get; set; }
         public string SubReason { get; set; }
         public string Detail { get; set; }
+        public string AllocationYear { get; set; }
     }
 }

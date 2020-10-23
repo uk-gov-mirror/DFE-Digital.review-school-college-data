@@ -19,6 +19,7 @@ namespace Dfe.Rscd.Web.ApiClient
     {
         /// <summary>Returns the requested amendment</summary>
         /// <param name="id">The id of the requested amendment</param>
+        /// <param name="checkingwindow">The checking window to request amendments from</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<AmendmentDTOGetResponse> GetAmendmentAsync(string id, string checkingwindow);
@@ -26,6 +27,7 @@ namespace Dfe.Rscd.Web.ApiClient
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Returns the requested amendment</summary>
         /// <param name="id">The id of the requested amendment</param>
+        /// <param name="checkingwindow">The checking window to request amendments from</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<AmendmentDTOGetResponse> GetAmendmentAsync(string id, string checkingwindow, System.Threading.CancellationToken cancellationToken);
@@ -447,6 +449,9 @@ namespace Dfe.Rscd.Web.ApiClient
     
         [Newtonsoft.Json.JsonProperty("detail", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Detail { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("allocationYear", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string AllocationYear { get; set; }
     
     
     }

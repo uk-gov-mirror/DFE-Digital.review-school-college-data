@@ -128,7 +128,8 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
                     {
                         Reason = removePupil.rscd_Reason,
                         SubReason = removePupil.rscd_Subreason,
-                        Detail = removePupil.rscd_Details
+                        Detail = removePupil.rscd_Details,
+                        AllocationYear = removePupil.rscd_Allocationyear
                     };
                 }
             }
@@ -239,6 +240,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
                     removeDto.rscd_Reason = removeDetail.Reason;
                     removeDto.rscd_Subreason = removeDetail.SubReason;
                     removeDto.rscd_Details = removeDetail.Detail;
+                    removeDto.rscd_Allocationyear = removeDetail.AllocationYear;
                     context.AddObject(removeDto);
                 }
 

@@ -150,7 +150,8 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                 {
                     Reason = removeAmendment.Reason,
                     SubReason = removeAmendment.SubReason,
-                    Detail = removeAmendment.Detail
+                    Detail = removeAmendment.Detail,
+                    AllocationYear = removeAmendment.AllocationYear
                 };
             }
 
