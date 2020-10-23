@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Dfe.Rscd.Api.Domain.Core.Enums;
 using Dfe.Rscd.Api.Domain.Entities;
 
@@ -7,7 +6,7 @@ namespace Dfe.Rscd.Api.Domain.Interfaces
 {
     public interface IAmendmentService
     {
-        Amendment GetAmendment(string id);
+        Amendment GetAmendment(CheckingWindow checkingWindow, string id);
         IEnumerable<IDictionary<string, object>> GetAmendments();
         string CreateAmendment(Amendment amendment);
         void RelateEvidence(string amendmentId, string evidenceFolderName, bool updateEvidenceOption);
