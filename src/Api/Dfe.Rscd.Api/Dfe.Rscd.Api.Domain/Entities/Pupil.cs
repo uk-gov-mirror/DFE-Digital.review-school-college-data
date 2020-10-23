@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Dfe.Rscd.Api.Domain.Core;
 
 namespace Dfe.Rscd.Api.Domain.Entities
 {

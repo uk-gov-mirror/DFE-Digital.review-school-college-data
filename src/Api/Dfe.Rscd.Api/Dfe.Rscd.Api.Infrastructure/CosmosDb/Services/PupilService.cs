@@ -2,8 +2,11 @@
 using Dfe.Rscd.Api.Domain.Core.Enums;
 using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Domain.Interfaces;
+using Dfe.Rscd.Api.Infrastructure.CosmosDb.Config;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Repositories;
 using Microsoft.Azure.Cosmos;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -12,10 +15,12 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.Services
     public class PupilService : IPupilService
     {
         private Database _cosmosDb;
+        private readonly string ALLOCATION_YEAR;
 
-        public PupilService(Database cosmosDB)
+        public PupilService(IOptions<CosmosDbOptions> options, IConfiguration configuration )
         {
-            _cosmosDb = cosmosDB;
+            _cosmosDb = new CosmosClient(options.Value.Account, options.Value.Key).GetDatabase(options.Value.Database);
+            ALLOCATION_YEAR = configuration["AllocationYear"];
         }
 
         public Pupil GetById(CheckingWindow checkingWindow, string id)

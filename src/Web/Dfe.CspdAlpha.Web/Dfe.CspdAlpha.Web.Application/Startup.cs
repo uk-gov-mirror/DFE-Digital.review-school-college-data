@@ -65,6 +65,7 @@ namespace Dfe.CspdAlpha.Web.Application
             
             // Adds feature management for Azure App Configuration
             services.AddFeatureManagement();
+            services.AddAzureAppConfiguration();
 
             // This disables the CSRF token in order to facilitate easier QA for the time being
             if (_env.IsStaging())

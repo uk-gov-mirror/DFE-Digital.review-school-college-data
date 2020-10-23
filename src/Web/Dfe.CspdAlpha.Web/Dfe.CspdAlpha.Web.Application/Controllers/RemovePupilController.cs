@@ -7,6 +7,7 @@ using Dfe.CspdAlpha.Web.Application.Models.Common;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using Microsoft.Extensions.Configuration;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
@@ -14,10 +15,12 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
     {
         private IPupilService _pupilService;
         private IAmendmentService _amendmentService;
+        private IConfiguration _config;
         private CheckingWindow CheckingWindow => CheckingWindowHelper.GetCheckingWindow(RouteData);
 
-        public RemovePupilController(IPupilService pupilService, IAmendmentService amendmentService)
+        public RemovePupilController(IPupilService pupilService, IAmendmentService amendmentService, IConfiguration config)
         {
+            _config = config;
             _amendmentService = amendmentService;
             _pupilService = pupilService;
         }
@@ -130,16 +133,16 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 removePupil.Reason = viewModel.SelectedReason;
                 amendment.EvidenceOption = viewModel.SelectedReason == "329" ? EvidenceOption.UploadNow : EvidenceOption.NotRequired;
                 HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, amendment);
-                if (new[] {"326", "327" }.Any(r => r == viewModel.SelectedReason))
+                if (new[] {Constants.INTERNATIONAL_STUDENT, Constants.DECEASED }.Any(r => r == viewModel.SelectedReason))
                 {
                     return RedirectToAction("Confirm", "Amendments");
                 }
-                if (new[] {"329", "330"}.Any(r => r == viewModel.SelectedReason))
+                if (new[] {Constants.OTHER_WITH_EVIDENCE}.Any(r => r == viewModel.SelectedReason))
                 { 
                     return RedirectToAction("SubReason");
                 }
 
-                if (new[] { "325", "328" }.Any(r => r == viewModel.SelectedReason))
+                if (new[] { Constants.NOT_AT_END_OF_16_TO_18_STUDY, Constants.NOT_ON_ROLL, Constants.OTHER_EVIDENCE_NOT_REQUIRED }.Any(r => r == viewModel.SelectedReason))
                 {
                     return RedirectToAction("Details");
                 }
@@ -202,6 +205,10 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             {
                 removePupil.Detail = viewModel.AmendmentDetails;
                 HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, amendment);
+                if (removePupil.Reason == Constants.OTHER_EVIDENCE_NOT_REQUIRED)
+                {
+                    return RedirectToAction("AllocationYear");
+                }
                 if (amendment.EvidenceOption == EvidenceOption.UploadNow)
                 {
                     return RedirectToAction("Upload", "Evidence");
@@ -214,20 +221,37 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             return View(viewModel);
         }
 
-        public IActionResult InternationalStudent()
+        public IActionResult AllocationYear()
         {
             var amendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
             if (amendment == null)
             {
                 return RedirectToAction("Index");
             }
-            var removePupil = (RemovePupil)amendment.AmendmentDetail;
-            return View(new InternationalStudentViewModel
+
+            return View(new AllocationYearViewModel(_config["AllocationYear"])
             {
-                PupilDetails = amendment.PupilDetails,
-                //CountryOfOrigin = removePupil.,
-                //Language = removePupil.Detail
+                PupilDetails = amendment.PupilDetails
             });
         }
+
+        [HttpPost]
+        public IActionResult AllocationYear(AllocationYearViewModel viewModel)
+        {
+            var amendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
+            var removePupil = (RemovePupil)amendment.AmendmentDetail;
+            if (ModelState.IsValid)
+            {
+                removePupil.AllocationYear = viewModel.AllocationYear;
+                HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, amendment);
+                return RedirectToAction("Confirm", "Amendments");
+            }
+
+            return View(new AllocationYearViewModel(_config["AllocationYear"])
+            {
+                PupilDetails = amendment.PupilDetails
+            });
+        }
+
     }
 }

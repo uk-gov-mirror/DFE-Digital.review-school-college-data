@@ -1,11 +1,13 @@
 ﻿using Dfe.Rscd.Api.Domain.Core;
+using Dfe.Rscd.Api.Domain.Core.Enums;
 using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Domain.Interfaces;
+using Dfe.Rscd.Api.Infrastructure.CosmosDb.Config;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs;
-using System.Linq;
-using Dfe.Rscd.Api.Domain.Core.Enums;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Repositories;
 using Microsoft.Azure.Cosmos;
+using Microsoft.Extensions.Options;
+using System.Linq;
 
 namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.Services
 {
@@ -13,10 +15,11 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.Services
     {
         private Database _cosmosDb;
 
-        public EstablishmentService(Database cosmosDB)
+        public EstablishmentService(IOptions<CosmosDbOptions> options)
         {
-            _cosmosDb = cosmosDB;
+            _cosmosDb = new CosmosClient(options.Value.Account, options.Value.Key).GetDatabase(options.Value.Database);
         }
+
         public Establishment GetByURN(CheckingWindow checkingWindow, URN urn)
         {
 

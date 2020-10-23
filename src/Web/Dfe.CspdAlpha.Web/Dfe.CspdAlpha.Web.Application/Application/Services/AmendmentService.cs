@@ -89,12 +89,12 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             }
             return new Dictionary<string, string>
             {
-                { "325", "Not at the end of 16 to 18 study" },
-                { "326", "International student" },
-                { "327", "Deceased" },
-                { "328", "Not on roll" },
-                { "329", "Other - with evidence" },
-                { "330", "Other - evidence not required" },
+                { Constants.NOT_AT_END_OF_16_TO_18_STUDY, "Not at the end of 16 to 18 study" },
+                { Constants.INTERNATIONAL_STUDENT, "International student" },
+                { Constants.DECEASED, "Deceased" },
+                { Constants.NOT_ON_ROLL, "Not on roll" },
+                { Constants.OTHER_WITH_EVIDENCE, "Other - with evidence" },
+                { Constants.OTHER_EVIDENCE_NOT_REQUIRED, "Other - evidence not required" },
             };
         }
 

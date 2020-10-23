@@ -1,0 +1,68 @@
+@using Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil
+@model AllocationYearViewModel
+@{
+    ViewData["Title"] = "Select allocation year for your request to remove a student";
+}
+
+@section BackLink
+{
+    <a class="govuk-back-link" asp-action="Details">Back</a>
+}
+
+<div asp-validation-summary="All"></div>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-l govuk-!-margin-bottom-3">@ViewData["Title"]</h1>
+    </div>
+
+    <div class="govuk-grid-column-full">
+        <details class="govuk-details govuk-!-font-size-16" data-module="govuk-details">
+            <summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text">
+                    View student details
+                </span>
+            </summary>
+            <div class="govuk-details__text">
+                <partial name="_PupilDetailsView" model="@Model.PupilDetails" />
+            </div>
+        </details>
+    </div>
+
+    <div class="govuk-grid-column-full">
+        <p class="govuk-body">Lorem ipsum...</p>
+    </div>
+</div>
+
+<form method="post">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-three-quarters">
+            <div class="govuk-form-group" asp-for="AllocationYear">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-legend govuk-fieldset__legend--s govuk-!-margin-bottom-4">
+                        Select a reason
+                    </legend>
+                    <div class="govuk-radios" asp-for="AllocationYear">
+                        @foreach (var allocationYear in Model.AllocationYears)
+                        {
+                            <div class="govuk-radios__item">
+                                <input type="radio" asp-for="AllocationYear" id="SelectedReason-@allocationYear.Key" value="@allocationYear.Key" class="govuk-radios__input" />
+                                <label class="govuk-label govuk-radios__label" for="SelectedReason-@allocationYear.Key">
+                                    @allocationYear.Value
+                                </label>
+                            </div>
+                        }
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <input type="submit" class="govuk-button" data-module="govuk-button" value="Continue" />
+        </div>
+    </div>
+</form>
+
+<partial name="_CancelAmendment" />

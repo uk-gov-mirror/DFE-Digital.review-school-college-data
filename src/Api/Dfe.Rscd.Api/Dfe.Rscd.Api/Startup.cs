@@ -16,6 +16,7 @@ using Microsoft.Xrm.Sdk;
 using System;
 using System.Text.Json.Serialization;
 using Newtonsoft.Json;
+using Microsoft.FeatureManagement;
 
 namespace Dfe.Rscd.Api
 {
@@ -60,10 +61,13 @@ namespace Dfe.Rscd.Api
                 c.EnableAnnotations();
             });
 
+            // Adds feature management for Azure App Configuration
+            services.AddFeatureManagement();
+            services.AddAzureAppConfiguration();
+
             // Dynamics 365 configuration
             var dynamicsConnString = Configuration.GetConnectionString("DynamicsCds");
             var cdsClient = new CdsServiceClient(dynamicsConnString);
-
             services.AddTransient<IOrganizationService, CdsServiceClient>(sp => cdsClient.Clone());
             services.Configure<DynamicsOptions>(Configuration.GetSection("Dynamics"));
 
@@ -72,12 +76,9 @@ namespace Dfe.Rscd.Api
             {
                 services.Configure<BasicAuthOptions>(Configuration.GetSection("BasicAuth"));
             }
-            var cosmosDbOptions = Configuration.GetSection("CosmosDb").Get<CosmosDbOptions>();
-            var cosmosDatabase = new CosmosClient(cosmosDbOptions.Account, cosmosDbOptions.Key).GetDatabase(cosmosDbOptions.Database);
-            services.AddSingleton<IEstablishmentService>(x =>
-                new EstablishmentService(cosmosDatabase));
-            services.AddSingleton<IPupilService>(x =>
-                new PupilService(cosmosDatabase));
+            services.Configure<CosmosDbOptions>(Configuration.GetSection("CosmosDb"));
+            services.AddSingleton<IEstablishmentService, EstablishmentService>();
+            services.AddSingleton<IPupilService, PupilService>();
             services.AddSingleton<IAmendmentService, CrmAmendmentService>();
             services.AddSingleton<IConfirmationService, CrmConfirmationService>();
 
@@ -110,6 +111,7 @@ namespace Dfe.Rscd.Api
 
             app.UseRouting();
 
+            app.UseAzureAppConfiguration();
 
             app.UseAuthorization();
 
