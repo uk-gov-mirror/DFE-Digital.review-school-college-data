@@ -224,15 +224,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
 
                 amendmentDto.rscd_Evidencestatus = amendment.EvidenceStatus.ToCRMEvidenceStatus();
 
-                // TODO: default statuses for now
-                amendmentDto.rscd_Outcome = amendment.EvidenceStatus == EvidenceStatus.Later 
-                    ? rscd_Outcome.Awaitingevidence : rscd_Outcome.AwaitingDfEreview;
-                amendmentDto.rscd_Recordedby = "RSCD Website";
-
-                // assign to helpdesk 1st line
-                amendmentDto.OwnerId = new EntityReference("team", _firstLineTeamId);
-                context.AddObject(amendmentDto);
-
+                // TODO: probably some kind of service/factory/strategy pattern required to build amendment types 
                 // Create Remove
                 rscd_Removepupil removeDto = new rscd_Removepupil();
                 if (amendmentDto.rscd_Amendmenttype == rscd_Amendmenttype.Removeapupil)
@@ -249,6 +241,8 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
                     context.AddObject(removeDto);
                 }
 
+
+                // Create add
                 rscd_Addpupil addDto = new rscd_Addpupil();
                 if (amendmentDto.rscd_Amendmenttype == rscd_Amendmenttype.Addapupil)
                 {
@@ -283,6 +277,27 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
 
                     context.AddObject(addDto);
                 }
+
+                // TODO: this should be replaced by a service
+                if (amendment.EvidenceStatus == EvidenceStatus.Later)
+                {
+                    amendmentDto.rscd_Outcome = rscd_Outcome.Awaitingevidence;
+                }
+                else if(amendment.AmendmentType == AmendmentType.RemovePupil && removeDto.rscd_Reason == "330") // Other - evidence not required
+                {
+                    amendmentDto.rscd_Outcome = rscd_Outcome.Autorejected;
+                }
+                else
+                {
+                    amendmentDto.rscd_Outcome = rscd_Outcome.AwaitingDfEreview;
+                }
+                amendmentDto.rscd_Recordedby = "RSCD Website";
+
+                // assign to helpdesk 1st line
+                amendmentDto.OwnerId = new EntityReference("team", _firstLineTeamId);
+                context.AddObject(amendmentDto);
+
+
                 // Save
                 var result = context.SaveChanges();
                 if (result.HasError)
