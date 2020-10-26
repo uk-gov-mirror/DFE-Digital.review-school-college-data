@@ -15,6 +15,7 @@ using System.Xml;
 using System.Text;
 using System.IO;
 using System.Dynamic;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Xrm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Metadata;
 
@@ -30,15 +31,19 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
         private readonly rscd_Checkingwindow[] ks4Windows = new[]
             {rscd_Checkingwindow.KS4June, rscd_Checkingwindow.KS4Late, rscd_Checkingwindow.KS4Errata};
 
+        private readonly string ALLOCATION_YEAR;
+
         public CrmAmendmentService(
             IOrganizationService organizationService,
             IEstablishmentService establishmentService,
-            IOptions<DynamicsOptions> config)
+            IOptions<DynamicsOptions> dynamicsOptions,
+            IConfiguration configuration)
         {
             _establishmentService = establishmentService;
             _organizationService = organizationService;
-            _firstLineTeamId = config.Value.Helpdesk1stLineTeamId;
-            _sharePointDocumentLocationRecordId = config.Value.SharePointDocumentLocationRecordId;
+            _firstLineTeamId = dynamicsOptions.Value.Helpdesk1stLineTeamId;
+            _sharePointDocumentLocationRecordId = dynamicsOptions.Value.SharePointDocumentLocationRecordId;
+            ALLOCATION_YEAR = configuration["AllocationYear"];
         }
 
         public Amendment GetAmendment(CheckingWindow checkingWindow, string id)
@@ -198,7 +203,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
                 {
                     rscd_Checkingwindow = amendment.CheckingWindow.ToCRMCheckingWindow(),
                     rscd_Amendmenttype = amendment.AmendmentType.ToCRMAmendmentType(),
-                    rscd_Academicyear = "2019", // TODO: must be from config
+                    rscd_Academicyear = ALLOCATION_YEAR,
                     rscd_URN = amendment.URN
                 };
 

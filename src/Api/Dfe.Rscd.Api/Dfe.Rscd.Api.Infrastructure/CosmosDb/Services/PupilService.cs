@@ -55,7 +55,7 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.Services
 
         private PupilRepository GetRepository(CheckingWindow checkingWindow)
         {
-            var container = _cosmosDb.GetContainer(checkingWindow.ToString().ToLower() + "_pupils_2019");
+            var container = _cosmosDb.GetContainer( $"{checkingWindow.ToString().ToLower()}_pupils_{ALLOCATION_YEAR}");
             return new PupilRepository(container);
         }
     }

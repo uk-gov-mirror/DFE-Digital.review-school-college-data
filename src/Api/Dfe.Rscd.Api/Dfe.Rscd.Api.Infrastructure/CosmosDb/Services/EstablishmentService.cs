@@ -8,16 +8,19 @@ using Dfe.Rscd.Api.Infrastructure.CosmosDb.Repositories;
 using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Options;
 using System.Linq;
+using Microsoft.Extensions.Configuration;
 
 namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.Services
 {
     public class EstablishmentService : IEstablishmentService
     {
         private Database _cosmosDb;
+        private readonly string ALLOCATION_YEAR;
 
-        public EstablishmentService(IOptions<CosmosDbOptions> options)
+        public EstablishmentService(IOptions<CosmosDbOptions> options, IConfiguration configuration)
         {
             _cosmosDb = new CosmosClient(options.Value.Account, options.Value.Key).GetDatabase(options.Value.Database);
+            ALLOCATION_YEAR = configuration["AllocationYear"];
         }
 
         public Establishment GetByURN(CheckingWindow checkingWindow, URN urn)
