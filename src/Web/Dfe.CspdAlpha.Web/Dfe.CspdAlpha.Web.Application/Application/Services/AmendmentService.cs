@@ -93,8 +93,8 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                 { Constants.INTERNATIONAL_STUDENT, "International student" },
                 { Constants.DECEASED, "Deceased" },
                 { Constants.NOT_ON_ROLL, "Not on roll" },
-                { Constants.OTHER_WITH_EVIDENCE, "Other - with evidence" },
-                { Constants.OTHER_EVIDENCE_NOT_REQUIRED, "Other - evidence not required" },
+                { Constants.OTHER_WITH_EVIDENCE, "Other with evidence" },
+                { Constants.OTHER_EVIDENCE_NOT_REQUIRED, "Other without evidence" },
             };
         }
 

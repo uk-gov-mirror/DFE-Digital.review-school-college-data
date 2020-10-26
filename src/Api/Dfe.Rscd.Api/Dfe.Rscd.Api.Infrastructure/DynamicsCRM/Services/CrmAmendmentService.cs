@@ -438,7 +438,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
 
         public bool CancelAmendment(string id)
         {
-            var cols = new ColumnSet("rscd_outcome");
+            var cols = new ColumnSet("rscd_outcome", "statecode");
             var amendment = (rscd_Amendment)_organizationService.Retrieve(rscd_Amendment.EntityLogicalName, new Guid(id), cols);
 
             if (amendment == null || amendment.rscd_Outcome == rscd_Outcome.Cancelled)
@@ -447,6 +447,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
             }
 
             amendment.rscd_Outcome = rscd_Outcome.Cancelled;
+            amendment.StateCode = rscd_AmendmentState.Inactive;
 
             _organizationService.Update(amendment);
             return true;
