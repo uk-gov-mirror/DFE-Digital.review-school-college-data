@@ -37,7 +37,7 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.Services
 
         private IReadRepository<EstablishmentsDTO> GetRepository(CheckingWindow checkingWindow)
         {
-            var container = _cosmosDb.GetContainer(checkingWindow.ToString().ToLower() + "_establishments_2019");
+            var container = _cosmosDb.GetContainer($"{checkingWindow.ToString().ToLower()}_establishments_{ALLOCATION_YEAR}");
             return new EstablishmentRepository(container);
         }
     }

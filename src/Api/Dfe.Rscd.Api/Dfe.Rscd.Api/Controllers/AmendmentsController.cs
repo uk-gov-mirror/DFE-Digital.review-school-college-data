@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net.Mime;
 using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Extensions;
 
 namespace Dfe.Rscd.Api.Controllers
@@ -31,7 +32,7 @@ namespace Dfe.Rscd.Api.Controllers
         [Route("id/{id}")]
         [SwaggerOperation(
             Summary = "Returns the requested amendment",
-            Description = "Returns the amendent specified by the id",
+            Description = "Returns the amendment specified by the id",
             OperationId = "GetAmendment",
             Tags = new[] { "Amendments" }
         )]
@@ -58,7 +59,7 @@ namespace Dfe.Rscd.Api.Controllers
         [HttpGet]
         [Route("urn/{urn}")]
         [SwaggerOperation(
-            Summary = "Searches for schools requested amendments",
+            Summary = "Searches for amendments by school or college",
             Description = "Searches for requested amendments in CRM recorded against the supplied URN.",
             OperationId = "GetAmendments",
             Tags = new[] { "Amendments" }
@@ -147,7 +148,7 @@ namespace Dfe.Rscd.Api.Controllers
         [HttpDelete]
         [Route("{id}")]
         [SwaggerOperation(
-            Summary = "Cancel and amendment",
+            Summary = "Cancel an amendment",
             Description = "Cancels the amendment related to the provided id",
             OperationId = "CancelAmendment",
             Tags = new[] {"Amendments"})]
