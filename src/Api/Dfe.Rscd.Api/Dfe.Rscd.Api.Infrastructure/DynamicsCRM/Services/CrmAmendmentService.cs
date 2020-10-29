@@ -286,7 +286,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
                 else if(amendment.AmendmentType == AmendmentType.RemovePupil && removeDto.rscd_Reason == "330") // Other - evidence not required
                 {
                     amendmentDto.rscd_Outcome = rscd_Outcome.Autorejected;
-                    amendmentDto.StatusCode = rscd_Amendment_StatusCode.Inactive;
+                    //amendmentDto.StatusCode = rscd_Amendment_StatusCode.Inactive
                 }
                 else
                 {
