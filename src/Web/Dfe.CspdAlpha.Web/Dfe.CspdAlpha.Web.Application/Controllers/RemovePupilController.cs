@@ -133,7 +133,12 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 removePupil.Reason = viewModel.SelectedReason;
                 amendment.EvidenceOption = viewModel.SelectedReason == "329" ? EvidenceOption.UploadNow : EvidenceOption.NotRequired;
                 HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, amendment);
-                if (new[] {Constants.INTERNATIONAL_STUDENT, Constants.DECEASED }.Any(r => r == viewModel.SelectedReason))
+                if (new[]
+                {
+                    Constants.NOT_AT_END_OF_16_TO_18_STUDY,
+                    Constants.INTERNATIONAL_STUDENT,
+                    Constants.DECEASED
+                }.Any(r => r == viewModel.SelectedReason))
                 {
                     return RedirectToAction("Confirm", "Amendments");
                 }
@@ -142,7 +147,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                     return RedirectToAction("SubReason");
                 }
 
-                if (new[] { Constants.NOT_AT_END_OF_16_TO_18_STUDY, Constants.NOT_ON_ROLL, Constants.OTHER_EVIDENCE_NOT_REQUIRED }.Any(r => r == viewModel.SelectedReason))
+                if (new[] {  Constants.NOT_ON_ROLL, Constants.OTHER_EVIDENCE_NOT_REQUIRED }.Any(r => r == viewModel.SelectedReason))
                 {
                     return RedirectToAction("Details");
                 }
@@ -157,6 +162,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             {
                 return RedirectToAction("Index");
             }
+
             var removePupil = (RemovePupil)amendment.AmendmentDetail;
             return View(new SubReasonViewModel
             {
