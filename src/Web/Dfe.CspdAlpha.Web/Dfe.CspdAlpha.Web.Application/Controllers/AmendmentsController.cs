@@ -74,6 +74,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 var reason = ((RemovePupil) amendment.AmendmentDetail).Reason;
                 switch (reason)
                 {
+                    case Constants.NOT_AT_END_OF_16_TO_18_STUDY:
                     case Constants.INTERNATIONAL_STUDENT:
                     case Constants.DECEASED:
                         viewModel.BackAction = "Reason";
@@ -81,7 +82,6 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                     case Constants.OTHER_EVIDENCE_NOT_REQUIRED:
                         viewModel.BackAction = "AllocationYear";
                         break;
-                    case Constants.NOT_AT_END_OF_16_TO_18_STUDY:
                     case Constants.NOT_ON_ROLL:
                     default:
                         viewModel.BackAction = "Details";
