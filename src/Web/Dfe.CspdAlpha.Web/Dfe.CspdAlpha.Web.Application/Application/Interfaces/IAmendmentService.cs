@@ -10,8 +10,6 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Interfaces
     {
         AmendmentsListViewModel GetAmendmentsListViewModel(string urn, CheckingWindow checkingWindow);
 
-        Dictionary<string, string> GetRemoveReasons(string reason = null);
-
         string CreateAmendment(Amendment amendment);
 
         Amendment GetAmendment(CheckingWindow checkingWindow, string id);

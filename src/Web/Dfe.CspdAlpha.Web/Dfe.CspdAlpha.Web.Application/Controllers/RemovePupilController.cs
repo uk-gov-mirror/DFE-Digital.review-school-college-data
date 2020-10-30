@@ -115,7 +115,6 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             return View(new ReasonViewModel
             {
                 PupilDetails = amendment.PupilDetails,
-                Reasons = _amendmentService.GetRemoveReasons(),
                 SelectedReason = removePupil.Reason,
                 SearchType = searchType,
                 Query = query,
@@ -142,20 +141,20 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 {
                     return RedirectToAction("Confirm", "Amendments");
                 }
-                if (new[] {Constants.OTHER_WITH_EVIDENCE}.Any(r => r == viewModel.SelectedReason))
-                { 
-                    return RedirectToAction("SubReason");
-                }
                 if (new[] { Constants.NOT_ON_ROLL }.Any(r => r == viewModel.SelectedReason))
                 {
                     return RedirectToAction("AllocationYear");
+                }
+                if (new[] {Constants.OTHER_WITH_EVIDENCE}.Any(r => r == viewModel.SelectedReason))
+                { 
+                    return RedirectToAction("SubReason");
                 }
                 if (new[] { Constants.OTHER_EVIDENCE_NOT_REQUIRED }.Any(r => r == viewModel.SelectedReason))
                 {
                     return RedirectToAction("Details");
                 }
             }
-            return View(new ReasonViewModel { PupilDetails = amendment.PupilDetails, Reasons = _amendmentService.GetRemoveReasons() });
+            return View(new ReasonViewModel { PupilDetails = amendment.PupilDetails });
         }
 
         public IActionResult SubReason()
@@ -170,7 +169,6 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             return View(new SubReasonViewModel
             {
                 PupilDetails = amendment.PupilDetails,
-                Reasons = _amendmentService.GetRemoveReasons(removePupil.Reason),
                 SelectedReason = removePupil.SubReason
             });
         }
@@ -186,7 +184,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, amendment);
                 return RedirectToAction("Details");
             }
-            return View(new SubReasonViewModel { PupilDetails = amendment.PupilDetails, Reasons = _amendmentService.GetRemoveReasons(removePupil.Reason) });
+            return View(new SubReasonViewModel { PupilDetails = amendment.PupilDetails });
         }
 
         public IActionResult Details()

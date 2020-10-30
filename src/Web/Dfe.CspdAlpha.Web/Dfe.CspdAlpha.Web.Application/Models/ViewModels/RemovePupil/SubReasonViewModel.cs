@@ -7,6 +7,10 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil
     {
         public PupilDetails PupilDetails { get; set; }
         public string SelectedReason { get; set; }
-        public Dictionary<string, string> Reasons { get; set; }
+        public Dictionary<string, string> Reasons => new Dictionary<string, string>
+        {
+            { "Contingency", "Contingency" },
+            { "Other", "Other" }
+        };
     }
 }

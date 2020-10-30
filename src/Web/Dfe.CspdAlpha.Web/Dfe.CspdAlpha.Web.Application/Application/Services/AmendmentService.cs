@@ -45,59 +45,6 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             };
         }
 
-        public Dictionary<string, string> GetRemoveReasons(string reason = null)
-        {
-            if (reason == "329")
-            {
-                return new Dictionary<string, string>
-                {
-                    { "01", "Excluded" },
-                    { "02", "Left on health grounds" },
-                    { "03", "Pregnancy" },
-                    { "04", "Exceptional circumstances" },
-                    { "05", "Imprisoned/Trial" },
-                    { "06", "Safeguarding" },
-                    { "07", "Not ESFA funded" },
-                    { "08", "Age not eligible" },
-                    { "09", "Wrong year group" },
-                    { "10", "Census error" }
-                };
-            }
-
-            if (reason == "330")
-            {
-                return new Dictionary<string, string>
-                {
-                    { "01", "Part-time learner" },
-                    { "02", "Work based learner at FE College" },
-                    { "03", "On a one year course of study" },
-                    { "04", "Work experience" },
-                    { "05", "Below level 2 students" },
-                    { "06", "Left for apprenticeship but previously on roll" },
-                    { "07", "Withdrawn from exam/no exams taken" },
-                    { "08", "Not at end of studies" },
-                    { "09", "Left country permanently" },
-                    { "10", "Private candidate" },
-                    { "12", "Small programme" },
-                    { "13", "Died" },
-                    { "14", "SEN" },
-                    { "15", "Non-attendance" },
-                    { "16", "Moved provider" },
-                    { "20", "Previously reported" },
-                    { "21", "Dual registered" }
-                };
-            }
-            return new Dictionary<string, string>
-            {
-                { Constants.NOT_AT_END_OF_16_TO_18_STUDY, "Not at the end of 16 to 18 study" },
-                { Constants.INTERNATIONAL_STUDENT, "International student" },
-                { Constants.DECEASED, "Deceased" },
-                { Constants.NOT_ON_ROLL, "Not on roll" },
-                { Constants.OTHER_WITH_EVIDENCE, "Other with evidence" },
-                { Constants.OTHER_EVIDENCE_NOT_REQUIRED, "Other without evidence" },
-            };
-        }
-
         public string CreateAmendment(Amendment amendment)
         {
             var checkingWindowURL = CheckingWindowHelper.GetCheckingWindowURL(amendment.CheckingWindow);
