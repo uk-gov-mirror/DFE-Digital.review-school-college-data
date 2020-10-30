@@ -6,7 +6,7 @@
 
 @section BackLink
 {
-    <a class="govuk-back-link" asp-action="Details">Back</a>
+    <a class="govuk-back-link" asp-action="@Model.GetBackAction()">Back</a>
 }
 
 <div asp-validation-summary="All"></div>

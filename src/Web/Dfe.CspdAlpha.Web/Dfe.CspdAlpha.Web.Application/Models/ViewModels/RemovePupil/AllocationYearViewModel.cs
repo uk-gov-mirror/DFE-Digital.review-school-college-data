@@ -6,6 +6,9 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil
     public class AllocationYearViewModel
     {
         public readonly Dictionary<string, string> AllocationYears = new Dictionary<string, string>();
+        public PupilDetails PupilDetails { get; set; }
+        public string AllocationYear { get; set; }
+        public string Reason { get; set; }
 
         public AllocationYearViewModel()
         {
@@ -29,7 +32,19 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil
             }
         }
 
-        public PupilDetails PupilDetails { get; set; }
-        public string AllocationYear { get; set; }
+        public string GetBackAction()
+        {
+
+            if (Reason == Constants.NOT_ON_ROLL)
+            {
+                return "Reason";
+            }
+            if (Reason == Constants.OTHER_EVIDENCE_NOT_REQUIRED)
+            {
+                return "Details";
+            }
+            return "Index";
+        }
+
     }
 }

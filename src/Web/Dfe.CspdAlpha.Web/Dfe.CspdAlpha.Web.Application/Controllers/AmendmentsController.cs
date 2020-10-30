@@ -79,10 +79,10 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                     case Constants.DECEASED:
                         viewModel.BackAction = "Reason";
                         break;
+                    case Constants.NOT_ON_ROLL:
                     case Constants.OTHER_EVIDENCE_NOT_REQUIRED:
                         viewModel.BackAction = "AllocationYear";
                         break;
-                    case Constants.NOT_ON_ROLL:
                     default:
                         viewModel.BackAction = "Details";
                         break;
