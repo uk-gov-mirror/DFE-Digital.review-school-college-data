@@ -15,6 +15,7 @@ using Microsoft.PowerPlatform.Cds.Client;
 using Microsoft.Xrm.Sdk;
 using System;
 using System.Text.Json.Serialization;
+using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Interfaces;
 using Newtonsoft.Json;
 using Microsoft.FeatureManagement;
 
@@ -80,6 +81,8 @@ namespace Dfe.Rscd.Api
             services.AddSingleton<IEstablishmentService, EstablishmentService>();
             services.AddSingleton<IPupilService, PupilService>();
             services.AddSingleton<IAmendmentService, CrmAmendmentService>();
+            services.AddSingleton<IAmendmentBuilder, AmendmentBuilder>();
+            services.AddSingleton<IOutcomeService, OutcomeService>();
             services.AddSingleton<IConfirmationService, CrmConfirmationService>();
 
         }

@@ -1,54 +1,52 @@
-﻿using Dfe.Rscd.Api.Domain.Core;
+﻿using Dfe.CspdAlpha.Web.Infrastructure.Crm;
+using Dfe.Rscd.Api.Domain.Core;
 using Dfe.Rscd.Api.Domain.Core.Enums;
 using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Domain.Interfaces;
 using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Config;
+using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Extensions;
+using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Interfaces;
 using Microsoft.Extensions.Options;
 using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Messages;
+using Microsoft.Xrm.Sdk.Metadata;
 using Microsoft.Xrm.Sdk.Query;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Dfe.CspdAlpha.Web.Infrastructure.Crm;
-using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Extensions;
-using System.Xml;
-using System.Text;
-using System.IO;
 using System.Dynamic;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Xrm.Sdk.Messages;
-using Microsoft.Xrm.Sdk.Metadata;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Xml;
 
 namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
 {
     public class CrmAmendmentService : IAmendmentService
     {
         private readonly IOrganizationService _organizationService;
-        private readonly Guid _firstLineTeamId;
         private IEstablishmentService _establishmentService;
         private readonly Guid _sharePointDocumentLocationRecordId;
-
-        private readonly rscd_Checkingwindow[] ks4Windows = new[]
-            {rscd_Checkingwindow.KS4June, rscd_Checkingwindow.KS4Late, rscd_Checkingwindow.KS4Errata};
-
-        private readonly string ALLOCATION_YEAR;
+        private IAmendmentBuilder _amendmentBuilder;
 
         public CrmAmendmentService(
             IOrganizationService organizationService,
             IEstablishmentService establishmentService,
             IOptions<DynamicsOptions> dynamicsOptions,
-            IConfiguration configuration)
+            IAmendmentBuilder amendmentBuilder)
         {
+            _amendmentBuilder = amendmentBuilder;
             _establishmentService = establishmentService;
             _organizationService = organizationService;
-            _firstLineTeamId = dynamicsOptions.Value.Helpdesk1stLineTeamId;
             _sharePointDocumentLocationRecordId = dynamicsOptions.Value.SharePointDocumentLocationRecordId;
-            ALLOCATION_YEAR = configuration["AllocationYear"];
         }
 
         public Amendment GetAmendment(CheckingWindow checkingWindow, string id)
         {
-            var amendmentId = new Guid(id);
+            return GetAmendment(checkingWindow, new Guid(id));
+        }
+
+        private Amendment GetAmendment(CheckingWindow checkingWindow, Guid amendmentId)
+        {
             using (var context = new CrmServiceContext(_organizationService))
             {
                 var amendment = context.rscd_AmendmentSet.FirstOrDefault(
@@ -197,208 +195,80 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
 
         public string CreateAmendment(Amendment amendment)
         {
+            var amendmentId = _amendmentBuilder.BuildAmendments(amendment);
+
+            // Relate to establishment
+            var amendmentEstablishment = GetOrCreateEstablishment(amendment.CheckingWindow, amendment.URN);
+            RelateEstablishmentToAmendment(amendmentEstablishment, amendmentId);
+
+            // RelateEvidence
+            if (amendment.EvidenceStatus == EvidenceStatus.Now)
+            {
+                RelateEvidence(amendmentId, amendment.EvidenceFolderName, false);
+            }
+
+            return GetAmendment(amendment.CheckingWindow, amendmentId).Reference;
+        }
+
+        private cr3d5_establishment GetOrCreateEstablishment(CheckingWindow checkingWindow, string id)
+        {
             using (var context = new CrmServiceContext(_organizationService))
             {
-                var amendmentDto = new rscd_Amendment
+                var establishmentDto =
+                    context.cr3d5_establishmentSet.SingleOrDefault(
+                        e => e.cr3d5_Urn == id);
+                if (establishmentDto == null)
                 {
-                    rscd_Checkingwindow = amendment.CheckingWindow.ToCRMCheckingWindow(),
-                    rscd_Amendmenttype = amendment.AmendmentType.ToCRMAmendmentType(),
-                    rscd_Academicyear = ALLOCATION_YEAR,
-                    rscd_URN = amendment.URN
+                    establishmentDto =
+                        context.cr3d5_establishmentSet.SingleOrDefault(
+                            e => e.cr3d5_LAEstab == id);
+                }
+
+                if (establishmentDto != null)
+                {
+                    return establishmentDto;
+                }
+
+                Establishment establishment = null;
+                try
+                {
+                    establishment = _establishmentService.GetByURN(checkingWindow, new URN(id));
+                }
+                catch
+                {
+                }
+
+                if (establishment == null)
+                {
+                    establishment = _establishmentService.GetByLAId(checkingWindow, id);
+                }
+
+                if (establishment == null)
+                {
+                    return null;
+                }
+
+
+                establishmentDto = new cr3d5_establishment
+                {
+                    cr3d5_name = establishment.Name,
+                    cr3d5_Urn = establishment.Urn.Value,
+                    cr3d5_LAEstab = establishment.LaEstab,
+                    cr3d5_Schooltype = establishment.SchoolType,
+                    cr3d5_Numberofamendments = 0
                 };
-
-                // pupil details
-                amendmentDto.rscd_UPN = amendment.Pupil.UPN; 
-                amendmentDto.rscd_ULN = amendment.Pupil.ULN;
-                amendmentDto.rscd_Name = amendment.Pupil.FullName;
-                amendmentDto.rscd_Firstname = amendment.Pupil.ForeName;
-                amendmentDto.rscd_Lastname = amendment.Pupil.LastName;
-                amendmentDto.rscd_Gender = amendment.Pupil.Gender.ToCRMGenderType();
-                amendmentDto.rscd_Dateofbirth = amendment.Pupil.DateOfBirth;
-                amendmentDto.rscd_Age = amendment.Pupil.Age;
-                if (ks4Windows.Any(w => w == amendmentDto.rscd_Checkingwindow))
-                {
-                    amendmentDto.rscd_Dateofadmission = amendment.Pupil.DateOfAdmission;
-                    amendmentDto.rscd_Yeargroup = amendment.Pupil.YearGroup;
-                }
-
-                amendmentDto.rscd_Evidencestatus = amendment.EvidenceStatus.ToCRMEvidenceStatus();
-
-                // TODO: probably some kind of service/factory/strategy pattern required to build amendment types 
-                // Create Remove
-                rscd_Removepupil removeDto = new rscd_Removepupil();
-                if (amendmentDto.rscd_Amendmenttype == rscd_Amendmenttype.Removeapupil)
-                {
-                    removeDto = new rscd_Removepupil
-                    {
-                        rscd_Name = amendment.Pupil.FullName
-                    };
-                    var removeDetail = (RemovePupil) amendment.AmendmentDetail;
-                    removeDto.rscd_Reason = removeDetail.Reason;
-                    removeDto.rscd_Subreason = removeDetail.SubReason;
-                    removeDto.rscd_Details = removeDetail.Detail;
-                    removeDto.rscd_Allocationyear = removeDetail.AllocationYear;
-                    context.AddObject(removeDto);
-                }
-
-
-                // Create add
-                rscd_Addpupil addDto = new rscd_Addpupil();
-                if (amendmentDto.rscd_Amendmenttype == rscd_Amendmenttype.Addapupil)
-                {
-                    addDto = new rscd_Addpupil {
-                        rscd_Name = amendment.Pupil.FullName
-                    };
-                    var addDetail = (AddPupil)amendment.AmendmentDetail;
-                    addDto.rscd_Reason = addDetail.Reason.ToCRMAddReason();
-                    addDto.rscd_PreviousschoolURN = amendment.Pupil.URN;
-                    addDto.rscd_PreviousschoolLAESTAB = amendment.Pupil.LaEstab;
-                    var reading = addDetail.PriorAttainmentResults.FirstOrDefault(r => r.Subject == Ks2Subject.Reading);
-                    if (reading != null)
-                    {
-                        addDto.rscd_Readingexamyear = reading.ExamYear;
-                        addDto.rscd_Readingexammark = reading.TestMark;
-                        addDto.rscd_Readingscaledscore = reading.ScaledScore;
-                    }
-                    var writing = addDetail.PriorAttainmentResults.FirstOrDefault(r => r.Subject == Ks2Subject.Writing);
-                    if (writing != null)
-                    {
-                        addDto.rscd_Writingexamyear = writing.ExamYear;
-                        addDto.rscd_Writingteacherassessment = writing.TestMark;
-                        addDto.rscd_Writingscaledscore = writing.ScaledScore;
-                    }
-                    var maths = addDetail.PriorAttainmentResults.FirstOrDefault(r => r.Subject == Ks2Subject.Maths);
-                    if (maths != null)
-                    {
-                        addDto.rscd_Mathsexamyear = maths.ExamYear;
-                        addDto.rscd_Mathsexammark = maths.TestMark;
-                        addDto.rscd_Mathsscaledscore = maths.ScaledScore;
-                    }
-
-                    context.AddObject(addDto);
-                }
-
-                // TODO: this should be replaced by a service
-                if (amendment.EvidenceStatus == EvidenceStatus.Later)
-                {
-                    amendmentDto.rscd_Outcome = rscd_Outcome.Awaitingevidence;
-                }
-                else if(amendment.AmendmentType == AmendmentType.RemovePupil && removeDto.rscd_Reason == "330") // Other - evidence not required
-                {
-                    amendmentDto.rscd_Outcome = rscd_Outcome.Autorejected;
-                    amendmentDto.rscd_Amendmentstatus = new_amendmentstatus.Rejected;
-                    amendmentDto.StateCode = rscd_AmendmentState.Inactive;
-                }
-                else
-                {
-                    amendmentDto.rscd_Outcome = rscd_Outcome.AwaitingDfEreview;
-                }
-                amendmentDto.rscd_Recordedby = "RSCD Website";
-
-                // assign to helpdesk 1st line
-                amendmentDto.OwnerId = new EntityReference("team", _firstLineTeamId);
-                context.AddObject(amendmentDto);
-
-
-                // Save
+                context.AddObject(establishmentDto);
                 var result = context.SaveChanges();
                 if (result.HasError)
                 {
                     throw result.FirstOrDefault(e => e.Error != null)?.Error ?? new ApplicationException();
                 }
 
-                if (amendmentDto.rscd_Amendmenttype == rscd_Amendmenttype.Removeapupil)
-                {
-                    var relationship = new Relationship("rscd_Amendment_Removepupil");
-                    _organizationService.Associate(rscd_Removepupil.EntityLogicalName, removeDto.Id, relationship,
-                        new EntityReferenceCollection
-                        {
-                            new EntityReference(rscd_Amendment.EntityLogicalName, amendmentDto.Id)
-                        });
-                }
-                if (amendmentDto.rscd_Amendmenttype == rscd_Amendmenttype.Addapupil)
-                {
-                    var relationship = new Relationship("rscd_Amendment_Addpupil");
-                    _organizationService.Associate(rscd_Addpupil.EntityLogicalName, addDto.Id, relationship,
-                        new EntityReferenceCollection
-                        {
-                            new EntityReference(rscd_Amendment.EntityLogicalName, amendmentDto.Id)
-                        });
-                }
-
-                // Relate to establishment
-                var amendmentEstablishment = GetOrCreateEstablishment(amendment.CheckingWindow, amendment.URN, context);
-                RelateEstablishmentToAmendment(amendmentEstablishment, amendmentDto.Id, context);
-
-                // RelateEvidence
-                if (amendmentDto.rscd_Evidencestatus == rscd_Evidencestatus.Now)
-                {
-                    RelateEvidence(amendmentDto.Id, amendment.EvidenceFolderName, false);
-                }
-
-                var addPUp = context.CreateQuery<rscd_Amendment>().Single(e => e.Id == amendmentDto.Id);
-                return addPUp?.rscd_Referencenumber;
-            }
-        }
-
-        private cr3d5_establishment GetOrCreateEstablishment(CheckingWindow checkingWindow, string id,
-            CrmServiceContext context)
-        {
-            var establishmentDto =
-                context.cr3d5_establishmentSet.SingleOrDefault(
-                    e => e.cr3d5_Urn == id);
-            if (establishmentDto == null)
-            {
-                establishmentDto =
-                    context.cr3d5_establishmentSet.SingleOrDefault(
-                        e => e.cr3d5_LAEstab == id);
-            }
-
-            if (establishmentDto != null)
-            {
                 return establishmentDto;
             }
-
-            Establishment establishment = null;
-            try
-            {
-                establishment = _establishmentService.GetByURN(checkingWindow, new URN(id));
-            }
-            catch
-            {
-            }
-
-            if (establishment == null)
-            {
-                establishment = _establishmentService.GetByLAId(checkingWindow, id);
-            }
-
-            if (establishment == null)
-            {
-                return null;
-            }
-
-
-            establishmentDto = new cr3d5_establishment
-            {
-                cr3d5_name = establishment.Name,
-                cr3d5_Urn = establishment.Urn.Value,
-                cr3d5_LAEstab = establishment.LaEstab,
-                cr3d5_Schooltype = establishment.SchoolType,
-                cr3d5_Numberofamendments = 0
-            };
-            context.AddObject(establishmentDto);
-            var result = context.SaveChanges();
-            if (result.HasError)
-            {
-                throw result.FirstOrDefault(e => e.Error != null)?.Error ?? new ApplicationException();
-            }
-
-            return establishmentDto;
         }
 
-        private void RelateEstablishmentToAmendment(cr3d5_establishment establishment, Guid amendmentId,
-            CrmServiceContext context)
+        private void RelateEstablishmentToAmendment(cr3d5_establishment establishment, Guid amendmentId)
         {
             var relationship = new Relationship("rscd_cr3d5_establishment_rscd_amendments");
             _organizationService.Associate(cr3d5_establishment.EntityLogicalName, establishment.Id, relationship,
