@@ -23,6 +23,9 @@ namespace Dfe.Rscd.Api.Domain.Entities
 
                     return OutcomeStatus.AutoReject;
                 }
+                case "328":
+                    // TODO: source of allocation logic if AO then accept
+                    return OutcomeStatus.AutoReject;
                 case "330":
                     return OutcomeStatus.AutoReject;
                 default:
