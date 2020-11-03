@@ -14,7 +14,7 @@ namespace Dfe.Rscd.Api.Domain.Entities
         {
             switch (Reason)
             {
-                case "325":
+                case "325": // Not a the end of 16-18 study
                 {
                     if (amendment.Pupil.Age < 18)  // TODO: source of allocation logic required herepo
                     {
@@ -23,10 +23,13 @@ namespace Dfe.Rscd.Api.Domain.Entities
 
                     return OutcomeStatus.AutoReject;
                 }
-                case "328":
+                case "327": // Deceased
+                    // TODO: ensure latest core providerc
+                    return OutcomeStatus.AutoAccept;
+                case "328": // Not on roll
                     // TODO: source of allocation logic if AO then accept
                     return OutcomeStatus.AutoReject;
-                case "330":
+                case "330": // Evidence not required
                     return OutcomeStatus.AutoReject;
                 default:
                     return OutcomeStatus.AwatingDfeReview;
