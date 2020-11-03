@@ -13,15 +13,24 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
             {
                 amendmentDto.rscd_Outcome = rscd_Outcome.Awaitingevidence;
             }
-            else if (amendment.AmendmentType == AmendmentType.RemovePupil && ((RemovePupil)amendment.AmendmentDetail).Reason == "330") // Other - evidence not required
-            {
-                amendmentDto.rscd_Outcome = rscd_Outcome.Autorejected;
-                amendmentDto.rscd_Amendmentstatus = new_amendmentstatus.Rejected;
-                //amendmentDto.StateCode = rscd_AmendmentState.Inactive;
-            }
             else
             {
-                amendmentDto.rscd_Outcome = rscd_Outcome.AwaitingDfEreview;
+                var outcome = amendment.AmendmentDetail.GetOutcomeStatus(amendment);
+
+                if (outcome == OutcomeStatus.AutoAccept)
+                {
+                    amendmentDto.rscd_Outcome = rscd_Outcome.Autoapproved;
+                    amendmentDto.rscd_Amendmentstatus = new_amendmentstatus.Accepted;
+                }
+                else if (outcome == OutcomeStatus.AutoReject)
+                {
+                    amendmentDto.rscd_Outcome = rscd_Outcome.Autorejected;
+                    amendmentDto.rscd_Amendmentstatus = new_amendmentstatus.Rejected;
+                }
+                else
+                {
+                    amendmentDto.rscd_Outcome = rscd_Outcome.AwaitingDfEreview;
+                }
             }
         }
     }

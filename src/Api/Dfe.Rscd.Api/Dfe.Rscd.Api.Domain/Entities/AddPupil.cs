@@ -10,5 +10,10 @@ namespace Dfe.Rscd.Api.Domain.Entities
         public string PreviousSchoolURN { get; set; }
         public string PreviousSchoolLAEstab { get; set; }
         public List<PriorAttainment> PriorAttainmentResults { get; set; }
+
+        public OutcomeStatus GetOutcomeStatus(Amendment amendment)
+        {
+            return OutcomeStatus.AwatingDfeReview;
+        }
     }
 }
