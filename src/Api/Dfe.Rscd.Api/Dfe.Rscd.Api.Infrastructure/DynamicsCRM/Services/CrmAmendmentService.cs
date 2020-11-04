@@ -125,15 +125,19 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
             {
                 using (var context = new CrmServiceContext(_organizationService))
                 {
-                    var removePupil = context.rscd_RemovepupilSet
-                        .Where(x => x.Id == amendment.rscd_Removepupil.Id).First();
-                    return new RemovePupil
+                    if (amendment.rscd_Removepupil != null)
                     {
-                        Reason = removePupil.rscd_Reason,
-                        SubReason = removePupil.rscd_Subreason,
-                        Detail = removePupil.rscd_Details,
-                        AllocationYear = removePupil.rscd_Allocationyear
-                    };
+                        var removePupil = context.rscd_RemovepupilSet.FirstOrDefault(x => x.Id == amendment.rscd_Removepupil.Id);
+                        return new RemovePupil
+                        {
+                            Reason = removePupil.rscd_Reason,
+                            SubReason = removePupil.rscd_Subreason,
+                            Detail = removePupil.rscd_Details,
+                            AllocationYear = removePupil.rscd_Allocationyear
+                        };
+
+                    }
+                    return new RemovePupil();
                 }
             }
             else
