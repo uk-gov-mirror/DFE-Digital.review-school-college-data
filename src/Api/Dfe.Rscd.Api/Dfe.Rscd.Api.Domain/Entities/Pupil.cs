@@ -21,6 +21,7 @@ namespace Dfe.Rscd.Api.Domain.Entities
         public DateTime DateOfAdmission { get; set; }
         public string YearGroup { get; set; }
         public List<Result> Results { get; set; }
+        public List<Allocation> Allocations { get; set; }
         public string FullName => string.Join(" ", new[] { ForeName, LastName }.Where(n => !string.IsNullOrEmpty(n)));
     }
 }

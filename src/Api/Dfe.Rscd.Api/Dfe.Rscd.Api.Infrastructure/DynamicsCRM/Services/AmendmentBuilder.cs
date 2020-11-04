@@ -9,6 +9,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.Xrm.Sdk;
 using System;
 using System.Linq;
+using Dfe.Rscd.Api.Domain.Interfaces;
 
 namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
 {
@@ -20,9 +21,11 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
         private readonly Guid _firstLineTeamId;
         private IOrganizationService _organizationService;
         private IOutcomeService _outcomeService;
+        private IPupilService _pupilService;
 
-        public AmendmentBuilder(IOrganizationService organizationService, IOutcomeService outcomeService, IOptions<DynamicsOptions> dynamicsOptions, IConfiguration configuration)
+        public AmendmentBuilder(IOrganizationService organizationService, IOutcomeService outcomeService, IPupilService pupilService, IOptions<DynamicsOptions> dynamicsOptions, IConfiguration configuration)
         {
+            _pupilService = pupilService;
             _outcomeService = outcomeService;
             _organizationService = organizationService;
             _firstLineTeamId = dynamicsOptions.Value.Helpdesk1stLineTeamId;
@@ -34,6 +37,8 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
             // Create Remove
             if (amendment.AmendmentType == AmendmentType.RemovePupil)
             {
+                var pupil = _pupilService.GetById(amendment.CheckingWindow, amendment.Pupil.Id);
+                amendment.Pupil = pupil;
                 var removeDto = new rscd_Removepupil
                 {
                     rscd_Name = amendment.Pupil.FullName
@@ -97,8 +102,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
                     rscd_Amendmenttype = amendment.AmendmentType.ToCRMAmendmentType(),
                     rscd_Academicyear = ALLOCATION_YEAR,
                     rscd_URN = amendment.URN,
-                    OwnerId = new EntityReference("team", _firstLineTeamId),
-                    rscd_Recordedby = "RSCD Website" // TODO: what should the recorded by field hold
+                    OwnerId = new EntityReference("team", _firstLineTeamId)
                 };
 
                 // pupil details
@@ -135,6 +139,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
                     amendmentDto.rscd_Outcome == rscd_Outcome.Autorejected)
                 {
                     amendmentDto.StateCode = rscd_AmendmentState.Inactive;
+                    amendmentDto.rscd_recorded_by = new EntityReference("systemuser", new Guid("643e4bfc-f5ab-ea11-a812-000d3a4b2b00"));  //TODO: this needs to be in config
                     _organizationService.Update(amendmentDto);
                 }
 

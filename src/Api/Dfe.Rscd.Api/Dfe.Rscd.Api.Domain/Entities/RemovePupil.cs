@@ -1,4 +1,5 @@
-﻿using Dfe.Rscd.Api.Domain.Core.Enums;
+﻿using System.Linq;
+using Dfe.Rscd.Api.Domain.Core.Enums;
 using Dfe.Rscd.Api.Domain.Interfaces;
 
 namespace Dfe.Rscd.Api.Domain.Entities
@@ -16,7 +17,7 @@ namespace Dfe.Rscd.Api.Domain.Entities
             {
                 case "325": // Not a the end of 16-18 study
                 {
-                    if (amendment.Pupil.Age < 18)  // TODO: source of allocation logic required herepo
+                    if (amendment.Pupil.Age < 18 && amendment.Pupil.Allocations.First() != Allocation.NotAllocated)
                     {
                         return OutcomeStatus.AutoAccept;
                     }
