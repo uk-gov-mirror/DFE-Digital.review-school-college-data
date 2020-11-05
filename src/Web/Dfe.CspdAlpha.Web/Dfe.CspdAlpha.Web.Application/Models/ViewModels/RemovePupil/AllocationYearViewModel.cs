@@ -27,7 +27,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil
             var previous = year - 1;
             for (var i = 0; i < 3; i++)
             {
-                AllocationYears.Add($"{previous.ToString()}-{year.ToString().Substring(2)}", $"{previous.ToString()}/{year.ToString().Substring(2)}");
+                AllocationYears.Add($"{year.ToString()}", $"{previous.ToString()}/{year.ToString().Substring(2)}");
                 year = previous--;
             }
         }

@@ -28,7 +28,7 @@ namespace Dfe.Rscd.Api.Domain.Entities
                     // TODO: ensure latest core providerc
                     return OutcomeStatus.AutoAccept;
                 case "328": // Not on roll
-                    if (amendment.Pupil.Allocations.Single(a => a.Year.ToString() == "20" + AllocationYear.Split('-')[1]).Allocation == Allocation.AwardingOrganisation)
+                    if (amendment.Pupil.Allocations.Single(a => a.Year.ToString() ==  AllocationYear).Allocation == Allocation.AwardingOrganisation)
                     {
                         return OutcomeStatus.AutoAccept;
                     }
