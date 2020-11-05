@@ -23,6 +23,10 @@ namespace Dfe.Rscd.Api.Domain.Entities
         public string YearGroup { get; set; }
         public List<Result> Results { get; set; }
         public List<SourceOfAllocation> Allocations { get; set; }
+
         public string FullName => string.Join(" ", new[] { ForeName, LastName }.Where(n => !string.IsNullOrEmpty(n)));
+
+        public bool InCurrentAllocationYear =>
+            Allocations.Any() && Allocations.First().Allocation != Allocation.NotAllocated;
     }
 }
