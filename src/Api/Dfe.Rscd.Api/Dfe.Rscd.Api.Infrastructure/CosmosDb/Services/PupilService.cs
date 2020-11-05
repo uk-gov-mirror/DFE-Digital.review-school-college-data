@@ -26,7 +26,7 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.Services
         public Pupil GetById(CheckingWindow checkingWindow, string id)
         {
             var matchedPupil = GetRepository(checkingWindow).GetById(id);
-            return matchedPupil.Pupil;
+            return matchedPupil.GetPupil(ALLOCATION_YEAR);
         }
 
         public List<Pupil> QueryPupils(CheckingWindow checkingWindow, PupilsSearchRequest query)
@@ -50,7 +50,7 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.Services
             }
 
             var dtos = repoQuery.ToList();
-            return dtos.Select(p => p.Pupil).ToList();
+            return dtos.Select(p => p.GetPupil(ALLOCATION_YEAR)).ToList();
         }
 
         private PupilRepository GetRepository(CheckingWindow checkingWindow)

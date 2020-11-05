@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Globalization;
 using System.Linq;
+using Dfe.Rscd.Api.Domain.Core;
 using Dfe.Rscd.Api.Domain.Core.Enums;
 using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Extensions;
@@ -33,55 +35,59 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs
         public string SRC_LAESTAB_2 { get; set; }
         public List<ResultDTO> performance { get; set; }
 
-        public Pupil Pupil => new Pupil
+        public Pupil GetPupil(string allocationYear)
         {
-            Id = id,
-            URN = URN,
-            UPN = UPN,
-            ULN = ULN,
-            LaEstab = DFESNumber,
-            ForeName = Forename,
-            LastName = Surname,
-            DateOfBirth = GetDateTime(DOB.ToString()),
-            Age = Age,
-            Gender = Gender == "M" ? Domain.Core.Enums.Gender.Male : Domain.Core.Enums.Gender.Female,
-            DateOfAdmission = GetDateTime(ENTRYDAT.ToString()),
-            YearGroup = ActualYearGroup,
-            Results = performance.Select(p => new Result { SubjectCode = p.SubjectCode, ExamYear = p.ExamYear, TestMark = p.TestMark, ScaledScore = p.ScaledScore }).ToList(),
-            Allocations = GetAllocations()
-        };
+            return new Pupil
+            {
+                Id = id,
+                URN = URN,
+                UPN = UPN,
+                ULN = ULN,
+                LaEstab = DFESNumber,
+                ForeName = Forename,
+                LastName = Surname,
+                DateOfBirth = GetDateTime(DOB.ToString()),
+                Age = Age,
+                Gender = Gender == "M" ? Domain.Core.Enums.Gender.Male : Domain.Core.Enums.Gender.Female,
+                DateOfAdmission = GetDateTime(ENTRYDAT.ToString()),
+                YearGroup = ActualYearGroup,
+                Results = performance.Select(p => new Result { SubjectCode = p.SubjectCode, ExamYear = p.ExamYear, TestMark = p.TestMark, ScaledScore = p.ScaledScore }).ToList(),
+                Allocations = GetSourceOfAllocations(allocationYear)
+            };
+        }
 
-        private List<Allocation> GetAllocations()
+        private List<SourceOfAllocation> GetSourceOfAllocations(string allocationYear)
         {
-            var allocations = new List<Allocation>();
+            var year = int.Parse(allocationYear);
+            var allocations = new List<SourceOfAllocation>();
             if (string.IsNullOrWhiteSpace(SRC_LAESTAB_0))
             {
                 return allocations;
             }
 
-            if (Attendance_year_0  && DFESNumber == Core_Provider_0)
+            if (Attendance_year_0 && DFESNumber == Core_Provider_0)
             {
-                allocations.Add(SRC_LAESTAB_0.ToAllocation());
+                allocations.Add(new SourceOfAllocation(year--, SRC_LAESTAB_0.ToAllocation())); 
             }
             else
             {
-                allocations.Add(Allocation.NotAllocated);
+                allocations.Add(new SourceOfAllocation(year--, Allocation.NotAllocated));
             }
-            if (Attendance_year_1  && DFESNumber == Core_Provider_1)
+            if (Attendance_year_1 && DFESNumber == Core_Provider_1)
             {
-                allocations.Add(SRC_LAESTAB_1.ToAllocation());
-            }
-            else
-            {
-                allocations.Add(Allocation.NotAllocated);
-            }
-            if (Attendance_year_2  && DFESNumber == Core_Provider_2)
-            {
-                allocations.Add(SRC_LAESTAB_2.ToAllocation());
+                allocations.Add(new SourceOfAllocation(year--, SRC_LAESTAB_1.ToAllocation()));
             }
             else
             {
-                allocations.Add(Allocation.NotAllocated);
+                allocations.Add(new SourceOfAllocation(year--, Allocation.NotAllocated));
+            }
+            if (Attendance_year_2 && DFESNumber == Core_Provider_2)
+            {
+                allocations.Add(new SourceOfAllocation(year--, SRC_LAESTAB_2.ToAllocation()));
+            }
+            else
+            {
+                allocations.Add(new SourceOfAllocation(year--, Allocation.NotAllocated));
             }
 
             return allocations;

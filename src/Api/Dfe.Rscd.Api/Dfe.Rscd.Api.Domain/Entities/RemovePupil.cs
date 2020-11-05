@@ -17,7 +17,7 @@ namespace Dfe.Rscd.Api.Domain.Entities
             {
                 case "325": // Not a the end of 16-18 study
                 {
-                    if (amendment.Pupil.Age < 18 && amendment.Pupil.Allocations.First() != Allocation.NotAllocated)
+                    if (amendment.Pupil.Age < 18 && amendment.Pupil.Allocations.First().Allocation != Allocation.NotAllocated)
                     {
                         return OutcomeStatus.AutoAccept;
                     }
@@ -28,7 +28,11 @@ namespace Dfe.Rscd.Api.Domain.Entities
                     // TODO: ensure latest core providerc
                     return OutcomeStatus.AutoAccept;
                 case "328": // Not on roll
-                    // TODO: source of allocation logic if AO then accept
+                    if (amendment.Pupil.Allocations.Single(a => a.Year.ToString() == AllocationYear).Allocation == Allocation.AwardingOrganisation)
+                    {
+                        return OutcomeStatus.AutoAccept;
+                    }
+
                     return OutcomeStatus.AutoReject;
                 case "330": // Evidence not required
                     return OutcomeStatus.AutoReject;
