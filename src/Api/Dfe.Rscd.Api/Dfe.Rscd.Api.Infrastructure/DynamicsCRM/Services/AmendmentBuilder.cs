@@ -18,7 +18,10 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
         private readonly rscd_Checkingwindow[] ks4Windows = new[]
             {rscd_Checkingwindow.KS4June, rscd_Checkingwindow.KS4Late, rscd_Checkingwindow.KS4Errata};
         private readonly string ALLOCATION_YEAR;
-        private readonly Guid _firstLineTeamId;
+        private readonly EntityReference _firstLineTeam;
+        private readonly EntityReference _autoRecordedUser;
+
+
         private IOrganizationService _organizationService;
         private IOutcomeService _outcomeService;
         private IPupilService _pupilService;
@@ -28,7 +31,8 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
             _pupilService = pupilService;
             _outcomeService = outcomeService;
             _organizationService = organizationService;
-            _firstLineTeamId = dynamicsOptions.Value.Helpdesk1stLineTeamId;
+            _firstLineTeam = new EntityReference("team", dynamicsOptions.Value.Helpdesk1stLineTeamId);
+            _autoRecordedUser = new EntityReference("systemuser", dynamicsOptions.Value.AutoRecordedUser);
             ALLOCATION_YEAR = configuration["AllocationYear"];
         }
 
@@ -102,7 +106,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
                     rscd_Amendmenttype = amendment.AmendmentType.ToCRMAmendmentType(),
                     rscd_Academicyear = ALLOCATION_YEAR,
                     rscd_URN = amendment.URN,
-                    OwnerId = new EntityReference("team", _firstLineTeamId)
+                    OwnerId = _firstLineTeam
                 };
 
                 // pupil details
@@ -139,7 +143,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
                     amendmentDto.rscd_Outcome == rscd_Outcome.Autorejected)
                 {
                     amendmentDto.StateCode = rscd_AmendmentState.Inactive;
-                    amendmentDto.rscd_recorded_by = new EntityReference("systemuser", new Guid("643e4bfc-f5ab-ea11-a812-000d3a4b2b00"));  //TODO: this needs to be in config
+                    amendmentDto.rscd_recorded_by = _autoRecordedUser; 
                     _organizationService.Update(amendmentDto);
                 }
 

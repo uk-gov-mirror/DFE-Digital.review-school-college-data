@@ -24,6 +24,13 @@ namespace Dfe.Rscd.Api.Domain.Entities
 
                     return OutcomeStatus.AutoReject;
                 }
+                case "326": // International student
+                    if (amendment.Pupil.Allocations.Any(a => a.Allocation == Allocation.AwardingOrganisation) &&
+                        amendment.Pupil.Allocations.All(a => a.Allocation == Allocation.NotAllocated || a.Allocation == Allocation.AwardingOrganisation))
+                    {
+                        return OutcomeStatus.AutoAccept;
+                    }
+                    return OutcomeStatus.AutoReject;
                 case "327": // Deceased
                     return amendment.Pupil.InCurrentAllocationYear ? OutcomeStatus.AutoAccept : OutcomeStatus.AutoReject;
                 case "328": // Not on roll
@@ -31,7 +38,6 @@ namespace Dfe.Rscd.Api.Domain.Entities
                     {
                         return OutcomeStatus.AutoAccept;
                     }
-
                     return OutcomeStatus.AutoReject;
                 case "330": // Evidence not required
                     return OutcomeStatus.AutoReject;
