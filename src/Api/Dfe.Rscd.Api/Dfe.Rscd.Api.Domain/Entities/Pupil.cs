@@ -27,6 +27,6 @@ namespace Dfe.Rscd.Api.Domain.Entities
         public string FullName => string.Join(" ", new[] { ForeName, LastName }.Where(n => !string.IsNullOrEmpty(n)));
 
         public bool InCurrentAllocationYear =>
-            Allocations.Any() && Allocations.First().Allocation != Allocation.NotAllocated;
+            Allocations != null && Allocations.Any() && Allocations.First().Allocation != Allocation.NotAllocated;
     }
 }
