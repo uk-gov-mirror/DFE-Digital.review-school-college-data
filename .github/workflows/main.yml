@@ -3,12 +3,14 @@
 name: gitleaks
 
 # Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the dev branch
+# events for all branches
 on:
   push:
-    branches: [ dev ]
+    branches: 
+      - '*'
   pull_request:
-    branches: [ dev ]
+    branches: 
+      - '*'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
