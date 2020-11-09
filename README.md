@@ -1,4 +1,4 @@
-﻿# Check School Performance Data (Alpha)
+﻿# Review my school and college data (Private beta)
  
 ## Prerequisites
 - Visual Studio 2019
