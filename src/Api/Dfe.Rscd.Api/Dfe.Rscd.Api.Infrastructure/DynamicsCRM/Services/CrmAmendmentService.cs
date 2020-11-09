@@ -311,7 +311,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
 
         private bool UpdateEvidenceStatus(Guid amendmentId)
         {
-            var cols = new ColumnSet("rscd_evidencestatus", "rscd_outcome");
+            var cols = new ColumnSet("rscd_evidencestatus", "rscd_outcome", "statecode");
             var amendment =
                 (rscd_Amendment) _organizationService.Retrieve(rscd_Amendment.EntityLogicalName, amendmentId, cols);
 
@@ -322,6 +322,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
 
             amendment.rscd_Evidencestatus = rscd_Evidencestatus.Now;
             amendment.rscd_Outcome = rscd_Outcome.AwaitingDfEreview;
+            amendment.StateCode = rscd_AmendmentState.Active;
 
             _organizationService.Update(amendment);
             return true;
