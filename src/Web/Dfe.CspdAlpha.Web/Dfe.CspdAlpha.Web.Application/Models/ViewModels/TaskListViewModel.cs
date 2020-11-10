@@ -1,3 +1,4 @@
+using System;
 using Dfe.CspdAlpha.Web.Application.Models.Common;
 using Dfe.CspdAlpha.Web.Application.Models.School;
 
@@ -9,6 +10,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels
         public SchoolDetails SchoolDetails { get; set; }
         public bool ReviewChecked { get; set; }
         public bool DataConfirmed { get; set; }
+        public DateTime ConfirmationDate { get; set; }
         public CheckingWindow CheckingWindow { get; set; }
 
         public string ReviewedHeader = "1. View data before requesting amendments";
@@ -31,15 +33,15 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels
             if (checkingWindow.StartsWith("KS2"))
             {
                 return
-                    "You have confirmed your Key stage 2 data. You can continue to request further amendments until the end of the checking exercise window.";
+                    $"You have confirmed your Key stage 2 data on {ConfirmationDate:dd/MM/yyyy}. You can continue to request further amendments until the end of the checking exercise window.";
             }
             if (checkingWindow.StartsWith("KS4"))
             {
                 return
-                    "You have confirmed your Key stage 4 data. You can continue to request further amendments until the end of the checking exercise window.";
+                    $"You have confirmed your Key stage 4 data on {ConfirmationDate:dd/MM/yyyy}. You can continue to request further amendments until the end of the checking exercise window.";
             }
             return
-                "You have confirmed your 16 to 18 data. You can continue to request further amendments until the end of the checking exercise window.";
+                $"You have confirmed your 16 to 18 data on {ConfirmationDate:dd/MM/yyyy}. You can continue to request further amendments until the end of the checking exercise window.";
         }
     }
 }

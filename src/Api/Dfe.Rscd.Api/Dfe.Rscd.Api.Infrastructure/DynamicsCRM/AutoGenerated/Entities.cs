@@ -2227,6 +2227,26 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 		}
 
 		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_confirmationdate")]
+		public System.Nullable<System.DateTime> rscd_Confirmationdate
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("rscd_confirmationdate");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("rscd_Confirmationdate");
+				this.SetAttributeValue("rscd_confirmationdate", value);
+				this.OnPropertyChanged("rscd_Confirmationdate");
+			}
+		}
+
+		/// <summary>
 		/// Status of the Review and confirm school
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statecode")]

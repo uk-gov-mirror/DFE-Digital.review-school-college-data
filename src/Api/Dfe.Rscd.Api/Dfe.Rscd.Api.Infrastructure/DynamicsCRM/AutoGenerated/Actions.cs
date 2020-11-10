@@ -1424,6 +1424,25 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 	public partial class msdyn_GetSIPackageStatusRequest : Microsoft.Xrm.Sdk.OrganizationRequest
 	{
 
+		public string ApiVersion
+		{
+			get
+			{
+				if (this.Parameters.Contains("ApiVersion"))
+				{
+					return ((string)(this.Parameters["ApiVersion"]));
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+			set
+			{
+				this.Parameters["ApiVersion"] = value;
+			}
+		}
+
 		public msdyn_GetSIPackageStatusRequest()
 		{
 			this.RequestName = "msdyn_GetSIPackageStatus";
@@ -6733,6 +6752,147 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 	}
 
 	[System.Runtime.Serialization.DataContractAttribute(Namespace = "http://schemas.microsoft.com/xrm/2011/msdyn/")]
+	[Microsoft.Xrm.Sdk.Client.RequestProxyAttribute("msdyn_SendEmailFromTemplate")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.45")]
+	public partial class msdyn_SendEmailFromTemplateRequest : Microsoft.Xrm.Sdk.OrganizationRequest
+	{
+
+		public Microsoft.Xrm.Sdk.EntityReference From
+		{
+			get
+			{
+				if (this.Parameters.Contains("From"))
+				{
+					return ((Microsoft.Xrm.Sdk.EntityReference)(this.Parameters["From"]));
+				}
+				else
+				{
+					return default(Microsoft.Xrm.Sdk.EntityReference);
+				}
+			}
+			set
+			{
+				this.Parameters["From"] = value;
+			}
+		}
+
+		public Microsoft.Xrm.Sdk.EntityCollection To
+		{
+			get
+			{
+				if (this.Parameters.Contains("To"))
+				{
+					return ((Microsoft.Xrm.Sdk.EntityCollection)(this.Parameters["To"]));
+				}
+				else
+				{
+					return default(Microsoft.Xrm.Sdk.EntityCollection);
+				}
+			}
+			set
+			{
+				this.Parameters["To"] = value;
+			}
+		}
+
+		public Microsoft.Xrm.Sdk.EntityCollection Cc
+		{
+			get
+			{
+				if (this.Parameters.Contains("Cc"))
+				{
+					return ((Microsoft.Xrm.Sdk.EntityCollection)(this.Parameters["Cc"]));
+				}
+				else
+				{
+					return default(Microsoft.Xrm.Sdk.EntityCollection);
+				}
+			}
+			set
+			{
+				this.Parameters["Cc"] = value;
+			}
+		}
+
+		public Microsoft.Xrm.Sdk.EntityCollection Bcc
+		{
+			get
+			{
+				if (this.Parameters.Contains("Bcc"))
+				{
+					return ((Microsoft.Xrm.Sdk.EntityCollection)(this.Parameters["Bcc"]));
+				}
+				else
+				{
+					return default(Microsoft.Xrm.Sdk.EntityCollection);
+				}
+			}
+			set
+			{
+				this.Parameters["Bcc"] = value;
+			}
+		}
+
+		public Microsoft.Xrm.Sdk.EntityReference Regarding
+		{
+			get
+			{
+				if (this.Parameters.Contains("Regarding"))
+				{
+					return ((Microsoft.Xrm.Sdk.EntityReference)(this.Parameters["Regarding"]));
+				}
+				else
+				{
+					return default(Microsoft.Xrm.Sdk.EntityReference);
+				}
+			}
+			set
+			{
+				this.Parameters["Regarding"] = value;
+			}
+		}
+
+		public Microsoft.Xrm.Sdk.EntityReference Template
+		{
+			get
+			{
+				if (this.Parameters.Contains("Template"))
+				{
+					return ((Microsoft.Xrm.Sdk.EntityReference)(this.Parameters["Template"]));
+				}
+				else
+				{
+					return default(Microsoft.Xrm.Sdk.EntityReference);
+				}
+			}
+			set
+			{
+				this.Parameters["Template"] = value;
+			}
+		}
+
+		public msdyn_SendEmailFromTemplateRequest()
+		{
+			this.RequestName = "msdyn_SendEmailFromTemplate";
+			this.From = default(Microsoft.Xrm.Sdk.EntityReference);
+			this.To = default(Microsoft.Xrm.Sdk.EntityCollection);
+			this.Regarding = default(Microsoft.Xrm.Sdk.EntityReference);
+			this.Template = default(Microsoft.Xrm.Sdk.EntityReference);
+		}
+	}
+
+	[System.Runtime.Serialization.DataContractAttribute(Namespace = "http://schemas.microsoft.com/xrm/2011/msdyn/")]
+	[Microsoft.Xrm.Sdk.Client.ResponseProxyAttribute("msdyn_SendEmailFromTemplate")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.45")]
+	public partial class msdyn_SendEmailFromTemplateResponse : Microsoft.Xrm.Sdk.OrganizationResponse
+	{
+
+		public msdyn_SendEmailFromTemplateResponse()
+		{
+		}
+	}
+
+	[System.Runtime.Serialization.DataContractAttribute(Namespace = "http://schemas.microsoft.com/xrm/2011/msdyn/")]
 	[Microsoft.Xrm.Sdk.Client.RequestProxyAttribute("msdyn_RunSolutionCheckerRules")]
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.45")]
 	public partial class msdyn_RunSolutionCheckerRulesRequest : Microsoft.Xrm.Sdk.OrganizationRequest
@@ -11733,13 +11893,13 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 	public partial class UpsertEnvironmentVariableRequest : Microsoft.Xrm.Sdk.OrganizationRequest
 	{
 
-		public string DataSourceType
+		public string ParameterKey
 		{
 			get
 			{
-				if (this.Parameters.Contains("DataSourceType"))
+				if (this.Parameters.Contains("ParameterKey"))
 				{
-					return ((string)(this.Parameters["DataSourceType"]));
+					return ((string)(this.Parameters["ParameterKey"]));
 				}
 				else
 				{
@@ -11748,7 +11908,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 			}
 			set
 			{
-				this.Parameters["DataSourceType"] = value;
+				this.Parameters["ParameterKey"] = value;
 			}
 		}
 
@@ -11768,25 +11928,6 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 			set
 			{
 				this.Parameters["SchemaName"] = value;
-			}
-		}
-
-		public string ConnectionId
-		{
-			get
-			{
-				if (this.Parameters.Contains("ConnectionId"))
-				{
-					return ((string)(this.Parameters["ConnectionId"]));
-				}
-				else
-				{
-					return default(string);
-				}
-			}
-			set
-			{
-				this.Parameters["ConnectionId"] = value;
 			}
 		}
 
@@ -11844,6 +11985,25 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 			set
 			{
 				this.Parameters["Type"] = value;
+			}
+		}
+
+		public string ApiId
+		{
+			get
+			{
+				if (this.Parameters.Contains("ApiId"))
+				{
+					return ((string)(this.Parameters["ApiId"]));
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+			set
+			{
+				this.Parameters["ApiId"] = value;
 			}
 		}
 
@@ -15022,6 +15182,118 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 		}
 	}
 
+	[System.Runtime.Serialization.DataContractAttribute(Namespace = "http://schemas.microsoft.com/xrm/8.1/Contracts")]
+	[Microsoft.Xrm.Sdk.Client.RequestProxyAttribute("CreatePolymorphicLookupAttribute")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.45")]
+	public partial class CreatePolymorphicLookupAttributeRequest : Microsoft.Xrm.Sdk.OrganizationRequest
+	{
+
+		public string SolutionUniqueName
+		{
+			get
+			{
+				if (this.Parameters.Contains("SolutionUniqueName"))
+				{
+					return ((string)(this.Parameters["SolutionUniqueName"]));
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+			set
+			{
+				this.Parameters["SolutionUniqueName"] = value;
+			}
+		}
+
+		public Microsoft.Xrm.Sdk.Metadata.OneToManyRelationshipMetadata[] OneToManyRelationships
+		{
+			get
+			{
+				if (this.Parameters.Contains("OneToManyRelationships"))
+				{
+					return ((Microsoft.Xrm.Sdk.Metadata.OneToManyRelationshipMetadata[])(this.Parameters["OneToManyRelationships"]));
+				}
+				else
+				{
+					return default(Microsoft.Xrm.Sdk.Metadata.OneToManyRelationshipMetadata[]);
+				}
+			}
+			set
+			{
+				this.Parameters["OneToManyRelationships"] = value;
+			}
+		}
+
+		public Microsoft.Xrm.Sdk.Metadata.LookupAttributeMetadata Lookup
+		{
+			get
+			{
+				if (this.Parameters.Contains("Lookup"))
+				{
+					return ((Microsoft.Xrm.Sdk.Metadata.LookupAttributeMetadata)(this.Parameters["Lookup"]));
+				}
+				else
+				{
+					return default(Microsoft.Xrm.Sdk.Metadata.LookupAttributeMetadata);
+				}
+			}
+			set
+			{
+				this.Parameters["Lookup"] = value;
+			}
+		}
+
+		public CreatePolymorphicLookupAttributeRequest()
+		{
+			this.RequestName = "CreatePolymorphicLookupAttribute";
+			this.OneToManyRelationships = default(Microsoft.Xrm.Sdk.Metadata.OneToManyRelationshipMetadata[]);
+			this.Lookup = default(Microsoft.Xrm.Sdk.Metadata.LookupAttributeMetadata);
+		}
+	}
+
+	[System.Runtime.Serialization.DataContractAttribute(Namespace = "http://schemas.microsoft.com/xrm/8.1/Contracts")]
+	[Microsoft.Xrm.Sdk.Client.ResponseProxyAttribute("CreatePolymorphicLookupAttribute")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.45")]
+	public partial class CreatePolymorphicLookupAttributeResponse : Microsoft.Xrm.Sdk.OrganizationResponse
+	{
+
+		public CreatePolymorphicLookupAttributeResponse()
+		{
+		}
+
+		public System.Guid AttributeId
+		{
+			get
+			{
+				if (this.Results.Contains("AttributeId"))
+				{
+					return ((System.Guid)(this.Results["AttributeId"]));
+				}
+				else
+				{
+					return default(System.Guid);
+				}
+			}
+		}
+
+		public System.Guid[] RelationshipIds
+		{
+			get
+			{
+				if (this.Results.Contains("RelationshipIds"))
+				{
+					return ((System.Guid[])(this.Results["RelationshipIds"]));
+				}
+				else
+				{
+					return default(System.Guid[]);
+				}
+			}
+		}
+	}
+
 	[System.Runtime.Serialization.DataContractAttribute(Namespace = "http://schemas.microsoft.com/xrm/2011/msdyn/")]
 	[Microsoft.Xrm.Sdk.Client.RequestProxyAttribute("msdyn_CheckForPendingProcesses")]
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.45")]
@@ -16020,13 +16292,13 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 			}
 		}
 
-		public string ParentConnectionId
+		public string ParentApiId
 		{
 			get
 			{
-				if (this.Parameters.Contains("ParentConnectionId"))
+				if (this.Parameters.Contains("ParentApiId"))
 				{
-					return ((string)(this.Parameters["ParentConnectionId"]));
+					return ((string)(this.Parameters["ParentApiId"]));
 				}
 				else
 				{
@@ -16035,7 +16307,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 			}
 			set
 			{
-				this.Parameters["ParentConnectionId"] = value;
+				this.Parameters["ParentApiId"] = value;
 			}
 		}
 
@@ -16077,13 +16349,13 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 			}
 		}
 
-		public string ChildDataSourceType
+		public string ChildParameterKey
 		{
 			get
 			{
-				if (this.Parameters.Contains("ChildDataSourceType"))
+				if (this.Parameters.Contains("ChildParameterKey"))
 				{
-					return ((string)(this.Parameters["ChildDataSourceType"]));
+					return ((string)(this.Parameters["ChildParameterKey"]));
 				}
 				else
 				{
@@ -16092,17 +16364,17 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 			}
 			set
 			{
-				this.Parameters["ChildDataSourceType"] = value;
+				this.Parameters["ChildParameterKey"] = value;
 			}
 		}
 
-		public string ParentDataSourceType
+		public string ParentParameterKey
 		{
 			get
 			{
-				if (this.Parameters.Contains("ParentDataSourceType"))
+				if (this.Parameters.Contains("ParentParameterKey"))
 				{
-					return ((string)(this.Parameters["ParentDataSourceType"]));
+					return ((string)(this.Parameters["ParentParameterKey"]));
 				}
 				else
 				{
@@ -16111,7 +16383,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 			}
 			set
 			{
-				this.Parameters["ParentDataSourceType"] = value;
+				this.Parameters["ParentParameterKey"] = value;
 			}
 		}
 
@@ -16137,7 +16409,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 		public UpsertCompositeDataSourceRequest()
 		{
 			this.RequestName = "UpsertCompositeDataSource";
-			this.ParentDataSourceType = default(string);
+			this.ParentParameterKey = default(string);
 			this.ParentSchemaName = default(string);
 		}
 	}

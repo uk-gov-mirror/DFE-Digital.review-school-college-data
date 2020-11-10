@@ -49,24 +49,30 @@
                     {
                         <li class="app-task-list__item">
                             <span class="app-task-list__task-name">Confirm data</span>
-                            <span class="app-task-list__tag">Cannot start yet</span>
+                            <strong class="govuk-tag govuk-tag--grey app-task-list__tag">Cannot start yet</strong>
                         </li>
                     }
                     else if (!Model.DataConfirmed)
                     {
                         <li class="app-task-list__item app-task-list__item-review">
-                            <span class="app-task-list__task-name">Click to confirm data</span>
                             <form asp-action="ConfrimData" method="post">
-                                <input type="submit" class="govuk-button app-task-list__cta" data-module="govuk-button" value="Confirm" />
+                                <span class="app-task-list__task-name">
+                                    Click to confirm your data<br />
+                                    <input type="submit" class="govuk-button app-task-list__cta" data-module="govuk-button" value="Confirm" />
+                                </span>
                             </form>
+                            <strong class="govuk-tag govuk-tag--grey app-task-list__tag">Not completed</strong>
                         </li>
                     }
                     else
                     {
-                        <li class="app-task-list__item">
-                            <span class="app-task-list__task-name">Confirm data</span>
-                            <span class="app-task-list__tag">Confirmed</span>
-                        </li>
+                    <li class="app-task-list__item">
+                        <span class="app-task-list__task-name">
+                            Confirm data<br />
+                            @Model.GetLeadText()
+                        </span>
+                        <strong class="govuk-tag app-task-list__tag">Completed</strong>
+                    </li>
                     }
                 </ul>
             </li>

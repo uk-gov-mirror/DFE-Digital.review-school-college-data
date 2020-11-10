@@ -1,3 +1,4 @@
+using System;
 using Dfe.CspdAlpha.Web.Application.Application.Extensions;
 using Dfe.CspdAlpha.Web.Application.Application.Helpers;
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
@@ -58,6 +59,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             viewModel.DataConfirmed = true;
             var urn = ClaimsHelper.GetURN(this.User);
             _schoolService.UpdateConfirmation(CheckingWindow, viewModel, UserID, urn);
+            viewModel.ConfirmationDate = DateTime.Now.Date;
             HttpContext.Session.Set(string.Format(TASK_LIST, UserID), viewModel);
             return RedirectToAction("Index");
         }

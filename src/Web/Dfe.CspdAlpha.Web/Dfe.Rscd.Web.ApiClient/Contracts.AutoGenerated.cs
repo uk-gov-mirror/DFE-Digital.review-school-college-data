@@ -32,7 +32,7 @@ namespace Dfe.Rscd.Web.ApiClient
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<AmendmentDTOGetResponse> GetAmendmentAsync(string id, string checkingwindow, System.Threading.CancellationToken cancellationToken);
     
-        /// <summary>Searches for schools requested amendments</summary>
+        /// <summary>Searches for amendments by school or college</summary>
         /// <param name="urn">The URN of the school requesting amendments</param>
         /// <param name="checkingwindow">The checking window to request amendments from</param>
         /// <returns>Success</returns>
@@ -40,7 +40,7 @@ namespace Dfe.Rscd.Web.ApiClient
         System.Threading.Tasks.Task<AmendmentListGetResponse> GetAmendmentsAsync(string urn, string checkingwindow);
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>Searches for schools requested amendments</summary>
+        /// <summary>Searches for amendments by school or college</summary>
         /// <param name="urn">The URN of the school requesting amendments</param>
         /// <param name="checkingwindow">The checking window to request amendments from</param>
         /// <returns>Success</returns>
@@ -73,14 +73,14 @@ namespace Dfe.Rscd.Web.ApiClient
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<BooleanGetResponse> RelateEvidenceAsync(string checkingwindow, RelateEvidenceDTO body, System.Threading.CancellationToken cancellationToken);
     
-        /// <summary>Cancel and amendment</summary>
+        /// <summary>Cancel an amendment</summary>
         /// <param name="id">The id of the amendment to cancel</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<BooleanGetResponse> CancelAmendmentAsync(string id, string checkingwindow);
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>Cancel and amendment</summary>
+        /// <summary>Cancel an amendment</summary>
         /// <param name="id">The id of the amendment to cancel</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
@@ -321,6 +321,36 @@ namespace Dfe.Rscd.Web.ApiClient
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.2.1.0 (Newtonsoft.Json v12.0.0.0)")]
+    public enum Allocation
+    {
+        [System.Runtime.Serialization.EnumMember(Value = @"NotAllocated")]
+        NotAllocated = 0,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"SchoolCensus")]
+        SchoolCensus = 1,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"IndividualLearnerRecord")]
+        IndividualLearnerRecord = 2,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"AwardingOrganisation")]
+        AwardingOrganisation = 3,
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.2.1.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class SourceOfAllocation 
+    {
+        [Newtonsoft.Json.JsonProperty("year", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int Year { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("allocation", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        public Allocation Allocation { get; set; }
+    
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.2.1.0 (Newtonsoft.Json v12.0.0.0)")]
     public partial class Pupil 
     {
         [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
@@ -367,8 +397,14 @@ namespace Dfe.Rscd.Web.ApiClient
         [Newtonsoft.Json.JsonProperty("results", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Collections.Generic.ICollection<Result> Results { get; set; }
     
+        [Newtonsoft.Json.JsonProperty("allocations", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.ICollection<SourceOfAllocation> Allocations { get; set; }
+    
         [Newtonsoft.Json.JsonProperty("fullName", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string FullName { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("inCurrentAllocationYear", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public bool InCurrentAllocationYear { get; set; }
     
     
     }
@@ -731,6 +767,9 @@ namespace Dfe.Rscd.Web.ApiClient
     
         [Newtonsoft.Json.JsonProperty("dataConfirmed", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public bool DataConfirmed { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("confirmationDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.DateTimeOffset ConfirmationDate { get; set; }
     
     
     }

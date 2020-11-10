@@ -33,7 +33,8 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             {
                 SchoolDetails = schoolDetails,
                 ReviewChecked = schoolReviewRecord.ReviewCompleted,
-                DataConfirmed = schoolReviewRecord.DataConfirmed
+                DataConfirmed = schoolReviewRecord.DataConfirmed,
+                ConfirmationDate = schoolReviewRecord.ConfirmationDate.Date
             };
         }
 

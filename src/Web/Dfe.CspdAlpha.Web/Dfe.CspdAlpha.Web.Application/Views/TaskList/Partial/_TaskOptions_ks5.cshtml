@@ -8,26 +8,41 @@
             <span class="app-task-list__task-name">
                 <a asp-controller="School">School performance summary</a>
             </span>
-            <span class="app-task-list__tag">@(Model.ReviewChecked ? Model.ReviewedCopy : Model.NotReviewedCopy)</span>
-        </li>
-        <li class="app-task-list__item">
-            <span class="app-task-list__task-name"><a asp-controller="Pupil">Student list</a></span>
-            <span class="app-task-list__tag">@(Model.ReviewChecked ? Model.ReviewedCopy : Model.NotReviewedCopy)</span>
-        </li>
-        <li class="app-task-list__item app-task-list__item-review">
-            <span class="app-task-list__task-name">View data</span>
             @if (Model.ReviewChecked)
             {
-                <span class="app-task-list__tag">Completed</span>
+                <strong class="govuk-tag app-task-list__tag">@Model.ReviewedCopy</strong>
             }
             else
             {
-                <span class="app-task-list__description">
-                    Click to confirm you have viewed the data
-                </span>
+                <strong class="govuk-tag govuk-tag--grey app-task-list__tag">@Model.NotReviewedCopy</strong>
+            }
+        </li>
+        <li class="app-task-list__item">
+            <span class="app-task-list__task-name"><a asp-controller="Pupil">Student list</a></span>
+            @if (Model.ReviewChecked)
+            {
+                <strong class="govuk-tag app-task-list__tag">@Model.ReviewedCopy</strong>
+            }
+            else
+            {
+                <strong class="govuk-tag govuk-tag--grey app-task-list__tag">@Model.NotReviewedCopy</strong>
+            }
+        </li>
+        <li class="app-task-list__item app-task-list__item-review">
+            @if (Model.ReviewChecked)
+            {
+                <span class="app-task-list__task-name">View data</span>
+                <strong class="govuk-tag app-task-list__tag">Completed</strong>
+            }
+            else
+            {
                 <form asp-action="Review" method="post">
-                    <input type="submit" class="govuk-button app-task-list__cta" data-module="govuk-button" value="View" />
+                    <span class="app-task-list__task-name">
+                        Click to confirm you have viewed the data<br />
+                        <input type="submit" class="govuk-button app-task-list__cta" data-module="govuk-button" value="Confirm" />
+                    </span>
                 </form>
+                <strong class="govuk-tag govuk-tag--grey app-task-list__tag">Not completed</strong>
             }
         </li>
     </ul>
@@ -37,39 +52,40 @@
     <ul class="app-task-list__items">
         @if (Model.ReviewChecked)
         {
-        <li class="app-task-list__item">
-            <span class="app-task-list__task-name">Request to add a student</span>
-            <span class="app-task-list__tag">Cannot start yet</span>
-        </li>
+            <li class="app-task-list__item">
+                <span class="app-task-list__task-name"><a asp-controller="AddStudent">Request to add a student</a></span>
+                <strong class="govuk-tag govuk-tag--blue app-task-list__tag">Active</strong>
+            </li>
             <li class="app-task-list__item">
                 <span class="app-task-list__task-name"><a asp-controller="RemovePupil">Request to remove a student</a></span>
+                <strong class="govuk-tag govuk-tag--blue app-task-list__tag">Active</strong>
             </li>
             <li class="app-task-list__item">
                 <span class="app-task-list__task-name">Request to add a result</span>
-                <span class="app-task-list__tag">Cannot start yet</span>
+                <strong class="govuk-tag govuk-tag--grey app-task-list__tag">Not active</strong>
             </li>
             <li class="app-task-list__item">
                 <span class="app-task-list__task-name">Request to amend/remove a result</span>
-                <span class="app-task-list__tag">Cannot start yet</span>
+                <strong class="govuk-tag govuk-tag--grey app-task-list__tag">Not active</strong>
             </li>
         }
         else
         {
             <li class="app-task-list__item">
                 <span class="app-task-list__task-name">Request to add a student</span>
-                <span class="app-task-list__tag">Cannot start yet</span>
+                <strong class="govuk-tag govuk-tag--grey app-task-list__tag">Cannot start yet</strong>
             </li>
             <li class="app-task-list__item">
                 <span class="app-task-list__task-name">Request to remove a student</span>
-                <span class="app-task-list__tag">Cannot start yet</span>
+                <strong class="govuk-tag govuk-tag--grey app-task-list__tag">Cannot start yet</strong>
             </li>
             <li class="app-task-list__item">
                 <span class="app-task-list__task-name">Request to add a result</span>
-                <span class="app-task-list__tag">Cannot start yet</span>
+                <strong class="govuk-tag govuk-tag--grey app-task-list__tag">Cannot start yet</strong>
             </li>
             <li class="app-task-list__item">
                 <span class="app-task-list__task-name">Request to amend/remove a result</span>
-                <span class="app-task-list__tag">Cannot start yet</span>
+                <strong class="govuk-tag govuk-tag--grey app-task-list__tag">Cannot start yet</strong>
             </li>
         }
     </ul>

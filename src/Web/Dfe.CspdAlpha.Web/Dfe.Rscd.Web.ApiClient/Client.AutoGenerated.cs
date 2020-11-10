@@ -44,6 +44,7 @@ namespace Dfe.Rscd.Web.ApiClient
     
         /// <summary>Returns the requested amendment</summary>
         /// <param name="id">The id of the requested amendment</param>
+        /// <param name="checkingwindow">The checking window to request amendments from</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public System.Threading.Tasks.Task<AmendmentDTOGetResponse> GetAmendmentAsync(string id, string checkingwindow)
@@ -54,13 +55,11 @@ namespace Dfe.Rscd.Web.ApiClient
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Returns the requested amendment</summary>
         /// <param name="id">The id of the requested amendment</param>
+        /// <param name="checkingwindow">The checking window to request amendments from</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async System.Threading.Tasks.Task<AmendmentDTOGetResponse> GetAmendmentAsync(string id, string checkingwindow, System.Threading.CancellationToken cancellationToken)
         {
-            if (checkingwindow == null)
-                throw new System.ArgumentNullException("checkingwindow");
-    
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("api/{checkingwindow}/Amendments/id/{id}");
             urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
@@ -123,7 +122,7 @@ namespace Dfe.Rscd.Web.ApiClient
             }
         }
     
-        /// <summary>Searches for schools requested amendments</summary>
+        /// <summary>Searches for amendments by school or college</summary>
         /// <param name="urn">The URN of the school requesting amendments</param>
         /// <param name="checkingwindow">The checking window to request amendments from</param>
         /// <returns>Success</returns>
@@ -134,7 +133,7 @@ namespace Dfe.Rscd.Web.ApiClient
         }
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>Searches for schools requested amendments</summary>
+        /// <summary>Searches for amendments by school or college</summary>
         /// <param name="urn">The URN of the school requesting amendments</param>
         /// <param name="checkingwindow">The checking window to request amendments from</param>
         /// <returns>Success</returns>
@@ -385,7 +384,7 @@ namespace Dfe.Rscd.Web.ApiClient
             }
         }
     
-        /// <summary>Cancel and amendment</summary>
+        /// <summary>Cancel an amendment</summary>
         /// <param name="id">The id of the amendment to cancel</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
@@ -395,7 +394,7 @@ namespace Dfe.Rscd.Web.ApiClient
         }
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>Cancel and amendment</summary>
+        /// <summary>Cancel an amendment</summary>
         /// <param name="id">The id of the amendment to cancel</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>

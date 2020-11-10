@@ -30,6 +30,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
                         EstablishmentId = confirmation.new_SchoolURN,
                         DataConfirmed = confirmation.new_Confirmed ?? false,
                         ReviewCompleted = confirmation.new_Reviewed ?? false,
+                        ConfirmationDate = confirmation.rscd_Confirmationdate ?? DateTime.MinValue
                     }
                     : null;
             }
@@ -47,6 +48,10 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
                 }
                 confirmation.new_Reviewed = confirmationRecord.ReviewCompleted;
                 confirmation.new_Confirmed = confirmationRecord.DataConfirmed;
+                if (confirmationRecord.DataConfirmed)
+                {
+                    confirmation.rscd_Confirmationdate = DateTime.Now.Date;
+                }
                 context.UpdateObject(confirmation);
                 context.SaveChanges();
                 return true;
