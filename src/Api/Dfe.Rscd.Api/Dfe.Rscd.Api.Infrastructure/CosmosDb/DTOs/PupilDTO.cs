@@ -60,7 +60,7 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs
         {
             var year = int.Parse(allocationYear);
             var allocations = new List<SourceOfAllocation>();
-            if (string.IsNullOrWhiteSpace(SRC_LAESTAB_0))
+            if (string.IsNullOrEmpty(SRC_LAESTAB_0) && string.IsNullOrEmpty(SRC_LAESTAB_1) && string.IsNullOrEmpty(SRC_LAESTAB_2))
             {
                 return allocations;
             }
