@@ -41,7 +41,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels
                     $"You have confirmed your Key stage 4 data on {ConfirmationDate:dd/MM/yyyy}. You can continue to request further amendments until the end of the checking exercise window.";
             }
             return
-                $"You have confirmed your 16 to 18 data on {ConfirmationDate:dd/MM/yyyy}. You can continue to request further amendments until the end of the checking exercise window.";
+                $"You have confirmed your data. You can continue to request further amendments until the end of the checking exercise window.";
         }
     }
 }
