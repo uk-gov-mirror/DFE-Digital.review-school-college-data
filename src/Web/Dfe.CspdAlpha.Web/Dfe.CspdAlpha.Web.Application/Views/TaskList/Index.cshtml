@@ -52,9 +52,8 @@
                             <strong class="govuk-tag govuk-tag--grey app-task-list__tag">Cannot start yet</strong>
                         </li>
                     }
-                    else if (!Model.DataConfirmed)
-                    {
-                        <li class="app-task-list__item app-task-list__item-review">
+                    else if (!Model.DataConfirmed) { 
+                        <li class="app-task-list__item">
                             <form asp-action="ConfrimData" method="post">
                                 <span class="app-task-list__task-name">
                                     Click to confirm your data<br />
@@ -67,7 +66,7 @@
                     else
                     {
                     <li class="app-task-list__item">
-                        <span class="app-task-list__task-name">
+                        <span class="app-task-list__task-name app-task-list__task-confirmed">
                             Confirm data<br />
                             @Model.GetLeadText()
                         </span>

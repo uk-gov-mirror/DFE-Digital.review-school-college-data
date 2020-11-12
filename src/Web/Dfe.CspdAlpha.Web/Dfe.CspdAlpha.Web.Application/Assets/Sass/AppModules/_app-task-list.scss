@@ -54,12 +54,22 @@
     margin-top: 0;
     margin-bottom: 0;
   }
+
+  @include mq-add-breakpoint(smallMobile, 360px);
+
+  @include govuk-media-query($until: smallMobile) {
+    font-size: 12px;
+  }
 }
 
 .app-task-list__task-name {
   max-width: 48%;
   display: block;
   float: left;
+
+  &.app-task-list__task-confirmed {
+    max-width: 60%;
+  }
 
   @include govuk-media-query($from: desktop) {
     min-width: 120px;
@@ -70,8 +80,7 @@
 }
 
 .app-task-list__item-review {
-  display: flex;
-  justify-content: space-between;
+  display: list-item;
 }
 
 .app-task-list__description {
@@ -85,4 +94,11 @@
 
 .app-task-list__cta {
   margin-bottom: 0;
+  margin-top: govuk-spacing(2);
+}
+
+@include govuk-media-query($from: tablet) {
+  .app-task-list__item-review form {
+    float: left;
+  }
 }
