@@ -2,6 +2,7 @@
 {
     public enum Allocation
     {
+        Unknown,
         NotAllocated,
         SchoolCensus,
         IndividualLearnerRecord,

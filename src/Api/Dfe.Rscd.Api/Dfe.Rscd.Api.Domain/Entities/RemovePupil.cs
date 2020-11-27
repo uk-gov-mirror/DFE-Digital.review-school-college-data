@@ -26,13 +26,13 @@ namespace Dfe.Rscd.Api.Domain.Entities
                 }
                 case "326": // International student
                     if (amendment.Pupil.Allocations.Any(a => a.Allocation == Allocation.AwardingOrganisation) &&
-                        amendment.Pupil.Allocations.All(a => a.Allocation == Allocation.NotAllocated || a.Allocation == Allocation.AwardingOrganisation))
+                        amendment.Pupil.Allocations.All(a => a.Allocation == Allocation.Unknown || a.Allocation == Allocation.NotAllocated || a.Allocation == Allocation.AwardingOrganisation))
                     {
                         return OutcomeStatus.AutoAccept;
                     }
                     return OutcomeStatus.AutoReject;
                 case "327": // Deceased
-                    return amendment.Pupil.InCurrentAllocationYear ? OutcomeStatus.AutoAccept : OutcomeStatus.AutoReject;
+                    return amendment.Pupil.InLatestAllocationYear ? OutcomeStatus.AutoAccept : OutcomeStatus.AutoReject;
                 case "328": // Not on roll
                     if (amendment.Pupil.Allocations.Single(a => a.Year.ToString() ==  AllocationYear).Allocation == Allocation.AwardingOrganisation)
                     {
