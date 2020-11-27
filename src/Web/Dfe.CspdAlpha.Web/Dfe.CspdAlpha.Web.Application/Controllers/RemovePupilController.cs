@@ -145,11 +145,12 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 {
                     return RedirectToAction("AllocationYear");
                 }
-                if (new[] {Constants.OTHER_WITH_EVIDENCE}.Any(r => r == viewModel.SelectedReason))
-                { 
-                    return RedirectToAction("SubReason");
-                }
-                if (new[] { Constants.OTHER_EVIDENCE_NOT_REQUIRED }.Any(r => r == viewModel.SelectedReason))
+                if (new[]
+                    {
+                        Constants.OTHER_WITH_EVIDENCE,
+                        Constants.OTHER_EVIDENCE_NOT_REQUIRED
+                    }
+                    .Any(r => r == viewModel.SelectedReason))
                 {
                     return RedirectToAction("Details");
                 }
@@ -157,35 +158,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             return View(new ReasonViewModel { PupilDetails = amendment.PupilDetails });
         }
 
-        public IActionResult SubReason()
-        {
-            var amendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
-            if (amendment == null)
-            {
-                return RedirectToAction("Index");
-            }
 
-            var removePupil = (RemovePupil)amendment.AmendmentDetail;
-            return View(new SubReasonViewModel
-            {
-                PupilDetails = amendment.PupilDetails,
-                SelectedReason = removePupil.SubReason
-            });
-        }
-
-        [HttpPost]
-        public IActionResult SubReason(SubReasonViewModel viewModel)
-        {
-            var amendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
-            var removePupil = (RemovePupil)amendment.AmendmentDetail;
-            if (ModelState.IsValid)
-            {
-                removePupil.SubReason = viewModel.SelectedReason;
-                HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, amendment);
-                return RedirectToAction("Details");
-            }
-            return View(new SubReasonViewModel { PupilDetails = amendment.PupilDetails });
-        }
 
         public IActionResult Details()
         {
@@ -198,7 +171,6 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             return View(new DetailsViewModel
             {
                 PupilDetails = amendment.PupilDetails,
-                Reason = removePupil.Reason,
                 AmendmentDetails = removePupil.Detail
             });
         }
@@ -224,7 +196,6 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             }
 
             viewModel.PupilDetails = amendment.PupilDetails;
-            viewModel.Reason = removePupil.Reason;
             return View(viewModel);
         }
 

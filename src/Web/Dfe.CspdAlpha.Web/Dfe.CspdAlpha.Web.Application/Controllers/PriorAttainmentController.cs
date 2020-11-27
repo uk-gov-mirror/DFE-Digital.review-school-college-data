@@ -58,7 +58,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             return View(result);
         }
 
-        public IActionResult View()
+        public new IActionResult View()
         {
             var amendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
             var amendmentDetail = (AddPupil)amendment?.AmendmentDetail;

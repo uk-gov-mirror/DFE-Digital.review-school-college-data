@@ -33,7 +33,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             return View(viewModel);
         }
 
-        public IActionResult View(string id)
+        public new IActionResult View(string id)
         {
             var viewModel = _pupilService.GetPupil(CheckingWindow, id);
             return View(new ViewPupilViewModel{CheckingWindow = CheckingWindow, MatchedPupilViewModel = viewModel});
