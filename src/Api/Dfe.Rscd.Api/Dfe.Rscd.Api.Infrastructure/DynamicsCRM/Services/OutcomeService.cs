@@ -20,12 +20,10 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
                 if (outcome == OutcomeStatus.AutoAccept)
                 {
                     amendmentDto.rscd_Outcome = rscd_Outcome.Autoapproved;
-                    amendmentDto.rscd_Amendmentstatus = new_amendmentstatus.Accepted;
                 }
                 else if (outcome == OutcomeStatus.AutoReject)
                 {
                     amendmentDto.rscd_Outcome = rscd_Outcome.Autorejected;
-                    amendmentDto.rscd_Amendmentstatus = new_amendmentstatus.Rejected;
                 }
                 else
                 {
