@@ -19,8 +19,8 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs
         public string DFESNumber { get; set; }
         public string Forename { get; set; }
         public string Surname { get; set; }
-        public int DOB { get; set; }
-        public int Age { get; set; }
+        public string DOB { get; set; }
+        public int? Age { get; set; }
         public string Gender { get; set; }
         public int ENTRYDAT { get; set; }
         public string ActualYearGroup { get; set; }
@@ -46,8 +46,8 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs
                 LaEstab = DFESNumber,
                 ForeName = Forename,
                 LastName = Surname,
-                DateOfBirth = GetDateTime(DOB.ToString()),
-                Age = Age,
+                DateOfBirth = GetDateTime(DOB),
+                Age = Age ?? 0,
                 Gender = Gender == "M" ? Domain.Core.Enums.Gender.Male : Domain.Core.Enums.Gender.Female,
                 DateOfAdmission = GetDateTime(ENTRYDAT.ToString()),
                 YearGroup = ActualYearGroup,

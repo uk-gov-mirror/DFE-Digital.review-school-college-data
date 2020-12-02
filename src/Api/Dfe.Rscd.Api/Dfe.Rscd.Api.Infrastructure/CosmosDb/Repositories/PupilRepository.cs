@@ -39,7 +39,7 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.Repositories
         }
 
         public IQueryable<PupilDTO> Query()
-        {
+        {       
             return _container.GetItemLinqQueryable<PupilDTO>(true);
         }
     }

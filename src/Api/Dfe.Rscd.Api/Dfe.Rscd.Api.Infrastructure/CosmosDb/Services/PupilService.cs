@@ -17,6 +17,9 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.Services
         private Database _cosmosDb;
         private readonly string ALLOCATION_YEAR;
 
+        // TODO: Decide a max pagesize for now, can't return all pupils
+        private const int PageSize = 50;
+
         public PupilService(IOptions<CosmosDbOptions> options, IConfiguration configuration )
         {
             _cosmosDb = new CosmosClient(options.Value.Account, options.Value.Key).GetDatabase(options.Value.Database);
@@ -49,7 +52,7 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.Services
                 }
             }
 
-            var dtos = repoQuery.ToList();
+            var dtos = repoQuery.Take(PageSize).ToList();
             return dtos.Select(p => p.GetPupil(ALLOCATION_YEAR)).ToList();
         }
 
