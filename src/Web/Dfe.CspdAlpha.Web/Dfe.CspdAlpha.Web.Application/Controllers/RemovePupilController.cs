@@ -115,7 +115,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             return View(new ReasonViewModel
             {
                 PupilDetails = amendment.PupilDetails,
-                SelectedReason = removePupil.Reason,
+                SelectedReasonCode = removePupil.ReasonCode,
                 SearchType = searchType,
                 Query = query,
                 MatchedId = matchedId
@@ -126,22 +126,23 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         public IActionResult Reason(ReasonViewModel viewModel)
         {
             var amendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
+
             if (ModelState.IsValid)
             {
                 var removePupil = (RemovePupil)amendment.AmendmentDetail;
-                removePupil.Reason = viewModel.SelectedReason;
-                amendment.EvidenceOption = viewModel.SelectedReason == "329" ? EvidenceOption.UploadNow : EvidenceOption.NotRequired;
+                removePupil.ReasonCode = viewModel.SelectedReasonCode.Value;
+                amendment.EvidenceOption = viewModel.SelectedReasonCode == 329 ? EvidenceOption.UploadNow : EvidenceOption.NotRequired;
                 HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, amendment);
                 if (new[]
                     {
                         Constants.NOT_AT_END_OF_16_TO_18_STUDY,
                         Constants.INTERNATIONAL_STUDENT,
                         Constants.DECEASED
-                    }.Any(r => r == viewModel.SelectedReason))
+                    }.Any(r => r == viewModel.SelectedReasonCode))
                 {
                     return RedirectToAction("Confirm", "Amendments");
                 }
-                if (new[] { Constants.NOT_ON_ROLL }.Any(r => r == viewModel.SelectedReason))
+                if (new[] { Constants.NOT_ON_ROLL }.Any(r => r == viewModel.SelectedReasonCode))
                 {
                     return RedirectToAction("AllocationYear");
                 }
@@ -150,15 +151,13 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                         Constants.OTHER_WITH_EVIDENCE,
                         Constants.OTHER_EVIDENCE_NOT_REQUIRED
                     }
-                    .Any(r => r == viewModel.SelectedReason))
+                    .Any(r => r == viewModel.SelectedReasonCode))
                 {
                     return RedirectToAction("Details");
                 }
             }
             return View(new ReasonViewModel { PupilDetails = amendment.PupilDetails });
         }
-
-
 
         public IActionResult Details()
         {
@@ -180,18 +179,22 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         {
             var amendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
             var removePupil = (RemovePupil)amendment.AmendmentDetail;
+
             if (ModelState.IsValid)
             {
                 removePupil.Detail = viewModel.AmendmentDetails;
                 HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, amendment);
-                if (removePupil.Reason == Constants.OTHER_EVIDENCE_NOT_REQUIRED)
+
+                if (removePupil.ReasonCode == Constants.OTHER_EVIDENCE_NOT_REQUIRED)
                 {
                     return RedirectToAction("AllocationYear");
                 }
+
                 if (amendment.EvidenceOption == EvidenceOption.UploadNow)
                 {
                     return RedirectToAction("Upload", "Evidence");
                 }
+
                 return RedirectToAction("Confirm","Amendments");
             }
 
@@ -210,7 +213,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             return View(new AllocationYearViewModel(_config["AllocationYear"])
             {
                 PupilDetails = amendment.PupilDetails,
-                Reason = removePupil.Reason,
+                ReasonCode = removePupil.ReasonCode,
                 AllocationYear = removePupil.AllocationYear
             });
         }
@@ -230,7 +233,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             return View(new AllocationYearViewModel(_config["AllocationYear"])
             {
                 PupilDetails = amendment.PupilDetails,
-                Reason = removePupil.Reason,
+                ReasonCode = removePupil.ReasonCode,
                 AllocationYear = viewModel.AllocationYear
             });
         }

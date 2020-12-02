@@ -8,7 +8,7 @@ namespace Dfe.CspdAlpha.Web.Application.Validators.RemovePupil
         public AllocationYearViewModelValidation()
         {
             RuleFor(x => x.AllocationYear)
-                .NotEmpty()
+                .NotNull()
                 .WithMessage("Select an allocation year");
         }
     }

@@ -7,7 +7,7 @@ namespace Dfe.CspdAlpha.Web.Application.Validators.RemovePupil
     {
         public ReasonViewModelValidator()
         {
-            RuleFor(x => x.SelectedReason)
+            RuleFor(x => x.SelectedReasonCode)
                 .NotNull()
                 .WithMessage("Select a reason");
         }

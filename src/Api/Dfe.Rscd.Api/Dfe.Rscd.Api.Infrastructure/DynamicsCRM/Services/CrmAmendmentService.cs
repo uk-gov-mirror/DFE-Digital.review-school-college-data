@@ -130,10 +130,10 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
                         var removePupil = context.rscd_RemovepupilSet.FirstOrDefault(x => x.Id == amendment.rscd_Removepupil.Id);
                         return new RemovePupil
                         {
-                            Reason = removePupil.rscd_Reason,
+                            ReasonCode = removePupil.rscd_reasoncode.Value,
                             SubReason = removePupil.rscd_Subreason,
                             Detail = removePupil.rscd_Details,
-                            AllocationYear = removePupil.rscd_Allocationyear
+                            AllocationYear = removePupil.rscd_allocationyear
                         };
 
                     }

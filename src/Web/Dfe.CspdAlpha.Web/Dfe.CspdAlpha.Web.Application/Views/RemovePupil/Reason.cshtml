@@ -44,16 +44,16 @@
 <form method="post">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-three-quarters">
-            <div class="govuk-form-group" asp-for="SelectedReason">
+            <div class="govuk-form-group" asp-for="SelectedReasonCode">
                 <fieldset class="govuk-fieldset">
                     <legend class="govuk-legend govuk-fieldset__legend--s govuk-!-margin-bottom-4">
                         Select a reason
                     </legend>
-                    <div class="govuk-radios" asp-for="SelectedReason">
+                    <div class="govuk-radios" asp-for="SelectedReasonCode">
                         @foreach (var reason in Model.Reasons)
                         {
                             <div class="govuk-radios__item">
-                                <input type="radio" asp-for="SelectedReason" id="SelectedReason-@reason.Key" value="@reason.Key" class="govuk-radios__input" />
+                                <input type="radio" asp-for="SelectedReasonCode" id="SelectedReason-@reason.Key" value="@reason.Key" class="govuk-radios__input" />
                                 <label class="govuk-label govuk-radios__label" for="SelectedReason-@reason.Key">
                                     @reason.Value
                                 </label>

@@ -6,11 +6,16 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil
     public class ReasonViewModel
     {
         public QueryType SearchType { get; set; }
+
         public string Query { get; set; }
+
         public string MatchedId { get; set; }
+
         public PupilDetails PupilDetails { get; set; }
-        public string SelectedReason { get; set; }
-        public Dictionary<string, string> Reasons  => new Dictionary<string, string>
+
+        public int? SelectedReasonCode { get; set; }
+
+        public Dictionary<int, string> Reasons  => new Dictionary<int, string>
         {
             { Constants.NOT_AT_END_OF_16_TO_18_STUDY, "Not at the end of 16 to 18 study" },
             { Constants.INTERNATIONAL_STUDENT, "International student" },

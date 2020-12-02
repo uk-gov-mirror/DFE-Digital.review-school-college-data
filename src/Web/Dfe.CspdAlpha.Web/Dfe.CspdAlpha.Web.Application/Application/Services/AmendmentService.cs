@@ -95,7 +95,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                 var removeAmendment = (Dfe.CspdAlpha.Web.Application.Models.Amendments.AmendmentTypes.RemovePupil) amendment.AmendmentDetail;
                 amendmentDto.RemovePupil = new ApiClient.RemovePupil
                 {
-                    Reason = removeAmendment.Reason,
+                    ReasonCode = removeAmendment.ReasonCode,
                     SubReason = removeAmendment.SubReason,
                     Detail = removeAmendment.Detail,
                     AllocationYear = removeAmendment.AllocationYear
@@ -149,7 +149,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                 var apiRemovePupil = response.Result.RemovePupil;
                 amendment.AmendmentDetail = new RemovePupil
                 {
-                    Reason = apiRemovePupil.Reason,
+                    ReasonCode = apiRemovePupil.ReasonCode,
                     SubReason = apiRemovePupil.SubReason,
                     Detail = apiRemovePupil.Detail
                 };

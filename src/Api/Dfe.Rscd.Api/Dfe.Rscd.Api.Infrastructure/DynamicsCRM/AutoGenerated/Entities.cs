@@ -12,20 +12,20 @@
 
 namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 {
-
-
+	
+	
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.45")]
 	public enum cr3d5_establishmentState
 	{
-
+		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		Active = 0,
-
+		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		Inactive = 1,
 	}
-
+	
 	/// <summary>
 	/// 
 	/// </summary>
@@ -34,28 +34,28 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.45")]
 	public partial class cr3d5_establishment : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
-
+		
 		/// <summary>
 		/// Default Constructor.
 		/// </summary>
 		[System.Diagnostics.DebuggerNonUserCode()]
-		public cr3d5_establishment() :
+		public cr3d5_establishment() : 
 				base(EntityLogicalName)
 		{
 		}
-
+		
 		public const string EntityLogicalName = "cr3d5_establishment";
-
+		
 		public const string EntitySchemaName = "cr3d5_establishment";
-
+		
 		public const string PrimaryIdAttribute = "cr3d5_establishmentid";
-
+		
 		public const string PrimaryNameAttribute = "cr3d5_name";
-
+		
 		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-
+		
 		public event System.ComponentModel.PropertyChangingEventHandler PropertyChanging;
-
+		
 		[System.Diagnostics.DebuggerNonUserCode()]
 		private void OnPropertyChanged(string propertyName)
 		{
@@ -64,7 +64,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.PropertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
 			}
 		}
-
+		
 		[System.Diagnostics.DebuggerNonUserCode()]
 		private void OnPropertyChanging(string propertyName)
 		{
@@ -73,7 +73,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.PropertyChanging(this, new System.ComponentModel.PropertyChangingEventArgs(propertyName));
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -93,7 +93,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("cr3d5_Amendmentcount");
 			}
 		}
-
+		
 		/// <summary>
 		/// Last Updated time of rollup field Amendment count.
 		/// </summary>
@@ -106,7 +106,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<System.Nullable<System.DateTime>>("cr3d5_amendmentcount_date");
 			}
 		}
-
+		
 		/// <summary>
 		/// State of rollup field Amendment count.
 		/// </summary>
@@ -119,7 +119,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<System.Nullable<int>>("cr3d5_amendmentcount_state");
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier for entity instances
 		/// </summary>
@@ -147,7 +147,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("cr3d5_establishmentId");
 			}
 		}
-
+		
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("cr3d5_establishmentid")]
 		public override System.Guid Id
 		{
@@ -162,7 +162,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.cr3d5_establishmentId = value;
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -182,7 +182,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("cr3d5_LAEstab");
 			}
 		}
-
+		
 		/// <summary>
 		/// The name of the custom entity.
 		/// </summary>
@@ -202,7 +202,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("cr3d5_name");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -222,7 +222,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("cr3d5_Numberofamendments");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -242,7 +242,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("cr3d5_Schooltype");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -262,7 +262,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("cr3d5_Urn");
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier of the user who created the record.
 		/// </summary>
@@ -275,7 +275,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("createdby");
 			}
 		}
-
+		
 		/// <summary>
 		/// Date and time when the record was created.
 		/// </summary>
@@ -288,7 +288,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<System.Nullable<System.DateTime>>("createdon");
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier of the delegate user who created the record.
 		/// </summary>
@@ -308,7 +308,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("CreatedOnBehalfBy");
 			}
 		}
-
+		
 		/// <summary>
 		/// Sequence number of the import that created this record.
 		/// </summary>
@@ -328,7 +328,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("ImportSequenceNumber");
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier of the user who modified the record.
 		/// </summary>
@@ -341,7 +341,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("modifiedby");
 			}
 		}
-
+		
 		/// <summary>
 		/// Date and time when the record was modified.
 		/// </summary>
@@ -354,7 +354,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<System.Nullable<System.DateTime>>("modifiedon");
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier of the delegate user who modified the record.
 		/// </summary>
@@ -374,7 +374,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("ModifiedOnBehalfBy");
 			}
 		}
-
+		
 		/// <summary>
 		/// Date and time that the record was migrated.
 		/// </summary>
@@ -394,7 +394,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("OverriddenCreatedOn");
 			}
 		}
-
+		
 		/// <summary>
 		/// Owner Id
 		/// </summary>
@@ -414,7 +414,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("OwnerId");
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier for the business unit that owns the record
 		/// </summary>
@@ -427,7 +427,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("owningbusinessunit");
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier for the team that owns the record.
 		/// </summary>
@@ -440,7 +440,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("owningteam");
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier for the user that owns the record.
 		/// </summary>
@@ -453,7 +453,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("owninguser");
 			}
 		}
-
+		
 		/// <summary>
 		/// Status of the Establishment
 		/// </summary>
@@ -488,7 +488,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("StateCode");
 			}
 		}
-
+		
 		/// <summary>
 		/// Reason for the status of the Establishment
 		/// </summary>
@@ -508,7 +508,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("StatusCode");
 			}
 		}
-
+		
 		/// <summary>
 		/// For internal use only.
 		/// </summary>
@@ -528,7 +528,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("TimeZoneRuleVersionNumber");
 			}
 		}
-
+		
 		/// <summary>
 		/// Time zone code that was in use when the record was created.
 		/// </summary>
@@ -548,7 +548,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("UTCConversionTimeZoneCode");
 			}
 		}
-
+		
 		/// <summary>
 		/// Version Number
 		/// </summary>
@@ -561,7 +561,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<System.Nullable<long>>("versionnumber");
 			}
 		}
-
+		
 		/// <summary>
 		/// 1:N rscd_Amendment_Schooldetails_cr3d5_establ
 		/// </summary>
@@ -581,7 +581,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Amendment_Schooldetails_cr3d5_establ");
 			}
 		}
-
+		
 		/// <summary>
 		/// 1:N rscd_cr3d5_establishment_rscd_amendments
 		/// </summary>
@@ -601,62 +601,62 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_cr3d5_establishment_rscd_amendments");
 			}
 		}
-
+		
 		/// <summary>
 		/// Constructor for populating via LINQ queries given a LINQ anonymous type
 		/// <param name="anonymousType">LINQ anonymous type.</param>
 		/// </summary>
 		[System.Diagnostics.DebuggerNonUserCode()]
-		public cr3d5_establishment(object anonymousType) :
+		public cr3d5_establishment(object anonymousType) : 
 				this()
 		{
-			foreach (var p in anonymousType.GetType().GetProperties())
-			{
-				var value = p.GetValue(anonymousType, null);
-				var name = p.Name.ToLower();
-
-				if (name.EndsWith("enum") && value.GetType().BaseType == typeof(System.Enum))
-				{
-					value = new Microsoft.Xrm.Sdk.OptionSetValue((int)value);
-					name = name.Remove(name.Length - "enum".Length);
-				}
-
-				switch (name)
-				{
-					case "id":
-						base.Id = (System.Guid)value;
-						Attributes["cr3d5_establishmentid"] = base.Id;
-						break;
-					case "cr3d5_establishmentid":
-						var id = (System.Nullable<System.Guid>)value;
-						if (id == null) { continue; }
-						base.Id = id.Value;
-						Attributes[name] = base.Id;
-						break;
-					case "formattedvalues":
-						// Add Support for FormattedValues
-						FormattedValues.AddRange((Microsoft.Xrm.Sdk.FormattedValueCollection)value);
-						break;
-					default:
-						Attributes[name] = value;
-						break;
-				}
-			}
+            foreach (var p in anonymousType.GetType().GetProperties())
+            {
+                var value = p.GetValue(anonymousType, null);
+                var name = p.Name.ToLower();
+            
+                if (name.EndsWith("enum") && value.GetType().BaseType == typeof(System.Enum))
+                {
+                    value = new Microsoft.Xrm.Sdk.OptionSetValue((int) value);
+                    name = name.Remove(name.Length - "enum".Length);
+                }
+            
+                switch (name)
+                {
+                    case "id":
+                        base.Id = (System.Guid)value;
+                        Attributes["cr3d5_establishmentid"] = base.Id;
+                        break;
+                    case "cr3d5_establishmentid":
+                        var id = (System.Nullable<System.Guid>) value;
+                        if(id == null){ continue; }
+                        base.Id = id.Value;
+                        Attributes[name] = base.Id;
+                        break;
+                    case "formattedvalues":
+                        // Add Support for FormattedValues
+                        FormattedValues.AddRange((Microsoft.Xrm.Sdk.FormattedValueCollection)value);
+                        break;
+                    default:
+                        Attributes[name] = value;
+                        break;
+                }
+            }
 		}
 	}
-
+	
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.45")]
 	public enum new_reviewandconfirmschoolState
 	{
-
+		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		Active = 0,
-
+		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		Inactive = 1,
 	}
-
+	
 	/// <summary>
 	/// 
 	/// </summary>
@@ -665,28 +665,28 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.45")]
 	public partial class new_reviewandconfirmschool : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
-
+		
 		/// <summary>
 		/// Default Constructor.
 		/// </summary>
 		[System.Diagnostics.DebuggerNonUserCode()]
-		public new_reviewandconfirmschool() :
+		public new_reviewandconfirmschool() : 
 				base(EntityLogicalName)
 		{
 		}
-
+		
 		public const string EntityLogicalName = "new_reviewandconfirmschool";
-
+		
 		public const string EntitySchemaName = "new_reviewandconfirmschool";
-
+		
 		public const string PrimaryIdAttribute = "new_reviewandconfirmschoolid";
-
+		
 		public const string PrimaryNameAttribute = "new_name";
-
+		
 		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-
+		
 		public event System.ComponentModel.PropertyChangingEventHandler PropertyChanging;
-
+		
 		[System.Diagnostics.DebuggerNonUserCode()]
 		private void OnPropertyChanged(string propertyName)
 		{
@@ -695,7 +695,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.PropertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
 			}
 		}
-
+		
 		[System.Diagnostics.DebuggerNonUserCode()]
 		private void OnPropertyChanging(string propertyName)
 		{
@@ -704,7 +704,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.PropertyChanging(this, new System.ComponentModel.PropertyChangingEventArgs(propertyName));
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier of the user who created the record.
 		/// </summary>
@@ -717,7 +717,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("createdby");
 			}
 		}
-
+		
 		/// <summary>
 		/// Date and time when the record was created.
 		/// </summary>
@@ -730,7 +730,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<System.Nullable<System.DateTime>>("createdon");
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier of the delegate user who created the record.
 		/// </summary>
@@ -750,7 +750,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("CreatedOnBehalfBy");
 			}
 		}
-
+		
 		/// <summary>
 		/// Sequence number of the import that created this record.
 		/// </summary>
@@ -770,7 +770,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("ImportSequenceNumber");
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier of the user who modified the record.
 		/// </summary>
@@ -783,7 +783,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("modifiedby");
 			}
 		}
-
+		
 		/// <summary>
 		/// Date and time when the record was modified.
 		/// </summary>
@@ -796,7 +796,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<System.Nullable<System.DateTime>>("modifiedon");
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier of the delegate user who modified the record.
 		/// </summary>
@@ -816,7 +816,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("ModifiedOnBehalfBy");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -836,7 +836,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("new_Confirmed");
 			}
 		}
-
+		
 		/// <summary>
 		/// The name of the custom entity.
 		/// </summary>
@@ -856,7 +856,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("new_name");
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier for entity instances
 		/// </summary>
@@ -884,7 +884,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("new_reviewandconfirmschoolId");
 			}
 		}
-
+		
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("new_reviewandconfirmschoolid")]
 		public override System.Guid Id
 		{
@@ -899,7 +899,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.new_reviewandconfirmschoolId = value;
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -919,7 +919,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("new_Reviewed");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -939,7 +939,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("new_SchoolURN");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -959,7 +959,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("new_UserID");
 			}
 		}
-
+		
 		/// <summary>
 		/// Date and time that the record was migrated.
 		/// </summary>
@@ -979,7 +979,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("OverriddenCreatedOn");
 			}
 		}
-
+		
 		/// <summary>
 		/// Owner Id
 		/// </summary>
@@ -999,7 +999,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("OwnerId");
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier for the business unit that owns the record
 		/// </summary>
@@ -1012,7 +1012,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("owningbusinessunit");
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier for the team that owns the record.
 		/// </summary>
@@ -1025,7 +1025,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("owningteam");
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier for the user that owns the record.
 		/// </summary>
@@ -1038,7 +1038,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("owninguser");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -1058,7 +1058,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Confirmationdate");
 			}
 		}
-
+		
 		/// <summary>
 		/// Status of the Review and confirm school
 		/// </summary>
@@ -1093,7 +1093,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("StateCode");
 			}
 		}
-
+		
 		/// <summary>
 		/// Reason for the status of the Review and confirm school
 		/// </summary>
@@ -1113,7 +1113,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("StatusCode");
 			}
 		}
-
+		
 		/// <summary>
 		/// For internal use only.
 		/// </summary>
@@ -1133,7 +1133,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("TimeZoneRuleVersionNumber");
 			}
 		}
-
+		
 		/// <summary>
 		/// Time zone code that was in use when the record was created.
 		/// </summary>
@@ -1153,7 +1153,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("UTCConversionTimeZoneCode");
 			}
 		}
-
+		
 		/// <summary>
 		/// Version Number
 		/// </summary>
@@ -1166,62 +1166,62 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<System.Nullable<long>>("versionnumber");
 			}
 		}
-
+		
 		/// <summary>
 		/// Constructor for populating via LINQ queries given a LINQ anonymous type
 		/// <param name="anonymousType">LINQ anonymous type.</param>
 		/// </summary>
 		[System.Diagnostics.DebuggerNonUserCode()]
-		public new_reviewandconfirmschool(object anonymousType) :
+		public new_reviewandconfirmschool(object anonymousType) : 
 				this()
 		{
-			foreach (var p in anonymousType.GetType().GetProperties())
-			{
-				var value = p.GetValue(anonymousType, null);
-				var name = p.Name.ToLower();
-
-				if (name.EndsWith("enum") && value.GetType().BaseType == typeof(System.Enum))
-				{
-					value = new Microsoft.Xrm.Sdk.OptionSetValue((int)value);
-					name = name.Remove(name.Length - "enum".Length);
-				}
-
-				switch (name)
-				{
-					case "id":
-						base.Id = (System.Guid)value;
-						Attributes["new_reviewandconfirmschoolid"] = base.Id;
-						break;
-					case "new_reviewandconfirmschoolid":
-						var id = (System.Nullable<System.Guid>)value;
-						if (id == null) { continue; }
-						base.Id = id.Value;
-						Attributes[name] = base.Id;
-						break;
-					case "formattedvalues":
-						// Add Support for FormattedValues
-						FormattedValues.AddRange((Microsoft.Xrm.Sdk.FormattedValueCollection)value);
-						break;
-					default:
-						Attributes[name] = value;
-						break;
-				}
-			}
+            foreach (var p in anonymousType.GetType().GetProperties())
+            {
+                var value = p.GetValue(anonymousType, null);
+                var name = p.Name.ToLower();
+            
+                if (name.EndsWith("enum") && value.GetType().BaseType == typeof(System.Enum))
+                {
+                    value = new Microsoft.Xrm.Sdk.OptionSetValue((int) value);
+                    name = name.Remove(name.Length - "enum".Length);
+                }
+            
+                switch (name)
+                {
+                    case "id":
+                        base.Id = (System.Guid)value;
+                        Attributes["new_reviewandconfirmschoolid"] = base.Id;
+                        break;
+                    case "new_reviewandconfirmschoolid":
+                        var id = (System.Nullable<System.Guid>) value;
+                        if(id == null){ continue; }
+                        base.Id = id.Value;
+                        Attributes[name] = base.Id;
+                        break;
+                    case "formattedvalues":
+                        // Add Support for FormattedValues
+                        FormattedValues.AddRange((Microsoft.Xrm.Sdk.FormattedValueCollection)value);
+                        break;
+                    default:
+                        Attributes[name] = value;
+                        break;
+                }
+            }
 		}
 	}
-
+	
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.45")]
 	public enum rscd_AddpupilState
 	{
-
+		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		Active = 0,
-
+		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		Inactive = 1,
 	}
-
+	
 	/// <summary>
 	/// 
 	/// </summary>
@@ -1230,28 +1230,28 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.45")]
 	public partial class rscd_Addpupil : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
-
+		
 		/// <summary>
 		/// Default Constructor.
 		/// </summary>
 		[System.Diagnostics.DebuggerNonUserCode()]
-		public rscd_Addpupil() :
+		public rscd_Addpupil() : 
 				base(EntityLogicalName)
 		{
 		}
-
+		
 		public const string EntityLogicalName = "rscd_addpupil";
-
+		
 		public const string EntitySchemaName = "rscd_Addpupil";
-
+		
 		public const string PrimaryIdAttribute = "rscd_addpupilid";
-
+		
 		public const string PrimaryNameAttribute = "rscd_name";
-
+		
 		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-
+		
 		public event System.ComponentModel.PropertyChangingEventHandler PropertyChanging;
-
+		
 		[System.Diagnostics.DebuggerNonUserCode()]
 		private void OnPropertyChanged(string propertyName)
 		{
@@ -1260,7 +1260,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.PropertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
 			}
 		}
-
+		
 		[System.Diagnostics.DebuggerNonUserCode()]
 		private void OnPropertyChanging(string propertyName)
 		{
@@ -1269,7 +1269,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.PropertyChanging(this, new System.ComponentModel.PropertyChangingEventArgs(propertyName));
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier of the user who created the record.
 		/// </summary>
@@ -1282,7 +1282,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("createdby");
 			}
 		}
-
+		
 		/// <summary>
 		/// Date and time when the record was created.
 		/// </summary>
@@ -1295,7 +1295,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<System.Nullable<System.DateTime>>("createdon");
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier of the delegate user who created the record.
 		/// </summary>
@@ -1315,7 +1315,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("CreatedOnBehalfBy");
 			}
 		}
-
+		
 		/// <summary>
 		/// Sequence number of the import that created this record.
 		/// </summary>
@@ -1335,7 +1335,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("ImportSequenceNumber");
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier of the user who modified the record.
 		/// </summary>
@@ -1348,7 +1348,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("modifiedby");
 			}
 		}
-
+		
 		/// <summary>
 		/// Date and time when the record was modified.
 		/// </summary>
@@ -1361,7 +1361,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<System.Nullable<System.DateTime>>("modifiedon");
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier of the delegate user who modified the record.
 		/// </summary>
@@ -1381,7 +1381,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("ModifiedOnBehalfBy");
 			}
 		}
-
+		
 		/// <summary>
 		/// Date and time that the record was migrated.
 		/// </summary>
@@ -1401,7 +1401,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("OverriddenCreatedOn");
 			}
 		}
-
+		
 		/// <summary>
 		/// Owner Id
 		/// </summary>
@@ -1421,7 +1421,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("OwnerId");
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier for the business unit that owns the record
 		/// </summary>
@@ -1434,7 +1434,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("owningbusinessunit");
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier for the team that owns the record.
 		/// </summary>
@@ -1447,7 +1447,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("owningteam");
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier for the user that owns the record.
 		/// </summary>
@@ -1460,7 +1460,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("owninguser");
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier for entity instances
 		/// </summary>
@@ -1488,7 +1488,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_AddpupilId");
 			}
 		}
-
+		
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_addpupilid")]
 		public override System.Guid Id
 		{
@@ -1503,7 +1503,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.rscd_AddpupilId = value;
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -1523,7 +1523,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Mathsexammark");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -1543,7 +1543,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Mathsexamyear");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -1563,7 +1563,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Mathsscaledscore");
 			}
 		}
-
+		
 		/// <summary>
 		/// Required name field
 		/// </summary>
@@ -1583,7 +1583,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Name");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -1603,7 +1603,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_PreviousschoolLAESTAB");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -1623,7 +1623,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_PreviousschoolURN");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -1643,7 +1643,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Readingexammark");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -1663,7 +1663,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Readingexamyear");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -1683,7 +1683,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Readingscaledscore");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -1703,7 +1703,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Reason");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -1723,7 +1723,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Writingexamyear");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -1743,7 +1743,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Writingscaledscore");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -1763,7 +1763,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Writingteacherassessment");
 			}
 		}
-
+		
 		/// <summary>
 		/// Status of the Add pupil
 		/// </summary>
@@ -1798,7 +1798,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("StateCode");
 			}
 		}
-
+		
 		/// <summary>
 		/// Reason for the status of the Add pupil
 		/// </summary>
@@ -1818,7 +1818,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("StatusCode");
 			}
 		}
-
+		
 		/// <summary>
 		/// For internal use only.
 		/// </summary>
@@ -1838,7 +1838,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("TimeZoneRuleVersionNumber");
 			}
 		}
-
+		
 		/// <summary>
 		/// Time zone code that was in use when the record was created.
 		/// </summary>
@@ -1858,7 +1858,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("UTCConversionTimeZoneCode");
 			}
 		}
-
+		
 		/// <summary>
 		/// Version Number
 		/// </summary>
@@ -1871,7 +1871,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<System.Nullable<long>>("versionnumber");
 			}
 		}
-
+		
 		/// <summary>
 		/// 1:N rscd_Amendment_Addpupil
 		/// </summary>
@@ -1891,62 +1891,62 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Amendment_Addpupil");
 			}
 		}
-
+		
 		/// <summary>
 		/// Constructor for populating via LINQ queries given a LINQ anonymous type
 		/// <param name="anonymousType">LINQ anonymous type.</param>
 		/// </summary>
 		[System.Diagnostics.DebuggerNonUserCode()]
-		public rscd_Addpupil(object anonymousType) :
+		public rscd_Addpupil(object anonymousType) : 
 				this()
 		{
-			foreach (var p in anonymousType.GetType().GetProperties())
-			{
-				var value = p.GetValue(anonymousType, null);
-				var name = p.Name.ToLower();
-
-				if (name.EndsWith("enum") && value.GetType().BaseType == typeof(System.Enum))
-				{
-					value = new Microsoft.Xrm.Sdk.OptionSetValue((int)value);
-					name = name.Remove(name.Length - "enum".Length);
-				}
-
-				switch (name)
-				{
-					case "id":
-						base.Id = (System.Guid)value;
-						Attributes["rscd_addpupilid"] = base.Id;
-						break;
-					case "rscd_addpupilid":
-						var id = (System.Nullable<System.Guid>)value;
-						if (id == null) { continue; }
-						base.Id = id.Value;
-						Attributes[name] = base.Id;
-						break;
-					case "formattedvalues":
-						// Add Support for FormattedValues
-						FormattedValues.AddRange((Microsoft.Xrm.Sdk.FormattedValueCollection)value);
-						break;
-					default:
-						Attributes[name] = value;
-						break;
-				}
-			}
+            foreach (var p in anonymousType.GetType().GetProperties())
+            {
+                var value = p.GetValue(anonymousType, null);
+                var name = p.Name.ToLower();
+            
+                if (name.EndsWith("enum") && value.GetType().BaseType == typeof(System.Enum))
+                {
+                    value = new Microsoft.Xrm.Sdk.OptionSetValue((int) value);
+                    name = name.Remove(name.Length - "enum".Length);
+                }
+            
+                switch (name)
+                {
+                    case "id":
+                        base.Id = (System.Guid)value;
+                        Attributes["rscd_addpupilid"] = base.Id;
+                        break;
+                    case "rscd_addpupilid":
+                        var id = (System.Nullable<System.Guid>) value;
+                        if(id == null){ continue; }
+                        base.Id = id.Value;
+                        Attributes[name] = base.Id;
+                        break;
+                    case "formattedvalues":
+                        // Add Support for FormattedValues
+                        FormattedValues.AddRange((Microsoft.Xrm.Sdk.FormattedValueCollection)value);
+                        break;
+                    default:
+                        Attributes[name] = value;
+                        break;
+                }
+            }
 		}
 	}
-
+	
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.45")]
 	public enum rscd_AddstudentState
 	{
-
+		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		Active = 0,
-
+		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		Inactive = 1,
 	}
-
+	
 	/// <summary>
 	/// 
 	/// </summary>
@@ -1955,28 +1955,28 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.45")]
 	public partial class rscd_Addstudent : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
-
+		
 		/// <summary>
 		/// Default Constructor.
 		/// </summary>
 		[System.Diagnostics.DebuggerNonUserCode()]
-		public rscd_Addstudent() :
+		public rscd_Addstudent() : 
 				base(EntityLogicalName)
 		{
 		}
-
+		
 		public const string EntityLogicalName = "rscd_addstudent";
-
+		
 		public const string EntitySchemaName = "rscd_Addstudent";
-
+		
 		public const string PrimaryIdAttribute = "rscd_addstudentid";
-
+		
 		public const string PrimaryNameAttribute = "rscd_name";
-
+		
 		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-
+		
 		public event System.ComponentModel.PropertyChangingEventHandler PropertyChanging;
-
+		
 		[System.Diagnostics.DebuggerNonUserCode()]
 		private void OnPropertyChanged(string propertyName)
 		{
@@ -1985,7 +1985,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.PropertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
 			}
 		}
-
+		
 		[System.Diagnostics.DebuggerNonUserCode()]
 		private void OnPropertyChanging(string propertyName)
 		{
@@ -1994,7 +1994,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.PropertyChanging(this, new System.ComponentModel.PropertyChangingEventArgs(propertyName));
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier of the user who created the record.
 		/// </summary>
@@ -2007,7 +2007,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("createdby");
 			}
 		}
-
+		
 		/// <summary>
 		/// Date and time when the record was created.
 		/// </summary>
@@ -2020,7 +2020,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<System.Nullable<System.DateTime>>("createdon");
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier of the delegate user who created the record.
 		/// </summary>
@@ -2040,7 +2040,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("CreatedOnBehalfBy");
 			}
 		}
-
+		
 		/// <summary>
 		/// Sequence number of the import that created this record.
 		/// </summary>
@@ -2060,7 +2060,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("ImportSequenceNumber");
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier of the user who modified the record.
 		/// </summary>
@@ -2073,7 +2073,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("modifiedby");
 			}
 		}
-
+		
 		/// <summary>
 		/// Date and time when the record was modified.
 		/// </summary>
@@ -2086,7 +2086,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<System.Nullable<System.DateTime>>("modifiedon");
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier of the delegate user who modified the record.
 		/// </summary>
@@ -2106,7 +2106,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("ModifiedOnBehalfBy");
 			}
 		}
-
+		
 		/// <summary>
 		/// Date and time that the record was migrated.
 		/// </summary>
@@ -2126,7 +2126,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("OverriddenCreatedOn");
 			}
 		}
-
+		
 		/// <summary>
 		/// Owner Id
 		/// </summary>
@@ -2146,7 +2146,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("OwnerId");
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier for the business unit that owns the record
 		/// </summary>
@@ -2159,7 +2159,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("owningbusinessunit");
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier for the team that owns the record.
 		/// </summary>
@@ -2172,7 +2172,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("owningteam");
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier for the user that owns the record.
 		/// </summary>
@@ -2185,7 +2185,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("owninguser");
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier for entity instances
 		/// </summary>
@@ -2213,7 +2213,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_AddstudentId");
 			}
 		}
-
+		
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_addstudentid")]
 		public override System.Guid Id
 		{
@@ -2228,7 +2228,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.rscd_AddstudentId = value;
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -2248,7 +2248,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_AttendenceYears");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -2268,7 +2268,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_KS4Year");
 			}
 		}
-
+		
 		/// <summary>
 		/// Required name field
 		/// </summary>
@@ -2288,7 +2288,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Name");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -2308,7 +2308,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_PreviousschoolLAESTAB");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -2328,7 +2328,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Previousschoolname");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -2348,7 +2348,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_PreviousschoolURN");
 			}
 		}
-
+		
 		/// <summary>
 		/// Status of the Add student
 		/// </summary>
@@ -2383,7 +2383,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("StateCode");
 			}
 		}
-
+		
 		/// <summary>
 		/// Reason for the status of the Add student
 		/// </summary>
@@ -2403,7 +2403,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("StatusCode");
 			}
 		}
-
+		
 		/// <summary>
 		/// For internal use only.
 		/// </summary>
@@ -2423,7 +2423,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("TimeZoneRuleVersionNumber");
 			}
 		}
-
+		
 		/// <summary>
 		/// Time zone code that was in use when the record was created.
 		/// </summary>
@@ -2443,7 +2443,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("UTCConversionTimeZoneCode");
 			}
 		}
-
+		
 		/// <summary>
 		/// Version Number
 		/// </summary>
@@ -2456,7 +2456,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<System.Nullable<long>>("versionnumber");
 			}
 		}
-
+		
 		/// <summary>
 		/// 1:N rscd_Amendment_Addstudent
 		/// </summary>
@@ -2476,62 +2476,62 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Amendment_Addstudent");
 			}
 		}
-
+		
 		/// <summary>
 		/// Constructor for populating via LINQ queries given a LINQ anonymous type
 		/// <param name="anonymousType">LINQ anonymous type.</param>
 		/// </summary>
 		[System.Diagnostics.DebuggerNonUserCode()]
-		public rscd_Addstudent(object anonymousType) :
+		public rscd_Addstudent(object anonymousType) : 
 				this()
 		{
-			foreach (var p in anonymousType.GetType().GetProperties())
-			{
-				var value = p.GetValue(anonymousType, null);
-				var name = p.Name.ToLower();
-
-				if (name.EndsWith("enum") && value.GetType().BaseType == typeof(System.Enum))
-				{
-					value = new Microsoft.Xrm.Sdk.OptionSetValue((int)value);
-					name = name.Remove(name.Length - "enum".Length);
-				}
-
-				switch (name)
-				{
-					case "id":
-						base.Id = (System.Guid)value;
-						Attributes["rscd_addstudentid"] = base.Id;
-						break;
-					case "rscd_addstudentid":
-						var id = (System.Nullable<System.Guid>)value;
-						if (id == null) { continue; }
-						base.Id = id.Value;
-						Attributes[name] = base.Id;
-						break;
-					case "formattedvalues":
-						// Add Support for FormattedValues
-						FormattedValues.AddRange((Microsoft.Xrm.Sdk.FormattedValueCollection)value);
-						break;
-					default:
-						Attributes[name] = value;
-						break;
-				}
-			}
+            foreach (var p in anonymousType.GetType().GetProperties())
+            {
+                var value = p.GetValue(anonymousType, null);
+                var name = p.Name.ToLower();
+            
+                if (name.EndsWith("enum") && value.GetType().BaseType == typeof(System.Enum))
+                {
+                    value = new Microsoft.Xrm.Sdk.OptionSetValue((int) value);
+                    name = name.Remove(name.Length - "enum".Length);
+                }
+            
+                switch (name)
+                {
+                    case "id":
+                        base.Id = (System.Guid)value;
+                        Attributes["rscd_addstudentid"] = base.Id;
+                        break;
+                    case "rscd_addstudentid":
+                        var id = (System.Nullable<System.Guid>) value;
+                        if(id == null){ continue; }
+                        base.Id = id.Value;
+                        Attributes[name] = base.Id;
+                        break;
+                    case "formattedvalues":
+                        // Add Support for FormattedValues
+                        FormattedValues.AddRange((Microsoft.Xrm.Sdk.FormattedValueCollection)value);
+                        break;
+                    default:
+                        Attributes[name] = value;
+                        break;
+                }
+            }
 		}
 	}
-
+	
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.45")]
 	public enum rscd_AmendmentState
 	{
-
+		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		Active = 0,
-
+		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		Inactive = 1,
 	}
-
+	
 	/// <summary>
 	/// The base amendment entity linked to an Establishment and to the specific amendment type detail
 	/// </summary>
@@ -2540,28 +2540,28 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.45")]
 	public partial class rscd_Amendment : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
-
+		
 		/// <summary>
 		/// Default Constructor.
 		/// </summary>
 		[System.Diagnostics.DebuggerNonUserCode()]
-		public rscd_Amendment() :
+		public rscd_Amendment() : 
 				base(EntityLogicalName)
 		{
 		}
-
+		
 		public const string EntityLogicalName = "rscd_amendment";
-
+		
 		public const string EntitySchemaName = "rscd_Amendment";
-
+		
 		public const string PrimaryIdAttribute = "rscd_amendmentid";
-
+		
 		public const string PrimaryNameAttribute = "rscd_name";
-
+		
 		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-
+		
 		public event System.ComponentModel.PropertyChangingEventHandler PropertyChanging;
-
+		
 		[System.Diagnostics.DebuggerNonUserCode()]
 		private void OnPropertyChanged(string propertyName)
 		{
@@ -2570,7 +2570,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.PropertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
 			}
 		}
-
+		
 		[System.Diagnostics.DebuggerNonUserCode()]
 		private void OnPropertyChanging(string propertyName)
 		{
@@ -2579,7 +2579,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.PropertyChanging(this, new System.ComponentModel.PropertyChangingEventArgs(propertyName));
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier of the user who created the record.
 		/// </summary>
@@ -2592,7 +2592,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("createdby");
 			}
 		}
-
+		
 		/// <summary>
 		/// Date and time when the record was created.
 		/// </summary>
@@ -2605,7 +2605,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<System.Nullable<System.DateTime>>("createdon");
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier of the delegate user who created the record.
 		/// </summary>
@@ -2625,7 +2625,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("CreatedOnBehalfBy");
 			}
 		}
-
+		
 		/// <summary>
 		/// Sequence number of the import that created this record.
 		/// </summary>
@@ -2645,7 +2645,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("ImportSequenceNumber");
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier of the user who modified the record.
 		/// </summary>
@@ -2658,7 +2658,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("modifiedby");
 			}
 		}
-
+		
 		/// <summary>
 		/// Date and time when the record was modified.
 		/// </summary>
@@ -2671,7 +2671,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<System.Nullable<System.DateTime>>("modifiedon");
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier of the delegate user who modified the record.
 		/// </summary>
@@ -2691,7 +2691,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("ModifiedOnBehalfBy");
 			}
 		}
-
+		
 		/// <summary>
 		/// Date and time that the record was migrated.
 		/// </summary>
@@ -2711,7 +2711,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("OverriddenCreatedOn");
 			}
 		}
-
+		
 		/// <summary>
 		/// Owner Id
 		/// </summary>
@@ -2731,7 +2731,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("OwnerId");
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier for the business unit that owns the record
 		/// </summary>
@@ -2744,7 +2744,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("owningbusinessunit");
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier for the team that owns the record.
 		/// </summary>
@@ -2757,7 +2757,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("owningteam");
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier for the user that owns the record.
 		/// </summary>
@@ -2770,7 +2770,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("owninguser");
 			}
 		}
-
+		
 		/// <summary>
 		/// Specifies the academic year the amendment applies to.
 		/// </summary>
@@ -2790,7 +2790,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Academicyear");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -2810,7 +2810,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Addpupil");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -2830,7 +2830,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Addstudent");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -2850,7 +2850,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Age");
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier for entity instances
 		/// </summary>
@@ -2878,7 +2878,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_AmendmentId");
 			}
 		}
-
+		
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_amendmentid")]
 		public override System.Guid Id
 		{
@@ -2893,7 +2893,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.rscd_AmendmentId = value;
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -2913,7 +2913,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Amendmenttype");
 			}
 		}
-
+		
 		/// <summary>
 		/// Specifies which checking window the amendment applies to.
 		/// </summary>
@@ -2933,7 +2933,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Checkingwindow");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -2953,7 +2953,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Dateofadmission");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -2973,7 +2973,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Dateofbirth");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -2993,7 +2993,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Decision1");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -3013,7 +3013,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Decision2");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -3033,7 +3033,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_decision3");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -3053,7 +3053,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Establishmentv2");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -3073,7 +3073,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Evidencestatus");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -3093,7 +3093,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Externalnote");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -3113,7 +3113,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Firstname");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -3133,7 +3133,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Gender");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -3153,7 +3153,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Lastname");
 			}
 		}
-
+		
 		/// <summary>
 		/// Reference number is duplicated in this "Name" field to achieve hyperlink behaviour in main view.
 		/// </summary>
@@ -3173,7 +3173,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Name");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -3193,7 +3193,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Outcome");
 			}
 		}
-
+		
 		/// <summary>
 		/// Calculated field, joining first name and last name
 		/// </summary>
@@ -3213,7 +3213,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_PupilName");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -3233,7 +3233,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_recorded_by");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -3253,7 +3253,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Referencenumber");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -3273,7 +3273,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Removepupil");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -3293,7 +3293,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_reviewer1");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -3313,7 +3313,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_reviewer2");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -3333,7 +3333,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_reviewer3");
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier for Establishment associated with Amendment.
 		/// </summary>
@@ -3353,7 +3353,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Schooldetails");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -3373,7 +3373,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_ULN");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -3393,7 +3393,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_UPN");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -3413,7 +3413,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_URN");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -3433,7 +3433,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Yeargroup");
 			}
 		}
-
+		
 		/// <summary>
 		/// Status of the Amendment
 		/// </summary>
@@ -3468,7 +3468,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("StateCode");
 			}
 		}
-
+		
 		/// <summary>
 		/// Reason for the status of the Amendment
 		/// </summary>
@@ -3488,7 +3488,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("StatusCode");
 			}
 		}
-
+		
 		/// <summary>
 		/// For internal use only.
 		/// </summary>
@@ -3508,7 +3508,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("TimeZoneRuleVersionNumber");
 			}
 		}
-
+		
 		/// <summary>
 		/// Time zone code that was in use when the record was created.
 		/// </summary>
@@ -3528,7 +3528,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("UTCConversionTimeZoneCode");
 			}
 		}
-
+		
 		/// <summary>
 		/// Version Number
 		/// </summary>
@@ -3541,7 +3541,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<System.Nullable<long>>("versionnumber");
 			}
 		}
-
+		
 		/// <summary>
 		/// N:1 rscd_Amendment_Addpupil
 		/// </summary>
@@ -3562,7 +3562,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Amendment_Addpupil");
 			}
 		}
-
+		
 		/// <summary>
 		/// N:1 rscd_Amendment_Addstudent
 		/// </summary>
@@ -3583,7 +3583,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Amendment_Addstudent");
 			}
 		}
-
+		
 		/// <summary>
 		/// N:1 rscd_Amendment_Removepupil
 		/// </summary>
@@ -3604,7 +3604,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Amendment_Removepupil");
 			}
 		}
-
+		
 		/// <summary>
 		/// N:1 rscd_Amendment_Schooldetails_cr3d5_establ
 		/// </summary>
@@ -3625,7 +3625,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Amendment_Schooldetails_cr3d5_establ");
 			}
 		}
-
+		
 		/// <summary>
 		/// N:1 rscd_cr3d5_establishment_rscd_amendments
 		/// </summary>
@@ -3646,62 +3646,62 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_cr3d5_establishment_rscd_amendments");
 			}
 		}
-
+		
 		/// <summary>
 		/// Constructor for populating via LINQ queries given a LINQ anonymous type
 		/// <param name="anonymousType">LINQ anonymous type.</param>
 		/// </summary>
 		[System.Diagnostics.DebuggerNonUserCode()]
-		public rscd_Amendment(object anonymousType) :
+		public rscd_Amendment(object anonymousType) : 
 				this()
 		{
-			foreach (var p in anonymousType.GetType().GetProperties())
-			{
-				var value = p.GetValue(anonymousType, null);
-				var name = p.Name.ToLower();
-
-				if (name.EndsWith("enum") && value.GetType().BaseType == typeof(System.Enum))
-				{
-					value = new Microsoft.Xrm.Sdk.OptionSetValue((int)value);
-					name = name.Remove(name.Length - "enum".Length);
-				}
-
-				switch (name)
-				{
-					case "id":
-						base.Id = (System.Guid)value;
-						Attributes["rscd_amendmentid"] = base.Id;
-						break;
-					case "rscd_amendmentid":
-						var id = (System.Nullable<System.Guid>)value;
-						if (id == null) { continue; }
-						base.Id = id.Value;
-						Attributes[name] = base.Id;
-						break;
-					case "formattedvalues":
-						// Add Support for FormattedValues
-						FormattedValues.AddRange((Microsoft.Xrm.Sdk.FormattedValueCollection)value);
-						break;
-					default:
-						Attributes[name] = value;
-						break;
-				}
-			}
+            foreach (var p in anonymousType.GetType().GetProperties())
+            {
+                var value = p.GetValue(anonymousType, null);
+                var name = p.Name.ToLower();
+            
+                if (name.EndsWith("enum") && value.GetType().BaseType == typeof(System.Enum))
+                {
+                    value = new Microsoft.Xrm.Sdk.OptionSetValue((int) value);
+                    name = name.Remove(name.Length - "enum".Length);
+                }
+            
+                switch (name)
+                {
+                    case "id":
+                        base.Id = (System.Guid)value;
+                        Attributes["rscd_amendmentid"] = base.Id;
+                        break;
+                    case "rscd_amendmentid":
+                        var id = (System.Nullable<System.Guid>) value;
+                        if(id == null){ continue; }
+                        base.Id = id.Value;
+                        Attributes[name] = base.Id;
+                        break;
+                    case "formattedvalues":
+                        // Add Support for FormattedValues
+                        FormattedValues.AddRange((Microsoft.Xrm.Sdk.FormattedValueCollection)value);
+                        break;
+                    default:
+                        Attributes[name] = value;
+                        break;
+                }
+            }
 		}
 	}
-
+	
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.45")]
 	public enum rscd_RemovepupilState
 	{
-
+		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		Active = 0,
-
+		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		Inactive = 1,
 	}
-
+	
 	/// <summary>
 	/// 
 	/// </summary>
@@ -3710,28 +3710,28 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.45")]
 	public partial class rscd_Removepupil : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
-
+		
 		/// <summary>
 		/// Default Constructor.
 		/// </summary>
 		[System.Diagnostics.DebuggerNonUserCode()]
-		public rscd_Removepupil() :
+		public rscd_Removepupil() : 
 				base(EntityLogicalName)
 		{
 		}
-
+		
 		public const string EntityLogicalName = "rscd_removepupil";
-
+		
 		public const string EntitySchemaName = "rscd_Removepupil";
-
+		
 		public const string PrimaryIdAttribute = "rscd_removepupilid";
-
+		
 		public const string PrimaryNameAttribute = "rscd_name";
-
+		
 		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-
+		
 		public event System.ComponentModel.PropertyChangingEventHandler PropertyChanging;
-
+		
 		[System.Diagnostics.DebuggerNonUserCode()]
 		private void OnPropertyChanged(string propertyName)
 		{
@@ -3740,7 +3740,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.PropertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
 			}
 		}
-
+		
 		[System.Diagnostics.DebuggerNonUserCode()]
 		private void OnPropertyChanging(string propertyName)
 		{
@@ -3749,7 +3749,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.PropertyChanging(this, new System.ComponentModel.PropertyChangingEventArgs(propertyName));
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier of the user who created the record.
 		/// </summary>
@@ -3762,7 +3762,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("createdby");
 			}
 		}
-
+		
 		/// <summary>
 		/// Date and time when the record was created.
 		/// </summary>
@@ -3775,7 +3775,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<System.Nullable<System.DateTime>>("createdon");
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier of the delegate user who created the record.
 		/// </summary>
@@ -3795,7 +3795,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("CreatedOnBehalfBy");
 			}
 		}
-
+		
 		/// <summary>
 		/// Sequence number of the import that created this record.
 		/// </summary>
@@ -3815,7 +3815,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("ImportSequenceNumber");
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier of the user who modified the record.
 		/// </summary>
@@ -3828,7 +3828,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("modifiedby");
 			}
 		}
-
+		
 		/// <summary>
 		/// Date and time when the record was modified.
 		/// </summary>
@@ -3841,7 +3841,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<System.Nullable<System.DateTime>>("modifiedon");
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier of the delegate user who modified the record.
 		/// </summary>
@@ -3861,7 +3861,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("ModifiedOnBehalfBy");
 			}
 		}
-
+		
 		/// <summary>
 		/// Date and time that the record was migrated.
 		/// </summary>
@@ -3881,7 +3881,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("OverriddenCreatedOn");
 			}
 		}
-
+		
 		/// <summary>
 		/// Owner Id
 		/// </summary>
@@ -3901,7 +3901,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("OwnerId");
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier for the business unit that owns the record
 		/// </summary>
@@ -3914,7 +3914,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("owningbusinessunit");
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier for the team that owns the record.
 		/// </summary>
@@ -3927,7 +3927,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("owningteam");
 			}
 		}
-
+		
 		/// <summary>
 		/// Unique identifier for the user that owns the record.
 		/// </summary>
@@ -3940,27 +3940,47 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("owninguser");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_allocationyear")]
-		public string rscd_Allocationyear
+		public System.Nullable<int> rscd_allocationyear
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetAttributeValue<string>("rscd_allocationyear");
+				return this.GetAttributeValue<System.Nullable<int>>("rscd_allocationyear");
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.OnPropertyChanging("rscd_Allocationyear");
+				this.OnPropertyChanging("rscd_allocationyear");
 				this.SetAttributeValue("rscd_allocationyear", value);
-				this.OnPropertyChanged("rscd_Allocationyear");
+				this.OnPropertyChanged("rscd_allocationyear");
 			}
 		}
-
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_allocationyeardescription")]
+		public string rscd_allocationyeardescription
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("rscd_allocationyeardescription");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("rscd_allocationyeardescription");
+				this.SetAttributeValue("rscd_allocationyeardescription", value);
+				this.OnPropertyChanged("rscd_allocationyeardescription");
+			}
+		}
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -3980,7 +4000,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Countryoforigin");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -4000,7 +4020,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Dateofadmission");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -4020,7 +4040,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Dateofarrival");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -4040,7 +4060,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Dateoffroll");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -4060,7 +4080,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Details");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -4080,7 +4100,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Language");
 			}
 		}
-
+		
 		/// <summary>
 		/// Required name field
 		/// </summary>
@@ -4100,27 +4120,47 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Name");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_reason")]
-		public string rscd_Reason
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_reasoncode")]
+		public System.Nullable<int> rscd_reasoncode
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetAttributeValue<string>("rscd_reason");
+				return this.GetAttributeValue<System.Nullable<int>>("rscd_reasoncode");
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.OnPropertyChanging("rscd_Reason");
-				this.SetAttributeValue("rscd_reason", value);
-				this.OnPropertyChanged("rscd_Reason");
+				this.OnPropertyChanging("rscd_reasoncode");
+				this.SetAttributeValue("rscd_reasoncode", value);
+				this.OnPropertyChanged("rscd_reasoncode");
 			}
 		}
-
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_reasondescription")]
+		public string rscd_reasondescription
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("rscd_reasondescription");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("rscd_reasondescription");
+				this.SetAttributeValue("rscd_reasondescription", value);
+				this.OnPropertyChanged("rscd_reasondescription");
+			}
+		}
+		
 		/// <summary>
 		/// Unique identifier for entity instances
 		/// </summary>
@@ -4148,7 +4188,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_RemovepupilId");
 			}
 		}
-
+		
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_removepupilid")]
 		public override System.Guid Id
 		{
@@ -4163,7 +4203,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.rscd_RemovepupilId = value;
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -4183,7 +4223,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Subreason");
 			}
 		}
-
+		
 		/// <summary>
 		/// Status of the Remove pupil
 		/// </summary>
@@ -4218,7 +4258,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("StateCode");
 			}
 		}
-
+		
 		/// <summary>
 		/// Reason for the status of the Remove pupil
 		/// </summary>
@@ -4238,7 +4278,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("StatusCode");
 			}
 		}
-
+		
 		/// <summary>
 		/// For internal use only.
 		/// </summary>
@@ -4258,7 +4298,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("TimeZoneRuleVersionNumber");
 			}
 		}
-
+		
 		/// <summary>
 		/// Time zone code that was in use when the record was created.
 		/// </summary>
@@ -4278,7 +4318,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("UTCConversionTimeZoneCode");
 			}
 		}
-
+		
 		/// <summary>
 		/// Version Number
 		/// </summary>
@@ -4291,7 +4331,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.GetAttributeValue<System.Nullable<long>>("versionnumber");
 			}
 		}
-
+		
 		/// <summary>
 		/// 1:N rscd_Amendment_Removepupil
 		/// </summary>
@@ -4311,66 +4351,66 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanged("rscd_Amendment_Removepupil");
 			}
 		}
-
+		
 		/// <summary>
 		/// Constructor for populating via LINQ queries given a LINQ anonymous type
 		/// <param name="anonymousType">LINQ anonymous type.</param>
 		/// </summary>
 		[System.Diagnostics.DebuggerNonUserCode()]
-		public rscd_Removepupil(object anonymousType) :
+		public rscd_Removepupil(object anonymousType) : 
 				this()
 		{
-			foreach (var p in anonymousType.GetType().GetProperties())
-			{
-				var value = p.GetValue(anonymousType, null);
-				var name = p.Name.ToLower();
-
-				if (name.EndsWith("enum") && value.GetType().BaseType == typeof(System.Enum))
-				{
-					value = new Microsoft.Xrm.Sdk.OptionSetValue((int)value);
-					name = name.Remove(name.Length - "enum".Length);
-				}
-
-				switch (name)
-				{
-					case "id":
-						base.Id = (System.Guid)value;
-						Attributes["rscd_removepupilid"] = base.Id;
-						break;
-					case "rscd_removepupilid":
-						var id = (System.Nullable<System.Guid>)value;
-						if (id == null) { continue; }
-						base.Id = id.Value;
-						Attributes[name] = base.Id;
-						break;
-					case "formattedvalues":
-						// Add Support for FormattedValues
-						FormattedValues.AddRange((Microsoft.Xrm.Sdk.FormattedValueCollection)value);
-						break;
-					default:
-						Attributes[name] = value;
-						break;
-				}
-			}
+            foreach (var p in anonymousType.GetType().GetProperties())
+            {
+                var value = p.GetValue(anonymousType, null);
+                var name = p.Name.ToLower();
+            
+                if (name.EndsWith("enum") && value.GetType().BaseType == typeof(System.Enum))
+                {
+                    value = new Microsoft.Xrm.Sdk.OptionSetValue((int) value);
+                    name = name.Remove(name.Length - "enum".Length);
+                }
+            
+                switch (name)
+                {
+                    case "id":
+                        base.Id = (System.Guid)value;
+                        Attributes["rscd_removepupilid"] = base.Id;
+                        break;
+                    case "rscd_removepupilid":
+                        var id = (System.Nullable<System.Guid>) value;
+                        if(id == null){ continue; }
+                        base.Id = id.Value;
+                        Attributes[name] = base.Id;
+                        break;
+                    case "formattedvalues":
+                        // Add Support for FormattedValues
+                        FormattedValues.AddRange((Microsoft.Xrm.Sdk.FormattedValueCollection)value);
+                        break;
+                    default:
+                        Attributes[name] = value;
+                        break;
+                }
+            }
 		}
 	}
-
+	
 	/// <summary>
 	/// Represents a source of entities bound to a CRM service. It tracks and manages changes made to the retrieved entities.
 	/// </summary>
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.45")]
 	public partial class CrmServiceContext : Microsoft.Xrm.Sdk.Client.OrganizationServiceContext
 	{
-
+		
 		/// <summary>
 		/// Constructor.
 		/// </summary>
 		[System.Diagnostics.DebuggerNonUserCode()]
-		public CrmServiceContext(Microsoft.Xrm.Sdk.IOrganizationService service) :
+		public CrmServiceContext(Microsoft.Xrm.Sdk.IOrganizationService service) : 
 				base(service)
 		{
 		}
-
+		
 		/// <summary>
 		/// Gets a binding to the set of all <see cref="Dfe.CspdAlpha.Web.Infrastructure.Crm.cr3d5_establishment"/> entities.
 		/// </summary>
@@ -4382,7 +4422,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.CreateQuery<Dfe.CspdAlpha.Web.Infrastructure.Crm.cr3d5_establishment>();
 			}
 		}
-
+		
 		/// <summary>
 		/// Gets a binding to the set of all <see cref="Dfe.CspdAlpha.Web.Infrastructure.Crm.new_reviewandconfirmschool"/> entities.
 		/// </summary>
@@ -4394,7 +4434,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.CreateQuery<Dfe.CspdAlpha.Web.Infrastructure.Crm.new_reviewandconfirmschool>();
 			}
 		}
-
+		
 		/// <summary>
 		/// Gets a binding to the set of all <see cref="Dfe.CspdAlpha.Web.Infrastructure.Crm.rscd_Addpupil"/> entities.
 		/// </summary>
@@ -4406,7 +4446,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.CreateQuery<Dfe.CspdAlpha.Web.Infrastructure.Crm.rscd_Addpupil>();
 			}
 		}
-
+		
 		/// <summary>
 		/// Gets a binding to the set of all <see cref="Dfe.CspdAlpha.Web.Infrastructure.Crm.rscd_Addstudent"/> entities.
 		/// </summary>
@@ -4418,7 +4458,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.CreateQuery<Dfe.CspdAlpha.Web.Infrastructure.Crm.rscd_Addstudent>();
 			}
 		}
-
+		
 		/// <summary>
 		/// Gets a binding to the set of all <see cref="Dfe.CspdAlpha.Web.Infrastructure.Crm.rscd_Amendment"/> entities.
 		/// </summary>
@@ -4430,7 +4470,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				return this.CreateQuery<Dfe.CspdAlpha.Web.Infrastructure.Crm.rscd_Amendment>();
 			}
 		}
-
+		
 		/// <summary>
 		/// Gets a binding to the set of all <see cref="Dfe.CspdAlpha.Web.Infrastructure.Crm.rscd_Removepupil"/> entities.
 		/// </summary>
@@ -4443,10 +4483,10 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 			}
 		}
 	}
-
+	
 	internal sealed class EntityOptionSetEnum
 	{
-
+		
 		[System.Diagnostics.DebuggerNonUserCode()]
 		public static System.Nullable<int> GetEnum(Microsoft.Xrm.Sdk.Entity entity, string attributeLogicalName)
 		{
@@ -4461,39 +4501,39 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 			return null;
 		}
 	}
-
+	
 	/// <summary>
 	/// Attribute to handle storing the OptionSet's Metadata.
 	/// </summary>
 	[System.AttributeUsageAttribute(System.AttributeTargets.Field)]
 	public sealed class OptionSetMetadataAttribute : System.Attribute
 	{
-
+		
 		/// <summary>
 		/// Color of the OptionSetValue.
 		/// </summary>
 		public string Color { get; set; }
-
+		
 		/// <summary>
 		/// Description of the OptionSetValue.
 		/// </summary>
 		public string Description { get; set; }
-
+		
 		/// <summary>
 		/// Display order index of the OptionSetValue.
 		/// </summary>
 		public int DisplayIndex { get; set; }
-
+		
 		/// <summary>
 		/// External value of the OptionSetValue.
 		/// </summary>
 		public string ExternalValue { get; set; }
-
+		
 		/// <summary>
 		/// Name of the OptionSetValue.
 		/// </summary>
 		public string Name { get; set; }
-
+		
 		/// <summary>
 		/// Initializes a new instance of the <see cref="OptionSetMetadataAttribute"/> class.
 		/// </summary>
@@ -4512,13 +4552,13 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 			this.Name = name;
 		}
 	}
-
+	
 	/// <summary>
 	/// Extension class to handle retrieving of OptionSetMetadataAttribute.
 	/// </summary>
 	public static class OptionSetExtension
 	{
-
+		
 		/// <summary>
 		/// Returns the OptionSetMetadataAttribute for the given enum value
 		/// </summary>
@@ -4526,7 +4566,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 		/// <param name="value">Enum Value with OptionSetMetadataAttribute</param>
 		[System.Diagnostics.DebuggerNonUserCode()]
 		public static OptionSetMetadataAttribute GetMetadata<T>(this T value)
-			where T : struct, System.IConvertible
+			where T :  struct, System.IConvertible
 		{
 			System.Type enumType = typeof(T);
 			if (!enumType.IsEnum)

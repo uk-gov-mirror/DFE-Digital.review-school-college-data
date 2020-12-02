@@ -48,10 +48,19 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
                     rscd_Name = amendment.Pupil.FullName
                 };
                 var removeDetail = (RemovePupil)amendment.AmendmentDetail;
-                removeDto.rscd_Reason = removeDetail.Reason;
+
+                removeDto.rscd_reasoncode = removeDetail.ReasonCode;
                 removeDto.rscd_Subreason = removeDetail.SubReason;
                 removeDto.rscd_Details = removeDetail.Detail;
-                removeDto.rscd_Allocationyear = removeDetail.AllocationYear;
+                removeDto.rscd_allocationyear = removeDetail.AllocationYear;
+
+                if (removeDto.rscd_allocationyear != null)
+                {
+                    // generate "YYYY/YY" representation for helpdesk UI
+                    removeDto.rscd_allocationyeardescription = 
+                        $"{removeDto.rscd_allocationyear - 1}/{removeDto.rscd_allocationyear.ToString().Remove(0, 2)}";
+                }
+                
                 return removeDto;
             }
 

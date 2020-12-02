@@ -71,7 +71,8 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             if (viewModel.AmendmentType == AmendmentType.RemovePupil)
             {
                 viewModel.BackController = "RemovePupil";
-                var reason = ((RemovePupil) amendment.AmendmentDetail).Reason;
+                var reason = ((RemovePupil) amendment.AmendmentDetail).ReasonCode;
+
                 switch (reason)
                 {
                     case Constants.NOT_AT_END_OF_16_TO_18_STUDY:
