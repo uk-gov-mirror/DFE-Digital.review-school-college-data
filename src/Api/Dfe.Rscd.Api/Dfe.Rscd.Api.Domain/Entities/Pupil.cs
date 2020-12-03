@@ -28,8 +28,7 @@ namespace Dfe.Rscd.Api.Domain.Entities
 
         public bool InCurrentAllocationYear =>
             Allocations != null && Allocations.Any() && Allocations.First().Allocation != Allocation.NotAllocated;
-        public bool InLatestAllocationYear =>
-            Allocations != null && Allocations.Any() && Allocations.Where(a => a.Allocation != Allocation.Unknown).First().Allocation != Allocation.NotAllocated;
-
+        public bool WasAllocated =>
+            Allocations != null && Allocations.Any() && Allocations.SingleOrDefault(a => a.Allocation != Allocation.Unknown && a.Allocation != Allocation.NotAllocated) != null;
     }
 }
