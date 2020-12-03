@@ -32,7 +32,7 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.Services
             return matchedPupil.GetPupil(ALLOCATION_YEAR);
         }
 
-        public List<Pupil> QueryPupils(CheckingWindow checkingWindow, PupilsSearchRequest query)
+        public List<PupilRecord> QueryPupils(CheckingWindow checkingWindow, PupilsSearchRequest query)
         {
             var repoQuery = GetRepository(checkingWindow).Query();
             if (!string.IsNullOrWhiteSpace(query.URN))
@@ -53,7 +53,7 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.Services
             }
 
             var dtos = repoQuery.Take(PageSize).ToList();
-            return dtos.Select(p => p.GetPupil(ALLOCATION_YEAR)).ToList();
+            return dtos.Select(p => p.GetPupilRecord()).ToList();
         }
 
         private PupilRepository GetRepository(CheckingWindow checkingWindow)

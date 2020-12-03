@@ -59,7 +59,7 @@ namespace Dfe.Rscd.Api.Controllers
             OperationId = "SearchPupils",
             Tags = new[] { "Pupils" }
             )]
-        [ProducesResponseType(typeof(GetResponse<IEnumerable<Pupil>>), 200)]
+        [ProducesResponseType(typeof(GetResponse<IEnumerable<PupilRecord>>), 200)]
         [ProducesResponseType(400)]
         public async Task<IActionResult> Search([FromQuery, SwaggerParameter("Pupil search criteria.", Required = true)] PupilsSearchRequest request,
         [FromRoute, SwaggerParameter("The checking window to request pupil or pupils from", Required = true)] string checkingwindow)
@@ -73,7 +73,7 @@ namespace Dfe.Rscd.Api.Controllers
             Enum.TryParse(checkingwindow.Replace("-", string.Empty), true,
                 out checkingWindow);
             var pupils = _pupilService.QueryPupils(checkingWindow, request);
-            var response = new GetResponse<IEnumerable<Pupil>>
+            var response = new GetResponse<IEnumerable<PupilRecord>>
             {
                 Result = pupils,
                 Error = new Error()

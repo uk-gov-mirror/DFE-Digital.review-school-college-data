@@ -56,6 +56,18 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs
             };
         }
 
+        public PupilRecord GetPupilRecord()
+        {
+            return new PupilRecord
+            {
+                Id = id,
+                ForeName = Forename,
+                Surname = Surname,
+                ULN = ULN,
+                UPN = UPN
+            };
+        }
+
         private List<SourceOfAllocation> GetSourceOfAllocations(string allocationYear)
         {
             var year = int.Parse(allocationYear);

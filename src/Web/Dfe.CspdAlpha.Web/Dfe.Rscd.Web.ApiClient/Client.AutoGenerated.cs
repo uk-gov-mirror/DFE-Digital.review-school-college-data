@@ -796,7 +796,7 @@ namespace Dfe.Rscd.Web.ApiClient
         /// <param name="checkingwindow">The checking window to request pupil or pupils from</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<PupilIEnumerableGetResponse> SearchPupilsAsync(string uRN, string name, string iD, string checkingwindow)
+        public System.Threading.Tasks.Task<PupilRecordIEnumerableGetResponse> SearchPupilsAsync(string uRN, string name, string iD, string checkingwindow)
         {
             return SearchPupilsAsync(uRN, name, iD, checkingwindow, System.Threading.CancellationToken.None);
         }
@@ -806,7 +806,7 @@ namespace Dfe.Rscd.Web.ApiClient
         /// <param name="checkingwindow">The checking window to request pupil or pupils from</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<PupilIEnumerableGetResponse> SearchPupilsAsync(string uRN, string name, string iD, string checkingwindow, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<PupilRecordIEnumerableGetResponse> SearchPupilsAsync(string uRN, string name, string iD, string checkingwindow, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("api/{checkingwindow}/Pupils/search?");
@@ -855,7 +855,7 @@ namespace Dfe.Rscd.Web.ApiClient
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<PupilIEnumerableGetResponse>(response_, headers_).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<PupilRecordIEnumerableGetResponse>(response_, headers_).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);

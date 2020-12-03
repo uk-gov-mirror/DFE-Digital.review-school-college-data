@@ -8,6 +8,6 @@ namespace Dfe.Rscd.Api.Domain.Interfaces
     public interface IPupilService
     {
         Pupil GetById(CheckingWindow checkingWindow, string id);
-        List<Pupil> QueryPupils(CheckingWindow checkingWindow, PupilsSearchRequest query);
+        List<PupilRecord> QueryPupils(CheckingWindow checkingWindow, PupilsSearchRequest query);
     }
 }
