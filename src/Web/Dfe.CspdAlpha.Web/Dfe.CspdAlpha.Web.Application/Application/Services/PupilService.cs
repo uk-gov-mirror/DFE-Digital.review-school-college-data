@@ -74,21 +74,6 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             };
         }
 
-        private MatchedPupilViewModel GetMatchedPupilViewModel(ApiClient.PupilRecord pupil, CheckingWindow checkingWindow)
-        {
-            return new MatchedPupilViewModel()
-            {
-                PupilViewModel = new PupilViewModel
-                {
-                    ID = pupil.Id,
-                    UPN = pupil.Upn,
-                    ULN = pupil.Uln,
-                    FirstName = pupil.ForeName,
-                    LastName = pupil.Surname
-                }
-            };
-        }
-
         private Keystage GetKeyStage(CheckingWindow checkingWindow)
         {
             var checkingWindowString = checkingWindow.ToString();
@@ -111,14 +96,17 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
         public MatchedPupilViewModel GetMatchedPupil(CheckingWindow checkingWindow, string upn)
         {
             var checkingWindowURL = CheckingWindowHelper.GetCheckingWindowURL(checkingWindow);
-            var pupil = _apiClient.SearchPupilsAsync(string.Empty, string.Empty, upn, checkingWindowURL).GetAwaiter()
+            var pupilResults = _apiClient.SearchPupilsAsync(string.Empty, string.Empty, upn, checkingWindowURL).GetAwaiter()
                 .GetResult();
-            if (pupil == null || pupil.Result == null || pupil.Result.Count == 0 || pupil.Result.Count > 1)
+
+            if (pupilResults == null || pupilResults.Result == null || pupilResults.Result.Count == 0 || pupilResults.Result.Count > 1)
             {
                 return null;
             }
 
-            return GetMatchedPupilViewModel(pupil.Result.First(), checkingWindow);
+            var pupil = _apiClient.GetPupilByIdAsync(pupilResults.Result.First().Id, checkingWindowURL).GetAwaiter().GetResult();
+
+            return GetMatchedPupilViewModel(pupil.Result, checkingWindow);
         }
 
         private string ValidateValue(string value)
