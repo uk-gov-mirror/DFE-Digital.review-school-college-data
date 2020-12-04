@@ -12,7 +12,7 @@
             <th scope="col" class="govuk-table__header">View requested amendment</th>
             <th scope="col" class="govuk-table__header">Upload evidence</th>
             <th scope="col" class="govuk-table__header">Cancel amendment</th>
-            <th scope="col" class="govuk-table__header">Ref ID</th>
+            <th scope="col" class="govuk-table__header">Reference ID</th>
             <th scope="col" class="govuk-table__header">Status</th>
         </tr>
     </thead>
@@ -36,7 +36,7 @@
                     }
                     else if (amendment.EvidenceStatus == EvidenceOption.NotRequired)
                     {
-                        <span>Not required</span>
+                        <span>Not applicable</span>
 
                     }
                     else
@@ -54,7 +54,7 @@
                         <a asp-controller="Amendments" asp-action="Cancel" asp-route-id="@amendment.Id" class="app-modal__cancel-link">Cancel</a>
                     }
                 </td>
-                <td class="govuk-table__cell" data-label="Ref ID">@amendment.ReferenceId</td>
+                <td class="govuk-table__cell" data-label="Reference ID">@amendment.ReferenceId</td>
                 <td class="govuk-table__cell" data-label="Status">
                     @if (amendment.Status != "Cancelled" && amendment.EvidenceStatus == EvidenceOption.UploadLater)
                     {
