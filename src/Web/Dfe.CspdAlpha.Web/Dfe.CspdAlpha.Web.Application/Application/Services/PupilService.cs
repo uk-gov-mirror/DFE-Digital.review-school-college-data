@@ -61,7 +61,11 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                         ? Models.Common.Gender.Male
                         : Models.Common.Gender.Female,
                     DateOfAdmission = pupil.DateOfAdmission.Date,
-                    YearGroup = pupil.YearGroup
+                    YearGroup = pupil.YearGroup,
+                    AllocationYears = pupil.Allocations
+                        .Where(x=>x.Allocation != ApiClient.Allocation.NotAllocated)
+                        .Select(x => x.Year)
+                        .ToArray()
                 },
                 Results = pupil.Results
                     .Select(r => new PriorAttainmentResultViewModel

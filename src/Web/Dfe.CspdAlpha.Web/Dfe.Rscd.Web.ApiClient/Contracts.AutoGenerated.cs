@@ -410,8 +410,8 @@ namespace Dfe.Rscd.Web.ApiClient
         [Newtonsoft.Json.JsonProperty("inCurrentAllocationYear", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public bool InCurrentAllocationYear { get; set; }
     
-        [Newtonsoft.Json.JsonProperty("inLatestAllocationYear", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool InLatestAllocationYear { get; set; }
+        [Newtonsoft.Json.JsonProperty("wasAllocated", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public bool WasAllocated { get; set; }
     
     
     }
@@ -478,6 +478,12 @@ namespace Dfe.Rscd.Web.ApiClient
         [Newtonsoft.Json.JsonProperty("status", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Status { get; set; }
     
+        [Newtonsoft.Json.JsonProperty("scrutinyReasonCode", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int ScrutinyReasonCode { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("amdFlag", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string AmdFlag { get; set; }
+    
     
     }
     
@@ -495,6 +501,9 @@ namespace Dfe.Rscd.Web.ApiClient
     
         [Newtonsoft.Json.JsonProperty("allocationYear", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int? AllocationYear { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("allocationYears", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.ICollection<int> AllocationYears { get; set; }
     
     
     }

@@ -87,7 +87,8 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                     Age = viewModel.PupilViewModel.Age,
                     Gender = viewModel.PupilViewModel.Gender,
                     DateOfAdmission = viewModel.PupilViewModel.DateOfAdmission,
-                    YearGroup = viewModel.PupilViewModel.YearGroup
+                    YearGroup = viewModel.PupilViewModel.YearGroup,
+                    AllocationYears = viewModel.PupilViewModel.AllocationYears
                 },
                 AmendmentDetail = new RemovePupil()
             };
@@ -210,12 +211,15 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 return RedirectToAction("Index");
             }
             var removePupil = (RemovePupil)amendment.AmendmentDetail;
-            return View(new AllocationYearViewModel(_config["AllocationYear"])
+
+            var viewModel = new AllocationYearViewModel(_config["AllocationYear"])
             {
                 PupilDetails = amendment.PupilDetails,
                 ReasonCode = removePupil.ReasonCode,
-                AllocationYear = removePupil.AllocationYear
-            });
+                SelectedAllocationYears = amendment.PupilDetails.AllocationYears,
+            };
+
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -225,7 +229,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             var removePupil = (RemovePupil)amendment.AmendmentDetail;
             if (ModelState.IsValid)
             {
-                removePupil.AllocationYear = viewModel.AllocationYear;
+                removePupil.AmmendmentYears = viewModel.SelectedAllocationYears;
                 HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, amendment);
                 return RedirectToAction("Confirm", "Amendments");
             }
@@ -234,7 +238,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             {
                 PupilDetails = amendment.PupilDetails,
                 ReasonCode = removePupil.ReasonCode,
-                AllocationYear = viewModel.AllocationYear
+                SelectedAllocationYears = viewModel.SelectedAllocationYears
             });
         }
 

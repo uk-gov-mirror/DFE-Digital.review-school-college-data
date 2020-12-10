@@ -5,7 +5,7 @@
 //     Changes to this file may cause incorrect behavior and will be lost if
 //     the code is regenerated.
 // </auto-generated>
-// Created via this command line: "C:\Users\jrogers\AppData\Roaming\MscrmTools\XrmToolBox\Plugins\DLaB.EarlyBoundGenerator\crmsvcutil.exe" /url:"https://rscd-dev.api.crm4.dynamics.com/XRMServices/2011/Organization.svc" /generateActions /out:"C:\Users\jrogers\AppData\Roaming\MscrmTools\XrmToolBox\Settings\EBG\Actions.cs" /namespace:"Dfe.CspdAlpha.Web.Infrastructure.Crm" /codecustomization:"DLaB.CrmSvcUtilExtensions.Action.CustomizeCodeDomService,DLaB.CrmSvcUtilExtensions" /codegenerationservice:"DLaB.CrmSvcUtilExtensions.Action.CustomCodeGenerationService,DLaB.CrmSvcUtilExtensions" /codewriterfilter:"DLaB.CrmSvcUtilExtensions.Action.CodeWriterFilterService,DLaB.CrmSvcUtilExtensions" /metadataproviderservice:"DLaB.CrmSvcUtilExtensions.BaseMetadataProviderService,DLaB.CrmSvcUtilExtensions" 
+// Created via this command line: "C:\Users\MPREEZ\AppData\Roaming\MscrmTools\XrmToolBox\Plugins\DLaB.EarlyBoundGenerator\crmsvcutil.exe" /url:"https://rscd-dev.api.crm4.dynamics.com/XRMServices/2011/Organization.svc" /generateActions /out:"C:\Users\MPREEZ\OneDrive - Olive Jar Digital Ltd\EBG\Actions.cs" /namespace:"Dfe.CspdAlpha.Web.Infrastructure.Crm" /codecustomization:"DLaB.CrmSvcUtilExtensions.Action.CustomizeCodeDomService,DLaB.CrmSvcUtilExtensions" /codegenerationservice:"DLaB.CrmSvcUtilExtensions.Action.CustomCodeGenerationService,DLaB.CrmSvcUtilExtensions" /codewriterfilter:"DLaB.CrmSvcUtilExtensions.Action.CodeWriterFilterService,DLaB.CrmSvcUtilExtensions" /metadataproviderservice:"DLaB.CrmSvcUtilExtensions.BaseMetadataProviderService,DLaB.CrmSvcUtilExtensions" 
 //------------------------------------------------------------------------------
 
 namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
@@ -10473,6 +10473,59 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 		
 		public _EvaluateRuleAndRouteResponse()
 		{
+		}
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/msdyn/")]
+	[Microsoft.Xrm.Sdk.Client.RequestProxyAttribute("msdyn_MigrateSlaProactiveRun")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.45")]
+	public partial class msdyn_MigrateSlaProactiveRunRequest : Microsoft.Xrm.Sdk.OrganizationRequest
+	{
+		
+		public msdyn_MigrateSlaProactiveRunRequest()
+		{
+			this.RequestName = "msdyn_MigrateSlaProactiveRun";
+		}
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute(Namespace="http://schemas.microsoft.com/xrm/2011/msdyn/")]
+	[Microsoft.Xrm.Sdk.Client.ResponseProxyAttribute("msdyn_MigrateSlaProactiveRun")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.45")]
+	public partial class msdyn_MigrateSlaProactiveRunResponse : Microsoft.Xrm.Sdk.OrganizationResponse
+	{
+		
+		public msdyn_MigrateSlaProactiveRunResponse()
+		{
+		}
+		
+		public string Exception
+		{
+			get
+			{
+				if (this.Results.Contains("Exception"))
+				{
+					return ((string)(this.Results["Exception"]));
+				}
+				else
+				{
+					return default(string);
+				}
+			}
+		}
+		
+		public string OutputString
+		{
+			get
+			{
+				if (this.Results.Contains("OutputString"))
+				{
+					return ((string)(this.Results["OutputString"]));
+				}
+				else
+				{
+					return default(string);
+				}
+			}
 		}
 	}
 	

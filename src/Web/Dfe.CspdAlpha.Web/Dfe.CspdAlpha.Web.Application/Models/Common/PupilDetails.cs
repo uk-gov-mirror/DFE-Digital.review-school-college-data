@@ -19,6 +19,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.Common
         public DateTime DateOfAdmission { get; set; }
         public string YearGroup { get; set; }
 
+        public int[] AllocationYears { get; set; }
 
 
 

@@ -52,15 +52,25 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
                 removeDto.rscd_reasoncode = removeDetail.ReasonCode;
                 removeDto.rscd_Subreason = removeDetail.SubReason;
                 removeDto.rscd_Details = removeDetail.Detail;
-                removeDto.rscd_allocationyear = removeDetail.AllocationYear;
 
-                if (removeDto.rscd_allocationyear != null)
+                if (removeDetail.AllocationYears != null)
                 {
-                    // generate "YYYY/YY" representation for helpdesk UI
-                    removeDto.rscd_allocationyeardescription = 
-                        $"{removeDto.rscd_allocationyear - 1}/{removeDto.rscd_allocationyear.ToString().Remove(0, 2)}";
+                    removeDto.rscd_allocationyear = removeDetail.AllocationYears.FirstOrDefault();
+                    removeDto.rscd_allocationyeardescription = GenerateAllocationYearDescription(removeDto.rscd_allocationyear);
+
+                    if (removeDetail.AllocationYears.Length > 1)
+                    {
+                        removeDto.rscd_allocationyear_1 = removeDetail.AllocationYears.Skip(1).FirstOrDefault();
+                        removeDto.rscd_allocationyear_1description = GenerateAllocationYearDescription(removeDto.rscd_allocationyear_1);
+                    }
+
+                    if (removeDetail.AllocationYears.Length > 2)
+                    {
+                        removeDto.rscd_allocationyear_1 = removeDetail.AllocationYears.Skip(2).FirstOrDefault();
+                        removeDto.rscd_allocationyear_1description = GenerateAllocationYearDescription(removeDto.rscd_allocationyear_1);
+                    }
                 }
-                
+
                 return removeDto;
             }
 
@@ -105,6 +115,17 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
             return null;
         }
 
+        private string GenerateAllocationYearDescription(int? allocationYear)
+        {
+            if (allocationYear != null)
+            {
+                // generate "YYYY/YY" representation for helpdesk UI
+                return $"{allocationYear - 1}/{allocationYear.ToString().Remove(0, 2)}";
+            }
+
+            return string.Empty;
+        }
+
         public Guid BuildAmendments(Amendment amendment)
         {
             using (var context = new CrmServiceContext(_organizationService))
@@ -135,9 +156,13 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
                 amendmentDto.rscd_Evidencestatus = amendment.EvidenceStatus.ToCRMEvidenceStatus();
 
                 var amendmentTypeEntity = BuildAmendmentType(amendment);
+
                 context.AddObject(amendmentTypeEntity);
 
                 _outcomeService.SetOutcome(amendmentDto, amendment);
+
+                amendmentDto.rscd_rm_scrutiny_reason_code = amendment.ScrutinyReasonCode;
+                amendmentDto.rscd_rm_amdflag = amendment.AmdFlag;
 
                 context.AddObject(amendmentDto);
 

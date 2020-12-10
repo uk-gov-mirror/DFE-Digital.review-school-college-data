@@ -12,7 +12,7 @@ namespace Dfe.Rscd.Api.Domain.Entities
 
         public string Detail { get; set; }
 
-        public int? AllocationYear { get; set; }
+        public int[] AllocationYears { get; set; }
 
         public OutcomeStatus GetOutcomeStatus(Amendment amendment)
         {
@@ -37,17 +37,32 @@ namespace Dfe.Rscd.Api.Domain.Entities
                     return OutcomeStatus.AutoReject;
 
                 case 327: // Deceased
-                    return amendment.Pupil.WasAllocated ? OutcomeStatus.AutoAccept : OutcomeStatus.AutoReject;
+                    return amendment.Pupil.WasAllocatedAny ? OutcomeStatus.AutoAccept : OutcomeStatus.AutoReject;
 
                 case 328: // Not on roll
-                    if (amendment.Pupil.Allocations.Single(a => a.Year == AllocationYear).Allocation == Allocation.AwardingOrganisation)
+                    if (amendment.Pupil.IsAOAllocated(AllocationYears))
                     {
+                        amendment.ScrutinyReasonCode = ScrutinyReason.NotOnRoll;
+                        amendment.AmdFlag = "NR";
+
                         return OutcomeStatus.AutoAccept;
                     }
+
+                    amendment.ScrutinyReasonCode = ScrutinyReason.NotOnRoll;
                     return OutcomeStatus.AutoReject;
 
                 case 330: // Evidence not required
-                    return OutcomeStatus.AutoReject;
+                    if(!amendment.Pupil.IsAOAllocated(AllocationYears))
+                    {
+                        amendment.ScrutinyReasonCode = ScrutinyReason.OtherWithoutEvidence;
+                        amendment.AmdFlag = "NR";
+
+                        return OutcomeStatus.AutoReject;
+                    }
+
+                    amendment.ScrutinyReasonCode = 102;
+
+                    return OutcomeStatus.AwatingDfeReview;
 
                 default:
                     return OutcomeStatus.AwatingDfeReview;

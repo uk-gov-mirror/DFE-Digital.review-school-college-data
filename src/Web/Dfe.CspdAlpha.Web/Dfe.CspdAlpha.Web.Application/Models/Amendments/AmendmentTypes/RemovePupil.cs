@@ -10,6 +10,6 @@ namespace Dfe.CspdAlpha.Web.Application.Models.Amendments.AmendmentTypes
 
         public string Detail { get; set; }
 
-        public int? AllocationYear { get; set; }
+        public int[] AmmendmentYears { get; set; }
     }
 }

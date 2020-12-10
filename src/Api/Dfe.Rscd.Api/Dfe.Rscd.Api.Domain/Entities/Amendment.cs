@@ -17,5 +17,8 @@ namespace Dfe.Rscd.Api.Domain.Entities
         public IAmendmentType AmendmentDetail { get; set; }   
         public DateTime CreatedDate { get; set; }
         public string Status { get; set; }
+
+        public int ScrutinyReasonCode { get; set; }
+        public string AmdFlag { get; set; }
     }
 }

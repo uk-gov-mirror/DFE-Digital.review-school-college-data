@@ -92,13 +92,13 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             }
             if (amendmentDto.Amendment.AmendmentType == ApiClient.AmendmentType.RemovePupil)
             {
-                var removeAmendment = (Dfe.CspdAlpha.Web.Application.Models.Amendments.AmendmentTypes.RemovePupil) amendment.AmendmentDetail;
+                var removeAmendment = (RemovePupil) amendment.AmendmentDetail;
                 amendmentDto.RemovePupil = new ApiClient.RemovePupil
                 {
                     ReasonCode = removeAmendment.ReasonCode,
                     SubReason = removeAmendment.SubReason,
                     Detail = removeAmendment.Detail,
-                    AllocationYear = removeAmendment.AllocationYear
+                    AllocationYears = removeAmendment.AmmendmentYears
                 };
             }
 

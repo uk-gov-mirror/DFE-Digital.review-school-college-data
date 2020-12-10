@@ -28,7 +28,20 @@ namespace Dfe.Rscd.Api.Domain.Entities
 
         public bool InCurrentAllocationYear =>
             Allocations != null && Allocations.Any() && Allocations.First().Allocation != Allocation.NotAllocated;
-        public bool WasAllocated =>
+        public bool WasAllocatedAny =>
             Allocations != null && Allocations.Any() && Allocations.FirstOrDefault(a => a.Allocation != Allocation.Unknown && a.Allocation != Allocation.NotAllocated) != null;
+
+        public bool IsAOAllocated(int[] years)
+        {
+            foreach (int year in years)
+            {
+                if(!Allocations.Any(a => a.Allocation == Allocation.AwardingOrganisation && a.Year == year))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
 }

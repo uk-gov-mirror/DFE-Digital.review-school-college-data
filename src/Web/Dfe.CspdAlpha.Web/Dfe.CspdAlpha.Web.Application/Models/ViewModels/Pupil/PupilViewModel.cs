@@ -20,5 +20,6 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
         public DateTime DateOfAdmission { get; set; }
         public string YearGroup { get; set; }
         public string FullName => string.Join(" ", new[] {FirstName, LastName}.Where(n => !string.IsNullOrEmpty(n)));
+        public int[] AllocationYears { get; set; }
     }
 }
