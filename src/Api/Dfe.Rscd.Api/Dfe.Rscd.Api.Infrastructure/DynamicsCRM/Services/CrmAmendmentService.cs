@@ -26,15 +26,13 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
         private readonly IOrganizationService _organizationService;
         private readonly Guid _sharePointDocumentLocationRecordId;
         private readonly IEstablishmentService _establishmentService;
-        private readonly IAmendmentBuilder[] _amendmentBuilders;
-        private readonly IOutcomeService _outcomeService;
-        private readonly IPupilService _pupilService;
+        private readonly IEnumerable<IAmendmentBuilder> _amendmentBuilders;
 
         public CrmAmendmentService(
             IOrganizationService organizationService,
             IEstablishmentService establishmentService,
             IOptions<DynamicsOptions> dynamicsOptions,
-            IAmendmentBuilder[] amendmentBuilders)
+            IEnumerable<IAmendmentBuilder> amendmentBuilders)
         {
             _establishmentService = establishmentService;
             _amendmentBuilders = amendmentBuilders;

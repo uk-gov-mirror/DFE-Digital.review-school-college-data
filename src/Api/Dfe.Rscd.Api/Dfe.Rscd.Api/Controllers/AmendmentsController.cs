@@ -84,50 +84,14 @@ namespace Dfe.Rscd.Api.Controllers
         // POST: api/Amendments
         [HttpPost]
         [SwaggerOperation(
-            Summary = "Creates an add pupil amendment in CRM",
-            Description = "Creates an amendment linked to an establishment and checking phase in CRM",
-            OperationId = "CreateAmendment",
-            Tags = new[] {"Amendments"}
-        )]
-        [ProducesResponseType(typeof(GetResponse<string>), 200)]
-        [ProducesResponseType(400)]
-        public IActionResult Post([FromBody] [SwaggerRequestBody("Amendment to add to CRM", Required = true)] AddPupilAmendment amendment)
-        {
-            try
-            {
-                var amendmentReference = _amendmentService.CreateAmendment(amendment);
-                var response = new GetResponse<string>
-                {
-                    Result = amendmentReference,
-                    Error = new Error()
-                };
-                return Ok(response);
-            }
-            catch (Exception e)
-            {
-                var response = new GetResponse<string>
-                {
-                    Result = string.Empty,
-                    Error = new Error
-                    {
-                        ErrorMessage = e.Message
-                    }
-                };
-                return BadRequest(response);
-            }
-        }
-
-        // POST: api/Amendments
-        [HttpPost]
-        [SwaggerOperation(
-            Summary = "Creates a remove pupil amendment in CRM",
+            Summary = "Creates an amendment in CRM",
             Description = "Creates an amendment linked to an establishment and checking phase in CRM",
             OperationId = "CreateAmendment",
             Tags = new[] { "Amendments" }
         )]
         [ProducesResponseType(typeof(GetResponse<string>), 200)]
         [ProducesResponseType(400)]
-        public IActionResult Post([FromBody][SwaggerRequestBody("Amendment to add to CRM", Required = true)] RemovePupilAmendment amendment)
+        public IActionResult Post([FromBody][SwaggerRequestBody("Amendment to add to CRM", Required = true)] IAmendment amendment)
         {
             try
             {

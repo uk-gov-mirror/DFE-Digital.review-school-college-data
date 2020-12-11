@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Dfe.CspdAlpha.Web.Infrastructure.Crm;
 using Dfe.Rscd.Api.Domain.Core.Enums;
 using Dfe.Rscd.Api.Domain.Interfaces;
@@ -8,9 +9,9 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
 {
     public class OutcomeService : IOutcomeService
     {
-        private readonly IRuleSet[] _rules;
+        private readonly IEnumerable<IRuleSet> _rules;
 
-        public OutcomeService(IRuleSet[] rules)
+        public OutcomeService(IEnumerable<IRuleSet> rules)
         {
             _rules = rules;
         }
