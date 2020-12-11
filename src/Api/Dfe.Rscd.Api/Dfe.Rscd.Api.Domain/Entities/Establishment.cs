@@ -1,5 +1,5 @@
-﻿using Dfe.Rscd.Api.Domain.Core;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Dfe.Rscd.Api.Domain.Core;
 
 namespace Dfe.Rscd.Api.Domain.Entities
 {

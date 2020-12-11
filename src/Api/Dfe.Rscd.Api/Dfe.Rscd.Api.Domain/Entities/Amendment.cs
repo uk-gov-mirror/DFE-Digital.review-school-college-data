@@ -4,21 +4,23 @@ using Dfe.Rscd.Api.Domain.Interfaces;
 
 namespace Dfe.Rscd.Api.Domain.Entities
 {
-    public class Amendment
+    public class Amendment : IAmendment
     {
-        public string Id { get; set; }
-        public CheckingWindow CheckingWindow { get; set; }
-        public AmendmentType AmendmentType { get; set; }
-        public string Reference { get; set; }
         public string URN { get; set; }
-        public Pupil Pupil { get; set; }
+        public AmendmentType AmendmentType { get; protected set; }
         public string EvidenceFolderName { get; set; }
         public EvidenceStatus EvidenceStatus { get; set; }
-        public IAmendmentType AmendmentDetail { get; set; }   
+        public IAmendmentDetail AmendmentDetail { get; set; }
+        public string Reference { get; set; }
         public DateTime CreatedDate { get; set; }
         public string Status { get; set; }
+        public string Id { get; set; }
+        public CheckingWindow CheckingWindow { get; set; }
+        public Pupil Pupil { get; set; }
 
-        public int ScrutinyReasonCode { get; set; }
-        public string AmdFlag { get; set; }
+        public virtual IAmendmentDetail GetAmendmentDetail()
+        {
+            return AmendmentDetail ?? new AmendmentDetail();
+        }
     }
 }

@@ -1,8 +1,8 @@
-﻿using Dfe.Rscd.Api.Domain.Core.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Dfe.Rscd.Api.Domain.Core;
+using Dfe.Rscd.Api.Domain.Core.Enums;
 
 namespace Dfe.Rscd.Api.Domain.Entities
 {
@@ -24,14 +24,6 @@ namespace Dfe.Rscd.Api.Domain.Entities
         public List<Result> Results { get; set; }
         public List<SourceOfAllocation> Allocations { get; set; }
 
-        public string FullName => string.Join(" ", new[] { ForeName, LastName }.Where(n => !string.IsNullOrEmpty(n)));
-
-        public bool InCurrentAllocationYear =>
-            Allocations != null && Allocations.Any() && Allocations.First().Allocation != Allocation.NotAllocated;
-        public bool WasAllocatedAny =>
-            Allocations != null && Allocations.Any() && Allocations.FirstOrDefault(a => a.Allocation != Allocation.Unknown && a.Allocation != Allocation.NotAllocated) != null;
-
-        public bool IsAOAllocated => Allocations.Any(a => a.Allocation == Allocation.AwardingOrganisation);
-        
+        public string FullName => string.Join(" ", new[] {ForeName, LastName}.Where(n => !string.IsNullOrEmpty(n)));
     }
 }

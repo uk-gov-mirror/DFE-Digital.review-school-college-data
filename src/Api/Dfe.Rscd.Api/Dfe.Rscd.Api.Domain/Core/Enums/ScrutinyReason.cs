@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Dfe.Rscd.Api.Domain.Core.Enums
+﻿namespace Dfe.Rscd.Api.Domain.Core.Enums
 {
     public struct ScrutinyReason
     {

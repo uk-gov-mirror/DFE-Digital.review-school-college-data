@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Globalization;
 using System.Linq;
 using Dfe.Rscd.Api.Domain.Core;
@@ -51,7 +50,11 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs
                 Gender = Gender == "M" ? Domain.Core.Enums.Gender.Male : Domain.Core.Enums.Gender.Female,
                 DateOfAdmission = GetDateTime(ENTRYDAT.ToString()),
                 YearGroup = ActualYearGroup,
-                Results = performance.Select(p => new Result { SubjectCode = p.SubjectCode, ExamYear = p.ExamYear, TestMark = p.TestMark, ScaledScore = p.ScaledScore }).ToList(),
+                Results = performance.Select(p => new Result
+                {
+                    SubjectCode = p.SubjectCode, ExamYear = p.ExamYear, TestMark = p.TestMark,
+                    ScaledScore = p.ScaledScore
+                }).ToList(),
                 Allocations = GetSourceOfAllocations(allocationYear)
             };
         }
@@ -72,42 +75,34 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs
         {
             var year = int.Parse(allocationYear);
             var allocations = new List<SourceOfAllocation>();
-            if (string.IsNullOrEmpty(SRC_LAESTAB_0) && string.IsNullOrEmpty(SRC_LAESTAB_1) && string.IsNullOrEmpty(SRC_LAESTAB_2))
-            {
-                return allocations;
-            }
+            if (string.IsNullOrEmpty(SRC_LAESTAB_0) && string.IsNullOrEmpty(SRC_LAESTAB_1) &&
+                string.IsNullOrEmpty(SRC_LAESTAB_2)) return allocations;
 
             if (Attendance_year_0 && DFESNumber == Core_Provider_0)
-            {
-                allocations.Add(new SourceOfAllocation(year--, SRC_LAESTAB_0.ToAllocation())); 
-            }
+                allocations.Add(new SourceOfAllocation(year--, SRC_LAESTAB_0.ToAllocation()));
             else
-            {
-                allocations.Add(new SourceOfAllocation(year--, string.IsNullOrEmpty(Core_Provider_0) ? Allocation.Unknown : Allocation.NotAllocated));
-            }
+                allocations.Add(new SourceOfAllocation(year--,
+                    string.IsNullOrEmpty(Core_Provider_0) ? Allocation.Unknown : Allocation.NotAllocated));
             if (Attendance_year_1 && DFESNumber == Core_Provider_1)
-            {
                 allocations.Add(new SourceOfAllocation(year--, SRC_LAESTAB_1.ToAllocation()));
-            }
             else
-            {
-                allocations.Add(new SourceOfAllocation(year--, string.IsNullOrEmpty(Core_Provider_1) ? Allocation.Unknown : Allocation.NotAllocated));
-            }
+                allocations.Add(new SourceOfAllocation(year--,
+                    string.IsNullOrEmpty(Core_Provider_1) ? Allocation.Unknown : Allocation.NotAllocated));
             if (Attendance_year_2 && DFESNumber == Core_Provider_2)
-            {
                 allocations.Add(new SourceOfAllocation(year--, SRC_LAESTAB_2.ToAllocation()));
-            }
             else
-            {
-                allocations.Add(new SourceOfAllocation(year--, string.IsNullOrEmpty(Core_Provider_2) ? Allocation.Unknown : Allocation.NotAllocated));
-            }
+                allocations.Add(new SourceOfAllocation(year--,
+                    string.IsNullOrEmpty(Core_Provider_2) ? Allocation.Unknown : Allocation.NotAllocated));
 
             return allocations;
         }
 
         private DateTime GetDateTime(string dateString)
         {
-            return DateTime.TryParseExact(dateString, "yyyyMMdd", new CultureInfo("en-GB"), DateTimeStyles.None, out var date ) ? date : DateTime.MinValue;
+            return DateTime.TryParseExact(dateString, "yyyyMMdd", new CultureInfo("en-GB"), DateTimeStyles.None,
+                out var date)
+                ? date
+                : DateTime.MinValue;
         }
     }
 }

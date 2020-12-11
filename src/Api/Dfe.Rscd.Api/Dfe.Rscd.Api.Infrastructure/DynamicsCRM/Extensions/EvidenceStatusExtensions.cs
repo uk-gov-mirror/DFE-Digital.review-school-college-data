@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Dfe.CspdAlpha.Web.Infrastructure.Crm;
 using Dfe.Rscd.Api.Domain.Core.Enums;
 
@@ -22,6 +20,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Extensions
                     throw new ApplicationException();
             }
         }
+
         public static rscd_Evidencestatus ToCRMEvidenceStatus(this EvidenceStatus evidencestatus)
         {
             switch (evidencestatus)

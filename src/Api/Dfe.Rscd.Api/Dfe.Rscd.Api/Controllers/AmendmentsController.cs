@@ -1,18 +1,16 @@
-﻿using CsvHelper;
-using Dfe.Rscd.Api.Domain.Core.Enums;
-using Dfe.Rscd.Api.Domain.Entities;
-using Dfe.Rscd.Api.Domain.Interfaces;
-using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Models;
-using Dfe.Rscd.Api.Models;
-using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Net.Mime;
+using CsvHelper;
+using Dfe.Rscd.Api.Domain.Entities;
+using Dfe.Rscd.Api.Domain.Interfaces;
 using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Extensions;
+using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Models;
+using Dfe.Rscd.Api.Models;
+using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Dfe.Rscd.Api.Controllers
 {
@@ -20,7 +18,7 @@ namespace Dfe.Rscd.Api.Controllers
     [ApiController]
     public class AmendmentsController : ControllerBase
     {
-        private IAmendmentService _amendmentService;
+        private readonly IAmendmentService _amendmentService;
 
         public AmendmentsController(IAmendmentService amendmentService)
         {
@@ -34,22 +32,20 @@ namespace Dfe.Rscd.Api.Controllers
             Summary = "Returns the requested amendment",
             Description = "Returns the amendment specified by the id",
             OperationId = "GetAmendment",
-            Tags = new[] { "Amendments" }
+            Tags = new[] {"Amendments"}
         )]
         [ProducesResponseType(typeof(GetResponse<AmendmentDTO>), 200)]
-        public IActionResult GetAmendment([FromRoute, SwaggerParameter("The id of the requested amendment", Required = true)] string id,
-            [FromRoute, SwaggerParameter("The checking window to request amendments from", Required = true)] string checkingwindow)
+        public IActionResult GetAmendment(
+            [FromRoute] [SwaggerParameter("The id of the requested amendment", Required = true)]
+            string id,
+            [FromRoute] [SwaggerParameter("The checking window to request amendments from", Required = true)]
+            string checkingwindow)
         {
             var amendment = _amendmentService.GetAmendment(checkingwindow.ToDomainCheckingWindow(), id);
-            var amendmentDto = new AmendmentDTO
+
+            var response = new GetResponse<IAmendment>
             {
-                Amendment = amendment,
-                AddPupil = amendment.AmendmentType == AmendmentType.AddPupil ? (AddPupil)amendment.AmendmentDetail : new AddPupil(),
-                RemovePupil = amendment.AmendmentType == AmendmentType.RemovePupil ? (RemovePupil)amendment.AmendmentDetail : new RemovePupil()
-            };
-            var response = new GetResponse<AmendmentDTO>
-            {
-                Result = amendmentDto,
+                Result = amendment,
                 Error = new Error()
             };
             return Ok(response);
@@ -62,19 +58,25 @@ namespace Dfe.Rscd.Api.Controllers
             Summary = "Searches for amendments by school or college",
             Description = "Searches for requested amendments in CRM recorded against the supplied URN.",
             OperationId = "GetAmendments",
-            Tags = new[] { "Amendments" }
+            Tags = new[] {"Amendments"}
         )]
-        [ProducesResponseType(typeof(GetResponse<List<Amendment>>), 200)]
-        public IActionResult GetAmendments([FromRoute, SwaggerParameter("The URN of the school requesting amendments", Required = true)] string urn,
-            [FromRoute, SwaggerParameter("The checking window to request amendments from", Required = true)] string checkingwindow)
+        [ProducesResponseType(typeof(GetResponse<List<IAmendment>>), 200)]
+        public IActionResult GetAmendments(
+            [FromRoute] [SwaggerParameter("The URN of the school requesting amendments", Required = true)]
+            string urn,
+            [FromRoute] [SwaggerParameter("The checking window to request amendments from", Required = true)]
+            string checkingwindow)
         {
-            var amendments = _amendmentService.GetAmendments(checkingwindow.ToDomainCheckingWindow(), urn)
+            var amendments = _amendmentService
+                .GetAmendments(checkingwindow.ToDomainCheckingWindow(), urn)
                 .ToList();
-            var response = new GetResponse<List<Amendment>>
+
+            var response = new GetResponse<List<IAmendment>>
             {
                 Result = amendments,
                 Error = new Error()
             };
+
             return Ok(response);
         }
 
@@ -82,25 +84,51 @@ namespace Dfe.Rscd.Api.Controllers
         // POST: api/Amendments
         [HttpPost]
         [SwaggerOperation(
-            Summary = "Creates an amendment in CRM",
+            Summary = "Creates an add pupil amendment in CRM",
+            Description = "Creates an amendment linked to an establishment and checking phase in CRM",
+            OperationId = "CreateAmendment",
+            Tags = new[] {"Amendments"}
+        )]
+        [ProducesResponseType(typeof(GetResponse<string>), 200)]
+        [ProducesResponseType(400)]
+        public IActionResult Post([FromBody] [SwaggerRequestBody("Amendment to add to CRM", Required = true)] AddPupilAmendment amendment)
+        {
+            try
+            {
+                var amendmentReference = _amendmentService.CreateAmendment(amendment);
+                var response = new GetResponse<string>
+                {
+                    Result = amendmentReference,
+                    Error = new Error()
+                };
+                return Ok(response);
+            }
+            catch (Exception e)
+            {
+                var response = new GetResponse<string>
+                {
+                    Result = string.Empty,
+                    Error = new Error
+                    {
+                        ErrorMessage = e.Message
+                    }
+                };
+                return BadRequest(response);
+            }
+        }
+
+        // POST: api/Amendments
+        [HttpPost]
+        [SwaggerOperation(
+            Summary = "Creates a remove pupil amendment in CRM",
             Description = "Creates an amendment linked to an establishment and checking phase in CRM",
             OperationId = "CreateAmendment",
             Tags = new[] { "Amendments" }
         )]
         [ProducesResponseType(typeof(GetResponse<string>), 200)]
         [ProducesResponseType(400)]
-        public IActionResult Post([FromBody, SwaggerRequestBody("Amendment to add to CRM", Required = true)] AmendmentDTO amendmentDto)
+        public IActionResult Post([FromBody][SwaggerRequestBody("Amendment to add to CRM", Required = true)] RemovePupilAmendment amendment)
         {
-            var amendment = amendmentDto.Amendment;
-            if (amendment.AmendmentType == AmendmentType.AddPupil)
-            {
-                amendment.AmendmentDetail = amendmentDto.AddPupil;
-            }
-            else
-            {
-                amendment.AmendmentDetail =  amendmentDto.RemovePupil;
-            }
-
             try
             {
                 var amendmentReference = _amendmentService.CreateAmendment(amendment);
@@ -131,17 +159,20 @@ namespace Dfe.Rscd.Api.Controllers
             Summary = "Relates evidence to an amendment",
             Description = "Creates an entity relationship between an amendment and evidence documents",
             OperationId = "RelateEvidence",
-            Tags = new[] { "Amendments", "Evidence" }
+            Tags = new[] {"Amendments", "Evidence"}
         )]
         [ProducesResponseType(typeof(GetResponse<bool>), 200)]
-        public IActionResult RelateEvidence([FromBody, SwaggerRequestBody("Amendment to add to CRM", Required = true)] RelateEvidenceDTO relateEvidenceDto)
+        public IActionResult RelateEvidence([FromBody] [SwaggerRequestBody("Amendment to add to CRM", Required = true)]
+            RelateEvidenceDTO relateEvidenceDto)
         {
             _amendmentService.RelateEvidence(relateEvidenceDto.AmendmentID, relateEvidenceDto.EvidenceFolderName, true);
+
             var response = new GetResponse<bool>
             {
                 Result = true,
                 Error = new Error()
             };
+
             return Ok(response);
         }
 
@@ -153,7 +184,7 @@ namespace Dfe.Rscd.Api.Controllers
             OperationId = "CancelAmendment",
             Tags = new[] {"Amendments"})]
         [ProducesResponseType(typeof(GetResponse<bool>), 200)]
-        public IActionResult Delete([FromRoute, SwaggerParameter("The id of the amendment to cancel", Required = true)]
+        public IActionResult Delete([FromRoute] [SwaggerParameter("The id of the amendment to cancel", Required = true)]
             string id)
         {
             var result = _amendmentService.CancelAmendment(id);
@@ -173,8 +204,8 @@ namespace Dfe.Rscd.Api.Controllers
             Summary = "Generates CSV file of all recorded accepted amendments",
             Description = "Generates CSV file of all recorded accepted amendments.",
             OperationId = "DownloadAmendmentsCsv",
-            Tags = new[] { "Amendments" }
-            )]
+            Tags = new[] {"Amendments"}
+        )]
         [ProducesResponseType(typeof(string), 200)]
         public IActionResult Get()
         {

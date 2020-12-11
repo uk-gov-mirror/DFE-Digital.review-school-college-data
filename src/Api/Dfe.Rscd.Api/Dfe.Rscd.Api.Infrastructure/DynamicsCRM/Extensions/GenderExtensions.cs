@@ -18,6 +18,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Extensions
                     throw new ApplicationException();
             }
         }
+
         public static cr3d5_Gender ToCRMGenderType(this Gender amendmentType)
         {
             switch (amendmentType)

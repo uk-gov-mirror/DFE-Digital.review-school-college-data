@@ -1,10 +1,9 @@
-﻿using Dfe.Rscd.Api.Domain.Entities;
-using Dfe.Rscd.Api.Domain.Interfaces;
-using Microsoft.Xrm.Sdk;
-using System;
+﻿using System;
 using System.Linq;
 using Dfe.CspdAlpha.Web.Infrastructure.Crm;
-
+using Dfe.Rscd.Api.Domain.Entities;
+using Dfe.Rscd.Api.Domain.Interfaces;
+using Microsoft.Xrm.Sdk;
 
 namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
 {
@@ -41,17 +40,13 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
             using (var context = new CrmServiceContext(_organizationService))
             {
                 var confirmation = context.new_reviewandconfirmschoolSet
-                    .SingleOrDefault(r => r.new_UserID == confirmationRecord.UserId && r.new_SchoolURN == confirmationRecord.EstablishmentId);
-                if (confirmation == null)
-                {
-                    throw new ApplicationException();
-                }
+                    .SingleOrDefault(r =>
+                        r.new_UserID == confirmationRecord.UserId &&
+                        r.new_SchoolURN == confirmationRecord.EstablishmentId);
+                if (confirmation == null) throw new ApplicationException();
                 confirmation.new_Reviewed = confirmationRecord.ReviewCompleted;
                 confirmation.new_Confirmed = confirmationRecord.DataConfirmed;
-                if (confirmationRecord.DataConfirmed)
-                {
-                    confirmation.rscd_Confirmationdate = DateTime.Now.Date;
-                }
+                if (confirmationRecord.DataConfirmed) confirmation.rscd_Confirmationdate = DateTime.Now.Date;
                 context.UpdateObject(confirmation);
                 context.SaveChanges();
                 return true;

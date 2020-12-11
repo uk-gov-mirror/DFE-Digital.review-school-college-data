@@ -10,11 +10,12 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.Repositories
 {
     public class PupilRepository : IReadRepository<PupilDTO>
     {
-        private Container _container { get; }
         public PupilRepository(Container container)
         {
             _container = container;
         }
+
+        private Container _container { get; }
 
         public List<PupilDTO> Get()
         {
@@ -26,10 +27,7 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.Repositories
             try
             {
                 var result = _container.ReadItemAsync<PupilDTO>(id, PartitionKey.None).Result;
-                if (result.StatusCode == HttpStatusCode.OK)
-                {
-                    return result.Resource;
-                }
+                if (result.StatusCode == HttpStatusCode.OK) return result.Resource;
             }
             catch
             {
@@ -39,7 +37,7 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.Repositories
         }
 
         public IQueryable<PupilDTO> Query()
-        {       
+        {
             return _container.GetItemLinqQueryable<PupilDTO>(true);
         }
     }

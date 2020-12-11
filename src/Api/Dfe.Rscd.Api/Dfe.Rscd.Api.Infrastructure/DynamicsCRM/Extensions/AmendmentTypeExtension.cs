@@ -1,6 +1,6 @@
-﻿using Dfe.CspdAlpha.Web.Infrastructure.Crm;
+﻿using System;
+using Dfe.CspdAlpha.Web.Infrastructure.Crm;
 using Dfe.Rscd.Api.Domain.Core.Enums;
-using System;
 
 namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Extensions
 {
@@ -18,7 +18,8 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Extensions
                     throw new ApplicationException();
             }
         }
-        public static rscd_Amendmenttype  ToCRMAmendmentType(this AmendmentType amendmentType)
+
+        public static rscd_Amendmenttype ToCRMAmendmentType(this AmendmentType amendmentType)
         {
             switch (amendmentType)
             {
