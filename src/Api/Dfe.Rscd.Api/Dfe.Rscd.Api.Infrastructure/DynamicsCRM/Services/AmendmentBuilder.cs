@@ -53,21 +53,21 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
                 removeDto.rscd_Subreason = removeDetail.SubReason;
                 removeDto.rscd_Details = removeDetail.Detail;
 
-                if (removeDetail.AllocationYears != null)
+                if (pupil.Allocations != null)
                 {
-                    removeDto.rscd_allocationyear = removeDetail.AllocationYears.FirstOrDefault();
+                    removeDto.rscd_allocationyear = pupil.Allocations.Select(x=>x.Year).FirstOrDefault();
                     removeDto.rscd_allocationyeardescription = GenerateAllocationYearDescription(removeDto.rscd_allocationyear);
 
-                    if (removeDetail.AllocationYears.Length > 1)
+                    if (pupil.Allocations.Count > 1)
                     {
-                        removeDto.rscd_allocationyear_1 = removeDetail.AllocationYears.Skip(1).FirstOrDefault();
+                        removeDto.rscd_allocationyear_1 = pupil.Allocations.Select(x => x.Year).Skip(1).FirstOrDefault();
                         removeDto.rscd_allocationyear_1description = GenerateAllocationYearDescription(removeDto.rscd_allocationyear_1);
                     }
 
-                    if (removeDetail.AllocationYears.Length > 2)
+                    if (pupil.Allocations.Count > 2)
                     {
-                        removeDto.rscd_allocationyear_1 = removeDetail.AllocationYears.Skip(2).FirstOrDefault();
-                        removeDto.rscd_allocationyear_1description = GenerateAllocationYearDescription(removeDto.rscd_allocationyear_1);
+                        removeDto.rscd_allocationyear_2 = pupil.Allocations.Select(x => x.Year).Skip(2).FirstOrDefault();
+                        removeDto.rscd_allocationyear_2description = GenerateAllocationYearDescription(removeDto.rscd_allocationyear_2);
                     }
                 }
 

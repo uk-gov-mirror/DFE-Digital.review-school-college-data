@@ -21,8 +21,6 @@ namespace Dfe.CspdAlpha.Web.Application.Models.Common
 
         public int[] AllocationYears { get; set; }
 
-
-
         public string FullName => string.Join(" ", new[] { FirstName, LastName }.Where(n => !string.IsNullOrEmpty(n)));
         public string GetPupilDetailsLabel => Keystage == Keystage.KS5 ? "View student details" : "View pupil details";
     }

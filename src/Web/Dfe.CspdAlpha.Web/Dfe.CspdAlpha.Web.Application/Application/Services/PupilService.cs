@@ -63,8 +63,8 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                     DateOfAdmission = pupil.DateOfAdmission.Date,
                     YearGroup = pupil.YearGroup,
                     AllocationYears = pupil.Allocations
-                        .Where(x=>x.Allocation != ApiClient.Allocation.NotAllocated)
-                        .Select(x => x.Year)
+                        .Select(x=>x.Year)
+                        .OrderByDescending(x=>x)
                         .ToArray()
                 },
                 Results = pupil.Results

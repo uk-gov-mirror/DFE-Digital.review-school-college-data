@@ -12,8 +12,6 @@ namespace Dfe.Rscd.Api.Domain.Entities
 
         public string Detail { get; set; }
 
-        public int[] AllocationYears { get; set; }
-
         public OutcomeStatus GetOutcomeStatus(Amendment amendment)
         {
             switch (ReasonCode)
@@ -29,7 +27,7 @@ namespace Dfe.Rscd.Api.Domain.Entities
                 }
 
                 case 326: // International student
-                    if (amendment.Pupil.Allocations.Any(a => a.Allocation == Allocation.AwardingOrganisation) &&
+                    if (amendment.Pupil.IsAOAllocated &&
                         amendment.Pupil.Allocations.All(a => a.Allocation == Allocation.Unknown || a.Allocation == Allocation.NotAllocated || a.Allocation == Allocation.AwardingOrganisation))
                     {
                         return OutcomeStatus.AutoAccept;
@@ -40,7 +38,7 @@ namespace Dfe.Rscd.Api.Domain.Entities
                     return amendment.Pupil.WasAllocatedAny ? OutcomeStatus.AutoAccept : OutcomeStatus.AutoReject;
 
                 case 328: // Not on roll
-                    if (amendment.Pupil.IsAOAllocated(AllocationYears))
+                    if (amendment.Pupil.IsAOAllocated)
                     {
                         amendment.ScrutinyReasonCode = ScrutinyReason.NotOnRoll;
                         amendment.AmdFlag = "NR";
@@ -52,7 +50,7 @@ namespace Dfe.Rscd.Api.Domain.Entities
                     return OutcomeStatus.AutoReject;
 
                 case 330: // Evidence not required
-                    if(!amendment.Pupil.IsAOAllocated(AllocationYears))
+                    if(!amendment.Pupil.IsAOAllocated)
                     {
                         amendment.ScrutinyReasonCode = ScrutinyReason.OtherWithoutEvidence;
                         amendment.AmdFlag = "NR";

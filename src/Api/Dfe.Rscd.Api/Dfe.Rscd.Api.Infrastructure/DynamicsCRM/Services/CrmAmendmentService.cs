@@ -132,15 +132,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
                         {
                             ReasonCode = removePupil.rscd_reasoncode.Value,
                             SubReason = removePupil.rscd_Subreason,
-                            Detail = removePupil.rscd_Details,
-                            AllocationYears = new[] { 
-                                removePupil.rscd_allocationyear, 
-                                removePupil.rscd_allocationyear_1, 
-                                removePupil.rscd_allocationyear_2 
-                            }
-                            .Where(x => x != null)
-                            .Cast<int>()
-                            .ToArray()
+                            Detail = removePupil.rscd_Details
                         };
 
                     }

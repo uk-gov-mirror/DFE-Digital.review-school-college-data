@@ -74,7 +74,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             // TODO: need to add other amendment types here
             if (amendmentDto.Amendment.AmendmentType == ApiClient.AmendmentType.AddPupil)
             {
-                var addPupil = (Dfe.CspdAlpha.Web.Application.Models.Amendments.AmendmentTypes.AddPupil)amendment.AmendmentDetail;
+                var addPupil = (AddPupil)amendment.AmendmentDetail;
                 amendmentDto.AddPupil = new ApiClient.AddPupil
                 {
                     Reason = addPupil.AddReason.ToApiAddReason(),
@@ -97,8 +97,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                 {
                     ReasonCode = removeAmendment.ReasonCode,
                     SubReason = removeAmendment.SubReason,
-                    Detail = removeAmendment.Detail,
-                    AllocationYears = removeAmendment.AmmendmentYears
+                    Detail = removeAmendment.Detail
                 };
             }
 
@@ -129,7 +128,11 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                     Age = apiAmendment.Pupil.Age,
                     Gender = apiAmendment.Pupil.Gender.ToApplicationGender(),
                     DateOfAdmission = apiAmendment.Pupil.DateOfAdmission.Date,
-                    YearGroup = apiAmendment.Pupil.YearGroup
+                    YearGroup = apiAmendment.Pupil.YearGroup,
+                    AllocationYears = apiAmendment.Pupil.Allocations
+                        .Select(x => x.Year)
+                        .OrderByDescending(x => x)
+                        .ToArray()
                 },
                 EvidenceOption = apiAmendment.EvidenceStatus.ToApplicationEvidenceOption()
             };
