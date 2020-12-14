@@ -72,10 +72,15 @@ namespace Dfe.Rscd.Api
 
             if (_env.IsStaging()) services.Configure<BasicAuthOptions>(Configuration.GetSection("BasicAuth"));
             services.Configure<CosmosDbOptions>(Configuration.GetSection("CosmosDb"));
-            services.AddSingleton<IAmendmentBuilder, AddPupilAmendmentBuilder>();
+
             services.AddSingleton<IAmendmentBuilder, RemovePupilAmendmentBuilder>();
-            services.AddSingleton<IRuleSet, AddPupilRules>();
+            services.AddSingleton<Amendment, RemovePupilAmendment>();
             services.AddSingleton<IRuleSet, RemovePupilRules>();
+
+            services.AddSingleton<IAmendmentBuilder, AddPupilAmendmentBuilder>();
+            services.AddSingleton<Amendment, AddPupilAmendment>();
+            services.AddSingleton<IRuleSet, AddPupilRules>();
+
             services.AddSingleton<IEstablishmentService, EstablishmentService>();
             services.AddSingleton<IPupilService, PupilService>();
             services.AddSingleton<IAmendmentService, CrmAmendmentService>();

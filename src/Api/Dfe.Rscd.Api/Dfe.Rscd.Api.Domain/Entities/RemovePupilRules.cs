@@ -6,22 +6,26 @@ namespace Dfe.Rscd.Api.Domain.Entities
 {
     public class RemovePupilRules : IRuleSet
     {
-        public OutcomeStatus Apply(IAmendment amendment)
+        public OutcomeStatus Apply(Amendment amendment)
         {
             var removePupilAmendment = (RemovePupilAmendment) amendment;
 
-            var inCurrentAllocationYear = removePupilAmendment.Pupil.Allocations != null && removePupilAmendment.Pupil.Allocations.Any() &&
-                                          removePupilAmendment.Pupil.Allocations.First().Allocation != Allocation.NotAllocated;
+            var inCurrentAllocationYear = removePupilAmendment.Pupil.Allocations != null &&
+                                          removePupilAmendment.Pupil.Allocations.Any() &&
+                                          removePupilAmendment.Pupil.Allocations.First().Allocation !=
+                                          Allocation.NotAllocated;
 
-            var wasAllocatedAny = removePupilAmendment.Pupil.Allocations != null && removePupilAmendment.Pupil.Allocations.Any() &&
+            var wasAllocatedAny = removePupilAmendment.Pupil.Allocations != null &&
+                                  removePupilAmendment.Pupil.Allocations.Any() &&
                                   removePupilAmendment.Pupil.Allocations.FirstOrDefault(a =>
                                       a.Allocation != Allocation.Unknown && a.Allocation != Allocation.NotAllocated) !=
                                   null;
 
             var isAoAllocated = removePupilAmendment.Pupil.Allocations != null &&
-                                removePupilAmendment.Pupil.Allocations.Any(a => a.Allocation == Allocation.AwardingOrganisation);
+                                removePupilAmendment.Pupil.Allocations.Any(a =>
+                                    a.Allocation == Allocation.AwardingOrganisation);
 
-            switch (removePupilAmendment.AmendmentDetail.ReasonCode)
+            switch (removePupilAmendment.AmendmentDetail.GetField<int?>("ReasonCode"))
             {
                 case 325: // Not at the end of 16-18 study
                 {

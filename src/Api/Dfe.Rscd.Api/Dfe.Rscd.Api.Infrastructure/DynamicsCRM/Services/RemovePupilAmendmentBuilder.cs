@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Dfe.CspdAlpha.Web.Infrastructure.Crm;
 using Dfe.Rscd.Api.Domain.Core.Enums;
 using Dfe.Rscd.Api.Domain.Entities;
@@ -19,6 +20,42 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
             organizationService, outcomeService, pupilService, dynamicsOptions, configuration)
         {
         }
+
+        protected override string RelationshipKey => "rscd_Amendment_Removepupil";
+        public override Amendment CreateAmendment()
+        {
+            return new RemovePupilAmendment();
+        }
+
+        public override AmendmentDetail CreateAmendmentDetails(CrmServiceContext context, rscd_Amendment amendment)
+        {
+            var amendmentDetail = new AmendmentDetail();
+
+            if (amendment.rscd_Amendmenttype == rscd_Amendmenttype.Removeapupil)
+            {
+                if (amendment.rscd_Removepupil != null)
+                {
+                    var removePupil =
+                        context.rscd_RemovepupilSet.FirstOrDefault(x => x.Id == amendment.rscd_Removepupil.Id);
+
+                    amendmentDetail.AddField(RemovePupilAmendment.FIELD_ReasonCode, removePupil.rscd_reasoncode.Value);
+                    amendmentDetail.AddField(RemovePupilAmendment.FIELD_SubReason, removePupil.rscd_Subreason);
+                    amendmentDetail.AddField(RemovePupilAmendment.FIELD_Detail, removePupil.rscd_Details);
+
+                    return amendmentDetail;
+                }
+            }
+
+            amendmentDetail = new AmendmentDetail();
+            amendmentDetail.AddField(RemovePupilAmendment.FIELD_ReasonCode, default(int?));
+            amendmentDetail.AddField(RemovePupilAmendment.FIELD_SubReason, string.Empty);
+            amendmentDetail.AddField(RemovePupilAmendment.FIELD_Detail, string.Empty);
+
+            return amendmentDetail;
+
+        }
+
+        public override AmendmentType AmendmentType => AmendmentType.RemovePupil;
 
         protected override void MapAmendmentToDto(RemovePupilAmendment amendment, rscd_Amendment amendmentDto)
         {
@@ -53,9 +90,9 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
             };
             var removeDetail = amendment.AmendmentDetail;
 
-            removeDto.rscd_reasoncode = removeDetail.ReasonCode;
-            removeDto.rscd_Subreason = removeDetail.SubReason;
-            removeDto.rscd_Details = removeDetail.Detail;
+            removeDto.rscd_reasoncode = removeDetail.GetField<int?>(RemovePupilAmendment.FIELD_ReasonCode);
+            removeDto.rscd_Subreason = removeDetail.GetField<string>(RemovePupilAmendment.FIELD_SubReason);
+            removeDto.rscd_Details = removeDetail.GetField<string>(RemovePupilAmendment.FIELD_Detail);
 
             if (pupil.Allocations != null)
             {
@@ -91,8 +128,5 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
 
             return string.Empty;
         }
-
-        protected override string RelationshipKey => "rscd_Amendment_Removepupil";
-        public override AmendmentType AmendmentType => AmendmentType.RemovePupil;
     }
 }

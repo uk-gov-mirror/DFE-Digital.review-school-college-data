@@ -43,7 +43,7 @@ namespace Dfe.Rscd.Api.Controllers
         {
             var amendment = _amendmentService.GetAmendment(checkingwindow.ToDomainCheckingWindow(), id);
 
-            var response = new GetResponse<IAmendment>
+            var response = new GetResponse<Amendment>
             {
                 Result = amendment,
                 Error = new Error()
@@ -60,7 +60,7 @@ namespace Dfe.Rscd.Api.Controllers
             OperationId = "GetAmendments",
             Tags = new[] {"Amendments"}
         )]
-        [ProducesResponseType(typeof(GetResponse<List<IAmendment>>), 200)]
+        [ProducesResponseType(typeof(GetResponse<List<Amendment>>), 200)]
         public IActionResult GetAmendments(
             [FromRoute] [SwaggerParameter("The URN of the school requesting amendments", Required = true)]
             string urn,
@@ -71,7 +71,7 @@ namespace Dfe.Rscd.Api.Controllers
                 .GetAmendments(checkingwindow.ToDomainCheckingWindow(), urn)
                 .ToList();
 
-            var response = new GetResponse<List<IAmendment>>
+            var response = new GetResponse<List<Amendment>>
             {
                 Result = amendments,
                 Error = new Error()
@@ -84,14 +84,15 @@ namespace Dfe.Rscd.Api.Controllers
         // POST: api/Amendments
         [HttpPost]
         [SwaggerOperation(
-            Summary = "Creates an amendment in CRM",
+            Summary = "Creates a amendment in CRM",
             Description = "Creates an amendment linked to an establishment and checking phase in CRM",
             OperationId = "CreateAmendment",
-            Tags = new[] { "Amendments" }
+            Tags = new[] {"Amendments"}
         )]
         [ProducesResponseType(typeof(GetResponse<string>), 200)]
         [ProducesResponseType(400)]
-        public IActionResult Post([FromBody][SwaggerRequestBody("Amendment to add to CRM", Required = true)] IAmendment amendment)
+        public IActionResult Post([FromBody] [SwaggerRequestBody("Amendment to add to CRM", Required = true)]
+            Amendment amendment)
         {
             try
             {

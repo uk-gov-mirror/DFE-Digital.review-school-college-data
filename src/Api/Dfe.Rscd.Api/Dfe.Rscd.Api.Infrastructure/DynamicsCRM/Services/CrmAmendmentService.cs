@@ -23,10 +23,11 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
 {
     public class CrmAmendmentService : IAmendmentService
     {
+        private readonly IEnumerable<IAmendmentBuilder> _amendmentBuilders;
+        private readonly IEstablishmentService _establishmentService;
         private readonly IOrganizationService _organizationService;
         private readonly Guid _sharePointDocumentLocationRecordId;
-        private readonly IEstablishmentService _establishmentService;
-        private readonly IEnumerable<IAmendmentBuilder> _amendmentBuilders;
+        private IAmendmentBuilder CurrentBuilder { get; set; }
 
         public CrmAmendmentService(
             IOrganizationService organizationService,
@@ -40,12 +41,12 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
             _sharePointDocumentLocationRecordId = dynamicsOptions.Value.SharePointDocumentLocationRecordId;
         }
 
-        public IAmendment GetAmendment(CheckingWindow checkingWindow, string id)
+        public Amendment GetAmendment(CheckingWindow checkingWindow, string id)
         {
             return GetAmendment(checkingWindow, new Guid(id));
         }
 
-        public IEnumerable<IAmendment> GetAmendments(CheckingWindow checkingWindow, string urn)
+        public IEnumerable<Amendment> GetAmendments(CheckingWindow checkingWindow, string urn)
         {
             using (var context = new CrmServiceContext(_organizationService))
             {
@@ -57,16 +58,11 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
             }
         }
 
-        private IAmendmentBuilder RetrieveBuilderForAmendment(IAmendment amendment)
+        public string CreateAmendment(Amendment amendment)
         {
-            return _amendmentBuilders.FirstOrDefault(x => x.AmendmentType == amendment.AmendmentType);
-        }
+            CurrentBuilder = RetrieveBuilderForAmendment(amendment);
 
-        public string CreateAmendment(IAmendment amendment)
-        {
-            var amendmentBuilder = RetrieveBuilderForAmendment(amendment);
-
-            var amendmentId = amendmentBuilder.BuildAmendments(amendment);
+            var amendmentId = CurrentBuilder.BuildAmendments(amendment);
 
             // Relate to establishment
             var amendmentEstablishment = GetOrCreateEstablishment(amendment.CheckingWindow, amendment.URN);
@@ -222,7 +218,12 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
             return amendments;
         }
 
-        private IAmendment GetAmendment(CheckingWindow checkingWindow, Guid amendmentId)
+        private IAmendmentBuilder RetrieveBuilderForAmendment(Amendment amendment)
+        {
+            return _amendmentBuilders.FirstOrDefault(x => x.AmendmentType == amendment.AmendmentType);
+        }
+
+        private Amendment GetAmendment(CheckingWindow checkingWindow, Guid amendmentId)
         {
             using (var context = new CrmServiceContext(_organizationService))
             {
@@ -233,11 +234,10 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
             }
         }
 
-        private IAmendment Convert(CheckingWindow checkingWindow, rscd_Amendment amendment)
+        private Amendment Convert(CheckingWindow checkingWindow, rscd_Amendment amendment)
         {
-            var amendmentType = amendment.rscd_Amendmenttype.Value.ToDomainAmendmentType();
-            var amendmentDomain = AmendmentFactory.CreateAmendment(amendmentType);
-
+            var amendmentDomain = CurrentBuilder.CreateAmendment();
+            
             amendmentDomain.Id = amendment.Id.ToString();
             amendmentDomain.CheckingWindow = amendment.rscd_Checkingwindow.Value.ToDomainCheckingWindow();
             amendmentDomain.Reference = amendment.rscd_Referencenumber;
@@ -257,7 +257,8 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
             amendmentDomain.EvidenceStatus = amendment.rscd_Evidencestatus.Value.ToDomainEvidenceStatus();
             amendmentDomain.CreatedDate = amendment.CreatedOn.Value;
             amendmentDomain.Status = GetStatus(checkingWindow, amendment);
-            amendmentDomain.AmendmentDetail = GetAdmendmentDetails(amendment);
+            
+            amendmentDomain.AmendmentDetail = GetAmendmentDetails(amendment);
 
             return amendmentDomain;
         }
@@ -294,55 +295,11 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
             }
         }
 
-        private IAmendmentDetail GetAdmendmentDetails(rscd_Amendment amendment)
+        private AmendmentDetail GetAmendmentDetails(rscd_Amendment amendment)
         {
-            if (amendment.rscd_Amendmenttype == rscd_Amendmenttype.Removeapupil)
-                using (var context = new CrmServiceContext(_organizationService))
-                {
-                    if (amendment.rscd_Removepupil != null)
-                    {
-                        var removePupil =
-                            context.rscd_RemovepupilSet.FirstOrDefault(x => x.Id == amendment.rscd_Removepupil.Id);
-                        return new AmendmentDetail()
-                        {
-                            ReasonCode = removePupil.rscd_reasoncode.Value,
-                            SubReason = removePupil.rscd_Subreason,
-                            Detail = removePupil.rscd_Details
-                        };
-                    }
-
-                    return new AmendmentDetail();
-                }
-
             using (var context = new CrmServiceContext(_organizationService))
             {
-                var addPupil = context.rscd_AddpupilSet
-                    .Where(x => x.Id == amendment.rscd_Addpupil.Id).First();
-                return new AddPupilAmendmentDetail()
-                {
-                    Reason = addPupil.rscd_Reason.Value.ToDomainAddReason(),
-                    PreviousSchoolLAEstab = addPupil.rscd_PreviousschoolLAESTAB,
-                    PreviousSchoolURN = addPupil.rscd_PreviousschoolURN,
-                    PriorAttainmentResults = new List<PriorAttainment>
-                    {
-                        new PriorAttainment
-                        {
-                            Subject = Ks2Subject.Reading, ExamYear = addPupil.rscd_Readingexamyear,
-                            TestMark = addPupil.rscd_Readingexammark, ScaledScore = addPupil.rscd_Readingscaledscore
-                        },
-                        new PriorAttainment
-                        {
-                            Subject = Ks2Subject.Writing, ExamYear = addPupil.rscd_Writingexamyear,
-                            TestMark = addPupil.rscd_Writingteacherassessment,
-                            ScaledScore = addPupil.rscd_Writingscaledscore
-                        },
-                        new PriorAttainment
-                        {
-                            Subject = Ks2Subject.Maths, ExamYear = addPupil.rscd_Mathsexamyear,
-                            TestMark = addPupil.rscd_Mathsexammark, ScaledScore = addPupil.rscd_Mathsscaledscore
-                        }
-                    }
-                };
+                return CurrentBuilder.CreateAmendmentDetails(context, amendment);
             }
         }
 

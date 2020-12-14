@@ -49,7 +49,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
         {
             var checkingWindowURL = CheckingWindowHelper.GetCheckingWindowURL(amendment.CheckingWindow);
             var amendmentDto = new ApiClient.AmendmentDTO();
-            amendmentDto.Amendment = new ApiClient.Amendment
+            amendmentDto.Amendment = new ApiClient.IAmendment
             {
                 CheckingWindow = amendment.CheckingWindow.ToApiCheckingWindow(),
                 AmendmentType = amendment.AmendmentDetail.AmendmentType.ToApiAmendmentType(),
@@ -75,7 +75,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             if (amendmentDto.Amendment.AmendmentType == ApiClient.AmendmentType.AddPupil)
             {
                 var addPupil = (AddPupil)amendment.AmendmentDetail;
-                amendmentDto.AddPupil = new ApiClient.AddPupil
+                amendmentDto.Amendment.AmendmentDetail = new ApiClient.IAmendmentDetail()
                 {
                     Reason = addPupil.AddReason.ToApiAddReason(),
                     PreviousSchoolLAEstab = addPupil.PreviousSchoolLAEstab,

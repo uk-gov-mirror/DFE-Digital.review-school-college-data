@@ -16,8 +16,8 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.Services
     {
         // TODO: Decide a max pagesize for now, can't return all pupils
         private const int PageSize = 200;
-        private readonly string ALLOCATION_YEAR;
         private readonly Database _cosmosDb;
+        private readonly string ALLOCATION_YEAR;
 
         public PupilService(IOptions<CosmosDbOptions> options, IConfiguration configuration)
         {

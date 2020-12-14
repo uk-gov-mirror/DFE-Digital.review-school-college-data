@@ -1,9 +1,9 @@
-﻿using Dfe.Rscd.Api.Domain.Interfaces;
+﻿using Dfe.Rscd.Api.Domain.Entities;
 
 namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Models
 {
     public class AmendmentDTO
     {
-        public IAmendment Amendment { get; set; }
+        public Amendment Amendment { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Dfe.CspdAlpha.Web.Infrastructure.Crm;
 using Dfe.Rscd.Api.Domain.Core.Enums;
 using Dfe.Rscd.Api.Domain.Entities;
@@ -19,6 +20,45 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
             organizationService, outcomeService, pupilService, dynamicsOptions, configuration)
         {
         }
+
+        protected override string RelationshipKey => "rscd_Amendment_Addpupil";
+        public override Amendment CreateAmendment()
+        {
+            return new AddPupilAmendment();
+        }
+
+        public override AmendmentDetail CreateAmendmentDetails(CrmServiceContext context, rscd_Amendment amendment)
+        {
+            var addPupil = context.rscd_AddpupilSet.First(x => x.Id == amendment.rscd_Addpupil.Id);
+
+            var amendmentDetails = new AmendmentDetail();
+            amendmentDetails.AddField(AddPupilAmendment.FIELD_Reason, addPupil.rscd_Reason.Value.ToDomainAddReason());
+            amendmentDetails.AddField(AddPupilAmendment.FIELD_PreviousSchoolLAEstab, addPupil.rscd_PreviousschoolLAESTAB);
+            amendmentDetails.AddField(AddPupilAmendment.FIELD_PreviousSchoolURN, addPupil.rscd_PreviousschoolURN);
+            amendmentDetails.AddField(AddPupilAmendment.FIELD_PriorAttainmentResults, new List<PriorAttainment>
+            {
+                new PriorAttainment
+                {
+                    Subject = Ks2Subject.Reading, ExamYear = addPupil.rscd_Readingexamyear,
+                    TestMark = addPupil.rscd_Readingexammark, ScaledScore = addPupil.rscd_Readingscaledscore
+                },
+                new PriorAttainment
+                {
+                    Subject = Ks2Subject.Writing, ExamYear = addPupil.rscd_Writingexamyear,
+                    TestMark = addPupil.rscd_Writingteacherassessment,
+                    ScaledScore = addPupil.rscd_Writingscaledscore
+                },
+                new PriorAttainment
+                {
+                    Subject = Ks2Subject.Maths, ExamYear = addPupil.rscd_Mathsexamyear,
+                    TestMark = addPupil.rscd_Mathsexammark, ScaledScore = addPupil.rscd_Mathsscaledscore
+                }
+            });
+
+            return amendmentDetails;
+        }
+
+        public override AmendmentType AmendmentType => AmendmentType.AddPupil;
 
         protected override void MapAmendmentToDto(AddPupilAmendment amendment, rscd_Amendment amendmentDto)
         {
@@ -42,17 +82,19 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
 
         protected override Entity MapAmendmentTypeToDto(AddPupilAmendment amendment)
         {
-            var amendmentDetail = (AddPupilAmendmentDetail) amendment.AmendmentDetail ?? new AddPupilAmendmentDetail();
+            var amendmentDetail = new AmendmentDetail();
             var addDto = new rscd_Addpupil
             {
                 rscd_Name = amendment.Pupil.FullName,
-                rscd_Reason = amendmentDetail.Reason.ToCRMAddReason(),
+                rscd_Reason = amendmentDetail.GetField<AddReason>(AddPupilAmendment.FIELD_Reason).ToCRMAddReason(),
                 rscd_PreviousschoolURN = amendment.Pupil.URN,
                 rscd_PreviousschoolLAESTAB = amendment.Pupil.LaEstab
             };
 
-            var reading = amendmentDetail.PriorAttainmentResults
-                .FirstOrDefault(r => r.Subject == Ks2Subject.Reading);
+            var results = amendmentDetail.GetField<List<PriorAttainment>>(AddPupilAmendment.FIELD_PriorAttainmentResults);
+
+            var reading = results.FirstOrDefault(r => r.Subject == Ks2Subject.Reading);
+            
             if (reading != null)
             {
                 addDto.rscd_Readingexamyear = reading.ExamYear;
@@ -60,7 +102,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
                 addDto.rscd_Readingscaledscore = reading.ScaledScore;
             }
 
-            var writing = amendmentDetail.PriorAttainmentResults
+            var writing = results
                 .FirstOrDefault(r => r.Subject == Ks2Subject.Writing);
             if (writing != null)
             {
@@ -69,7 +111,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
                 addDto.rscd_Writingscaledscore = writing.ScaledScore;
             }
 
-            var maths = amendmentDetail.PriorAttainmentResults
+            var maths = results
                 .FirstOrDefault(r => r.Subject == Ks2Subject.Maths);
             if (maths != null)
             {
@@ -80,8 +122,5 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
 
             return addDto;
         }
-
-        protected override string RelationshipKey => "rscd_Amendment_Addpupil";
-        public override AmendmentType AmendmentType => AmendmentType.AddPupil;
     }
 }

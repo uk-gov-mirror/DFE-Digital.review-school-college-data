@@ -19,12 +19,13 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
         private readonly EntityReference _autoRecordedUser;
         private readonly EntityReference _firstLineTeam;
 
-        protected readonly rscd_Checkingwindow[] Ks4Windows =
-            {rscd_Checkingwindow.KS4June, rscd_Checkingwindow.KS4Late, rscd_Checkingwindow.KS4Errata};
-
 
         private readonly IOrganizationService _organizationService;
         private readonly IOutcomeService _outcomeService;
+
+        protected readonly rscd_Checkingwindow[] Ks4Windows =
+            {rscd_Checkingwindow.KS4June, rscd_Checkingwindow.KS4Late, rscd_Checkingwindow.KS4Errata};
+
         protected readonly IPupilService PupilService;
 
         protected AmendmentBuilder(IOrganizationService organizationService, IOutcomeService outcomeService,
@@ -38,13 +39,13 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
             _allocationYear = configuration["AllocationYear"];
         }
 
-        protected abstract void MapAmendmentToDto(T amendment, rscd_Amendment amendmentDto);
-
-        protected abstract Entity MapAmendmentTypeToDto(T amendment);
-
         protected abstract string RelationshipKey { get; }
 
-        public Guid BuildAmendments(IAmendment amendment)
+        public abstract Amendment CreateAmendment();
+
+        public abstract AmendmentDetail CreateAmendmentDetails(CrmServiceContext context, rscd_Amendment amendment);
+
+        public Guid BuildAmendments(Amendment amendment)
         {
             using (var context = new CrmServiceContext(_organizationService))
             {
@@ -90,5 +91,9 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
         }
 
         public abstract AmendmentType AmendmentType { get; }
+
+        protected abstract void MapAmendmentToDto(T amendment, rscd_Amendment amendmentDto);
+
+        protected abstract Entity MapAmendmentTypeToDto(T amendment);
     }
 }

@@ -14,8 +14,8 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.Services
 {
     public class EstablishmentService : IEstablishmentService
     {
-        private readonly string ALLOCATION_YEAR;
         private readonly Database _cosmosDb;
+        private readonly string ALLOCATION_YEAR;
 
         public EstablishmentService(IOptions<CosmosDbOptions> options, IConfiguration configuration)
         {

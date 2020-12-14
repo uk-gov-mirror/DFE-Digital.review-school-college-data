@@ -2,6 +2,7 @@
 using System.Linq;
 using Dfe.CspdAlpha.Web.Infrastructure.Crm;
 using Dfe.Rscd.Api.Domain.Core.Enums;
+using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Domain.Interfaces;
 using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Interfaces;
 
@@ -16,7 +17,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
             _rules = rules;
         }
 
-        public void SetOutcome(rscd_Amendment amendmentDto, IAmendment amendment)
+        public void SetOutcome(rscd_Amendment amendmentDto, Amendment amendment)
         {
             if (amendment.EvidenceStatus == EvidenceStatus.Later)
             {

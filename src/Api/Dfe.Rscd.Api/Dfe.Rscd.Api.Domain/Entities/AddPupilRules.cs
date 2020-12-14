@@ -5,7 +5,7 @@ namespace Dfe.Rscd.Api.Domain.Entities
 {
     public class AddPupilRules : IRuleSet
     {
-        public OutcomeStatus Apply(IAmendment amendment)
+        public OutcomeStatus Apply(Amendment amendment)
         {
             return OutcomeStatus.AwatingDfeReview;
         }
