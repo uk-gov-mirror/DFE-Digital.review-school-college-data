@@ -70,6 +70,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 {
                     CheckingWindow = CheckingWindow,
                     Urn = urn,
+                    AmendmentType = AmendmentType.AddPupil,
                     Pupil = new PupilDetails
                     {
                         Id = existingPupil.PupilViewModel.ID,

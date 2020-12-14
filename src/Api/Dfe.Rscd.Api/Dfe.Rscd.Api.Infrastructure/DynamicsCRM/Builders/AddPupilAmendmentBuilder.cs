@@ -13,7 +13,7 @@ using Microsoft.Xrm.Sdk;
 
 namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Builders
 {
-    public class AddPupilAmendmentBuilder : AmendmentBuilder<AddPupilAmendment>
+    public class AddPupilAmendmentBuilder : AmendmentBuilder
     {
         public AddPupilAmendmentBuilder(IOrganizationService organizationService, IOutcomeService outcomeService,
             IPupilService pupilService, IOptions<DynamicsOptions> dynamicsOptions, IConfiguration configuration) : base(
@@ -21,7 +21,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Builders
         {
         }
 
-        protected override string RelationshipKey => "rscd_Amendment_Addpupil";
+        public override string RelationshipKey => "rscd_Amendment_Addpupil";
 
         public override AmendmentType AmendmentType => AmendmentType.AddPupil;
 
@@ -62,7 +62,9 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Builders
             return amendmentDetails;
         }
 
-        protected override void MapAmendmentToDto(AddPupilAmendment amendment, rscd_Amendment amendmentDto)
+        public override rscd_Amendmenttype CrmAmendmentType => rscd_Amendmenttype.Addapupil;
+
+        protected override void MapAmendmentToDto(Amendment amendment, rscd_Amendment amendmentDto)
         {
             amendmentDto.rscd_UPN = amendment.Pupil.UPN;
             amendmentDto.rscd_ULN = amendment.Pupil.ULN;
@@ -82,7 +84,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Builders
             amendmentDto.rscd_Evidencestatus = amendment.EvidenceStatus.ToCRMEvidenceStatus();
         }
 
-        protected override Entity MapAmendmentTypeToDto(AddPupilAmendment amendment)
+        protected override Entity MapAmendmentTypeToDto(Amendment amendment)
         {
             var amendmentDetail = new AmendmentDetail();
             var addDto = new rscd_Addpupil

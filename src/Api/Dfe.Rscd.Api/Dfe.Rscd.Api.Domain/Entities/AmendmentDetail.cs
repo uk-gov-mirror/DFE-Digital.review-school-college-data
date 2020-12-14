@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 
 namespace Dfe.Rscd.Api.Domain.Entities
@@ -35,7 +37,31 @@ namespace Dfe.Rscd.Api.Domain.Entities
 
         public T GetField<T>(string name)
         {
-            return (T) GetField(name);
+            var stringRep = string.Empty + GetField(name);
+            if (stringRep != string.Empty)
+            {
+                return Convert<T>(stringRep);
+            }
+
+            return default(T);
+        }
+
+        public static T Convert<T>(string input)
+        {
+            try
+            {
+                var converter = TypeDescriptor.GetConverter(typeof(T));
+                if (converter != null)
+                {
+                    // Cast ConvertFromString(string text) : object to (T)
+                    return (T)converter.ConvertFromString(input);
+                }
+                return default(T);
+            }
+            catch (NotSupportedException)
+            {
+                return default(T);
+            }
         }
     }
 }

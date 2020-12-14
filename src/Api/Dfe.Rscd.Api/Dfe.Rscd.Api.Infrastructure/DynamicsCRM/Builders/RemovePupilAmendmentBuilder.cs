@@ -12,7 +12,7 @@ using Microsoft.Xrm.Sdk;
 
 namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Builders
 {
-    public class RemovePupilAmendmentBuilder : AmendmentBuilder<RemovePupilAmendment>
+    public class RemovePupilAmendmentBuilder : AmendmentBuilder
     {
         public RemovePupilAmendmentBuilder(IOrganizationService organizationService, IOutcomeService outcomeService,
             IPupilService pupilService, IOptions<DynamicsOptions> dynamicsOptions, IConfiguration configuration) : base(
@@ -20,7 +20,10 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Builders
         {
         }
 
-        protected override string RelationshipKey => "rscd_Amendment_Removepupil";
+        public override string RelationshipKey => "rscd_Amendment_Removepupil";
+
+        public override rscd_Amendmenttype CrmAmendmentType => rscd_Amendmenttype.Removeapupil;
+
         public override Amendment CreateAmendment()
         {
             return new RemovePupilAmendment();
@@ -56,7 +59,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Builders
 
         public override AmendmentType AmendmentType => AmendmentType.RemovePupil;
 
-        protected override void MapAmendmentToDto(RemovePupilAmendment amendment, rscd_Amendment amendmentDto)
+        protected override void MapAmendmentToDto(Amendment amendment, rscd_Amendment amendmentDto)
         {
             amendmentDto.rscd_UPN = amendment.Pupil.UPN;
             amendmentDto.rscd_ULN = amendment.Pupil.ULN;
@@ -73,13 +76,13 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Builders
                 amendmentDto.rscd_Yeargroup = amendment.Pupil.YearGroup;
             }
 
-            amendmentDto.rscd_rm_scrutiny_reason_code = amendment.ScrutinyReasonCode;
-            amendmentDto.rscd_rm_amdflag = amendment.AmdFlag;
+            amendmentDto.rscd_rm_scrutiny_reason_code = amendment.AmendmentDetail.GetField<int?>(RemovePupilAmendment.FIELD_ScrutinyReasonCode);
+            amendmentDto.rscd_rm_amdflag = amendment.AmendmentDetail.GetField<string>(RemovePupilAmendment.FIELD_AmdFlag);
 
             amendmentDto.rscd_Evidencestatus = amendment.EvidenceStatus.ToCRMEvidenceStatus();
         }
 
-        protected override Entity MapAmendmentTypeToDto(RemovePupilAmendment amendment)
+        protected override Entity MapAmendmentTypeToDto(Amendment amendment)
         {
             var pupil = PupilService.GetById(amendment.CheckingWindow, amendment.Pupil.Id);
             amendment.Pupil = pupil;

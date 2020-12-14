@@ -60,7 +60,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
 
         public string AddAmendment(Amendment amendment)
         {
-            CurrentBuilder = RetrieveBuilderForAmendment(amendment);
+            CurrentBuilder = RetrieveBuilderForAmendment(amendment.AmendmentType);
 
             var amendmentId = CurrentBuilder.BuildAmendments(amendment);
 
@@ -218,9 +218,14 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
             return amendments;
         }
 
-        private IAmendmentBuilder RetrieveBuilderForAmendment(Amendment amendment)
+        private IAmendmentBuilder RetrieveBuilderForAmendment(AmendmentType amendmentType)
         {
-            return _amendmentBuilders.FirstOrDefault(x => x.AmendmentType == amendment.AmendmentType);
+            return _amendmentBuilders.FirstOrDefault(x => x.AmendmentType == amendmentType);
+        }
+
+        private IAmendmentBuilder RetrieveBuilderForAmendment(rscd_Amendmenttype? amendmentType)
+        {
+            return _amendmentBuilders.FirstOrDefault(x => x.CrmAmendmentType == amendmentType);
         }
 
         private Amendment GetAmendment(CheckingWindow checkingWindow, Guid amendmentId)
@@ -236,6 +241,8 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
 
         private Amendment Convert(CheckingWindow checkingWindow, rscd_Amendment amendment)
         {
+            CurrentBuilder = RetrieveBuilderForAmendment(amendment.rscd_Amendmenttype);
+                
             var amendmentDomain = CurrentBuilder.CreateAmendment();
             
             amendmentDomain.Id = amendment.Id.ToString();

@@ -11,7 +11,7 @@ namespace Dfe.Rscd.Api.Domain.Entities
         }
 
         public string URN { get; set; }
-        public AmendmentType AmendmentType { get; protected set; }
+        public AmendmentType AmendmentType { get; set; }
         public string EvidenceFolderName { get; set; }
         public EvidenceStatus EvidenceStatus { get; set; }
         public string Reference { get; set; }

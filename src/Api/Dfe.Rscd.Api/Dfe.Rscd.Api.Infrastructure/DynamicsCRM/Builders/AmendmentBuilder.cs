@@ -13,7 +13,7 @@ using Microsoft.Xrm.Sdk;
 
 namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Builders
 {
-    public abstract class AmendmentBuilder<T> : IAmendmentBuilder where T : Amendment
+    public abstract class AmendmentBuilder : IAmendmentBuilder
     {
         private readonly string _allocationYear;
         private readonly EntityReference _autoRecordedUser;
@@ -39,11 +39,13 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Builders
             _allocationYear = configuration["AllocationYear"];
         }
 
-        protected abstract string RelationshipKey { get; }
+        public abstract string RelationshipKey { get; }
 
         public abstract Amendment CreateAmendment();
 
         public abstract AmendmentDetail CreateAmendmentDetails(CrmServiceContext context, rscd_Amendment amendment);
+
+        public abstract rscd_Amendmenttype CrmAmendmentType { get; }
 
         public Guid BuildAmendments(Amendment amendment)
         {
@@ -60,8 +62,8 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Builders
 
                 _outcomeService.SetOutcome(amendmentDto, amendment);
 
-                MapAmendmentToDto((T) amendment, amendmentDto);
-                var amendmentTypeEntity = MapAmendmentTypeToDto((T) amendment);
+                MapAmendmentToDto(amendment, amendmentDto);
+                var amendmentTypeEntity = MapAmendmentTypeToDto(amendment);
                 context.AddObject(amendmentTypeEntity);
                 context.AddObject(amendmentDto);
 
@@ -92,8 +94,8 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Builders
 
         public abstract AmendmentType AmendmentType { get; }
 
-        protected abstract void MapAmendmentToDto(T amendment, rscd_Amendment amendmentDto);
+        protected abstract void MapAmendmentToDto(Amendment amendment, rscd_Amendment amendmentDto);
 
-        protected abstract Entity MapAmendmentTypeToDto(T amendment);
+        protected abstract Entity MapAmendmentTypeToDto(Amendment amendment);
     }
 }

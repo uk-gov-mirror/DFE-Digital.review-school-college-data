@@ -74,6 +74,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             {
                 Urn = urn,
                 CheckingWindow = CheckingWindowHelper.GetCheckingWindow(RouteData),
+                AmendmentType = AmendmentType.RemovePupil,
                 Pupil = new PupilDetails
                 {
                     KeyStage = viewModel.PupilViewModel.Keystage,
@@ -87,7 +88,8 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                     Gender = viewModel.PupilViewModel.Gender,
                     DateOfAdmission = viewModel.PupilViewModel.DateOfAdmission,
                     YearGroup = viewModel.PupilViewModel.YearGroup
-                }
+                },
+                AmendmentDetail = new AmendmentDetail()
             };
             HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, amendment);
             return new RemovePupilViewModel {PupilViewModel = viewModel.PupilViewModel};
@@ -110,7 +112,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 return RedirectToAction("Index");
             }
 
-            var amendmentDetail = amendment.AmendmentDetail ?? new AmendmentDetail();
+            var amendmentDetail = amendment.AmendmentDetail;
 
             return View(new ReasonViewModel
             {
@@ -129,8 +131,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
             if (ModelState.IsValid)
             {
-                var amendmentDetail = amendment.AmendmentDetail ?? new AmendmentDetail();
-                amendmentDetail.AddField("ReasonCode", viewModel.SelectedReasonCode.Value);
+                amendment.AmendmentDetail.AddField("ReasonCode", viewModel.SelectedReasonCode.Value);
                 amendment.EvidenceStatus = viewModel.SelectedReasonCode == 329 ? EvidenceStatus.Now : EvidenceStatus.NotRequired;
                 HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, amendment);
                 if (new[]
@@ -163,7 +164,8 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             {
                 return RedirectToAction("Index");
             }
-            var amendmentDetail = amendment.AmendmentDetail ?? new AmendmentDetail();
+
+            var amendmentDetail = amendment.AmendmentDetail;
             return View(new DetailsViewModel
             {
                 PupilDetails = (PupilDetails)amendment.Pupil,
@@ -175,7 +177,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         public IActionResult Details(DetailsViewModel viewModel)
         {
             var amendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
-            var amendmentDetail = amendment.AmendmentDetail ?? new AmendmentDetail();
+            var amendmentDetail = amendment.AmendmentDetail;
 
             if (ModelState.IsValid)
             {

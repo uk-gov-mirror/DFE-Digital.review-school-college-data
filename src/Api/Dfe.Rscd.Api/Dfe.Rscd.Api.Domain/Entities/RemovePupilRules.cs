@@ -8,28 +8,26 @@ namespace Dfe.Rscd.Api.Domain.Entities
     {
         public OutcomeStatus Apply(Amendment amendment)
         {
-            var removePupilAmendment = (RemovePupilAmendment) amendment;
-
-            var inCurrentAllocationYear = removePupilAmendment.Pupil.Allocations != null &&
-                                          removePupilAmendment.Pupil.Allocations.Any() &&
-                                          removePupilAmendment.Pupil.Allocations.First().Allocation !=
+            var inCurrentAllocationYear = amendment.Pupil.Allocations != null &&
+                                          amendment.Pupil.Allocations.Any() &&
+                                          amendment.Pupil.Allocations.First().Allocation !=
                                           Allocation.NotAllocated;
 
-            var wasAllocatedAny = removePupilAmendment.Pupil.Allocations != null &&
-                                  removePupilAmendment.Pupil.Allocations.Any() &&
-                                  removePupilAmendment.Pupil.Allocations.FirstOrDefault(a =>
+            var wasAllocatedAny = amendment.Pupil.Allocations != null &&
+                                  amendment.Pupil.Allocations.Any() &&
+                                  amendment.Pupil.Allocations.FirstOrDefault(a =>
                                       a.Allocation != Allocation.Unknown && a.Allocation != Allocation.NotAllocated) !=
                                   null;
 
-            var isAoAllocated = removePupilAmendment.Pupil.Allocations != null &&
-                                removePupilAmendment.Pupil.Allocations.Any(a =>
+            var isAoAllocated = amendment.Pupil.Allocations != null &&
+                                amendment.Pupil.Allocations.Any(a =>
                                     a.Allocation == Allocation.AwardingOrganisation);
 
-            switch (removePupilAmendment.AmendmentDetail.GetField<int?>("ReasonCode"))
+            switch (amendment.AmendmentDetail.GetField<int?>(RemovePupilAmendment.FIELD_ReasonCode))
             {
                 case 325: // Not at the end of 16-18 study
                 {
-                    if (removePupilAmendment.Pupil.Age < 18 && inCurrentAllocationYear)
+                    if (amendment.Pupil.Age < 18 && inCurrentAllocationYear)
                         return OutcomeStatus.AutoAccept;
 
                     return OutcomeStatus.AutoReject;
@@ -37,7 +35,7 @@ namespace Dfe.Rscd.Api.Domain.Entities
 
                 case 326: // International student
                     if (isAoAllocated &&
-                        removePupilAmendment.Pupil.Allocations.All(a =>
+                        amendment.Pupil.Allocations.All(a =>
                             a.Allocation == Allocation.Unknown || a.Allocation == Allocation.NotAllocated ||
                             a.Allocation == Allocation.AwardingOrganisation))
                         return OutcomeStatus.AutoAccept;
@@ -49,25 +47,26 @@ namespace Dfe.Rscd.Api.Domain.Entities
                 case 328: // Not on roll
                     if (isAoAllocated)
                     {
-                        removePupilAmendment.ScrutinyReasonCode = ScrutinyReason.NotOnRoll;
-                        removePupilAmendment.AmdFlag = "NR";
+                        amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_ScrutinyReasonCode,ScrutinyReason.NotOnRoll);
+                        amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_AmdFlag, "NR");
 
                         return OutcomeStatus.AutoAccept;
                     }
 
-                    removePupilAmendment.ScrutinyReasonCode = ScrutinyReason.NotOnRoll;
+                    amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_ScrutinyReasonCode, ScrutinyReason.NotOnRoll);
                     return OutcomeStatus.AutoReject;
 
                 case 330: // Evidence not required
                     if (!isAoAllocated)
                     {
-                        removePupilAmendment.ScrutinyReasonCode = ScrutinyReason.OtherWithoutEvidence;
-                        removePupilAmendment.AmdFlag = "NR";
+                        amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_ScrutinyReasonCode, ScrutinyReason.OtherWithoutEvidence);
+                        amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_AmdFlag, "NR");
 
                         return OutcomeStatus.AutoReject;
                     }
 
-                    removePupilAmendment.ScrutinyReasonCode = 102;
+                    amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_ScrutinyReasonCode, ScrutinyReason.OtherWithoutEvidence);
+                    amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_AmdFlag, "NR");
 
                     return OutcomeStatus.AwatingDfeReview;
 
