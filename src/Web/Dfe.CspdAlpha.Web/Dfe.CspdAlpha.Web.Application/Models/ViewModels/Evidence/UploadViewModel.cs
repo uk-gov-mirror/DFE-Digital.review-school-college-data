@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using Dfe.CspdAlpha.Web.Application.Models.Amendments;
 using Dfe.CspdAlpha.Web.Application.Models.Common;
+using Dfe.Rscd.Web.ApiClient;
 using Microsoft.AspNetCore.Http;
 
 namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Evidence

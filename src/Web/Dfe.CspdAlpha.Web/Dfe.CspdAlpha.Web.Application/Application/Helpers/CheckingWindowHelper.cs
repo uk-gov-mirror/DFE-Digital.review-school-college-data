@@ -1,4 +1,5 @@
 using Dfe.CspdAlpha.Web.Application.Models.Common;
+using Dfe.Rscd.Web.ApiClient;
 using Microsoft.AspNetCore.Routing;
 
 namespace Dfe.CspdAlpha.Web.Application.Application.Helpers
@@ -19,6 +20,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Helpers
                     return CheckingWindow.Unknown;
             }
         }
+
         public static string GetCheckingWindowURL(CheckingWindow checkingWindow)
         {
             switch (checkingWindow)
@@ -39,10 +41,28 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Helpers
                     return "ks5";
                 case CheckingWindow.KS5Errata:
                     break;
-                default:
-                    break;
             }
+
             return string.Empty;
+        }
+
+        public static Keystage ToKeyStage(CheckingWindow checkingWindow)
+        {
+            switch (checkingWindow)
+            {
+                case CheckingWindow.KS2:
+                case CheckingWindow.KS2Errata:
+                    return Keystage.KS2;
+                case CheckingWindow.KS4June:
+                case CheckingWindow.KS4Late:
+                case CheckingWindow.KS4Errata:
+                    return Keystage.KS4;
+                case CheckingWindow.KS5:
+                case CheckingWindow.KS5Errata:
+                    return Keystage.KS5;
+                default:
+                    return Keystage.Unknown;
+            }
         }
 
         public static string GetCheckingWindowDescription(CheckingWindow checkingWindow)
@@ -65,9 +85,8 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Helpers
                     return "16 to 18 September checking exercise";
                 case CheckingWindow.KS5Errata:
                     break;
-                default:
-                    break;
             }
+
             return string.Empty;
         }
     }

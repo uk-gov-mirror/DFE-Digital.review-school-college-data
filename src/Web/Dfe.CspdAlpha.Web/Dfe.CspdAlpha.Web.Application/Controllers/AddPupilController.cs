@@ -1,16 +1,15 @@
 using System;
 using System.Collections.Generic;
-using Dfe.CspdAlpha.Web.Application.Application.Extensions;
 using Dfe.CspdAlpha.Web.Application.Application.Helpers;
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
-using Dfe.CspdAlpha.Web.Application.Models.Amendments;
-using Dfe.CspdAlpha.Web.Application.Models.Amendments.AmendmentTypes;
 using Dfe.CspdAlpha.Web.Application.Models.Common;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.AddPupil;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Common;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using Dfe.CspdAlpha.Web.Application.Application;
+using Dfe.Rscd.Web.ApiClient;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
@@ -33,14 +32,14 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             {
                 return View(new AddPupilViewModel
                 {
-                    UPN = amendment.PupilDetails.UPN,
-                    FirstName = amendment.PupilDetails.FirstName,
-                    LastName = amendment.PupilDetails.LastName,
-                    Gender = amendment.PupilDetails.Gender,
-                    DateOfBirth = new DateViewModel(amendment.PupilDetails.DateOfBirth),
-                    DateOfAdmission = new DateViewModel(amendment.PupilDetails.DateOfAdmission),
-                    YearGroup = amendment.PupilDetails.YearGroup,
-                    SchoolID = amendment.PupilDetails.LAEstab
+                    UPN = amendment.Pupil.Upn,
+                    FirstName = amendment.Pupil.ForeName,
+                    LastName = amendment.Pupil.LastName,
+                    Gender = amendment.Pupil.Gender,
+                    DateOfBirth = new DateViewModel(amendment.Pupil.DateOfBirth.UtcDateTime),
+                    DateOfAdmission = new DateViewModel(amendment.Pupil.DateOfAdmission.UtcDateTime),
+                    YearGroup = amendment.Pupil.YearGroup,
+                    SchoolID = amendment.Pupil.LaEstab
                 });
             }
             return View(new AddPupilViewModel());
@@ -70,31 +69,36 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 var amendment = new Amendment
                 {
                     CheckingWindow = CheckingWindow,
-                    URN = urn,
-                    PupilDetails = new PupilDetails
+                    Urn = urn,
+                    Pupil = new PupilDetails
                     {
-                        ID = existingPupil.PupilViewModel.ID,
-                        FirstName = existingPupil.PupilViewModel.FirstName,
+                        Id = existingPupil.PupilViewModel.ID,
+                        ForeName = existingPupil.PupilViewModel.FirstName,
                         LastName = existingPupil.PupilViewModel.LastName,
                         Gender = existingPupil.PupilViewModel.Gender,
                         DateOfBirth = existingPupil.PupilViewModel.DateOfBirth,
                         DateOfAdmission = existingPupil.PupilViewModel.DateOfAdmission,
                         Age = existingPupil.PupilViewModel.Age,
-                        UPN = existingPupil.PupilViewModel.UPN,
+                        Upn = existingPupil.PupilViewModel.UPN,
                         YearGroup = existingPupil.PupilViewModel.YearGroup,
-                        Keystage = existingPupil.PupilViewModel.Keystage,
-                        LAEstab = existingPupil.PupilViewModel.SchoolID,
-                        URN = existingPupil.PupilViewModel.URN
+                        KeyStage = existingPupil.PupilViewModel.Keystage,
+                        LaEstab = existingPupil.PupilViewModel.SchoolID,
+                        Urn = existingPupil.PupilViewModel.URN
                     },
-                    AmendmentDetail = new AddPupil
-                    {
-                        AddReason = AddReason.Existing,
-                        PreviousSchoolLAEstab = existingPupil.PupilViewModel.SchoolID,
-                        PreviousSchoolURN = existingPupil.PupilViewModel.URN,
-                        PriorAttainmentResults = existingPupil.Results.Select(r => new PriorAttainmentResult
-                            { Ks2Subject = r.Subject, ExamYear = r.ExamYear, Mark = r.TestMark, ScaledScore = r.ScaledScore }).ToList()
-                    }
+                    AmendmentDetail = new AmendmentDetail()
                 };
+
+                amendment.AmendmentDetail.AddField("Reason", AddReason.Existing);
+                amendment.AmendmentDetail.AddField("PreviousSchoolLAEstab", existingPupil.PupilViewModel.SchoolID);
+                amendment.AmendmentDetail.AddField("PreviousSchoolURN", existingPupil.PupilViewModel.URN);
+                amendment.AmendmentDetail.AddField("PriorAttainmentResults", existingPupil.Results
+                    .Select(r =>
+                        new PriorAttainmentResult
+                        {
+                            Ks2Subject = r.Subject, ExamYear = r.ExamYear, Mark = r.TestMark,
+                            ScaledScore = r.ScaledScore
+                        })
+                    .ToList());
 
                 HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, amendment);
 
@@ -103,28 +107,27 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
             var addPupilAmendment = new Amendment
             {
-                URN = urn,
-                PupilDetails = new PupilDetails
+                Urn = urn,
+                Pupil = new PupilDetails
                 {
-                    FirstName = addPupilViewModel.FirstName,
+                    ForeName = addPupilViewModel.FirstName,
                     LastName = addPupilViewModel.LastName,
                     Gender = addPupilViewModel.Gender.Value,
                     DateOfBirth = addPupilViewModel.DateOfBirth.Date.Value,
                     Age = CalculateAge(addPupilViewModel.DateOfBirth.Date.Value),
                     DateOfAdmission = addPupilViewModel.DateOfAdmission.Date.Value,
-                    UPN = addPupilViewModel.UPN,
+                    Upn = addPupilViewModel.UPN,
                     YearGroup = addPupilViewModel.YearGroup,
-                    Keystage = CheckingWindow.ToKeyStage(),
-                    LAEstab = addPupilViewModel.SchoolID,
-                    URN = urn
+                    KeyStage = CheckingWindowHelper.ToKeyStage(CheckingWindow),
+                    LaEstab = addPupilViewModel.SchoolID,
+                    Urn = urn
                 },
                 CheckingWindow = CheckingWindow,
-                AmendmentDetail = new AddPupil
-                {
-                    AddReason = AddReason.New,
-                    PriorAttainmentResults = new List<PriorAttainmentResult>()
-                }
+                AmendmentDetail = new AmendmentDetail()
             };
+
+            addPupilAmendment.AmendmentDetail.AddField("AddReason", AddReason.New);
+            addPupilAmendment.AmendmentDetail.AddField("PriorAttainmentResults", new List<PriorAttainmentResult>());
 
             HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, addPupilAmendment);
 
@@ -140,12 +143,12 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         public IActionResult MatchedPupil(string urn)
         {
             var amendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
-            if (amendment.PupilDetails == null || ((AddPupil)amendment.AmendmentDetail).AddReason == AddReason.New)
+            if (amendment.Pupil == null || amendment.AmendmentDetail.GetField<string>("AddReason") == AddReason.New)
             {
                 return RedirectToAction("Index");
             }
 
-            var existingSchoolId = ((AddPupil) amendment.AmendmentDetail).PreviousSchoolLAEstab;
+            var existingSchoolId = amendment.AmendmentDetail.GetField<string>("PreviousSchoolLAEstab");
             var existingSchoolName = _establishmentService.GetSchoolName(CheckingWindow, existingSchoolId);
 
             return View(
@@ -153,17 +156,17 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 {
                     PupilViewModel = new PupilViewModel
                     {
-                        FirstName = amendment.PupilDetails.FirstName,
-                        LastName = amendment.PupilDetails.LastName,
-                        DateOfBirth = amendment.PupilDetails.DateOfBirth,
-                        Gender = amendment.PupilDetails.Gender,
-                        Age = amendment.PupilDetails.Age,
+                        FirstName = amendment.Pupil.ForeName,
+                        LastName = amendment.Pupil.LastName,
+                        DateOfBirth = amendment.Pupil.DateOfBirth.UtcDateTime,
+                        Gender = amendment.Pupil.Gender,
+                        Age = amendment.Pupil.Age,
                         URN = urn,
-                        DateOfAdmission = amendment.PupilDetails.DateOfAdmission,
-                        ID = amendment.PupilDetails.ID,
-                        YearGroup = amendment.PupilDetails.YearGroup,
-                        UPN = amendment.PupilDetails.UPN,
-                        Keystage = amendment.PupilDetails.Keystage,
+                        DateOfAdmission = amendment.Pupil.DateOfAdmission.UtcDateTime,
+                        ID = amendment.Pupil.Id,
+                        YearGroup = amendment.Pupil.YearGroup,
+                        UPN = amendment.Pupil.Upn,
+                        Keystage = CheckingWindowHelper.ToKeyStage(CheckingWindow),
                         SchoolID = existingSchoolId
                     },
                     SchoolName = existingSchoolName

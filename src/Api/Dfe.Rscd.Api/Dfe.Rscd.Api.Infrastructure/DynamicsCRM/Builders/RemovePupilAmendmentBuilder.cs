@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Dfe.CspdAlpha.Web.Infrastructure.Crm;
 using Dfe.Rscd.Api.Domain.Core.Enums;
 using Dfe.Rscd.Api.Domain.Entities;
@@ -11,7 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.Xrm.Sdk;
 
-namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
+namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Builders
 {
     public class RemovePupilAmendmentBuilder : AmendmentBuilder<RemovePupilAmendment>
     {

@@ -7,7 +7,6 @@ using CsvHelper;
 using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Domain.Interfaces;
 using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Extensions;
-using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Models;
 using Dfe.Rscd.Api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -34,7 +33,7 @@ namespace Dfe.Rscd.Api.Controllers
             OperationId = "GetAmendment",
             Tags = new[] {"Amendments"}
         )]
-        [ProducesResponseType(typeof(GetResponse<AmendmentDTO>), 200)]
+        [ProducesResponseType(typeof(GetResponse<Amendment>), 200)]
         public IActionResult GetAmendment(
             [FromRoute] [SwaggerParameter("The id of the requested amendment", Required = true)]
             string id,
@@ -84,9 +83,9 @@ namespace Dfe.Rscd.Api.Controllers
         // POST: api/Amendments
         [HttpPost]
         [SwaggerOperation(
-            Summary = "Creates a amendment in CRM",
+            Summary = "Creates an amendment",
             Description = "Creates an amendment linked to an establishment and checking phase in CRM",
-            OperationId = "CreateAmendment",
+            OperationId = "Create Amendment",
             Tags = new[] {"Amendments"}
         )]
         [ProducesResponseType(typeof(GetResponse<string>), 200)]
@@ -96,7 +95,7 @@ namespace Dfe.Rscd.Api.Controllers
         {
             try
             {
-                var amendmentReference = _amendmentService.CreateAmendment(amendment);
+                var amendmentReference = _amendmentService.AddAmendment(amendment);
                 var response = new GetResponse<string>
                 {
                     Result = amendmentReference,
@@ -127,10 +126,9 @@ namespace Dfe.Rscd.Api.Controllers
             Tags = new[] {"Amendments", "Evidence"}
         )]
         [ProducesResponseType(typeof(GetResponse<bool>), 200)]
-        public IActionResult RelateEvidence([FromBody] [SwaggerRequestBody("Amendment to add to CRM", Required = true)]
-            RelateEvidenceDTO relateEvidenceDto)
+        public IActionResult RelateEvidence([FromBody] [SwaggerRequestBody("Amendment to add to CRM", Required = true)] string amendmentId, string evidenceFolderName)
         {
-            _amendmentService.RelateEvidence(relateEvidenceDto.AmendmentID, relateEvidenceDto.EvidenceFolderName, true);
+            _amendmentService.RelateEvidence(amendmentId, evidenceFolderName, true);
 
             var response = new GetResponse<bool>
             {

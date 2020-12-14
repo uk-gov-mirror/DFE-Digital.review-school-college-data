@@ -1,12 +1,10 @@
-using Dfe.CspdAlpha.Web.Application.Application.Extensions;
+using Dfe.CspdAlpha.Web.Application.Application;
 using Dfe.CspdAlpha.Web.Application.Application.Helpers;
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
-using Dfe.CspdAlpha.Web.Application.Models.Amendments;
 using Dfe.CspdAlpha.Web.Application.Models.Common;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using Dfe.CspdAlpha.Web.Application.Models.Amendments.AmendmentTypes;
+using Dfe.Rscd.Web.ApiClient;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
@@ -65,13 +63,13 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         {
             var viewModel = new ConfirmViewModel
             {
-                AmendmentType = amendment.AmendmentDetail.AmendmentType,
-                PupilDetails = amendment.PupilDetails
+                AmendmentType = amendment.AmendmentType,
+                PupilDetails = (PupilDetails)amendment.Pupil
             };
             if (viewModel.AmendmentType == AmendmentType.RemovePupil)
             {
                 viewModel.BackController = "RemovePupil";
-                var reason = ((RemovePupil) amendment.AmendmentDetail).ReasonCode;
+                var reason = amendment.AmendmentDetail.GetField<int?>("ReasonCode");
 
                 switch (reason)
                 {
@@ -92,7 +90,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             else if (viewModel.AmendmentType == AmendmentType.AddPupil)
             {
                 viewModel.BackController = "Evidence";
-                viewModel.BackAction = amendment.EvidenceOption == EvidenceOption.UploadNow ? "Upload" : "Index";
+                viewModel.BackAction = amendment.EvidenceStatus == EvidenceStatus.Now ? "Upload" : "Index";
             }
 
             return viewModel;

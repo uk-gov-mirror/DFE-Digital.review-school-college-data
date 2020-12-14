@@ -1,5 +1,6 @@
 using Dfe.CspdAlpha.Web.Application.Models.Common;
 using System.Linq;
+using Dfe.Rscd.Web.ApiClient;
 using DateTime = System.DateTime;
 
 namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil

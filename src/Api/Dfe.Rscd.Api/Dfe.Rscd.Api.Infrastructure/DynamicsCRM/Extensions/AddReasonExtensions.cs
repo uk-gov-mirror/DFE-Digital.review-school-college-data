@@ -6,7 +6,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Extensions
 {
     public static class AddReasonExtensions
     {
-        public static AddReason ToDomainAddReason(this cr3d5_Addreason addReason)
+        public static string ToDomainAddReason(this cr3d5_Addreason addReason)
         {
             switch (addReason)
             {
@@ -19,7 +19,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Extensions
             }
         }
 
-        public static cr3d5_Addreason ToCRMAddReason(this AddReason addReason)
+        public static cr3d5_Addreason ToCrmAddReason(this string addReason)
         {
             switch (addReason)
             {

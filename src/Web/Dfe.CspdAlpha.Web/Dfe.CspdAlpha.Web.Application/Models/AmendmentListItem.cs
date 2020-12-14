@@ -1,7 +1,8 @@
 using System;
-using Dfe.CspdAlpha.Web.Application.Models.Common;
+using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
+using Dfe.Rscd.Web.ApiClient;
 
-namespace Dfe.CspdAlpha.Web.Application.Models.Amendments
+namespace Dfe.CspdAlpha.Web.Application.Models
 {
     public class AmendmentListItem
     {
@@ -13,6 +14,6 @@ namespace Dfe.CspdAlpha.Web.Application.Models.Amendments
         public string ReferenceId { get; set; }
         public string Id { get; set; }
         public string Status { get; set; }
-        public EvidenceOption EvidenceStatus { get; set; }
+        public EvidenceStatus EvidenceStatus { get; set; }
     }
 }

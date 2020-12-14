@@ -58,7 +58,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
             }
         }
 
-        public string CreateAmendment(Amendment amendment)
+        public string AddAmendment(Amendment amendment)
         {
             CurrentBuilder = RetrieveBuilderForAmendment(amendment);
 

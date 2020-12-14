@@ -1,8 +1,8 @@
 ﻿namespace Dfe.Rscd.Api.Domain.Core.Enums
 {
-    public enum AddReason
+    public class AddReason
     {
-        New,
-        Existing
+        public const string New = "New";
+        public const string Existing = "Existing";
     }
 }

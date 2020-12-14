@@ -11,7 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.Xrm.Sdk;
 
-namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
+namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Builders
 {
     public class AddPupilAmendmentBuilder : AmendmentBuilder<AddPupilAmendment>
     {
@@ -22,6 +22,9 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
         }
 
         protected override string RelationshipKey => "rscd_Amendment_Addpupil";
+
+        public override AmendmentType AmendmentType => AmendmentType.AddPupil;
+
         public override Amendment CreateAmendment()
         {
             return new AddPupilAmendment();
@@ -33,7 +36,8 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
 
             var amendmentDetails = new AmendmentDetail();
             amendmentDetails.AddField(AddPupilAmendment.FIELD_Reason, addPupil.rscd_Reason.Value.ToDomainAddReason());
-            amendmentDetails.AddField(AddPupilAmendment.FIELD_PreviousSchoolLAEstab, addPupil.rscd_PreviousschoolLAESTAB);
+            amendmentDetails.AddField(AddPupilAmendment.FIELD_PreviousSchoolLAEstab,
+                addPupil.rscd_PreviousschoolLAESTAB);
             amendmentDetails.AddField(AddPupilAmendment.FIELD_PreviousSchoolURN, addPupil.rscd_PreviousschoolURN);
             amendmentDetails.AddField(AddPupilAmendment.FIELD_PriorAttainmentResults, new List<PriorAttainment>
             {
@@ -57,8 +61,6 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
 
             return amendmentDetails;
         }
-
-        public override AmendmentType AmendmentType => AmendmentType.AddPupil;
 
         protected override void MapAmendmentToDto(AddPupilAmendment amendment, rscd_Amendment amendmentDto)
         {
@@ -86,15 +88,16 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
             var addDto = new rscd_Addpupil
             {
                 rscd_Name = amendment.Pupil.FullName,
-                rscd_Reason = amendmentDetail.GetField<AddReason>(AddPupilAmendment.FIELD_Reason).ToCRMAddReason(),
+                rscd_Reason = amendmentDetail.GetField<string>(AddPupilAmendment.FIELD_Reason).ToCrmAddReason(),
                 rscd_PreviousschoolURN = amendment.Pupil.URN,
                 rscd_PreviousschoolLAESTAB = amendment.Pupil.LaEstab
             };
 
-            var results = amendmentDetail.GetField<List<PriorAttainment>>(AddPupilAmendment.FIELD_PriorAttainmentResults);
+            var results =
+                amendmentDetail.GetField<List<PriorAttainment>>(AddPupilAmendment.FIELD_PriorAttainmentResults);
 
             var reading = results.FirstOrDefault(r => r.Subject == Ks2Subject.Reading);
-            
+
             if (reading != null)
             {
                 addDto.rscd_Readingexamyear = reading.ExamYear;

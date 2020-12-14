@@ -1,4 +1,4 @@
-using Dfe.CspdAlpha.Web.Application.Models.Amendments;
+using Dfe.Rscd.Web.ApiClient;
 
 namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments
 {

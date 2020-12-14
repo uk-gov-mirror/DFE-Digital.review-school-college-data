@@ -4,6 +4,7 @@ using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Domain.Interfaces;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Config;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Services;
+using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Builders;
 using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Config;
 using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Interfaces;
 using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services;
