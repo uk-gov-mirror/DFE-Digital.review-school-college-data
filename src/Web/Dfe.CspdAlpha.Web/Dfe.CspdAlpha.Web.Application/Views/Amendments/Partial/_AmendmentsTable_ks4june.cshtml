@@ -1,6 +1,7 @@
 @using Dfe.CspdAlpha.Web.Application.Models.Common
 @using Dfe.CspdAlpha.Web.Application.Models.School;
 @using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
+@using Dfe.Rscd.Web.ApiClient
 @model List<Dfe.CspdAlpha.Web.Application.Models.AmendmentListItem>
 <table class="govuk-table app-pupil-list-table">
     <thead class="govuk-table__head">
@@ -30,11 +31,11 @@
                     {
                         <span>Not applicable</span>
                     }
-                    else if (amendment.EvidenceStatus == EvidenceOption.UploadNow)
+                    else if (amendment.EvidenceStatus == EvidenceStatus.Now)
                     {
                         <span>Uploaded</span>
                     }
-                    else if (amendment.EvidenceStatus == EvidenceOption.NotRequired)
+                    else if (amendment.EvidenceStatus == EvidenceStatus.NotRequired)
                     {
                         <span>Not required</span>
 
@@ -56,7 +57,7 @@
                 </td>
                 <td class="govuk-table__cell" data-label="Ref ID">@amendment.ReferenceId</td>
                 <td class="govuk-table__cell" data-label="Status">
-                    @if (amendment.Status != "Cancelled" && amendment.EvidenceStatus == EvidenceOption.UploadLater)
+                    @if (amendment.Status != "Cancelled" && amendment.EvidenceStatus == EvidenceStatus.Later)
                     {
                         <span>Awaiting evidence</span>
                     }

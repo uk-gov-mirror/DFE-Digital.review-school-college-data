@@ -3,6 +3,7 @@ using Dfe.CspdAlpha.Web.Application.Models.ViewModels.AddPupil;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Common;
 using Dfe.CspdAlpha.Web.Application.Validators.AddPupil;
 using System;
+using Dfe.Rscd.Web.ApiClient;
 using Xunit;
 
 namespace Dfe.Rscd.Web.UnitTests.Application

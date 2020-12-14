@@ -65,6 +65,32 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Helpers
             }
         }
 
+        public static string ToCheckingWindowLabel(CheckingWindow checkingWindow)
+        {
+            switch (checkingWindow)
+            {
+                case CheckingWindow.Unknown:
+                    break;
+                case CheckingWindow.KS2:
+                    break;
+                case CheckingWindow.KS2Errata:
+                    break;
+                case CheckingWindow.KS4June:
+                    return "June";
+                case CheckingWindow.KS4Late:
+                    return "Sep";
+                case CheckingWindow.KS4Errata:
+                    break;
+                case CheckingWindow.KS5:
+                    return "Sep";
+                case CheckingWindow.KS5Errata:
+                    break;
+                default:
+                    break;
+            }
+            return string.Empty;
+        }
+
         public static string GetCheckingWindowDescription(CheckingWindow checkingWindow)
         {
             switch (checkingWindow)
