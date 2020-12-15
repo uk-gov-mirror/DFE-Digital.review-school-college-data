@@ -22,7 +22,10 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             {
                 return RedirectToAction("Index", "AddPupil");
             }
-            if (amendmentDetail.GetField<List<PriorAttainmentResult>>("PriorAttainmentResults").Count == 3)
+
+            var priorAttainmentList = amendmentDetail.GetList<PriorAttainmentResult>("PriorAttainmentResults");
+
+            if (priorAttainmentList.Count == 3)
             {
                 string referer = HttpContext.Request.Headers["Referer"].ToString();
                 var action = referer.Contains("AddEvidence") ? "Add" : "AddEvidence";
@@ -31,7 +34,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             var model = new PriorAttainmentResultViewModel
             {
                 PupilDetails = new PupilViewModel(amendment.Pupil, CheckingWindow),
-                Ks2Subjects = amendmentDetail.GetField<List<PriorAttainmentResult>>("PriorAttainmentResults")
+                Ks2Subjects = priorAttainmentList
                     .Select(r => r.Ks2Subject).ToList()
             };
             return View(model);
@@ -45,12 +48,12 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             var amendmentDetail = amendment.AmendmentDetail ?? new AmendmentDetail();
             if (ModelState.IsValid)
             {
-                if (amendmentDetail.Fields.Any(x => x.Name == "PriorAttainmentResults"))
+                if (amendmentDetail.Fields.All(x => x.Name != "PriorAttainmentResults"))
                 {
                     amendmentDetail.AddField("PriorAttainmentResults", new List<PriorAttainmentResult>());
                 }
 
-                var priorAttainmentResults = amendmentDetail.GetField<List<PriorAttainmentResult>>("PriorAttainmentResults");
+                var priorAttainmentResults = amendmentDetail.GetList<PriorAttainmentResult>("PriorAttainmentResults");
 
                 priorAttainmentResults.Add(new PriorAttainmentResult
                 {
@@ -63,7 +66,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
                 HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, amendment);
 
-                var results = amendmentDetail.GetField<List<PriorAttainmentResult>>("PriorAttainmentResults");
+                var results = amendmentDetail.GetList<PriorAttainmentResult>("PriorAttainmentResults");
 
                 if (results.Count == 3)
                 {
@@ -92,7 +95,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 return RedirectToAction("Index", "AddPupil");
             }
 
-            return View(new ExistingResultsViewModel(amendmentDetail.GetField<List<PriorAttainmentResult>>("PriorAttainmentResults"),
+            return View(new ExistingResultsViewModel(amendmentDetail.GetList<PriorAttainmentResult>("PriorAttainmentResults"),
                 new PupilViewModel(amendment.Pupil, CheckingWindow)));
         }
 
@@ -104,7 +107,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             {
                 return RedirectToAction("Index", "AddPupil");
             }
-            return View(new ExistingResultsViewModel(amendmentDetail.GetField<List<PriorAttainmentResult>>("PriorAttainmentResults"),
+            return View(new ExistingResultsViewModel(amendmentDetail.GetList<PriorAttainmentResult>("PriorAttainmentResults"),
                 new PupilViewModel(amendment.Pupil, CheckingWindow)));
         }
 

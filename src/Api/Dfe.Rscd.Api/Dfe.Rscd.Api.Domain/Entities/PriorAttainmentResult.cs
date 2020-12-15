@@ -2,11 +2,11 @@
 
 namespace Dfe.Rscd.Api.Domain.Entities
 {
-    public class PriorAttainment
+    public class PriorAttainmentResult
     {
-        public Ks2Subject Subject { get; set; }
+        public string Ks2Subject { get; set; }
         public string ExamYear { get; set; }
-        public string TestMark { get; set; }
+        public string Mark { get; set; }
         public string ScaledScore { get; set; }
     }
 }

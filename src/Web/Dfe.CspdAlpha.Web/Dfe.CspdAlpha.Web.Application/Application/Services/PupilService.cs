@@ -97,7 +97,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             return string.IsNullOrWhiteSpace(value) || value.Trim().ToLower() == "null" ? string.Empty : value.Trim();
         }
 
-        private Ks2Subject GetSubject(string subjectCode)
+        private string GetSubject(string subjectCode)
         {
             switch (subjectCode)
             {

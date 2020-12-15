@@ -49,13 +49,13 @@
                         <fieldset class="govuk-fieldset">
                             <div class="govuk-radios">
                                 <div class="govuk-radios__item app-radios-multiline__item">
-                                    <input class="govuk-radios__input" name="EvidenceOption" id="SelectedEvidenceOption-0" type="radio" value="UploadNow" @(Model.EvidenceOption == EvidenceStatus.Now ? "checked" : string.Empty)>
+                                    <input class="govuk-radios__input" name="EvidenceOption" id="SelectedEvidenceOption-0" type="radio" value="Now" @(Model.EvidenceOption == EvidenceStatus.Now ? "checked" : string.Empty)>
                                     <label class="govuk-label govuk-radios__label" for="SelectedEvidenceOption-0">
                                         I will provide electronic evidence now
                                     </label>
                                 </div>
                                 <div class="govuk-radios__item app-radios-multiline__item">
-                                    <input class="govuk-radios__input" name="EvidenceOption" id="SelectedEvidenceOption-1" type="radio" value="UploadLater" @(Model.EvidenceOption == EvidenceStatus.Later ? "checked" : string.Empty)>
+                                    <input class="govuk-radios__input" name="EvidenceOption" id="SelectedEvidenceOption-1" type="radio" value="Later" @(Model.EvidenceOption == EvidenceStatus.Later ? "checked" : string.Empty)>
                                     <label class="govuk-label govuk-radios__label" for="SelectedEvidenceOption-1">
                                         I will provide electronic evidence before 5pm on DD/MM/YYYY
                                     </label>

@@ -8,13 +8,12 @@ namespace Dfe.CspdAlpha.Web.Application.Models.Common
         KS5
     }
 
-
-    public enum Ks2Subject
+    public class Ks2Subject
     {
-        Unknown,
-        Reading,
-        Writing,
-        Maths
+        public const string Unknown = "Unknown";
+        public const string Reading = "Reading";
+        public const string Writing = "Writing";
+        public const string Maths = "Maths";
     }
 
 }
