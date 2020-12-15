@@ -1,0 +1,44 @@
+@using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments
+@model CustomMessageViewModel
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+@section BackLink
+{
+    <a class="govuk-back-link" asp-controller="TaskList" asp-action="Index">Back</a>
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-l govuk-!-margin-bottom-3">@ViewData["Title"]</h1>
+    </div>
+
+    <div class="govuk-grid-column-full">
+        <details class="govuk-details govuk-!-font-size-16" data-module="govuk-details">
+            <summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text">
+                    @Model.PupilDetails.GetPupilDetailsLabel
+                </span>
+            </summary>
+            <div class="govuk-details__text">
+                <partial name="_PupilDetailsView" model="@Model.PupilDetails" />
+            </div>
+        </details>
+    </div>
+
+    <div class="govuk-grid-column-full">
+        <p class="govuk-body">@Model.Description</p>
+    </div>
+</div>
+
+<div class="govuk-grid-row">
+    <form method="post">
+        <div class="govuk-grid-column-full">
+            <input type="submit" class="govuk-button" data-module="govuk-button" value="Go back" />
+        </div>
+    </form>
+</div>
+
+
+<partial name="_CancelModalContent" />

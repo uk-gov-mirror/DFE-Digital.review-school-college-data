@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using Dfe.Rscd.Api.Domain.Core;
 using Dfe.Rscd.Api.Domain.Core.Enums;
 using Dfe.Rscd.Api.Domain.Interfaces;
 
@@ -53,8 +55,7 @@ namespace Dfe.Rscd.Api.Domain.Entities
                         return OutcomeStatus.AutoAccept;
                     }
 
-                    amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_ScrutinyReasonCode, ScrutinyReason.NotOnRoll);
-                    return OutcomeStatus.AutoReject;
+                    throw new NotAllowedException("Not on roll is not a valid reason", "You cannot select 'Not on roll' as you are not the core provider for the attendance year or School Census/ILR data confirms the student is on roll.");
 
                 case 330: // Evidence not required
                     if (!isAoAllocated)
