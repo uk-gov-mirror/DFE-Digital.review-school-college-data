@@ -1,13 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.AzureAppConfiguration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace Dfe.Rscd.Api
 {
@@ -18,8 +12,9 @@ namespace Dfe.Rscd.Api
             CreateHostBuilder(args).Build().Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
+        public static IHostBuilder CreateHostBuilder(string[] args)
+        {
+            return Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder
@@ -30,12 +25,13 @@ namespace Dfe.Rscd.Api
                             config.AddAzureAppConfiguration(options =>
                             {
                                 options.Connect(settings["ConnectionStrings:AppConfig"])
-                                    .Select(KeyFilter.Any, LabelFilter.Null)
+                                    .Select(KeyFilter.Any)
                                     .Select(KeyFilter.Any, configLabel)
                                     .UseFeatureFlags();
                             });
                         })
                         .UseStartup<Startup>();
                 });
+        }
     }
 }

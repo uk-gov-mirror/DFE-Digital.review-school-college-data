@@ -48,7 +48,7 @@ namespace Dfe.Rscd.Web.ApiClient
         /// <param name="checkingwindow">The checking window to request amendments from</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<AmendmentDTOGetResponse> GetAmendmentAsync(string id, string checkingwindow)
+        public System.Threading.Tasks.Task<AmendmentGetResponse> GetAmendmentAsync(string id, string checkingwindow)
         {
             return GetAmendmentAsync(id, checkingwindow, System.Threading.CancellationToken.None);
         }
@@ -59,7 +59,7 @@ namespace Dfe.Rscd.Web.ApiClient
         /// <param name="checkingwindow">The checking window to request amendments from</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<AmendmentDTOGetResponse> GetAmendmentAsync(string id, string checkingwindow, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<AmendmentGetResponse> GetAmendmentAsync(string id, string checkingwindow, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("api/{checkingwindow}/Amendments/id/{id}");
@@ -96,7 +96,7 @@ namespace Dfe.Rscd.Web.ApiClient
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<AmendmentDTOGetResponse>(response_, headers_).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<AmendmentGetResponse>(response_, headers_).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -203,21 +203,21 @@ namespace Dfe.Rscd.Web.ApiClient
             }
         }
     
-        /// <summary>Creates an amendment in CRM</summary>
+        /// <summary>Creates an amendment</summary>
         /// <param name="body">Amendment to add to CRM</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<StringGetResponse> CreateAmendmentAsync(string checkingwindow, AmendmentDTO body)
+        public System.Threading.Tasks.Task<StringGetResponse> Create_AmendmentAsync(string checkingwindow, Amendment body)
         {
-            return CreateAmendmentAsync(checkingwindow, body, System.Threading.CancellationToken.None);
+            return Create_AmendmentAsync(checkingwindow, body, System.Threading.CancellationToken.None);
         }
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>Creates an amendment in CRM</summary>
+        /// <summary>Creates an amendment</summary>
         /// <param name="body">Amendment to add to CRM</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<StringGetResponse> CreateAmendmentAsync(string checkingwindow, AmendmentDTO body, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<StringGetResponse> Create_AmendmentAsync(string checkingwindow, Amendment body, System.Threading.CancellationToken cancellationToken)
         {
             if (checkingwindow == null)
                 throw new System.ArgumentNullException("checkingwindow");
@@ -303,9 +303,9 @@ namespace Dfe.Rscd.Web.ApiClient
         /// <param name="body">Amendment to add to CRM</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<BooleanGetResponse> RelateEvidenceAsync(string checkingwindow, RelateEvidenceDTO body)
+        public System.Threading.Tasks.Task<BooleanGetResponse> RelateEvidenceAsync(string evidenceFolderName, string checkingwindow, string body)
         {
-            return RelateEvidenceAsync(checkingwindow, body, System.Threading.CancellationToken.None);
+            return RelateEvidenceAsync(evidenceFolderName, checkingwindow, body, System.Threading.CancellationToken.None);
         }
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -313,7 +313,7 @@ namespace Dfe.Rscd.Web.ApiClient
         /// <param name="body">Amendment to add to CRM</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<BooleanGetResponse> RelateEvidenceAsync(string checkingwindow, RelateEvidenceDTO body, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<BooleanGetResponse> RelateEvidenceAsync(string evidenceFolderName, string checkingwindow, string body, System.Threading.CancellationToken cancellationToken)
         {
             if (checkingwindow == null)
                 throw new System.ArgumentNullException("checkingwindow");
@@ -322,8 +322,13 @@ namespace Dfe.Rscd.Web.ApiClient
                 throw new System.ArgumentNullException("body");
     
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("api/{checkingwindow}/Amendments/relateevidence");
+            urlBuilder_.Append("api/{checkingwindow}/Amendments/relateevidence?");
             urlBuilder_.Replace("{checkingwindow}", System.Uri.EscapeDataString(ConvertToString(checkingwindow, System.Globalization.CultureInfo.InvariantCulture)));
+            if (evidenceFolderName != null) 
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("evidenceFolderName") + "=").Append(System.Uri.EscapeDataString(ConvertToString(evidenceFolderName, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            urlBuilder_.Length--;
     
             var client_ = _httpClient;
             var disposeClient_ = false;

@@ -1,23 +1,24 @@
+using System;
+using System.Text.Json.Serialization;
+using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Domain.Interfaces;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Config;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Services;
+using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Builders;
 using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Config;
+using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Interfaces;
 using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services;
 using Dfe.Rscd.Api.Middleware.BasicAuth;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.FeatureManagement;
 using Microsoft.OpenApi.Models;
 using Microsoft.PowerPlatform.Cds.Client;
 using Microsoft.Xrm.Sdk;
-using System;
-using System.Text.Json.Serialization;
-using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Interfaces;
 using Newtonsoft.Json;
-using Microsoft.FeatureManagement;
 
 namespace Dfe.Rscd.Api
 {
@@ -37,10 +38,7 @@ namespace Dfe.Rscd.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers()
-                .AddJsonOptions(x =>
-                {
-                    x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-                })
+                .AddJsonOptions(x => { x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()); })
                 .AddNewtonsoftJson(o => { o.SerializerSettings.TypeNameHandling = TypeNameHandling.Auto; });
 
             services.AddSwaggerGen(c =>
@@ -73,18 +71,22 @@ namespace Dfe.Rscd.Api
             services.Configure<DynamicsOptions>(Configuration.GetSection("Dynamics"));
 
 
-            if (_env.IsStaging())
-            {
-                services.Configure<BasicAuthOptions>(Configuration.GetSection("BasicAuth"));
-            }
+            if (_env.IsStaging()) services.Configure<BasicAuthOptions>(Configuration.GetSection("BasicAuth"));
             services.Configure<CosmosDbOptions>(Configuration.GetSection("CosmosDb"));
+
+            services.AddSingleton<IAmendmentBuilder, RemovePupilAmendmentBuilder>();
+            services.AddSingleton<Amendment, RemovePupilAmendment>();
+            services.AddSingleton<IRuleSet, RemovePupilRules>();
+
+            services.AddSingleton<IAmendmentBuilder, AddPupilAmendmentBuilder>();
+            services.AddSingleton<Amendment, AddPupilAmendment>();
+            services.AddSingleton<IRuleSet, AddPupilRules>();
+
             services.AddSingleton<IEstablishmentService, EstablishmentService>();
             services.AddSingleton<IPupilService, PupilService>();
             services.AddSingleton<IAmendmentService, CrmAmendmentService>();
-            services.AddSingleton<IAmendmentBuilder, AmendmentBuilder>();
             services.AddSingleton<IOutcomeService, OutcomeService>();
             services.AddSingleton<IConfirmationService, CrmConfirmationService>();
-
         }
 
 
@@ -92,23 +94,17 @@ namespace Dfe.Rscd.Api
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             // This needs to come before swagger
-            if (env.IsStaging())
-            {
-                app.UseBasicAuth();
-            }
+            if (env.IsStaging()) app.UseBasicAuth();
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Review school and college data API V1");
-                c.RoutePrefix = string.Empty;
-            }
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Review school and college data API V1");
+                    c.RoutePrefix = string.Empty;
+                }
             );
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
 
             app.UseHttpsRedirection();
 
@@ -118,10 +114,7 @@ namespace Dfe.Rscd.Api
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }

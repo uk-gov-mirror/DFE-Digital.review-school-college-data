@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Dfe.Rscd.Api.Domain.Entities
+﻿namespace Dfe.Rscd.Api.Domain.Entities
 {
     public class PupilRecord
     {

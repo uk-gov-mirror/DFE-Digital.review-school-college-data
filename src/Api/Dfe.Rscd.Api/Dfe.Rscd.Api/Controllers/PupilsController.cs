@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Dfe.Rscd.Api.Domain.Core;
 using Dfe.Rscd.Api.Domain.Core.Enums;
 using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Domain.Interfaces;
 using Dfe.Rscd.Api.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -17,7 +15,7 @@ namespace Dfe.Rscd.Api.Controllers
     [ApiController]
     public class PupilsController : ControllerBase
     {
-        private IPupilService _pupilService;
+        private readonly IPupilService _pupilService;
 
         public PupilsController(IPupilService pupilService)
         {
@@ -34,14 +32,13 @@ namespace Dfe.Rscd.Api.Controllers
         )]
         [ProducesResponseType(typeof(GetResponse<Pupil>), 200)]
         public IActionResult Get(
-            [FromRoute, SwaggerParameter("The id of the pupil requesting amendments", Required = true)]
+            [FromRoute] [SwaggerParameter("The id of the pupil requesting amendments", Required = true)]
             string id,
-            [FromRoute, SwaggerParameter("The checking window to request pupil from", Required = true)]
+            [FromRoute] [SwaggerParameter("The checking window to request pupil from", Required = true)]
             string checkingwindow)
         {
-            CheckingWindow checkingWindow;
             Enum.TryParse(checkingwindow.Replace("-", string.Empty), true,
-                out checkingWindow);
+                out CheckingWindow checkingWindow);
             var pupil = _pupilService.GetById(checkingWindow, id);
             var response = new GetResponse<Pupil>
             {
@@ -57,21 +54,20 @@ namespace Dfe.Rscd.Api.Controllers
             Summary = "Searches for a pupil or pupils.",
             Description = @"Searches for pupils based on the supplied query parameters.",
             OperationId = "SearchPupils",
-            Tags = new[] { "Pupils" }
-            )]
+            Tags = new[] {"Pupils"}
+        )]
         [ProducesResponseType(typeof(GetResponse<IEnumerable<PupilRecord>>), 200)]
         [ProducesResponseType(400)]
-        public async Task<IActionResult> Search([FromQuery, SwaggerParameter("Pupil search criteria.", Required = true)] PupilsSearchRequest request,
-        [FromRoute, SwaggerParameter("The checking window to request pupil or pupils from", Required = true)] string checkingwindow)
+        public async Task<IActionResult> Search(
+            [FromQuery] [SwaggerParameter("Pupil search criteria.", Required = true)]
+            PupilsSearchRequest request,
+            [FromRoute] [SwaggerParameter("The checking window to request pupil or pupils from", Required = true)]
+            string checkingwindow)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(this.ModelState);
-            }
+            if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            CheckingWindow checkingWindow;
             Enum.TryParse(checkingwindow.Replace("-", string.Empty), true,
-                out checkingWindow);
+                out CheckingWindow checkingWindow);
             var pupils = _pupilService.QueryPupils(checkingWindow, request);
             var response = new GetResponse<IEnumerable<PupilRecord>>
             {
@@ -80,6 +76,5 @@ namespace Dfe.Rscd.Api.Controllers
             };
             return Ok(response);
         }
-
     }
 }

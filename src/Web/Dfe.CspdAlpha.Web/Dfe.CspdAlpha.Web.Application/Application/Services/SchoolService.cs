@@ -2,14 +2,13 @@ using System;
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels;
 using Dfe.Rscd.Web.ApiClient;
-using CheckingWindow = Dfe.CspdAlpha.Web.Application.Models.Common.CheckingWindow;
 
 namespace Dfe.CspdAlpha.Web.Application.Application.Services
 {
     public class SchoolService : ISchoolService
     {
-        private IEstablishmentService _establishmentService;
-        private IClient _apiClient;
+        private readonly IEstablishmentService _establishmentService;
+        private readonly IClient _apiClient;
 
         public SchoolService(IEstablishmentService establishmentService, IClient apiClient)
         {

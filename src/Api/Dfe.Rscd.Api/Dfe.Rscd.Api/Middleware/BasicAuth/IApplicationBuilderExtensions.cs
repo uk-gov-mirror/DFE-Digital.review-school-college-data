@@ -2,7 +2,7 @@
 
 namespace Dfe.Rscd.Api.Middleware.BasicAuth
 {
-    public static class IApplicationBuilderExtensions
+    public static class ApplicationBuilderExtensions
     {
         public static IApplicationBuilder UseBasicAuth(
             this IApplicationBuilder builder)

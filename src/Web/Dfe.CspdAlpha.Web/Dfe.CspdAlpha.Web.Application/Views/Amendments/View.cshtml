@@ -1,11 +1,11 @@
 @using Dfe.CspdAlpha.Web.Application.Application.Helpers
-@using Dfe.CspdAlpha.Web.Application.Models.Amendments
-@using Dfe.CspdAlpha.Web.Application.Models.Amendments.AmendmentTypes
 @using Dfe.CspdAlpha.Web.Application.Models.Common
 @using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments
+@using Dfe.Rscd.Web.ApiClient
+@using Ks2Subject = Dfe.CspdAlpha.Web.Application.Models.Common.Ks2Subject
 @model AmendmentViewModel
 @{
-    ViewData["Title"] = "Requested amendment for: " + Model.Amendment.PupilDetails.FullName;
+    ViewData["Title"] = "Requested amendment for: " + Model.Amendment.Pupil.FullName;
     ViewBag.ContentClass = "app-detail-page-main";
 }
 
@@ -21,7 +21,7 @@
 </div>
 <div class="govuk-grid-row govuk-!-padding-top-2">
     <div class="app-grid-column-two-thirds--always">
-        <h2 class="govuk-heading-m govuk-!-margin-bottom-3">@(Model.Amendment.PupilDetails.Keystage == Keystage.KS5 ? "Student" : "Pupil") details</h2>
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-3">@(Model.Keystage == Keystage.KS5 ? "Student" : "Pupil") details</h2>
     </div>
     <div class="app-grid-column-one-third--always app-align-right">
         <a class="print-link" href="javascript:window.print()">Print</a>
@@ -30,14 +30,14 @@
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
         <dl class="govuk-summary-list app-summary-list app-summary-list--mobile-inline app-summary-list--pupil-details">
-            @if (Model.Amendment.PupilDetails.Keystage == Keystage.KS5)
+            @if (Model.Keystage == Keystage.KS5)
             {
                 <div class="govuk-summary-list__row">
                     <dt class="govuk-summary-list__key">
                         ULN (Unique Learner Number)
                     </dt>
                     <dd class="govuk-summary-list__value">
-                        @Model.Amendment.PupilDetails.ULN
+                        @Model.Amendment.Pupil.Uln
                     </dd>
                 </div>
             }
@@ -48,7 +48,7 @@
                         Previous school URN (Unique Reference Number) or LAESTAB (Local Authority Establishment Number)
                     </dt>
                     <dd class="govuk-summary-list__value">
-                        @Html.NotRecordedIfNullOrEmpty(Model.Amendment.PupilDetails.LAEstab)
+                        @Html.NotRecordedIfNullOrEmpty(Model.Amendment.Pupil.LaEstab)
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row">
@@ -56,7 +56,7 @@
                         UPN
                     </dt>
                     <dd class="govuk-summary-list__value">
-                        @Model.Amendment.PupilDetails.UPN
+                        @Model.Amendment.Pupil.Upn
                     </dd>
                 </div>
             }
@@ -65,7 +65,7 @@
                     First name
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @Model.Amendment.PupilDetails.FirstName
+                    @Model.Amendment.Pupil.ForeName
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -73,7 +73,7 @@
                     Last name
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @Model.Amendment.PupilDetails.LastName
+                    @Model.Amendment.Pupil.LastName
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -81,7 +81,7 @@
                     Date of birth
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @Model.Amendment.PupilDetails.DateOfBirth.ToString("dd/MM/yyyy")
+                    @Model.Amendment.Pupil.DateOfBirth.ToString("dd/MM/yyyy")
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -89,7 +89,7 @@
                     Age
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @Model.Amendment.PupilDetails.Age
+                    @Model.Amendment.Pupil.Age
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -97,17 +97,17 @@
                     Gender
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @Model.Amendment.PupilDetails.Gender
+                    @Model.Amendment.Pupil.Gender
                 </dd>
             </div>
-            @if (Model.Amendment.PupilDetails.Keystage != Keystage.KS5)
+            @if (Model.Keystage != Keystage.KS5)
             {
                 <div class="govuk-summary-list__row">
                     <dt class="govuk-summary-list__key">
                         Admission date
                     </dt>
                     <dd class="govuk-summary-list__value">
-                        @Model.Amendment.PupilDetails.DateOfAdmission.ToString("dd/MM/yyyy")
+                        @Model.Amendment.Pupil.DateOfAdmission.ToString("dd/MM/yyyy")
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row">
@@ -115,16 +115,17 @@
                         Year group
                     </dt>
                     <dd class="govuk-summary-list__value">
-                        @Model.Amendment.PupilDetails.YearGroup
+                        @Model.Amendment.Pupil.YearGroup
                     </dd>
                 </div>
             }
         </dl>
     </div>
 </div>
-@if (Model.Amendment.AmendmentDetail.AmendmentType == AmendmentType.AddPupil)
+@if (Model.Amendment.AmendmentType == AmendmentType.AddPupil)
 {
-    var addPupil = (AddPupil)Model.Amendment.AmendmentDetail;
+    var amendmentDetails = Model.Amendment.AmendmentDetail;
+    var priorAttainmentResults = amendmentDetails.GetField<List<PriorAttainmentResult>>("PriorAttainmentResult");
     <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds app-padding-top-mobile-2">
                 <h2 class="govuk-heading-m govuk-!-margin-bottom-3">Pupil prior attainment results</h2>
@@ -132,7 +133,7 @@
         </div>
         <div class="govuk-grid-row">
             @{
-                var reading = addPupil.PriorAttainmentResults.FirstOrDefault(r => r.Ks2Subject == Ks2Subject.Reading);
+                var reading = priorAttainmentResults.FirstOrDefault(r => r.Ks2Subject == Ks2Subject.Reading);
             }
             <div class="govuk-grid-column-two-thirds app-padding-top-mobile-2">
                 <h2 class="govuk-heading-m govuk-!-margin-bottom-3">Key stage 2 Reading</h2>
@@ -168,7 +169,7 @@
         </div>
         <div class="govuk-grid-row">
             @{
-                var writing = addPupil.PriorAttainmentResults.FirstOrDefault(r => r.Ks2Subject == Ks2Subject.Writing);
+                var writing = priorAttainmentResults.FirstOrDefault(r => r.Ks2Subject == Ks2Subject.Writing);
             }
             <div class="govuk-grid-column-two-thirds app-padding-top-mobile-2">
                 <h2 class="govuk-heading-m govuk-!-margin-bottom-3">Key stage 2 Writing</h2>
@@ -204,7 +205,7 @@
         </div>
         <div class="govuk-grid-row">
             @{
-                var maths = addPupil.PriorAttainmentResults.FirstOrDefault(r => r.Ks2Subject == Ks2Subject.Maths);
+                var maths = priorAttainmentResults.FirstOrDefault(r => r.Ks2Subject == Ks2Subject.Maths);
             }
             <div class="govuk-grid-column-two-thirds app-padding-top-mobile-2">
                 <h2 class="govuk-heading-m govuk-!-margin-bottom-3">Key stage 2 Maths</h2>

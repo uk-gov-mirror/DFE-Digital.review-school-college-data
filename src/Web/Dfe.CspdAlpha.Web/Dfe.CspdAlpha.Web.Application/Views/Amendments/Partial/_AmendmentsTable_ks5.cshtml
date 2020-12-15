@@ -1,7 +1,8 @@
-@using Dfe.CspdAlpha.Web.Application.Application.Extensions
 @using Dfe.CspdAlpha.Web.Application.Models.Common
 @using Dfe.CspdAlpha.Web.Application.Models.School;
-@model List<Dfe.CspdAlpha.Web.Application.Models.Amendments.AmendmentListItem>
+@using Dfe.CspdAlpha.Web.Application.Application.Helpers
+@using Dfe.Rscd.Web.ApiClient
+@model List<Dfe.CspdAlpha.Web.Application.Models.AmendmentListItem>
 <table class="govuk-table app-pupil-list-table">
     <thead class="govuk-table__head">
         <tr class="govuk-table__row">
@@ -23,18 +24,18 @@
                 <td class="govuk-table__cell" data-label="First name">@amendment.FirstName</td>
                 <td class="govuk-table__cell" data-label="Last name">@amendment.LastName</td>
                 <td class="govuk-table__cell" data-label="Date requested">@amendment.DateRequested.ToString("dd/MM/yyyy")</td>
-                <td class="govuk-table__cell" data-label="Checking window">@amendment.CheckingWindow.ToCheckingWindowLabel()</td>
+                <td class="govuk-table__cell" data-label="Checking window">@CheckingWindowHelper.ToCheckingWindowLabel(amendment.CheckingWindow)</td>
                 <td class="govuk-table__cell" data-label="View requested amendment"><a asp-controller="Amendments" asp-action="View" asp-route-id="@amendment.Id">View</a></td>
                 <td class="govuk-table__cell" data-label="Upload evidence">
                     @if (amendment.Status == "Cancelled")
                     {
                         <span>Not applicable</span>
                     }
-                    else if (amendment.EvidenceStatus == EvidenceOption.UploadNow)
+                    else if (amendment.EvidenceStatus == EvidenceStatus.Now)
                     {
                         <span>Uploaded</span>
                     }
-                    else if (amendment.EvidenceStatus == EvidenceOption.NotRequired)
+                    else if (amendment.EvidenceStatus == EvidenceStatus.NotRequired)
                     {
                         <span>Not applicable</span>
 
@@ -56,7 +57,7 @@
                 </td>
                 <td class="govuk-table__cell" data-label="Reference ID">@amendment.ReferenceId</td>
                 <td class="govuk-table__cell" data-label="Status">
-                    @if (amendment.Status != "Cancelled" && amendment.EvidenceStatus == EvidenceOption.UploadLater)
+                    @if (amendment.Status != "Cancelled" && amendment.EvidenceStatus == EvidenceStatus.Later)
                     {
                         <span>Awaiting evidence</span>
                     }

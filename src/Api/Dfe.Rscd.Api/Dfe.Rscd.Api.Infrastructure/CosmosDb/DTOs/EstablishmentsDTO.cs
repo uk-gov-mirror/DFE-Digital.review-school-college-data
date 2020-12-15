@@ -1,7 +1,7 @@
-﻿using Dfe.Rscd.Api.Domain.Core;
-using Dfe.Rscd.Api.Domain.Entities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Dfe.Rscd.Api.Domain.Core;
+using Dfe.Rscd.Api.Domain.Entities;
 
 namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs
 {
@@ -20,7 +20,8 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs
             Name = SchoolName,
             SchoolType = SchoolType,
             CohortMeasures = new List<PerformanceMeasure>(),
-            PerformanceMeasures = performance.Select(p => new PerformanceMeasure { Name = p.Code, Value = p.CodeValue }).ToList()
+            PerformanceMeasures = performance.Select(p => new PerformanceMeasure {Name = p.Code, Value = p.CodeValue})
+                .ToList()
         };
     }
 
@@ -29,5 +30,4 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs
         public string Code { get; set; }
         public string CodeValue { get; set; }
     }
-
 }

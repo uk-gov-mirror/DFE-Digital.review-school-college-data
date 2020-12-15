@@ -10,7 +10,7 @@ namespace Dfe.Rscd.Api.Controllers
     [ApiController]
     public class SchoolReviewController : ControllerBase
     {
-        private IConfirmationService _confirmationService;
+        private readonly IConfirmationService _confirmationService;
 
         public SchoolReviewController(IConfirmationService confirmationService)
         {
@@ -23,18 +23,18 @@ namespace Dfe.Rscd.Api.Controllers
             Summary = "Returns the requested school review record",
             Description = "Returns the requested school review record specified by the supplied user id and urn",
             OperationId = "GetSchoolReviewRecord",
-            Tags = new[] { "School review record" }
+            Tags = new[] {"School review record"}
         )]
         [ProducesResponseType(typeof(GetResponse<ConfirmationRecord>), 200)]
         [ProducesResponseType(404)]
-        public IActionResult Get([FromRoute, SwaggerParameter("The id of the user requesting the school review record", Required = true)] string userid,
-            [FromRoute, SwaggerParameter("The urn of the school requesting the school review record", Required = true)] string urn)
+        public IActionResult Get(
+            [FromRoute] [SwaggerParameter("The id of the user requesting the school review record", Required = true)]
+            string userid,
+            [FromRoute] [SwaggerParameter("The urn of the school requesting the school review record", Required = true)]
+            string urn)
         {
             var schoolReviewRecord = _confirmationService.GetConfirmationRecord(userid, urn);
-            if (schoolReviewRecord == null)
-            {
-                return NotFound();
-            }
+            if (schoolReviewRecord == null) return NotFound();
             var response = new GetResponse<ConfirmationRecord>
             {
                 Result = schoolReviewRecord,
@@ -48,10 +48,11 @@ namespace Dfe.Rscd.Api.Controllers
             Summary = "Creates the requested school review record",
             Description = "Creates the requested school review record specified by the supplied user id and urn",
             OperationId = "CreateSchoolReviewRecord",
-            Tags = new[] { "School review record" }
+            Tags = new[] {"School review record"}
         )]
         [ProducesResponseType(typeof(GetResponse<bool>), 200)]
-        public IActionResult Post([FromBody, SwaggerParameter("The confirmation record to create", Required = true)] ConfirmationRecord record)
+        public IActionResult Post([FromBody] [SwaggerParameter("The confirmation record to create", Required = true)]
+            ConfirmationRecord record)
         {
             var schoolReviewCreated = _confirmationService.CreateConfirmationRecord(record);
             var response = new GetResponse<bool>
@@ -67,10 +68,11 @@ namespace Dfe.Rscd.Api.Controllers
             Summary = "Updates the requested school review record",
             Description = "Updates the requested school review record specified by the supplied user id and urn",
             OperationId = "UpdateSchoolReviewRecord",
-            Tags = new[] { "School review record" }
+            Tags = new[] {"School review record"}
         )]
         [ProducesResponseType(typeof(GetResponse<bool>), 200)]
-        public IActionResult Put([FromBody, SwaggerParameter("The confirmation record to create", Required = true)] ConfirmationRecord record)
+        public IActionResult Put([FromBody] [SwaggerParameter("The confirmation record to create", Required = true)]
+            ConfirmationRecord record)
         {
             var schoolReviewUpdated = _confirmationService.UpdateConfirmationRecord(record);
             var response = new GetResponse<bool>
@@ -80,6 +82,5 @@ namespace Dfe.Rscd.Api.Controllers
             };
             return Ok(response);
         }
-
     }
 }

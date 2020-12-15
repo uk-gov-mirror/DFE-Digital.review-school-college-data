@@ -1,8 +1,5 @@
-using System;
-using System.Collections.Generic;
-using Dfe.CspdAlpha.Web.Application.Models.Amendments;
-using Dfe.CspdAlpha.Web.Application.Models.Common;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments;
+using Dfe.Rscd.Web.ApiClient;
 
 namespace Dfe.CspdAlpha.Web.Application.Application.Interfaces
 {
@@ -16,6 +13,6 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Interfaces
 
         bool CancelAmendment(CheckingWindow checkingWindow, string id);
 
-        bool RelateEvidence(CheckingWindow checkingWindow, string amendmentid, string evidencefolder);
+        bool RelateEvidence(CheckingWindow checkingWindow, string amendmentId, string evidenceFolder);
     }
 }

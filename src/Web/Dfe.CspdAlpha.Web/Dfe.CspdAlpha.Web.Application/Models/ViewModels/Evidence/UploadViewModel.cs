@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using Dfe.CspdAlpha.Web.Application.Models.Amendments;
-using Dfe.CspdAlpha.Web.Application.Models.Common;
+using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
+using Dfe.Rscd.Web.ApiClient;
 using Microsoft.AspNetCore.Http;
 
 namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Evidence
@@ -8,7 +8,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Evidence
     public class UploadViewModel
     {
         public AmendmentType AmendmentType { get; set; }
-        public PupilDetails PupilDetails { get; set; }
+        public PupilViewModel Pupil { get; set; }
         public List<IFormFile> EvidenceFiles { get; set; }
         public string ID { get; set; }
 
@@ -19,7 +19,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Evidence
                 case AmendmentType.RemovePupil:
                     return "Upload evidence";
                 case AmendmentType.AddPupil:
-                    return "Upload evidence " + PupilDetails.FullName;
+                    return "Upload evidence " + Pupil.FullName;
                 default:
                     return string.Empty;
             }
@@ -27,10 +27,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Evidence
 
         public string GetBackAction()
         {
-            if (!string.IsNullOrWhiteSpace(ID))
-            {
-                return "Index";
-            }
+            if (!string.IsNullOrWhiteSpace(ID)) return "Index";
 
             switch (AmendmentType)
             {
@@ -42,12 +39,10 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Evidence
                     return string.Empty;
             }
         }
+
         public string GetBackController()
         {
-            if (!string.IsNullOrWhiteSpace(ID))
-            {
-                return "Amendments";
-            }
+            if (!string.IsNullOrWhiteSpace(ID)) return "Amendments";
             switch (AmendmentType)
             {
                 case AmendmentType.RemovePupil:

@@ -1,17 +1,17 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Options;
-using Microsoft.Net.Http.Headers;
-using System;
+﻿using System;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Options;
+using Microsoft.Net.Http.Headers;
 
 namespace Dfe.Rscd.Api.Middleware.BasicAuth
 {
     public class BasicAuthMiddleware
     {
-        private readonly RequestDelegate _next;
         private readonly BasicAuthOptions _basicAuthOptions;
+        private readonly RequestDelegate _next;
 
         public BasicAuthMiddleware(
             RequestDelegate next,
@@ -37,7 +37,7 @@ namespace Dfe.Rscd.Api.Middleware.BasicAuth
             {
                 var authHeader = AuthenticationHeaderValue.Parse(context.Request.Headers["Authorization"]);
                 var credentialBytes = Convert.FromBase64String(authHeader.Parameter);
-                var credentials = Encoding.UTF8.GetString(credentialBytes).Split(new[] { ':' }, 2);
+                var credentials = Encoding.UTF8.GetString(credentialBytes).Split(new[] {':'}, 2);
                 username = credentials[0];
                 password = credentials[1];
             }
@@ -62,7 +62,8 @@ namespace Dfe.Rscd.Api.Middleware.BasicAuth
         private void Challenge(HttpContext context)
         {
             context.Response.StatusCode = 401;
-            context.Response.Headers.Append(HeaderNames.WWWAuthenticate, "Basic realm=\"" + context.Request.Host + "\"");
+            context.Response.Headers.Append(HeaderNames.WWWAuthenticate,
+                "Basic realm=\"" + context.Request.Host + "\"");
         }
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Dfe.CspdAlpha.Web.Application.Models.Common;
+using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
 
 namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Results
 {
@@ -11,7 +12,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Results
             // Required for model binding
         }
 
-        public ExistingResultsViewModel(List<PriorAttainmentResult> results, PupilDetails pupilDetails)
+        public ExistingResultsViewModel(List<PriorAttainmentResult> results, PupilViewModel pupilDetails)
         {
             PupilDetails = pupilDetails;
             Reading = results.SingleOrDefault(r => r.Ks2Subject == Ks2Subject.Reading);
@@ -19,7 +20,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Results
             Maths = results.SingleOrDefault(r => r.Ks2Subject == Ks2Subject.Maths);
         }
 
-        public PupilDetails PupilDetails { get; set; }
+        public PupilViewModel PupilDetails { get; set; }
         public PriorAttainmentResult Reading { get; set; }
         public PriorAttainmentResult Writing { get; set; }
         public PriorAttainmentResult Maths { get; set; }

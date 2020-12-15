@@ -1,11 +1,11 @@
 using System;
-using Dfe.CspdAlpha.Web.Application.Application.Extensions;
+using Dfe.CspdAlpha.Web.Application.Application;
 using Dfe.CspdAlpha.Web.Application.Application.Helpers;
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
-using Dfe.CspdAlpha.Web.Application.Models.Amendments;
-using Dfe.CspdAlpha.Web.Application.Models.Amendments.AmendmentTypes;
 using Dfe.CspdAlpha.Web.Application.Models.Common;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Evidence;
+using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
+using Dfe.Rscd.Web.ApiClient;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
@@ -25,33 +25,33 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         public IActionResult Index()
         {
             var amendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
-            var amendmentDetail = (AddPupil)amendment?.AmendmentDetail;
-            if (amendment.PupilDetails == null)
+            var amendmentDetail = amendment?.AmendmentDetail;
+            if (amendment.Pupil == null)
             {
                 return RedirectToAction("Index", "AddPupil");
             }
-            return View(new EvidenceViewModel{PupilDetails = amendment.PupilDetails, AddReason = amendmentDetail.AddReason});
+            return View(new EvidenceViewModel{PupilDetails = new PupilViewModel(amendment.Pupil, CheckingWindow), AddReason = amendmentDetail.GetField<string>("AddReason")});
         }
 
         [HttpPost]
         public IActionResult Index(EvidenceViewModel viewModel)
         {
             var amendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
-            amendment.EvidenceOption = viewModel.EvidenceOption;
+            amendment.EvidenceStatus = viewModel.EvidenceOption;
             HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, amendment);
             if (ModelState.IsValid)
             {
                 switch (viewModel.EvidenceOption)
                 {
-                    case EvidenceOption.UploadNow:
+                    case EvidenceStatus.Now:
                         return RedirectToAction("Upload");
-                    case EvidenceOption.UploadLater:
-                    case EvidenceOption.NotRequired:
+                    case EvidenceStatus.Later:
+                    case EvidenceStatus.NotRequired:
                         return RedirectToAction("Confirm", "Amendments");
                     default:
-                        var amendmentDetail = (AddPupil)amendment?.AmendmentDetail;
-                        viewModel.PupilDetails = amendment.PupilDetails;
-                        viewModel.AddReason = amendmentDetail.AddReason;
+                        var amendmentDetail = amendment?.AmendmentDetail;
+                        viewModel.PupilDetails = new PupilViewModel(amendment.Pupil, CheckingWindow);
+                        viewModel.AddReason = amendmentDetail.GetField<string>("AddReason");
                         return View(viewModel);
                 }
             }
@@ -65,18 +65,18 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             {
                 var amendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
 
-                if (amendment == null || amendment.EvidenceOption != EvidenceOption.UploadNow)
+                if (amendment == null || amendment.EvidenceStatus != EvidenceStatus.Now)
                 {
                     return RedirectToAction("Index", "AddPupil");
                 }
-                return View(new UploadViewModel { PupilDetails = amendment.PupilDetails, AmendmentType = amendment.AmendmentDetail.AmendmentType });
+                return View(new UploadViewModel { Pupil = new PupilViewModel(amendment.Pupil, CheckingWindow), AmendmentType = amendment.AmendmentType});
             }
             //Upload for amendment in progress
             else
             {
                 var amendment = _amendmentService.GetAmendment(CheckingWindow, id);
 
-                return View(new UploadViewModel { PupilDetails = amendment.PupilDetails });
+                return View(new UploadViewModel { Pupil = new PupilViewModel(amendment.Pupil, CheckingWindow) });
             }
         }
 
@@ -98,8 +98,8 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                     ModelState.AddModelError("EvidenceFiles", "Upload file");
                 }
 
-                viewModel.PupilDetails = amendment.PupilDetails;
-                viewModel.AmendmentType = amendment.AmendmentDetail.AmendmentType;
+                viewModel.Pupil = new PupilViewModel(amendment.Pupil, CheckingWindow);
+                viewModel.AmendmentType = amendment.AmendmentType;
                 return View(viewModel);
             }
             else
@@ -112,7 +112,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 }
                 var amendment = _amendmentService.GetAmendment(CheckingWindow, id);
 
-                return View(new UploadViewModel { PupilDetails = amendment.PupilDetails });
+                return View(new UploadViewModel { Pupil = new PupilViewModel(amendment.Pupil, CheckingWindow) });
             }
         }
     }

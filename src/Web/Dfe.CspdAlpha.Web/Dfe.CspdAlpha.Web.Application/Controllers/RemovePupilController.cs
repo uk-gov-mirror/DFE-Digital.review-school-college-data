@@ -1,12 +1,12 @@
-using Dfe.CspdAlpha.Web.Application.Application.Extensions;
 using Dfe.CspdAlpha.Web.Application.Application.Helpers;
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
-using Dfe.CspdAlpha.Web.Application.Models.Amendments;
-using Dfe.CspdAlpha.Web.Application.Models.Amendments.AmendmentTypes;
 using Dfe.CspdAlpha.Web.Application.Models.Common;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using Dfe.CspdAlpha.Web.Application.Application;
+using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
+using Dfe.Rscd.Web.ApiClient;
 using Microsoft.Extensions.Configuration;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
@@ -73,24 +73,23 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             var viewModel = _pupilService.GetPupil(CheckingWindow, id);
             var amendment = new Amendment
             {
-                URN = urn,
+                Urn = urn,
                 CheckingWindow = CheckingWindowHelper.GetCheckingWindow(RouteData),
-                PupilDetails = new PupilDetails
+                AmendmentType = AmendmentType.RemovePupil,
+                Pupil = new Pupil
                 {
-                    Keystage = viewModel.PupilViewModel.Keystage,
-                    ID = id,
-                    UPN = viewModel.PupilViewModel.UPN,
-                    ULN = viewModel.PupilViewModel.ULN,
-                    FirstName = viewModel.PupilViewModel.FirstName,
+                    Id = id,
+                    Upn = viewModel.PupilViewModel.UPN,
+                    Uln = viewModel.PupilViewModel.ULN,
+                    ForeName = viewModel.PupilViewModel.FirstName,
                     LastName = viewModel.PupilViewModel.LastName,
                     DateOfBirth = viewModel.PupilViewModel.DateOfBirth,
                     Age = viewModel.PupilViewModel.Age,
                     Gender = viewModel.PupilViewModel.Gender,
                     DateOfAdmission = viewModel.PupilViewModel.DateOfAdmission,
-                    YearGroup = viewModel.PupilViewModel.YearGroup,
-                    AllocationYears = viewModel.PupilViewModel.AllocationYears
+                    YearGroup = viewModel.PupilViewModel.YearGroup
                 },
-                AmendmentDetail = new RemovePupil()
+                AmendmentDetail = new AmendmentDetail()
             };
             HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, amendment);
             return new RemovePupilViewModel {PupilViewModel = viewModel.PupilViewModel};
@@ -107,16 +106,18 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         public IActionResult Reason(QueryType searchType, string query, string matchedId)
         {
             var amendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
+
             if (amendment == null)
             {
                 return RedirectToAction("Index");
             }
 
-            var removePupil = (RemovePupil)amendment.AmendmentDetail;
+            var amendmentDetail = amendment.AmendmentDetail;
+
             return View(new ReasonViewModel
             {
-                PupilDetails = amendment.PupilDetails,
-                SelectedReasonCode = removePupil.ReasonCode,
+                PupilDetails = new PupilViewModel(amendment.Pupil, CheckingWindow),
+                SelectedReasonCode = amendmentDetail.GetField<int?>("ReasonCode"),
                 SearchType = searchType,
                 Query = query,
                 MatchedId = matchedId
@@ -130,9 +131,8 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
             if (ModelState.IsValid)
             {
-                var removePupil = (RemovePupil)amendment.AmendmentDetail;
-                removePupil.ReasonCode = viewModel.SelectedReasonCode.Value;
-                amendment.EvidenceOption = viewModel.SelectedReasonCode == 329 ? EvidenceOption.UploadNow : EvidenceOption.NotRequired;
+                amendment.AmendmentDetail.AddField("ReasonCode", viewModel.SelectedReasonCode.Value);
+                amendment.EvidenceStatus = viewModel.SelectedReasonCode == 329 ? EvidenceStatus.Now : EvidenceStatus.NotRequired;
                 HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, amendment);
                 if (new[]
                     {
@@ -154,7 +154,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                     return RedirectToAction("Details");
                 }
             }
-            return View(new ReasonViewModel { PupilDetails = amendment.PupilDetails });
+            return View(new ReasonViewModel { PupilDetails = new PupilViewModel(amendment.Pupil, CheckingWindow) });
         }
 
         public IActionResult Details()
@@ -164,11 +164,12 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             {
                 return RedirectToAction("Index");
             }
-            var removePupil = (RemovePupil)amendment.AmendmentDetail;
+
+            var amendmentDetail = amendment.AmendmentDetail;
             return View(new DetailsViewModel
             {
-                PupilDetails = amendment.PupilDetails,
-                AmendmentDetails = removePupil.Detail
+                PupilDetails = new PupilViewModel(amendment.Pupil, CheckingWindow),
+                AmendmentDetails = amendmentDetail.GetField<string>("Detail")
             });
         }
 
@@ -176,14 +177,15 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         public IActionResult Details(DetailsViewModel viewModel)
         {
             var amendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
-            var removePupil = (RemovePupil)amendment.AmendmentDetail;
+            var amendmentDetail = amendment.AmendmentDetail;
 
             if (ModelState.IsValid)
             {
-                removePupil.Detail = viewModel.AmendmentDetails;
+                amendmentDetail.AddField("Detail", viewModel.AmendmentDetails);
+
                 HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, amendment);
 
-                if (amendment.EvidenceOption == EvidenceOption.UploadNow)
+                if (amendment.EvidenceStatus == EvidenceStatus.Now)
                 {
                     return RedirectToAction("Upload", "Evidence");
                 }
@@ -191,7 +193,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 return RedirectToAction("Confirm","Amendments");
             }
 
-            viewModel.PupilDetails = amendment.PupilDetails;
+            viewModel.PupilDetails = new PupilViewModel(amendment.Pupil, CheckingWindow);
             return View(viewModel);
         }
     }

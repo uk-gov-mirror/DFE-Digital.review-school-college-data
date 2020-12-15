@@ -3,8 +3,9 @@ using Dfe.Rscd.Api.Domain.Entities;
 
 namespace Dfe.Rscd.Api.Domain.Interfaces
 {
-    public interface IAmendmentType
+    public interface IRuleSet
     {
-        OutcomeStatus GetOutcomeStatus(Amendment amendment);
+        AmendmentType AmendmentType { get; }
+        OutcomeStatus Apply(Amendment amendment);
     }
 }
