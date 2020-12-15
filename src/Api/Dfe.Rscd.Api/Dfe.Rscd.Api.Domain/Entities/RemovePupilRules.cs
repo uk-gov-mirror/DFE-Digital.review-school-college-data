@@ -49,7 +49,7 @@ namespace Dfe.Rscd.Api.Domain.Entities
                 case 328: // Not on roll
                     if (!wasAllocatedAny)
                     {
-                        throw new NotAllowedException("Not on roll is not a valid reason", "You cannot select 'Not on roll' as you are not the core provider for the attendance year or School Census/ILR data confirms the student is on roll.");
+                        throw new NotAllowedException("Not on roll is not a valid reason", "Insufficient information provided as answer to student adjustment prompts.");
                     }
                     if (isAoAllocated)
                     {
