@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Dfe.CspdAlpha.Web.Application.Application;
+using Dfe.CspdAlpha.Web.Application.Application.Helpers;
 using Dfe.CspdAlpha.Web.Application.Models.Common;
+using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Results;
 using Dfe.Rscd.Web.ApiClient;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +12,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
     public class PriorAttainmentController : Controller
     {
+        private CheckingWindow CheckingWindow => CheckingWindowHelper.GetCheckingWindow(RouteData);
 
         public IActionResult Add()
         {
@@ -27,8 +30,9 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             }
             var model = new PriorAttainmentResultViewModel
             {
-                PupilDetails = (PupilDetails)amendment.Pupil,
-                Ks2Subjects = amendmentDetail.GetField<List<PriorAttainmentResult>>("PriorAttainmentResults").Select(r => r.Ks2Subject).ToList()
+                PupilDetails = new PupilViewModel(amendment.Pupil, CheckingWindow),
+                Ks2Subjects = amendmentDetail.GetField<List<PriorAttainmentResult>>("PriorAttainmentResults")
+                    .Select(r => r.Ks2Subject).ToList()
             };
             return View(model);
         }
@@ -70,7 +74,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
                 var model = new PriorAttainmentResultViewModel
                 {
-                    PupilDetails = (PupilDetails)amendment.Pupil,
+                    PupilDetails = new PupilViewModel(amendment.Pupil, CheckingWindow),
                     Ks2Subjects = results.Select(r => r.Ks2Subject).ToList()
                 };
                 return View(model);
@@ -88,7 +92,8 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 return RedirectToAction("Index", "AddPupil");
             }
 
-            return View(new ExistingResultsViewModel(amendmentDetail.GetField<List<PriorAttainmentResult>>("PriorAttainmentResults"), (PupilDetails) amendment.Pupil));
+            return View(new ExistingResultsViewModel(amendmentDetail.GetField<List<PriorAttainmentResult>>("PriorAttainmentResults"),
+                new PupilViewModel(amendment.Pupil, CheckingWindow)));
         }
 
         public IActionResult Edit()
@@ -99,7 +104,8 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             {
                 return RedirectToAction("Index", "AddPupil");
             }
-            return View(new ExistingResultsViewModel(amendmentDetail.GetField<List<PriorAttainmentResult>>("PriorAttainmentResults"), (PupilDetails)amendment.Pupil));
+            return View(new ExistingResultsViewModel(amendmentDetail.GetField<List<PriorAttainmentResult>>("PriorAttainmentResults"),
+                new PupilViewModel(amendment.Pupil, CheckingWindow)));
         }
 
         [HttpPost]

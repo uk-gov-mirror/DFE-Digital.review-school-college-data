@@ -3,6 +3,7 @@ using Dfe.CspdAlpha.Web.Application.Application.Helpers;
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
 using Dfe.CspdAlpha.Web.Application.Models.Common;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments;
+using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
 using Microsoft.AspNetCore.Mvc;
 using Dfe.Rscd.Web.ApiClient;
 
@@ -64,7 +65,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             var viewModel = new ConfirmViewModel
             {
                 AmendmentType = amendment.AmendmentType,
-                PupilDetails = (PupilDetails)amendment.Pupil
+                PupilDetails = new PupilViewModel(amendment.Pupil, CheckingWindow)
             };
             if (viewModel.AmendmentType == AmendmentType.RemovePupil)
             {
@@ -80,7 +81,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                         break;
                     case Constants.NOT_ON_ROLL:
                     case Constants.OTHER_EVIDENCE_NOT_REQUIRED:
-                        viewModel.BackAction = "AllocationYear";
+                        viewModel.BackAction = "Reason";
                         break;
                     default:
                         viewModel.BackAction = "Details";

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Dfe.CspdAlpha.Web.Application.Models.Common;
+using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
 
 namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil
 {
@@ -8,7 +9,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil
         public string URN { get; set; }
         public QueryType SearchType { get; set; }
         public string Query { get; set; }
-        public List<PupilDetails> PupilList { get; set; }
+        public List<PupilViewModel> PupilList { get; set; }
         public string SelectedID { get; set; }
         public string PageTitle => PupilList?.Count == 0
             ? "No matches found"

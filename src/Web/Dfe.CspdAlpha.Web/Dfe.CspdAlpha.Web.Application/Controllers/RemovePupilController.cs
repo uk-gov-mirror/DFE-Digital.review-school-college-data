@@ -5,6 +5,7 @@ using Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using Dfe.CspdAlpha.Web.Application.Application;
+using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
 using Dfe.Rscd.Web.ApiClient;
 using Microsoft.Extensions.Configuration;
 
@@ -51,7 +52,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                     Query = viewModel.Query
                 });
             }
-            return RedirectToAction("MatchedPupil", new { id = pupilsFound.First().Id });
+            return RedirectToAction("MatchedPupil", new { id = pupilsFound.First().ID });
         }
 
         [HttpPost]
@@ -75,9 +76,8 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 Urn = urn,
                 CheckingWindow = CheckingWindowHelper.GetCheckingWindow(RouteData),
                 AmendmentType = AmendmentType.RemovePupil,
-                Pupil = new PupilDetails
+                Pupil = new Pupil
                 {
-                    KeyStage = viewModel.PupilViewModel.Keystage,
                     Id = id,
                     Upn = viewModel.PupilViewModel.UPN,
                     Uln = viewModel.PupilViewModel.ULN,
@@ -116,7 +116,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
             return View(new ReasonViewModel
             {
-                PupilDetails = (PupilDetails)amendment.Pupil,
+                PupilDetails = new PupilViewModel(amendment.Pupil, CheckingWindow),
                 SelectedReasonCode = amendmentDetail.GetField<int?>("ReasonCode"),
                 SearchType = searchType,
                 Query = query,
@@ -154,7 +154,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                     return RedirectToAction("Details");
                 }
             }
-            return View(new ReasonViewModel { PupilDetails = (PupilDetails) amendment.Pupil });
+            return View(new ReasonViewModel { PupilDetails = new PupilViewModel(amendment.Pupil, CheckingWindow) });
         }
 
         public IActionResult Details()
@@ -168,7 +168,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             var amendmentDetail = amendment.AmendmentDetail;
             return View(new DetailsViewModel
             {
-                PupilDetails = (PupilDetails)amendment.Pupil,
+                PupilDetails = new PupilViewModel(amendment.Pupil, CheckingWindow),
                 AmendmentDetails = amendmentDetail.GetField<string>("Detail")
             });
         }
@@ -193,7 +193,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 return RedirectToAction("Confirm","Amendments");
             }
 
-            viewModel.PupilDetails = (PupilDetails)amendment.Pupil;
+            viewModel.PupilDetails = new PupilViewModel(amendment.Pupil, CheckingWindow);
             return View(viewModel);
         }
     }

@@ -15,8 +15,8 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
     public class AddPupilController : Controller
     {
-        private IPupilService _pupilService;
-        private IEstablishmentService _establishmentService;
+        private readonly IPupilService _pupilService;
+        private readonly IEstablishmentService _establishmentService;
         private CheckingWindow CheckingWindow => CheckingWindowHelper.GetCheckingWindow(RouteData);
 
         public AddPupilController(IPupilService pupilService, IEstablishmentService establishmentService)
@@ -71,7 +71,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                     CheckingWindow = CheckingWindow,
                     Urn = urn,
                     AmendmentType = AmendmentType.AddPupil,
-                    Pupil = new PupilDetails
+                    Pupil = new Pupil
                     {
                         Id = existingPupil.PupilViewModel.ID,
                         ForeName = existingPupil.PupilViewModel.FirstName,
@@ -82,7 +82,6 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                         Age = existingPupil.PupilViewModel.Age,
                         Upn = existingPupil.PupilViewModel.UPN,
                         YearGroup = existingPupil.PupilViewModel.YearGroup,
-                        KeyStage = existingPupil.PupilViewModel.Keystage,
                         LaEstab = existingPupil.PupilViewModel.SchoolID,
                         Urn = existingPupil.PupilViewModel.URN
                     },
@@ -109,7 +108,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             var addPupilAmendment = new Amendment
             {
                 Urn = urn,
-                Pupil = new PupilDetails
+                Pupil = new Pupil
                 {
                     ForeName = addPupilViewModel.FirstName,
                     LastName = addPupilViewModel.LastName,
@@ -119,7 +118,6 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                     DateOfAdmission = addPupilViewModel.DateOfAdmission.Date.Value,
                     Upn = addPupilViewModel.UPN,
                     YearGroup = addPupilViewModel.YearGroup,
-                    KeyStage = CheckingWindowHelper.ToKeyStage(CheckingWindow),
                     LaEstab = addPupilViewModel.SchoolID,
                     Urn = urn
                 },

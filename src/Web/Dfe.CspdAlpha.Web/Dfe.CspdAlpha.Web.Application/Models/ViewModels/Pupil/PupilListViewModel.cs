@@ -10,7 +10,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
     {
         public CheckDataNavigation CheckDataNavigationModel => new CheckDataNavigation(NavigationItem.PupilList, CheckingWindow);
         public SchoolDetails SchoolDetails { get; set; }
-        public List<PupilDetails> Pupils { get; set; }
+        public List<PupilViewModel> Pupils { get; set; }
         public string PupilsJson => JsonConvert.SerializeObject(Pupils);
         public CheckingWindow CheckingWindow { get; set; }
     }

@@ -19,13 +19,13 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             _apiClient = apiClient;
         }
 
-        public List<PupilDetails> GetPupilDetailsList(ApiClient.CheckingWindow checkingWindow, SearchQuery searchQuery)
+        public List<PupilViewModel> GetPupilDetailsList(ApiClient.CheckingWindow checkingWindow, SearchQuery searchQuery)
         {
             var checkingWindowURL = CheckingWindowHelper.GetCheckingWindowURL(checkingWindow);
             var pupilDetails = _apiClient.SearchPupilsAsync(searchQuery.URN, searchQuery.SearchType == QueryType.Name ? searchQuery.Query : string.Empty, searchQuery.SearchType == QueryType.PupilID ? searchQuery.Query : string.Empty, checkingWindowURL).GetAwaiter().GetResult();
             return pupilDetails.Result
-                .Select(p => new PupilDetails {ForeName = p.ForeName, LastName = p.Surname, Id = p.Id, Upn = p.Upn, Uln = p.Uln})
-                .OrderBy(p => p.ForeName)
+                .Select(p => new PupilViewModel {FirstName = p.ForeName, LastName = p.Surname, ID = p.Id, UPN = p.Upn, ULN = p.Uln})
+                .OrderBy(p => p.FirstName)
                 .ToList();
         }
 
@@ -48,7 +48,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                 PupilViewModel = new PupilViewModel
                 {
                     ID = pupil.Id,
-                    Keystage = GetKeyStage(checkingWindow),
+                    Keystage = checkingWindow.ToKeyStage(),
                     URN = pupil.Urn,
                     SchoolID = pupil.LaEstab,
                     UPN = pupil.Upn,
@@ -74,25 +74,6 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                         ScaledScore = ValidateValue(r.ScaledScore)
                     }).Where(r => r.Subject != Ks2Subject.Unknown).ToList()
             };
-        }
-
-        private Keystage GetKeyStage(ApiClient.CheckingWindow checkingWindow)
-        {
-            var checkingWindowString = checkingWindow.ToString();
-            if (checkingWindowString.ToLower().StartsWith("ks2"))
-            {
-                return Keystage.KS2;
-            }
-            if (checkingWindowString.ToLower().StartsWith("ks4"))
-            {
-                return Keystage.KS4;
-            }
-            if (checkingWindowString.ToLower().StartsWith("ks5"))
-            {
-                return Keystage.KS5;
-            }
-
-            return Keystage.Unknown;
         }
 
         public MatchedPupilViewModel GetMatchedPupil(ApiClient.CheckingWindow checkingWindow, string upn)

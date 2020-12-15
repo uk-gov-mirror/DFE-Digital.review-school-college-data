@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Dfe.CspdAlpha.Web.Application.Models.Common;
+using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
 
 namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil
 {
@@ -11,7 +12,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil
 
         public string MatchedId { get; set; }
 
-        public PupilDetails PupilDetails { get; set; }
+        public PupilViewModel PupilDetails { get; set; }
 
         public int? SelectedReasonCode { get; set; }
 
