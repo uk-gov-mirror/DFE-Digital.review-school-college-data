@@ -39,23 +39,23 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Builders
             amendmentDetails.AddField(AddPupilAmendment.FIELD_PreviousSchoolLAEstab,
                 addPupil.rscd_PreviousschoolLAESTAB);
             amendmentDetails.AddField(AddPupilAmendment.FIELD_PreviousSchoolURN, addPupil.rscd_PreviousschoolURN);
-            amendmentDetails.AddField(AddPupilAmendment.FIELD_PriorAttainmentResults, new List<PriorAttainment>
+            amendmentDetails.AddField(AddPupilAmendment.FIELD_PriorAttainmentResults, new List<PriorAttainmentResult>
             {
-                new PriorAttainment
+                new PriorAttainmentResult
                 {
-                    Subject = Ks2Subject.Reading, ExamYear = addPupil.rscd_Readingexamyear,
-                    TestMark = addPupil.rscd_Readingexammark, ScaledScore = addPupil.rscd_Readingscaledscore
+                    Ks2Subject = Ks2Subject.Reading, ExamYear = addPupil.rscd_Readingexamyear,
+                    Mark = addPupil.rscd_Readingexammark, ScaledScore = addPupil.rscd_Readingscaledscore
                 },
-                new PriorAttainment
+                new PriorAttainmentResult
                 {
-                    Subject = Ks2Subject.Writing, ExamYear = addPupil.rscd_Writingexamyear,
-                    TestMark = addPupil.rscd_Writingteacherassessment,
+                    Ks2Subject = Ks2Subject.Writing, ExamYear = addPupil.rscd_Writingexamyear,
+                    Mark = addPupil.rscd_Writingteacherassessment,
                     ScaledScore = addPupil.rscd_Writingscaledscore
                 },
-                new PriorAttainment
+                new PriorAttainmentResult
                 {
-                    Subject = Ks2Subject.Maths, ExamYear = addPupil.rscd_Mathsexamyear,
-                    TestMark = addPupil.rscd_Mathsexammark, ScaledScore = addPupil.rscd_Mathsscaledscore
+                    Ks2Subject = Ks2Subject.Maths, ExamYear = addPupil.rscd_Mathsexamyear,
+                    Mark = addPupil.rscd_Mathsexammark, ScaledScore = addPupil.rscd_Mathsscaledscore
                 }
             });
 
@@ -86,7 +86,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Builders
 
         protected override Entity MapAmendmentTypeToDto(Amendment amendment)
         {
-            var amendmentDetail = new AmendmentDetail();
+            var amendmentDetail = amendment.AmendmentDetail;
             var addDto = new rscd_Addpupil
             {
                 rscd_Name = amendment.Pupil.FullName,
@@ -96,32 +96,32 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Builders
             };
 
             var results =
-                amendmentDetail.GetField<List<PriorAttainment>>(AddPupilAmendment.FIELD_PriorAttainmentResults);
+                amendmentDetail.GetList<PriorAttainmentResult>(AddPupilAmendment.FIELD_PriorAttainmentResults);
 
-            var reading = results.FirstOrDefault(r => r.Subject == Ks2Subject.Reading);
+            var reading = results.FirstOrDefault(r => r.Ks2Subject == Ks2Subject.Reading);
 
             if (reading != null)
             {
                 addDto.rscd_Readingexamyear = reading.ExamYear;
-                addDto.rscd_Readingexammark = reading.TestMark;
+                addDto.rscd_Readingexammark = reading.Mark;
                 addDto.rscd_Readingscaledscore = reading.ScaledScore;
             }
 
             var writing = results
-                .FirstOrDefault(r => r.Subject == Ks2Subject.Writing);
+                .FirstOrDefault(r => r.Ks2Subject == Ks2Subject.Writing);
             if (writing != null)
             {
                 addDto.rscd_Writingexamyear = writing.ExamYear;
-                addDto.rscd_Writingteacherassessment = writing.TestMark;
+                addDto.rscd_Writingteacherassessment = writing.Mark;
                 addDto.rscd_Writingscaledscore = writing.ScaledScore;
             }
 
             var maths = results
-                .FirstOrDefault(r => r.Subject == Ks2Subject.Maths);
+                .FirstOrDefault(r => r.Ks2Subject == Ks2Subject.Maths);
             if (maths != null)
             {
                 addDto.rscd_Mathsexamyear = maths.ExamYear;
-                addDto.rscd_Mathsexammark = maths.TestMark;
+                addDto.rscd_Mathsexammark = maths.Mark;
                 addDto.rscd_Mathsscaledscore = maths.ScaledScore;
             }
 

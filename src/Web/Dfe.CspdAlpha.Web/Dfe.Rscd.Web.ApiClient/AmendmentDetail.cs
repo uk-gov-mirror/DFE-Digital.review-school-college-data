@@ -5,8 +5,9 @@ using System.Linq;
 
 namespace Dfe.Rscd.Web.ApiClient
 {
-    partial class AmendmentDetail 
-    {   public AmendmentDetail()
+    partial class AmendmentDetail
+    {
+        public AmendmentDetail()
         {
             Fields = new List<AmendmentField>();
         }
@@ -15,7 +16,7 @@ namespace Dfe.Rscd.Web.ApiClient
         {
             var field = Fields.SingleOrDefault(x => x.Name == name);
             if (field == null)
-                Fields.Add(new AmendmentField { Name = name, Value = value });
+                Fields.Add(new AmendmentField {Name = name, Value = value});
             else
                 field.Value = value;
         }
@@ -30,6 +31,11 @@ namespace Dfe.Rscd.Web.ApiClient
         {
             var field = Fields.SingleOrDefault(x => x.Name == name);
             return field?.Value;
+        }
+
+        public List<T> GetList<T>(string name)
+        {
+            return (List<T>) GetField(name);
         }
 
         public T GetField<T>(string name)

@@ -8,8 +8,8 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Results
     {
         public PupilViewModel PupilDetails { get; set; }
 
-        public List<Ks2Subject> Ks2Subjects { get; set; }
-        public Ks2Subject Subject { get; set; }
+        public List<string> Ks2Subjects { get; set; }
+        public string Subject { get; set; }
         public string ExamYear { get; set; }
         public string TestMark { get; set; }
         public string ScaledScore { get; set; }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Newtonsoft.Json.Linq;
 
 namespace Dfe.Rscd.Api.Domain.Entities
 {
@@ -33,6 +34,27 @@ namespace Dfe.Rscd.Api.Domain.Entities
         {
             var field = Fields.SingleOrDefault(x => x.Name == name);
             return field?.Value;
+        }
+
+        public List<T> GetList<T>(string name)
+        {
+            var value = GetField(name);
+
+            if (value != null && value.GetType() == typeof(JArray))
+            {
+                JArray jsonResponse = (JArray) value;
+                var newList = new List<T>();
+
+                foreach (var item in jsonResponse)
+                {
+                    var itemDeserialized = item.ToObject<T>();
+                    newList.Add(itemDeserialized);
+                }
+
+                return newList;
+            }
+
+            return (List<T>) value;
         }
 
         public T GetField<T>(string name)

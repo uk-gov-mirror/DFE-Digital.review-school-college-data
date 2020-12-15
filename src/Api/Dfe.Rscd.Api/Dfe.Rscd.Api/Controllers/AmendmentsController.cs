@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using CsvHelper;
+using Dfe.Rscd.Api.Domain.Core;
 using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Domain.Interfaces;
 using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Extensions;
@@ -102,6 +103,18 @@ namespace Dfe.Rscd.Api.Controllers
                     Error = new Error()
                 };
                 return Ok(response);
+            }
+            catch (NotAllowedException ne)
+            {
+                var response = new GetResponse<string>
+                {
+                    Result = ne.Detail,
+                    Error = new Error
+                    {
+                        ErrorMessage = ne.Title
+                    }
+                };
+                return BadRequest(response);
             }
             catch (Exception e)
             {

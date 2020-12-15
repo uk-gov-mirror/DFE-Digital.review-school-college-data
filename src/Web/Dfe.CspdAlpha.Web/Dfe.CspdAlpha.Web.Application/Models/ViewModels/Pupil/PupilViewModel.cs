@@ -35,6 +35,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
             DateOfAdmission = pupil.DateOfAdmission.Date;
             YearGroup = pupil.YearGroup;
             AllocationYears = GetAllocationYears(pupil.Allocations);
+            Allocations = pupil.Allocations;
         }
 
         private int[] GetAllocationYears(ICollection<SourceOfAllocation> originalAllocations)
@@ -57,6 +58,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
         public Gender Gender { get; set; }
         public DateTime DateOfAdmission { get; set; }
         public string YearGroup { get; set; }
+        public ICollection<SourceOfAllocation> Allocations { get; set; }
 
         public int[] AllocationYears { get; set; }
         public string FullName => string.Join(" ", new[] {FirstName, LastName}.Where(n => !string.IsNullOrEmpty(n)));

@@ -87,7 +87,8 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                     Age = viewModel.PupilViewModel.Age,
                     Gender = viewModel.PupilViewModel.Gender,
                     DateOfAdmission = viewModel.PupilViewModel.DateOfAdmission,
-                    YearGroup = viewModel.PupilViewModel.YearGroup
+                    YearGroup = viewModel.PupilViewModel.YearGroup,
+                    Allocations = viewModel.PupilViewModel.Allocations
                 },
                 AmendmentDetail = new AmendmentDetail()
             };

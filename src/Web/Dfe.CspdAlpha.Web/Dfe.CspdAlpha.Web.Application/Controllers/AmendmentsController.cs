@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using Dfe.CspdAlpha.Web.Application.Application;
 using Dfe.CspdAlpha.Web.Application.Application.Helpers;
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
@@ -6,6 +8,8 @@ using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
 using Microsoft.AspNetCore.Mvc;
 using Dfe.Rscd.Web.ApiClient;
+using Microsoft.AspNetCore.SignalR;
+using ProblemDetails = Dfe.Rscd.Web.ApiClient.ProblemDetails;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
@@ -115,16 +119,33 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 return RedirectToAction("Index", "TaskList");
             }
 
-            var id = _amendmentService.CreateAmendment(amendment);
-            // Create amendment and redirect to amendment received page
-            if (!string.IsNullOrWhiteSpace(id))
+            try
             {
-                HttpContext.Session.Remove(Constants.AMENDMENT_SESSION_KEY);
-                HttpContext.Session.Set(Constants.NEW_AMENDMENT_ID, id);
-                return RedirectToAction("Received");
-            }
+                var id = _amendmentService.CreateAmendment(amendment);
+                // Create amendment and redirect to amendment received page
+                if (!string.IsNullOrWhiteSpace(id))
+                {
+                    HttpContext.Session.Remove(Constants.AMENDMENT_SESSION_KEY);
+                    HttpContext.Session.Set(Constants.NEW_AMENDMENT_ID, id);
+                    return RedirectToAction("Received");
+                }
 
-            return View(GetConfirmViewModel(amendment));
+                return View(GetConfirmViewModel(amendment));
+            }
+            catch (ApiException<ProblemDetails> apiException)
+            {
+                var properties = apiException.Result.AdditionalProperties;
+                dynamic titleContent = properties.Values.Last();
+                return View("CustomMessage", new CustomMessageViewModel{Description = properties.Values.First().ToString(),
+                    Title=titleContent.errorMessage.ToString(), PupilDetails = new PupilViewModel(amendment.Pupil, CheckingWindow)});
+            }
+            
+        }
+
+        [HttpPost]
+        public IActionResult CustomMessage()
+        {
+            return RedirectToAction("Index", "TaskList");
         }
 
         public IActionResult Received()
