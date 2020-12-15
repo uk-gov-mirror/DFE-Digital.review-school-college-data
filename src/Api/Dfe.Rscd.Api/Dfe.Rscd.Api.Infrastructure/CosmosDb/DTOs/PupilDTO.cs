@@ -83,11 +83,13 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs
             else
                 allocations.Add(new SourceOfAllocation(year--,
                     string.IsNullOrEmpty(Core_Provider_0) ? Allocation.Unknown : Allocation.NotAllocated));
+            
             if (Attendance_year_1 && DFESNumber == Core_Provider_1)
                 allocations.Add(new SourceOfAllocation(year--, SRC_LAESTAB_1.ToAllocation()));
             else
                 allocations.Add(new SourceOfAllocation(year--,
                     string.IsNullOrEmpty(Core_Provider_1) ? Allocation.Unknown : Allocation.NotAllocated));
+            
             if (Attendance_year_2 && DFESNumber == Core_Provider_2)
                 allocations.Add(new SourceOfAllocation(year--, SRC_LAESTAB_2.ToAllocation()));
             else

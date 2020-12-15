@@ -47,6 +47,10 @@ namespace Dfe.Rscd.Api.Domain.Entities
                     return wasAllocatedAny ? OutcomeStatus.AutoAccept : OutcomeStatus.AutoReject;
 
                 case 328: // Not on roll
+                    if (!wasAllocatedAny)
+                    {
+                        throw new NotAllowedException("Not on roll is not a valid reason", "You cannot select 'Not on roll' as you are not the core provider for the attendance year or School Census/ILR data confirms the student is on roll.");
+                    }
                     if (isAoAllocated)
                     {
                         amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_ScrutinyReasonCode,ScrutinyReason.NotOnRoll);
