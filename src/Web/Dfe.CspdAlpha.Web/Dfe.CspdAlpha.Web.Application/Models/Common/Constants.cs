@@ -16,5 +16,18 @@ namespace Dfe.CspdAlpha.Web.Application.Models.Common
         public const int OTHER_WITH_EVIDENCE = 329;
         public const int OTHER_EVIDENCE_NOT_REQUIRED = 330;
 
+        public class AddPupil
+        {
+            public const string PriorAttainmentResults = "PriorAttainmentResults";
+            public const string AddReason = "AddReason";
+            public const string PreviousSchoolLAEstab = "PreviousSchoolLAEstab";
+            public const string PreviousSchoolURN = "PreviousSchoolURN";
+        }
+
+        public class RemovePupil
+        {
+            public const string ReasonCode = "ReasonCode";
+            public const string Detail = "Detail";
+        }
     }
 }

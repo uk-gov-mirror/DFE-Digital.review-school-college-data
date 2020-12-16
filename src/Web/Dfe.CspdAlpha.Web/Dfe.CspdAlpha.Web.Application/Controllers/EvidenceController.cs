@@ -12,8 +12,8 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
     public class EvidenceController : Controller
     {
-        private IEvidenceService _evidenceService;
-        private IAmendmentService _amendmentService;
+        private readonly IEvidenceService _evidenceService;
+        private readonly IAmendmentService _amendmentService;
         private CheckingWindow CheckingWindow => CheckingWindowHelper.GetCheckingWindow(RouteData);
 
         public EvidenceController(IEvidenceService evidenceService, IAmendmentService amendmentService)
@@ -51,7 +51,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                     default:
                         var amendmentDetail = amendment?.AmendmentDetail;
                         viewModel.PupilDetails = new PupilViewModel(amendment.Pupil, CheckingWindow);
-                        viewModel.AddReason = amendmentDetail.GetField<string>("AddReason");
+                        viewModel.AddReason = amendmentDetail.GetField<string>(Constants.AddPupil.AddReason);
                         return View(viewModel);
                 }
             }

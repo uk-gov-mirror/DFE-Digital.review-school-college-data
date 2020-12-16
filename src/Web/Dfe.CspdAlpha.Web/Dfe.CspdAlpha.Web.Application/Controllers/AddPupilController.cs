@@ -88,10 +88,10 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                     AmendmentDetail = new AmendmentDetail()
                 };
 
-                amendment.AmendmentDetail.AddField("AddReason", AddReason.Existing);
-                amendment.AmendmentDetail.AddField("PreviousSchoolLAEstab", existingPupil.PupilViewModel.SchoolID);
-                amendment.AmendmentDetail.AddField("PreviousSchoolURN", existingPupil.PupilViewModel.URN);
-                amendment.AmendmentDetail.AddField("PriorAttainmentResults", existingPupil.Results
+                amendment.AmendmentDetail.AddField(Constants.AddPupil.AddReason, AddReason.Existing);
+                amendment.AmendmentDetail.AddField(Constants.AddPupil.PreviousSchoolLAEstab, existingPupil.PupilViewModel.SchoolID);
+                amendment.AmendmentDetail.AddField(Constants.AddPupil.PreviousSchoolURN, existingPupil.PupilViewModel.URN);
+                amendment.AmendmentDetail.AddField(Constants.AddPupil.PriorAttainmentResults, existingPupil.Results
                     .Select(r =>
                         new PriorAttainmentResult
                         {
@@ -125,8 +125,8 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 AmendmentDetail = new AmendmentDetail()
             };
 
-            addPupilAmendment.AmendmentDetail.AddField("AddReason", AddReason.New);
-            addPupilAmendment.AmendmentDetail.AddField("PriorAttainmentResults", new List<PriorAttainmentResult>());
+            addPupilAmendment.AmendmentDetail.AddField(Constants.AddPupil.AddReason, AddReason.New);
+            addPupilAmendment.AmendmentDetail.AddField(Constants.AddPupil.PriorAttainmentResults, new List<PriorAttainmentResult>());
 
             HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, addPupilAmendment);
 
@@ -142,12 +142,12 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         public IActionResult MatchedPupil(string urn)
         {
             var amendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
-            if (amendment.Pupil == null || amendment.AmendmentDetail.GetField<string>("AddReason") == AddReason.New)
+            if (amendment.Pupil == null || amendment.AmendmentDetail.GetField<string>(Constants.AddPupil.AddReason) == AddReason.New)
             {
                 return RedirectToAction("Index");
             }
 
-            var existingSchoolId = amendment.AmendmentDetail.GetField<string>("PreviousSchoolLAEstab");
+            var existingSchoolId = amendment.AmendmentDetail.GetField<string>(Constants.AddPupil.PreviousSchoolLAEstab);
             var existingSchoolName = _establishmentService.GetSchoolName(CheckingWindow, existingSchoolId);
 
             return View(

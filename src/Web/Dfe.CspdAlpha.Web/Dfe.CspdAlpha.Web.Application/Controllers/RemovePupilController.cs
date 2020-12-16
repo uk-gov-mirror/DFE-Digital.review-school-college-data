@@ -13,7 +13,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
     public class RemovePupilController : Controller
     {
-        private IPupilService _pupilService;
+        private readonly IPupilService _pupilService;
         private IAmendmentService _amendmentService;
         private IConfiguration _config;
         private CheckingWindow CheckingWindow => CheckingWindowHelper.GetCheckingWindow(RouteData);
@@ -118,7 +118,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             return View(new ReasonViewModel
             {
                 PupilDetails = new PupilViewModel(amendment.Pupil, CheckingWindow),
-                SelectedReasonCode = amendmentDetail.GetField<int?>("ReasonCode"),
+                SelectedReasonCode = amendmentDetail.GetField<int?>(Constants.RemovePupil.ReasonCode),
                 SearchType = searchType,
                 Query = query,
                 MatchedId = matchedId
@@ -132,7 +132,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
             if (ModelState.IsValid)
             {
-                amendment.AmendmentDetail.AddField("ReasonCode", viewModel.SelectedReasonCode.Value);
+                amendment.AmendmentDetail.AddField(Constants.RemovePupil.ReasonCode, viewModel.SelectedReasonCode.Value);
                 amendment.EvidenceStatus = viewModel.SelectedReasonCode == 329 ? EvidenceStatus.Now : EvidenceStatus.NotRequired;
                 HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, amendment);
                 if (new[]
@@ -170,7 +170,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             return View(new DetailsViewModel
             {
                 PupilDetails = new PupilViewModel(amendment.Pupil, CheckingWindow),
-                AmendmentDetails = amendmentDetail.GetField<string>("Detail")
+                AmendmentDetails = amendmentDetail.GetField<string>(Constants.RemovePupil.Detail)
             });
         }
 
@@ -182,7 +182,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
             if (ModelState.IsValid)
             {
-                amendmentDetail.AddField("Detail", viewModel.AmendmentDetails);
+                amendmentDetail.AddField(Constants.RemovePupil.Detail, viewModel.AmendmentDetails);
 
                 HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, amendment);
 

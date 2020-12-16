@@ -74,7 +74,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             if (viewModel.AmendmentType == AmendmentType.RemovePupil)
             {
                 viewModel.BackController = "RemovePupil";
-                var reason = amendment.AmendmentDetail.GetField<int?>("ReasonCode");
+                var reason = amendment.AmendmentDetail.GetField<int?>(Constants.RemovePupil.ReasonCode);
 
                 switch (reason)
                 {
