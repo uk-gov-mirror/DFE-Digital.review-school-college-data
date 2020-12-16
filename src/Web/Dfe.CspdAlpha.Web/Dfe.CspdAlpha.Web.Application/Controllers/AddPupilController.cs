@@ -88,7 +88,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                     AmendmentDetail = new AmendmentDetail()
                 };
 
-                amendment.AmendmentDetail.AddField("Reason", AddReason.Existing);
+                amendment.AmendmentDetail.AddField("AddReason", AddReason.Existing);
                 amendment.AmendmentDetail.AddField("PreviousSchoolLAEstab", existingPupil.PupilViewModel.SchoolID);
                 amendment.AmendmentDetail.AddField("PreviousSchoolURN", existingPupil.PupilViewModel.URN);
                 amendment.AmendmentDetail.AddField("PriorAttainmentResults", existingPupil.Results
