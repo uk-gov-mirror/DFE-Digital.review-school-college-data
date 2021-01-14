@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Dfe.Rscd.Api.Domain.Core;
 using Dfe.Rscd.Api.Domain.Core.Enums;
+using Dfe.Rscd.Api.Infrastructure;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Repositories;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Services;
@@ -18,7 +19,7 @@ namespace Dfe.Rscd.Api.UnitTests
         {
             _testEstab = Builder.GetEstablishment("200000");
 
-            _repository = new Mock<IRepository>();
+            _repository = new Mock<IDocumentRepository>();
             _ks4JuneEstablishments = "ks4june_establishments_2021";
 
             _repository.Setup(x =>
@@ -34,7 +35,7 @@ namespace Dfe.Rscd.Api.UnitTests
             _configuration.Setup(x => x["AllocationYear"]).Returns("2021");
         }
 
-        private Mock<IRepository> _repository;
+        private Mock<IDocumentRepository> _repository;
         private Mock<IConfiguration> _configuration;
         private EstablishmentDTO _testEstab;
         private string _ks4JuneEstablishments;

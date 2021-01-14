@@ -6,17 +6,11 @@ using Microsoft.Extensions.Options;
 
 namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.Repositories
 {
-    public interface IRepository
-    {
-        IQueryable<T> Get<T>(string collection);
-        T GetById<T>(string collection, string id);
-    }
-
-    public class Repository : IRepository
+    public class CosmosDocumentRepository : IDocumentRepository
     {
         private readonly Database _cosmosDb;
 
-        public Repository(IOptions<CosmosDbOptions> options)
+        public CosmosDocumentRepository(IOptions<CosmosDbOptions> options)
         {
             _cosmosDb = new CosmosClient(options.Value.Account, options.Value.Key).GetDatabase(options.Value.Database);
         }

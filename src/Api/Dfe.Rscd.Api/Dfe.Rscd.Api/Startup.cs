@@ -1,7 +1,10 @@
 using System;
+using System.Data;
+using System.Data.SqlClient;
 using System.Text.Json.Serialization;
 using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Domain.Interfaces;
+using Dfe.Rscd.Api.Infrastructure;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Config;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Repositories;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Services;
@@ -9,6 +12,8 @@ using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Builders;
 using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Config;
 using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Interfaces;
 using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services;
+using Dfe.Rscd.Api.Infrastructure.SqlServer.Repositories;
+using Dfe.Rscd.Api.Infrastructure.SqlServer.Services;
 using Dfe.Rscd.Api.Middleware.BasicAuth;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -65,8 +70,17 @@ namespace Dfe.Rscd.Api
             services.AddFeatureManagement();
             services.AddAzureAppConfiguration();
 
+
+            var referenceDataConnectionString = Configuration.GetConnectionString("ReferenceData");
+            var sqlConnection = new SqlConnection(referenceDataConnectionString);
+            services.AddSingleton<IDbConnection, SqlConnection>(sp => sqlConnection);
+            services.AddSingleton<ICommonData, CommonData>();
+
+            services.AddSingleton<ICommonDataService, CommonDataService>();
+            
             // Dynamics 365 configuration
             var dynamicsConnString = Configuration.GetConnectionString("DynamicsCds");
+
             var cdsClient = new CdsServiceClient(dynamicsConnString);
             services.AddTransient<IOrganizationService, CdsServiceClient>(sp => cdsClient.Clone());
             services.Configure<DynamicsOptions>(Configuration.GetSection("Dynamics"));
@@ -74,6 +88,8 @@ namespace Dfe.Rscd.Api
 
             if (_env.IsStaging()) services.Configure<BasicAuthOptions>(Configuration.GetSection("BasicAuth"));
             services.Configure<CosmosDbOptions>(Configuration.GetSection("CosmosDb"));
+
+            services.AddSingleton<IDocumentRepository, CosmosDocumentRepository>();
 
             services.AddSingleton<IAmendmentBuilder, RemovePupilAmendmentBuilder>();
             services.AddSingleton<Amendment, RemovePupilAmendment>();
@@ -83,10 +99,9 @@ namespace Dfe.Rscd.Api
             services.AddSingleton<Amendment, AddPupilAmendment>();
             services.AddSingleton<IRuleSet, AddPupilRules>();
 
-            services.AddSingleton<IRepository, Repository>();
-
             services.AddSingleton<IEstablishmentService, EstablishmentService>();
             services.AddSingleton<IPupilService, PupilService>();
+
             services.AddSingleton<IAmendmentService, CrmAmendmentService>();
             services.AddSingleton<IOutcomeService, OutcomeService>();
             services.AddSingleton<IConfirmationService, CrmConfirmationService>();

@@ -11,18 +11,18 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.Services
 {
     public class EstablishmentService : IEstablishmentService
     {
-        private readonly IRepository _repository;
+        private readonly IDocumentRepository _documentRepository;
         private readonly string _allocationYear;
 
-        public EstablishmentService(IRepository repository, IConfiguration configuration)
+        public EstablishmentService(IDocumentRepository documentRepository, IConfiguration configuration)
         {
-            _repository = repository;
+            _documentRepository = documentRepository;
             _allocationYear = configuration["AllocationYear"];
         }
 
         public Establishment GetByURN(CheckingWindow checkingWindow, URN urn)
         {
-            var establishmentDTO = _repository.GetById<EstablishmentDTO>(GetCollection(checkingWindow), urn.Value);
+            var establishmentDTO = _documentRepository.GetById<EstablishmentDTO>(GetCollection(checkingWindow), urn.Value);
             return establishmentDTO.GetEstablishment();
         }
 
@@ -30,7 +30,7 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.Services
         {
             var collectionUri = GetCollection(checkingWindow);
 
-            var establishmentDtos = _repository
+            var establishmentDtos = _documentRepository
                 .Get<EstablishmentDTO>(collectionUri)
                 .Where(x => x.DFESNumber == dfesNumber)
                 .ToList();

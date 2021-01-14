@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Dfe.Rscd.Api.Domain.Core;
 using Dfe.Rscd.Api.Domain.Core.Enums;
-using Dfe.Rscd.Api.Domain.Entities;
+using Dfe.Rscd.Api.Infrastructure;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Repositories;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Services;
@@ -15,17 +14,12 @@ namespace Dfe.Rscd.Api.UnitTests
     [TestFixture]
     public class PupilServicesTests
     {
-        private Mock<IRepository> _repository;
-        private Mock<IConfiguration> _configuration;
-        private PupilDTO _testPupil;
-        private string _ks4JunePupils;
-
         [SetUp]
         public void Given()
         {
             _testPupil = Builder.GetPupilDTO("100", "F", "100100", "100200", "100300");
 
-            _repository = new Mock<IRepository>();
+            _repository = new Mock<IDocumentRepository>();
             _ks4JunePupils = "ks4june_pupils_2021";
 
             _repository.Setup(x =>
@@ -41,6 +35,11 @@ namespace Dfe.Rscd.Api.UnitTests
             _configuration.Setup(x => x["AllocationYear"]).Returns("2021");
         }
 
+        private Mock<IDocumentRepository> _repository;
+        private Mock<IConfiguration> _configuration;
+        private PupilDTO _testPupil;
+        private string _ks4JunePupils;
+
         [Test]
         public void WhenGetPupilByIdIsCalledPupilMapsRootFieldsToEntityObject()
         {
@@ -48,7 +47,7 @@ namespace Dfe.Rscd.Api.UnitTests
 
             var result = pupilService.GetById(CheckingWindow.KS4June, "100");
 
-            _repository.Verify(x=>x.GetById<PupilDTO>(_ks4JunePupils, "100"), Times.Once);
+            _repository.Verify(x => x.GetById<PupilDTO>(_ks4JunePupils, "100"), Times.Once);
 
             Assert.That(result, Is.Not.Null);
             Assert.That(result.Id, Is.EqualTo(_testPupil.id));
@@ -79,7 +78,7 @@ namespace Dfe.Rscd.Api.UnitTests
         {
             var pupilService = new PupilService(_repository.Object, _configuration.Object);
 
-            var result = pupilService.QueryPupils(CheckingWindow.KS4June, new PupilsSearchRequest { ID = "11"});
+            var result = pupilService.QueryPupils(CheckingWindow.KS4June, new PupilsSearchRequest {ID = "11"});
 
             _repository.Verify(x => x.Get<PupilDTO>(_ks4JunePupils), Times.Once);
 
@@ -93,7 +92,7 @@ namespace Dfe.Rscd.Api.UnitTests
         {
             var pupilService = new PupilService(_repository.Object, _configuration.Object);
 
-            var result = pupilService.QueryPupils(CheckingWindow.KS4June, new PupilsSearchRequest { ID = "101" });
+            var result = pupilService.QueryPupils(CheckingWindow.KS4June, new PupilsSearchRequest {ID = "101"});
 
             _repository.Verify(x => x.Get<PupilDTO>(_ks4JunePupils), Times.Once);
 
@@ -107,7 +106,7 @@ namespace Dfe.Rscd.Api.UnitTests
         {
             var pupilService = new PupilService(_repository.Object, _configuration.Object);
 
-            var result = pupilService.QueryPupils(CheckingWindow.KS4June, new PupilsSearchRequest { ID = "22" });
+            var result = pupilService.QueryPupils(CheckingWindow.KS4June, new PupilsSearchRequest {ID = "22"});
 
             _repository.Verify(x => x.Get<PupilDTO>(_ks4JunePupils), Times.Once);
 
@@ -121,7 +120,7 @@ namespace Dfe.Rscd.Api.UnitTests
         {
             var pupilService = new PupilService(_repository.Object, _configuration.Object);
 
-            var result = pupilService.QueryPupils(CheckingWindow.KS4June, new PupilsSearchRequest { ID = "202" });
+            var result = pupilService.QueryPupils(CheckingWindow.KS4June, new PupilsSearchRequest {ID = "202"});
 
             _repository.Verify(x => x.Get<PupilDTO>(_ks4JunePupils), Times.Once);
 
@@ -135,7 +134,7 @@ namespace Dfe.Rscd.Api.UnitTests
         {
             var pupilService = new PupilService(_repository.Object, _configuration.Object);
 
-            var result = pupilService.QueryPupils(CheckingWindow.KS4June, new PupilsSearchRequest { Name = "Mar" });
+            var result = pupilService.QueryPupils(CheckingWindow.KS4June, new PupilsSearchRequest {Name = "Mar"});
 
             _repository.Verify(x => x.Get<PupilDTO>(_ks4JunePupils), Times.Once);
 
@@ -150,7 +149,7 @@ namespace Dfe.Rscd.Api.UnitTests
         {
             var pupilService = new PupilService(_repository.Object, _configuration.Object);
 
-            var result = pupilService.QueryPupils(CheckingWindow.KS4June, new PupilsSearchRequest { URN = "U111" });
+            var result = pupilService.QueryPupils(CheckingWindow.KS4June, new PupilsSearchRequest {URN = "U111"});
 
             _repository.Verify(x => x.Get<PupilDTO>(_ks4JunePupils), Times.Once);
 
@@ -164,7 +163,7 @@ namespace Dfe.Rscd.Api.UnitTests
         {
             var pupilService = new PupilService(_repository.Object, _configuration.Object);
 
-            var result = pupilService.QueryPupils(CheckingWindow.KS4June, new PupilsSearchRequest { URN = "U222" });
+            var result = pupilService.QueryPupils(CheckingWindow.KS4June, new PupilsSearchRequest {URN = "U222"});
 
             _repository.Verify(x => x.Get<PupilDTO>(_ks4JunePupils), Times.Once);
 

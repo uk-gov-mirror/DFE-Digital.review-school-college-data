@@ -15,23 +15,23 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.Services
         // TODO: Decide a max pagesize for now, can't return all pupils
         private const int PageSize = 200;
         private readonly string _allocationYear;
-        private readonly IRepository _repository;
+        private readonly IDocumentRepository _documentRepository;
 
-        public PupilService(IRepository repository, IConfiguration configuration)
+        public PupilService(IDocumentRepository documentRepository, IConfiguration configuration)
         {
-            _repository = repository;
+            _documentRepository = documentRepository;
             _allocationYear = configuration["AllocationYear"];
         }
 
         public Pupil GetById(CheckingWindow checkingWindow, string id)
         {
-            var pupilDTO = _repository.GetById<PupilDTO>(GetCollection(checkingWindow), id);
+            var pupilDTO = _documentRepository.GetById<PupilDTO>(GetCollection(checkingWindow), id);
             return pupilDTO?.GetPupil(_allocationYear);
         }
 
         public List<PupilRecord> QueryPupils(CheckingWindow checkingWindow, PupilsSearchRequest query)
         {
-            var repoQuery = _repository.Get<PupilDTO>(GetCollection(checkingWindow));
+            var repoQuery = _documentRepository.Get<PupilDTO>(GetCollection(checkingWindow));
             if (!string.IsNullOrWhiteSpace(query.URN)) repoQuery = repoQuery.Where(p => p.URN == query.URN);
             if (!string.IsNullOrWhiteSpace(query.ID))
                 repoQuery = repoQuery.Where(p => p.UPN.StartsWith(query.ID) || p.ULN.StartsWith(query.ID));
