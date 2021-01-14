@@ -7,6 +7,6 @@ namespace Dfe.Rscd.Api.Domain.Interfaces
     public interface IEstablishmentService
     {
         Establishment GetByURN(CheckingWindow checkingWindow, URN urn);
-        Establishment GetByLAId(CheckingWindow checkingWindow, string laId);
+        Establishment GetByDFESNumber(CheckingWindow checkingWindow, string dfesNumber);
     }
 }

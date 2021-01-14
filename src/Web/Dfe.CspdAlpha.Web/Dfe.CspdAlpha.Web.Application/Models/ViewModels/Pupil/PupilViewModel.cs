@@ -24,7 +24,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
             ID = pupil.Id;
             Keystage = checkingWindow.ToKeyStage();
             URN = pupil.Urn;
-            SchoolID = pupil.LaEstab;
+            SchoolID = pupil.DfesNumber;
             UPN = pupil.Upn;
             ULN = pupil.Uln;
             FirstName = pupil.ForeName;

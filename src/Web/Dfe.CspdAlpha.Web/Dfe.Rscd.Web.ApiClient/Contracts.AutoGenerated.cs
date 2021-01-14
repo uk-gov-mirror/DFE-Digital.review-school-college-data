@@ -390,8 +390,8 @@ namespace Dfe.Rscd.Web.ApiClient
         [Newtonsoft.Json.JsonProperty("uln", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Uln { get; set; }
     
-        [Newtonsoft.Json.JsonProperty("laEstab", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string LaEstab { get; set; }
+        [Newtonsoft.Json.JsonProperty("dfesNumber", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string DfesNumber { get; set; }
     
         [Newtonsoft.Json.JsonProperty("foreName", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string ForeName { get; set; }
@@ -423,6 +423,27 @@ namespace Dfe.Rscd.Web.ApiClient
     
         [Newtonsoft.Json.JsonProperty("fullName", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string FullName { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("adoptedFromCareId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string AdoptedFromCareId { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("forvusNumber", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int ForvusNumber { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("freeSchoolMeals", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public bool? FreeSchoolMeals { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("senStatus", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string SenStatus { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("firstLanguage", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string FirstLanguage { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("ethnicity", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Ethnicity { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("pIncludeId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string PIncludeId { get; set; }
     
     
     }
@@ -607,8 +628,8 @@ namespace Dfe.Rscd.Web.ApiClient
         [Newtonsoft.Json.JsonProperty("urn", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public URN Urn { get; set; }
     
-        [Newtonsoft.Json.JsonProperty("laEstab", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string LaEstab { get; set; }
+        [Newtonsoft.Json.JsonProperty("dfesNumber", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string DfesNumber { get; set; }
     
         [Newtonsoft.Json.JsonProperty("schoolType", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string SchoolType { get; set; }
@@ -618,6 +639,18 @@ namespace Dfe.Rscd.Web.ApiClient
     
         [Newtonsoft.Json.JsonProperty("performanceMeasures", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Collections.Generic.ICollection<PerformanceMeasure> PerformanceMeasures { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("institutionTypeNumber", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int InstitutionTypeNumber { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("headTeacher", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string HeadTeacher { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("highestAge", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? HighestAge { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("lowestAge", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? LowestAge { get; set; }
     
     
     }

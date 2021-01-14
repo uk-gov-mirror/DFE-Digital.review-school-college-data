@@ -4,11 +4,9 @@ using Dfe.Rscd.Api.Domain.Core;
 using Dfe.Rscd.Api.Domain.Core.Enums;
 using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Domain.Interfaces;
-using Dfe.Rscd.Api.Infrastructure.CosmosDb.Config;
+using Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Repositories;
-using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 
 namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.Services
 {
@@ -16,24 +14,24 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.Services
     {
         // TODO: Decide a max pagesize for now, can't return all pupils
         private const int PageSize = 200;
-        private readonly Database _cosmosDb;
-        private readonly string ALLOCATION_YEAR;
+        private readonly string _allocationYear;
+        private readonly IRepository _repository;
 
-        public PupilService(IOptions<CosmosDbOptions> options, IConfiguration configuration)
+        public PupilService(IRepository repository, IConfiguration configuration)
         {
-            _cosmosDb = new CosmosClient(options.Value.Account, options.Value.Key).GetDatabase(options.Value.Database);
-            ALLOCATION_YEAR = configuration["AllocationYear"];
+            _repository = repository;
+            _allocationYear = configuration["AllocationYear"];
         }
 
         public Pupil GetById(CheckingWindow checkingWindow, string id)
         {
-            var matchedPupil = GetRepository(checkingWindow).GetById(id);
-            return matchedPupil.GetPupil(ALLOCATION_YEAR);
+            var pupilDTO = _repository.GetById<PupilDTO>(GetCollection(checkingWindow), id);
+            return pupilDTO?.GetPupil(_allocationYear);
         }
 
         public List<PupilRecord> QueryPupils(CheckingWindow checkingWindow, PupilsSearchRequest query)
         {
-            var repoQuery = GetRepository(checkingWindow).Query();
+            var repoQuery = _repository.Get<PupilDTO>(GetCollection(checkingWindow));
             if (!string.IsNullOrWhiteSpace(query.URN)) repoQuery = repoQuery.Where(p => p.URN == query.URN);
             if (!string.IsNullOrWhiteSpace(query.ID))
                 repoQuery = repoQuery.Where(p => p.UPN.StartsWith(query.ID) || p.ULN.StartsWith(query.ID));
@@ -44,6 +42,7 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.Services
                     repoQuery = repoQuery.Where(p => p.Forename.StartsWith(namePart) || p.Surname.StartsWith(namePart));
             }
 
+
             var dtos = repoQuery
                 .Select(p => new PupilRecord
                     {Id = p.id, ForeName = p.Forename, Surname = p.Surname, ULN = p.ULN, UPN = p.UPN})
@@ -52,10 +51,9 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.Services
             return dtos.ToList();
         }
 
-        private PupilRepository GetRepository(CheckingWindow checkingWindow)
+        private string GetCollection(CheckingWindow checkingWindow)
         {
-            var container = _cosmosDb.GetContainer($"{checkingWindow.ToString().ToLower()}_pupils_{ALLOCATION_YEAR}");
-            return new PupilRepository(container);
+            return $"{checkingWindow.ToString().ToLower()}_pupils_{_allocationYear}";
         }
     }
 }

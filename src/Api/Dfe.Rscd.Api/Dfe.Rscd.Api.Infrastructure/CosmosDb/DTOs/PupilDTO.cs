@@ -32,6 +32,15 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs
         public string SRC_LAESTAB_0 { get; set; }
         public string SRC_LAESTAB_1 { get; set; }
         public string SRC_LAESTAB_2 { get; set; }
+
+        public string P_INCL { get; set; }
+        public string EthnicityCode { get; set; }
+        public string FirstLanguageCode { get; set; }
+        public string SENStatusCode { get; set; }
+        public string FSM { get; set; }
+        public string ForvusIndex { get; set; }
+        public string AdoptedFromCareID { get; set; }
+
         public List<ResultDTO> performance { get; set; }
 
         public Pupil GetPupil(string allocationYear)
@@ -42,20 +51,29 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs
                 URN = URN,
                 UPN = UPN,
                 ULN = ULN,
-                LaEstab = DFESNumber,
+                DfesNumber = DFESNumber,
                 ForeName = Forename,
                 LastName = Surname,
                 DateOfBirth = GetDateTime(DOB),
                 Age = Age ?? 0,
-                Gender = Gender == "M" ? Domain.Core.Enums.Gender.Male : Domain.Core.Enums.Gender.Female,
+                Gender = Gender == "M" ? Dfe.Rscd.Api.Domain.Core.Enums.Gender.Male : Dfe.Rscd.Api.Domain.Core.Enums.Gender.Female,
                 DateOfAdmission = GetDateTime(ENTRYDAT.ToString()),
                 YearGroup = ActualYearGroup,
                 Results = performance.Select(p => new Result
                 {
-                    SubjectCode = p.SubjectCode, ExamYear = p.ExamYear, TestMark = p.TestMark,
+                    SubjectCode = p.SubjectCode,
+                    ExamYear = p.ExamYear,
+                    TestMark = p.TestMark,
                     ScaledScore = p.ScaledScore
                 }).ToList(),
-                Allocations = GetSourceOfAllocations(allocationYear)
+                Allocations = GetSourceOfAllocations(allocationYear),
+                Ethnicity = EthnicityCode,
+                FirstLanguage = FirstLanguageCode,
+                ForvusNumber = int.Parse(ForvusIndex),
+                FreeSchoolMeals = FSM == "1",
+                AdoptedFromCareId = AdoptedFromCareID,
+                PIncludeId = P_INCL,
+                SenStatus = SENStatusCode
             };
         }
 
@@ -83,13 +101,13 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs
             else
                 allocations.Add(new SourceOfAllocation(year--,
                     string.IsNullOrEmpty(Core_Provider_0) ? Allocation.Unknown : Allocation.NotAllocated));
-            
+
             if (Attendance_year_1 && DFESNumber == Core_Provider_1)
                 allocations.Add(new SourceOfAllocation(year--, SRC_LAESTAB_1.ToAllocation()));
             else
                 allocations.Add(new SourceOfAllocation(year--,
                     string.IsNullOrEmpty(Core_Provider_1) ? Allocation.Unknown : Allocation.NotAllocated));
-            
+
             if (Attendance_year_2 && DFESNumber == Core_Provider_2)
                 allocations.Add(new SourceOfAllocation(year--, SRC_LAESTAB_2.ToAllocation()));
             else
@@ -106,5 +124,6 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs
                 ? date
                 : DateTime.MinValue;
         }
+
     }
 }

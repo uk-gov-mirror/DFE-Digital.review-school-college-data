@@ -3,42 +3,49 @@ using Dfe.Rscd.Api.Domain.Core;
 using Dfe.Rscd.Api.Domain.Core.Enums;
 using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Domain.Interfaces;
-using Dfe.Rscd.Api.Infrastructure.CosmosDb.Config;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Repositories;
-using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 
 namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.Services
 {
     public class EstablishmentService : IEstablishmentService
     {
-        private readonly Database _cosmosDb;
-        private readonly string ALLOCATION_YEAR;
+        private readonly IRepository _repository;
+        private readonly string _allocationYear;
 
-        public EstablishmentService(IOptions<CosmosDbOptions> options, IConfiguration configuration)
+        public EstablishmentService(IRepository repository, IConfiguration configuration)
         {
-            _cosmosDb = new CosmosClient(options.Value.Account, options.Value.Key).GetDatabase(options.Value.Database);
-            ALLOCATION_YEAR = configuration["AllocationYear"];
+            _repository = repository;
+            _allocationYear = configuration["AllocationYear"];
         }
 
         public Establishment GetByURN(CheckingWindow checkingWindow, URN urn)
         {
-            return GetRepository(checkingWindow).GetById(urn.Value).Establishment;
+            var establishmentDTO = _repository.GetById<EstablishmentDTO>(GetCollection(checkingWindow), urn.Value);
+            return establishmentDTO.GetEstablishment();
         }
 
-        public Establishment GetByLAId(CheckingWindow checkingWindow, string laId)
+        public Establishment GetByDFESNumber(CheckingWindow checkingWindow, string dfesNumber)
         {
-            var results = GetRepository(checkingWindow).Query().Where(e => e.DFESNumber == laId).ToList();
-            return results.Count > 0 ? results.First().Establishment : null;
+            var collectionUri = GetCollection(checkingWindow);
+
+            var establishmentDtos = _repository
+                .Get<EstablishmentDTO>(collectionUri)
+                .Where(x => x.DFESNumber == dfesNumber)
+                .ToList();
+
+            if (establishmentDtos.Any())
+            {
+                return establishmentDtos.First().GetEstablishment();
+            }
+
+            return null;
         }
 
-        private IReadRepository<EstablishmentsDTO> GetRepository(CheckingWindow checkingWindow)
+        private string GetCollection(CheckingWindow checkingWindow)
         {
-            var container =
-                _cosmosDb.GetContainer($"{checkingWindow.ToString().ToLower()}_establishments_{ALLOCATION_YEAR}");
-            return new EstablishmentRepository(container);
+            return $"{checkingWindow.ToString().ToLower()}_establishments_{_allocationYear}";
         }
     }
 }

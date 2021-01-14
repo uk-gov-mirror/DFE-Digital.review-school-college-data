@@ -70,7 +70,7 @@ namespace Dfe.Rscd.Api.Controllers
             CheckingWindow checkingWindow;
             Enum.TryParse(checkingwindow.Replace("-", string.Empty), true,
                 out checkingWindow);
-            var establishmentData = _establishmentService.GetByLAId(checkingWindow, request.DFESNumber);
+            var establishmentData = _establishmentService.GetByDFESNumber(checkingWindow, request.DFESNumber);
             var response = new GetResponse<Establishment>
             {
                 Result = establishmentData,

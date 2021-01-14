@@ -39,7 +39,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                     DateOfBirth = new DateViewModel(amendment.Pupil.DateOfBirth.UtcDateTime),
                     DateOfAdmission = new DateViewModel(amendment.Pupil.DateOfAdmission.UtcDateTime),
                     YearGroup = amendment.Pupil.YearGroup,
-                    SchoolID = amendment.Pupil.LaEstab
+                    SchoolID = amendment.Pupil.DfesNumber
                 });
             }
             return View(new AddPupilViewModel());
@@ -82,7 +82,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                         Age = existingPupil.PupilViewModel.Age,
                         Upn = existingPupil.PupilViewModel.UPN,
                         YearGroup = existingPupil.PupilViewModel.YearGroup,
-                        LaEstab = existingPupil.PupilViewModel.SchoolID,
+                        DfesNumber = existingPupil.PupilViewModel.SchoolID,
                         Urn = existingPupil.PupilViewModel.URN
                     },
                     AmendmentDetail = new AmendmentDetail()
@@ -118,7 +118,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                     DateOfAdmission = addPupilViewModel.DateOfAdmission.Date.Value,
                     Upn = addPupilViewModel.UPN,
                     YearGroup = addPupilViewModel.YearGroup,
-                    LaEstab = addPupilViewModel.SchoolID,
+                    DfesNumber = addPupilViewModel.SchoolID,
                     Urn = urn
                 },
                 CheckingWindow = CheckingWindow,

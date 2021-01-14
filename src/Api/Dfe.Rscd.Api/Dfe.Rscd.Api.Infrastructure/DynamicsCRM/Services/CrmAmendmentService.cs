@@ -270,7 +270,6 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
             return amendmentDomain;
         }
 
-        // TODO: API should return an enum for status
         private string GetStatus(CheckingWindow checkingWindow, rscd_Amendment amendment)
         {
             // TODO: Branching on checking window is ugly - we need to refactor this class
@@ -357,7 +356,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
                 {
                 }
 
-                if (establishment == null) establishment = _establishmentService.GetByLAId(checkingWindow, id);
+                if (establishment == null) establishment = _establishmentService.GetByDFESNumber(checkingWindow, id);
 
                 if (establishment == null) return null;
 
@@ -366,7 +365,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
                 {
                     cr3d5_name = establishment.Name,
                     cr3d5_Urn = establishment.Urn.Value,
-                    cr3d5_LAEstab = establishment.LaEstab,
+                    cr3d5_LAEstab = establishment.DfesNumber,
                     cr3d5_Schooltype = establishment.SchoolType,
                     cr3d5_Numberofamendments = 0
                 };

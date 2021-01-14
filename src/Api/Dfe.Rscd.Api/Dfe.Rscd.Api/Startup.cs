@@ -3,6 +3,7 @@ using System.Text.Json.Serialization;
 using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Domain.Interfaces;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Config;
+using Dfe.Rscd.Api.Infrastructure.CosmosDb.Repositories;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Services;
 using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Builders;
 using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Config;
@@ -81,6 +82,8 @@ namespace Dfe.Rscd.Api
             services.AddSingleton<IAmendmentBuilder, AddPupilAmendmentBuilder>();
             services.AddSingleton<Amendment, AddPupilAmendment>();
             services.AddSingleton<IRuleSet, AddPupilRules>();
+
+            services.AddSingleton<IRepository, Repository>();
 
             services.AddSingleton<IEstablishmentService, EstablishmentService>();
             services.AddSingleton<IPupilService, PupilService>();

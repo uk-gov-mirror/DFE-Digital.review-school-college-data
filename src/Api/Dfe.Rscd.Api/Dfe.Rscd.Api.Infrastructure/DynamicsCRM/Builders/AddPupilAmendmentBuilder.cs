@@ -92,7 +92,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Builders
                 rscd_Name = amendment.Pupil.FullName,
                 rscd_Reason = amendmentDetail.GetField<string>(AddPupilAmendment.FIELD_Reason).ToCrmAddReason(),
                 rscd_PreviousschoolURN = amendment.Pupil.URN,
-                rscd_PreviousschoolLAESTAB = amendment.Pupil.LaEstab
+                rscd_PreviousschoolLAESTAB = amendment.Pupil.DfesNumber
             };
 
             var results =

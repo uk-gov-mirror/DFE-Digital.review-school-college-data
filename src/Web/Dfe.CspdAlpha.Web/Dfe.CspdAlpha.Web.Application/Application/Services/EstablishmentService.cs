@@ -104,7 +104,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                 {
                     SchoolName = establishmentData.Name,
                     URN = urn,
-                    LAEstab = establishmentData.LaEstab,
+                    DfesNumber = establishmentData.DfesNumber,
                     SchoolType = establishmentData.SchoolType
                 },
                 HeadlineMeasures = establishmentData.PerformanceMeasures.Where(p => headlineFields.Any(h => h.Key == p.Name)).Select(m => new Measure { Name = headlineFields[m.Name], Data = m.Value }).OrderBy(s => s.Name).ToList(),
@@ -129,7 +129,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             {
                 SchoolName = establishmentData.Name,
                 URN = urn,
-                LAEstab = establishmentData.LaEstab,
+                DfesNumber = establishmentData.DfesNumber,
                 SchoolType = establishmentData.SchoolType
             };
         }
