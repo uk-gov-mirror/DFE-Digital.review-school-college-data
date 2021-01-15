@@ -1,21 +1,23 @@
 ﻿using System.Linq;
 using Dfe.Rscd.Api.Domain.Core;
 using Dfe.Rscd.Api.Domain.Core.Enums;
-using Dfe.Rscd.Api.Infrastructure;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Repositories;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Services;
 using Microsoft.Extensions.Configuration;
 using Moq;
-using NUnit.Framework;
+using Xunit;
 
 namespace Dfe.Rscd.Api.UnitTests
 {
-    [TestFixture]
     public class EstablishmentServiceTests
     {
-        [SetUp]
-        public void Given()
+        public EstablishmentServiceTests()
+        {
+            Given();
+        }
+        
+        private void Given()
         {
             _testEstab = Builder.GetEstablishment("200000");
 
@@ -40,7 +42,7 @@ namespace Dfe.Rscd.Api.UnitTests
         private EstablishmentDTO _testEstab;
         private string _ks4JuneEstablishments;
 
-        [Test]
+        [Fact]
         public void WhenGetEstablishmentByURNIsCalledEstablishmentDTOMapsRootFieldsToEntityObject()
         {
             var establishmentService = new EstablishmentService(_repository.Object, _configuration.Object);
@@ -49,18 +51,18 @@ namespace Dfe.Rscd.Api.UnitTests
 
             _repository.Verify(x => x.GetById<EstablishmentDTO>(_ks4JuneEstablishments, "200000"), Times.Once);
 
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.DfesNumber, Is.EqualTo(_testEstab.DFESNumber));
-            Assert.That(result.Name, Is.EqualTo(_testEstab.SchoolName));
-            Assert.That(result.SchoolType, Is.EqualTo(_testEstab.SchoolType));
-            Assert.That(result.InstitutionTypeNumber, Is.EqualTo(_testEstab.InstitutionTypeNumber));
-            Assert.That(result.LowestAge, Is.EqualTo(_testEstab.LowestAge));
-            Assert.That(result.HighestAge, Is.EqualTo(_testEstab.HighestAge));
-            Assert.That(result.HeadTeacher, Is.EqualTo(_testEstab.HeadTitleCode+ " " +_testEstab.HeadFirstName + " " +_testEstab.HeadLastName));
-            Assert.That(result.Urn.Value, Is.EqualTo("200000"));
+            Assert.NotNull(result);
+            Assert.True(result.DfesNumber == _testEstab.DFESNumber);
+            Assert.True(result.Name == _testEstab.SchoolName);
+            Assert.True(result.SchoolType == _testEstab.SchoolType);
+            Assert.True(result.InstitutionTypeNumber == _testEstab.InstitutionTypeNumber);
+            Assert.True(result.LowestAge == _testEstab.LowestAge);
+            Assert.True(result.HighestAge == _testEstab.HighestAge);
+            Assert.True(result.HeadTeacher == _testEstab.HeadTitleCode+ " " +_testEstab.HeadFirstName + " " +_testEstab.HeadLastName);
+            Assert.True(result.Urn.Value == "200000");
         }
 
-        [Test]
+        [Fact]
         public void WhenGetEstablishmentByDFESNumberIsCalledEstablishmentDTOMapsRootFieldsToEntityObject()
         {
             var establishmentService = new EstablishmentService(_repository.Object, _configuration.Object);
@@ -69,14 +71,14 @@ namespace Dfe.Rscd.Api.UnitTests
 
             _repository.Verify(x => x.Get<EstablishmentDTO>(_ks4JuneEstablishments), Times.Once);
 
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.DfesNumber, Is.EqualTo("DFE100000"));
-            Assert.That(result.Name, Is.EqualTo(_testEstab.SchoolName));
-            Assert.That(result.SchoolType, Is.EqualTo(_testEstab.SchoolType));
-            Assert.That(result.Urn.Value, Is.EqualTo("100000"));
+            Assert.NotNull(result);
+            Assert.True(result.DfesNumber == "DFE100000");
+            Assert.True(result.Name == _testEstab.SchoolName);
+            Assert.True(result.SchoolType == _testEstab.SchoolType);
+            Assert.True(result.Urn.Value == "100000");
         }
 
-        [Test]
+        [Fact]
         public void WhenGetEstablishmentByURNIsCalledEstablishmenMeasuresShouldMapCorrectly()
         {
             var establishmentService = new EstablishmentService(_repository.Object, _configuration.Object);
@@ -85,10 +87,11 @@ namespace Dfe.Rscd.Api.UnitTests
 
             _repository.Verify(x => x.GetById<EstablishmentDTO>(_ks4JuneEstablishments, "200000"), Times.Once);
 
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.PerformanceMeasures, Is.Not.Null.Or.Empty);
-            Assert.That(result.PerformanceMeasures.First().Name, Is.EqualTo("N01"));
-            Assert.That(result.PerformanceMeasures.First().Value, Is.EqualTo("V01"));
+            Assert.NotNull(result);
+            Assert.NotNull(result.PerformanceMeasures);
+            Assert.True(result.PerformanceMeasures.Count > 0);
+            Assert.True(result.PerformanceMeasures.First().Name == "N01");
+            Assert.True(result.PerformanceMeasures.First().Value == "V01");
         }
     }
 }

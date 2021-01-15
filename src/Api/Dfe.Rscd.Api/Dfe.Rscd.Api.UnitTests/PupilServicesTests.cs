@@ -1,21 +1,23 @@
 ﻿using System.Linq;
 using Dfe.Rscd.Api.Domain.Core;
 using Dfe.Rscd.Api.Domain.Core.Enums;
-using Dfe.Rscd.Api.Infrastructure;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Repositories;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Services;
 using Microsoft.Extensions.Configuration;
 using Moq;
-using NUnit.Framework;
+using Xunit;
 
 namespace Dfe.Rscd.Api.UnitTests
 {
-    [TestFixture]
     public class PupilServicesTests
     {
-        [SetUp]
-        public void Given()
+        public PupilServicesTests()
+        {
+            Given();
+        }
+
+        private void Given()
         {
             _testPupil = Builder.GetPupilDTO("100", "F", "100100", "100200", "100300");
 
@@ -40,7 +42,7 @@ namespace Dfe.Rscd.Api.UnitTests
         private PupilDTO _testPupil;
         private string _ks4JunePupils;
 
-        [Test]
+        [Fact]
         public void WhenGetPupilByIdIsCalledPupilMapsRootFieldsToEntityObject()
         {
             var pupilService = new PupilService(_repository.Object, _configuration.Object);
@@ -49,31 +51,31 @@ namespace Dfe.Rscd.Api.UnitTests
 
             _repository.Verify(x => x.GetById<PupilDTO>(_ks4JunePupils, "100"), Times.Once);
 
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.Id, Is.EqualTo(_testPupil.id));
-            Assert.That(result.Gender, Is.EqualTo(Gender.Female));
-            Assert.That(result.URN, Is.EqualTo(_testPupil.URN));
-            Assert.That(result.UPN, Is.EqualTo(_testPupil.UPN));
-            Assert.That(result.Age, Is.EqualTo(_testPupil.Age));
-            Assert.That(result.DateOfBirth.Year, Is.EqualTo(2006));
-            Assert.That(result.DateOfBirth.Month, Is.EqualTo(04));
-            Assert.That(result.DateOfBirth.Day, Is.EqualTo(13));
-            Assert.That(result.DateOfAdmission.Year, Is.EqualTo(2020));
-            Assert.That(result.DateOfAdmission.Month, Is.EqualTo(01));
-            Assert.That(result.DateOfAdmission.Day, Is.EqualTo(01));
-            Assert.That(result.ForeName, Is.EqualTo(_testPupil.Forename));
-            Assert.That(result.LastName, Is.EqualTo(_testPupil.Surname));
-            Assert.That(result.AdoptedFromCareId, Is.EqualTo(_testPupil.AdoptedFromCareID));
-            Assert.That(result.Ethnicity, Is.EqualTo(_testPupil.EthnicityCode));
-            Assert.That(result.FreeSchoolMeals, Is.EqualTo(true));
-            Assert.That(result.FirstLanguage, Is.EqualTo(_testPupil.FirstLanguageCode));
-            Assert.That(result.ForvusNumber, Is.EqualTo(int.Parse(_testPupil.ForvusIndex)));
-            Assert.That(result.DfesNumber, Is.EqualTo(_testPupil.DFESNumber));
-            Assert.That(result.PIncludeId, Is.EqualTo(_testPupil.P_INCL));
-            Assert.That(result.SenStatus, Is.EqualTo(_testPupil.SENStatusCode));
+            Assert.NotNull(result);
+            Assert.True(result.Id == _testPupil.id);
+            Assert.True(result.Gender == Gender.Female);
+            Assert.True(result.URN == _testPupil.URN);
+            Assert.True(result.UPN == _testPupil.UPN);
+            Assert.True(result.Age == _testPupil.Age);
+            Assert.True(result.DateOfBirth.Year == 2006);
+            Assert.True(result.DateOfBirth.Month == 04);
+            Assert.True(result.DateOfBirth.Day == 13);
+            Assert.True(result.DateOfAdmission.Year == 2020);
+            Assert.True(result.DateOfAdmission.Month == 01);
+            Assert.True(result.DateOfAdmission.Day == 01);
+            Assert.True(result.ForeName == _testPupil.Forename);
+            Assert.True(result.LastName == _testPupil.Surname);
+            Assert.True(result.AdoptedFromCareId == _testPupil.AdoptedFromCareID);
+            Assert.True(result.Ethnicity == _testPupil.EthnicityCode);
+            Assert.True(result.FreeSchoolMeals == true);
+            Assert.True(result.FirstLanguage == _testPupil.FirstLanguageCode);
+            Assert.True(result.ForvusNumber == int.Parse(_testPupil.ForvusIndex));
+            Assert.True(result.DfesNumber == _testPupil.DFESNumber);
+            Assert.True(result.PIncludeId == _testPupil.P_INCL);
+            Assert.True(result.SenStatus == _testPupil.SENStatusCode);
         }
 
-        [Test]
+        [Fact]
         public void WhenSearchPupilByIdShouldReturnFoundPupil1000ByUPN()
         {
             var pupilService = new PupilService(_repository.Object, _configuration.Object);
@@ -82,12 +84,12 @@ namespace Dfe.Rscd.Api.UnitTests
 
             _repository.Verify(x => x.Get<PupilDTO>(_ks4JunePupils), Times.Once);
 
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result, Has.Count.EqualTo(1));
-            Assert.That(result.First().Id, Is.EqualTo("1000"));
+            Assert.NotNull(result);
+            Assert.True(result.Count == 1);
+            Assert.True(result.First().Id == "1000");
         }
 
-        [Test]
+        [Fact]
         public void WhenSearchPupilByIdShouldReturnFoundPupil1000ByULN()
         {
             var pupilService = new PupilService(_repository.Object, _configuration.Object);
@@ -96,12 +98,12 @@ namespace Dfe.Rscd.Api.UnitTests
 
             _repository.Verify(x => x.Get<PupilDTO>(_ks4JunePupils), Times.Once);
 
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result, Has.Count.EqualTo(1));
-            Assert.That(result.First().Id, Is.EqualTo("1000"));
+            Assert.NotNull(result);
+            Assert.True(result.Count == 1);
+            Assert.True(result.First().Id == "1000");
         }
 
-        [Test]
+        [Fact]
         public void WhenSearchPupilByIdShouldReturnFoundPupil2000ByUPN()
         {
             var pupilService = new PupilService(_repository.Object, _configuration.Object);
@@ -110,12 +112,12 @@ namespace Dfe.Rscd.Api.UnitTests
 
             _repository.Verify(x => x.Get<PupilDTO>(_ks4JunePupils), Times.Once);
 
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result, Has.Count.EqualTo(1));
-            Assert.That(result.First().Id, Is.EqualTo("2000"));
+            Assert.NotNull(result);
+            Assert.True(result.Count == 1);
+            Assert.True(result.First().Id == "2000");
         }
 
-        [Test]
+        [Fact]
         public void WhenSearchPupilByIdShouldReturnFoundPupil2000ByULN()
         {
             var pupilService = new PupilService(_repository.Object, _configuration.Object);
@@ -124,12 +126,11 @@ namespace Dfe.Rscd.Api.UnitTests
 
             _repository.Verify(x => x.Get<PupilDTO>(_ks4JunePupils), Times.Once);
 
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result, Has.Count.EqualTo(1));
-            Assert.That(result.First().Id, Is.EqualTo("2000"));
+            Assert.NotNull(result);
+            Assert.True(result.Count == 1);
+            Assert.True(result.First().Id == "2000");
         }
-
-        [Test]
+        [Fact]
         public void WhenSearchPupilByNameShouldReturnMatchedPupils()
         {
             var pupilService = new PupilService(_repository.Object, _configuration.Object);
@@ -138,13 +139,13 @@ namespace Dfe.Rscd.Api.UnitTests
 
             _repository.Verify(x => x.Get<PupilDTO>(_ks4JunePupils), Times.Once);
 
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result, Has.Count.EqualTo(2));
-            Assert.That(result.First().Id, Is.EqualTo("3000"));
-            Assert.That(result.Last().Id, Is.EqualTo("4000"));
+            Assert.NotNull(result);
+            Assert.True(result.Count == 2);
+            Assert.True(result.First().Id == "3000");
+            Assert.True(result.Last().Id == "4000");
         }
 
-        [Test]
+        [Fact]
         public void WhenSearchPupilByURNShouldReturnMatchedPupilForU111ByURN()
         {
             var pupilService = new PupilService(_repository.Object, _configuration.Object);
@@ -153,12 +154,12 @@ namespace Dfe.Rscd.Api.UnitTests
 
             _repository.Verify(x => x.Get<PupilDTO>(_ks4JunePupils), Times.Once);
 
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result, Has.Count.EqualTo(1));
-            Assert.That(result.First().Id, Is.EqualTo("1000"));
+            Assert.NotNull(result);
+            Assert.True(result.Count == 1);
+            Assert.True(result.First().Id == "1000");
         }
 
-        [Test]
+        [Fact]
         public void WhenSearchPupilByURNShouldReturnMatchedPupilForU222ByURN()
         {
             var pupilService = new PupilService(_repository.Object, _configuration.Object);
@@ -167,12 +168,12 @@ namespace Dfe.Rscd.Api.UnitTests
 
             _repository.Verify(x => x.Get<PupilDTO>(_ks4JunePupils), Times.Once);
 
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result, Has.Count.EqualTo(1));
-            Assert.That(result.First().Id, Is.EqualTo("2000"));
+            Assert.NotNull(result);
+            Assert.True(result.Count == 1);
+            Assert.True(result.First().Id == "2000");
         }
 
-        [Test]
+        [Fact]
         public void WhenGetPupilByIdIsCalledPupilMapsAllocationYearsToEntityObject()
         {
             var pupilService = new PupilService(_repository.Object, _configuration.Object);
@@ -181,17 +182,17 @@ namespace Dfe.Rscd.Api.UnitTests
 
             _repository.Verify(x => x.GetById<PupilDTO>(_ks4JunePupils, "100"), Times.Once);
 
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.Allocations, Has.Count.EqualTo(3));
-            Assert.That(result.Allocations.First().Allocation, Is.EqualTo(Allocation.AwardingOrganisation));
-            Assert.That(result.Allocations.First().Year, Is.EqualTo(2021));
-            Assert.That(result.Allocations.Skip(1).First().Allocation, Is.EqualTo(Allocation.NotAllocated));
-            Assert.That(result.Allocations.Skip(1).First().Year, Is.EqualTo(2020));
-            Assert.That(result.Allocations.Last().Allocation, Is.EqualTo(Allocation.NotAllocated));
-            Assert.That(result.Allocations.Last().Year, Is.EqualTo(2019));
+            Assert.NotNull(result);
+            Assert.True(result.Allocations.Count == 3);
+            Assert.True(result.Allocations.First().Allocation == Allocation.AwardingOrganisation);
+            Assert.True(result.Allocations.First().Year == 2021);
+            Assert.True(result.Allocations.Skip(1).First().Allocation == Allocation.NotAllocated);
+            Assert.True(result.Allocations.Skip(1).First().Year == 2020);
+            Assert.True(result.Allocations.Last().Allocation == Allocation.NotAllocated);
+            Assert.True(result.Allocations.Last().Year == 2019);
         }
 
-        [Test]
+        [Fact]
         public void WhenGetPupilByIdIsCalledPupilMapsPerformanceToEntityObject()
         {
             var pupilService = new PupilService(_repository.Object, _configuration.Object);
@@ -200,12 +201,12 @@ namespace Dfe.Rscd.Api.UnitTests
 
             _repository.Verify(x => x.GetById<PupilDTO>(_ks4JunePupils, "100"), Times.Once);
 
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.Results.Count, Is.EqualTo(1));
-            Assert.That(result.Results.First().SubjectCode, Is.EqualTo(_testPupil.performance.First().SubjectCode));
-            Assert.That(result.Results.First().ExamYear, Is.EqualTo(_testPupil.performance.First().ExamYear));
-            Assert.That(result.Results.First().TestMark, Is.EqualTo(_testPupil.performance.First().TestMark));
-            Assert.That(result.Results.First().ScaledScore, Is.EqualTo(_testPupil.performance.First().ScaledScore));
+            Assert.NotNull(result);
+            Assert.True(result.Results.Count == 1);
+            Assert.True(result.Results.First().SubjectCode == _testPupil.performance.First().SubjectCode);
+            Assert.True(result.Results.First().ExamYear == _testPupil.performance.First().ExamYear);
+            Assert.True(result.Results.First().TestMark== _testPupil.performance.First().TestMark);
+            Assert.True(result.Results.First().ScaledScore == _testPupil.performance.First().ScaledScore);
         }
     }
 }
