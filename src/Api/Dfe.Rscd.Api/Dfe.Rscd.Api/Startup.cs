@@ -83,11 +83,22 @@ namespace Dfe.Rscd.Api
 
             var cdsClient = new CdsServiceClient(dynamicsConnString);
             services.AddTransient<IOrganizationService, CdsServiceClient>(sp => cdsClient.Clone());
-            services.Configure<DynamicsOptions>(Configuration.GetSection("Dynamics"));
 
+            // Microsoft Extensions Configuration (services.Configure) is still in Alpha.
+            // This affects EntityFramework Core in Infra Assembly
+            // So we do it the old fashioned way for now
+            var dynamicsOptions = Configuration.GetSection("Dynamics").Get<DynamicsOptions>();
+            services.AddSingleton(dynamicsOptions);
+
+            services.AddSingleton<IAllocationYearConfig>(new AllocationYearConfig {Value = Configuration["AllocationYear"] });
 
             if (_env.IsStaging()) services.Configure<BasicAuthOptions>(Configuration.GetSection("BasicAuth"));
-            services.Configure<CosmosDbOptions>(Configuration.GetSection("CosmosDb"));
+
+            // Microsoft Extensions Configuration (services.Configure) is still in Alpha.
+            // This affects EntityFramework Core in Infra Assembly
+            // So we do it the old fashioned way for now
+            var cosmosDbOptions = Configuration.GetSection("CosmosDb").Get<CosmosDbOptions>();
+            services.AddSingleton(cosmosDbOptions);
 
             services.AddSingleton<IDocumentRepository, CosmosDocumentRepository>();
 

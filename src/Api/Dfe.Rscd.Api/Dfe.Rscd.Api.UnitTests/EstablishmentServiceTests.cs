@@ -1,10 +1,10 @@
 ﻿using System.Linq;
 using Dfe.Rscd.Api.Domain.Core;
 using Dfe.Rscd.Api.Domain.Core.Enums;
+using Dfe.Rscd.Api.Infrastructure.CosmosDb.Config;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Repositories;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Services;
-using Microsoft.Extensions.Configuration;
 using Moq;
 using Xunit;
 
@@ -33,12 +33,12 @@ namespace Dfe.Rscd.Api.UnitTests
                     x.Get<EstablishmentDTO>(_ks4JuneEstablishments))
                 .Returns(Builder.GetEstablisments().AsQueryable());
 
-            _configuration = new Mock<IConfiguration>();
-            _configuration.Setup(x => x["AllocationYear"]).Returns("2021");
+            _configuration = new Mock<IAllocationYearConfig>();
+            _configuration.Setup(x => x.Value).Returns("2021");
         }
 
         private Mock<IDocumentRepository> _repository;
-        private Mock<IConfiguration> _configuration;
+        private Mock<IAllocationYearConfig> _configuration;
         private EstablishmentDTO _testEstab;
         private string _ks4JuneEstablishments;
 

@@ -4,11 +4,10 @@ using Dfe.CspdAlpha.Web.Infrastructure.Crm;
 using Dfe.Rscd.Api.Domain.Core.Enums;
 using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Domain.Interfaces;
+using Dfe.Rscd.Api.Infrastructure.CosmosDb.Config;
 using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Config;
 using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Extensions;
 using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Interfaces;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 using Microsoft.Xrm.Sdk;
 
 namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Builders
@@ -16,8 +15,8 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Builders
     public class AddPupilAmendmentBuilder : AmendmentBuilder
     {
         public AddPupilAmendmentBuilder(IOrganizationService organizationService, IOutcomeService outcomeService,
-            IPupilService pupilService, IOptions<DynamicsOptions> dynamicsOptions, IConfiguration configuration) : base(
-            organizationService, outcomeService, pupilService, dynamicsOptions, configuration)
+            IPupilService pupilService, DynamicsOptions dynamicsOptions, IAllocationYearConfig year) : base(
+            organizationService, outcomeService, pupilService, dynamicsOptions, year)
         {
         }
 

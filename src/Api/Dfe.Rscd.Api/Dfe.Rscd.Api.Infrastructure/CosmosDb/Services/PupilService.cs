@@ -4,9 +4,9 @@ using Dfe.Rscd.Api.Domain.Core;
 using Dfe.Rscd.Api.Domain.Core.Enums;
 using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Domain.Interfaces;
+using Dfe.Rscd.Api.Infrastructure.CosmosDb.Config;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Repositories;
-using Microsoft.Extensions.Configuration;
 
 namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.Services
 {
@@ -17,10 +17,10 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.Services
         private readonly string _allocationYear;
         private readonly IDocumentRepository _documentRepository;
 
-        public PupilService(IDocumentRepository documentRepository, IConfiguration configuration)
+        public PupilService(IDocumentRepository documentRepository, IAllocationYearConfig year)
         {
             _documentRepository = documentRepository;
-            _allocationYear = configuration["AllocationYear"];
+            _allocationYear = year.Value;
         }
 
         public Pupil GetById(CheckingWindow checkingWindow, string id)

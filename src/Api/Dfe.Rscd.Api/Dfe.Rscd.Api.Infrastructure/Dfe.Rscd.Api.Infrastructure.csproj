@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
+	</PropertyGroup>
 
   <ItemGroup>
     <None Remove="SqlServer\POCOs.tt" />
@@ -12,8 +12,6 @@
     <PackageReference Include="Dapper" Version="2.0.78" />
     <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.12.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.9" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.8" />
     <PackageReference Include="Microsoft.PowerPlatform.Cds.Client" Version="0.2.17-Alpha" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>

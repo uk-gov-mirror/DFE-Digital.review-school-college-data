@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.Rscd.Api.Domain", "Dfe.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.Rscd.Api.Infrastructure", "Dfe.Rscd.Api.Infrastructure\Dfe.Rscd.Api.Infrastructure.csproj", "{D6C9D0E6-5745-4DBB-8497-EC11C77949D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dfe.Rscd.Api.UnitTests", "Dfe.Rscd.Api.UnitTests\Dfe.Rscd.Api.UnitTests.csproj", "{E387A577-D339-4A1C-A147-38B9328AEDE8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.Rscd.Api.UnitTests", "Dfe.Rscd.Api.UnitTests\Dfe.Rscd.Api.UnitTests.csproj", "{E387A577-D339-4A1C-A147-38B9328AEDE8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

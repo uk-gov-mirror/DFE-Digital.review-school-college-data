@@ -13,7 +13,6 @@ using Dfe.Rscd.Api.Domain.Interfaces;
 using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Config;
 using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Extensions;
 using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Interfaces;
-using Microsoft.Extensions.Options;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Metadata;
@@ -32,13 +31,13 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services
         public CrmAmendmentService(
             IOrganizationService organizationService,
             IEstablishmentService establishmentService,
-            IOptions<DynamicsOptions> dynamicsOptions,
+            DynamicsOptions dynamicsOptions,
             IEnumerable<IAmendmentBuilder> amendmentBuilders)
         {
             _establishmentService = establishmentService;
             _amendmentBuilders = amendmentBuilders;
             _organizationService = organizationService;
-            _sharePointDocumentLocationRecordId = dynamicsOptions.Value.SharePointDocumentLocationRecordId;
+            _sharePointDocumentLocationRecordId = dynamicsOptions.SharePointDocumentLocationRecordId;
         }
 
         public Amendment GetAmendment(CheckingWindow checkingWindow, string id)
