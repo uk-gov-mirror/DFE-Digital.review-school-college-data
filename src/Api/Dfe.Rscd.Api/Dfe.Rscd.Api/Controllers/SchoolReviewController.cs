@@ -1,5 +1,5 @@
-﻿using Dfe.Rscd.Api.Domain.Entities;
-using Dfe.Rscd.Api.Domain.Interfaces;
+﻿using Dfe.Rscd.Api.BusinessLogic.Contracts.Entities.Amendments;
+using Dfe.Rscd.Api.BusinessLogic.Contracts.Services;
 using Dfe.Rscd.Api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;

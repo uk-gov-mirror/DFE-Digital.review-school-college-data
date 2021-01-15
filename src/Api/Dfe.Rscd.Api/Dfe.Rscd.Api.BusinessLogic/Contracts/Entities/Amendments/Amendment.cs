@@ -1,0 +1,26 @@
+﻿using System;
+using Dfe.Rscd.Api.BusinessLogic.Contracts.Entities.Core.Enums;
+
+namespace Dfe.Rscd.Api.BusinessLogic.Contracts.Entities.Amendments
+{
+    public class Amendment
+    {
+        public Amendment()
+        {
+            AmendmentDetail = new AmendmentDetail();
+        }
+
+        public string URN { get; set; }
+        public AmendmentType AmendmentType { get; set; }
+        public string EvidenceFolderName { get; set; }
+        public EvidenceStatus EvidenceStatus { get; set; }
+        public string Reference { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public string Status { get; set; }
+        public string Id { get; set; }
+        public CheckingWindow CheckingWindow { get; set; }
+        public Pupil Pupil { get; set; }
+
+        public AmendmentDetail AmendmentDetail { get; set; }
+    }
+}

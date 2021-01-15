@@ -59,7 +59,7 @@ namespace Dfe.Rscd.Api.UnitTests
         {
             return new EstablishmentDTO
             {
-                DFESNumber = "DFE"+urn,
+                DFESNumber = "99"+urn,
                 HeadFirstName = "Marcus",
                 HeadLastName = "Russel",
                 HeadTitleCode = "Mr",

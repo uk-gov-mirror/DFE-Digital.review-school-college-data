@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Dfe.Rscd.Api.Domain.Core;
-using Dfe.Rscd.Api.Domain.Core.Enums;
-using Dfe.Rscd.Api.Domain.Entities;
-using Dfe.Rscd.Api.Domain.Interfaces;
+using Dfe.Rscd.Api.BusinessLogic.Contracts.Entities;
+using Dfe.Rscd.Api.BusinessLogic.Contracts.Entities.Core;
+using Dfe.Rscd.Api.BusinessLogic.Contracts.Entities.Core.Enums;
+using Dfe.Rscd.Api.BusinessLogic.Contracts.Services;
 using Dfe.Rscd.Api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;

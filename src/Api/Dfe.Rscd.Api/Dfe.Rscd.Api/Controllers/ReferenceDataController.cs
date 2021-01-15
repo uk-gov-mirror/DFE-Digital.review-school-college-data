@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Dfe.Rscd.Api.Domain.Core.Enums;
-using Dfe.Rscd.Api.Domain.Entities.ReferenceData;
-using Dfe.Rscd.Api.Domain.Interfaces;
+using Dfe.Rscd.Api.BusinessLogic.Contracts.Services;
+using Dfe.Rscd.Api.Infrastructure.SqlServer.DTOs;
 using Dfe.Rscd.Api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -13,9 +12,9 @@ namespace Dfe.Rscd.Api.Controllers
     [Microsoft.AspNetCore.Components.Route("api/[controller]")]
     public class ReferenceDataController : ControllerBase
     {
-        private readonly ICommonDataService _commonDataService;
+        private readonly IDataService _commonDataService;
 
-        public ReferenceDataController(ICommonDataService commonDataService)
+        public ReferenceDataController(IDataService commonDataService)
         {
             _commonDataService = commonDataService;
         }
@@ -29,11 +28,11 @@ namespace Dfe.Rscd.Api.Controllers
         )]
         [Route("/amendcodes")]
         [ProducesResponseType(400)]
-        [ProducesResponseType(typeof(GetResponse<IEnumerable<AmendReference>>), 200)]
+        [ProducesResponseType(typeof(GetResponse<IEnumerable<AmendCode>>), 200)]
         public async Task<IActionResult> GetAmendReference()
         {
             var list = _commonDataService.GetAmendCodes();
-            var response = new GetResponse<IEnumerable<AmendReference>>
+            var response = new GetResponse<IEnumerable<AmendCode>>
             {
                 Result = list,
                 Error = new Error()

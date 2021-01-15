@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+
+	<PropertyGroup>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
+	</PropertyGroup>
+
+
+	<ItemGroup>
+    <Compile Remove="Contracts\Entity Translators\**" />
+    <Compile Remove="Contracts\Messages\**" />
+    <Compile Remove="Entities\**" />
+    <Compile Remove="TransactionScripts\**" />
+    <Compile Remove="Validation\**" />
+    <EmbeddedResource Remove="Contracts\Entity Translators\**" />
+    <EmbeddedResource Remove="Contracts\Messages\**" />
+    <EmbeddedResource Remove="Entities\**" />
+    <EmbeddedResource Remove="TransactionScripts\**" />
+    <EmbeddedResource Remove="Validation\**" />
+    <None Remove="Contracts\Entity Translators\**" />
+    <None Remove="Contracts\Messages\**" />
+    <None Remove="Entities\**" />
+    <None Remove="TransactionScripts\**" />
+    <None Remove="Validation\**" />
+  </ItemGroup>
+
+
+	<ItemGroup>
+	  <Compile Remove="AuthorisationByModeAndRole.cs" />
+	  <Compile Remove="Contracts\Services\CommonListsAdapter.cs" />
+	  <Compile Remove="Contracts\Services\PupilAdapter.cs" />
+	</ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Dfe.Rscd.Api.Infrastructure\Dfe.Rscd.Api.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

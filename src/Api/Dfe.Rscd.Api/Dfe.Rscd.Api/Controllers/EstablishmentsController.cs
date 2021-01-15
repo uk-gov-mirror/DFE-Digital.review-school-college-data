@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Dfe.Rscd.Api.Domain.Core;
-using Dfe.Rscd.Api.Domain.Core.Enums;
-using Dfe.Rscd.Api.Domain.Entities;
-using Dfe.Rscd.Api.Domain.Interfaces;
+using Dfe.Rscd.Api.BusinessLogic.Contracts.Entities;
+using Dfe.Rscd.Api.BusinessLogic.Contracts.Entities.Core;
+using Dfe.Rscd.Api.BusinessLogic.Contracts.Entities.Core.Enums;
+using Dfe.Rscd.Api.BusinessLogic.Contracts.Services;
 using Dfe.Rscd.Api.Models;
 using Dfe.Rscd.Api.Models.SearchRequests;
 using Microsoft.AspNetCore.Mvc;
@@ -30,7 +30,7 @@ namespace Dfe.Rscd.Api.Controllers
             OperationId = "GetEstablishmentByURN",
             Tags = new[] {"Establishments"}
         )]
-        [ProducesResponseType(typeof(GetResponse<Establishment>), 200)]
+        [ProducesResponseType(typeof(GetResponse<School>), 200)]
         public IActionResult Get(
             [FromRoute] [SwaggerParameter("The URN of the school requesting amendments", Required = true)]
             string urn,
@@ -41,7 +41,7 @@ namespace Dfe.Rscd.Api.Controllers
             Enum.TryParse(checkingwindow.Replace("-", string.Empty), true,
                 out CheckingWindow checkingWindow);
             var establishmentData = _establishmentService.GetByURN(checkingWindow, urnValue);
-            var response = new GetResponse<Establishment>
+            var response = new GetResponse<School>
             {
                 Result = establishmentData,
                 Error = new Error()
@@ -57,7 +57,7 @@ namespace Dfe.Rscd.Api.Controllers
             OperationId = "SearchTEstablishments",
             Tags = new[] {"Establishments"}
         )]
-        [ProducesResponseType(typeof(GetResponse<Establishment>), 200)]
+        [ProducesResponseType(typeof(GetResponse<School>), 200)]
         [ProducesResponseType(400)]
         public async Task<IActionResult> Search(
             [FromQuery] [SwaggerParameter("Event search criteria.", Required = true)]
@@ -71,7 +71,7 @@ namespace Dfe.Rscd.Api.Controllers
             Enum.TryParse(checkingwindow.Replace("-", string.Empty), true,
                 out checkingWindow);
             var establishmentData = _establishmentService.GetByDFESNumber(checkingWindow, request.DFESNumber);
-            var response = new GetResponse<Establishment>
+            var response = new GetResponse<School>
             {
                 Result = establishmentData,
                 Error = new Error()

@@ -2,21 +2,22 @@ using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Text.Json.Serialization;
-using Dfe.Rscd.Api.Domain.Entities;
-using Dfe.Rscd.Api.Domain.Interfaces;
+using Dfe.Rscd.Api.BusinessLogic.Contracts.Entities;
+using Dfe.Rscd.Api.BusinessLogic.Contracts.Entities.Amendments;
+using Dfe.Rscd.Api.BusinessLogic.Contracts.Entities.Amendments.AddPupil;
+using Dfe.Rscd.Api.BusinessLogic.Contracts.Entities.Amendments.RemovePupil;
+using Dfe.Rscd.Api.BusinessLogic.Contracts.Services;
+using Dfe.Rscd.Api.BusinessLogic.Contracts.Services.Builders;
 using Dfe.Rscd.Api.Infrastructure;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Config;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Repositories;
-using Dfe.Rscd.Api.Infrastructure.CosmosDb.Services;
-using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Builders;
 using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Config;
-using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Interfaces;
-using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services;
+using Dfe.Rscd.Api.Infrastructure.SqlServer.DTOs;
 using Dfe.Rscd.Api.Infrastructure.SqlServer.Repositories;
-using Dfe.Rscd.Api.Infrastructure.SqlServer.Services;
 using Dfe.Rscd.Api.Middleware.BasicAuth;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -72,11 +73,11 @@ namespace Dfe.Rscd.Api
 
 
             var referenceDataConnectionString = Configuration.GetConnectionString("ReferenceData");
-            var sqlConnection = new SqlConnection(referenceDataConnectionString);
-            services.AddSingleton<IDbConnection, SqlConnection>(sp => sqlConnection);
-            services.AddSingleton<ICommonData, CommonData>();
+            
+            services.AddDbContext<SqlDataRepositoryContext>(options =>
+                options.UseSqlServer(referenceDataConnectionString));
 
-            services.AddSingleton<ICommonDataService, CommonDataService>();
+            services.AddSingleton<IDataRepository, DataRepository>();
             
             // Dynamics 365 configuration
             var dynamicsConnString = Configuration.GetConnectionString("DynamicsCds");

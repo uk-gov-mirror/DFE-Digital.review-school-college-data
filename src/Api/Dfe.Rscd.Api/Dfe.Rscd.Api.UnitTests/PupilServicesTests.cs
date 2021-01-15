@@ -1,10 +1,11 @@
 ﻿using System.Linq;
-using Dfe.Rscd.Api.Domain.Core;
-using Dfe.Rscd.Api.Domain.Core.Enums;
+using Dfe.Rscd.Api.BusinessLogic.Contracts.Entities;
+using Dfe.Rscd.Api.BusinessLogic.Contracts.Entities.Core;
+using Dfe.Rscd.Api.BusinessLogic.Contracts.Entities.Core.Enums;
+using Dfe.Rscd.Api.BusinessLogic.Contracts.Services;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Config;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Repositories;
-using Dfe.Rscd.Api.Infrastructure.CosmosDb.Services;
 using Moq;
 using Xunit;
 

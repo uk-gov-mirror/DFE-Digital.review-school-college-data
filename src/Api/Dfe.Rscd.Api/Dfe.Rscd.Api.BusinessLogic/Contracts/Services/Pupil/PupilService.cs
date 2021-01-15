@@ -1,0 +1,164 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using Dfe.Rscd.Api.BusinessLogic.Contracts.Entities;
+using Dfe.Rscd.Api.BusinessLogic.Contracts.Entities.Core;
+using Dfe.Rscd.Api.BusinessLogic.Contracts.Entities.Core.Enums;
+using Dfe.Rscd.Api.BusinessLogic.Contracts.Services.Extensions;
+using Dfe.Rscd.Api.Infrastructure.CosmosDb.Config;
+using Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs;
+using Dfe.Rscd.Api.Infrastructure.CosmosDb.Repositories;
+
+namespace Dfe.Rscd.Api.BusinessLogic.Contracts.Services
+{
+    public class PupilService : IPupilService
+    {
+        // TODO: Decide a max pagesize for now, can't return all pupils
+        private const int PageSize = 200;
+        private readonly string _allocationYear;
+        private readonly IDocumentRepository _documentRepository;
+        private readonly IDataService _dataService;
+        private readonly IEstablishmentService _schoolService;
+
+        public PupilService(IDocumentRepository documentRepository, IDataService dataService, IEstablishmentService schoolService, IAllocationYearConfig year)
+        {
+            _documentRepository = documentRepository;
+            _dataService = dataService;
+            _schoolService = schoolService;
+            _allocationYear = year.Value;
+        }
+
+        public Pupil GetById(CheckingWindow checkingWindow, string id)
+        {
+            var pupilDTO = _documentRepository.GetById<PupilDTO>(GetCollection(checkingWindow), id);
+            return GetPupil(checkingWindow, pupilDTO, _allocationYear);
+        }
+
+        public List<PupilRecord> QueryPupils(CheckingWindow checkingWindow, PupilsSearchRequest query)
+        {
+            var repoQuery = _documentRepository.Get<PupilDTO>(GetCollection(checkingWindow));
+            if (!string.IsNullOrWhiteSpace(query.URN)) repoQuery = repoQuery.Where(p => p.URN == query.URN);
+            if (!string.IsNullOrWhiteSpace(query.ID))
+                repoQuery = repoQuery.Where(p => p.UPN.StartsWith(query.ID) || p.ULN.StartsWith(query.ID));
+            if (!string.IsNullOrWhiteSpace(query.Name))
+            {
+                var nameParts = query.Name.Split(' ');
+                foreach (var namePart in nameParts)
+                    repoQuery = repoQuery.Where(p => p.Forename.StartsWith(namePart) || p.Surname.StartsWith(namePart));
+            }
+
+
+            var dtos = repoQuery
+                .Select(p => new PupilRecord
+                    {Id = p.id, ForeName = p.Forename, Surname = p.Surname, ULN = p.ULN, UPN = p.UPN})
+                .Take(PageSize);
+
+            return dtos.ToList();
+        }
+
+        private string GetCollection(CheckingWindow checkingWindow)
+        {
+            return $"{checkingWindow.ToString().ToLower()}_pupils_{_allocationYear}";
+        }
+
+        public Pupil GetPupil(CheckingWindow checkingWindow,PupilDTO pupil, string allocationYear)
+        {
+            var sen = _dataService.GetSENStatus().SingleOrDefault(x=>x.Code == pupil.SENStatusCode);
+            var pincl = _dataService.GetPINCLs().SingleOrDefault(x => x.P_INCL == pupil.P_INCL);
+            var ethnicity = _dataService.GetEthnicities().SingleOrDefault(x => x.Code == pupil.EthnicityCode);
+            var language = _dataService.GetLanguages().SingleOrDefault(x => x.Code == pupil.FirstLanguageCode);
+            var school = _schoolService.GetByDFESNumber(checkingWindow, pupil.DFESNumber);
+
+            return new Pupil
+            {
+                StudentID = ConvertId(pupil.id),
+                URN = pupil.URN,
+                UPN = pupil.UPN,
+                ULN = pupil.ULN,
+                DfesNumber = pupil.DFESNumber,
+                Forename = pupil.Forename,
+                Surname = pupil.Surname,
+                DOB = GetDateTime(pupil.DOB),
+                Age = pupil.Age ?? 0,
+                Gender = pupil.Gender == "M" ? new Gender { Code = 'M', Description = "Male"} : new Gender{Code = 'F', Description = "Female"},
+                AdmissionDate = GetDateTime(pupil.ENTRYDAT.ToString()),
+                YearGroup = pupil.ActualYearGroup,
+                Results = pupil.performance.Select(p => new Result
+                {
+                    SubjectCode = p.SubjectCode,
+                    ExamYear = p.ExamYear,
+                    TestMark = p.TestMark,
+                    ScaledScore = p.ScaledScore
+                }).ToList(),
+                Allocations = GetSourceOfAllocations(pupil, allocationYear),
+                Ethnicity = ethnicity,
+                FirstLanguage = language,
+                ForvusIndex = int.Parse(pupil.ForvusIndex),
+                FSM = new FSM{Code = pupil.FSM, Description = pupil.FSM},
+                InCare = pupil.AdoptedFromCareID == "1",
+                PINCL = pincl,
+                SENStatus = sen,
+                School = school
+            };
+        }
+
+        private int ConvertId(string id)
+        {
+            if (int.TryParse(id, out var idParsed))
+            {
+                return idParsed;
+            }
+
+            return 0;
+        }
+
+        public PupilRecord GetPupilRecord(PupilDTO pupil)
+        {
+            return new PupilRecord
+            {
+                Id = pupil.id,
+                ForeName = pupil.Forename,
+                Surname = pupil.Surname,
+                ULN = pupil.ULN,
+                UPN = pupil.UPN
+            };
+        }
+
+        private List<SourceOfAllocation> GetSourceOfAllocations(PupilDTO pupil, string allocationYear)
+        {
+            var year = int.Parse(allocationYear);
+            var allocations = new List<SourceOfAllocation>();
+            if (string.IsNullOrEmpty(pupil.SRC_LAESTAB_0) && string.IsNullOrEmpty(pupil.SRC_LAESTAB_1) &&
+                string.IsNullOrEmpty(pupil.SRC_LAESTAB_2)) return allocations;
+
+            if (pupil.Attendance_year_0 && pupil.DFESNumber == pupil.Core_Provider_0)
+                allocations.Add(new SourceOfAllocation(year--, pupil.SRC_LAESTAB_0.ToAllocation()));
+            else
+                allocations.Add(new SourceOfAllocation(year--,
+                    string.IsNullOrEmpty(pupil.Core_Provider_0) ? Allocation.Unknown : Allocation.NotAllocated));
+
+            if (pupil.Attendance_year_1 && pupil.DFESNumber == pupil.Core_Provider_1)
+                allocations.Add(new SourceOfAllocation(year--, pupil.SRC_LAESTAB_1.ToAllocation()));
+            else
+                allocations.Add(new SourceOfAllocation(year--,
+                    string.IsNullOrEmpty(pupil.Core_Provider_1) ? Allocation.Unknown : Allocation.NotAllocated));
+
+            if (pupil.Attendance_year_2 && pupil.DFESNumber == pupil.Core_Provider_2)
+                allocations.Add(new SourceOfAllocation(year--, pupil.SRC_LAESTAB_2.ToAllocation()));
+            else
+                allocations.Add(new SourceOfAllocation(year--,
+                    string.IsNullOrEmpty(pupil.Core_Provider_2) ? Allocation.Unknown : Allocation.NotAllocated));
+
+            return allocations;
+        }
+
+        private DateTime GetDateTime(string dateString)
+        {
+            return DateTime.TryParseExact(dateString, "yyyyMMdd", new CultureInfo("en-GB"), DateTimeStyles.None,
+                out var date)
+                ? date
+                : DateTime.MinValue;
+        }
+    }
+}

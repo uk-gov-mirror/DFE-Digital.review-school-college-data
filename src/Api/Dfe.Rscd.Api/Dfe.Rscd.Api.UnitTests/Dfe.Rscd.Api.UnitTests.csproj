@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Dfe.Rscd.Api.BusinessLogic\Dfe.Rscd.Api.BusinessLogic.csproj" />
     <ProjectReference Include="..\Dfe.Rscd.Api.Infrastructure\Dfe.Rscd.Api.Infrastructure.csproj" />
   </ItemGroup>
 
