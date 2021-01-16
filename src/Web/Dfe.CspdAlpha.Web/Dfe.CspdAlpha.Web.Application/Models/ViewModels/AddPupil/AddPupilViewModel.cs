@@ -16,7 +16,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.AddPupil
 
         public DateViewModel DateOfBirth { get; set; }
 
-        public Gender? Gender { get; set; }
+        public string Gender { get; set; }
 
         public DateViewModel DateOfAdmission { get; set; }
 

@@ -137,7 +137,8 @@ namespace Dfe.Rscd.Api.Controllers
             Tags = new[] {"Amendments", "Evidence"}
         )]
         [ProducesResponseType(typeof(GetResponse<bool>), 200)]
-        public IActionResult RelateEvidence([FromBody] [SwaggerRequestBody("Amendment to add to CRM", Required = true)] string amendmentId, string evidenceFolderName)
+        public IActionResult RelateEvidence(
+            [FromBody] [SwaggerRequestBody("Amendment to add to CRM", Required = true)] string amendmentId, string evidenceFolderName)
         {
             _amendmentService.RelateEvidence(amendmentId, evidenceFolderName, true);
 

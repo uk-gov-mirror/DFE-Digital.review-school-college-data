@@ -35,7 +35,7 @@ namespace Dfe.Rscd.Api.Services
         public List<PupilRecord> QueryPupils(CheckingWindow checkingWindow, PupilsSearchRequest query)
         {
             var repoQuery = _documentRepository.Get<PupilDTO>(GetCollection(checkingWindow));
-            if (!string.IsNullOrWhiteSpace(query.URN)) repoQuery = repoQuery.Where(p => p.URN == query.URN);
+            
             if (!string.IsNullOrWhiteSpace(query.ID))
                 repoQuery = repoQuery.Where(p => p.UPN.StartsWith(query.ID) || p.ULN.StartsWith(query.ID));
             if (!string.IsNullOrWhiteSpace(query.Name))
@@ -66,9 +66,9 @@ namespace Dfe.Rscd.Api.Services
             var language = _dataService.GetLanguages().SingleOrDefault(x => x.Code == pupil.FirstLanguageCode);
             var school = _schoolService.GetByDFESNumber(checkingWindow, pupil.DFESNumber);
 
-            return new Pupil
+            var newPupil = new Pupil
             {
-                StudentID = ConvertId(pupil.id),
+                Id = pupil.id,
                 URN = pupil.URN,
                 UPN = pupil.UPN,
                 ULN = pupil.ULN,
@@ -77,7 +77,7 @@ namespace Dfe.Rscd.Api.Services
                 Surname = pupil.Surname,
                 DOB = GetDateTime(pupil.DOB),
                 Age = pupil.Age ?? 0,
-                Gender = pupil.Gender == "M" ? new Gender { Code = 'M', Description = "Male"} : new Gender{Code = 'F', Description = "Female"},
+                Gender = Gender.FromCode(pupil.Gender),
                 AdmissionDate = GetDateTime(pupil.ENTRYDAT.ToString()),
                 YearGroup = pupil.ActualYearGroup,
                 Results = pupil.performance.Select(p => new Result
@@ -88,15 +88,19 @@ namespace Dfe.Rscd.Api.Services
                     ScaledScore = p.ScaledScore
                 }).ToList(),
                 Allocations = GetSourceOfAllocations(pupil, allocationYear),
-                Ethnicity = ethnicity,
-                FirstLanguage = language,
                 ForvusIndex = int.Parse(pupil.ForvusIndex),
-                FSM = new FSM{Code = pupil.FSM, Description = pupil.FSM},
                 InCare = pupil.AdoptedFromCareID == "1",
-                PINCL = pincl,
-                SENStatus = sen,
                 School = school
             };
+
+            if (sen != null) newPupil.SENStatus = sen;
+            if (ethnicity != null) newPupil.Ethnicity = ethnicity;
+            if (pupil.FSM != string.Empty) newPupil.FSM = new FSM {Code = pupil.FSM, Description = pupil.FSM};
+            if (language != null) newPupil.FirstLanguage = language;
+            if (ethnicity != null) newPupil.Ethnicity = ethnicity;
+            if (pincl != null) newPupil.PINCL = pincl;
+
+            return newPupil;
         }
 
         private int ConvertId(string id)

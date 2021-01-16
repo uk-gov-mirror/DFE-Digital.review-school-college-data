@@ -6,7 +6,21 @@ namespace Dfe.Rscd.Api.BusinessLogic.Entities
 {
     public class Pupil
     {
-        public int StudentID { get; set; }
+        public Pupil()
+        {
+            var notRecorded = "Not Recorded";
+            SENStatus = new SENStatus{Code = "NR", Description = notRecorded};
+            Gender = new Gender{Code = "N", Description = notRecorded};
+            Ethnicity = new Ethnicity{Code = "NR", Description = notRecorded};
+            FSM = new FSM{Code = "NR", Description = notRecorded};
+            Allocations = new List<SourceOfAllocation>();
+            PINCL = new PINCLs{P_INCL = "NR", P_INCLDescription = notRecorded};
+            FirstLanguage = new FirstLanguage { Code="NR", Description = notRecorded};
+            School = new School();
+            Results = new List<Result>();
+        }
+
+        public string Id { get; set; }
 
         public int? ForvusIndex { get; set; }
 
@@ -46,8 +60,6 @@ namespace Dfe.Rscd.Api.BusinessLogic.Entities
         public string DfesNumber { get; set; }
 
         public string ScrutinyStatusText { get; set; }
-
-        public PupilAggregate PupilAggregate { get; set; }
 
         public string DOBDisplayString { get; set; }
 

@@ -32,8 +32,8 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                     .Select(a => new AmendmentListItem
                     {
                         CheckingWindow = a.CheckingWindow,
-                        FirstName = a.Pupil.ForeName,
-                        LastName = a.Pupil.LastName,
+                        FirstName = a.Pupil.Forename,
+                        LastName = a.Pupil.Surname,
                         PupilId = a.Pupil.Id,
                         DateRequested = a.CreatedDate.DateTime,
                         ReferenceId = a.Reference,
@@ -70,7 +70,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
         public bool RelateEvidence(CheckingWindow checkingWindow, string amendmentId, string evidenceFolder)
         {
             return _apiClient
-                .RelateEvidenceAsync(checkingWindow.ToString(), amendmentId, evidenceFolder)
+                .RelateEvidenceAsync(evidenceFolder,checkingWindow.ToString(),amendmentId) 
                 .GetAwaiter()
                 .GetResult().Result;
         }

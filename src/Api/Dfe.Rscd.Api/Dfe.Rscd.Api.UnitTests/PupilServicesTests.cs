@@ -83,8 +83,8 @@ namespace Dfe.Rscd.Api.UnitTests
             _repository.Verify(x => x.GetById<PupilDTO>(_ks4JunePupils, "100"), Times.Once);
 
             Assert.NotNull(result);
-            Assert.True(result.StudentID == int.Parse(_testPupil.id));
-            Assert.True(result.Gender.Code == 'F');
+            Assert.True(result.Id == _testPupil.id);
+            Assert.True(result.Gender.Code == "F");
             Assert.True(result.URN == _testPupil.URN);
             Assert.True(result.UPN == _testPupil.UPN);
             Assert.True(result.Age == _testPupil.Age);
@@ -164,30 +164,6 @@ namespace Dfe.Rscd.Api.UnitTests
             Assert.True(result.Count == 2);
             Assert.True(result.First().Id == "3000");
             Assert.True(result.Last().Id == "4000");
-        }
-
-        [Fact]
-        public void WhenSearchPupilByURNShouldReturnMatchedPupilForU111ByURN()
-        {
-            var result = _pupilService.QueryPupils(CheckingWindow.KS4June, new PupilsSearchRequest {URN = "U111"});
-
-            _repository.Verify(x => x.Get<PupilDTO>(_ks4JunePupils), Times.Once);
-
-            Assert.NotNull(result);
-            Assert.True(result.Count == 1);
-            Assert.True(result.First().Id == "1000");
-        }
-
-        [Fact]
-        public void WhenSearchPupilByURNShouldReturnMatchedPupilForU222ByURN()
-        {
-           var result = _pupilService.QueryPupils(CheckingWindow.KS4June, new PupilsSearchRequest {URN = "U222"});
-
-            _repository.Verify(x => x.Get<PupilDTO>(_ks4JunePupils), Times.Once);
-
-            Assert.NotNull(result);
-            Assert.True(result.Count == 1);
-            Assert.True(result.First().Id == "2000");
         }
 
         [Fact]

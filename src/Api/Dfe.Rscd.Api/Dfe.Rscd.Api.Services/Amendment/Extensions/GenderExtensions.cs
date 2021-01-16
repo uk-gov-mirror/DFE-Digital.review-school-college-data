@@ -11,9 +11,9 @@ namespace Dfe.Rscd.Api.Services
             switch (gender)
             {
                 case cr3d5_Gender.Male:
-                    return new Gender {Code = 'M', Description = "Male"};
+                    return new Gender {Code = "M", Description = "Male"};
                 case cr3d5_Gender.Female:
-                    return new Gender { Code = 'F', Description = "Female" };
+                    return new Gender { Code = "F", Description = "Female" };
                 default:
                     throw new ApplicationException();
             }
@@ -23,9 +23,9 @@ namespace Dfe.Rscd.Api.Services
         {
             switch (gender.Code)
             {
-                case 'M':
+                case "M":
                     return cr3d5_Gender.Male;
-                case 'F':
+                case "F":
                     return cr3d5_Gender.Female;
                 default:
                     throw new ApplicationException();

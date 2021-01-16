@@ -4,6 +4,13 @@ namespace Dfe.Rscd.Api.BusinessLogic.Entities
 {
 	public class School 
 	{
+        public School()
+        {
+            Urn = new URN("000000");
+            CohortMeasures = new List<PerformanceMeasure>();
+            PerformanceMeasures = new List<PerformanceMeasure>();
+        }
+
         public int DfesNumber { get; set; }
 
         public URN Urn { get; set; }

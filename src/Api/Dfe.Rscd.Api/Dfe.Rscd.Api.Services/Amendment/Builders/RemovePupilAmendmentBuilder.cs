@@ -79,7 +79,7 @@ namespace Dfe.Rscd.Api.Services
 
         protected override Entity MapAmendmentTypeToDto(Amendment amendment)
         {
-            var pupil = PupilService.GetById(amendment.CheckingWindow, amendment.Pupil.StudentID.ToString());
+            var pupil = PupilService.GetById(amendment.CheckingWindow, amendment.Pupil.Id.ToString());
             amendment.Pupil = pupil;
             var removeDto = new rscd_Removepupil
             {

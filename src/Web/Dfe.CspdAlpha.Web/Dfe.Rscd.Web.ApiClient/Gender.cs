@@ -1,11 +1,7 @@
-namespace Dfe.Rscd.Api.BusinessLogic.Entities
+﻿namespace Dfe.Rscd.Web.ApiClient
 {
-	public class Gender 
-	{
-        public string Code { get; set; }
-
-        public string Description { get; set; }
-
+    public partial class Gender
+    {
         public static Gender Female => new Gender {Code = "F", Description = "Female"};
         public static Gender Male => new Gender {Code = "M", Description = "Male"};
 
@@ -18,4 +14,3 @@ namespace Dfe.Rscd.Api.BusinessLogic.Entities
         }
     }
 }
-

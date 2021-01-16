@@ -37,7 +37,7 @@ namespace Dfe.Rscd.Web.UnitTests.Application
                 FirstName = "Joe",
                 LastName = "Bloggs",
                 DateOfBirth = new DateViewModel(DateTime.Parse("01/01/2007")),
-                Gender = Gender.Male,
+                Gender = Gender.Male.Code,
                 DateOfAdmission = new DateViewModel(DateTime.Parse("01/12/2018")),
                 YearGroup = "8"
             };
@@ -59,7 +59,7 @@ namespace Dfe.Rscd.Web.UnitTests.Application
             {
                 LastName = "Bloggs",
                 DateOfBirth = new DateViewModel(DateTime.Parse("01/01/2007")),
-                Gender = Gender.Male,
+                Gender = Gender.Male.Code,
                 DateOfAdmission = new DateViewModel(DateTime.Parse("01/12/2018")),
                 YearGroup = "8"
             };
@@ -82,7 +82,7 @@ namespace Dfe.Rscd.Web.UnitTests.Application
                 FirstName = "Joe",
                 LastName = "Bloggs",
                 DateOfBirth = new DateViewModel(),
-                Gender = Gender.Male,
+                Gender = Gender.Male.Code,
                 DateOfAdmission = new DateViewModel(DateTime.Parse("01/12/2018")),
                 YearGroup = "8"
             };

@@ -33,11 +33,11 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 return View(new AddPupilViewModel
                 {
                     UPN = amendment.Pupil.Upn,
-                    FirstName = amendment.Pupil.ForeName,
-                    LastName = amendment.Pupil.LastName,
-                    Gender = amendment.Pupil.Gender,
-                    DateOfBirth = new DateViewModel(amendment.Pupil.DateOfBirth.UtcDateTime),
-                    DateOfAdmission = new DateViewModel(amendment.Pupil.DateOfAdmission.UtcDateTime),
+                    FirstName = amendment.Pupil.Forename,
+                    LastName = amendment.Pupil.Surname,
+                    Gender = amendment.Pupil.Gender.Code,
+                    DateOfBirth = new DateViewModel(amendment.Pupil.Dob.UtcDateTime),
+                    DateOfAdmission = new DateViewModel(amendment.Pupil.Dob.UtcDateTime),
                     YearGroup = amendment.Pupil.YearGroup,
                     SchoolID = amendment.Pupil.DfesNumber
                 });
@@ -74,11 +74,11 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                     Pupil = new Pupil
                     {
                         Id = existingPupil.PupilViewModel.ID,
-                        ForeName = existingPupil.PupilViewModel.FirstName,
-                        LastName = existingPupil.PupilViewModel.LastName,
+                        Forename = existingPupil.PupilViewModel.FirstName,
+                        Surname = existingPupil.PupilViewModel.LastName,
                         Gender = existingPupil.PupilViewModel.Gender,
-                        DateOfBirth = existingPupil.PupilViewModel.DateOfBirth,
-                        DateOfAdmission = existingPupil.PupilViewModel.DateOfAdmission,
+                        Dob = existingPupil.PupilViewModel.DateOfBirth,
+                        AdmissionDate = existingPupil.PupilViewModel.DateOfAdmission,
                         Age = existingPupil.PupilViewModel.Age,
                         Upn = existingPupil.PupilViewModel.UPN,
                         YearGroup = existingPupil.PupilViewModel.YearGroup,
@@ -110,12 +110,12 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 Urn = urn,
                 Pupil = new Pupil
                 {
-                    ForeName = addPupilViewModel.FirstName,
-                    LastName = addPupilViewModel.LastName,
-                    Gender = addPupilViewModel.Gender.Value,
-                    DateOfBirth = addPupilViewModel.DateOfBirth.Date.Value,
+                    Forename = addPupilViewModel.FirstName,
+                    Surname = addPupilViewModel.LastName,
+                    Gender = Gender.FromCode(addPupilViewModel.Gender),
+                    Dob = addPupilViewModel.DateOfBirth.Date.Value,
                     Age = CalculateAge(addPupilViewModel.DateOfBirth.Date.Value),
-                    DateOfAdmission = addPupilViewModel.DateOfAdmission.Date.Value,
+                    AdmissionDate = addPupilViewModel.DateOfAdmission.Date.Value,
                     Upn = addPupilViewModel.UPN,
                     YearGroup = addPupilViewModel.YearGroup,
                     DfesNumber = addPupilViewModel.SchoolID,
@@ -155,13 +155,13 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 {
                     PupilViewModel = new PupilViewModel
                     {
-                        FirstName = amendment.Pupil.ForeName,
-                        LastName = amendment.Pupil.LastName,
-                        DateOfBirth = amendment.Pupil.DateOfBirth.UtcDateTime,
+                        FirstName = amendment.Pupil.Forename,
+                        LastName = amendment.Pupil.Surname,
+                        DateOfBirth = amendment.Pupil.Dob.UtcDateTime,
                         Gender = amendment.Pupil.Gender,
                         Age = amendment.Pupil.Age,
                         URN = urn,
-                        DateOfAdmission = amendment.Pupil.DateOfAdmission.UtcDateTime,
+                        DateOfAdmission = amendment.Pupil.AdmissionDate.UtcDateTime,
                         ID = amendment.Pupil.Id,
                         YearGroup = amendment.Pupil.YearGroup,
                         UPN = amendment.Pupil.Upn,
