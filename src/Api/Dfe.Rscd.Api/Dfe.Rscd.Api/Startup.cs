@@ -1,22 +1,16 @@
 using System;
-using System.Data;
-using System.Data.SqlClient;
 using System.Text.Json.Serialization;
-using Dfe.Rscd.Api.Domain.Entities;
-using Dfe.Rscd.Api.Domain.Interfaces;
-using Dfe.Rscd.Api.Infrastructure;
+using Dfe.Rscd.Api.BusinessLogic.Entities;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Config;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Repositories;
-using Dfe.Rscd.Api.Infrastructure.CosmosDb.Services;
-using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Builders;
 using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Config;
-using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Interfaces;
-using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Services;
+using Dfe.Rscd.Api.Infrastructure.SqlServer.DTOs;
 using Dfe.Rscd.Api.Infrastructure.SqlServer.Repositories;
-using Dfe.Rscd.Api.Infrastructure.SqlServer.Services;
 using Dfe.Rscd.Api.Middleware.BasicAuth;
+using Dfe.Rscd.Api.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -72,39 +66,51 @@ namespace Dfe.Rscd.Api
 
 
             var referenceDataConnectionString = Configuration.GetConnectionString("ReferenceData");
-            var sqlConnection = new SqlConnection(referenceDataConnectionString);
-            services.AddSingleton<IDbConnection, SqlConnection>(sp => sqlConnection);
-            services.AddSingleton<ICommonData, CommonData>();
+            
+            services.AddDbContext<SqlDataRepositoryContext>(options =>
+                options.UseSqlServer(referenceDataConnectionString));
 
-            services.AddSingleton<ICommonDataService, CommonDataService>();
+            services.AddScoped<IDataRepository, DataRepository>();
+            services.AddScoped<IDataService, DataService>();
             
             // Dynamics 365 configuration
             var dynamicsConnString = Configuration.GetConnectionString("DynamicsCds");
 
             var cdsClient = new CdsServiceClient(dynamicsConnString);
             services.AddTransient<IOrganizationService, CdsServiceClient>(sp => cdsClient.Clone());
-            services.Configure<DynamicsOptions>(Configuration.GetSection("Dynamics"));
 
+            // Microsoft Extensions Configuration (services.Configure) is still in Alpha.
+            // This affects EntityFramework Core in Infra Assembly
+            // So we do it the old fashioned way for now
+            var dynamicsOptions = Configuration.GetSection("Dynamics").Get<DynamicsOptions>();
+            services.AddSingleton(dynamicsOptions);
+
+            services.AddSingleton<IAllocationYearConfig>(new AllocationYearConfig {Value = Configuration["AllocationYear"] });
 
             if (_env.IsStaging()) services.Configure<BasicAuthOptions>(Configuration.GetSection("BasicAuth"));
-            services.Configure<CosmosDbOptions>(Configuration.GetSection("CosmosDb"));
 
-            services.AddSingleton<IDocumentRepository, CosmosDocumentRepository>();
+            // Microsoft Extensions Configuration (services.Configure) is still in Alpha.
+            // This affects EntityFramework Core in Infra Assembly
+            // So we do it the old fashioned way for now
+            var cosmosDbOptions = Configuration.GetSection("CosmosDb").Get<CosmosDbOptions>();
+            services.AddSingleton(cosmosDbOptions);
 
-            services.AddSingleton<IAmendmentBuilder, RemovePupilAmendmentBuilder>();
-            services.AddSingleton<Amendment, RemovePupilAmendment>();
-            services.AddSingleton<IRuleSet, RemovePupilRules>();
+            services.AddScoped<IDocumentRepository, CosmosDocumentRepository>();
 
-            services.AddSingleton<IAmendmentBuilder, AddPupilAmendmentBuilder>();
-            services.AddSingleton<Amendment, AddPupilAmendment>();
-            services.AddSingleton<IRuleSet, AddPupilRules>();
+            services.AddScoped<IAmendmentBuilder, RemovePupilAmendmentBuilder>();
+            services.AddScoped<Amendment, RemovePupilAmendment>();
+            services.AddScoped<IRuleSet, RemovePupilRules>();
 
-            services.AddSingleton<IEstablishmentService, EstablishmentService>();
-            services.AddSingleton<IPupilService, PupilService>();
+            services.AddScoped<IAmendmentBuilder, AddPupilAmendmentBuilder>();
+            services.AddScoped<Amendment, AddPupilAmendment>();
+            services.AddScoped<IRuleSet, AddPupilRules>();
 
-            services.AddSingleton<IAmendmentService, CrmAmendmentService>();
-            services.AddSingleton<IOutcomeService, OutcomeService>();
-            services.AddSingleton<IConfirmationService, CrmConfirmationService>();
+            services.AddScoped<IEstablishmentService, EstablishmentService>();
+            services.AddScoped<IPupilService, PupilService>();
+
+            services.AddScoped<IAmendmentService, CrmAmendmentService>();
+            services.AddScoped<IOutcomeService, OutcomeService>();
+            services.AddScoped<IConfirmationService, CrmConfirmationService>();
         }
 
 

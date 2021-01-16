@@ -65,7 +65,7 @@
                     First name
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @Model.Amendment.Pupil.ForeName
+                    @Model.Amendment.Pupil.Forename
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -73,7 +73,7 @@
                     Last name
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @Model.Amendment.Pupil.LastName
+                    @Model.Amendment.Pupil.Surname
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -81,7 +81,7 @@
                     Date of birth
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @Model.Amendment.Pupil.DateOfBirth.ToString("dd/MM/yyyy")
+                    @Model.Amendment.Pupil.Dob.ToString("dd/MM/yyyy")
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -97,7 +97,7 @@
                     Gender
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @Model.Amendment.Pupil.Gender
+                    @Model.Amendment.Pupil.Gender.Description
                 </dd>
             </div>
             @if (Model.Keystage != Keystage.KS5)
@@ -107,7 +107,7 @@
                         Admission date
                     </dt>
                     <dd class="govuk-summary-list__value">
-                        @Model.Amendment.Pupil.DateOfAdmission.ToString("dd/MM/yyyy")
+                        @Model.Amendment.Pupil.AdmissionDate.ToString("dd/MM/yyyy")
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row">

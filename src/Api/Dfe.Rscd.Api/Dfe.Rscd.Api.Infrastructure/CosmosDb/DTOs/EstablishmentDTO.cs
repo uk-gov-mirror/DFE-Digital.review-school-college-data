@@ -1,8 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using Dfe.Rscd.Api.Domain.Core;
-using Dfe.Rscd.Api.Domain.Entities;
-
 namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs
 {
     public class EstablishmentDTO
@@ -21,25 +17,6 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs
         public string WebsiteAddress { get; set; }
 
         public List<PerformanceDto> performance { get; set; }
-
-        public Establishment GetEstablishment()
-        {
-            return new Establishment
-            {
-                Urn = new URN(id),
-                DfesNumber = DFESNumber,
-                Name = SchoolName,
-                SchoolType = SchoolType,
-                CohortMeasures = new List<PerformanceMeasure>(),
-                PerformanceMeasures = performance
-                    .Select(p => new PerformanceMeasure {Name = p.Code, Value = p.CodeValue})
-                    .ToList(),
-                HeadTeacher = HeadTitleCode + " " + HeadFirstName + " " + HeadLastName,
-                HighestAge = HighestAge,
-                InstitutionTypeNumber = InstitutionTypeNumber ?? 0,
-                LowestAge = LowestAge
-            };
-        }
 
         public class PerformanceDto
         {

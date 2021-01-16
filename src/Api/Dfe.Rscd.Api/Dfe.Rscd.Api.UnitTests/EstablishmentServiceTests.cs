@@ -1,10 +1,9 @@
 ﻿using System.Linq;
-using Dfe.Rscd.Api.Domain.Core;
-using Dfe.Rscd.Api.Domain.Core.Enums;
+using Dfe.Rscd.Api.BusinessLogic.Entities;
+using Dfe.Rscd.Api.Infrastructure.CosmosDb.Config;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Repositories;
-using Dfe.Rscd.Api.Infrastructure.CosmosDb.Services;
-using Microsoft.Extensions.Configuration;
+using Dfe.Rscd.Api.Services;
 using Moq;
 using Xunit;
 
@@ -33,12 +32,12 @@ namespace Dfe.Rscd.Api.UnitTests
                     x.Get<EstablishmentDTO>(_ks4JuneEstablishments))
                 .Returns(Builder.GetEstablisments().AsQueryable());
 
-            _configuration = new Mock<IConfiguration>();
-            _configuration.Setup(x => x["AllocationYear"]).Returns("2021");
+            _configuration = new Mock<IAllocationYearConfig>();
+            _configuration.Setup(x => x.Value).Returns("2021");
         }
 
         private Mock<IDocumentRepository> _repository;
-        private Mock<IConfiguration> _configuration;
+        private Mock<IAllocationYearConfig> _configuration;
         private EstablishmentDTO _testEstab;
         private string _ks4JuneEstablishments;
 
@@ -52,8 +51,8 @@ namespace Dfe.Rscd.Api.UnitTests
             _repository.Verify(x => x.GetById<EstablishmentDTO>(_ks4JuneEstablishments, "200000"), Times.Once);
 
             Assert.NotNull(result);
-            Assert.True(result.DfesNumber == _testEstab.DFESNumber);
-            Assert.True(result.Name == _testEstab.SchoolName);
+            Assert.True(result.DfesNumber.ToString() == _testEstab.DFESNumber);
+            Assert.True(result.SchoolName == _testEstab.SchoolName);
             Assert.True(result.SchoolType == _testEstab.SchoolType);
             Assert.True(result.InstitutionTypeNumber == _testEstab.InstitutionTypeNumber);
             Assert.True(result.LowestAge == _testEstab.LowestAge);
@@ -67,13 +66,13 @@ namespace Dfe.Rscd.Api.UnitTests
         {
             var establishmentService = new EstablishmentService(_repository.Object, _configuration.Object);
 
-            var result = establishmentService.GetByDFESNumber(CheckingWindow.KS4June, "DFE100000");
+            var result = establishmentService.GetByDFESNumber(CheckingWindow.KS4June, "99100000");
 
             _repository.Verify(x => x.Get<EstablishmentDTO>(_ks4JuneEstablishments), Times.Once);
 
             Assert.NotNull(result);
-            Assert.True(result.DfesNumber == "DFE100000");
-            Assert.True(result.Name == _testEstab.SchoolName);
+            Assert.True(result.DfesNumber == 99100000);
+            Assert.True(result.SchoolName == _testEstab.SchoolName);
             Assert.True(result.SchoolType == _testEstab.SchoolType);
             Assert.True(result.Urn.Value == "100000");
         }

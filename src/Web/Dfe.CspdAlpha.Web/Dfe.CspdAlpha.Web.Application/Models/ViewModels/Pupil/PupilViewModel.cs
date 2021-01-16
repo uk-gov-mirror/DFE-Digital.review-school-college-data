@@ -27,12 +27,12 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
             SchoolID = pupil.DfesNumber;
             UPN = pupil.Upn;
             ULN = pupil.Uln;
-            FirstName = pupil.ForeName;
-            LastName = pupil.LastName;
-            DateOfBirth = pupil.DateOfBirth.Date;
+            FirstName = pupil.Forename;
+            LastName = pupil.Surname;
+            DateOfBirth = pupil.Dob.Date;
             Age = pupil.Age;
             Gender = pupil.Gender;
-            DateOfAdmission = pupil.DateOfAdmission.Date;
+            DateOfAdmission = pupil.AdmissionDate.Date;
             YearGroup = pupil.YearGroup;
             AllocationYears = GetAllocationYears(pupil.Allocations);
             Allocations = pupil.Allocations;

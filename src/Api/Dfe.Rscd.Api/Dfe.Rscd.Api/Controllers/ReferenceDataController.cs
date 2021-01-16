@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Dfe.Rscd.Api.Domain.Core.Enums;
-using Dfe.Rscd.Api.Domain.Entities.ReferenceData;
-using Dfe.Rscd.Api.Domain.Interfaces;
+using Dfe.Rscd.Api.BusinessLogic.Entities;
 using Dfe.Rscd.Api.Models;
+using Dfe.Rscd.Api.Services;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -13,9 +12,9 @@ namespace Dfe.Rscd.Api.Controllers
     [Microsoft.AspNetCore.Components.Route("api/[controller]")]
     public class ReferenceDataController : ControllerBase
     {
-        private readonly ICommonDataService _commonDataService;
+        private readonly IDataService _commonDataService;
 
-        public ReferenceDataController(ICommonDataService commonDataService)
+        public ReferenceDataController(IDataService commonDataService)
         {
             _commonDataService = commonDataService;
         }
@@ -29,11 +28,11 @@ namespace Dfe.Rscd.Api.Controllers
         )]
         [Route("/amendcodes")]
         [ProducesResponseType(400)]
-        [ProducesResponseType(typeof(GetResponse<IEnumerable<AmendReference>>), 200)]
+        [ProducesResponseType(typeof(GetResponse<IEnumerable<AmendCode>>), 200)]
         public async Task<IActionResult> GetAmendReference()
         {
             var list = _commonDataService.GetAmendCodes();
-            var response = new GetResponse<IEnumerable<AmendReference>>
+            var response = new GetResponse<IEnumerable<AmendCode>>
             {
                 Result = list,
                 Error = new Error()
@@ -115,11 +114,11 @@ namespace Dfe.Rscd.Api.Controllers
         )]
         [Route("/languages")]
         [ProducesResponseType(400)]
-        [ProducesResponseType(typeof(GetResponse<IEnumerable<InclusionAdjustmentReason>>), 200)]
+        [ProducesResponseType(typeof(GetResponse<IEnumerable<FirstLanguage>>), 200)]
         public async Task<IActionResult> GetLanguages()
         {
             var list = _commonDataService.GetLanguages();
-            var response = new GetResponse<IEnumerable<Language>>
+            var response = new GetResponse<IEnumerable<FirstLanguage>>
             {
                 Result = list,
                 Error = new Error()
@@ -136,11 +135,11 @@ namespace Dfe.Rscd.Api.Controllers
         )]
         [Route("/pincludes")]
         [ProducesResponseType(400)]
-        [ProducesResponseType(typeof(GetResponse<IEnumerable<InclusionAdjustmentReason>>), 200)]
+        [ProducesResponseType(typeof(GetResponse<IEnumerable<PINCLs>>), 200)]
         public async Task<IActionResult> GetPINCls()
         {
             var list = _commonDataService.GetPINCLs();
-            var response = new GetResponse<IEnumerable<Pincl>>
+            var response = new GetResponse<IEnumerable<PINCLs>>
             {
                 Result = list,
                 Error = new Error()
@@ -157,11 +156,11 @@ namespace Dfe.Rscd.Api.Controllers
         )]
         [Route("/senstatuses")]
         [ProducesResponseType(400)]
-        [ProducesResponseType(typeof(GetResponse<IEnumerable<SenStatus>>), 200)]
+        [ProducesResponseType(typeof(GetResponse<IEnumerable<SENStatus>>), 200)]
         public async Task<IActionResult> GetSenStatuses()
         {
             var list = _commonDataService.GetSENStatus();
-            var response = new GetResponse<IEnumerable<SenStatus>>
+            var response = new GetResponse<IEnumerable<SENStatus>>
             {
                 Result = list,
                 Error = new Error()

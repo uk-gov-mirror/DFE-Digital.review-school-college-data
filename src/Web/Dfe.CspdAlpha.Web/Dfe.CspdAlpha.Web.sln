@@ -13,6 +13,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.Rscd.Web.UnitTests", "D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.Rscd.Web.ApiClient", "Dfe.Rscd.Web.ApiClient\Dfe.Rscd.Web.ApiClient.csproj", "{404C11C8-CA33-41C6-B4AD-7238343042EC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 - Services", "02 - Services", "{797813F9-3D8B-49D0-8CB0-A90DEEA2CBB3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 - Storage", "01 - Storage", "{910FB59D-29A9-4920-8A7E-E331AE32DCA5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 - Application", "03 - Application", "{590782AD-EF01-4AEA-B1B9-EE21967B8B6B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +48,13 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B3258362-B8EF-4626-A5D5-EC0087545ABF} = {590782AD-EF01-4AEA-B1B9-EE21967B8B6B}
+		{09E830B3-0B78-463D-A546-BFDF5DFAD16A} = {910FB59D-29A9-4920-8A7E-E331AE32DCA5}
+		{9E402193-AC4C-40AE-9E9C-FFAFBE7449A9} = {797813F9-3D8B-49D0-8CB0-A90DEEA2CBB3}
+		{BFCEEEC3-1E18-41BF-99EA-16D5FC89CBB5} = {590782AD-EF01-4AEA-B1B9-EE21967B8B6B}
+		{404C11C8-CA33-41C6-B4AD-7238343042EC} = {797813F9-3D8B-49D0-8CB0-A90DEEA2CBB3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7BE0D2A8-FACD-4F98-B743-581EA3F7CDD6}

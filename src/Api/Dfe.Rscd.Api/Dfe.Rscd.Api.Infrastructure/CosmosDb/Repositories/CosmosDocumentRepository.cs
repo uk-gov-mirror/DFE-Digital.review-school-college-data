@@ -2,7 +2,6 @@ using System.Linq;
 using System.Net;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Config;
 using Microsoft.Azure.Cosmos;
-using Microsoft.Extensions.Options;
 
 namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.Repositories
 {
@@ -10,9 +9,9 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.Repositories
     {
         private readonly Database _cosmosDb;
 
-        public CosmosDocumentRepository(IOptions<CosmosDbOptions> options)
+        public CosmosDocumentRepository(CosmosDbOptions options)
         {
-            _cosmosDb = new CosmosClient(options.Value.Account, options.Value.Key).GetDatabase(options.Value.Database);
+            _cosmosDb = new CosmosClient(options.Account, options.Key).GetDatabase(options.Database);
         }
 
         public T GetById<T>(string collection, string id)

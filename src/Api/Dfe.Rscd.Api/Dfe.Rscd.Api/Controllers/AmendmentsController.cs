@@ -4,11 +4,9 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using CsvHelper;
-using Dfe.Rscd.Api.Domain.Core;
-using Dfe.Rscd.Api.Domain.Entities;
-using Dfe.Rscd.Api.Domain.Interfaces;
-using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Extensions;
+using Dfe.Rscd.Api.BusinessLogic.Entities;
 using Dfe.Rscd.Api.Models;
+using Dfe.Rscd.Api.Services;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -139,7 +137,8 @@ namespace Dfe.Rscd.Api.Controllers
             Tags = new[] {"Amendments", "Evidence"}
         )]
         [ProducesResponseType(typeof(GetResponse<bool>), 200)]
-        public IActionResult RelateEvidence([FromBody] [SwaggerRequestBody("Amendment to add to CRM", Required = true)] string amendmentId, string evidenceFolderName)
+        public IActionResult RelateEvidence(
+            [FromBody] [SwaggerRequestBody("Amendment to add to CRM", Required = true)] string amendmentId, string evidenceFolderName)
         {
             _amendmentService.RelateEvidence(amendmentId, evidenceFolderName, true);
 
