@@ -4,11 +4,9 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using CsvHelper;
-using Dfe.Rscd.Api.BusinessLogic.Contracts.Entities.Amendments;
-using Dfe.Rscd.Api.BusinessLogic.Contracts.Entities.Core;
-using Dfe.Rscd.Api.BusinessLogic.Contracts.Services;
-using Dfe.Rscd.Api.BusinessLogic.Contracts.Services.Extensions;
+using Dfe.Rscd.Api.BusinessLogic.Entities;
 using Dfe.Rscd.Api.Models;
+using Dfe.Rscd.Api.Services;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 

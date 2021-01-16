@@ -7,19 +7,19 @@
 
 
 	<ItemGroup>
-    <Compile Remove="Contracts\Entity Translators\**" />
-    <Compile Remove="Contracts\Messages\**" />
-    <Compile Remove="Entities\**" />
+    <Compile Remove="Contracts\**" />
+    <Compile Remove="Entities\Entity Translators\**" />
+    <Compile Remove="Rules\**" />
     <Compile Remove="TransactionScripts\**" />
     <Compile Remove="Validation\**" />
-    <EmbeddedResource Remove="Contracts\Entity Translators\**" />
-    <EmbeddedResource Remove="Contracts\Messages\**" />
-    <EmbeddedResource Remove="Entities\**" />
+    <EmbeddedResource Remove="Contracts\**" />
+    <EmbeddedResource Remove="Entities\Entity Translators\**" />
+    <EmbeddedResource Remove="Rules\**" />
     <EmbeddedResource Remove="TransactionScripts\**" />
     <EmbeddedResource Remove="Validation\**" />
-    <None Remove="Contracts\Entity Translators\**" />
-    <None Remove="Contracts\Messages\**" />
-    <None Remove="Entities\**" />
+    <None Remove="Contracts\**" />
+    <None Remove="Entities\Entity Translators\**" />
+    <None Remove="Rules\**" />
     <None Remove="TransactionScripts\**" />
     <None Remove="Validation\**" />
   </ItemGroup>
@@ -27,12 +27,11 @@
 
 	<ItemGroup>
 	  <Compile Remove="AuthorisationByModeAndRole.cs" />
-	  <Compile Remove="Contracts\Services\CommonListsAdapter.cs" />
-	  <Compile Remove="Contracts\Services\PupilAdapter.cs" />
 	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Dfe.Rscd.Api.Infrastructure\Dfe.Rscd.Api.Infrastructure.csproj" />
-  </ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+	</ItemGroup>
 
 </Project>

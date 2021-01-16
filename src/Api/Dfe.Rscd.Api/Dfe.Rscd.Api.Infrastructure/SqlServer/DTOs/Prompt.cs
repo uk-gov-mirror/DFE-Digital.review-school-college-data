@@ -5,24 +5,24 @@ using System.Collections.Generic;
 
 namespace Dfe.Rscd.Api.Infrastructure.SqlServer.DTOs
 {
-    public partial class Prompt
+    internal partial class Prompt
     {
-        public Prompt()
+        internal Prompt()
         {
             PinclinclusionAdjData = new HashSet<PinclinclusionAdjDatum>();
             PromptResponses = new HashSet<PromptResponse>();
         }
 
-        public short PromptId { get; set; }
-        public string PromptText { get; set; }
-        public bool IsConditional { get; set; }
-        public bool AllowNulls { get; set; }
-        public short PromptTypesPromptTypeId { get; set; }
-        public string ColumnName { get; set; }
-        public string PromptShortText { get; set; }
+        internal short PromptId { get; set; }
+        internal string PromptText { get; set; }
+        internal bool IsConditional { get; set; }
+        internal bool AllowNulls { get; set; }
+        internal short PromptTypesPromptTypeId { get; set; }
+        internal string ColumnName { get; set; }
+        internal string PromptShortText { get; set; }
 
-        public virtual PromptType PromptTypesPromptType { get; set; }
-        public virtual ICollection<PinclinclusionAdjDatum> PinclinclusionAdjData { get; set; }
-        public virtual ICollection<PromptResponse> PromptResponses { get; set; }
+        internal virtual PromptType PromptTypesPromptType { get; set; }
+        internal virtual ICollection<PinclinclusionAdjDatum> PinclinclusionAdjData { get; set; }
+        internal virtual ICollection<PromptResponse> PromptResponses { get; set; }
     }
 }

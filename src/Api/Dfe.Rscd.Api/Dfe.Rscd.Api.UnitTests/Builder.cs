@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using Dfe.Rscd.Api.BusinessLogic.Entities;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs;
+using DTO = Dfe.Rscd.Api.Infrastructure.SqlServer.DTOs;
 
 namespace Dfe.Rscd.Api.UnitTests
 {
@@ -55,6 +58,23 @@ namespace Dfe.Rscd.Api.UnitTests
             };
         }
 
+        public static List<EstablishmentDTO> GetEstablishment(int dfesNumber)
+        {
+            return new List<EstablishmentDTO>
+            {
+                new EstablishmentDTO
+                {
+                    DFESNumber = dfesNumber.ToString(),
+                    SchoolName = "St Johns High School",
+                    HeadFirstName = "Mr",
+                    HeadLastName = "John",
+                    HeadTitleCode = "Williams",
+                    id = "123456",
+                    performance = new List<EstablishmentDTO.PerformanceDto>()
+                }
+            };
+        }
+
         public static EstablishmentDTO GetEstablishment(string urn)
         {
             return new EstablishmentDTO
@@ -80,6 +100,38 @@ namespace Dfe.Rscd.Api.UnitTests
                     }
                 }
                 
+            };
+        }
+
+        internal static List<DTO.Pincl> GetPincLsList()
+        {
+            return new List<DTO.Pincl>
+            {
+                new DTO.Pincl{ PIncl1 = "404", PIncldescription = "Included at end of Keystage 4", DisplayFlag = "1"}
+            };
+        }
+
+        internal static List<DTO.Senstatus> GetSenList()
+        {
+            return new List<DTO.Senstatus>
+            {
+                new DTO.Senstatus { SenstatusCode = "N", SenstatusDescription = "None"}
+            };
+        }
+
+        internal static List<DTO.Language> GetLanguageList()
+        {
+            return new List<DTO.Language>
+            {
+                new DTO.Language{ LanguageCode = "ENG", LanguageDescription = "English"}
+            };
+        }
+
+        internal static List<DTO.Ethnicity> GetEthnicityList()
+        {
+            return new List<DTO.Ethnicity>
+            {
+                new DTO.Ethnicity{ EthnicityCode = "WBR01", EthnicityDescription = "White British"}
             };
         }
 

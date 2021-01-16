@@ -5,10 +5,10 @@ using System.Collections.Generic;
 
 namespace Dfe.Rscd.Api.Infrastructure.SqlServer.DTOs
 {
-    public partial class Ethnicity
+    internal partial class Ethnicity
     {
-        public string EthnicityCode { get; set; }
-        public string EthnicityDescription { get; set; }
-        public string ParentEthnicityCode { get; set; }
+        internal string EthnicityCode { get; set; }
+        internal string EthnicityDescription { get; set; }
+        internal string ParentEthnicityCode { get; set; }
     }
 }

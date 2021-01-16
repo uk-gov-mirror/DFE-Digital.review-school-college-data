@@ -19,19 +19,19 @@ namespace Dfe.Rscd.Api.Infrastructure.SqlServer.DTOs
         {
         }
 
-        public virtual DbSet<AmendCode> AmendCodes { get; set; }
-        public virtual DbSet<AwardingBody> AwardingBodies { get; set; }
-        public virtual DbSet<Ethnicity> Ethnicities { get; set; }
-        public virtual DbSet<InclusionAdjustmentReason> InclusionAdjustmentReasons { get; set; }
-        public virtual DbSet<Language> Languages { get; set; }
-        public virtual DbSet<Pincl> Pincls { get; set; }
-        public virtual DbSet<PinclinclusionAdjDatum> PinclinclusionAdjData { get; set; }
-        public virtual DbSet<PinclinclusionAdjustment> PinclinclusionAdjustments { get; set; }
-        public virtual DbSet<Prompt> Prompts { get; set; }
-        public virtual DbSet<PromptResponse> PromptResponses { get; set; }
-        public virtual DbSet<PromptType> PromptTypes { get; set; }
-        public virtual DbSet<Senstatus> Senstatuses { get; set; }
-        public virtual DbSet<YearGroup> YearGroups { get; set; }
+        internal virtual DbSet<AmendCode> AmendCodes { get; set; }
+        internal virtual DbSet<AwardingBody> AwardingBodies { get; set; }
+        internal virtual DbSet<Ethnicity> Ethnicities { get; set; }
+        internal virtual DbSet<InclusionAdjustmentReason> InclusionAdjustmentReasons { get; set; }
+        internal virtual DbSet<Language> Languages { get; set; }
+        internal virtual DbSet<Pincl> Pincls { get; set; }
+        internal virtual DbSet<PinclinclusionAdjDatum> PinclinclusionAdjData { get; set; }
+        internal virtual DbSet<PinclinclusionAdjustment> PinclinclusionAdjustments { get; set; }
+        internal virtual DbSet<Prompt> Prompts { get; set; }
+        internal virtual DbSet<PromptResponse> PromptResponses { get; set; }
+        internal virtual DbSet<PromptType> PromptTypes { get; set; }
+        internal virtual DbSet<Senstatus> Senstatuses { get; set; }
+        internal virtual DbSet<YearGroup> YearGroups { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

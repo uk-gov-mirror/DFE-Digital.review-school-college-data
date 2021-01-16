@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Dfe.Rscd.Api.BusinessLogic.Contracts.Services;
-using Dfe.Rscd.Api.Infrastructure.SqlServer.DTOs;
+using Dfe.Rscd.Api.BusinessLogic.Entities;
 using Dfe.Rscd.Api.Models;
+using Dfe.Rscd.Api.Services;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -114,11 +114,11 @@ namespace Dfe.Rscd.Api.Controllers
         )]
         [Route("/languages")]
         [ProducesResponseType(400)]
-        [ProducesResponseType(typeof(GetResponse<IEnumerable<InclusionAdjustmentReason>>), 200)]
+        [ProducesResponseType(typeof(GetResponse<IEnumerable<FirstLanguage>>), 200)]
         public async Task<IActionResult> GetLanguages()
         {
             var list = _commonDataService.GetLanguages();
-            var response = new GetResponse<IEnumerable<Language>>
+            var response = new GetResponse<IEnumerable<FirstLanguage>>
             {
                 Result = list,
                 Error = new Error()
@@ -135,11 +135,11 @@ namespace Dfe.Rscd.Api.Controllers
         )]
         [Route("/pincludes")]
         [ProducesResponseType(400)]
-        [ProducesResponseType(typeof(GetResponse<IEnumerable<InclusionAdjustmentReason>>), 200)]
+        [ProducesResponseType(typeof(GetResponse<IEnumerable<PINCLs>>), 200)]
         public async Task<IActionResult> GetPINCls()
         {
             var list = _commonDataService.GetPINCLs();
-            var response = new GetResponse<IEnumerable<Pincl>>
+            var response = new GetResponse<IEnumerable<PINCLs>>
             {
                 Result = list,
                 Error = new Error()
@@ -156,11 +156,11 @@ namespace Dfe.Rscd.Api.Controllers
         )]
         [Route("/senstatuses")]
         [ProducesResponseType(400)]
-        [ProducesResponseType(typeof(GetResponse<IEnumerable<SenStatus>>), 200)]
+        [ProducesResponseType(typeof(GetResponse<IEnumerable<SENStatus>>), 200)]
         public async Task<IActionResult> GetSenStatuses()
         {
             var list = _commonDataService.GetSENStatus();
-            var response = new GetResponse<IEnumerable<SenStatus>>
+            var response = new GetResponse<IEnumerable<SENStatus>>
             {
                 Result = list,
                 Error = new Error()

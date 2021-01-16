@@ -5,21 +5,21 @@ using System.Collections.Generic;
 
 namespace Dfe.Rscd.Api.Infrastructure.SqlServer.DTOs
 {
-    public partial class InclusionAdjustmentReason
+    internal partial class InclusionAdjustmentReason
     {
-        public InclusionAdjustmentReason()
+        internal InclusionAdjustmentReason()
         {
             PinclinclusionAdjustments = new HashSet<PinclinclusionAdjustment>();
         }
 
-        public short IncAdjReasonId { get; set; }
-        public string IncAdjReasonDescription { get; set; }
-        public bool InJuneChecking { get; set; }
-        public bool CanCancel { get; set; }
-        public bool IsInclusion { get; set; }
-        public bool IsNewStudentReason { get; set; }
-        public int? ListOrder { get; set; }
+        internal short IncAdjReasonId { get; set; }
+        internal string IncAdjReasonDescription { get; set; }
+        internal bool InJuneChecking { get; set; }
+        internal bool CanCancel { get; set; }
+        internal bool IsInclusion { get; set; }
+        internal bool IsNewStudentReason { get; set; }
+        internal int? ListOrder { get; set; }
 
-        public virtual ICollection<PinclinclusionAdjustment> PinclinclusionAdjustments { get; set; }
+        internal virtual ICollection<PinclinclusionAdjustment> PinclinclusionAdjustments { get; set; }
     }
 }

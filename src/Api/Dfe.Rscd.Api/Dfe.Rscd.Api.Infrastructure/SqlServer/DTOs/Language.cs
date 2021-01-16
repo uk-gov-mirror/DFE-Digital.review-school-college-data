@@ -5,9 +5,9 @@ using System.Collections.Generic;
 
 namespace Dfe.Rscd.Api.Infrastructure.SqlServer.DTOs
 {
-    public partial class Language
+    internal partial class Language
     {
-        public string LanguageCode { get; set; }
-        public string LanguageDescription { get; set; }
+        internal string LanguageCode { get; set; }
+        internal string LanguageDescription { get; set; }
     }
 }

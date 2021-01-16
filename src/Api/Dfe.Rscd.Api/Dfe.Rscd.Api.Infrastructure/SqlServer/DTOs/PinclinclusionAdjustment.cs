@@ -5,18 +5,18 @@ using System.Collections.Generic;
 
 namespace Dfe.Rscd.Api.Infrastructure.SqlServer.DTOs
 {
-    public partial class PinclinclusionAdjustment
+    internal partial class PinclinclusionAdjustment
     {
-        public PinclinclusionAdjustment()
+        internal PinclinclusionAdjustment()
         {
             PinclinclusionAdjData = new HashSet<PinclinclusionAdjDatum>();
         }
 
-        public string PIncl { get; set; }
-        public short IncAdjReasonId { get; set; }
+        internal string PIncl { get; set; }
+        internal short IncAdjReasonId { get; set; }
 
-        public virtual InclusionAdjustmentReason IncAdjReason { get; set; }
-        public virtual Pincl PInclNavigation { get; set; }
-        public virtual ICollection<PinclinclusionAdjDatum> PinclinclusionAdjData { get; set; }
+        internal virtual InclusionAdjustmentReason IncAdjReason { get; set; }
+        internal virtual Pincl PInclNavigation { get; set; }
+        internal virtual ICollection<PinclinclusionAdjDatum> PinclinclusionAdjData { get; set; }
     }
 }

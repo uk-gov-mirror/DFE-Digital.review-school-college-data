@@ -5,9 +5,9 @@ using System.Collections.Generic;
 
 namespace Dfe.Rscd.Api.Infrastructure.SqlServer.DTOs
 {
-    public partial class YearGroup
+    internal partial class YearGroup
     {
-        public string YearGroupCode { get; set; }
-        public string YearGroupDescription { get; set; }
+        internal string YearGroupCode { get; set; }
+        internal string YearGroupDescription { get; set; }
     }
 }

@@ -1,8 +1,0 @@
-namespace Dfe.Rscd.Api.BusinessLogic.Contracts.Entities
-{
-	public class Warning 
-	{
-        public string Message { get; set; }
-    }
-}
-

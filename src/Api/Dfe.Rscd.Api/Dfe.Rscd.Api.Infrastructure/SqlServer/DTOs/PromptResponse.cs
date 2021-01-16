@@ -5,13 +5,13 @@ using System.Collections.Generic;
 
 namespace Dfe.Rscd.Api.Infrastructure.SqlServer.DTOs
 {
-    public partial class PromptResponse
+    internal partial class PromptResponse
     {
-        public short PromptId { get; set; }
-        public short ListOrder { get; set; }
-        public string ListValue { get; set; }
-        public bool Rejected { get; set; }
+        internal short PromptId { get; set; }
+        internal short ListOrder { get; set; }
+        internal string ListValue { get; set; }
+        internal bool Rejected { get; set; }
 
-        public virtual Prompt Prompt { get; set; }
+        internal virtual Prompt Prompt { get; set; }
     }
 }

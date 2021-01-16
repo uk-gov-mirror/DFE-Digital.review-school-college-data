@@ -5,16 +5,16 @@ using System.Collections.Generic;
 
 namespace Dfe.Rscd.Api.Infrastructure.SqlServer.DTOs
 {
-    public partial class PromptType
+    internal partial class PromptType
     {
-        public PromptType()
+        internal PromptType()
         {
             Prompts = new HashSet<Prompt>();
         }
 
-        public short PromptTypeId { get; set; }
-        public string PromptTypeName { get; set; }
+        internal short PromptTypeId { get; set; }
+        internal string PromptTypeName { get; set; }
 
-        public virtual ICollection<Prompt> Prompts { get; set; }
+        internal virtual ICollection<Prompt> Prompts { get; set; }
     }
 }

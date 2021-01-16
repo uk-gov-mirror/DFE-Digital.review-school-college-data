@@ -5,17 +5,17 @@ using System.Collections.Generic;
 
 namespace Dfe.Rscd.Api.Infrastructure.SqlServer.DTOs
 {
-    public partial class Pincl
+    internal partial class Pincl
     {
-        public Pincl()
+        internal Pincl()
         {
             PinclinclusionAdjustments = new HashSet<PinclinclusionAdjustment>();
         }
 
-        public string PIncl1 { get; set; }
-        public string PIncldescription { get; set; }
-        public string DisplayFlag { get; set; }
+        internal string PIncl1 { get; set; }
+        internal string PIncldescription { get; set; }
+        internal string DisplayFlag { get; set; }
 
-        public virtual ICollection<PinclinclusionAdjustment> PinclinclusionAdjustments { get; set; }
+        internal virtual ICollection<PinclinclusionAdjustment> PinclinclusionAdjustments { get; set; }
     }
 }

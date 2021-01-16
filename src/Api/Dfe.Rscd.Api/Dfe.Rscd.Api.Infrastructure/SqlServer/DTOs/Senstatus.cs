@@ -5,9 +5,9 @@ using System.Collections.Generic;
 
 namespace Dfe.Rscd.Api.Infrastructure.SqlServer.DTOs
 {
-    public partial class Senstatus
+    internal partial class Senstatus
     {
-        public string SenstatusCode { get; set; }
-        public string SenstatusDescription { get; set; }
+        internal string SenstatusCode { get; set; }
+        internal string SenstatusDescription { get; set; }
     }
 }

@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Dfe.Rscd.Api.BusinessLogic.Contracts.Entities;
-using Dfe.Rscd.Api.BusinessLogic.Contracts.Entities.Core;
-using Dfe.Rscd.Api.BusinessLogic.Contracts.Entities.Core.Enums;
-using Dfe.Rscd.Api.BusinessLogic.Contracts.Services;
+using Dfe.Rscd.Api.BusinessLogic.Entities;
 using Dfe.Rscd.Api.Models;
 using Dfe.Rscd.Api.Models.SearchRequests;
+using Dfe.Rscd.Api.Services;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 

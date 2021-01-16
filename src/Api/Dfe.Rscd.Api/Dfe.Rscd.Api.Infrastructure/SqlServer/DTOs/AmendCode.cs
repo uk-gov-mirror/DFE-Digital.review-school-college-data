@@ -5,9 +5,9 @@ using System.Collections.Generic;
 
 namespace Dfe.Rscd.Api.Infrastructure.SqlServer.DTOs
 {
-    public partial class AmendCode
+    internal partial class AmendCode
     {
-        public string AmendCode1 { get; set; }
-        public string AmendCodeDescription { get; set; }
+        internal string AmendCode1 { get; set; }
+        internal string AmendCodeDescription { get; set; }
     }
 }

@@ -5,13 +5,13 @@ using System.Collections.Generic;
 
 namespace Dfe.Rscd.Api.Infrastructure.SqlServer.DTOs
 {
-    public partial class AwardingBody
+    internal partial class AwardingBody
     {
-        public int AwardingBodyId { get; set; }
-        public string AwardingBodyNumber { get; set; }
-        public string AwardingBodyCode { get; set; }
-        public string AwardingBodyName { get; set; }
-        public string WasOther { get; set; }
-        public bool DoesGradedExams { get; set; }
+        internal int AwardingBodyId { get; set; }
+        internal string AwardingBodyNumber { get; set; }
+        internal string AwardingBodyCode { get; set; }
+        internal string AwardingBodyName { get; set; }
+        internal string WasOther { get; set; }
+        internal bool DoesGradedExams { get; set; }
     }
 }

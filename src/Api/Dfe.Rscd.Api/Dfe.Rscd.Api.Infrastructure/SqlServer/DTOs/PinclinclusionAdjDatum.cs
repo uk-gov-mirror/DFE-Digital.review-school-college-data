@@ -5,13 +5,13 @@ using System.Collections.Generic;
 
 namespace Dfe.Rscd.Api.Infrastructure.SqlServer.DTOs
 {
-    public partial class PinclinclusionAdjDatum
+    internal partial class PinclinclusionAdjDatum
     {
-        public string PinclinclusionAdjustmentsPIncl { get; set; }
-        public short PinclinclusionAdjustmentsIncAdjReasonId { get; set; }
-        public short PromptsPromptId { get; set; }
+        internal string PinclinclusionAdjustmentsPIncl { get; set; }
+        internal short PinclinclusionAdjustmentsIncAdjReasonId { get; set; }
+        internal short PromptsPromptId { get; set; }
 
-        public virtual PinclinclusionAdjustment PinclinclusionAdjustments { get; set; }
-        public virtual Prompt PromptsPrompt { get; set; }
+        internal virtual PinclinclusionAdjustment PinclinclusionAdjustments { get; set; }
+        internal virtual Prompt PromptsPrompt { get; set; }
     }
 }
