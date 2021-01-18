@@ -85,6 +85,10 @@ namespace Dfe.Rscd.Api
             services.AddSingleton<IOutcomeService, OutcomeService>();
             services.AddSingleton<IConfirmationService, CrmConfirmationService>();
 
+            if (!_env.IsEnvironment(Program.LOCAL_ENVIRONMENT))
+            {
+                services.Configure<BasicAuthOptions>(Configuration.GetSection("BasicAuth"));
+            }
         }
 
 
@@ -92,10 +96,10 @@ namespace Dfe.Rscd.Api
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             // This needs to come before swagger
-            if (env.IsStaging())
+            if (!_env.IsEnvironment(Program.LOCAL_ENVIRONMENT))
             {
                 app.UseBasicAuth();
-            }
+            };
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
@@ -105,7 +109,7 @@ namespace Dfe.Rscd.Api
             }
             );
 
-            if (env.IsDevelopment())
+            if (_env.IsEnvironment(Program.LOCAL_ENVIRONMENT) || env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }

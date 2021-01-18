@@ -7,6 +7,8 @@ namespace Dfe.CspdAlpha.Web.Application
 {
     public class Program
     {
+        public const string LOCAL_ENVIRONMENT = "Local";
+
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
@@ -19,6 +21,11 @@ namespace Dfe.CspdAlpha.Web.Application
                     webBuilder
                         .ConfigureAppConfiguration((hostingContext, config) =>
                         {
+                            if (hostingContext.HostingEnvironment.IsEnvironment(LOCAL_ENVIRONMENT))
+                            {
+                                config.AddUserSecrets<Program>();
+                            }
+
                             var settings = config.Build();
                             var configLabel = settings["ConfigLabel"];
                             config.AddAzureAppConfiguration(options =>
