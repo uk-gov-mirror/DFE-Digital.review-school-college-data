@@ -9,7 +9,8 @@ namespace Dfe.Rscd.Api.BusinessLogic.Entities
         public int? InclusionReasonID;
 
         public List<ValidationFailure> InformationMessageList;
-        public PromptAnswerList PromptAnswerList;
+        public List<PromptAnswer> PromptAnswerList;
+        public OutcomeStatus OutcomeStatus;
         public int? RejectionReasonCode;
         public string RequestCompletionDisplayMessage;
         public int ScrutinyReasonID;
@@ -21,11 +22,12 @@ namespace Dfe.Rscd.Api.BusinessLogic.Entities
 
         public CompletedStudentAdjustment(int studentId,
             int? inclusionReasonId,
-            PromptAnswerList promptAnswerList,
+            List<PromptAnswer> promptAnswerList,
             int scrutinyReasonId,
             int? rejectionReasonCode,
             string scrutinyStatusCode,
-            string completionMessage)
+            string completionMessage,
+            OutcomeStatus outcomeStatus)
         {
             StudentID = studentId;
             InclusionReasonID = inclusionReasonId;
@@ -34,6 +36,7 @@ namespace Dfe.Rscd.Api.BusinessLogic.Entities
             RejectionReasonCode = rejectionReasonCode;
             ScrutinyStatusCode = scrutinyStatusCode;
             RequestCompletionDisplayMessage = completionMessage;
+            OutcomeStatus = outcomeStatus;
         }
     }
 }

@@ -15,8 +15,6 @@ namespace Dfe.Rscd.Api.BusinessLogic.Entities
         public string ColumnType { get; set; }
 
         public string PromptShortText { get; set; }
-
-        public short UpdatedByDA { get; set; }
     }
 }
 

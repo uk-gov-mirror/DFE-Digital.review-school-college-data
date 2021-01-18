@@ -36,6 +36,8 @@ namespace Dfe.Rscd.Api.Services
         {
             var repoQuery = _documentRepository.Get<PupilDTO>(GetCollection(checkingWindow));
             
+            if (!string.IsNullOrWhiteSpace(query.URN))
+                repoQuery = repoQuery.Where(p => p.URN == query.URN);
             if (!string.IsNullOrWhiteSpace(query.ID))
                 repoQuery = repoQuery.Where(p => p.UPN.StartsWith(query.ID) || p.ULN.StartsWith(query.ID));
             if (!string.IsNullOrWhiteSpace(query.Name))

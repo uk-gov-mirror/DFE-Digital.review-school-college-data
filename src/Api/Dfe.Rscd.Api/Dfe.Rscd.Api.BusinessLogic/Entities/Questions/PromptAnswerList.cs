@@ -2,13 +2,13 @@
 
 namespace Dfe.Rscd.Api.BusinessLogic.Entities
 {
-    public class PromptAnswerList : List<PromptAnswer>
+    public static class PromptAnswerExtensions
     {
-        public PromptAnswer GetPromptAnswerByPromptID(int promptId)
+        public static PromptAnswer GetPromptAnswerByPromptId(this List<PromptAnswer> prompts, int promptId)
         {
             PromptAnswer rtnAnswer = null;
 
-            foreach(PromptAnswer answer in this)
+            foreach(PromptAnswer answer in prompts)
             {
                 if (answer.PromptID == promptId)
                 {
@@ -20,11 +20,11 @@ namespace Dfe.Rscd.Api.BusinessLogic.Entities
             return rtnAnswer;
         }
 
-        public bool HasPromptAnswer(int promptId)
+        public static bool HasPromptAnswer(this List<PromptAnswer> prompts, int promptId)
         {
             bool returnHasPromptAnswer = false;
  
-            foreach (PromptAnswer answer in this)
+            foreach (PromptAnswer answer in prompts)
             {
                 if (answer.PromptID == promptId)
                 {

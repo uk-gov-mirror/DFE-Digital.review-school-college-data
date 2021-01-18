@@ -8,6 +8,7 @@ using Dfe.Rscd.Api.Infrastructure.SqlServer.DTOs;
 using Dfe.Rscd.Api.Infrastructure.SqlServer.Repositories;
 using Dfe.Rscd.Api.Middleware.BasicAuth;
 using Dfe.Rscd.Api.Services;
+using Dfe.Rscd.Api.Services.Rules;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -102,11 +103,11 @@ namespace Dfe.Rscd.Api
 
             services.AddScoped<IAmendmentBuilder, RemovePupilAmendmentBuilder>();
             services.AddScoped<Amendment, RemovePupilAmendment>();
-            services.AddScoped<IRuleSet, RemovePupilRules>();
+            services.AddScoped<IRuleSet, RemovePupilRulesV1>();
 
             services.AddScoped<IAmendmentBuilder, AddPupilAmendmentBuilder>();
             services.AddScoped<Amendment, AddPupilAmendment>();
-            services.AddScoped<IRuleSet, AddPupilRules>();
+            services.AddScoped<IRuleSet, AddPupilRulesV1>();
 
             services.AddScoped<IEstablishmentService, EstablishmentService>();
             services.AddScoped<IPupilService, PupilService>();

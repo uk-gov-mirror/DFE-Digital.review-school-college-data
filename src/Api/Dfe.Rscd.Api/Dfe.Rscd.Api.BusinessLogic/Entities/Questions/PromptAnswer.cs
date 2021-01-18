@@ -4,7 +4,6 @@ namespace Dfe.Rscd.Api.BusinessLogic.Entities
 {
     public class PromptAnswer
     {
-
         public string ErrorMessage { get; set; }
         public string InformationMessage { get; set; }
         public string WarningMessage { get; set; }

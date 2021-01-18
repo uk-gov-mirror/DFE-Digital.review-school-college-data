@@ -2,7 +2,7 @@
 
 namespace Dfe.Rscd.Api.BusinessLogic.Entities
 {
-    public class GetAdjustmentReasonsResponse : AdjustmentPromptAnalysis
+    public class GetAdjustmentReasonsResponse : AdjustmentOutcome
     {
 
         public IEnumerable<InclusionAdjustmentReason> AdjustmentReasonList;
@@ -16,8 +16,8 @@ namespace Dfe.Rscd.Api.BusinessLogic.Entities
             IsComplete = false;
         }
 
-        public GetAdjustmentReasonsResponse(List<Prompts> furtherPrompts) : base(furtherPrompts){}
-
+        public GetAdjustmentReasonsResponse(List<Prompt> furtherPrompts) : base(furtherPrompts){}
+        
         public GetAdjustmentReasonsResponse(CompletedStudentAdjustment completedRequest) : base(completedRequest) {}
 
         public GetAdjustmentReasonsResponse(CompletedNonStudentAdjustment completedNonRequest) : base(completedNonRequest){}

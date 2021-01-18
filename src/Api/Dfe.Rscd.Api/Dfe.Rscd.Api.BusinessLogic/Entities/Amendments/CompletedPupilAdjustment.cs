@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Dfe.Rscd.Api.BusinessLogic.Entities
 {
 	public partial class CompletedPupilAdjustment 
@@ -6,7 +8,7 @@ namespace Dfe.Rscd.Api.BusinessLogic.Entities
 
         public int PupilID { get; set; }
 
-        public PromptAnswerList PromptAnswerList { get; set; }
+        public List<PromptAnswer> PromptAnswerList { get; set; }
 
         public short ScrutinyReasonID { get; set; }
 

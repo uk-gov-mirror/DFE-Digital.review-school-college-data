@@ -26,9 +26,9 @@ namespace Dfe.Rscd.Api.Services
 
                 var outcome = ruleSet.Apply(amendment);
 
-                if (outcome == OutcomeStatus.AutoAccept)
+                if (outcome.CompleteSimpleOutcome.OutcomeStatus == OutcomeStatus.AutoAccept)
                     amendmentDto.rscd_Outcome = rscd_Outcome.Autoapproved;
-                else if (outcome == OutcomeStatus.AutoReject)
+                else if (outcome.CompleteSimpleOutcome.OutcomeStatus == OutcomeStatus.AutoReject)
                     amendmentDto.rscd_Outcome = rscd_Outcome.Autorejected;
                 else
                     amendmentDto.rscd_Outcome = rscd_Outcome.AwaitingDfEreview;
