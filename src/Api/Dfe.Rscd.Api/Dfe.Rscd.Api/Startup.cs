@@ -87,7 +87,10 @@ namespace Dfe.Rscd.Api
 
             services.AddSingleton<IAllocationYearConfig>(new AllocationYearConfig {Value = Configuration["AllocationYear"] });
 
-            if (_env.IsStaging()) services.Configure<BasicAuthOptions>(Configuration.GetSection("BasicAuth"));
+            if (!_env.IsEnvironment(Program.LOCAL_ENVIRONMENT))
+            {
+                services.Configure<BasicAuthOptions>(Configuration.GetSection("BasicAuth"));
+            };
 
             // Microsoft Extensions Configuration (services.Configure) is still in Alpha.
             // This affects EntityFramework Core in Infra Assembly
@@ -118,7 +121,10 @@ namespace Dfe.Rscd.Api
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             // This needs to come before swagger
-            if (env.IsStaging()) app.UseBasicAuth();
+            if (!_env.IsEnvironment(Program.LOCAL_ENVIRONMENT))
+            {
+                app.UseBasicAuth();
+            };
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
@@ -128,7 +134,10 @@ namespace Dfe.Rscd.Api
                 }
             );
 
-            if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
+            if (_env.IsEnvironment(Program.LOCAL_ENVIRONMENT) || env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
 
             app.UseHttpsRedirection();
 

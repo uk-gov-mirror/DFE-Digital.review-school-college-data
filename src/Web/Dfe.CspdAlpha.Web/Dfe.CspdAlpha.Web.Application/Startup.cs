@@ -22,8 +22,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.FeatureManagement;
-using Microsoft.PowerPlatform.Cds.Client;
-using Microsoft.Xrm.Sdk;
 using Newtonsoft.Json;
 using Sustainsys.Saml2;
 using Sustainsys.Saml2.AspNetCore2;
@@ -68,7 +66,7 @@ namespace Dfe.CspdAlpha.Web.Application
             services.AddAzureAppConfiguration();
 
             // This disables the CSRF token in order to facilitate easier QA for the time being
-            if (_env.IsStaging())
+            if (_env.IsDevelopment() || _env.IsStaging())
             {
                 services.AddMvc()
                     .AddRazorPagesOptions(o =>
@@ -99,7 +97,7 @@ namespace Dfe.CspdAlpha.Web.Application
                     });
             });
 
-            if (_env.IsStaging())
+            if (_env.IsDevelopment() || _env.IsStaging())
             {
                 services.Configure<BasicAuthOptions>(Configuration.GetSection("BasicAuth"));
             }
@@ -143,10 +141,17 @@ namespace Dfe.CspdAlpha.Web.Application
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            if (env.IsEnvironment(Program.LOCAL_ENVIRONMENT) || env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+            }
 
+            if (env.IsEnvironment(Program.LOCAL_ENVIRONMENT))
+            {
                 var provider = new FileExtensionContentTypeProvider();
 
                 // Add .scss mapping
@@ -158,17 +163,15 @@ namespace Dfe.CspdAlpha.Web.Application
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseStaticFiles();
+
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
-
-                app.UseStaticFiles();
             }
 
             app.UseHttpsRedirection();
 
-            // staging = all hosted non-production environments
-            if (env.IsStaging())
+            if (env.IsDevelopment() || env.IsStaging())
             {
                 app.UseBasicAuth();
             }
