@@ -30,7 +30,7 @@ namespace Dfe.Rscd.Api.Services
             _allocationYear = allocationYear;
         }
 
-        public AdjustmentOutcome GetAdjustmentPrompts(CheckingWindow checkingWindow, int dfesNumber, string studendId, int inclusionReasonId)
+        public AdjustmentOutcome GetAdjustmentPrompts(CheckingWindow checkingWindow, string dfesNumber, string studendId, int inclusionReasonId)
         {
             _checkingWindow = checkingWindow;
 
@@ -63,7 +63,7 @@ namespace Dfe.Rscd.Api.Services
             return scrutinyStatusCode;
         }
 
-        private AdjustmentOutcome GetAdjustmentPrompts(int dfesNumber, Pupil student, int inclusionReasonId)
+        private AdjustmentOutcome GetAdjustmentPrompts(string dfesNumber, Pupil student, int inclusionReasonId)
         {
             
             List<Prompt> promptsListOut = new List<Prompt>();
@@ -259,25 +259,25 @@ namespace Dfe.Rscd.Api.Services
                 PromptID = x.PromptId,
                 PromptShortText = x.PromptShortText,
                 PromptText = x.PromptText,
-                PromptType = GetPromptType(x.PromptTypesPromptType),
+                PromptType = GetPromptType(x.PromptTypesPromptTypeId),
             }).ToList();
         }
 
-        private PromptType GetPromptType(Infrastructure.SqlServer.DTOs.PromptType promptType)
+        private PromptType GetPromptType(short promptType)
         {
-            switch (promptType.PromptTypeName)
+            switch (promptType)
             {
-                case "ListBox":
+                case 1:
                     return PromptType.ListBox;
-                case "Date":
+                case 2:
                     return PromptType.Date;
-                case "Integer":
+                case 3:
                     return PromptType.Integer;
-                case "Text":
+                case 4:
                     return PromptType.Text;
-                case "YesNo":
+                case 5:
                     return PromptType.YesNo;
-                case "Info":
+                case 6:
                     return PromptType.Info;
             }
 
@@ -286,35 +286,24 @@ namespace Dfe.Rscd.Api.Services
         
         private List<Prompt> GetAllNonConditionalPromptsOnly(string pincl, int inclusionReasonId)
         {
-            var query = GetAllPINCLInclusionAdjustments(pincl, inclusionReasonId);
+            var prompts = _repository.Get<Prompt>().Where(x =>
+                x.IsConditional == false && x.PinclinclusionAdjData.Any(j =>
+                    j.PinclinclusionAdjustmentsIncAdjReasonId == inclusionReasonId &&
+                    j.PinclinclusionAdjustmentsPIncl == pincl))
+                .ToList();
 
-            var inclusionReason = query.Select(ir => ir).ToList();
-
-            PinclinclusionAdjustment pinclInclusionAdjustments = inclusionReason[0];
-            return pinclInclusionAdjustments.PinclinclusionAdjData.Where(p => p.PromptsPrompt.IsConditional == false).Select(p => p.PromptsPrompt).ToList();
+            return prompts;
         }
 
         private List<Prompt> GetAllPrompts(string pincl, int inclusionReasonId)
         {
-            //Retrieve the relevant prompts.
-            var query = GetAllPINCLInclusionAdjustments(pincl, inclusionReasonId);
+            var prompts = _repository.Get<Prompt>().Where(x => 
+                    x.PinclinclusionAdjData.Any(j =>
+                        j.PinclinclusionAdjustmentsIncAdjReasonId == inclusionReasonId &&
+                        j.PinclinclusionAdjustmentsPIncl == pincl))
+                .ToList();
 
-            var inclusionReason = query.Select(ir => ir).ToList();
-
-            if (inclusionReason.Any())
-            {
-                PinclinclusionAdjustment pinclInclusionAdjustments = inclusionReason[0];
-                return pinclInclusionAdjustments.PinclinclusionAdjData.Select(p => p.PromptsPrompt).ToList();
-            }
-
-            return new List<Prompt>();
-        }
-
-        private IQueryable<PinclinclusionAdjustment> GetAllPINCLInclusionAdjustments(string pincl, int inclusionReasonId)
-        {
-            return _repository.Get<PinclinclusionAdjustment>()
-                .Where(pia => pia.PIncl == pincl && pia.IncAdjReason.IncAdjReasonId == inclusionReasonId)
-                .Select(pia => pia);
+            return prompts;
         }
 
         private Prompt GetPromptByPromptId(int promptId)

@@ -219,6 +219,8 @@ namespace Dfe.Rscd.Api.Infrastructure.SqlServer.DTOs
                     .HasMaxLength(20)
                     .IsUnicode(false);
 
+                entity.Property(x => x.IsConditional);
+
                 entity.Property(e => e.PromptShortText)
                     .HasMaxLength(1000)
                     .IsUnicode(false);

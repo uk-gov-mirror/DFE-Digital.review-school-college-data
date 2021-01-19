@@ -45,27 +45,44 @@ namespace Dfe.Rscd.Api.Services
                 .Get<DTO.Ethnicity>()
                 .Select(x => new Ethnicity
                 {
-                    Code = x.EthnicityCode, 
+                    Code = x.EthnicityCode,
                     Description = x.EthnicityDescription
                 })
                 .ToList();
         }
 
-        public IList<InclusionAdjustmentReason> GetInclusionAdjustmentReasons()
+        public IList<InclusionAdjustmentReason> GetInclusionAdjustmentReasons(string pinclId = "")
         {
+            if (pinclId != string.Empty)
+            {
+                return _repository.Get<DTO.PinclinclusionAdjustment>()
+                    .Where(x => x.PIncl == pinclId)
+                    .Select(x => x.IncAdjReason)
+                    .Select(x => new InclusionAdjustmentReason
+                    {
+                        IncAdjReasonId = x.IncAdjReasonId,
+                        CanCancel = x.CanCancel,
+                        InJuneChecking = x.InJuneChecking,
+                        IncAdjReasonDescription = x.IncAdjReasonDescription,
+                        IsInclusion = x.IsInclusion,
+                        IsNewStudentReason = x.IsNewStudentReason,
+                        ListOrder = x.ListOrder
+                    }).ToList();
+            }
+
             return _repository
                 .Get<DTO.InclusionAdjustmentReason>()
-                .Select(x=> new InclusionAdjustmentReason
+                .Select(x => new InclusionAdjustmentReason
                 {
                     IncAdjReasonId = x.IncAdjReasonId,
                     CanCancel = x.CanCancel,
-                    InJuneChecking = x.InJuneChecking, 
-                    IncAdjReasonDescription = x.IncAdjReasonDescription, 
-                    IsInclusion = x.IsInclusion, 
-                    IsNewStudentReason = x.IsNewStudentReason, 
+                    InJuneChecking = x.InJuneChecking,
+                    IncAdjReasonDescription = x.IncAdjReasonDescription,
+                    IsInclusion = x.IsInclusion,
+                    IsNewStudentReason = x.IsNewStudentReason,
                     ListOrder = x.ListOrder
                 })
-                .ToList();
+            .ToList();
         }
 
         public IList<FirstLanguage> GetLanguages()
@@ -73,7 +90,7 @@ namespace Dfe.Rscd.Api.Services
             return _repository.Get<DTO.Language>()
                 .Select(x => new FirstLanguage
                 {
-                    Code = x.LanguageCode, 
+                    Code = x.LanguageCode,
                     Description = x.LanguageDescription
                 })
                 .ToList();
@@ -84,8 +101,8 @@ namespace Dfe.Rscd.Api.Services
             return _repository.Get<DTO.Pincl>()
                 .Select(x => new PINCLs
                 {
-                    P_INCL = x.PIncl1, 
-                    P_INCLDescription = x.PIncldescription, 
+                    P_INCL = x.PIncl1,
+                    P_INCLDescription = x.PIncldescription,
                     DisplayFlag = x.DisplayFlag
                 })
                 .ToList();
@@ -96,7 +113,7 @@ namespace Dfe.Rscd.Api.Services
             return _repository.Get<DTO.Senstatus>()
                 .Select(x => new SENStatus
                 {
-                    Code = x.SenstatusCode, 
+                    Code = x.SenstatusCode,
                     Description = x.SenstatusDescription
                 })
                 .ToList();
@@ -105,9 +122,9 @@ namespace Dfe.Rscd.Api.Services
         public IList<YearGroup> GetYearGroups()
         {
             return _repository.Get<DTO.YearGroup>()
-                .Select(x=> new YearGroup
+                .Select(x => new YearGroup
                 {
-                    YearGroupCode = x.YearGroupCode, 
+                    YearGroupCode = x.YearGroupCode,
                     YearGroupDescription = x.YearGroupDescription
                 })
                 .ToList();

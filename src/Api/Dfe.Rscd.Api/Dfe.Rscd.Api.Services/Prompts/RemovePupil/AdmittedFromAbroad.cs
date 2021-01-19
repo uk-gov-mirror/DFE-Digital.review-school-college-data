@@ -7,11 +7,11 @@ namespace Dfe.Rscd.Api.Services
 {
     public partial class RemovePupilPromptsService
     {
-        private List<Prompt> GetAdjustmentPrompts_AdmittedFromAbroad(Pupil student, int inclusionReasonId, int dfesNumber)
+        private List<Prompt> GetAdjustmentPrompts_AdmittedFromAbroad(Pupil student, int inclusionReasonId, string dfesNumber)
         {
             var promptsOut = GetAllNonConditionalPromptsOnly(student.PINCL.P_INCL, inclusionReasonId);
 
-            if (IsSchoolNonPlasc(dfesNumber.ToString()))
+            if (IsSchoolNonPlasc(dfesNumber))
             {
                 promptsOut.Add(GetPromptByPromptId(810));
             }
@@ -30,7 +30,7 @@ namespace Dfe.Rscd.Api.Services
         {
             var school = _establishmentService.GetByDFESNumber(_checkingWindow, dfesNumber);
             // What does school non plasc mean. TODO:
-            return true;
+            return false;
         }
     }
 }

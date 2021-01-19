@@ -14,10 +14,12 @@ namespace Dfe.Rscd.Api.Controllers
     public class PupilsController : ControllerBase
     {
         private readonly IPupilService _pupilService;
+        private readonly IPromptService _promptService;
 
-        public PupilsController(IPupilService pupilService)
+        public PupilsController(IPupilService pupilService, IPromptService promptService)
         {
             _pupilService = pupilService;
+            _promptService = promptService;
         }
 
         [HttpGet]
@@ -41,6 +43,38 @@ namespace Dfe.Rscd.Api.Controllers
             var response = new GetResponse<Pupil>
             {
                 Result = pupil,
+                Error = new Error()
+            };
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("{id}/remove-prompts/{reasonId}")]
+        [SwaggerOperation(
+            Summary = "Returns the requested amendment prompt questions",
+            Description = "Returns the requested amendment prompt questions by adjustment reason id and pupil id",
+            OperationId = "GetRemoveAmendmentPrompts",
+            Tags = new[] {"Pupils"}
+        )]
+        [ProducesResponseType(typeof(GetResponse<AdjustmentOutcome>), 200)]
+        public IActionResult GetAmendPrompts(
+            [FromRoute] [SwaggerParameter("The id of the student/pupil", Required = true)]
+            string id,
+            [FromRoute] [SwaggerParameter("The id of the adjustment reason", Required = true)]
+            int reasonId,
+            [FromRoute] [SwaggerParameter("The checking window to request amendments from", Required = true)]
+            string checkingwindow)
+        {
+            Enum.TryParse(checkingwindow.Replace("-", string.Empty), true,
+                out CheckingWindow checkingWindow);
+
+            var pupil = _pupilService.GetById(checkingWindow, id);
+
+            var prompts = _promptService.GetAdjustmentPrompts(checkingWindow, pupil.DfesNumber, pupil.Id, reasonId);
+
+            var response = new GetResponse<AdjustmentOutcome>
+            {
+                Result = prompts,
                 Error = new Error()
             };
             return Ok(response);

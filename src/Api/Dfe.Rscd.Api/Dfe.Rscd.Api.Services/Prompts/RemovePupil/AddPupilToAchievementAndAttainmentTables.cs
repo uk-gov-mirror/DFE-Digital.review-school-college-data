@@ -16,8 +16,8 @@ namespace Dfe.Rscd.Api.Services
             //    student.StudentChanges.First().YearGroups.YearGroupCode == null)
             //    throw Web09Exception.GetBusinessException(Web09MessageList.InsufficientStudentDetails);
 
-            
-            //if(student.StudentChanges.First().YearGroups.YearGroupCode.Trim() != "6" && TSStudent.HasKS2FutureResults(context, student.StudentID))
+
+            //if (student.StudentChanges.First().YearGroups.YearGroupCode.Trim() != "6" && TSStudent.HasKS2FutureResults(context, student.StudentID))
             //{
             //    promptListOut.Add(GetPromptByPromptID(22110));
             //    promptListOut.Add(GetPromptByPromptID(Constants.PROMPT_ID_NC_YEAR_GROUP_KS2));

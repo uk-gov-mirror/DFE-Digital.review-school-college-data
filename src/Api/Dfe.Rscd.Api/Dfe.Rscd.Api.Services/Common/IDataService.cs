@@ -8,7 +8,7 @@ namespace Dfe.Rscd.Api.Services
         IList<AmendCode> GetAmendCodes();
         IList<AwardingBody> GetAwardingBodies();
         IList<Ethnicity> GetEthnicities();
-        IList<InclusionAdjustmentReason> GetInclusionAdjustmentReasons();
+        IList<InclusionAdjustmentReason> GetInclusionAdjustmentReasons(string pinclId = "");
         IList<FirstLanguage> GetLanguages();
         IList<PINCLs> GetPINCLs();
         IList<SENStatus> GetSENStatus();
