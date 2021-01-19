@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Dfe.Rscd.Api.BusinessLogic.Entities
 {
 	public class Prompt 
@@ -6,9 +8,9 @@ namespace Dfe.Rscd.Api.BusinessLogic.Entities
 
         public string PromptText { get; set; }
 
-        public PromptType PromptType { get; set; }
+        public string PromptType { get; set; }
 
-        public PromptItemList PromptItemList { get; set; }
+        public List<PromptItem> PromptItemList { get; set; }
 
         public bool AllowNulls { get; set; }
 

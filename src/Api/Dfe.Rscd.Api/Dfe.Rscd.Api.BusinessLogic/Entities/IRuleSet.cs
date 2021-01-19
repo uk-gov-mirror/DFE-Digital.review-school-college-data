@@ -6,8 +6,6 @@ namespace Dfe.Rscd.Api.BusinessLogic.Entities
     {
         AmendmentType AmendmentType { get; }
         AdjustmentOutcome Apply(Amendment amendment);
-
-        RuleSetContext Context { get; set; }
     }
 
     public class RuleSetContext

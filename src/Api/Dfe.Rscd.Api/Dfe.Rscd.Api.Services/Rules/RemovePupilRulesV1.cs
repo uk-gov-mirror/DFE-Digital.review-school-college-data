@@ -78,8 +78,6 @@ namespace Dfe.Rscd.Api.Services.Rules
             }
         }
 
-        public RuleSetContext Context { get; set; }
-
         public AmendmentType AmendmentType => AmendmentType.RemovePupil;
     }
 }

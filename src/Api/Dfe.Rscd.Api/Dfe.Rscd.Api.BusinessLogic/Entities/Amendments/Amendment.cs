@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Dfe.Rscd.Api.BusinessLogic.Entities
 {
@@ -7,6 +8,7 @@ namespace Dfe.Rscd.Api.BusinessLogic.Entities
         public Amendment()
         {
             AmendmentDetail = new AmendmentDetail();
+            Answers = new List<PromptAnswer>();
         }
 
         public string URN { get; set; }
@@ -19,6 +21,12 @@ namespace Dfe.Rscd.Api.BusinessLogic.Entities
         public string Id { get; set; }
         public CheckingWindow CheckingWindow { get; set; }
         public Pupil Pupil { get; set; }
+
+        public string DfesNumber { get;set; }
+
+        public List<PromptAnswer> Answers { get; set; }
+
+        public int InclusionReasonId { get; set; }
 
         public AmendmentDetail AmendmentDetail { get; set; }
     }

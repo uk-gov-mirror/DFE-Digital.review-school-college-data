@@ -5,7 +5,7 @@ namespace Dfe.Rscd.Api.Services
 {
     public partial class RemovePupilPromptsService
     {
-        public static AdjustmentOutcome GetAdjustmentPrompts_NotAtEndOfAdvancedStudy(Pupil student, int inclusionReasonId)
+        public static AdjustmentOutcome NotAtEndOfAdvancedStudy(Pupil student, int inclusionReasonId)
         {
             //List<Prompts> promptListReturn = new List<Prompts>();
             

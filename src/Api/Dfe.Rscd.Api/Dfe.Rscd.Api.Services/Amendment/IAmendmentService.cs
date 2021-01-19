@@ -7,7 +7,7 @@ namespace Dfe.Rscd.Api.Services
     {
         Amendment GetAmendment(CheckingWindow checkingWindow, string id);
         IEnumerable<IDictionary<string, object>> GetAmendments();
-        string AddAmendment(Amendment amendment);
+        AdjustmentOutcome AddAmendment(Amendment amendment);
         void RelateEvidence(string amendmentId, string evidenceFolderName, bool updateEvidenceOption);
         bool CancelAmendment(string amendmentId);
         IEnumerable<Amendment> GetAmendments(CheckingWindow checkingWindow, string urn);

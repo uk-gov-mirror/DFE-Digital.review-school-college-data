@@ -8,7 +8,7 @@ namespace Dfe.Rscd.Api.Services
     {
         AmendmentType AmendmentType { get; }
         rscd_Amendmenttype CrmAmendmentType  { get; }
-        Guid BuildAmendments(Amendment amendment);
+        AdjustmentOutcome BuildAmendments(Amendment amendment);
         AmendmentDetail CreateAmendmentDetails(CrmServiceContext context, rscd_Amendment amendment);
 
         Amendment CreateAmendment();

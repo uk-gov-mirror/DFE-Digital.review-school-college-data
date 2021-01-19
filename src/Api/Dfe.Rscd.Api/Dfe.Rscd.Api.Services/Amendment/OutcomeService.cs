@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Dfe.CspdAlpha.Web.Infrastructure.Crm;
 using Dfe.Rscd.Api.BusinessLogic.Entities;
@@ -14,25 +15,27 @@ namespace Dfe.Rscd.Api.Services
             _rules = rules;
         }
 
-        public void SetOutcome(rscd_Amendment amendmentDto, Amendment amendment)
+        public AdjustmentOutcome ApplyRules(rscd_Amendment amendmentDto, Amendment amendment)
         {
             if (amendment.EvidenceStatus == EvidenceStatus.Later)
             {
                 amendmentDto.rscd_Outcome = rscd_Outcome.Awaitingevidence;
+                return new AdjustmentOutcome(
+                    new CompleteSimpleOutcomeCheck(OutcomeStatus.AwaitingEvidence));
             }
+            
+            var ruleSet = _rules.FirstOrDefault(x => x.AmendmentType == amendment.AmendmentType);
+            
+            var outcome = ruleSet.Apply(amendment);
+            
+            if (outcome.OutcomeStatus == OutcomeStatus.AutoAccept)
+                amendmentDto.rscd_Outcome = rscd_Outcome.Autoapproved;
+            else if (outcome.OutcomeStatus == OutcomeStatus.AutoReject)
+                amendmentDto.rscd_Outcome = rscd_Outcome.Autorejected;
             else
-            {
-                var ruleSet = _rules.FirstOrDefault(x => x.AmendmentType == amendment.AmendmentType);
+                amendmentDto.rscd_Outcome = rscd_Outcome.AwaitingDfEreview;
 
-                var outcome = ruleSet.Apply(amendment);
-
-                if (outcome.CompleteSimpleOutcome.OutcomeStatus == OutcomeStatus.AutoAccept)
-                    amendmentDto.rscd_Outcome = rscd_Outcome.Autoapproved;
-                else if (outcome.CompleteSimpleOutcome.OutcomeStatus == OutcomeStatus.AutoReject)
-                    amendmentDto.rscd_Outcome = rscd_Outcome.Autorejected;
-                else
-                    amendmentDto.rscd_Outcome = rscd_Outcome.AwaitingDfEreview;
-            }
+            return outcome;
         }
     }
 }

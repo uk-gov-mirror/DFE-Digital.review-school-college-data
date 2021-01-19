@@ -16,13 +16,12 @@ namespace Dfe.Rscd.Api.BusinessLogic.Entities
             PromptShortText = "";
         }
 
-        public PromptAnswer(int promptId, string promptText, string promptShortText, Int16? updatedByDA)
+        public PromptAnswer(int promptId, string promptText, string promptShortText)
         {
             PromptID = promptId;
             PromptText = promptText;
             ColumnType = "";
             PromptShortText = promptShortText;
-            UpdatedByDA = updatedByDA;
         }
 
         public int PromptID { get; set; }
@@ -48,8 +47,6 @@ namespace Dfe.Rscd.Api.BusinessLogic.Entities
         public bool AllowNulls { get; set; }
 
         public string PromptShortText { get; set; }
-
-        public Int16? UpdatedByDA { get; set; }
 
         public enum PromptAnswerTypeEnum
         {

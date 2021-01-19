@@ -7,7 +7,7 @@ namespace Dfe.Rscd.Api.Services
 {
     public partial class RemovePupilPromptsService
     {
-        private List<Prompt> GetAdjustmentPrompts_PupilNotAtEndOfKeyStage2InAllSubjects(Pupil student)
+        private List<Prompt> PupilNotAtEndOfKeyStage2InAllSubjects(Pupil student)
         {
             //List<Prompts> promptListOut = new List<Prompts>();
 

@@ -7,7 +7,7 @@ namespace Dfe.Rscd.Api.Services
 {
     public partial class RemovePupilPromptsService
     {
-        private static List<Prompts> GetAdjustmentPrompts_PupilNotAtEndOfKeyStage3InAllSubjects(Pupil student)
+        private static List<Prompt> GetAdjustmentPrompts_PupilNotAtEndOfKeyStage3InAllSubjects(Pupil student)
         {
             //List<Prompts> promptListOut = new List<Prompts>();
 
@@ -43,7 +43,7 @@ namespace Dfe.Rscd.Api.Services
 
             //return promptListOut;
 
-            return new List<Prompts>();
+            return new List<Prompt>();
         }
 
         //private static bool IsYearGroupLessThanNine(string yearGroupCode)

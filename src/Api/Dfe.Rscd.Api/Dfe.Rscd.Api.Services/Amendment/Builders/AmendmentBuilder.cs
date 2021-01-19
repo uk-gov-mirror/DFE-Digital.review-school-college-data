@@ -42,10 +42,12 @@ namespace Dfe.Rscd.Api.Services
 
         public abstract rscd_Amendmenttype CrmAmendmentType { get; }
 
-        public Guid BuildAmendments(Amendment amendment)
+        public AdjustmentOutcome BuildAmendments(Amendment amendment)
         {
             using (var context = new CrmServiceContext(_organizationService))
             {
+                AdjustmentOutcome outcome;
+                
                 var amendmentDto = new rscd_Amendment
                 {
                     rscd_Checkingwindow = amendment.CheckingWindow.ToCRMCheckingWindow(),
@@ -55,35 +57,41 @@ namespace Dfe.Rscd.Api.Services
                     OwnerId = _firstLineTeam
                 };
 
-                _outcomeService.SetOutcome(amendmentDto, amendment);
+                outcome = _outcomeService.ApplyRules(amendmentDto, amendment);
 
-                MapAmendmentToDto(amendment, amendmentDto);
-                var amendmentTypeEntity = MapAmendmentTypeToDto(amendment);
-                context.AddObject(amendmentTypeEntity);
-                context.AddObject(amendmentDto);
-
-                // Save
-                var result = context.SaveChanges();
-                if (result.HasError)
-                    throw result.FirstOrDefault(e => e.Error != null)?.Error ?? new ApplicationException();
-
-                if (amendmentDto.rscd_Outcome == rscd_Outcome.Autoapproved ||
-                    amendmentDto.rscd_Outcome == rscd_Outcome.Autorejected ||
-                    amendmentDto.rscd_Evidencestatus == rscd_Evidencestatus.Later)
+                if (outcome.IsComplete && outcome.FurtherPrompts.Count == 0)
                 {
-                    amendmentDto.StateCode = rscd_AmendmentState.Inactive;
-                    amendmentDto.rscd_recorded_by = _autoRecordedUser;
-                    _organizationService.Update(amendmentDto);
+                    MapAmendmentToDto(amendment, amendmentDto);
+                    var amendmentTypeEntity = MapAmendmentTypeToDto(amendment);
+                    context.AddObject(amendmentTypeEntity);
+                    context.AddObject(amendmentDto);
+
+                    // Save
+                    var result = context.SaveChanges();
+                    if (result.HasError)
+                        throw result.FirstOrDefault(e => e.Error != null)?.Error ?? new ApplicationException();
+
+                    if (amendmentDto.rscd_Outcome == rscd_Outcome.Autoapproved ||
+                        amendmentDto.rscd_Outcome == rscd_Outcome.Autorejected ||
+                        amendmentDto.rscd_Evidencestatus == rscd_Evidencestatus.Later)
+                    {
+                        amendmentDto.StateCode = rscd_AmendmentState.Inactive;
+                        amendmentDto.rscd_recorded_by = _autoRecordedUser;
+                        _organizationService.Update(amendmentDto);
+                    }
+
+                    var relationship = new Relationship(RelationshipKey);
+                    _organizationService.Associate(amendmentTypeEntity.LogicalName, amendmentTypeEntity.Id, relationship,
+                        new EntityReferenceCollection
+                        {
+                            new EntityReference(amendmentDto.LogicalName, amendmentDto.Id)
+                        });
+
+                    outcome.IsAdjustmentCreated = true;
+                    outcome.NewAmendmentId = amendmentDto.Id;
                 }
 
-                var relationship = new Relationship(RelationshipKey);
-                _organizationService.Associate(amendmentTypeEntity.LogicalName, amendmentTypeEntity.Id, relationship,
-                    new EntityReferenceCollection
-                    {
-                        new EntityReference(amendmentDto.LogicalName, amendmentDto.Id)
-                    });
-
-                return amendmentDto.Id;
+                return outcome;
             }
         }
 

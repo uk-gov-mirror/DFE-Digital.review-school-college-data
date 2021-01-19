@@ -6,195 +6,69 @@ using Dfe.Rscd.Api.Infrastructure.SqlServer.Repositories;
 
 namespace Dfe.Rscd.Api.Services.Rules
 {
-    public partial class RemovePupilRulesV2 : IRuleSet
+    public partial class RemovePupilRulesV2 : BaseRules, IRuleSet
     {
-        private readonly IDataRepository _dataRepository;
+        public RemovePupilRulesV2(IDataRepository dataRepository) : base(dataRepository){ }
 
-        public RemovePupilRulesV2(IDataRepository dataRepository)
+        public override AmendmentType AmendmentType => AmendmentType.RemovePupil;
+
+
+        public override AdjustmentOutcome Apply(Amendment amendment)
         {
-            _dataRepository = dataRepository;
-        }
-
-        public AmendmentType AmendmentType => AmendmentType.RemovePupil;
-
-        public AdjustmentOutcome Apply(Amendment amendment)
-        {
-            var furtherPrompts = Context.PromptAnswers;
             AdjustmentOutcome adjOutcomeOut;
 
-            var student = Context.Pupil;
-            var inclusionReasonId = Context.InclusionReasonId;
-            var promptAnswers = Context.PromptAnswers;
-            var dfesNumber = Context.DfesNumber;
+            var student = amendment.Pupil;
 
-            switch (inclusionReasonId)
+            switch (amendment.InclusionReasonId)
             {
                 //Reason 8
                 case ((int)ReasonsForAdjustment.AdmittedFromAbroad):
                     adjOutcomeOut =
-                        AdmittedFromAbroad(dfesNumber, student, inclusionReasonId, promptAnswers);
+                        AdmittedFromAbroad(amendment.DfesNumber, student, amendment.InclusionReasonId, amendment.Answers);
                     break;
 
                 //Reason 10
                 case ((int)ReasonsForAdjustment.AdmittedFollowingPermanentExclusionFromMaintainedSchool):
                     adjOutcomeOut =
-                        AdmittedFollowingPermanentExclusion(student, inclusionReasonId, promptAnswers);
+                        AdmittedFollowingPermanentExclusion(student, amendment.InclusionReasonId, amendment.Answers);
                     break;
 
                 //Reason 12
                 case ((int)ReasonsForAdjustment.Deceased):
                     adjOutcomeOut =
-                        ProcessInclusionPromptResponses_Deceased(inclusionReasonId, promptAnswers, student.Id);
+                        ProcessInclusionPromptResponses_Deceased(amendment.InclusionReasonId, amendment.Answers, student.Id);
                     break;
 
                 //Reason 19
                 case ((int)ReasonsForAdjustment.KS4Other):
                     adjOutcomeOut =
-                        ProcessInclusionPromptResponses_OtherKS4(student, inclusionReasonId, promptAnswers);
+                        ProcessInclusionPromptResponses_OtherKS4(student, amendment.InclusionReasonId, amendment.Answers);
                     break;
 
                 //Reason 54
                 case ((int)ReasonsForAdjustment.NotAtEndOfAdvancedStudy):
                     adjOutcomeOut =
-                        ProcessInclusionPromptResponses_NotAtEndOfAdvancedStudy(student, inclusionReasonId, promptAnswers);
+                        ProcessInclusionPromptResponses_NotAtEndOfAdvancedStudy(student, amendment.InclusionReasonId, amendment.Answers);
                     break;
 
                 default:
-                    adjOutcomeOut = new AdjustmentOutcome(new List<Prompt>());
+                    adjOutcomeOut = new AdjustmentOutcome(new CompletedNonStudentAdjustment("Adjustment reason not found"));
                     break;
             }
+
+            ApplyOutcomeToAmendment(amendment, adjOutcomeOut);
 
             return adjOutcomeOut;
         }
 
-        public RuleSetContext Context { get; set; }
-
-
-        #region Private nethods useful for ProcessInclusionPromptResponses
-
-        internal bool IsPromptAnswerComplete(List<PromptAnswer> promptAnswerList, int promptId)
+        public void ApplyOutcomeToAmendment(Amendment amendment, AdjustmentOutcome adjustmentOutcome)
         {
-            bool isPromptAnswerComplete = false;
-
-            if (promptAnswerList.HasPromptAnswer(promptId))
+            if (adjustmentOutcome.IsComplete && adjustmentOutcome.FurtherPrompts.Count == 0 && adjustmentOutcome.CompletedRequest != null)
             {
-                PromptAnswer answer = promptAnswerList.GetPromptAnswerByPromptId(promptId);
-                isPromptAnswerComplete = IsPromptAnswerComplete(answer);
+                amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_ScrutinyReasonCode, adjustmentOutcome.CompletedRequest.ScrutinyStatusCode);
+                amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_ReasonCode, adjustmentOutcome.CompletedRequest.InclusionReasonID);
+                amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_Detail, adjustmentOutcome.CompletedRequest.ScrutinyStatusDescription);
             }
-            else
-            {
-                isPromptAnswerComplete = false;
-            }
-
-            return isPromptAnswerComplete;
-
         }
-
-        internal bool IsPromptAnswerComplete(PromptAnswer answer)
-        {
-            bool isPromptAnswerComplete = false;
-            var prompt = _dataRepository.Get<Prompt>().Single(x => x.PromptID == answer.PromptID);
-
-            bool promptAllowsNulls = prompt.AllowNulls;
-
-            switch (answer.PromptAnswerType)
-            {
-                case (PromptAnswer.PromptAnswerTypeEnum.Info):
-                    if ((answer.PromptAcknowledgeInfoSightAnswer.HasValue && answer.PromptAcknowledgeInfoSightAnswer.Value) || promptAllowsNulls)
-                        isPromptAnswerComplete = true;
-                    else
-                        isPromptAnswerComplete = false;
-                    break;
-
-                case (PromptAnswer.PromptAnswerTypeEnum.Text):
-                    if (!String.IsNullOrEmpty(answer.PromptStringAnswer) || promptAllowsNulls)
-                        isPromptAnswerComplete = true;
-                    else
-                        isPromptAnswerComplete = false;
-                    break;
-
-                case (PromptAnswer.PromptAnswerTypeEnum.Date):
-                    if (answer.PromptDateTimeAnswer != null || promptAllowsNulls)
-                        isPromptAnswerComplete = true;
-                    else
-                        isPromptAnswerComplete = false;
-                    break;
-
-                case (PromptAnswer.PromptAnswerTypeEnum.Integer):
-                    if (answer.PromptIntegerAnswer.HasValue)
-                        isPromptAnswerComplete = true;
-                    else
-                        isPromptAnswerComplete = false;
-                    break;
-
-                case (PromptAnswer.PromptAnswerTypeEnum.ListBox):
-                    if (!String.IsNullOrEmpty(answer.PromptSelectedValueAnswer) || promptAllowsNulls)
-                        isPromptAnswerComplete = true;
-                    else
-                        isPromptAnswerComplete = false;
-                    break;
-
-                case (PromptAnswer.PromptAnswerTypeEnum.YesNo):
-                    if (answer.PromptYesNoAnswer.HasValue || promptAllowsNulls)
-                        isPromptAnswerComplete = true;
-                    else
-                        isPromptAnswerComplete = false;
-                    break;
-
-                default:
-                    isPromptAnswerComplete = false;
-                    break;
-            }
-
-            return isPromptAnswerComplete;
-        }
-
-        private AdjustmentOutcome ProcessSingularFurtherPrompt(int furtherPromptId,
-            int studentId,
-            int? inclusionReasonId,
-            List<PromptAnswer> answers,
-            int scrutinyReasonId,
-            int? rejectionReasonCode,
-            string scrutinyStatusCode,
-            string completionMessage)
-        {
-            var prompt = _dataRepository.Get<Prompt>().Single(x => x.PromptID == furtherPromptId);
-
-            if (!answers.HasPromptAnswer(furtherPromptId))
-            {
-                List<Prompt> furtherPrompts = new List<Prompt> { prompt };
-                return new AdjustmentOutcome(furtherPrompts);
-            }
-
-            if (answers.HasPromptAnswer(furtherPromptId) && IsPromptAnswerComplete(answers, furtherPromptId))
-            {
-                return new AdjustmentOutcome(new CompletedStudentAdjustment(studentId,
-                    inclusionReasonId,
-                    answers,
-                    scrutinyReasonId,
-                    rejectionReasonCode,
-                    scrutinyStatusCode,
-                    completionMessage,
-                    OutcomeStatus.AutoAccept)
-                    );
-            }
-
-            throw new Exception($"Prompt with id {furtherPromptId}, not found");
-        }
-
-        private string GetInfoPromptText(int promptId)
-        {
-            var prompt = _dataRepository.Get<Prompt>()
-                .FirstOrDefault(p => p.PromptID == promptId);
-
-            if (prompt != null)
-            {
-                return prompt.PromptText;
-            }
-
-            return "Prompt not found!";
-        }
-
-        #endregion
     }
 }

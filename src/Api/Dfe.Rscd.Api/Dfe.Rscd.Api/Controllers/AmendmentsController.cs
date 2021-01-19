@@ -17,10 +17,12 @@ namespace Dfe.Rscd.Api.Controllers
     public class AmendmentsController : ControllerBase
     {
         private readonly IAmendmentService _amendmentService;
+        private readonly IPromptService _promptService;
 
-        public AmendmentsController(IAmendmentService amendmentService)
+        public AmendmentsController(IAmendmentService amendmentService, IPromptService promptService)
         {
             _amendmentService = amendmentService;
+            _promptService = promptService;
         }
 
         // GET: api/Amendments/123456
@@ -94,10 +96,11 @@ namespace Dfe.Rscd.Api.Controllers
         {
             try
             {
-                var amendmentReference = _amendmentService.AddAmendment(amendment);
-                var response = new GetResponse<string>
+                var outcome = _amendmentService.AddAmendment(amendment);
+
+                var response = new GetResponse<AdjustmentOutcome>
                 {
-                    Result = amendmentReference,
+                    Result = outcome,
                     Error = new Error()
                 };
                 return Ok(response);
@@ -126,6 +129,36 @@ namespace Dfe.Rscd.Api.Controllers
                 };
                 return BadRequest(response);
             }
+        }
+
+        [HttpGet]
+        [Route("questions/{pincludeCode}/{reasonId}")]
+        [SwaggerOperation(
+            Summary = "Returns the requested amendment prompts/questions for specific reason and pupil include code",
+            Description = "Returns the requested amendment prompts/questions for specific reason and pupil include code",
+            OperationId = "Prompts",
+            Tags = new[] {"Amendments", "Prompts"}
+        )]
+        [ProducesResponseType(typeof(GetResponse<AdjustmentOutcome>), 200)]
+        public IActionResult GetAmendPrompts(
+            [FromRoute] [SwaggerParameter("The people include code", Required = true)]
+            string pincludeCode,
+            [FromRoute] [SwaggerParameter("The amendment reason id", Required = true)]
+            int reasonId,
+            [FromRoute] [SwaggerParameter("The checking window to request amendments from", Required = true)]
+            string checkingwindow)
+        {
+            Enum.TryParse(checkingwindow.Replace("-", string.Empty), true,
+                out CheckingWindow checkingWindow);
+
+            var prompts = _promptService.GetAdjustmentPrompts(checkingWindow, pincludeCode, reasonId);
+
+            var response = new GetResponse<AdjustmentOutcome>
+            {
+                Result = prompts,
+                Error = new Error()
+            };
+            return Ok(response);
         }
 
         [HttpPut]

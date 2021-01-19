@@ -6,7 +6,7 @@ namespace Dfe.Rscd.Api.Services
 {
     public partial class RemovePupilPromptsService
     {
-        private static AdjustmentOutcome GetAdjustmentPrompts_AddPupilToAchievementAndAttainmentTablesKS5(Pupil student, int inclusionReasonId)
+        private static AdjustmentOutcome AddPupilToAchievementAndAttainmentTablesKS5(Pupil student, int inclusionReasonId)
         {
             //List<Prompts> promptListReturn = new List<Prompts>();
 

@@ -52,21 +52,25 @@ namespace Dfe.Rscd.Api.Services
             }
         }
 
-        public string AddAmendment(Amendment amendment)
+        public AdjustmentOutcome AddAmendment(Amendment amendment)
         {
             CurrentBuilder = RetrieveBuilderForAmendment(amendment.AmendmentType);
 
-            var amendmentId = CurrentBuilder.BuildAmendments(amendment);
+            var outcome = CurrentBuilder.BuildAmendments(amendment);
 
-            // Relate to establishment
-            var amendmentEstablishment = GetOrCreateEstablishment(amendment.CheckingWindow, amendment.URN);
-            RelateEstablishmentToAmendment(amendmentEstablishment, amendmentId);
+            if (outcome.IsAdjustmentCreated && outcome.IsComplete)
+            {
+                var amendmentEstablishment = GetOrCreateEstablishment(amendment.CheckingWindow, amendment.URN);
+                RelateEstablishmentToAmendment(amendmentEstablishment, outcome.NewAmendmentId);
 
-            // RelateEvidence
-            if (amendment.EvidenceStatus == EvidenceStatus.Now)
-                RelateEvidence(amendmentId, amendment.EvidenceFolderName, false);
+                // RelateEvidence
+                if (amendment.EvidenceStatus == EvidenceStatus.Now)
+                    RelateEvidence(amendment.Id, amendment.EvidenceFolderName, false);
 
-            return GetAmendment(amendment.CheckingWindow, amendmentId).Reference;
+                outcome.NewAmendmentReferenceNumber = GetAmendment(amendment.CheckingWindow, outcome.NewAmendmentId).Reference;
+            }
+
+            return outcome;
         }
 
         public void RelateEvidence(string id, string evidenceFolderName, bool updateEvidenceOption)

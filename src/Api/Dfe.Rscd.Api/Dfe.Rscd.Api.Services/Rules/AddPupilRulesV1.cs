@@ -9,8 +9,6 @@ namespace Dfe.Rscd.Api.Services.Rules
             return new AdjustmentOutcome(new CompleteSimpleOutcomeCheck(OutcomeStatus.AwatingDfeReview));
         }
 
-        public RuleSetContext Context { get; set; }
-
         public AmendmentType AmendmentType => AmendmentType.AddPupil;
     }
 }

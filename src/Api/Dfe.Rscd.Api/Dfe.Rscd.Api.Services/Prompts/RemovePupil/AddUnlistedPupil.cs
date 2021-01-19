@@ -7,7 +7,7 @@ namespace Dfe.Rscd.Api.Services
 {
     public partial class RemovePupilPromptsService
     {
-        private static AdjustmentOutcome GetAdjustmentPrompts_AddUnlistedPupilToAATKS2(Pupil student, int inclusionReasonId)
+        private static AdjustmentOutcome AddUnlistedPupilToAATKS2(Pupil student, int inclusionReasonId)
         {
             //if (student.StudentChanges.Count == 0 ||
             //    student.StudentChanges.First() == null || student.StudentChanges.First().ENTRYDAT == null)
@@ -19,7 +19,7 @@ namespace Dfe.Rscd.Api.Services
             return new AdjustmentOutcome(new CompletedNonStudentAdjustment("TODO"));
         }
 
-        private static AdjustmentOutcome GetAdjustmentPrompts_AddUnlistedPupilToAATKS4(Pupil student, int inclusionReasonId)
+        private static AdjustmentOutcome AddUnlistedPupilToAATKS4(Pupil student, int inclusionReasonId)
         {
             //short yearGroup;
 
@@ -53,7 +53,7 @@ namespace Dfe.Rscd.Api.Services
             return new AdjustmentOutcome(new CompletedNonStudentAdjustment("TODO"));
         }
 
-        private static AdjustmentOutcome GetAdjustmentPrompts_AddUnlistedStudentToAATKS5(Pupil student, int inclusionReasonId)
+        private static AdjustmentOutcome AddUnlistedStudentToAATKS5(Pupil student, int inclusionReasonId)
         {
             //short yearGroup;
             

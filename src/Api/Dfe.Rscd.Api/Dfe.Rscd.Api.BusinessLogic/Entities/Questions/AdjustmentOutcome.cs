@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Dfe.Rscd.Api.BusinessLogic.Entities
 {
@@ -10,8 +11,11 @@ namespace Dfe.Rscd.Api.BusinessLogic.Entities
         public CompleteSimpleOutcomeCheck CompleteSimpleOutcome;
         public bool IsComplete;
         public bool IsAdjustmentCreated;
+        public Guid NewAmendmentId { get;set; }
+        public string NewAmendmentReferenceNumber { get; set; }
 
-        protected AdjustmentOutcome() { }
+        public OutcomeStatus OutcomeStatus { get; set; }
+
 
         public AdjustmentOutcome(List<Prompt> furtherPrompts)
         {
@@ -23,6 +27,7 @@ namespace Dfe.Rscd.Api.BusinessLogic.Entities
         public AdjustmentOutcome(CompletedStudentAdjustment completedRequest)
         {
             CompletedRequest = completedRequest;
+            OutcomeStatus = completedRequest.OutcomeStatus;
             IsComplete = true;
             IsAdjustmentCreated = true;
         }
@@ -30,6 +35,7 @@ namespace Dfe.Rscd.Api.BusinessLogic.Entities
         public AdjustmentOutcome(CompleteSimpleOutcomeCheck completedRequest)
         {
             CompleteSimpleOutcome = completedRequest;
+            OutcomeStatus = completedRequest.OutcomeStatus;
             IsComplete = true;
             IsAdjustmentCreated = false;
         }
@@ -37,6 +43,7 @@ namespace Dfe.Rscd.Api.BusinessLogic.Entities
         public AdjustmentOutcome(CompletedNonStudentAdjustment completedNonRequest)
         {
             CompletedNonRequest = completedNonRequest;
+            OutcomeStatus = completedNonRequest.OutcomeStatus;
             IsComplete = true;
             IsAdjustmentCreated = false;
         }
