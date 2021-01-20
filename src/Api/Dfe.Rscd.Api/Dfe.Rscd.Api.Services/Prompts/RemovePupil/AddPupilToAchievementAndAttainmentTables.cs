@@ -6,7 +6,7 @@ namespace Dfe.Rscd.Api.Services
 {
     public partial class RemovePupilPromptsService
     {
-        private static AdjustmentOutcome AddPupilToAchievementAndAttainmentTablesKS2(Pupil student)
+        private static AmendmentOutcome AddPupilToAchievementAndAttainmentTablesKS2(Pupil student)
         {
             //List<Prompts> promptListOut = new List<Prompts>();
 
@@ -21,14 +21,14 @@ namespace Dfe.Rscd.Api.Services
             //{
             //    promptListOut.Add(GetPromptByPromptID(22110));
             //    promptListOut.Add(GetPromptByPromptID(Constants.PROMPT_ID_NC_YEAR_GROUP_KS2));
-            //    return new AdjustmentOutcome(promptListOut);
+            //    return new AmendmentOutcome(promptListOut);
             //}
             //else
             //{
-            //    return new AdjustmentOutcome(new CompletedNonStudentAdjustment(GetInfoPromptText(22120)));
+            //    return new AmendmentOutcome(new CompletedNonStudentAdjustment(GetInfoPromptText(22120)));
             //}
 
-            return new AdjustmentOutcome(new CompletedNonStudentAdjustment("TODO"));
+            return new AmendmentOutcome(new CompletedNonStudentAdjustment("TODO"));
         }
     }
 }

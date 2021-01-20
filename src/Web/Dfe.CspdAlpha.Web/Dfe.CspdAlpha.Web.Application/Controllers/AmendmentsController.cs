@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using Dfe.CspdAlpha.Web.Application.Application;
 using Dfe.CspdAlpha.Web.Application.Application.Helpers;
@@ -8,7 +7,6 @@ using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
 using Microsoft.AspNetCore.Mvc;
 using Dfe.Rscd.Web.ApiClient;
-using Microsoft.AspNetCore.SignalR;
 using ProblemDetails = Dfe.Rscd.Web.ApiClient.ProblemDetails;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
@@ -71,33 +69,10 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 AmendmentType = amendment.AmendmentType,
                 PupilDetails = new PupilViewModel(amendment.Pupil, CheckingWindow)
             };
-            if (viewModel.AmendmentType == AmendmentType.RemovePupil)
-            {
-                viewModel.BackController = "RemovePupil";
-                var reason = amendment.AmendmentDetail.GetField<int?>(Constants.RemovePupil.ReasonCode);
 
-                switch (reason)
-                {
-                    case Constants.NOT_AT_END_OF_16_TO_18_STUDY:
-                    case Constants.INTERNATIONAL_STUDENT:
-                    case Constants.DECEASED:
-                        viewModel.BackAction = "Reason";
-                        break;
-                    case Constants.NOT_ON_ROLL:
-                    case Constants.OTHER_EVIDENCE_NOT_REQUIRED:
-                        viewModel.BackAction = "Reason";
-                        break;
-                    default:
-                        viewModel.BackAction = "Details";
-                        break;
-                }
-            }
-            else if (viewModel.AmendmentType == AmendmentType.AddPupil)
-            {
-                viewModel.BackController = "Evidence";
-                viewModel.BackAction = amendment.EvidenceStatus == EvidenceStatus.Now ? "Upload" : "Index";
-            }
-
+            viewModel.BackAction = "Index";
+            viewModel.BackController = "Reason";
+            
             return viewModel;
         }
 
@@ -121,16 +96,20 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
             try
             {
-                var id = _amendmentService.CreateAmendment(amendment);
+                amendment.IsUserConfirmed = true;
+                var amendmentOutcome = _amendmentService.CreateAmendment(amendment);
                 // Create amendment and redirect to amendment received page
-                if (!string.IsNullOrWhiteSpace(id))
+                
+                if (amendmentOutcome.IsComplete && amendmentOutcome.IsAmendmentCreated)
                 {
                     HttpContext.Session.Remove(Constants.AMENDMENT_SESSION_KEY);
-                    HttpContext.Session.Set(Constants.NEW_AMENDMENT_ID, id);
+                    HttpContext.Session.Set(Constants.NEW_AMENDMENT_ID, amendmentOutcome.NewAmendmentId);
+                    HttpContext.Session.Set(Constants.NEW_REFERENCE_ID, amendmentOutcome.NewAmendmentReferenceNumber);
+
                     return RedirectToAction("Received");
                 }
 
-                return View(GetConfirmViewModel(amendment));
+                return RedirectToAction("Prompt");
             }
             catch (ApiException<ProblemDetails> apiException)
             {
@@ -150,8 +129,32 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
         public IActionResult Received()
         {
-            var amendmentId = HttpContext.Session.Get<string>(Constants.NEW_AMENDMENT_ID);
-            return View("Received", amendmentId);
+            var reference = HttpContext.Session.Get<string>(Constants.NEW_REFERENCE_ID);
+            return View("Received", reference);
+        }
+
+        public IActionResult Prompt()
+        {
+            // Ensure steps haven't been manually skipped
+            var amendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
+            if (amendment == null)
+            {
+                return RedirectToAction("Index", "TaskList");
+            }
+
+            var amendmentOutcome = _amendmentService.CreateAmendment(amendment);
+
+            amendment.IsNewAmendment = false;
+            amendment.EvidenceStatus = amendmentOutcome.EvidenceStatus;
+            HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, amendment);
+
+            if (amendmentOutcome.IsComplete && amendmentOutcome.FurtherPrompts == null)
+            {
+                return RedirectToAction("Confirm");
+            }
+
+            return View("Prompt", new PromptViewModel(amendmentOutcome){AmendmentType = amendment.AmendmentType,
+                PupilDetails = new PupilViewModel(amendment.Pupil, CheckingWindow)});
         }
     }
 }

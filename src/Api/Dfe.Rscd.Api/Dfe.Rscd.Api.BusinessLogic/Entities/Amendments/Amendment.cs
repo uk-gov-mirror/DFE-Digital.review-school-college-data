@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Dfe.Rscd.Api.BusinessLogic.Entities.Amendments;
 
 namespace Dfe.Rscd.Api.BusinessLogic.Entities
 {
@@ -9,10 +10,13 @@ namespace Dfe.Rscd.Api.BusinessLogic.Entities
         {
             AmendmentDetail = new AmendmentDetail();
             Answers = new List<PromptAnswer>();
+            IsNewAmendment = true;
         }
 
         public string URN { get; set; }
         public AmendmentType AmendmentType { get; set; }
+
+        public bool IsUserConfirmed { get;set; }
         public string EvidenceFolderName { get; set; }
         public EvidenceStatus EvidenceStatus { get; set; }
         public string Reference { get; set; }
@@ -28,6 +32,10 @@ namespace Dfe.Rscd.Api.BusinessLogic.Entities
 
         public int InclusionReasonId { get; set; }
 
+        public bool IsNewAmendment { get; set; }
+
         public AmendmentDetail AmendmentDetail { get; set; }
     }
+
+
 }

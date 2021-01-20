@@ -1,0 +1,65 @@
+@using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments
+@model PromptViewModel
+@{
+    ViewData["Title"] = Model.GetTitle();
+}
+
+@section BackLink
+{
+    <a class="govuk-back-link" asp-controller="@Model.BackController" asp-action="@Model.BackAction" >Back</a>
+}
+
+<div asp-validation-summary="All"></div>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-l govuk-!-margin-bottom-3">@ViewData["Title"]</h1>
+    </div>
+
+    <div class="govuk-grid-column-full">
+        <details class="govuk-details govuk-!-font-size-16" data-module="govuk-details">
+            <summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text">
+                    Further questions needed to proceed with amendment
+                </span>
+            </summary>
+            <div class="govuk-details__text">
+                <partial name="_PupilDetailsView" model="@Model.PupilDetails" />
+            </div>
+        </details>
+    </div>
+
+    <div class="govuk-grid-column-full">
+        
+            @foreach (var prompt in Model.Questions)
+            {
+                <p class="govuk-body">@prompt.PromptText</p>
+                <p class="govuk-body">@prompt.PromptType</p>
+            }
+
+    </div>
+</div>
+
+<form method="post">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset">
+                    <div>
+                        <p class="govuk-body">Continue to next question</p>
+                    </div>
+                    <div>
+                        <button name="ConfirmAmendment" value="true" class="govuk-button govuk-!-margin-right-1" data-module="govuk-button">
+                            Yes
+                        </button>
+                        <button name="ConfirmAmendment" value="false" class="govuk-button govuk-button--secondary app-modal__cancel-link" data-module="govuk-button">
+                            No
+                        </button>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</form>
+
+<partial name="_CancelAmendment"/>

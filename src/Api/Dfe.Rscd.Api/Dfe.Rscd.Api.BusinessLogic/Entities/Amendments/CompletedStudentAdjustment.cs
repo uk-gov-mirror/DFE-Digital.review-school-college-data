@@ -16,11 +16,11 @@ namespace Dfe.Rscd.Api.BusinessLogic.Entities
         public int ScrutinyReasonID;
         public string ScrutinyStatusCode;
         public string ScrutinyStatusDescription;
-        public int StudentID;
+        public string StudentID;
         public int? StudentRequestID;
         public List<ValidationFailure> WarningMessageList;
 
-        public CompletedStudentAdjustment(int studentId,
+        public CompletedStudentAdjustment(string studentId,
             int? inclusionReasonId,
             List<PromptAnswer> promptAnswerList,
             int scrutinyReasonId,

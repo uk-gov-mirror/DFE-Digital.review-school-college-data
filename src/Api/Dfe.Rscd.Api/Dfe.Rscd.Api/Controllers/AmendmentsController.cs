@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using CsvHelper;
 using Dfe.Rscd.Api.BusinessLogic.Entities;
 using Dfe.Rscd.Api.Models;
@@ -18,11 +19,13 @@ namespace Dfe.Rscd.Api.Controllers
     {
         private readonly IAmendmentService _amendmentService;
         private readonly IPromptService _promptService;
+        private readonly IDataService _dataService;
 
-        public AmendmentsController(IAmendmentService amendmentService, IPromptService promptService)
+        public AmendmentsController(IAmendmentService amendmentService, IPromptService promptService, IDataService dataService)
         {
             _amendmentService = amendmentService;
             _promptService = promptService;
+            _dataService = dataService;
         }
 
         // GET: api/Amendments/123456
@@ -89,21 +92,31 @@ namespace Dfe.Rscd.Api.Controllers
             OperationId = "Create Amendment",
             Tags = new[] {"Amendments"}
         )]
-        [ProducesResponseType(typeof(GetResponse<string>), 200)]
+        [ProducesResponseType(typeof(GetResponse<AmendmentOutcome>), 200)]
         [ProducesResponseType(400)]
         public IActionResult Post([FromBody] [SwaggerRequestBody("Amendment to add to CRM", Required = true)]
             Amendment amendment)
         {
             try
             {
-                var outcome = _amendmentService.AddAmendment(amendment);
+                if (amendment.IsNewAmendment)
+                {
+                    var prompts = _promptService.GetAdjustmentPrompts(amendment.CheckingWindow, amendment.Pupil.PINCL.P_INCL, amendment.InclusionReasonId);
 
-                var response = new GetResponse<AdjustmentOutcome>
+                    var response = new GetResponse<AmendmentOutcome>
+                    {
+                        Result = prompts,
+                        Error = new Error()
+                    };
+                    return Ok(response);
+                }
+
+                var outcome = _amendmentService.AddAmendment(amendment);
+                return Ok(new GetResponse<AmendmentOutcome>
                 {
                     Result = outcome,
                     Error = new Error()
-                };
-                return Ok(response);
+                });
             }
             catch (NotAllowedException ne)
             {
@@ -132,30 +145,26 @@ namespace Dfe.Rscd.Api.Controllers
         }
 
         [HttpGet]
-        [Route("questions/{pincludeCode}/{reasonId}")]
         [SwaggerOperation(
-            Summary = "Returns the requested amendment prompts/questions for specific reason and pupil include code",
-            Description = "Returns the requested amendment prompts/questions for specific reason and pupil include code",
-            OperationId = "Prompts",
-            Tags = new[] {"Amendments", "Prompts"}
+            Summary = "Display a list of Inclusion adjustment reasons allowed for a certain pupil inclusion number",
+            Description = @"Displays a lists of a common reference data list Inclusion adjustment reasons",
+            OperationId = "InclusionAdjustmentReasons",
+            Tags = new[] { "Amendments" }
         )]
-        [ProducesResponseType(typeof(GetResponse<AdjustmentOutcome>), 200)]
-        public IActionResult GetAmendPrompts(
-            [FromRoute] [SwaggerParameter("The people include code", Required = true)]
-            string pincludeCode,
-            [FromRoute] [SwaggerParameter("The amendment reason id", Required = true)]
-            int reasonId,
+        [Route("inclusion-reasons/pincl/{id}")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(typeof(GetResponse<IEnumerable<InclusionAdjustmentReason>>), 200)]
+        public async Task<IActionResult> GetInclusionAdjustmentReasonsByPincl(
+            [FromRoute] [SwaggerParameter("The pupil inclusion identifier", Required = true)]
+            string id,
             [FromRoute] [SwaggerParameter("The checking window to request amendments from", Required = true)]
-            string checkingwindow)
+            string checkingwindow
+            )
         {
-            Enum.TryParse(checkingwindow.Replace("-", string.Empty), true,
-                out CheckingWindow checkingWindow);
-
-            var prompts = _promptService.GetAdjustmentPrompts(checkingWindow, pincludeCode, reasonId);
-
-            var response = new GetResponse<AdjustmentOutcome>
+            var list = _dataService.GetInclusionAdjustmentReasons(checkingwindow.ToDomainCheckingWindow(), id);
+            var response = new GetResponse<IEnumerable<InclusionAdjustmentReason>>
             {
-                Result = prompts,
+                Result = list,
                 Error = new Error()
             };
             return Ok(response);

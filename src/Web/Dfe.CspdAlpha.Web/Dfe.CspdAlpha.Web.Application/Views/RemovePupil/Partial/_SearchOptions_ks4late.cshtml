@@ -1,0 +1,51 @@
+@model Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil.SearchPupilsViewModel
+
+<p>Enter UPN or Pupil name</p>
+<form method="post">
+    <fieldset class="govuk-fieldset" aria-describedby="how-contacted-conditional-hint">
+        <label class="govuk-fieldset__legend govuk-fieldset__legend--s">Select one</label>
+        <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
+            <div class="govuk-form-group">
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" asp-for="SearchType" id="SearchType-PupilID" type="radio" value="PupilID" data-aria-controls="conditional-SearchType-conditional">
+                    <label class="govuk-label govuk-radios__label" for="SearchType-PupilID">
+                        UPN (Unique Pupil Number)
+                    </label>
+                </div>
+                <div class="govuk-radios__conditional govuk-radios__conditional--hidden" asp-for="PupilID" id="conditional-SearchType-conditional">
+                    <div class="govuk-form-group" asp-for="PupilID">
+                        <label class="govuk-label" asp-for="PupilID">
+                            Enter a UPN
+                        </label>
+                        <input class="govuk-input govuk-!-width-one-third" asp-for="PupilID" type="text">
+
+                    </div>
+                    <div class="govuk-form-group">
+                        <input type="submit" class="govuk-button" data-module="govuk-button" value="Search" />
+
+                    </div>
+                </div>
+            </div>
+            <div class="govuk-form-group">
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" asp-for="SearchType" id="SearchType-Name" type="radio" value="Name" data-aria-controls="conditional-SearchType-conditional-2">
+                    <label class="govuk-label govuk-radios__label" for="SearchType-Name">
+                        Pupil name
+                    </label>
+                </div>
+                <div class="govuk-radios__conditional govuk-radios__conditional--hidden" asp-for="Name" id="conditional-SearchType-conditional-2">
+                    <div class="govuk-form-group" asp-for="Name">
+                        <label class="govuk-label" asp-for="Name">
+                            Pupil a student name
+                        </label>
+                        <input class="govuk-input govuk-!-width-two-thirds" asp-for="Name" type="text">
+
+                    </div>
+                    <div class="govuk-form-group">
+                        <input type="submit" class="govuk-button" data-module="govuk-button" value="Search" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</form>

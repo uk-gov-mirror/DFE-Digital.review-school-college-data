@@ -91,7 +91,7 @@ namespace Dfe.Rscd.Api.Services
             removeDto.rscd_Subreason = removeDetail.GetField<string>(RemovePupilAmendment.FIELD_SubReason);
             removeDto.rscd_Details = removeDetail.GetField<string>(RemovePupilAmendment.FIELD_Detail);
 
-            if (pupil.Allocations != null)
+            if (pupil.Allocations != null && pupil.Allocations.Count > 0)
             {
                 removeDto.rscd_allocationyear = pupil.Allocations.Select(x => x.Year).FirstOrDefault();
                 removeDto.rscd_allocationyeardescription =

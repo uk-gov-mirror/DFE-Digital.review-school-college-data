@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Dfe.CspdAlpha.Web.Application.Models.Common;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
+using Dfe.Rscd.Web.ApiClient;
 
 namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil
 {
@@ -16,14 +17,6 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil
 
         public int? SelectedReasonCode { get; set; }
 
-        public Dictionary<int, string> Reasons  => new Dictionary<int, string>
-        {
-            { Constants.NOT_AT_END_OF_16_TO_18_STUDY, "Not at the end of 16 to 18 study" },
-            { Constants.INTERNATIONAL_STUDENT, "International student" },
-            { Constants.DECEASED, "Deceased" },
-            { Constants.NOT_ON_ROLL, "Not on roll" },
-            { Constants.OTHER_WITH_EVIDENCE, "Other with evidence" },
-            { Constants.OTHER_EVIDENCE_NOT_REQUIRED, "Other without evidence" },
-        };
+        public List<InclusionAdjustmentReason> Reasons = new List<InclusionAdjustmentReason>();
     }
 }

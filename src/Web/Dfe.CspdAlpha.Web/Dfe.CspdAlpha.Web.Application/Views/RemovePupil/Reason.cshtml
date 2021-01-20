@@ -50,12 +50,12 @@
                         Select a reason
                     </legend>
                     <div class="govuk-radios" asp-for="SelectedReasonCode">
-                        @foreach (var reason in Model.Reasons)
+                        @foreach (var reason in Model.Reasons.OrderBy(x=>x.ListOrder))
                         {
                             <div class="govuk-radios__item">
-                                <input type="radio" asp-for="SelectedReasonCode" id="SelectedReason-@reason.Key" value="@reason.Key" class="govuk-radios__input" />
-                                <label class="govuk-label govuk-radios__label" for="SelectedReason-@reason.Key">
-                                    @reason.Value
+                                <input type="radio" asp-for="SelectedReasonCode" id="SelectedReason-@reason.IncAdjReasonId" value="@reason.IncAdjReasonId" class="govuk-radios__input" />
+                                <label class="govuk-label govuk-radios__label" for="SelectedReason-@reason.IncAdjReasonId">
+                                    @reason.IncAdjReasonDescription
                                 </label>
                             </div>
                         }

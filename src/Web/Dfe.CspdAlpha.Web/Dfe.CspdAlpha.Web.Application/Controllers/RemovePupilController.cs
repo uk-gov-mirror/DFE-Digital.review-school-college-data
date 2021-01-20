@@ -27,7 +27,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View(new SearchPupilsViewModel{ CheckingWindow = CheckingWindow, Name = string.Empty, PupilID = string.Empty });
         }
 
         [HttpPost]
@@ -35,7 +35,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         {
             if (ModelState.IsValid)
             {
-                return RedirectToAction("Results", new { viewModel.SearchType, Query = viewModel.PupilID ?? viewModel.Name });
+                return RedirectToAction("Results", new { viewModel.SearchType, Query = viewModel.PupilID ?? viewModel.Name, viewModel.CheckingWindow });
             }
             return View(viewModel);
         }
@@ -88,9 +88,12 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                     Gender = viewModel.PupilViewModel.Gender,
                     AdmissionDate = viewModel.PupilViewModel.DateOfAdmission,
                     YearGroup = viewModel.PupilViewModel.YearGroup,
-                    Allocations = viewModel.PupilViewModel.Allocations
+                    Allocations = viewModel.PupilViewModel.Allocations,
+                    Pincl = new PINCLs{ P_INCL = viewModel.PupilViewModel.PincludeCode }
                 },
-                AmendmentDetail = new AmendmentDetail()
+                AmendmentDetail = new AmendmentDetail(),
+                IsNewAmendment = true,
+                IsUserConfirmed = false
             };
             HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, amendment);
             return new RemovePupilViewModel {PupilViewModel = viewModel.PupilViewModel};
@@ -114,6 +117,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             }
 
             var amendmentDetail = amendment.AmendmentDetail;
+            var reasons = _pupilService.GetInclusionAdjustmentReasons(CheckingWindow, amendment.Pupil.Pincl.P_INCL);
 
             return View(new ReasonViewModel
             {
@@ -121,7 +125,8 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 SelectedReasonCode = amendmentDetail.GetField<int?>(Constants.RemovePupil.ReasonCode),
                 SearchType = searchType,
                 Query = query,
-                MatchedId = matchedId
+                MatchedId = matchedId,
+                Reasons = reasons.ToList()
             });
         }
 
@@ -133,27 +138,14 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             if (ModelState.IsValid)
             {
                 amendment.AmendmentDetail.AddField(Constants.RemovePupil.ReasonCode, viewModel.SelectedReasonCode.Value);
-                amendment.EvidenceStatus = viewModel.SelectedReasonCode == 329 ? EvidenceStatus.Now : EvidenceStatus.NotRequired;
+                amendment.InclusionReasonId = viewModel.SelectedReasonCode.Value;
+
+                // MDP: Figure out where Evidence fits in (is it handled by rules or here)
+                amendment.EvidenceStatus = EvidenceStatus.NotRequired;
+
                 HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, amendment);
-                if (new[]
-                    {
-                        Constants.NOT_AT_END_OF_16_TO_18_STUDY,
-                        Constants.INTERNATIONAL_STUDENT,
-                        Constants.DECEASED,
-                        Constants.NOT_ON_ROLL
-                    }.Any(r => r == viewModel.SelectedReasonCode))
-                {
-                    return RedirectToAction("Confirm", "Amendments");
-                }
-                if (new[]
-                    {
-                        Constants.OTHER_WITH_EVIDENCE,
-                        Constants.OTHER_EVIDENCE_NOT_REQUIRED
-                    }
-                    .Any(r => r == viewModel.SelectedReasonCode))
-                {
-                    return RedirectToAction("Details");
-                }
+
+                return RedirectToAction("Prompt", "Amendments");
             }
             return View(new ReasonViewModel { PupilDetails = new PupilViewModel(amendment.Pupil, CheckingWindow) });
         }

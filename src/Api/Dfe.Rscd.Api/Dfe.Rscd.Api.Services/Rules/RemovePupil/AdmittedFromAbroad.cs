@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Dfe.Rscd.Api.BusinessLogic.Common;
 using Dfe.Rscd.Api.BusinessLogic.Entities;
 
 namespace Dfe.Rscd.Api.Services.Rules
@@ -7,7 +8,7 @@ namespace Dfe.Rscd.Api.Services.Rules
     public partial class RemovePupilRulesV2
     {
 
-        private static AdjustmentOutcome AdmittedFromAbroad(string dfesNumber, Pupil student, int inclusionReasonId, List<PromptAnswer> promptAnswers)
+        private static AmendmentOutcome AdmittedFromAbroad(string dfesNumber, Pupil student, int inclusionReasonId, List<PromptAnswer> promptAnswers)
         {
             #region Need to implement
 //            // TFS 28853
@@ -67,7 +68,7 @@ namespace Dfe.Rscd.Api.Services.Rules
 //                        //return those new prompts.
 //                        if (promptForVerboseCountryOrLanguage)
 //                        {
-//                            return new AdjustmentOutcome(FurtherPrompts);
+//                            return new AmendmentOutcome(FurtherPrompts);
 //                        }
 
 //                        //Get the response to Admission Date
@@ -114,7 +115,7 @@ namespace Dfe.Rscd.Api.Services.Rules
 //                            if (!promptAnswers.HasPromptAnswer(admissionDatePromptID))
 //                            {
 //                                var furtherPrompts = new List<Prompts> {GetPromptByPromptID(admissionDatePromptID)};
-//                                return new AdjustmentOutcome(furtherPrompts);
+//                                return new AmendmentOutcome(furtherPrompts);
 //                            }
 //                            if (IsPromptAnswerComplete(promptAnswers, admissionDatePromptID) &&
 //                                (promptAnswers.GetPromptAnswerByPromptId(admissionDatePromptID)).PromptDateTimeAnswer.
@@ -142,7 +143,7 @@ namespace Dfe.Rscd.Api.Services.Rules
 
 //                        if(!IsSelectedCountryOrLanguageAcceptable(context, promptAnswers.GetPromptAnswerByPromptId(Contants.PROMPT_ID_COUNTRY)))
 //                        {
-//                            return new AdjustmentOutcome(new CompletedStudentAdjustment(student.StudentID,
+//                            return new AmendmentOutcome(new CompletedStudentAdjustment(student.StudentID,
 //                                inclusionReasonId,
 //                                promptAnswers,
 //                               scrutinyReasonID,
@@ -153,7 +154,7 @@ namespace Dfe.Rscd.Api.Services.Rules
 //                        }
 //                        if (admissionDate.HasValue && (admissionDate.Value < new DateTime(CurrentYear - 2, 6, 1)))
 //                        {
-//                            return new AdjustmentOutcome(new CompletedStudentAdjustment(student.StudentID,
+//                            return new AmendmentOutcome(new CompletedStudentAdjustment(student.StudentID,
 //                                                                                               inclusionReasonId,
 //                                                                                               promptAnswers,
 //                                                                                               scrutinyReasonID,
@@ -164,7 +165,7 @@ namespace Dfe.Rscd.Api.Services.Rules
 //                        }
 //                        if (admissionDate.HasValue && keyStage == 2 && admissionDate.Value > KS2TestStartDate)
 //                        {
-//                            return new AdjustmentOutcome(new CompletedStudentAdjustment(student.StudentID,
+//                            return new AmendmentOutcome(new CompletedStudentAdjustment(student.StudentID,
 //                                                                                               inclusionReasonId,
 //                                                                                               promptAnswers,
 //                                                                                               scrutinyReasonID,
@@ -175,7 +176,7 @@ namespace Dfe.Rscd.Api.Services.Rules
 //                        }
 //                        if (admissionDate.HasValue && keyStage == 4 && admissionDate.Value > AnnualSchoolCensusDate)
 //                        {
-//                            return new AdjustmentOutcome(new CompletedStudentAdjustment(student.StudentID,
+//                            return new AmendmentOutcome(new CompletedStudentAdjustment(student.StudentID,
 //                                                                                               inclusionReasonId,
 //                                                                                               promptAnswers,
 //                                                                                               scrutinyReasonID,
@@ -186,7 +187,7 @@ namespace Dfe.Rscd.Api.Services.Rules
 //                        }
 //                        if (!IsSelectedCountryOrLanguageAcceptable(context, promptAnswers.GetPromptAnswerByPromptId(Contants.PROMPT_ID_LANGUAGE)))
 //                        {
-//                            return new AdjustmentOutcome(new CompletedStudentAdjustment(student.StudentID,
+//                            return new AmendmentOutcome(new CompletedStudentAdjustment(student.StudentID,
 //                                                                                               inclusionReasonId,
 //                                                                                               promptAnswers,
 //                                                                                               scrutinyReasonID,
@@ -201,7 +202,7 @@ namespace Dfe.Rscd.Api.Services.Rules
 //                        if ((promptAnswers.GetPromptAnswerByPromptId(Contants.PROMPT_ID_DATE_OF_ARRIVAL)).PromptDateTimeAnswer.HasValue &&
 //                            (promptAnswers.GetPromptAnswerByPromptId(Contants.PROMPT_ID_DATE_OF_ARRIVAL)).PromptDateTimeAnswer.Value < ACSDate.AddYears(-2)) // TFS 22667
 //                        {
-//                            return new AdjustmentOutcome(new CompletedStudentAdjustment(student.StudentID,
+//                            return new AmendmentOutcome(new CompletedStudentAdjustment(student.StudentID,
 //                                                                                               inclusionReasonId,
 //                                                                                               promptAnswers,
 //                                                                                               scrutinyReasonID,
@@ -214,7 +215,7 @@ namespace Dfe.Rscd.Api.Services.Rules
                        
 //                        if (TSStudent.HasPriorResults(context, student.StudentID, (short)keyStage))
 //                        {
-//                            return new AdjustmentOutcome(new CompletedStudentAdjustment(student.StudentID,
+//                            return new AmendmentOutcome(new CompletedStudentAdjustment(student.StudentID,
 //                                                                                               inclusionReasonId,
 //                                                                                               promptAnswers,
 //                                                                                               scrutinyReasonID,
@@ -225,7 +226,7 @@ namespace Dfe.Rscd.Api.Services.Rules
 //                        }
 //                        if (TSStudent.IsCurrentAttainmentLev2ForEnglishAndMaths(context, student.StudentID))
 //                        {
-//                            return new AdjustmentOutcome(new CompletedStudentAdjustment(student.StudentID,
+//                            return new AmendmentOutcome(new CompletedStudentAdjustment(student.StudentID,
 //                                                                                               inclusionReasonId,
 //                                                                                               promptAnswers,
 //                                                                                               scrutinyReasonID,
@@ -239,7 +240,7 @@ namespace Dfe.Rscd.Api.Services.Rules
 //                        if (plascFirstLanguage != null && (new String[] { "ENB", "ENG" }).Contains(plascFirstLanguage.LanguageCode))
 //                        {
 //                            //The currently assigned first language is either ENG or ENB => Refer to DCSf
-//                            return new AdjustmentOutcome(new CompletedStudentAdjustment(student.StudentID,
+//                            return new AmendmentOutcome(new CompletedStudentAdjustment(student.StudentID,
 //                                                                                               inclusionReasonId,
 //                                                                                               promptAnswers,
 //                                                                                               scrutinyReasonID,
@@ -253,7 +254,7 @@ namespace Dfe.Rscd.Api.Services.Rules
 //                            //Admission date currently assigned in the database (not entered as a prompt) 
 //                            //is prior to 1 July ([table year]-2)
 //                            //THEREFORE: Refer to DCSF
-//                            return new AdjustmentOutcome(new CompletedStudentAdjustment(student.StudentID,
+//                            return new AmendmentOutcome(new CompletedStudentAdjustment(student.StudentID,
 //                                                                                               inclusionReasonId,
 //                                                                                               promptAnswers,
 //                                                                                               scrutinyReasonID,
@@ -265,7 +266,7 @@ namespace Dfe.Rscd.Api.Services.Rules
 //                        if (!TSStudent.IsStudentListed(student.StudentID))
 //                        {
 //                            //Refer to RM
-//                            return new AdjustmentOutcome(new CompletedStudentAdjustment(student.StudentID,
+//                            return new AmendmentOutcome(new CompletedStudentAdjustment(student.StudentID,
 //                                                                                               inclusionReasonId,
 //                                                                                               promptAnswers,
 //                                                                                               scrutinyReasonID,
@@ -276,7 +277,7 @@ namespace Dfe.Rscd.Api.Services.Rules
 //                        }
 ////All reject conditions have been checked. The rest go to forvus scrutiny for consideration
 //                        //Refer to DCSF
-//                        return new AdjustmentOutcome(new CompletedStudentAdjustment(student.StudentID,
+//                        return new AmendmentOutcome(new CompletedStudentAdjustment(student.StudentID,
 //                                                                                           inclusionReasonId,
 //                                                                                           promptAnswers,
 //                                                                                           scrutinyReasonID,
@@ -297,7 +298,15 @@ namespace Dfe.Rscd.Api.Services.Rules
 
             #endregion 
 
-            return new AdjustmentOutcome(new CompletedNonStudentAdjustment("TODO"));
+            return new AmendmentOutcome(
+                new CompletedStudentAdjustment(student.Id, 
+                    inclusionReasonId, 
+                    promptAnswers, 
+                    2, 
+                    null, 
+                    Constants.SCRUTINY_STATUS_ACCEPTEDAUTOMATICALLY, 
+                    "Accepted Automatically", 
+                    OutcomeStatus.AutoAccept));
         }
         
         #region Private methods

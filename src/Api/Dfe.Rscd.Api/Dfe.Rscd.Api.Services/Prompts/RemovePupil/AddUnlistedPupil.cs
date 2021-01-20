@@ -7,7 +7,7 @@ namespace Dfe.Rscd.Api.Services
 {
     public partial class RemovePupilPromptsService
     {
-        private static AdjustmentOutcome AddUnlistedPupilToAATKS2(Pupil student, int inclusionReasonId)
+        private static AmendmentOutcome AddUnlistedPupilToAATKS2(Pupil student, int inclusionReasonId)
         {
             //if (student.StudentChanges.Count == 0 ||
             //    student.StudentChanges.First() == null || student.StudentChanges.First().ENTRYDAT == null)
@@ -15,11 +15,11 @@ namespace Dfe.Rscd.Api.Services
 
             //DateTime admissionDate = TSStudent.ConvertDateTimeDBString(student.StudentChanges.First().ENTRYDAT);
 
-            //return new AdjustmentOutcome(new List<Prompts> { GetPromptByPromptID(9220) });
-            return new AdjustmentOutcome(new CompletedNonStudentAdjustment("TODO"));
+            //return new AmendmentOutcome(new List<Prompts> { GetPromptByPromptID(9220) });
+            return new AmendmentOutcome(new CompletedNonStudentAdjustment("TODO"));
         }
 
-        private static AdjustmentOutcome AddUnlistedPupilToAATKS4(Pupil student, int inclusionReasonId)
+        private static AmendmentOutcome AddUnlistedPupilToAATKS4(Pupil student, int inclusionReasonId)
         {
             //short yearGroup;
 
@@ -33,14 +33,14 @@ namespace Dfe.Rscd.Api.Services
             
             //if (yearGroup != 11)
             //{
-            //    return new AdjustmentOutcome(new CompletedNonStudentAdjustment(GetInfoPromptText(9430)));
+            //    return new AmendmentOutcome(new CompletedNonStudentAdjustment(GetInfoPromptText(9430)));
             //}
             //if (admissionDate > AnnualSchoolCensusDate)
             //{
-            //    return new AdjustmentOutcome(new CompletedNonStudentAdjustment(GetInfoPromptText(9420)));
+            //    return new AmendmentOutcome(new CompletedNonStudentAdjustment(GetInfoPromptText(9420)));
             //}
             //// => If this point is reached, Year group is 11 and admission date is <= the census date.
-            //return new AdjustmentOutcome(new CompletedStudentAdjustment(
+            //return new AmendmentOutcome(new CompletedStudentAdjustment(
             //                                        student.StudentID,
             //                                        inclusionReasonId,
             //                                        null,
@@ -50,10 +50,10 @@ namespace Dfe.Rscd.Api.Services
             //                                        GetInfoPromptText(9410))
             //    );
 
-            return new AdjustmentOutcome(new CompletedNonStudentAdjustment("TODO"));
+            return new AmendmentOutcome(new CompletedNonStudentAdjustment("TODO"));
         }
 
-        private static AdjustmentOutcome AddUnlistedStudentToAATKS5(Pupil student, int inclusionReasonId)
+        private static AmendmentOutcome AddUnlistedStudentToAATKS5(Pupil student, int inclusionReasonId)
         {
             //short yearGroup;
             
@@ -71,21 +71,21 @@ namespace Dfe.Rscd.Api.Services
 
             //if(admissionDate.HasValue && admissionDate > censusDate)
             //{
-            //    return new AdjustmentOutcome(new CompletedNonStudentAdjustment(GetInfoPromptText(9520)));
+            //    return new AmendmentOutcome(new CompletedNonStudentAdjustment(GetInfoPromptText(9520)));
             //}
             //else if(yearGroup != 13)
             //{
-            //    return new AdjustmentOutcome(new CompletedNonStudentAdjustment(GetInfoPromptText(9530)));
+            //    return new AmendmentOutcome(new CompletedNonStudentAdjustment(GetInfoPromptText(9530)));
             //}
             //else if (studentAge < 16 || studentAge > 18)
             //{
-            //    return new AdjustmentOutcome(new CompletedNonStudentAdjustment(GetInfoPromptText(9540)));
+            //    return new AmendmentOutcome(new CompletedNonStudentAdjustment(GetInfoPromptText(9540)));
             //}
             //else 
             //{
             //    //If the code reaches this point, the following if
             //    //statement is true: if(yearGroup == 13 && admissionDate <= censusDate && studentAge >= 16 && studentAge <= 18)
-            //    return new AdjustmentOutcome(new CompletedStudentAdjustment(
+            //    return new AmendmentOutcome(new CompletedStudentAdjustment(
             //        student.StudentID,
             //        inclusionReasonId,
             //        null,
@@ -96,7 +96,7 @@ namespace Dfe.Rscd.Api.Services
             //        );
             //}
 
-            return new AdjustmentOutcome(new CompletedNonStudentAdjustment("TODO"));
+            return new AmendmentOutcome(new CompletedNonStudentAdjustment("TODO"));
 
         }
     }

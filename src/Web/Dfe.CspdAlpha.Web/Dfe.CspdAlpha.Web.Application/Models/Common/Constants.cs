@@ -7,6 +7,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.Common
         // Session keys
         public const string AMENDMENT_SESSION_KEY = "current-amendment";
         public const string NEW_AMENDMENT_ID = "new-amendment-id";
+        public const string NEW_REFERENCE_ID = "new-reference-id";
 
         // Remove reason codes
         public const int NOT_AT_END_OF_16_TO_18_STUDY = 325;

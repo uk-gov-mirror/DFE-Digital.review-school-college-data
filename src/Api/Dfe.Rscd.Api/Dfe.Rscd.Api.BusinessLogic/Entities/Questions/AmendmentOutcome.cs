@@ -3,49 +3,50 @@ using System.Collections.Generic;
 
 namespace Dfe.Rscd.Api.BusinessLogic.Entities
 {
-    public class AdjustmentOutcome
+    public class AmendmentOutcome
     {
-        public List<Prompt> FurtherPrompts;
+        public List<Prompt> FurtherPrompts { get; set; }
         public CompletedStudentAdjustment CompletedRequest;
         public CompletedNonStudentAdjustment CompletedNonRequest;
         public CompleteSimpleOutcomeCheck CompleteSimpleOutcome;
-        public bool IsComplete;
-        public bool IsAdjustmentCreated;
-        public Guid NewAmendmentId { get;set; }
+        public bool IsComplete { get; set; }
+        public bool IsAmendmentCreated { get; set; }
+        public Guid NewAmendmentId { get; set; }
         public string NewAmendmentReferenceNumber { get; set; }
 
         public OutcomeStatus OutcomeStatus { get; set; }
 
+        public EvidenceStatus EvidenceStatus { get; set; }
 
-        public AdjustmentOutcome(List<Prompt> furtherPrompts)
+        public AmendmentOutcome(List<Prompt> furtherPrompts)
         {
             FurtherPrompts = furtherPrompts;
             IsComplete = false;
-            IsAdjustmentCreated = false;
+            IsAmendmentCreated = false;
         }
 
-        public AdjustmentOutcome(CompletedStudentAdjustment completedRequest)
+        public AmendmentOutcome(CompletedStudentAdjustment completedRequest)
         {
             CompletedRequest = completedRequest;
             OutcomeStatus = completedRequest.OutcomeStatus;
             IsComplete = true;
-            IsAdjustmentCreated = true;
+            IsAmendmentCreated = true;
         }
 
-        public AdjustmentOutcome(CompleteSimpleOutcomeCheck completedRequest)
+        public AmendmentOutcome(CompleteSimpleOutcomeCheck completedRequest)
         {
             CompleteSimpleOutcome = completedRequest;
             OutcomeStatus = completedRequest.OutcomeStatus;
             IsComplete = true;
-            IsAdjustmentCreated = false;
+            IsAmendmentCreated = false;
         }
 
-        public AdjustmentOutcome(CompletedNonStudentAdjustment completedNonRequest)
+        public AmendmentOutcome(CompletedNonStudentAdjustment completedNonRequest)
         {
             CompletedNonRequest = completedNonRequest;
             OutcomeStatus = completedNonRequest.OutcomeStatus;
             IsComplete = true;
-            IsAdjustmentCreated = false;
+            IsAmendmentCreated = true;
         }
 
     }

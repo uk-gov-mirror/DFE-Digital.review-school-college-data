@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using Dfe.Rscd.Api.BusinessLogic.Common;
 using Dfe.Rscd.Api.BusinessLogic.Entities;
 
 namespace Dfe.Rscd.Api.Services.Rules
 {
     public partial class RemovePupilRulesV2
     {
-        private static AdjustmentOutcome AdmittedFollowingPermanentExclusion(Pupil student, int inclusionReasonId, List<PromptAnswer> answers)
+        private static AmendmentOutcome AdmittedFollowingPermanentExclusion(Pupil student, int inclusionReasonId, List<PromptAnswer> answers)
         {
             //if (IsPromptAnswerComplete(answers, 1001) && IsPromptAnswerComplete(answers, 1002))
             //{
@@ -84,9 +85,9 @@ namespace Dfe.Rscd.Api.Services.Rules
             //                                              }
             //                                      };
             //        }
-            //        return new AdjustmentOutcome(pa);
+            //        return new AmendmentOutcome(pa);
             //    }
-            //    return new AdjustmentOutcome(new CompletedStudentAdjustment(
+            //    return new AmendmentOutcome(new CompletedStudentAdjustment(
             //                                            student.StudentID,
             //                                            inclusionReasonId,
             //                                            answers,
@@ -99,7 +100,15 @@ namespace Dfe.Rscd.Api.Services.Rules
             ////Insufficient answers provided.
             //throw Web09Exception.GetBusinessException(Web09MessageList.InsufficientStudentAdjustmentPromptAnswerProvided);
 
-            return new AdjustmentOutcome(new CompletedNonStudentAdjustment("TODO"));
+            return new AmendmentOutcome(
+                new CompletedStudentAdjustment(student.Id, 
+                    inclusionReasonId, 
+                    answers, 
+                    2, 
+                    null, 
+                    Constants.SCRUTINY_STATUS_ACCEPTEDAUTOMATICALLY, 
+                    "Accepted Automatically", 
+                    OutcomeStatus.AutoAccept));
         }
     }
 }

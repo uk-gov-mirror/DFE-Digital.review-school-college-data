@@ -103,7 +103,7 @@ namespace Dfe.Rscd.Api
 
             services.AddScoped<IAmendmentBuilder, RemovePupilAmendmentBuilder>();
             services.AddScoped<Amendment, RemovePupilAmendment>();
-            services.AddScoped<IRuleSet, RemovePupilRulesV1>();
+            services.AddScoped<IRuleSet, RemovePupilRulesV2>();
 
             services.AddScoped<IAmendmentBuilder, AddPupilAmendmentBuilder>();
             services.AddScoped<Amendment, AddPupilAmendment>();

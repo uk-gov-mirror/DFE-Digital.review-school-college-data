@@ -7,7 +7,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Interfaces
     {
         AmendmentsListViewModel GetAmendmentsListViewModel(string urn, CheckingWindow checkingWindow);
 
-        string CreateAmendment(Amendment amendment);
+        AmendmentOutcome CreateAmendment(Amendment amendment);
 
         Amendment GetAmendment(CheckingWindow checkingWindow, string id);
 

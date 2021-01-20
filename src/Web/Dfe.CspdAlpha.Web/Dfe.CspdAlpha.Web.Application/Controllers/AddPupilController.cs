@@ -83,7 +83,8 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                         Upn = existingPupil.PupilViewModel.UPN,
                         YearGroup = existingPupil.PupilViewModel.YearGroup,
                         DfesNumber = existingPupil.PupilViewModel.SchoolID,
-                        Urn = existingPupil.PupilViewModel.URN
+                        Urn = existingPupil.PupilViewModel.URN,
+                        Pincl = new PINCLs(){ P_INCL = existingPupil.PupilViewModel.PincludeCode }
                     },
                     AmendmentDetail = new AmendmentDetail()
                 };
@@ -119,10 +120,12 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                     Upn = addPupilViewModel.UPN,
                     YearGroup = addPupilViewModel.YearGroup,
                     DfesNumber = addPupilViewModel.SchoolID,
-                    Urn = urn
+                    Urn = urn,
+                    Pincl = new PINCLs(){ P_INCL = "499" }
                 },
                 CheckingWindow = CheckingWindow,
-                AmendmentDetail = new AmendmentDetail()
+                AmendmentDetail = new AmendmentDetail(),
+                IsNewAmendment = true
             };
 
             addPupilAmendment.AmendmentDetail.AddField(Constants.AddPupil.AddReason, AddReason.New);
@@ -166,7 +169,8 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                         YearGroup = amendment.Pupil.YearGroup,
                         UPN = amendment.Pupil.Upn,
                         Keystage = CheckingWindowHelper.ToKeyStage(CheckingWindow),
-                        SchoolID = existingSchoolId
+                        SchoolID = existingSchoolId,
+                        PincludeCode = amendment.Pupil.Pincl != null ? amendment.Pupil.Pincl.P_INCL : "499"
                     },
                     SchoolName = existingSchoolName
                 });

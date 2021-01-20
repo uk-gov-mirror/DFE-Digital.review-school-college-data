@@ -15,12 +15,12 @@ namespace Dfe.Rscd.Api.Services
             _rules = rules;
         }
 
-        public AdjustmentOutcome ApplyRules(rscd_Amendment amendmentDto, Amendment amendment)
+        public AmendmentOutcome ApplyRules(rscd_Amendment amendmentDto, Amendment amendment)
         {
             if (amendment.EvidenceStatus == EvidenceStatus.Later)
             {
                 amendmentDto.rscd_Outcome = rscd_Outcome.Awaitingevidence;
-                return new AdjustmentOutcome(
+                return new AmendmentOutcome(
                     new CompleteSimpleOutcomeCheck(OutcomeStatus.AwaitingEvidence));
             }
             

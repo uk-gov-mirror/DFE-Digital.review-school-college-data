@@ -29,7 +29,7 @@ namespace Dfe.Rscd.Api.Services
             _allocationYear = allocationYear;
         }
 
-        public AdjustmentOutcome GetAdjustmentPrompts(CheckingWindow checkingWindow, string pinclCode, int inclusionReasonId)
+        public AmendmentOutcome GetAdjustmentPrompts(CheckingWindow checkingWindow, string pinclCode, int inclusionReasonId)
         {
             _checkingWindow = checkingWindow;
 
@@ -59,7 +59,7 @@ namespace Dfe.Rscd.Api.Services
             return scrutinyStatusCode;
         }
 
-        private AdjustmentOutcome GetAdjustmentPrompts(string pinclCode, int inclusionReasonId)
+        private AmendmentOutcome GetAdjustmentPrompts(string pinclCode, int inclusionReasonId)
         {
             
             List<Prompt> promptsListOut = new List<Prompt>();
@@ -207,7 +207,7 @@ namespace Dfe.Rscd.Api.Services
 
             }
 
-            return new AdjustmentOutcome(ConvertFromDto(promptsListOut));
+            return new AmendmentOutcome(ConvertFromDto(promptsListOut));
         }
 
         private List<BusinessLogic.Entities.Prompt> ConvertFromDto(List<Prompt> promptsDto)

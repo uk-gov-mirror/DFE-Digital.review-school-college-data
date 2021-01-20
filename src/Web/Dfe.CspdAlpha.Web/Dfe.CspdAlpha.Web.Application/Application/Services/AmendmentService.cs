@@ -46,10 +46,10 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             };
         }
 
-        public string CreateAmendment(Amendment amendment)
+        public AmendmentOutcome CreateAmendment(Amendment amendment)
         {
-            var checkingWindowURL = CheckingWindowHelper.GetCheckingWindowURL(amendment.CheckingWindow);
-            var result = _apiClient.Create_AmendmentAsync(checkingWindowURL, amendment).GetAwaiter().GetResult();
+            var checkingWindowUrl = CheckingWindowHelper.GetCheckingWindowURL(amendment.CheckingWindow);
+            var result = _apiClient.Create_AmendmentAsync(checkingWindowUrl, amendment).GetAwaiter().GetResult();
 
             return result.Result;
         }

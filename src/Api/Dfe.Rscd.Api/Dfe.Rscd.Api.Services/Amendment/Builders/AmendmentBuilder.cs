@@ -42,11 +42,11 @@ namespace Dfe.Rscd.Api.Services
 
         public abstract rscd_Amendmenttype CrmAmendmentType { get; }
 
-        public AdjustmentOutcome BuildAmendments(Amendment amendment)
+        public AmendmentOutcome BuildAmendments(Amendment amendment)
         {
             using (var context = new CrmServiceContext(_organizationService))
             {
-                AdjustmentOutcome outcome;
+                AmendmentOutcome outcome;
                 
                 var amendmentDto = new rscd_Amendment
                 {
@@ -59,7 +59,7 @@ namespace Dfe.Rscd.Api.Services
 
                 outcome = _outcomeService.ApplyRules(amendmentDto, amendment);
 
-                if (outcome.IsComplete && outcome.FurtherPrompts.Count == 0)
+                if (amendment.IsUserConfirmed && outcome.IsComplete && outcome.FurtherPrompts == null)
                 {
                     MapAmendmentToDto(amendment, amendmentDto);
                     var amendmentTypeEntity = MapAmendmentTypeToDto(amendment);
@@ -87,7 +87,7 @@ namespace Dfe.Rscd.Api.Services
                             new EntityReference(amendmentDto.LogicalName, amendmentDto.Id)
                         });
 
-                    outcome.IsAdjustmentCreated = true;
+                    outcome.IsAmendmentCreated = true;
                     outcome.NewAmendmentId = amendmentDto.Id;
                 }
 

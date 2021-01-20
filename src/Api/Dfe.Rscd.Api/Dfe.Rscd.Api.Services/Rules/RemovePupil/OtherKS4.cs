@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Dfe.Rscd.Api.BusinessLogic.Common;
 using Dfe.Rscd.Api.BusinessLogic.Entities;
 
 namespace Dfe.Rscd.Api.Services.Rules
@@ -6,13 +7,13 @@ namespace Dfe.Rscd.Api.Services.Rules
     public partial class RemovePupilRulesV2
     {
 
-        public AdjustmentOutcome ProcessInclusionPromptResponses_OtherKS4(Pupil student, int inclusionReasonId, List<PromptAnswer> promptAnswers)
+        public AmendmentOutcome ProcessInclusionPromptResponses_OtherKS4(Pupil student, int inclusionReasonId, List<PromptAnswer> promptAnswers)
         {
 
             //// Collect descriptive text answer from prompt
             //if (promptAnswers.HasPromptAnswer(1900) && IsPromptAnswerComplete(promptAnswers, 1900))
             //{
-            //    return new AdjustmentOutcome(new CompletedStudentAdjustment(student.StudentID,
+            //    return new AmendmentOutcome(new CompletedStudentAdjustment(student.StudentID,
             //        inclusionReasonId,
             //        promptAnswers,
             //        Contants.SCRUTINY_REASON_OTHER,
@@ -28,8 +29,16 @@ namespace Dfe.Rscd.Api.Services.Rules
             //    throw Web09Exception.GetBusinessException(Web09MessageList.InsufficientStudentAdjustmentPromptAnswerProvided);
             //}
 
-            return new AdjustmentOutcome(new CompletedNonStudentAdjustment("TODO"));
+            return new AmendmentOutcome(
+            new CompletedStudentAdjustment(student.Id,
+                inclusionReasonId,
+                promptAnswers,
+                2,
+                null,
+                Constants.SCRUTINY_STATUS_ACCEPTEDAUTOMATICALLY,
+                "Accepted Automatically",
+                OutcomeStatus.AutoAccept));
         }
-        
+
     }
 }

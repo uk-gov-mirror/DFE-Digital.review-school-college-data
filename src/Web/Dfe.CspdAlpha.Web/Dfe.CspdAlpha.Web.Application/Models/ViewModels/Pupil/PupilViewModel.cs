@@ -36,6 +36,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
             YearGroup = pupil.YearGroup;
             AllocationYears = GetAllocationYears(pupil.Allocations);
             Allocations = pupil.Allocations;
+            PincludeCode = pupil.Pincl != null ? pupil.Pincl.P_INCL : string.Empty;
         }
 
         private int[] GetAllocationYears(ICollection<SourceOfAllocation> originalAllocations)
@@ -52,6 +53,8 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
         public string UPN { get; set; }
         public string ULN { get; set; }
         public string FirstName { get; set; }
+
+        public string PincludeCode { get;set; }
         public string LastName { get; set; }
         public DateTime DateOfBirth { get; set; }
         public int Age { get; set; }

@@ -79,6 +79,8 @@ namespace Dfe.Rscd.Api.Infrastructure.SqlServer.DTOs
                     .HasMaxLength(10)
                     .IsUnicode(false);
 
+                entity.Property(e => e.DoesGradedExams);
+
                 entity.Property(e => e.WasOther)
                     .HasMaxLength(30)
                     .IsUnicode(false)
@@ -115,6 +117,16 @@ namespace Dfe.Rscd.Api.Infrastructure.SqlServer.DTOs
                     .IsRequired()
                     .HasMaxLength(150)
                     .IsUnicode(false);
+
+                entity.Property(e => e.CanCancel);
+
+                entity.Property(e => e.InJuneChecking);
+
+                entity.Property(e => e.IsInclusion);
+
+                entity.Property(e => e.ListOrder);
+
+                entity.Property(e => e.IsNewStudentReason);
             });
 
             modelBuilder.Entity<Language>(entity =>

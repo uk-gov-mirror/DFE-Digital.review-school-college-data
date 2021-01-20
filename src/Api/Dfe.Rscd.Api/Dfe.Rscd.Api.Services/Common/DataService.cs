@@ -51,11 +51,13 @@ namespace Dfe.Rscd.Api.Services
                 .ToList();
         }
 
-        public IList<InclusionAdjustmentReason> GetInclusionAdjustmentReasons(string pinclId = "")
+        public IList<InclusionAdjustmentReason> GetInclusionAdjustmentReasons(CheckingWindow checkingWindow, string pinclId = "")
         {
+            IQueryable<InclusionAdjustmentReason> reasons;
+
             if (pinclId != string.Empty)
             {
-                return _repository.Get<DTO.PinclinclusionAdjustment>()
+                reasons = _repository.Get<DTO.PinclinclusionAdjustment>()
                     .Where(x => x.PIncl == pinclId)
                     .Select(x => x.IncAdjReason)
                     .Select(x => new InclusionAdjustmentReason
@@ -67,22 +69,30 @@ namespace Dfe.Rscd.Api.Services
                         IsInclusion = x.IsInclusion,
                         IsNewStudentReason = x.IsNewStudentReason,
                         ListOrder = x.ListOrder
-                    }).ToList();
+                    }).OrderBy(x => x.ListOrder);
+            }
+            else
+            {
+                reasons = _repository
+                    .Get<DTO.InclusionAdjustmentReason>()
+                    .Select(x => new InclusionAdjustmentReason
+                    {
+                        IncAdjReasonId = x.IncAdjReasonId,
+                        CanCancel = x.CanCancel,
+                        InJuneChecking = x.InJuneChecking,
+                        IncAdjReasonDescription = x.IncAdjReasonDescription,
+                        IsInclusion = x.IsInclusion,
+                        IsNewStudentReason = x.IsNewStudentReason,
+                        ListOrder = x.ListOrder
+                    });
             }
 
-            return _repository
-                .Get<DTO.InclusionAdjustmentReason>()
-                .Select(x => new InclusionAdjustmentReason
-                {
-                    IncAdjReasonId = x.IncAdjReasonId,
-                    CanCancel = x.CanCancel,
-                    InJuneChecking = x.InJuneChecking,
-                    IncAdjReasonDescription = x.IncAdjReasonDescription,
-                    IsInclusion = x.IsInclusion,
-                    IsNewStudentReason = x.IsNewStudentReason,
-                    ListOrder = x.ListOrder
-                })
-            .ToList();
+            if (checkingWindow == CheckingWindow.KS4June)
+            {
+                reasons = reasons.Where(x => x.InJuneChecking);
+            }
+
+            return reasons.ToList();
         }
 
         public IList<FirstLanguage> GetLanguages()

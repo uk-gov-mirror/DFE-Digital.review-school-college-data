@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Dfe.Rscd.Api.BusinessLogic.Common;
 using Dfe.Rscd.Api.BusinessLogic.Entities;
 
 namespace Dfe.Rscd.Api.Services.Rules
@@ -7,7 +8,7 @@ namespace Dfe.Rscd.Api.Services.Rules
     public partial class RemovePupilRulesV2
     {
 
-        public static AdjustmentOutcome ProcessInclusionPromptResponses_NotAtEndOfAdvancedStudy(Pupil student, int inclusionReasonId, List<PromptAnswer> answers)
+        public static AmendmentOutcome ProcessInclusionPromptResponses_NotAtEndOfAdvancedStudy(Pupil student, int inclusionReasonId, List<PromptAnswer> answers)
         {
             //if (student == null ||
             //    student.StudentChanges.First() == null ||
@@ -23,12 +24,20 @@ namespace Dfe.Rscd.Api.Services.Rules
             //}
             //else
             //{
-            //    return new AdjustmentOutcome(new CompletedNonStudentAdjustment(GetInfoPromptText(5410)));
+            //    return new AmendmentOutcome(new CompletedNonStudentAdjustment(GetInfoPromptText(5410)));
             //}
 
             //throw new NotImplementedException();
 
-            return new AdjustmentOutcome(new CompletedNonStudentAdjustment("TODO"));
+            return new AmendmentOutcome(
+                new CompletedStudentAdjustment(student.Id, 
+                    inclusionReasonId, 
+                    answers, 
+                    2, 
+                    null, 
+                    Constants.SCRUTINY_STATUS_ACCEPTEDAUTOMATICALLY, 
+                    "Accepted Automatically", 
+                    OutcomeStatus.AutoAccept));
         }
     }
 }

@@ -6,7 +6,7 @@ namespace Dfe.Rscd.Api.Services
 {
     public partial class RemovePupilPromptsService
     {
-        private static AdjustmentOutcome AddPupilToAchievementAndAttainmentTablesKS5(Pupil student, int inclusionReasonId)
+        private static AmendmentOutcome AddPupilToAchievementAndAttainmentTablesKS5(Pupil student, int inclusionReasonId)
         {
             //List<Prompts> promptListReturn = new List<Prompts>();
 
@@ -22,7 +22,7 @@ namespace Dfe.Rscd.Api.Services
             //if (int.TryParse(studentChange.YearGroups.YearGroupCode, out yearGroup) && yearGroup == 13)
             //{
             //    //Return prompt 5710
-            //    return new AdjustmentOutcome(new CompletedStudentAdjustment(student.StudentID,
+            //    return new AmendmentOutcome(new CompletedStudentAdjustment(student.StudentID,
             //        inclusionReasonId,
             //        new PromptAnswerList(),
             //        Constants.SCRUTINY_REASON_ADD_PUPIL,
@@ -37,7 +37,7 @@ namespace Dfe.Rscd.Api.Services
             //    return ProcessKS5NCYearGroupAdjustment(student, inclusionReasonId, new PromptAnswerList(), 5720);
             //}
 
-            return new AdjustmentOutcome(new CompletedNonStudentAdjustment("complete"));
+            return new AmendmentOutcome(new CompletedNonStudentAdjustment("complete"));
         }
     }
 }

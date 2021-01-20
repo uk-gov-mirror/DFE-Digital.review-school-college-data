@@ -26,10 +26,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         {
             var amendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
             var amendmentDetail = amendment?.AmendmentDetail;
-            if (amendment.Pupil == null)
-            {
-                return RedirectToAction("Index", "AddPupil");
-            }
+
             return View(new EvidenceViewModel{PupilDetails = new PupilViewModel(amendment.Pupil, CheckingWindow), AddReason = amendmentDetail.GetField<string>("AddReason")});
         }
 

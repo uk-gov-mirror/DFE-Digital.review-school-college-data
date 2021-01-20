@@ -94,8 +94,8 @@ namespace Dfe.Rscd.Api.Services.Rules
             return isPromptAnswerComplete;
         }
 
-        protected AdjustmentOutcome ProcessSingularFurtherPrompt(int furtherPromptId,
-            int studentId,
+        protected AmendmentOutcome ProcessSingularFurtherPrompt(int furtherPromptId,
+            string studentId,
             int? inclusionReasonId,
             List<PromptAnswer> answers,
             int scrutinyReasonId,
@@ -108,12 +108,12 @@ namespace Dfe.Rscd.Api.Services.Rules
             if (!answers.HasPromptAnswer(furtherPromptId))
             {
                 List<Prompt> furtherPrompts = new List<Prompt> { prompt };
-                return new AdjustmentOutcome(furtherPrompts);
+                return new AmendmentOutcome(furtherPrompts);
             }
 
             if (answers.HasPromptAnswer(furtherPromptId) && IsPromptAnswerComplete(answers, furtherPromptId))
             {
-                return new AdjustmentOutcome(new CompletedStudentAdjustment(studentId,
+                return new AmendmentOutcome(new CompletedStudentAdjustment(studentId,
                     inclusionReasonId,
                     answers,
                     scrutinyReasonId,
@@ -141,6 +141,6 @@ namespace Dfe.Rscd.Api.Services.Rules
         }
 
         public abstract AmendmentType AmendmentType { get; }
-        public abstract AdjustmentOutcome Apply(Amendment amendment);
+        public abstract AmendmentOutcome Apply(Amendment amendment);
     }
 }

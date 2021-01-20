@@ -5,7 +5,7 @@ namespace Dfe.Rscd.Api.Services
 {
     public partial class RemovePupilPromptsService
     {
-        public static AdjustmentOutcome NotAtEndOfAdvancedStudy(Pupil student, int inclusionReasonId)
+        public static AmendmentOutcome NotAtEndOfAdvancedStudy(Pupil student, int inclusionReasonId)
         {
             //List<Prompts> promptListReturn = new List<Prompts>();
             
@@ -25,10 +25,10 @@ namespace Dfe.Rscd.Api.Services
             //}
             //else
             //{
-            //    return new AdjustmentOutcome(new CompletedNonStudentAdjustment(GetInfoPromptText(5420)));
+            //    return new AmendmentOutcome(new CompletedNonStudentAdjustment(GetInfoPromptText(5420)));
             //}
 
-            return new AdjustmentOutcome(new CompletedNonStudentAdjustment("TODO"));
+            return new AmendmentOutcome(new CompletedNonStudentAdjustment("TODO"));
 
         }
     }

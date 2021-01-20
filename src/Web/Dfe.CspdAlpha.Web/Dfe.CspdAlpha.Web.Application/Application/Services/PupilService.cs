@@ -73,6 +73,16 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             return GetMatchedPupilViewModel(pupil.Result, checkingWindow);
         }
 
+        public List<ApiClient.InclusionAdjustmentReason> GetInclusionAdjustmentReasons(ApiClient.CheckingWindow checkingWindow, string pinclId)
+        {
+            var checkingWindowUrl = CheckingWindowHelper.GetCheckingWindowURL(checkingWindow);
+
+            var results = _apiClient.InclusionAdjustmentReasonsAsync(pinclId, checkingWindowUrl).GetAwaiter()
+                .GetResult();
+
+            return results.Result.ToList();
+        }
+
         private string ValidateValue(string value)
         {
             return string.IsNullOrWhiteSpace(value) || value.Trim().ToLower() == "null" ? string.Empty : value.Trim();

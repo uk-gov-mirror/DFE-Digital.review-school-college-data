@@ -52,13 +52,13 @@ namespace Dfe.Rscd.Api.Services
             }
         }
 
-        public AdjustmentOutcome AddAmendment(Amendment amendment)
+        public AmendmentOutcome AddAmendment(Amendment amendment)
         {
             CurrentBuilder = RetrieveBuilderForAmendment(amendment.AmendmentType);
 
             var outcome = CurrentBuilder.BuildAmendments(amendment);
 
-            if (outcome.IsAdjustmentCreated && outcome.IsComplete)
+            if (outcome.IsComplete && outcome.IsAmendmentCreated)
             {
                 var amendmentEstablishment = GetOrCreateEstablishment(amendment.CheckingWindow, amendment.URN);
                 RelateEstablishmentToAmendment(amendmentEstablishment, outcome.NewAmendmentId);

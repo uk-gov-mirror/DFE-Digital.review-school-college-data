@@ -84,52 +84,6 @@ namespace Dfe.Rscd.Api.Controllers
 
         [HttpGet]
         [SwaggerOperation(
-            Summary = "Display a list of Inclusion adjustment reasons",
-            Description = @"Displays a lists of a common reference data list Inclusion adjustment reasons",
-            OperationId = "InclusionAdjustmentReasons",
-            Tags = new[] { "CommonLists" }
-        )]
-        [Route("/inclusion-adjustment-reasons")]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(typeof(GetResponse<IEnumerable<InclusionAdjustmentReason>>), 200)]
-        public async Task<IActionResult> GetInclusionAdjustmentReasons()
-        {
-            var list = _commonDataService.GetInclusionAdjustmentReasons();
-            var response = new GetResponse<IEnumerable<InclusionAdjustmentReason>>
-            {
-                Result = list,
-                Error = new Error()
-            };
-            return Ok(response);
-        }
-
-
-        [HttpGet]
-        [SwaggerOperation(
-            Summary = "Display a list of Inclusion adjustment reasons allowed for a certain pupil inclusion number",
-            Description = @"Displays a lists of a common reference data list Inclusion adjustment reasons",
-            OperationId = "InclusionAdjustmentReasons",
-            Tags = new[] { "CommonLists" }
-        )]
-        [Route("/inclusion-adjustment-reasons/pincl/{id}")]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(typeof(GetResponse<IEnumerable<InclusionAdjustmentReason>>), 200)]
-        public async Task<IActionResult> GetInclusionAdjustmentReasonsByPincl(
-            [FromRoute] [SwaggerParameter("The pupil inclusion identifier", Required = true)]
-            string id)
-        {
-            var list = _commonDataService.GetInclusionAdjustmentReasons(id);
-            var response = new GetResponse<IEnumerable<InclusionAdjustmentReason>>
-            {
-                Result = list,
-                Error = new Error()
-            };
-            return Ok(response);
-        }
-
-
-        [HttpGet]
-        [SwaggerOperation(
             Summary = "Display a list of languages",
             Description = @"Displays a lists of a common reference data list languages",
             OperationId = "Languages",

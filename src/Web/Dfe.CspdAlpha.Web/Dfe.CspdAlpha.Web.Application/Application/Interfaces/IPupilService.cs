@@ -11,5 +11,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Interfaces
         List<PupilViewModel> GetPupilDetailsList(CheckingWindow checkingWindow, SearchQuery searchQuery);
         MatchedPupilViewModel GetPupil(CheckingWindow checkingWindow, string id);
         MatchedPupilViewModel GetMatchedPupil(CheckingWindow checkingWindow, string upn);
+
+        List<InclusionAdjustmentReason> GetInclusionAdjustmentReasons(CheckingWindow checkingWindow, string pinclId);
     }
 }
