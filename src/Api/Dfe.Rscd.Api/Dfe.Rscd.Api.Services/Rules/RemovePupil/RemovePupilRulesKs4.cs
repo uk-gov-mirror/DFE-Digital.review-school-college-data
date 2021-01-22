@@ -3,13 +3,14 @@ using Dfe.Rscd.Api.Infrastructure.SqlServer.Repositories;
 
 namespace Dfe.Rscd.Api.Services.Rules
 {
-    public partial class RemovePupilRulesV2 : BaseRules
+    public partial class RemovePupilRulesKs4 : BaseRules
     {
-        public RemovePupilRulesV2(IDataRepository dataRepository) : base(dataRepository)
+        public RemovePupilRulesKs4(IDataRepository dataRepository) : base(dataRepository)
         {
         }
 
         public override AmendmentType AmendmentType => AmendmentType.RemovePupil;
+        public override CheckingWindow CheckingWindow => CheckingWindow.KS4June;
 
 
         public override AmendmentOutcome Apply(Amendment amendment)

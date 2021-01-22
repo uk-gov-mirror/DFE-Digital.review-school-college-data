@@ -5,7 +5,7 @@ using Dfe.Rscd.Api.BusinessLogic.Entities;
 
 namespace Dfe.Rscd.Api.Services.Rules
 {
-    public partial class RemovePupilRulesV2
+    public partial class RemovePupilRulesKs4
     {
 
         public static AmendmentOutcome ProcessInclusionPromptResponses_NotAtEndOfAdvancedStudy(Pupil student, int inclusionReasonId, List<PromptAnswer> answers)

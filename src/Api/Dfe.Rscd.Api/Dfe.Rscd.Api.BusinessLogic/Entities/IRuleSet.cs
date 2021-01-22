@@ -6,6 +6,7 @@ namespace Dfe.Rscd.Api.BusinessLogic.Entities
     {
         AmendmentType AmendmentType { get; }
         AmendmentOutcome Apply(Amendment amendment);
+        CheckingWindow CheckingWindow { get; }
     }
 
     public class RuleSetContext
@@ -14,5 +15,6 @@ namespace Dfe.Rscd.Api.BusinessLogic.Entities
         public List<PromptAnswer> PromptAnswers { get; set; }
         public string DfesNumber { get; set; }
         public Pupil Pupil { get;set; }
+
     }
 }

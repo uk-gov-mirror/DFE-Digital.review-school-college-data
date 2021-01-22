@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Dfe.Rscd.Api.BusinessLogic.Common;
-using Dfe.Rscd.Api.BusinessLogic.Entities;
+﻿using Dfe.Rscd.Api.BusinessLogic.Entities;
 
 namespace Dfe.Rscd.Api.Services
 {

@@ -17,23 +17,25 @@ namespace Dfe.Rscd.Api.Services
 
         public AmendmentOutcome ApplyRules(rscd_Amendment amendmentDto, Amendment amendment)
         {
+            var ruleSet = _rules.FirstOrDefault(
+                    x => x.AmendmentType == amendment.AmendmentType
+                               && x.CheckingWindow == amendment.CheckingWindow);
+
+            var outcome = ruleSet.Apply(amendment);
+
             if (amendment.EvidenceStatus == EvidenceStatus.Later)
             {
                 amendmentDto.rscd_Outcome = rscd_Outcome.Awaitingevidence;
-                return new AmendmentOutcome(
-                    new CompleteSimpleOutcomeCheck(OutcomeStatus.AwaitingEvidence));
             }
-            
-            var ruleSet = _rules.FirstOrDefault(x => x.AmendmentType == amendment.AmendmentType);
-            
-            var outcome = ruleSet.Apply(amendment);
-            
-            if (outcome.OutcomeStatus == OutcomeStatus.AutoAccept)
-                amendmentDto.rscd_Outcome = rscd_Outcome.Autoapproved;
-            else if (outcome.OutcomeStatus == OutcomeStatus.AutoReject)
-                amendmentDto.rscd_Outcome = rscd_Outcome.Autorejected;
             else
-                amendmentDto.rscd_Outcome = rscd_Outcome.AwaitingDfEreview;
+            {
+                if (outcome.OutcomeStatus == OutcomeStatus.AutoAccept)
+                    amendmentDto.rscd_Outcome = rscd_Outcome.Autoapproved;
+                else if (outcome.OutcomeStatus == OutcomeStatus.AutoReject)
+                    amendmentDto.rscd_Outcome = rscd_Outcome.Autorejected;
+                else
+                    amendmentDto.rscd_Outcome = rscd_Outcome.AwaitingDfEreview;
+            }
 
             return outcome;
         }

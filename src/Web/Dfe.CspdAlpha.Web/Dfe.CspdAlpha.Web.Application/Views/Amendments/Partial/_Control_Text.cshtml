@@ -1,0 +1,12 @@
+@model Dfe.Rscd.Web.ApiClient.Prompt
+<div class="govuk-form-group">
+    <h1 class="govuk-label-wrapper">
+        <label class="govuk-label govuk-label--l" for="text">
+            @Html.Encode(Model.PromptText)
+        </label>
+    </h1>
+    <div id="more-detail-hint" class="govuk-hint">
+        @Model.PromptShortText
+    </div>
+    <textarea class="govuk-textarea" id="text" name="text" rows="5" aria-describedby="more-detail-hint"></textarea>
+</div>

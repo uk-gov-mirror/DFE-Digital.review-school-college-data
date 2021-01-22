@@ -64,8 +64,8 @@ namespace Dfe.Rscd.Api.Services
                 RelateEstablishmentToAmendment(amendmentEstablishment, outcome.NewAmendmentId);
 
                 // RelateEvidence
-                if (amendment.EvidenceStatus == EvidenceStatus.Now)
-                    RelateEvidence(amendment.Id, amendment.EvidenceFolderName, false);
+                if (outcome.EvidenceStatus == EvidenceStatus.Now)
+                    RelateEvidence(outcome.NewAmendmentId, amendment.EvidenceFolderName, false);
 
                 outcome.NewAmendmentReferenceNumber = GetAmendment(amendment.CheckingWindow, outcome.NewAmendmentId).Reference;
             }

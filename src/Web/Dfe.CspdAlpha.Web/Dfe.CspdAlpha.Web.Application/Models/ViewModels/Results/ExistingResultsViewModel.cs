@@ -15,9 +15,9 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Results
         public ExistingResultsViewModel(List<PriorAttainmentResult> results, PupilViewModel pupilDetails)
         {
             PupilDetails = pupilDetails;
-            Reading = results.FirstOrDefault(r => r.Ks2Subject == Ks2Subject.Reading);
-            Writing = results.SingleOrDefault(r => r.Ks2Subject == Ks2Subject.Writing);
-            Maths = results.SingleOrDefault(r => r.Ks2Subject == Ks2Subject.Maths);
+            Reading = results.FirstOrDefault(r => r.Ks2Subject == Ks2Subject.Reading && r.Mark != string.Empty);
+            Writing = results.FirstOrDefault(r => r.Ks2Subject == Ks2Subject.Writing && r.Mark != string.Empty);
+            Maths = results.FirstOrDefault(r => r.Ks2Subject == Ks2Subject.Maths && r.Mark != string.Empty);
         }
 
         public PupilViewModel PupilDetails { get; set; }

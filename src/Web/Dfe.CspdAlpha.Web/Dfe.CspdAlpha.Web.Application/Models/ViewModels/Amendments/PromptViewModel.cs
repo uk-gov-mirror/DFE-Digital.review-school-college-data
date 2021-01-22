@@ -10,14 +10,17 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments
     {
         public string GetTitle()
         {
-            return "Further Questions";
+            return CurrentQuestion.PromptShortText;
         }
 
         public PupilViewModel PupilDetails { get; set; }
         public string PupilLabel => GetPupilLabel();
-        public AmendmentType AmendmentType { get; set; }
 
         public List<Prompt> Questions { get;set; }
+
+        public int CurrentQuestionIndex { get; set; }
+
+        public bool HasMoreQuestions => Questions.Count > CurrentQuestionIndex;
 
         private string GetPupilLabel()
         {
@@ -28,15 +31,22 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments
 
             return string.Empty;
         }
+
+        public Prompt CurrentQuestion
+        {
+            get
+            {
+                return Questions[CurrentQuestionIndex];
+            }
+        }
+
         public string BackController { get; set; }
         public string BackAction { get; set; }
 
-        private readonly AmendmentOutcome _outcome;
-
-        public PromptViewModel(AmendmentOutcome outcome)
+        public PromptViewModel(List<Prompt> prompts, int currentIndex=0)
         {
-            _outcome = outcome;
-            Questions = outcome.FurtherPrompts.ToList();
+            Questions = prompts;
+            CurrentQuestionIndex = currentIndex;
         }
     }
 }

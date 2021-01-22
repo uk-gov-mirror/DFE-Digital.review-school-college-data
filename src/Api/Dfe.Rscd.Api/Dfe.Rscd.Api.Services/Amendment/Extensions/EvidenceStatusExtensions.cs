@@ -17,7 +17,8 @@ namespace Dfe.Rscd.Api.Services
                 case rscd_Evidencestatus.Notrequired:
                     return EvidenceStatus.NotRequired;
                 default:
-                    throw new ApplicationException();
+                    return EvidenceStatus.Unknown;
+                
             }
         }
 
@@ -32,7 +33,7 @@ namespace Dfe.Rscd.Api.Services
                 case EvidenceStatus.NotRequired:
                     return rscd_Evidencestatus.Notrequired;
                 default:
-                    throw new ApplicationException();
+                    return rscd_Evidencestatus.Notrequired;
             }
         }
     }

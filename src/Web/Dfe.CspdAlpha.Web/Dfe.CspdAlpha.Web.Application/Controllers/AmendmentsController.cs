@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using Dfe.CspdAlpha.Web.Application.Application;
 using Dfe.CspdAlpha.Web.Application.Application.Helpers;
@@ -81,6 +82,8 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         {
             // Ensure steps haven't been manually skipped
             var amendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
+            var promptAnswerList = HttpContext.Session.Get<List<PromptAnswer>>(Constants.PROMPT_ANSWERS);
+            
             if (amendment == null)
             {
                 return RedirectToAction("Index", "TaskList");
@@ -96,6 +99,11 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
             try
             {
+                if (promptAnswerList != null)
+                {
+                    amendment.Answers = promptAnswerList;
+                }
+
                 amendment.IsUserConfirmed = true;
                 var amendmentOutcome = _amendmentService.CreateAmendment(amendment);
                 // Create amendment and redirect to amendment received page
@@ -103,6 +111,9 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 if (amendmentOutcome.IsComplete && amendmentOutcome.IsAmendmentCreated)
                 {
                     HttpContext.Session.Remove(Constants.AMENDMENT_SESSION_KEY);
+                    HttpContext.Session.Remove(Constants.PROMPT_QUESTIONS);
+                    HttpContext.Session.Remove(Constants.PROMPT_ANSWERS);
+
                     HttpContext.Session.Set(Constants.NEW_AMENDMENT_ID, amendmentOutcome.NewAmendmentId);
                     HttpContext.Session.Set(Constants.NEW_REFERENCE_ID, amendmentOutcome.NewAmendmentReferenceNumber);
 
@@ -133,6 +144,37 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             return View("Received", reference);
         }
 
+        [HttpPost]
+        public IActionResult Prompt(PromptAnswerViewModel promptAnswerViewModel)
+        {
+            var promptAnswerList = HttpContext.Session.Get<List<PromptAnswer>>(Constants.PROMPT_ANSWERS);
+            var promptQuestions = HttpContext.Session.Get<List<Prompt>>(Constants.PROMPT_QUESTIONS);
+            var amendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
+
+
+            var promptAnswer = promptAnswerViewModel.GetPromptAnswer(Request.Form);
+
+            if (promptAnswerList == null)
+            {
+                promptAnswerList = new List<PromptAnswer>();
+            }
+
+            promptAnswerList.Add(promptAnswer);
+            HttpContext.Session.Set(Constants.PROMPT_ANSWERS, promptAnswerList);
+
+            var promptViewModel = new PromptViewModel(promptQuestions, promptAnswerViewModel.CurrentIndex+1)
+            {
+                PupilDetails = new PupilViewModel(amendment.Pupil, CheckingWindow)
+            };
+
+            if (promptViewModel.HasMoreQuestions)
+            {
+                return View("Prompt", promptViewModel);
+            }
+
+            return RedirectToAction("Confirm");
+        }
+
         public IActionResult Prompt()
         {
             // Ensure steps haven't been manually skipped
@@ -147,14 +189,19 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             amendment.IsNewAmendment = false;
             amendment.EvidenceStatus = amendmentOutcome.EvidenceStatus;
             HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, amendment);
+            HttpContext.Session.Set(Constants.PROMPT_QUESTIONS, amendmentOutcome.FurtherPrompts);
 
             if (amendmentOutcome.IsComplete && amendmentOutcome.FurtherPrompts == null)
             {
                 return RedirectToAction("Confirm");
             }
 
-            return View("Prompt", new PromptViewModel(amendmentOutcome){AmendmentType = amendment.AmendmentType,
-                PupilDetails = new PupilViewModel(amendment.Pupil, CheckingWindow)});
+            var promptViewModel = new PromptViewModel(amendmentOutcome.FurtherPrompts.ToList())
+            {
+                PupilDetails = new PupilViewModel(amendment.Pupil, CheckingWindow)
+            };
+
+            return View("Prompt", promptViewModel);
         }
     }
 }

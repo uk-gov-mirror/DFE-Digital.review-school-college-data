@@ -71,6 +71,14 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         private RemovePupilViewModel SavePupilToSession(string id, string urn)
         {
             var viewModel = _pupilService.GetPupil(CheckingWindow, id);
+            var studentPupilText = CheckingWindowHelper.GetCheckingWindow(RouteData) == CheckingWindow.KS5
+                ? "Student"
+                : "Pupil";
+
+            var ulnUpnText = CheckingWindowHelper.GetCheckingWindow(RouteData) == CheckingWindow.KS5
+                ? "ULN (Unique Learner Number)"
+                : "UPN (Unique Pupil Number)";
+
             var amendment = new Amendment
             {
                 Urn = urn,
@@ -96,7 +104,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 IsUserConfirmed = false
             };
             HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, amendment);
-            return new RemovePupilViewModel {PupilViewModel = viewModel.PupilViewModel};
+            return new RemovePupilViewModel {PupilViewModel = viewModel.PupilViewModel, StudentPupilText = studentPupilText, ULNUPNText = ulnUpnText};
         }
 
         public IActionResult MatchedPupil(QueryType searchType, string query, string id, string urn)
@@ -126,7 +134,8 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 SearchType = searchType,
                 Query = query,
                 MatchedId = matchedId,
-                Reasons = reasons.ToList()
+                Reasons = reasons.ToList(),
+                CheckingWindow = CheckingWindow
             });
         }
 
@@ -138,9 +147,35 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             if (ModelState.IsValid)
             {
                 amendment.AmendmentDetail.AddField(Constants.RemovePupil.ReasonCode, viewModel.SelectedReasonCode.Value);
+
+                // This is for the old system to work. Will be removed once redundant
+                if (CheckingWindow == CheckingWindow.KS5)
+                {
+                    amendment.EvidenceStatus = viewModel.SelectedReasonCode == 329 ? EvidenceStatus.Now : EvidenceStatus.NotRequired;
+                    HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, amendment);
+                    if (new[]
+                    {
+                        Constants.NOT_AT_END_OF_16_TO_18_STUDY,
+                        Constants.INTERNATIONAL_STUDENT,
+                        Constants.DECEASED,
+                        Constants.NOT_ON_ROLL
+                    }.Any(r => r == viewModel.SelectedReasonCode))
+                    {
+                        return RedirectToAction("Confirm", "Amendments");
+                    }
+                    if (new[]
+                        {
+                            Constants.OTHER_WITH_EVIDENCE,
+                            Constants.OTHER_EVIDENCE_NOT_REQUIRED
+                        }
+                        .Any(r => r == viewModel.SelectedReasonCode))
+                    {
+                        return RedirectToAction("Details");
+                    }
+                }
+
                 amendment.InclusionReasonId = viewModel.SelectedReasonCode.Value;
 
-                // MDP: Figure out where Evidence fits in (is it handled by rules or here)
                 amendment.EvidenceStatus = EvidenceStatus.NotRequired;
 
                 HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, amendment);

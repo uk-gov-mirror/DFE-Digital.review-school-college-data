@@ -1,0 +1,13 @@
+@using Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil
+@using Dfe.Rscd.Web.ApiClient
+@model ReasonViewModel
+
+@foreach (var reason in Model.Reasons.OrderBy(x=>x.ListOrder))
+{
+    <div class="govuk-radios__item">
+        <input type="radio" asp-for="SelectedReasonCode" id="SelectedReason-@reason.IncAdjReasonId" value="@reason.IncAdjReasonId" class="govuk-radios__input" />
+        <label class="govuk-label govuk-radios__label" for="SelectedReason-@reason.IncAdjReasonId">
+            @reason.IncAdjReasonDescription
+        </label>
+    </div>
+}

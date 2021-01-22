@@ -37,61 +37,14 @@ namespace Dfe.Rscd.Api.Services.Rules
 
         protected bool IsPromptAnswerComplete(PromptAnswer answer)
         {
-            bool isPromptAnswerComplete = false;
             var prompt = _dataRepository.Get<Prompt>().Single(x => x.PromptID == answer.PromptID);
 
             bool promptAllowsNulls = prompt.AllowNulls;
 
-            switch (answer.PromptAnswerType)
-            {
-                case (PromptAnswer.PromptAnswerTypeEnum.Info):
-                    if ((answer.PromptAcknowledgeInfoSightAnswer.HasValue && answer.PromptAcknowledgeInfoSightAnswer.Value) || promptAllowsNulls)
-                        isPromptAnswerComplete = true;
-                    else
-                        isPromptAnswerComplete = false;
-                    break;
+            if (!string.IsNullOrEmpty(answer.PromptStringAnswer) || promptAllowsNulls)
+                return true;
 
-                case (PromptAnswer.PromptAnswerTypeEnum.Text):
-                    if (!String.IsNullOrEmpty(answer.PromptStringAnswer) || promptAllowsNulls)
-                        isPromptAnswerComplete = true;
-                    else
-                        isPromptAnswerComplete = false;
-                    break;
-
-                case (PromptAnswer.PromptAnswerTypeEnum.Date):
-                    if (answer.PromptDateTimeAnswer != null || promptAllowsNulls)
-                        isPromptAnswerComplete = true;
-                    else
-                        isPromptAnswerComplete = false;
-                    break;
-
-                case (PromptAnswer.PromptAnswerTypeEnum.Integer):
-                    if (answer.PromptIntegerAnswer.HasValue)
-                        isPromptAnswerComplete = true;
-                    else
-                        isPromptAnswerComplete = false;
-                    break;
-
-                case (PromptAnswer.PromptAnswerTypeEnum.ListBox):
-                    if (!String.IsNullOrEmpty(answer.PromptSelectedValueAnswer) || promptAllowsNulls)
-                        isPromptAnswerComplete = true;
-                    else
-                        isPromptAnswerComplete = false;
-                    break;
-
-                case (PromptAnswer.PromptAnswerTypeEnum.YesNo):
-                    if (answer.PromptYesNoAnswer.HasValue || promptAllowsNulls)
-                        isPromptAnswerComplete = true;
-                    else
-                        isPromptAnswerComplete = false;
-                    break;
-
-                default:
-                    isPromptAnswerComplete = false;
-                    break;
-            }
-
-            return isPromptAnswerComplete;
+            return false;
         }
 
         protected AmendmentOutcome ProcessSingularFurtherPrompt(int furtherPromptId,
@@ -142,5 +95,6 @@ namespace Dfe.Rscd.Api.Services.Rules
 
         public abstract AmendmentType AmendmentType { get; }
         public abstract AmendmentOutcome Apply(Amendment amendment);
+        public abstract CheckingWindow CheckingWindow { get; }
     }
 }

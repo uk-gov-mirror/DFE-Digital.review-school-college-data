@@ -212,7 +212,7 @@ namespace Dfe.Rscd.Api.Services
 
         private List<BusinessLogic.Entities.Prompt> ConvertFromDto(List<Prompt> promptsDto)
         {
-            return promptsDto.Select(x => new BusinessLogic.Entities.Prompt
+            var prompts = promptsDto.Select(x => new BusinessLogic.Entities.Prompt
             {
                 ColumnType = x.ColumnName,
                 AllowNulls = x.AllowNulls,
@@ -226,6 +226,11 @@ namespace Dfe.Rscd.Api.Services
                     PromptItemValue = x.ListValue 
                 }).ToList()
             }).ToList();
+
+            if (prompts.Count > 0)
+                return prompts;
+
+            return null;
         }
 
        private List<Prompt> GetAllNonConditionalPromptsOnly(string pincl, int inclusionReasonId)
@@ -260,17 +265,6 @@ namespace Dfe.Rscd.Api.Services
                 .Get<Prompt>()
                 .Include(x=>x.PromptResponses)
                 .First(p => p.PromptId == promptId);
-        }
-
-        private string GetListItemPromptDisplayText(PromptAnswer answer)
-        {
-            short promptId = short.Parse(answer.PromptID.ToString());
-            short selectedValue = short.Parse(answer.PromptSelectedValueAnswer);
-
-            return _repository.Get<PromptResponse>()
-                .Where(pr => pr.PromptId == promptId && pr.ListOrder == selectedValue)
-                .Select(pr => pr.ListValue)
-                .First();
         }
 
         /// <summary>

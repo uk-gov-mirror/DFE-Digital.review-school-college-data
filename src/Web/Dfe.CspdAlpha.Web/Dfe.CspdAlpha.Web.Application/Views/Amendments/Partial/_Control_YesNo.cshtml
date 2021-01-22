@@ -1,0 +1,28 @@
+@model Dfe.Rscd.Web.ApiClient.Prompt
+<div class="govuk-form-group">
+    <fieldset class="govuk-fieldset" aria-describedby="changed-name-hint">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+                @Model.PromptText
+            </h1>
+        </legend>
+        <div id="changed-name-hint" class="govuk-hint">
+            @Model.PromptShortText
+        </div>
+        <div class="govuk-radios govuk-radios--inline">
+            <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="yes" name="yesno" type="radio" value="yes">
+                <label class="govuk-label govuk-radios__label" for="changed-name">
+                    Yes
+                </label>
+            </div>
+            <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="no" name="yesno" type="radio" value="no">
+                <label class="govuk-label govuk-radios__label" for="changed-name-2">
+                    No
+                </label>
+            </div>
+        </div>
+
+    </fieldset>
+</div>

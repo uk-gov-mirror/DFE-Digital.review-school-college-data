@@ -20,9 +20,19 @@ namespace Dfe.Rscd.Api.BusinessLogic.Entities
 
         public AmendmentOutcome(List<Prompt> furtherPrompts)
         {
-            FurtherPrompts = furtherPrompts;
-            IsComplete = false;
-            IsAmendmentCreated = false;
+            if (furtherPrompts == null)
+            {
+                FurtherPrompts = null;
+                IsComplete = true;
+                IsAmendmentCreated = false;
+            }
+            else
+            {
+                FurtherPrompts = furtherPrompts;
+                IsComplete = false;
+                IsAmendmentCreated = false;
+            }
+            
         }
 
         public AmendmentOutcome(CompletedStudentAdjustment completedRequest)
@@ -30,7 +40,7 @@ namespace Dfe.Rscd.Api.BusinessLogic.Entities
             CompletedRequest = completedRequest;
             OutcomeStatus = completedRequest.OutcomeStatus;
             IsComplete = true;
-            IsAmendmentCreated = true;
+            IsAmendmentCreated = false;
         }
 
         public AmendmentOutcome(CompleteSimpleOutcomeCheck completedRequest)
@@ -46,7 +56,7 @@ namespace Dfe.Rscd.Api.BusinessLogic.Entities
             CompletedNonRequest = completedNonRequest;
             OutcomeStatus = completedNonRequest.OutcomeStatus;
             IsComplete = true;
-            IsAmendmentCreated = true;
+            IsAmendmentCreated = false;
         }
 
     }

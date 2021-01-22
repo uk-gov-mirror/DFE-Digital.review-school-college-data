@@ -3,7 +3,7 @@ using Dfe.Rscd.Api.BusinessLogic.Entities;
 
 namespace Dfe.Rscd.Api.Services.Rules
 {
-    public class RemovePupilRulesV1 : IRuleSet
+    public class RemovePupilRulesKs5 : IRuleSet
     {
         public AmendmentOutcome Apply(Amendment amendment)
         {
@@ -79,5 +79,6 @@ namespace Dfe.Rscd.Api.Services.Rules
         }
 
         public AmendmentType AmendmentType => AmendmentType.RemovePupil;
+        public CheckingWindow CheckingWindow => CheckingWindow.KS5;
     }
 }

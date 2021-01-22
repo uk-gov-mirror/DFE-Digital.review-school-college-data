@@ -671,51 +671,15 @@ namespace Dfe.Rscd.Web.ApiClient
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.3.3.0 (Newtonsoft.Json v12.0.0.0)")]
     public partial class PromptAnswer 
     {
-        [Newtonsoft.Json.JsonProperty("errorMessage", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string ErrorMessage { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("informationMessage", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string InformationMessage { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("warningMessage", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string WarningMessage { get; set; }
-    
         [Newtonsoft.Json.JsonProperty("promptID", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int PromptID { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("promptText", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string PromptText { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("columnType", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string ColumnType { get; set; }
     
         [Newtonsoft.Json.JsonProperty("promptAnswerType", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public PromptAnswerTypeEnum PromptAnswerType { get; set; }
     
-        [Newtonsoft.Json.JsonProperty("promptSelectedValueAnswer", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string PromptSelectedValueAnswer { get; set; }
-    
         [Newtonsoft.Json.JsonProperty("promptStringAnswer", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string PromptStringAnswer { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("promptIntegerAnswer", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? PromptIntegerAnswer { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("promptDateTimeAnswer", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTimeOffset? PromptDateTimeAnswer { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("promptYesNoAnswer", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool? PromptYesNoAnswer { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("promptAcknowledgeInfoSightAnswer", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool? PromptAcknowledgeInfoSightAnswer { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("allowNulls", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool AllowNulls { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("promptShortText", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string PromptShortText { get; set; }
     
     
     }

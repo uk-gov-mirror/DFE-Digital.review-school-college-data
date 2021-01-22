@@ -11,5 +11,9 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil
         public PupilViewModel PupilViewModel { get; set; }
         public QueryType QueryType { get; set; }
         public string query { get; set; }
+
+        public string ULNUPNText { get; set; }
+
+        public string StudentPupilText { get;set; }
     }
 }
