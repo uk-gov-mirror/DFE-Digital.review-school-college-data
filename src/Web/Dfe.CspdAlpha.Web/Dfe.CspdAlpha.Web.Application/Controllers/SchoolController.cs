@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
-    public class SchoolController : Controller
+    public class SchoolController : SessionController
     {
         private readonly IEstablishmentService _establishmentService;
 

@@ -10,13 +10,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
-    public class PriorAttainmentController : Controller
+    public class PriorAttainmentController : SessionController
     {
         private CheckingWindow CheckingWindow => CheckingWindowHelper.GetCheckingWindow(RouteData);
 
         public IActionResult Add()
         {
-            var amendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
+            var amendment = GetAmendment();
             var amendmentDetail = amendment?.AmendmentDetail;
             if (amendment?.Pupil == null || amendmentDetail == null ||
                 amendmentDetail.GetField<string>(Constants.AddPupil.AddReason) != AddReason.New)
@@ -46,7 +46,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         [HttpPost]
         public IActionResult Add(PriorAttainmentResultViewModel result)
         {
-            var amendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
+            var amendment = GetAmendment();
 
             var amendmentDetail = amendment.AmendmentDetail ?? new AmendmentDetail();
             if (ModelState.IsValid)
@@ -68,7 +68,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 });
 
 
-                HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, amendment);
+                SaveAmendment(amendment);
 
                 var results = amendmentDetail
                     .GetList<PriorAttainmentResult>(Constants.AddPupil.PriorAttainmentResults);
@@ -93,7 +93,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
         public new IActionResult View()
         {
-            var amendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
+            var amendment = GetAmendment();
             var amendmentDetail = amendment.AmendmentDetail ?? new AmendmentDetail();
             if (amendment.Pupil == null || amendmentDetail.GetField<string>(Constants.AddPupil.AddReason) != AddReason.Existing)
             {
@@ -106,7 +106,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
         public IActionResult Edit()
         {
-            var amendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
+            var amendment = GetAmendment();
             var amendmentDetail = amendment.AmendmentDetail ?? new AmendmentDetail();
             if (amendment.Pupil == null || amendmentDetail.GetField<string>(Constants.AddPupil.AddReason) != AddReason.Existing)
             {
@@ -119,7 +119,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         [HttpPost]
         public IActionResult Edit(ExistingResultsViewModel results)
         {
-            var amendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
+            var amendment = GetAmendment();
             var amendmentDetail = amendment.AmendmentDetail ?? new AmendmentDetail();
 
             amendmentDetail.SetField(Constants.AddPupil.PriorAttainmentResults, new List<PriorAttainmentResult>
@@ -129,7 +129,8 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 results.Maths
             });
 
-            HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, amendment);
+            SaveAmendment(amendment);
+
             return RedirectToAction("Index", "Evidence");
         }
     }

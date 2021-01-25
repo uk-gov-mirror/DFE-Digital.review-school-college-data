@@ -11,7 +11,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
-    public class RemovePupilController : Controller
+    public class RemovePupilController : SessionController
     {
         private readonly IPupilService _pupilService;
         private IAmendmentService _amendmentService;
@@ -103,7 +103,9 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 IsNewAmendment = true,
                 IsUserConfirmed = false
             };
-            HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, amendment);
+
+            SaveAmendment(amendment);
+
             return new RemovePupilViewModel {PupilViewModel = viewModel.PupilViewModel, StudentPupilText = studentPupilText, ULNUPNText = ulnUpnText};
         }
 
@@ -117,9 +119,9 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
         public IActionResult Reason(QueryType searchType, string query, string matchedId)
         {
-            var amendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
-            HttpContext.Session.Remove(Constants.PROMPT_QUESTIONS);
-            HttpContext.Session.Remove(Constants.PROMPT_ANSWERS);
+            var amendment = GetAmendment();
+            ClearQuestions();
+            ClearAnswers();
 
             if (amendment == null)
             {
@@ -144,7 +146,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         [HttpPost]
         public IActionResult Reason(ReasonViewModel viewModel)
         {
-            var amendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
+            var amendment = GetAmendment();
 
             if (ModelState.IsValid)
             {
@@ -154,7 +156,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 if (CheckingWindow == CheckingWindow.KS5)
                 {
                     amendment.EvidenceStatus = viewModel.SelectedReasonCode == 329 ? EvidenceStatus.Now : EvidenceStatus.NotRequired;
-                    HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, amendment);
+                    SaveAmendment(amendment);
                     if (new[]
                     {
                         Constants.NOT_AT_END_OF_16_TO_18_STUDY,
@@ -180,7 +182,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
                 amendment.EvidenceStatus = EvidenceStatus.NotRequired;
 
-                HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, amendment);
+                SaveAmendment(amendment);
 
                 return RedirectToAction("Prompt", "Amendments");
             }
@@ -189,7 +191,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
         public IActionResult Details()
         {
-            var amendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
+            var amendment = GetAmendment();
             if (amendment == null)
             {
                 return RedirectToAction("Index");
@@ -206,14 +208,14 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         [HttpPost]
         public IActionResult Details(DetailsViewModel viewModel)
         {
-            var amendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
+            var amendment = GetAmendment();
             var amendmentDetail = amendment.AmendmentDetail;
 
             if (ModelState.IsValid)
             {
                 amendmentDetail.AddField(Constants.RemovePupil.Detail, viewModel.AmendmentDetails);
 
-                HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, amendment);
+                SaveAmendment(amendment);
 
                 if (amendment.EvidenceStatus == EvidenceStatus.Now)
                 {

@@ -10,7 +10,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
-    public class TaskListController : Controller
+    public class TaskListController : SessionController
     {
         private const string TASK_LIST = "task-list-{0}";
         private readonly ISchoolService _schoolService;
@@ -25,17 +25,18 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
         public IActionResult Index()
         {
-            HttpContext.Session.Remove(Constants.PROMPT_QUESTIONS);
-            HttpContext.Session.Remove(Constants.PROMPT_ANSWERS);
+            ClearAmendmentAndRelated();
+
             UserID = ClaimsHelper.GetUserId(User) + CheckingWindow;
-            var viewModel = HttpContext.Session.Get<TaskListViewModel>(string.Format(TASK_LIST, UserID));
+            var viewModel = GetTaskList();
             if (viewModel == null)
             {
                 var urn = ClaimsHelper.GetURN(User);
                 viewModel = _schoolService.GetConfirmationRecord(CheckingWindow, UserID, urn) ??
                             new TaskListViewModel();
                 viewModel.CheckingWindow = CheckingWindow;
-                HttpContext.Session.Set(string.Format(TASK_LIST, UserID), viewModel);
+
+                SaveTaskList(viewModel);
             }
 
             return View(viewModel);
@@ -45,11 +46,14 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         public IActionResult Review()
         {
             UserID = ClaimsHelper.GetUserId(User) + CheckingWindow;
-            var viewModel = HttpContext.Session.Get<TaskListViewModel>(string.Format(TASK_LIST, UserID));
+            var viewModel = GetTaskList();
+
             viewModel.ReviewChecked = true;
             var urn = ClaimsHelper.GetURN(User);
+
             _schoolService.UpdateConfirmation(CheckingWindow, viewModel, UserID, urn);
-            HttpContext.Session.Set(string.Format(TASK_LIST, UserID), viewModel);
+            SaveTaskList(viewModel);
+
             return RedirectToAction("Index");
         }
 
@@ -57,13 +61,17 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         public IActionResult ConfrimData()
         {
             UserID = ClaimsHelper.GetUserId(User) + CheckingWindow;
-            var viewModel = HttpContext.Session.Get<TaskListViewModel>(string.Format(TASK_LIST, UserID));
+            var viewModel = GetTaskList();
+
             if (viewModel == null || !viewModel.ReviewChecked) return RedirectToAction("Index");
             viewModel.DataConfirmed = true;
             var urn = ClaimsHelper.GetURN(User);
             _schoolService.UpdateConfirmation(CheckingWindow, viewModel, UserID, urn);
+
             viewModel.ConfirmationDate = DateTime.Now.Date;
-            HttpContext.Session.Set(string.Format(TASK_LIST, UserID), viewModel);
+
+            SaveTaskList(viewModel);
+
             return RedirectToAction("Index");
         }
     }

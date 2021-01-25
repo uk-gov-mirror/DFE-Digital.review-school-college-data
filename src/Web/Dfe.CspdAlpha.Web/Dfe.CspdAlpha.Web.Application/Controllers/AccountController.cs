@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : SessionController
     {
         private readonly ILogger<AccountController> _logger;
 
@@ -17,8 +17,10 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
         public async Task<IActionResult> SignOut()
         {
+            ClearAll();
+
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            HttpContext.Session.Clear();
+            
             return RedirectToAction("Index", "Home");
         }
     }

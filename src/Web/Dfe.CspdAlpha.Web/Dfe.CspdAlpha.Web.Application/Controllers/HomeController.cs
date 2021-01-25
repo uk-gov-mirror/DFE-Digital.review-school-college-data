@@ -7,7 +7,7 @@ using Dfe.CspdAlpha.Web.Application.Application;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : SessionController
     {
         private readonly ILogger<HomeController> _logger;
         public HomeController(ILogger<HomeController> logger)

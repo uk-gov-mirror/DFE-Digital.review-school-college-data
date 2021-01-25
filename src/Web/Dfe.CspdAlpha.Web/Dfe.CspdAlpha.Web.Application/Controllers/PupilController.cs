@@ -10,7 +10,7 @@ using Dfe.Rscd.Web.ApiClient;
 namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
     [TasksReviewedFilter("Index,View")]
-    public class PupilController : Controller
+    public class PupilController : SessionController
     {
         private IEstablishmentService _establishmentService;
         private IPupilService _pupilService;
@@ -42,7 +42,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
         public IActionResult CancelAmendment()
         {
-            HttpContext.Session.Remove(Constants.AMENDMENT_SESSION_KEY);
+            ClearAmendmentAndRelated();
             return RedirectToAction("Index");
         }
     }

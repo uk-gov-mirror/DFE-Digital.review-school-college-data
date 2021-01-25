@@ -12,7 +12,7 @@ using ProblemDetails = Dfe.Rscd.Web.ApiClient.ProblemDetails;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
-    public class AmendmentsController : Controller
+    public class AmendmentsController : SessionController
     {
         private readonly IAmendmentService _amendmentService;
         private CheckingWindow CheckingWindow => CheckingWindowHelper.GetCheckingWindow(RouteData);
@@ -42,7 +42,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
         public IActionResult Clear()
         {
-            HttpContext.Session.Remove(Constants.AMENDMENT_SESSION_KEY);
+            ClearAmendmentAndRelated();
             return RedirectToAction("Index", "TaskList");
         }
 
@@ -59,7 +59,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
         public IActionResult Confirm()
         {
-            var amendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
+            var amendment = GetAmendment();
             return View(GetConfirmViewModel(amendment));
         }
 
@@ -80,10 +80,9 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         [HttpPost]
         public IActionResult Confirm(ConfirmViewModel viewModel)
         {
+            var amendment = GetAmendment();
+
             // Ensure steps haven't been manually skipped
-            var amendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
-            var promptAnswerList = HttpContext.Session.Get<List<PromptAnswer>>(Constants.PROMPT_ANSWERS);
-            
             if (amendment == null)
             {
                 return RedirectToAction("Index", "TaskList");
@@ -93,26 +92,19 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             if (!viewModel.ConfirmAmendment)
             {
                 // Cancel amendment
-                HttpContext.Session.Remove(Constants.AMENDMENT_SESSION_KEY);
+                ClearAmendmentAndRelated();
                 return RedirectToAction("Index", "TaskList");
             }
 
             try
             {
-                if (promptAnswerList != null)
-                {
-                    amendment.Answers = promptAnswerList;
-                }
-
                 amendment.IsUserConfirmed = true;
                 var amendmentOutcome = _amendmentService.CreateAmendment(amendment);
                 // Create amendment and redirect to amendment received page
                 
                 if (amendmentOutcome.IsComplete && amendmentOutcome.IsAmendmentCreated)
                 {
-                    HttpContext.Session.Remove(Constants.AMENDMENT_SESSION_KEY);
-                    HttpContext.Session.Remove(Constants.PROMPT_QUESTIONS);
-                    HttpContext.Session.Remove(Constants.PROMPT_ANSWERS);
+                    ClearAmendmentAndRelated();
 
                     var receivedViewModel = new ReceivedViewModel { NewAmendmentId = amendmentOutcome.NewAmendmentId, NewAmendmentRef = amendmentOutcome.NewAmendmentReferenceNumber};
 
@@ -145,22 +137,13 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         [HttpPost]
         public IActionResult Prompt(PromptAnswerViewModel promptAnswerViewModel)
         {
-            var promptAnswerList = HttpContext.Session.Get<List<PromptAnswer>>(Constants.PROMPT_ANSWERS);
-            var promptQuestions = HttpContext.Session.Get<List<Prompt>>(Constants.PROMPT_QUESTIONS);
-            var amendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
-
-
             var promptAnswer = promptAnswerViewModel.GetPromptAnswer(Request.Form);
+            var questions = GetQuestions();
+            var amendment = GetAmendment();
 
-            if (promptAnswerList == null)
-            {
-                promptAnswerList = new List<PromptAnswer>();
-            }
-
-            promptAnswerList.Add(promptAnswer);
-            HttpContext.Session.Set(Constants.PROMPT_ANSWERS, promptAnswerList);
-
-            var promptViewModel = new PromptViewModel(promptQuestions, promptAnswerViewModel.CurrentIndex+1)
+            AddAnswer(promptAnswer);
+            
+            var promptViewModel = new PromptViewModel(questions, promptAnswerViewModel.CurrentIndex+1)
             {
                 PupilDetails = new PupilViewModel(amendment.Pupil, CheckingWindow)
             };
@@ -175,8 +158,8 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
         public IActionResult Prompt()
         {
-            // Ensure steps haven't been manually skipped
-            var amendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
+            var amendment = GetAmendment();
+
             if (amendment == null)
             {
                 return RedirectToAction("Index", "TaskList");
@@ -186,8 +169,9 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
             amendment.IsNewAmendment = false;
             amendment.EvidenceStatus = amendmentOutcome.EvidenceStatus;
-            HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, amendment);
-            HttpContext.Session.Set(Constants.PROMPT_QUESTIONS, amendmentOutcome.FurtherPrompts);
+
+            SaveAmendment(amendment);
+            SaveQuestions(amendmentOutcome.FurtherPrompts.ToList());
 
             if (amendmentOutcome.IsComplete && amendmentOutcome.FurtherPrompts == null)
             {
@@ -201,5 +185,6 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
             return View("Prompt", promptViewModel);
         }
+
     }
 }

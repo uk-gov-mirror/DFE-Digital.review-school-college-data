@@ -53,6 +53,7 @@ namespace Dfe.CspdAlpha.Web.Application
                 var policy = new AuthorizationPolicyBuilder()
                                  .RequireAuthenticatedUser()
                                  .Build();
+
                 config.Filters.Add(new AuthorizeFilter(policy));
             })
             .AddFluentValidation(fv =>

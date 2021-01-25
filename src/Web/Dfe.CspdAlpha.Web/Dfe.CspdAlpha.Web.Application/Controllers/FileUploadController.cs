@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
-    public class FileUploadController : Controller
+    public class FileUploadController : SessionController
     {
         private readonly ILogger<FileUploadController> _logger;
         private readonly IFileUploadService _fileUploadService;

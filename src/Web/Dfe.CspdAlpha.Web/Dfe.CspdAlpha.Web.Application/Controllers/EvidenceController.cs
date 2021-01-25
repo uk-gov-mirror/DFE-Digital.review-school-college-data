@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
-    public class EvidenceController : Controller
+    public class EvidenceController : SessionController
     {
         private readonly IEvidenceService _evidenceService;
         private readonly IAmendmentService _amendmentService;
@@ -24,8 +24,8 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
         public IActionResult Index()
         {
-            var amendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
-            var amendmentDetail = amendment?.AmendmentDetail;
+            var amendment = GetAmendment();
+            var amendmentDetail = amendment.AmendmentDetail;
 
             return View(new EvidenceViewModel{PupilDetails = new PupilViewModel(amendment.Pupil, CheckingWindow), AddReason = amendmentDetail.GetField<string>("AddReason")});
         }
@@ -33,9 +33,10 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         [HttpPost]
         public IActionResult Index(EvidenceViewModel viewModel)
         {
-            var amendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
+            var amendment = GetAmendment();
             amendment.EvidenceStatus = viewModel.EvidenceOption;
-            HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, amendment);
+            SaveAmendment(amendment);
+
             if (ModelState.IsValid)
             {
                 switch (viewModel.EvidenceOption)
@@ -46,7 +47,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                     case EvidenceStatus.NotRequired:
                         return RedirectToAction("Confirm", "Amendments");
                     default:
-                        var amendmentDetail = amendment?.AmendmentDetail;
+                        var amendmentDetail = amendment.AmendmentDetail;
                         viewModel.PupilDetails = new PupilViewModel(amendment.Pupil, CheckingWindow);
                         viewModel.AddReason = amendmentDetail.GetField<string>(Constants.AddPupil.AddReason);
                         return View(viewModel);
@@ -57,11 +58,11 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
         public IActionResult Upload(string id)
         {
+            
             // Upload for existing amendment
             if (id == null)
             {
-                var amendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
-
+                var amendment = GetAmendment();
                 if (amendment == null || amendment.EvidenceStatus != EvidenceStatus.Now)
                 {
                     return RedirectToAction("Index", "AddPupil");
@@ -82,14 +83,13 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         {
             if (id == null)
             {
-                var amendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
-
+                var amendment = GetAmendment();
                 if (ModelState.IsValid)
                 {
                     amendment.EvidenceFolderName = _evidenceService.UploadEvidence(viewModel.EvidenceFiles);
                     if (!string.IsNullOrWhiteSpace(amendment.EvidenceFolderName))
                     {
-                        HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, amendment);
+                        SaveAmendment(amendment);
                         return RedirectToAction("Confirm", "Amendments");
                     }
                     ModelState.AddModelError("EvidenceFiles", "Upload file");

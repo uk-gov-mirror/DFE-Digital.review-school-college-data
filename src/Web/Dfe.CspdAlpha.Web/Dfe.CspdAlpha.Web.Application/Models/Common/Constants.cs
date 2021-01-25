@@ -8,9 +8,9 @@ namespace Dfe.CspdAlpha.Web.Application.Models.Common
         public const string AMENDMENT_SESSION_KEY = "current-amendment";
         public const string NEW_AMENDMENT_ID = "new-amendment-id";
         public const string NEW_REFERENCE_ID = "new-reference-id";
-
         public const string PROMPT_QUESTIONS = "new-promptquestions-ref";
         public const string PROMPT_ANSWERS = "new-promptanswers-ref";
+       
 
         // Remove reason codes
         public const int NOT_AT_END_OF_16_TO_18_STUDY = 325;

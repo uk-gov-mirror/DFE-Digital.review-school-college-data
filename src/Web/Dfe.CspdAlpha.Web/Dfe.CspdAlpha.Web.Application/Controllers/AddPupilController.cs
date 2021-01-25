@@ -13,7 +13,7 @@ using Dfe.Rscd.Web.ApiClient;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
-    public class AddPupilController : Controller
+    public class AddPupilController : SessionController
     {
         private readonly IPupilService _pupilService;
         private readonly IEstablishmentService _establishmentService;
@@ -27,9 +27,10 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
         public IActionResult Index()
         {
-            var amendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
-            HttpContext.Session.Remove(Constants.PROMPT_QUESTIONS);
-            HttpContext.Session.Remove(Constants.PROMPT_ANSWERS);
+            ClearQuestions();
+            ClearAnswers();
+
+            var amendment = GetAmendment();
 
             if (amendment != null)
             {
@@ -104,7 +105,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                         })
                     .ToList());
 
-                HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, amendment);
+                SaveAmendment(amendment);
 
                 return RedirectToAction("MatchedPupil");
             }
@@ -134,7 +135,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             addPupilAmendment.AmendmentDetail.AddField(Constants.AddPupil.AddReason, AddReason.New);
             addPupilAmendment.AmendmentDetail.AddField(Constants.AddPupil.PriorAttainmentResults, new List<PriorAttainmentResult>());
 
-            HttpContext.Session.Set(Constants.AMENDMENT_SESSION_KEY, addPupilAmendment);
+            SaveAmendment(addPupilAmendment);
 
             return RedirectToAction("Add", "PriorAttainment");
         }
@@ -147,7 +148,8 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
         public IActionResult MatchedPupil(string urn)
         {
-            var amendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
+            var amendment = GetAmendment();
+
             if (amendment.Pupil == null || amendment.AmendmentDetail.GetField<string>(Constants.AddPupil.AddReason) == AddReason.New)
             {
                 return RedirectToAction("Index");
