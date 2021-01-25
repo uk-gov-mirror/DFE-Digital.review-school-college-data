@@ -32,10 +32,10 @@ const pupilListApp = new Vue({
       return pupil;
     });
     if (window.checkingWindowURL.indexOf('ks5') > -1) {
-      this.columns = ['First name', 'Last name', 'ULN', 'View student'];
+      this.columns = ['First name', 'Last name', 'ULN', 'Date of birth', 'Gender', 'View student'];
       this.idBinding = 'ULN';
     } else {
-      this.columns = ['First name', 'Last name', 'UPN', 'View pupil'];
+      this.columns = ['First name', 'Last name', 'UPN', 'Date of birth', 'Gender', 'View pupil'];
       this.idBinding = 'UPN';
     }
     this.urn = window.urn;

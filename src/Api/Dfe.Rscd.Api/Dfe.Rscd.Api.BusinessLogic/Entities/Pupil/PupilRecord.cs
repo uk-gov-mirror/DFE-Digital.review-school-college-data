@@ -7,5 +7,7 @@
         public string Surname { get; set; }
         public string UPN { get; set; }
         public string ULN { get; set; }
+        public string DateOfBirth { get;set; }
+        public string Gender { get; set; }
     }
 }

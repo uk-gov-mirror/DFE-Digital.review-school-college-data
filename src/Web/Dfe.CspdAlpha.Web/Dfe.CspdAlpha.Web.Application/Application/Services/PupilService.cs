@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using Dfe.CspdAlpha.Web.Application.Application.Helpers;
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
 using Dfe.CspdAlpha.Web.Application.Models.Common;
@@ -24,9 +26,17 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             var checkingWindowURL = CheckingWindowHelper.GetCheckingWindowURL(checkingWindow);
             var pupilDetails = _apiClient.SearchPupilsAsync(searchQuery.URN, searchQuery.SearchType == QueryType.Name ? searchQuery.Query : string.Empty, searchQuery.SearchType == QueryType.PupilID ? searchQuery.Query : string.Empty, checkingWindowURL).GetAwaiter().GetResult();
             return pupilDetails.Result
-                .Select(p => new PupilViewModel {FirstName = p.ForeName, LastName = p.Surname, ID = p.Id, UPN = p.Upn, ULN = p.Uln})
+                .Select(p => new PupilViewModel {FirstName = p.ForeName, LastName = p.Surname, ID = p.Id, UPN = p.Upn, ULN = p.Uln, DateOfBirth = GetDateTime(p.DateOfBirth), Gender = new ApiClient.Gender{ Code = p.Gender}})
                 .OrderBy(p => p.FirstName)
                 .ToList();
+        }
+
+        private DateTime GetDateTime(string dateString)
+        {
+            return DateTime.TryParseExact(dateString, "yyyyMMdd", new CultureInfo("en-GB"), DateTimeStyles.None,
+                out var date)
+                ? date
+                : DateTime.MinValue;
         }
 
         public MatchedPupilViewModel GetPupil(ApiClient.CheckingWindow checkingWindow, string id)

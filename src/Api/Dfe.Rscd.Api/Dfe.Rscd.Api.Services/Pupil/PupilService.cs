@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using Dfe.Rscd.Api.BusinessLogic.Common;
 using Dfe.Rscd.Api.BusinessLogic.Entities;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Config;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs;
@@ -49,7 +50,7 @@ namespace Dfe.Rscd.Api.Services
 
             var dtos = repoQuery
                 .Select(p => new PupilRecord
-                    {Id = p.id, ForeName = p.Forename, Surname = p.Surname, ULN = p.ULN, UPN = p.UPN})
+                    {Id = p.id, ForeName = p.Forename, Surname = p.Surname, ULN = p.ULN, UPN = p.UPN, Gender=p.Gender, DateOfBirth = p.DOB})
                 .Take(PageSize);
 
             return dtos.ToList();

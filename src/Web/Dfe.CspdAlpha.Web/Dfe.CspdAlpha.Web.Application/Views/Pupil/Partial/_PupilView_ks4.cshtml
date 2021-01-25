@@ -47,7 +47,7 @@
             </div>
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Age
+                    Age during report
                 </dt>
                 <dd class="govuk-summary-list__value">
                     @Model.PupilViewModel.Age
@@ -59,6 +59,14 @@
                 </dt>
                 <dd class="govuk-summary-list__value">
                     @Model.PupilViewModel.Gender.Description
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    SEN
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Model.PupilViewModel.SEN.Code : @Model.PupilViewModel.SEN.Description
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -75,6 +83,38 @@
                 </dt>
                 <dd class="govuk-summary-list__value">
                     @Model.PupilViewModel.YearGroup
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Etchnic code group
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Model.PupilViewModel.EthnicCodeGroup.Code : @Model.PupilViewModel.EthnicCodeGroup.Description
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    First language
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Model.PupilViewModel.FirstLanguage.Code : @Model.PupilViewModel.FirstLanguage.Description
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Free school meals in the last 6 years
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @(Model.PupilViewModel.FreeSchoolsInLast6Years.Code == "1" ? "Yes" : "No")
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Children looked after
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @(Model.PupilViewModel.ChildrenLookedAfter ? "Yes" : "No")
                 </dd>
             </div>
         </dl>

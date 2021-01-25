@@ -12,6 +12,8 @@
         <td class="govuk-table__cell" data-label="First name">{{pupil.FirstName}}</td>
         <td class="govuk-table__cell" data-label="Last name">{{pupil.LastName}}</td>
         <td class="govuk-table__cell" v-bind:data-label="idBinding">{{pupil[idBinding]}}</td>
+        <td class="govuk-table__cell" data-label="Date of birth">{{pupil.DateOfBirthString}}</td>
+        <td class="govuk-table__cell" data-label="Gender">{{pupil.GenderString}}</td>
         <td class="govuk-table__cell" v-html="viewLink(pupil.ID)"></td>
       </tr>
     </tbody>
@@ -32,7 +34,7 @@
     methods: {
       viewLink: function(pupilId){
         const href = '/' + checkingWindowURL + '/' + this.urn + '/Pupil/View/' + pupilId
-        return `<a href="${href}">${this.columns[3]}</a>`
+        return `<a href="${href}">${this.columns[5]}</a>`
       },
     }
   }

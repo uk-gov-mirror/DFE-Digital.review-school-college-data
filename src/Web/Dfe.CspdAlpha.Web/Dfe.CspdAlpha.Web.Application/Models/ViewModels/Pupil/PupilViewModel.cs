@@ -12,6 +12,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
     {
         private readonly Rscd.Web.ApiClient.Pupil _pupil;
 
+
         public PupilViewModel()
         {
             
@@ -37,6 +38,11 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
             AllocationYears = GetAllocationYears(pupil.Allocations);
             Allocations = pupil.Allocations;
             PincludeCode = pupil.Pincl != null ? pupil.Pincl.P_INCL : string.Empty;
+            EthnicCodeGroup = pupil.Ethnicity;
+            SEN = pupil.SenStatus;
+            FirstLanguage = pupil.FirstLanguage;
+            FreeSchoolsInLast6Years = pupil.Fsm;
+            ChildrenLookedAfter = pupil.InCare;
         }
 
         private int[] GetAllocationYears(ICollection<SourceOfAllocation> originalAllocations)
@@ -59,12 +65,40 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
         public DateTime DateOfBirth { get; set; }
         public int Age { get; set; }
         public Gender Gender { get; set; }
+
+        public string GenderString
+        {
+            get
+            {
+                if (Gender.Code == Gender.Female.Code)
+                {
+                    return Gender.Female.Description;
+                }
+
+                if (Gender.Code == Gender.Male.Code)
+                {
+                    return Gender.Male.Description;
+                }
+
+                return "Not specified";
+            }
+        }
+
+        public string DateOfBirthString => DateOfBirth.ToString("dd/MM/yyyy");
+
         public DateTime DateOfAdmission { get; set; }
         public string YearGroup { get; set; }
         public ICollection<SourceOfAllocation> Allocations { get; set; }
 
         public int[] AllocationYears { get; set; }
         public string FullName => string.Join(" ", new[] {FirstName, LastName}.Where(n => !string.IsNullOrEmpty(n)));
+
+        public SENStatus SEN { get; set; }
+
+        public Ethnicity EthnicCodeGroup {get;set;}
+        public FirstLanguage FirstLanguage { get;set; }
+        public FSM FreeSchoolsInLast6Years { get; set; }
+        public bool ChildrenLookedAfter { get; set; }
 
         public string GetPupilDetailsLabel => Keystage == Keystage.KS5 ? "View student details" : "View pupil details";
     }
