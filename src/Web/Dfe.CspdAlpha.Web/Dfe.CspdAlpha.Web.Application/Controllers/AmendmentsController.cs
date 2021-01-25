@@ -114,10 +114,9 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                     HttpContext.Session.Remove(Constants.PROMPT_QUESTIONS);
                     HttpContext.Session.Remove(Constants.PROMPT_ANSWERS);
 
-                    HttpContext.Session.Set(Constants.NEW_AMENDMENT_ID, amendmentOutcome.NewAmendmentId);
-                    HttpContext.Session.Set(Constants.NEW_REFERENCE_ID, amendmentOutcome.NewAmendmentReferenceNumber);
+                    var receivedViewModel = new ReceivedViewModel { NewAmendmentId = amendmentOutcome.NewAmendmentId, NewAmendmentRef = amendmentOutcome.NewAmendmentReferenceNumber};
 
-                    return RedirectToAction("Received");
+                    return RedirectToAction("Received", receivedViewModel);
                 }
 
                 return RedirectToAction("Prompt");
@@ -138,10 +137,9 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             return RedirectToAction("Index", "TaskList");
         }
 
-        public IActionResult Received()
+        public IActionResult Received(ReceivedViewModel viewModel)
         {
-            var reference = HttpContext.Session.Get<string>(Constants.NEW_REFERENCE_ID);
-            return View("Received", reference);
+            return View("Received", viewModel);
         }
 
         [HttpPost]

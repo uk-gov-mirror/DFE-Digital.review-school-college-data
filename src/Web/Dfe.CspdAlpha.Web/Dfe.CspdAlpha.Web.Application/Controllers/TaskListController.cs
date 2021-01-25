@@ -2,6 +2,7 @@ using System;
 using Dfe.CspdAlpha.Web.Application.Application;
 using Dfe.CspdAlpha.Web.Application.Application.Helpers;
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
+using Dfe.CspdAlpha.Web.Application.Models.Common;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels;
 using Dfe.Rscd.Web.ApiClient;
 using Microsoft.AspNetCore.Mvc;
@@ -24,6 +25,8 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
         public IActionResult Index()
         {
+            HttpContext.Session.Remove(Constants.PROMPT_QUESTIONS);
+            HttpContext.Session.Remove(Constants.PROMPT_ANSWERS);
             UserID = ClaimsHelper.GetUserId(User) + CheckingWindow;
             var viewModel = HttpContext.Session.Get<TaskListViewModel>(string.Format(TASK_LIST, UserID));
             if (viewModel == null)

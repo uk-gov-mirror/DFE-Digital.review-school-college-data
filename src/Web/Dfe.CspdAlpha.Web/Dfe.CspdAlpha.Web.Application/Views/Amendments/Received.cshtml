@@ -1,4 +1,4 @@
-@model string
+@model Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments.ReceivedViewModel
 @{
     ViewData["Title"] = "Requested amendment received";
 }
@@ -20,7 +20,7 @@
                 @ViewBag.Title
             </h1>
             <div class="govuk-panel__body">
-                Your reference number<br><strong>@Model</strong>
+                Your reference number<br><strong>@Model.NewAmendmentRef</strong>
             </div>
         </div>
     </div>

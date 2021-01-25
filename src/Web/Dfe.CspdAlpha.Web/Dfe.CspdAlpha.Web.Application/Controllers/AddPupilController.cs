@@ -28,6 +28,9 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         public IActionResult Index()
         {
             var amendment = HttpContext.Session.Get<Amendment>(Constants.AMENDMENT_SESSION_KEY);
+            HttpContext.Session.Remove(Constants.PROMPT_QUESTIONS);
+            HttpContext.Session.Remove(Constants.PROMPT_ANSWERS);
+
             if (amendment != null)
             {
                 return View(new AddPupilViewModel
