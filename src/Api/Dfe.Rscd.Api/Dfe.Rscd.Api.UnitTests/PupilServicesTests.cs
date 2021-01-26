@@ -96,9 +96,9 @@ namespace Dfe.Rscd.Api.UnitTests
             Assert.True(result.AdmissionDate.Day == 01);
             Assert.True(result.Forename == _testPupil.Forename);
             Assert.True(result.Surname == _testPupil.Surname);
-            Assert.True(result.InCare == (_testPupil.AdoptedFromCareID == "1"));
+            Assert.True(result.LookedAfterEver);
             Assert.True(result.Ethnicity.Code == _testPupil.EthnicityCode);
-            Assert.True(result.FSM.Code == "1");
+            Assert.True(result.FreeSchoolMealsLast6Years);
             Assert.True(result.FirstLanguage.Code == _testPupil.FirstLanguageCode);
             Assert.True(result.ForvusIndex == int.Parse(_testPupil.ForvusIndex));
             Assert.True(result.DfesNumber == _testPupil.DFESNumber);

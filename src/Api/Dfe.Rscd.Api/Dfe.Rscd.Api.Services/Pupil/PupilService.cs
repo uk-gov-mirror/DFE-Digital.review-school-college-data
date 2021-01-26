@@ -92,13 +92,13 @@ namespace Dfe.Rscd.Api.Services
                 }).ToList(),
                 Allocations = GetSourceOfAllocations(pupil, allocationYear),
                 ForvusIndex = int.Parse(pupil.ForvusIndex),
-                InCare = pupil.AdoptedFromCareID == "1",
-                School = school
+                LookedAfterEver = pupil.LookedAfterEver == 1,
+                School = school,
+                FreeSchoolMealsLast6Years = pupil.FSM6 == 1
             };
 
             if (sen != null) newPupil.SENStatus = sen;
             if (ethnicity != null) newPupil.Ethnicity = ethnicity;
-            if (pupil.FSM != string.Empty) newPupil.FSM = new FSM {Code = pupil.FSM, Description = pupil.FSM};
             if (language != null) newPupil.FirstLanguage = language;
             if (ethnicity != null) newPupil.Ethnicity = ethnicity;
             if (pincl != null) newPupil.PINCL = pincl;

@@ -41,8 +41,8 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
             EthnicCodeGroup = pupil.Ethnicity;
             SEN = pupil.SenStatus;
             FirstLanguage = pupil.FirstLanguage;
-            FreeSchoolsInLast6Years = pupil.Fsm;
-            ChildrenLookedAfter = pupil.InCare;
+            FreeSchoolsInLast6Years = pupil.FreeSchoolMealsLast6Years;
+            ChildrenLookedAfter = pupil.LookedAfterEver;
         }
 
         private int[] GetAllocationYears(ICollection<SourceOfAllocation> originalAllocations)
@@ -97,7 +97,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
 
         public Ethnicity EthnicCodeGroup {get;set;}
         public FirstLanguage FirstLanguage { get;set; }
-        public FSM FreeSchoolsInLast6Years { get; set; }
+        public bool FreeSchoolsInLast6Years { get; set; }
         public bool ChildrenLookedAfter { get; set; }
 
         public string GetPupilDetailsLabel => Keystage == Keystage.KS5 ? "View student details" : "View pupil details";

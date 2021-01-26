@@ -106,7 +106,7 @@
                     Free school meals in the last 6 years
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @(Model.PupilViewModel.FreeSchoolsInLast6Years.Code == "1" ? "Yes" : "No")
+                    @(Model.PupilViewModel.FreeSchoolsInLast6Years ? "Yes" : "No")
                 </dd>
             </div>
             <div class="govuk-summary-list__row">

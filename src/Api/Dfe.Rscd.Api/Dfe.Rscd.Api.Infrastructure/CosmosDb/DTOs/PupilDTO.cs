@@ -31,9 +31,9 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs
         public string EthnicityCode { get; set; }
         public string FirstLanguageCode { get; set; }
         public string SENStatusCode { get; set; }
-        public string FSM { get; set; }
+        public int FSM6 { get; set; }
         public string ForvusIndex { get; set; }
-        public string AdoptedFromCareID { get; set; }
+        public int LookedAfterEver { get; set; }
 
         public List<ResultDTO> performance { get; set; }
 

@@ -12,7 +12,7 @@ namespace Dfe.Rscd.Api.BusinessLogic.Entities
             SENStatus = new SENStatus{Code = "NR", Description = notRecorded};
             Gender = new Gender{Code = "N", Description = notRecorded};
             Ethnicity = new Ethnicity{Code = "NR", Description = notRecorded};
-            FSM = new FSM{Code = "NR", Description = notRecorded};
+            FreeSchoolMealsLast6Years = false;
             Allocations = new List<SourceOfAllocation>();
             PINCL = new PINCLs{P_INCL = "NR", P_INCLDescription = notRecorded};
             FirstLanguage = new FirstLanguage { Code="NR", Description = notRecorded};
@@ -37,7 +37,7 @@ namespace Dfe.Rscd.Api.BusinessLogic.Entities
 
         public DateTime AdmissionDate { get; set; }
 
-        public bool InCare { get; set; }
+        public bool LookedAfterEver { get; set; }
 
         public int Age { get; set; }
 
@@ -51,7 +51,7 @@ namespace Dfe.Rscd.Api.BusinessLogic.Entities
 
         public Ethnicity Ethnicity { get; set; }
 
-        public FSM FSM { get; set; }
+        public bool FreeSchoolMealsLast6Years { get; set; }
 
         public School School { get; set; }
 

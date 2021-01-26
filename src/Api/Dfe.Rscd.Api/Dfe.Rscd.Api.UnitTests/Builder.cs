@@ -38,9 +38,9 @@ namespace Dfe.Rscd.Api.UnitTests
                     new ResultDTO {ExamYear = "2020", ScaledScore = "A", SubjectCode = "YUG", TestMark = "B"}
                 },
                 ForvusIndex = "10020",
-                AdoptedFromCareID = "1",
+                LookedAfterEver = 1,
                 EthnicityCode = "WBR01",
-                FSM = "1",
+                FSM6 = 1,
                 FirstLanguageCode = "ENG",
                 P_INCL = "404",
                 SENStatusCode = "N"
