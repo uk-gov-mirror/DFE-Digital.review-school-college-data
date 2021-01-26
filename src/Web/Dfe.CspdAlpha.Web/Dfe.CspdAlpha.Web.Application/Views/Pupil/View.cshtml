@@ -2,7 +2,7 @@
 @model ViewPupilViewModel
 @{
     var phase = Model.CheckingWindow.ToString().ToLower().Substring(0, 3);
-    ViewData["Title"] = $"View {Model.PersonLowercase} {Model.MatchedPupilViewModel.PupilViewModel.FullName}";
+    ViewData["Title"] = $"View {Model.PersonLowercase} {Model.MatchedPupilViewModel.PupilViewModel.FullName}:";
     ViewBag.ContentClass = "app-detail-page-main";
 }
 
@@ -16,4 +16,5 @@
         <h1 class="govuk-heading-l govuk-!-margin-bottom-3">@Html.Raw(ViewBag.Title)</h1>
     </div>
 </div>
-<partial name="./Partial/_PupilView_@phase" model="@Model.MatchedPupilViewModel" />
+
+<partial name="_PupilView_@phase" model="@Model.MatchedPupilViewModel" />

@@ -8,7 +8,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil
 {
     public class RemovePupilViewModel : ContextAwareViewModel
     {
-        public PupilViewModel PupilViewModel { get; set; }
+        public MatchedPupilViewModel MatchedPupilViewModel { get; set; }
         public QueryType QueryType { get; set; }
         public string query { get; set; }
     }

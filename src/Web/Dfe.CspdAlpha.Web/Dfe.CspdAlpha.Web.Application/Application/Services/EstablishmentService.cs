@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Dfe.CspdAlpha.Web.Application.Application.Services
 {
-    public class EstablishmentService : IEstablishmentService
+    public class EstablishmentService : ContextAwareService, IEstablishmentService
     {
         private enum MeasureType
         {
@@ -19,19 +19,15 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
         }
 
         private readonly ApiClient.IClient _apiClient;
-        private readonly ApiClient.CheckingWindow _checkingWindow;
-        private readonly string _checkingWindowUrl;
 
-        public EstablishmentService(ApiClient.IClient apiClient, IHttpContextAccessor httpContextAccessor)
+        public EstablishmentService(ApiClient.IClient apiClient)
         {
             _apiClient = apiClient;
-            _checkingWindow = CheckingWindowHelper.GetCheckingWindow(httpContextAccessor.HttpContext.Request.RouteValues);
-            _checkingWindowUrl = CheckingWindowHelper.GetCheckingWindowURL(_checkingWindow);
         }
 
         private Dictionary<string, string> GetMeasures(MeasureType measureType)
         {
-            if (_checkingWindow.ToString().StartsWith("KS4"))
+            if (CheckingWindow.ToString().StartsWith("KS4"))
             {
                 switch (measureType)
                 {
@@ -62,7 +58,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
 
                 }
             }
-            if (_checkingWindow.ToString().StartsWith("KS5"))
+            if (CheckingWindow.ToString().StartsWith("KS5"))
             {
                 switch (measureType)
                 {
@@ -132,7 +128,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
         }
         private ApiClient.School GetEstablishmentData(string urn)
         {
-            var school = _apiClient.GetEstablishmentByURNAsync(urn, _checkingWindowUrl).GetAwaiter().GetResult();
+            var school = _apiClient.GetEstablishmentByURNAsync(urn, CheckingWindowUrl).GetAwaiter().GetResult();
             if (string.IsNullOrWhiteSpace(school.Error.ErrorMessage))
             {
                 return school.Result;
@@ -154,7 +150,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
 
         public string GetSchoolName(string laestab)
         {
-            var school = _apiClient.SearchTEstablishmentsAsync(laestab, _checkingWindowUrl).GetAwaiter().GetResult();
+            var school = _apiClient.SearchTEstablishmentsAsync(laestab, CheckingWindowUrl).GetAwaiter().GetResult();
             return school != null ? school.Result.SchoolName : string.Empty;
         }
     }

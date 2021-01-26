@@ -3,6 +3,7 @@
 @using Dfe.Rscd.Web.ApiClient
 @model RemovePupilViewModel
 @{
+    var phase = Model.CheckingWindow.ToString().ToLower().Substring(0, 3);
     ViewData["Title"] = $"This is a match for the {Model.PersonLowercase} you want to request to remove";
 }
 @section BackLink
@@ -22,85 +23,13 @@
         <h1 class="govuk-heading-l govuk-!-margin-bottom-3">@ViewBag.Title</h1>
     </div>
 </div>
-<div class="govuk-grid-row govuk-!-padding-top-2">
-    <div class="app-grid-column-two-thirds--always">
-        <h2 class="govuk-heading-m govuk-!-margin-bottom-3">@Model.PupilViewModel.PersonTitlecase details</h2>
-    </div>
-</div>
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-        <dl class="govuk-summary-list app-summary-list app-summary-list--mobile-inline app-summary-list--pupil-details">
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    @Model.PupilViewModel.PersonIdLabel
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    @(Model.CheckingWindow == CheckingWindow.KS5 ? Model.PupilViewModel.ULN : Model.PupilViewModel.UPN)
-                </dd>
-            </div>
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    First name
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    @Model.PupilViewModel.FirstName
-                </dd>
-            </div>
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Last name
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    @Model.PupilViewModel.LastName
-                </dd>
-            </div>
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Date of birth
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    @Model.PupilViewModel.DateOfBirth.ToString("dd/MM/yyyy")
-                </dd>
-            </div>
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Age
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    @Model.PupilViewModel.Age
-                </dd>
-            </div>
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Gender
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    @Model.PupilViewModel.Gender.Description
-                </dd>
-            </div>
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Admission date
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    @Model.PupilViewModel.DateOfAdmission.ToString("dd/MM/yyyy")
-                </dd>
-            </div>
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Year group
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    @Model.PupilViewModel.YearGroup
-                </dd>
-            </div>
-        </dl>
-    </div>
-</div>
+
+<partial name="_PupilView_@phase" model="@Model.MatchedPupilViewModel" />
+
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
         <p class="app-padding-top-mobile-4">Continue to remove this student</p>
-        <a asp-action="Reason" asp-route-matchedId="@Model.PupilViewModel.ID" class="govuk-button" data-module="govuk-button">Continue</a>
+        <a asp-action="Reason" asp-route-matchedId="@Model.MatchedPupilViewModel.PupilViewModel.ID" class="govuk-button" data-module="govuk-button">Continue</a>
     </div>
 </div>
 

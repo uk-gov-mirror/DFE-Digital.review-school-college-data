@@ -51,12 +51,11 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         protected void SetCurrentUrn()
         {
             ClaimsHelper.GetURN(User);
-            HttpContext.Session.Set("URN", ClaimsHelper.GetURN(User));
         }
 
         protected string GetCurrentUrn()
         {
-            return HttpContext.Session.Get<string>("URN");
+            return ClaimsHelper.GetURN(User);
         }
 
         protected void ClearAll()

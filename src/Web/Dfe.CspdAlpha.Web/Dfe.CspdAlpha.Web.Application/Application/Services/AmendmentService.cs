@@ -1,29 +1,24 @@
 using System.Linq;
-using Dfe.CspdAlpha.Web.Application.Application.Helpers;
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
 using Dfe.CspdAlpha.Web.Application.Models;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments;
 using Dfe.Rscd.Web.ApiClient;
-using Microsoft.AspNetCore.Http;
 
 namespace Dfe.CspdAlpha.Web.Application.Application.Services
 {
-    public class AmendmentService : IAmendmentService
+    public class AmendmentService : ContextAwareService, IAmendmentService
     {
         private readonly IClient _apiClient;
-        private readonly string _checkingWindowUrl;
 
-        public AmendmentService(IClient apiClient, IHttpContextAccessor httpContextAccessor)
+        public AmendmentService(IClient apiClient)
         {
             _apiClient = apiClient;
-            var checkingWindow = CheckingWindowHelper.GetCheckingWindow(httpContextAccessor.HttpContext.Request.RouteValues);
-            _checkingWindowUrl = CheckingWindowHelper.GetCheckingWindowURL(checkingWindow);
         }
 
         public AmendmentsListViewModel GetAmendmentsListViewModel(string urn)
         {
             var amendments = _apiClient
-                .GetAmendmentsAsync(urn, _checkingWindowUrl)
+                .GetAmendmentsAsync(urn, CheckingWindowUrl)
                 .GetAwaiter()
                 .GetResult();
 
@@ -49,14 +44,14 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
 
         public AmendmentOutcome CreateAmendment(Amendment amendment)
         {
-            var result = _apiClient.Create_AmendmentAsync(_checkingWindowUrl, amendment).GetAwaiter().GetResult();
+            var result = _apiClient.Create_AmendmentAsync(CheckingWindowUrl, amendment).GetAwaiter().GetResult();
 
             return result.Result;
         }
 
         public Amendment GetAmendment(string id)
         {
-            var response = _apiClient.GetAmendmentAsync(id, _checkingWindowUrl).GetAwaiter().GetResult();
+            var response = _apiClient.GetAmendmentAsync(id, CheckingWindowUrl).GetAwaiter().GetResult();
             var apiAmendment = response.Result;
 
             return apiAmendment;
@@ -64,13 +59,13 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
 
         public bool CancelAmendment(string id)
         {
-            return _apiClient.CancelAmendmentAsync(id, _checkingWindowUrl).GetAwaiter().GetResult().Result;
+            return _apiClient.CancelAmendmentAsync(id, CheckingWindowUrl).GetAwaiter().GetResult().Result;
         }
 
         public bool RelateEvidence(string amendmentId, string evidenceFolder)
         {
             return _apiClient
-                .RelateEvidenceAsync(evidenceFolder, _checkingWindowUrl,amendmentId) 
+                .RelateEvidenceAsync(evidenceFolder, CheckingWindowUrl,amendmentId) 
                 .GetAwaiter()
                 .GetResult().Result;
         }

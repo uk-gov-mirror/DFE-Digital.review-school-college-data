@@ -92,7 +92,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
             SaveAmendment(amendment);
 
-            return new RemovePupilViewModel { PupilViewModel = viewModel.PupilViewModel };
+            return new RemovePupilViewModel { MatchedPupilViewModel = viewModel };
         }
 
         public IActionResult MatchedPupil(QueryType searchType, string query, string id, string urn)

@@ -67,6 +67,8 @@ namespace Dfe.CspdAlpha.Web.Application
             services.AddFeatureManagement();
             services.AddAzureAppConfiguration();
             services.AddHttpContextAccessor();
+            services.AddResponseCaching();
+            services.AddResponseCompression();
 
             // This disables the CSRF token in order to facilitate easier QA for the time being
             if (_env.IsDevelopment() || _env.IsStaging())
@@ -186,6 +188,9 @@ namespace Dfe.CspdAlpha.Web.Application
             app.UseAuthentication();
 
             app.UseSession();
+
+            app.UseResponseCaching();
+            app.UseResponseCompression();
 
             app.UseAuthorization();
 

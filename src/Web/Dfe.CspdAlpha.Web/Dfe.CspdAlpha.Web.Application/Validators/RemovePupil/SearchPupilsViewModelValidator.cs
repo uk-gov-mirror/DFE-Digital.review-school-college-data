@@ -15,10 +15,10 @@ namespace Dfe.CspdAlpha.Web.Application.Validators.RemovePupil
                 .When(x => x.SearchType == QueryType.PupilID && x.CheckingWindow != CheckingWindow.KS5)
                 .WithMessage("Enter a UPN");
 
-            //RuleFor(x => x.PupilID)
-            //    .Matches(@"^[0-9]+$")
-            //    .When(x => x.SearchType == QueryType.PupilID && x.CheckingWindow != CheckingWindow.KS5)
-            //    .WithMessage("Enter a valid UPN");
+            RuleFor(x => x.PupilID)
+                .Matches(@"^[a-zA-Z]+[a-zA-Z0-9]*$")
+                .When(x => x.SearchType == QueryType.PupilID && x.CheckingWindow != CheckingWindow.KS5)
+                .WithMessage("Enter a valid UPN");
 
             RuleFor(x => x.PupilID)
                 .MaximumLength(14)
