@@ -4,7 +4,7 @@ using Dfe.Rscd.Web.ApiClient;
 
 namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
 {
-    public class AddPupilAmendmentViewModel
+    public class AddPupilAmendmentViewModel : ContextAwareViewModel
     {
         public string URN { get; set; }
         public PupilViewModel PupilViewModel { get; set; }

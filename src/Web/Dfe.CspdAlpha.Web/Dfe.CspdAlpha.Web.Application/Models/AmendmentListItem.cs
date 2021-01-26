@@ -1,12 +1,12 @@
 using System;
+using Dfe.CspdAlpha.Web.Application.Models.ViewModels;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
 using Dfe.Rscd.Web.ApiClient;
 
 namespace Dfe.CspdAlpha.Web.Application.Models
 {
-    public class AmendmentListItem
+    public class AmendmentListItem : ContextAwareViewModel
     {
-        public CheckingWindow CheckingWindow { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string PupilId { get; set; }

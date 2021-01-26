@@ -4,8 +4,19 @@ using Dfe.Rscd.Web.ApiClient;
 
 namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.AddPupil
 {
-    public class AddPupilViewModel
+    public class AddPupilViewModel : ContextAwareViewModel
     {
+
+        public AddPupilViewModel(string phase) : base(phase)
+        {
+            
+        }
+
+        public AddPupilViewModel() : base()
+        {
+            
+        }
+
         public string SchoolID { get; set; }
 
         public string UPN { get; set; }

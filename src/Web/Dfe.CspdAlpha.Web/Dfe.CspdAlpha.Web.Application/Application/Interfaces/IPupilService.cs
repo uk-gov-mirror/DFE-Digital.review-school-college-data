@@ -7,10 +7,10 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Interfaces
 {
     public interface IPupilService
     {
-        List<PupilViewModel> GetPupilDetailsList(CheckingWindow checkingWindow, SearchQuery searchQuery);
-        MatchedPupilViewModel GetPupil(CheckingWindow checkingWindow, string id);
-        MatchedPupilViewModel GetMatchedPupil(CheckingWindow checkingWindow, string upn);
+        List<PupilViewModel> GetPupilDetailsList(SearchQuery searchQuery);
+        MatchedPupilViewModel GetPupil(string id);
+        MatchedPupilViewModel GetMatchedPupil(string upn);
 
-        List<InclusionAdjustmentReason> GetInclusionAdjustmentReasons(CheckingWindow checkingWindow, string pinclId);
+        List<InclusionAdjustmentReason> GetInclusionAdjustmentReasons(string pinclId);
     }
 }

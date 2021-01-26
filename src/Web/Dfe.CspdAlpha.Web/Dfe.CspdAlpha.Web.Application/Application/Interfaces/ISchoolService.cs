@@ -6,7 +6,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Interfaces
 {
     public interface ISchoolService
     {
-        bool UpdateConfirmation(CheckingWindow checkingWindow, TaskListViewModel taskListViewModel, string userId, string urn);
-        TaskListViewModel GetConfirmationRecord(CheckingWindow checkingWindow, string userId, string urn);
+        bool UpdateConfirmation(TaskListViewModel taskListViewModel, string userId, string urn);
+        TaskListViewModel GetConfirmationRecord(string userId, string urn);
     }
 }

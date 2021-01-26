@@ -14,7 +14,7 @@ namespace Dfe.Rscd.Web.UnitTests.Application
         public void AddPupilDetails_IsValid_GivenUPNProvided()
         {
             // Arrange
-            var viewModel = new AddPupilViewModel
+            var viewModel = new AddPupilViewModel("ks4-june")
             {
                 UPN = "12345"
             };
@@ -32,7 +32,7 @@ namespace Dfe.Rscd.Web.UnitTests.Application
         public void AddPupilDetails_IsValid_GivenValidDetails()
         {
             // Arrange
-            var viewModel = new AddPupilViewModel
+            var viewModel = new AddPupilViewModel("ks4-june")
             {
                 FirstName = "Joe",
                 LastName = "Bloggs",
@@ -55,7 +55,7 @@ namespace Dfe.Rscd.Web.UnitTests.Application
         public void AddPupilDetails_IsInvalid_GivenNullFirstName()
         {
             // Arrange
-            var viewModel = new AddPupilViewModel
+            var viewModel = new AddPupilViewModel("ks4-june")
             {
                 LastName = "Bloggs",
                 DateOfBirth = new DateViewModel(DateTime.Parse("01/01/2007")),
@@ -77,7 +77,7 @@ namespace Dfe.Rscd.Web.UnitTests.Application
         public void AddPupilDetails_IsInvalid_GivenNullDateOfBirth()
         {
             // Arrange
-            var viewModel = new AddPupilViewModel
+            var viewModel = new AddPupilViewModel("ks4-june")
             {
                 FirstName = "Joe",
                 LastName = "Bloggs",

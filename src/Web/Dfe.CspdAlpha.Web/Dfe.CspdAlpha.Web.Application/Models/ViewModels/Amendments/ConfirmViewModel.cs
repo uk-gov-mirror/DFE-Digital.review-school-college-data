@@ -4,7 +4,7 @@ using Dfe.Rscd.Web.ApiClient;
 
 namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments
 {
-    public class ConfirmViewModel
+    public class ConfirmViewModel : ContextAwareViewModel
     {
         public PupilViewModel PupilDetails { get; set; }
         public string PupilLabel => GetPupilLabel();

@@ -23,18 +23,10 @@
             </div>
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    First name
+                    @Model.PersonTitlecase name
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @Model.PupilViewModel.FirstName
-                </dd>
-            </div>
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Last name
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    @Model.PupilViewModel.LastName
+                    @Model.PupilViewModel.FullName
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -87,7 +79,7 @@
             </div>
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Etchnic code group
+                    Ethnic code group
                 </dt>
                 <dd class="govuk-summary-list__value">
                     @Model.PupilViewModel.EthnicCodeGroup.Code : @Model.PupilViewModel.EthnicCodeGroup.Description

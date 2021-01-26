@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments
 {
-    public class PromptAnswerViewModel
+    public class PromptAnswerViewModel : ContextAwareViewModel
     {
         public string FieldType { get; set; }
         public int PromptId { get; set; }

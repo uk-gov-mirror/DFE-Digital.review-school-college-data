@@ -29,6 +29,7 @@ using Sustainsys.Saml2.Metadata;
 using System;
 using System.Net.Http.Headers;
 using System.Text;
+using Dfe.CspdAlpha.Web.Application.Application;
 
 namespace Dfe.CspdAlpha.Web.Application
 {
@@ -65,6 +66,7 @@ namespace Dfe.CspdAlpha.Web.Application
             // Adds feature management for Azure App Configuration
             services.AddFeatureManagement();
             services.AddAzureAppConfiguration();
+            services.AddHttpContextAccessor();
 
             // This disables the CSRF token in order to facilitate easier QA for the time being
             if (_env.IsDevelopment() || _env.IsStaging())
@@ -169,6 +171,8 @@ namespace Dfe.CspdAlpha.Web.Application
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            Context.Configure(app.ApplicationServices.GetRequiredService<IHttpContextAccessor>());
 
             app.UseHttpsRedirection();
 

@@ -5,7 +5,7 @@ using Dfe.Rscd.Web.ApiClient;
 
 namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil
 {
-    public class ReasonViewModel
+    public class ReasonViewModel : ContextAwareViewModel
     {
         public QueryType SearchType { get; set; }
 
@@ -16,8 +16,6 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil
         public PupilViewModel PupilDetails { get; set; }
 
         public int? SelectedReasonCode { get; set; }
-
-        public CheckingWindow CheckingWindow { get;set; }
 
         public List<InclusionAdjustmentReason> Reasons = new List<InclusionAdjustmentReason>();
 

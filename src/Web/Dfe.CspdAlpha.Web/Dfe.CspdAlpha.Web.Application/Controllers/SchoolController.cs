@@ -17,8 +17,8 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         public IActionResult Index(string urn)
         {
             var checkingWindow = CheckingWindowHelper.GetCheckingWindow(RouteData);
-            var viewModel = _establishmentService.GetSchoolViewModel(checkingWindow, urn);
-            viewModel.CheckingWindow = checkingWindow;
+            var viewModel = _establishmentService.GetSchoolViewModel(urn);
+
             viewModel.DataDescription = "This is provisional data for 2018/19.";
             return View(viewModel);
         }

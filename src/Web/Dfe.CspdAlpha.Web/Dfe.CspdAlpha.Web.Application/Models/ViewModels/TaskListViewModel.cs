@@ -5,14 +5,13 @@ using Dfe.Rscd.Web.ApiClient;
 
 namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels
 {
-    public class TaskListViewModel
+    public class TaskListViewModel : ContextAwareViewModel
     {
         public CheckDataNavigation CheckDataNavigationModel => new CheckDataNavigation(NavigationItem.TaskList , CheckingWindow);
         public SchoolDetails SchoolDetails { get; set; }
         public bool ReviewChecked { get; set; }
         public bool DataConfirmed { get; set; }
         public DateTime ConfirmationDate { get; set; }
-        public CheckingWindow CheckingWindow { get; set; }
 
         public string ReviewedHeader = "1. View data before requesting amendments";
 

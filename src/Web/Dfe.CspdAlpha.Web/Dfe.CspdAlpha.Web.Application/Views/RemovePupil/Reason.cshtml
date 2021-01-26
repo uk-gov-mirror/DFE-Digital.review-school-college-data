@@ -2,7 +2,7 @@
 @using Dfe.Rscd.Web.ApiClient
 @model ReasonViewModel
 @{
-    ViewData["Title"] = "Select a reason for request to remove a student";
+    ViewData["Title"] = $"Select a reason for request to remove a {Model.PersonLowercase}";
 }
 
 @section BackLink
@@ -32,7 +32,7 @@
         <details class="govuk-details govuk-!-font-size-16" data-module="govuk-details">
             <summary class="govuk-details__summary">
                 <span class="govuk-details__summary-text">
-                    View student details
+                    View @Model.PersonLowercase details
                 </span>
             </summary>
             <div class="govuk-details__text">

@@ -8,7 +8,17 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Helpers
     {
         public static CheckingWindow GetCheckingWindow(RouteData routeData)
         {
-            switch (routeData.Values["phase"].ToString())
+            return GetCheckingWindow(routeData.Values["phase"].ToString());
+        }
+
+        public static CheckingWindow GetCheckingWindow(RouteValueDictionary routeData)
+        {
+            return GetCheckingWindow(routeData["phase"].ToString());
+        }
+
+        public static CheckingWindow GetCheckingWindow(string phase)
+        {
+            switch (phase)
             {
                 case "ks4-june":
                     return CheckingWindow.KS4June;

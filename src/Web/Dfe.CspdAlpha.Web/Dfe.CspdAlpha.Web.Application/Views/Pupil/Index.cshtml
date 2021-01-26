@@ -2,8 +2,7 @@
 @using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
 @model PupilListViewModel
 @{
-    var ks5View = Model.CheckingWindow.ToString().StartsWith("KS5");
-    ViewBag.Title = ks5View ? "Student list" : "Pupil list";
+    ViewBag.Title = $"{Model.PersonTitlecase} list";
     ViewBag.ContentClass = "app-detail-page-main";
 }
 
@@ -50,7 +49,7 @@
         <div class="govuk-grid-column-full">
             <div class="govuk-form-group">
                 <label class="govuk-label" for="pupil-search">
-                    Search for a @(ks5View ? "student" : "pupil") <span class="govuk-visually-hidden"> by name or @(ks5View ? "Uln" : "Upn")</span>
+                    Search for a @Model.PersonLowercase <span class="govuk-visually-hidden"> by name or @Model.PersonIdAcronym</span>
                 </label>
                 <pupil-search v-model="searchText" />
             </div>

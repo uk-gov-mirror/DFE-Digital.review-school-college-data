@@ -4,16 +4,9 @@ using Dfe.Rscd.Web.ApiClient;
 
 namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments
 {
-    public class AmendmentViewModel
+    public class AmendmentViewModel : ContextAwareViewModel
     {
         public Amendment Amendment { get; set; }
-
-        public Keystage Keystage
-        {
-            get
-            {
-                return CheckingWindowHelper.ToKeyStage(Amendment.CheckingWindow);
-            }
-        }
+        public Keystage Keystage => CheckingWindowHelper.ToKeyStage(CheckingWindow);
     }
 }

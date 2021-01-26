@@ -4,24 +4,26 @@ using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
 using Dfe.CspdAlpha.Web.Application.Models;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments;
 using Dfe.Rscd.Web.ApiClient;
+using Microsoft.AspNetCore.Http;
 
 namespace Dfe.CspdAlpha.Web.Application.Application.Services
 {
     public class AmendmentService : IAmendmentService
     {
         private readonly IClient _apiClient;
+        private readonly string _checkingWindowUrl;
 
-        public AmendmentService(IClient apiClient)
+        public AmendmentService(IClient apiClient, IHttpContextAccessor httpContextAccessor)
         {
             _apiClient = apiClient;
+            var checkingWindow = CheckingWindowHelper.GetCheckingWindow(httpContextAccessor.HttpContext.Request.RouteValues);
+            _checkingWindowUrl = CheckingWindowHelper.GetCheckingWindowURL(checkingWindow);
         }
 
-        public AmendmentsListViewModel GetAmendmentsListViewModel(string urn, CheckingWindow checkingWindow)
+        public AmendmentsListViewModel GetAmendmentsListViewModel(string urn)
         {
-            var checkingWindowUrl = CheckingWindowHelper.GetCheckingWindowURL(checkingWindow);
-
             var amendments = _apiClient
-                .GetAmendmentsAsync(urn, checkingWindowUrl)
+                .GetAmendmentsAsync(urn, _checkingWindowUrl)
                 .GetAwaiter()
                 .GetResult();
 
@@ -31,7 +33,6 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                 AmendmentList = amendments.Result
                     .Select(a => new AmendmentListItem
                     {
-                        CheckingWindow = a.CheckingWindow,
                         FirstName = a.Pupil.Forename,
                         LastName = a.Pupil.Surname,
                         PupilId = a.Pupil.Id,
@@ -48,29 +49,28 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
 
         public AmendmentOutcome CreateAmendment(Amendment amendment)
         {
-            var checkingWindowUrl = CheckingWindowHelper.GetCheckingWindowURL(amendment.CheckingWindow);
-            var result = _apiClient.Create_AmendmentAsync(checkingWindowUrl, amendment).GetAwaiter().GetResult();
+            var result = _apiClient.Create_AmendmentAsync(_checkingWindowUrl, amendment).GetAwaiter().GetResult();
 
             return result.Result;
         }
 
-        public Amendment GetAmendment(CheckingWindow checkingWindow, string id)
+        public Amendment GetAmendment(string id)
         {
-            var response = _apiClient.GetAmendmentAsync(id, checkingWindow.ToString()).GetAwaiter().GetResult();
+            var response = _apiClient.GetAmendmentAsync(id, _checkingWindowUrl).GetAwaiter().GetResult();
             var apiAmendment = response.Result;
 
             return apiAmendment;
         }
 
-        public bool CancelAmendment(CheckingWindow checkingWindow, string id)
+        public bool CancelAmendment(string id)
         {
-            return _apiClient.CancelAmendmentAsync(id, checkingWindow.ToString()).GetAwaiter().GetResult().Result;
+            return _apiClient.CancelAmendmentAsync(id, _checkingWindowUrl).GetAwaiter().GetResult().Result;
         }
 
-        public bool RelateEvidence(CheckingWindow checkingWindow, string amendmentId, string evidenceFolder)
+        public bool RelateEvidence(string amendmentId, string evidenceFolder)
         {
             return _apiClient
-                .RelateEvidenceAsync(evidenceFolder,checkingWindow.ToString(),amendmentId) 
+                .RelateEvidenceAsync(evidenceFolder, _checkingWindowUrl,amendmentId) 
                 .GetAwaiter()
                 .GetResult().Result;
         }

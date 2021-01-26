@@ -1,7 +1,9 @@
 using System;
+using Dfe.CspdAlpha.Web.Application.Application.Helpers;
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels;
 using Dfe.Rscd.Web.ApiClient;
+using Microsoft.AspNetCore.Http;
 
 namespace Dfe.CspdAlpha.Web.Application.Application.Services
 {
@@ -9,17 +11,20 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
     {
         private readonly IEstablishmentService _establishmentService;
         private readonly IClient _apiClient;
+        private readonly string _checkingWindowUrl;
 
-        public SchoolService(IEstablishmentService establishmentService, IClient apiClient)
+        public SchoolService(IEstablishmentService establishmentService, IClient apiClient, IHttpContextAccessor httpContextAccessor)
         {
             _apiClient = apiClient;
             _establishmentService = establishmentService;
+            var checkingWindow = CheckingWindowHelper.GetCheckingWindow(httpContextAccessor.HttpContext.Request.RouteValues);
+            _checkingWindowUrl = CheckingWindowHelper.GetCheckingWindowURL(checkingWindow);
         }
 
-        public TaskListViewModel GetConfirmationRecord(CheckingWindow checkingWindow, string userId, string urn)
+        public TaskListViewModel GetConfirmationRecord(string userId, string urn)
         {
-            var schoolDetails = _establishmentService.GetSchoolDetails(checkingWindow, urn);
-            var schoolReviewRecord = GetConfirmationRecordFromCRM(checkingWindow, userId, urn);
+            var schoolDetails = _establishmentService.GetSchoolDetails(urn);
+            var schoolReviewRecord = GetConfirmationRecordFromCRM(userId, urn);
             if (schoolReviewRecord == null)
             {
                 return new TaskListViewModel
@@ -37,11 +42,11 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             };
         }
 
-        private ConfirmationRecord GetConfirmationRecordFromCRM(CheckingWindow checkingWindow, string userId, string urn)
+        private ConfirmationRecord GetConfirmationRecordFromCRM(string userId, string urn)
         {
             try
             {
-                var schoolReviewRecord = _apiClient.GetSchoolReviewRecordAsync(userId, urn, checkingWindow.ToString())
+                var schoolReviewRecord = _apiClient.GetSchoolReviewRecordAsync(userId, urn, _checkingWindowUrl)
                     .GetAwaiter().GetResult();
                 return schoolReviewRecord.Result;
             }
@@ -56,12 +61,12 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             }
         }
 
-        public bool UpdateConfirmation(CheckingWindow checkingWindow, TaskListViewModel taskListViewModel, string userId, string urn)
+        public bool UpdateConfirmation(TaskListViewModel taskListViewModel, string userId, string urn)
         {
-            var schoolReviewRecord = GetConfirmationRecordFromCRM(checkingWindow, userId, urn);
+            var schoolReviewRecord = GetConfirmationRecordFromCRM(userId, urn);
             if (schoolReviewRecord == null)
             {
-                return _apiClient.CreateSchoolReviewRecordAsync(checkingWindow.ToString(), new Rscd.Web.ApiClient.ConfirmationRecord 
+                return _apiClient.CreateSchoolReviewRecordAsync(_checkingWindowUrl, new Rscd.Web.ApiClient.ConfirmationRecord 
                 {
                     UserId = userId,
                     EstablishmentId = urn,
@@ -72,7 +77,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
 
             schoolReviewRecord.ReviewCompleted = taskListViewModel.ReviewChecked;
             schoolReviewRecord.DataConfirmed = taskListViewModel.DataConfirmed;
-            return _apiClient.UpdateSchoolReviewRecordAsync(checkingWindow.ToString(), schoolReviewRecord).GetAwaiter().GetResult().Result;
+            return _apiClient.UpdateSchoolReviewRecordAsync(_checkingWindowUrl, schoolReviewRecord).GetAwaiter().GetResult().Result;
         }
     }
 }

@@ -9,24 +9,42 @@ using Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Results;
 using ApiClient = Dfe.Rscd.Web.ApiClient;
 using System.Linq;
+using Microsoft.AspNetCore.Http;
 
 namespace Dfe.CspdAlpha.Web.Application.Application.Services
 {
     public class PupilService : IPupilService
     {
         private readonly ApiClient.IClient _apiClient;
+        private readonly string _checkingWindowUrl;
 
-        public PupilService(ApiClient.IClient apiClient)
+        public PupilService(ApiClient.IClient apiClient, IHttpContextAccessor httpContextAccessor)
         {
             _apiClient = apiClient;
+            var checkingWindow = CheckingWindowHelper.GetCheckingWindow(httpContextAccessor.HttpContext.Request.RouteValues);
+            _checkingWindowUrl = CheckingWindowHelper.GetCheckingWindowURL(checkingWindow);
         }
 
-        public List<PupilViewModel> GetPupilDetailsList(ApiClient.CheckingWindow checkingWindow, SearchQuery searchQuery)
+        public List<PupilViewModel> GetPupilDetailsList(SearchQuery searchQuery)
         {
-            var checkingWindowURL = CheckingWindowHelper.GetCheckingWindowURL(checkingWindow);
-            var pupilDetails = _apiClient.SearchPupilsAsync(searchQuery.URN, searchQuery.SearchType == QueryType.Name ? searchQuery.Query : string.Empty, searchQuery.SearchType == QueryType.PupilID ? searchQuery.Query : string.Empty, checkingWindowURL).GetAwaiter().GetResult();
+            var pupilDetails = _apiClient
+                .SearchPupilsAsync(searchQuery.URN, searchQuery.SearchType == QueryType.Name ? searchQuery.Query : string.Empty,
+                    searchQuery.SearchType == QueryType.PupilID ? searchQuery.Query : string.Empty,
+                    _checkingWindowUrl)
+                .GetAwaiter()
+                .GetResult();
+
             return pupilDetails.Result
-                .Select(p => new PupilViewModel {FirstName = p.ForeName, LastName = p.Surname, ID = p.Id, UPN = p.Upn, ULN = p.Uln, DateOfBirth = GetDateTime(p.DateOfBirth), Gender = new ApiClient.Gender{ Code = p.Gender}})
+                .Select(p => new PupilViewModel
+                {
+                    FirstName = p.ForeName,
+                    LastName = p.Surname,
+                    ID = p.Id,
+                    UPN = p.Upn,
+                    ULN = p.Uln,
+                    DateOfBirth = GetDateTime(p.DateOfBirth),
+                    Gender = new ApiClient.Gender{ Code = p.Gender}
+                })
                 .OrderBy(p => p.FirstName)
                 .ToList();
         }
@@ -39,23 +57,22 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                 : DateTime.MinValue;
         }
 
-        public MatchedPupilViewModel GetPupil(ApiClient.CheckingWindow checkingWindow, string id)
+        public MatchedPupilViewModel GetPupil(string id)
         {
-            var checkingWindowUrl = CheckingWindowHelper.GetCheckingWindowURL(checkingWindow);
-            var pupil = _apiClient.GetPupilByIdAsync(id, checkingWindowUrl).GetAwaiter().GetResult();
+            var pupil = _apiClient.GetPupilByIdAsync(id, _checkingWindowUrl).GetAwaiter().GetResult();
             if (pupil == null)
             {
                 return null;
             }
 
-            return GetMatchedPupilViewModel(pupil.Result, checkingWindow);
+            return GetMatchedPupilViewModel(pupil.Result);
         }
 
-        private MatchedPupilViewModel GetMatchedPupilViewModel(ApiClient.Pupil pupil, ApiClient.CheckingWindow checkingWindow)
+        private MatchedPupilViewModel GetMatchedPupilViewModel(ApiClient.Pupil pupil)
         {
             return new MatchedPupilViewModel()
             {
-                PupilViewModel = new PupilViewModel(pupil, checkingWindow),
+                PupilViewModel = new PupilViewModel(pupil),
                 Results = pupil.Results
                     .Select(r => new PriorAttainmentResultViewModel
                     {
@@ -67,10 +84,9 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             };
         }
 
-        public MatchedPupilViewModel GetMatchedPupil(ApiClient.CheckingWindow checkingWindow, string upn)
+        public MatchedPupilViewModel GetMatchedPupil(string upn)
         {
-            var checkingWindowUrl = CheckingWindowHelper.GetCheckingWindowURL(checkingWindow);
-            var pupilResults = _apiClient.SearchPupilsAsync(string.Empty, string.Empty, upn, checkingWindowUrl).GetAwaiter()
+            var pupilResults = _apiClient.SearchPupilsAsync(string.Empty, string.Empty, upn, _checkingWindowUrl).GetAwaiter()
                 .GetResult();
 
             if (pupilResults == null || pupilResults.Result == null || pupilResults.Result.Count == 0 || pupilResults.Result.Count > 1)
@@ -78,16 +94,14 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                 return null;
             }
 
-            var pupil = _apiClient.GetPupilByIdAsync(pupilResults.Result.First().Id, checkingWindowUrl).GetAwaiter().GetResult();
+            var pupil = _apiClient.GetPupilByIdAsync(pupilResults.Result.First().Id, _checkingWindowUrl).GetAwaiter().GetResult();
 
-            return GetMatchedPupilViewModel(pupil.Result, checkingWindow);
+            return GetMatchedPupilViewModel(pupil.Result);
         }
 
-        public List<ApiClient.InclusionAdjustmentReason> GetInclusionAdjustmentReasons(ApiClient.CheckingWindow checkingWindow, string pinclId)
+        public List<ApiClient.InclusionAdjustmentReason> GetInclusionAdjustmentReasons(string pinclId)
         {
-            var checkingWindowUrl = CheckingWindowHelper.GetCheckingWindowURL(checkingWindow);
-
-            var results = _apiClient.InclusionAdjustmentReasonsAsync(pinclId, checkingWindowUrl).GetAwaiter()
+            var results = _apiClient.InclusionAdjustmentReasonsAsync(pinclId, _checkingWindowUrl).GetAwaiter()
                 .GetResult();
 
             return results.Result.ToList();

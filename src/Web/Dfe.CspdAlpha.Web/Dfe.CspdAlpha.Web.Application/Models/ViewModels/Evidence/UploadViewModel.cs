@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Evidence
 {
-    public class UploadViewModel
+    public class UploadViewModel : ContextAwareViewModel
     {
         public AmendmentType AmendmentType { get; set; }
         public PupilViewModel Pupil { get; set; }

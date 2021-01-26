@@ -8,22 +8,21 @@ using DateTime = System.DateTime;
 
 namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
 {
-    public class PupilViewModel
+    public class PupilViewModel : ContextAwareViewModel
     {
         private readonly Rscd.Web.ApiClient.Pupil _pupil;
-
 
         public PupilViewModel()
         {
             
         }
 
-        public PupilViewModel(Rscd.Web.ApiClient.Pupil pupil, CheckingWindow checkingWindow)
+        public PupilViewModel(Rscd.Web.ApiClient.Pupil pupil)
         {
             _pupil = pupil;
 
             ID = pupil.Id;
-            Keystage = checkingWindow.ToKeyStage();
+            Keystage = CheckingWindow.ToKeyStage();
             URN = pupil.Urn;
             SchoolID = pupil.DfesNumber;
             UPN = pupil.Upn;
@@ -100,6 +99,6 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
         public bool FreeSchoolsInLast6Years { get; set; }
         public bool ChildrenLookedAfter { get; set; }
 
-        public string GetPupilDetailsLabel => Keystage == Keystage.KS5 ? "View student details" : "View pupil details";
+        public string GetPupilDetailsLabel => $"View {PersonLowercase} details";
     }
 }

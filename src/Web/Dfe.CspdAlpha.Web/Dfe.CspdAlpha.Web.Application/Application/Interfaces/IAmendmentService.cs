@@ -5,14 +5,14 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Interfaces
 {
     public interface IAmendmentService
     {
-        AmendmentsListViewModel GetAmendmentsListViewModel(string urn, CheckingWindow checkingWindow);
+        AmendmentsListViewModel GetAmendmentsListViewModel(string urn);
 
         AmendmentOutcome CreateAmendment(Amendment amendment);
 
-        Amendment GetAmendment(CheckingWindow checkingWindow, string id);
+        Amendment GetAmendment(string id);
 
-        bool CancelAmendment(CheckingWindow checkingWindow, string id);
+        bool CancelAmendment(string id);
 
-        bool RelateEvidence(CheckingWindow checkingWindow, string amendmentId, string evidenceFolder);
+        bool RelateEvidence(string amendmentId, string evidenceFolder);
     }
 }

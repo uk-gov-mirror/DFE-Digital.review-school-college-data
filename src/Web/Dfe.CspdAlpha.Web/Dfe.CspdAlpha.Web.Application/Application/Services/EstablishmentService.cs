@@ -5,6 +5,7 @@ using Dfe.CspdAlpha.Web.Application.Application.Helpers;
 using Dfe.CspdAlpha.Web.Application.Models.School;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
 
 namespace Dfe.CspdAlpha.Web.Application.Application.Services
 {
@@ -17,16 +18,20 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             Cohort
         }
 
-        private ApiClient.IClient _apiClient;
+        private readonly ApiClient.IClient _apiClient;
+        private readonly ApiClient.CheckingWindow _checkingWindow;
+        private readonly string _checkingWindowUrl;
 
-        public EstablishmentService(ApiClient.IClient apiClient)
+        public EstablishmentService(ApiClient.IClient apiClient, IHttpContextAccessor httpContextAccessor)
         {
             _apiClient = apiClient;
+            _checkingWindow = CheckingWindowHelper.GetCheckingWindow(httpContextAccessor.HttpContext.Request.RouteValues);
+            _checkingWindowUrl = CheckingWindowHelper.GetCheckingWindowURL(_checkingWindow);
         }
 
-        private Dictionary<string, string> GetMeasures(ApiClient.CheckingWindow checkingWindow, MeasureType measureType)
+        private Dictionary<string, string> GetMeasures(MeasureType measureType)
         {
-            if (checkingWindow.ToString().StartsWith("KS4"))
+            if (_checkingWindow.ToString().StartsWith("KS4"))
             {
                 switch (measureType)
                 {
@@ -57,7 +62,7 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
 
                 }
             }
-            if (checkingWindow.ToString().StartsWith("KS5"))
+            if (_checkingWindow.ToString().StartsWith("KS5"))
             {
                 switch (measureType)
                 {
@@ -91,12 +96,12 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             return null;
         }
 
-        public SchoolViewModel GetSchoolViewModel(ApiClient.CheckingWindow checkingWindow, string urn)
+        public SchoolViewModel GetSchoolViewModel(string urn)
         {
-            var establishmentData = GetEstablishmentData(checkingWindow, urn);
-            var headlineFields = GetMeasures(checkingWindow, MeasureType.Headline);
-            var additionalFields = GetMeasures(checkingWindow, MeasureType.Additional);
-            var cohortFields = GetMeasures(checkingWindow, MeasureType.Cohort);
+            var establishmentData = GetEstablishmentData(urn);
+            var headlineFields = GetMeasures(MeasureType.Headline);
+            var additionalFields = GetMeasures(MeasureType.Additional);
+            var cohortFields = GetMeasures(MeasureType.Cohort);
             return new SchoolViewModel
             {
                 SchoolDetails = new SchoolDetails
@@ -106,14 +111,28 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                     DfesNumber = establishmentData.DfesNumber.ToString(),
                     SchoolType = establishmentData.SchoolType
                 },
-                HeadlineMeasures = establishmentData.PerformanceMeasures.Where(p => headlineFields.Any(h => h.Key == p.Name)).Select(m => new Measure { Name = headlineFields[m.Name], Data = m.Value }).OrderBy(s => s.Name).ToList(),
-                AdditionalMeasures = establishmentData.PerformanceMeasures.Where(p => additionalFields.Any(h => h.Key == p.Name)).Select(m => new Measure { Name = additionalFields[m.Name], Data = m.Value }).OrderBy(s => s.Name).ToList(),
-                CohortMeasures = establishmentData.PerformanceMeasures.Where(p => cohortFields.Any(h => h.Key == p.Name)).Select(m => new Measure { Name = cohortFields[m.Name], Data = m.Value }).OrderBy(s => s.Name).ToList()
+                HeadlineMeasures = establishmentData.PerformanceMeasures
+                    .Where(p => headlineFields.Any(h => h.Key == p.Name))
+                    .Select(m => new Measure { Name = headlineFields[m.Name], Data = m.Value })
+                    .OrderBy(s => s.Name)
+                    .ToList(),
+
+                AdditionalMeasures = establishmentData.PerformanceMeasures
+                    .Where(p => additionalFields.Any(h => h.Key == p.Name))
+                    .Select(m => new Measure { Name = additionalFields[m.Name], Data = m.Value })
+                    .OrderBy(s => s.Name)
+                    .ToList(),
+
+                CohortMeasures = establishmentData.PerformanceMeasures
+                    .Where(p => cohortFields.Any(h => h.Key == p.Name))
+                    .Select(m => new Measure { Name = cohortFields[m.Name], Data = m.Value })
+                    .OrderBy(s => s.Name)
+                    .ToList()
             };
         }
-        private ApiClient.School GetEstablishmentData(ApiClient.CheckingWindow checkingWindow, string urn)
+        private ApiClient.School GetEstablishmentData(string urn)
         {
-            var school = _apiClient.GetEstablishmentByURNAsync(urn, checkingWindow.ToString().ToLower()).GetAwaiter().GetResult();
+            var school = _apiClient.GetEstablishmentByURNAsync(urn, _checkingWindowUrl).GetAwaiter().GetResult();
             if (string.IsNullOrWhiteSpace(school.Error.ErrorMessage))
             {
                 return school.Result;
@@ -121,9 +140,9 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             return null;
         }
 
-        public SchoolDetails GetSchoolDetails(ApiClient.CheckingWindow checkingWindow, string urn)
+        public SchoolDetails GetSchoolDetails(string urn)
         {
-            var establishmentData = GetEstablishmentData(checkingWindow, urn);
+            var establishmentData = GetEstablishmentData(urn);
             return new SchoolDetails
             {
                 SchoolName = establishmentData.SchoolName,
@@ -133,10 +152,9 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             };
         }
 
-        public string GetSchoolName(ApiClient.CheckingWindow checkingWindow, string laestab)
+        public string GetSchoolName(string laestab)
         {
-            var checkingWindowURL = CheckingWindowHelper.GetCheckingWindowURL(checkingWindow);
-            var school = _apiClient.SearchTEstablishmentsAsync(laestab, checkingWindowURL).GetAwaiter().GetResult();
+            var school = _apiClient.SearchTEstablishmentsAsync(laestab, _checkingWindowUrl).GetAwaiter().GetResult();
             return school != null ? school.Result.SchoolName : string.Empty;
         }
     }

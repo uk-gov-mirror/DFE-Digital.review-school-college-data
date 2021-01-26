@@ -1,10 +1,17 @@
-using Dfe.Rscd.Web.ApiClient;
-
 namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil
 {
-    public class SearchPupilsViewModel
+    public class SearchPupilsViewModel : ContextAwareViewModel
     {
-        public CheckingWindow CheckingWindow {get;set;}
+        public SearchPupilsViewModel() : base()
+        {
+            
+        }
+
+        public SearchPupilsViewModel(string phase) : base(phase)
+        {
+            
+        }
+
         public string PupilID { get; set; }
         public string Name { get; set; }
         public QueryType SearchType { get; set; }

@@ -17,8 +17,8 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
         public IActionResult Index()
         {
-            var urn = ClaimsHelper.GetURN(this.User);
-            HttpContext.Session.Set("URN", urn);
+            SetCurrentUrn();
+            
             return View(new HomeViewModel());
         }
 
@@ -27,7 +27,8 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         {
             if (ModelState.IsValid)
             {
-                return RedirectToAction("Index", "TaskList", new { phase = homeViewModel.SelectedKeyStage.ToLower(), urn = ClaimsHelper.GetURN(this.User) });
+
+                return RedirectToAction("Index", "TaskList", new { phase = homeViewModel.SelectedKeyStage.ToLower(), urn = GetCurrentUrn() });
             }
 
             return View(homeViewModel);

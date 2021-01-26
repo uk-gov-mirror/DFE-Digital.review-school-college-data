@@ -10,7 +10,7 @@ namespace Dfe.Rscd.Web.UnitTests.Application.Validators
         public void ResultsViewModel_IsValid_GivenSelectedID()
         {
             // Arrange
-            var viewModel = new ResultsViewModel()
+            var viewModel = new ResultsViewModel("ks4-june")
             {
                 SelectedID = "12345"
             };
@@ -28,7 +28,7 @@ namespace Dfe.Rscd.Web.UnitTests.Application.Validators
         public void ResultsViewModel_IsInvalid_WithoutSelectedID()
         {
             // Arrange
-            var viewModel = new ResultsViewModel()
+            var viewModel = new ResultsViewModel("ks4-june")
             {
                 SelectedID = null
             };

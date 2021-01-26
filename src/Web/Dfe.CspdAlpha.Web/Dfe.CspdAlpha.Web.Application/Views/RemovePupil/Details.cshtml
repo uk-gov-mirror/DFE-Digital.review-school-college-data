@@ -1,7 +1,7 @@
 @using Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil
 @model DetailsViewModel
 @{
-    ViewData["Title"] = "Provide details of your request to remove a student";
+    ViewBag.Title = $"Provide details of your request to remove a {Model.PersonLowercase}";
 }
 
 @section BackLink
@@ -20,7 +20,7 @@
         <details class="govuk-details govuk-!-font-size-16" data-module="govuk-details">
             <summary class="govuk-details__summary">
                 <span class="govuk-details__summary-text">
-                    View student details
+                    View @(Model.PersonLowercase) details
                 </span>
             </summary>
             <div class="govuk-details__text">

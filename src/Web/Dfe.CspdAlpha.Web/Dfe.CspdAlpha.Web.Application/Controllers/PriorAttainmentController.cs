@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Dfe.CspdAlpha.Web.Application.Application;
-using Dfe.CspdAlpha.Web.Application.Application.Helpers;
 using Dfe.CspdAlpha.Web.Application.Models.Common;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Results;
@@ -12,30 +10,27 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
     public class PriorAttainmentController : SessionController
     {
-        private CheckingWindow CheckingWindow => CheckingWindowHelper.GetCheckingWindow(RouteData);
-
         public IActionResult Add()
         {
             var amendment = GetAmendment();
             var amendmentDetail = amendment?.AmendmentDetail;
             if (amendment?.Pupil == null || amendmentDetail == null ||
                 amendmentDetail.GetField<string>(Constants.AddPupil.AddReason) != AddReason.New)
-            {
                 return RedirectToAction("Index", "AddPupil");
-            }
 
             var priorAttainmentList = amendmentDetail
                 .GetList<PriorAttainmentResult>(Constants.AddPupil.PriorAttainmentResults);
 
             if (priorAttainmentList.Count == 3)
             {
-                string referer = HttpContext.Request.Headers["Referer"].ToString();
+                var referer = HttpContext.Request.Headers["Referer"].ToString();
                 var action = referer.Contains("AddEvidence") ? "Add" : "AddEvidence";
                 return RedirectToAction(action, "Pupil");
             }
+
             var model = new PriorAttainmentResultViewModel
             {
-                PupilDetails = new PupilViewModel(amendment.Pupil, CheckingWindow),
+                PupilDetails = new PupilViewModel(amendment.Pupil),
                 Ks2Subjects = priorAttainmentList
                     .Select(r => r.Ks2Subject).ToList()
             };
@@ -52,9 +47,8 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             if (ModelState.IsValid)
             {
                 if (amendmentDetail.Fields.All(x => x.Name != Constants.AddPupil.PriorAttainmentResults))
-                {
-                    amendmentDetail.AddField(Constants.AddPupil.PriorAttainmentResults, new List<PriorAttainmentResult>());
-                }
+                    amendmentDetail.AddField(Constants.AddPupil.PriorAttainmentResults,
+                        new List<PriorAttainmentResult>());
 
                 var priorAttainmentResults =
                     amendmentDetail.GetList<PriorAttainmentResult>(Constants.AddPupil.PriorAttainmentResults);
@@ -73,16 +67,13 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 var results = amendmentDetail
                     .GetList<PriorAttainmentResult>(Constants.AddPupil.PriorAttainmentResults);
 
-                if (results.Count == 3)
-                {
-                    return RedirectToAction("Index", "Evidence");
-                }
+                if (results.Count == 3) return RedirectToAction("Index", "Evidence");
 
                 ModelState.Clear();
 
                 var model = new PriorAttainmentResultViewModel
                 {
-                    PupilDetails = new PupilViewModel(amendment.Pupil, CheckingWindow),
+                    PupilDetails = new PupilViewModel(amendment.Pupil),
                     Ks2Subjects = results.Select(r => r.Ks2Subject).ToList()
                 };
                 return View(model);
@@ -95,25 +86,25 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         {
             var amendment = GetAmendment();
             var amendmentDetail = amendment.AmendmentDetail ?? new AmendmentDetail();
-            if (amendment.Pupil == null || amendmentDetail.GetField<string>(Constants.AddPupil.AddReason) != AddReason.Existing)
-            {
+            if (amendment.Pupil == null ||
+                amendmentDetail.GetField<string>(Constants.AddPupil.AddReason) != AddReason.Existing)
                 return RedirectToAction("Index", "AddPupil");
-            }
 
-            return View(new ExistingResultsViewModel(amendmentDetail.GetList<PriorAttainmentResult>(Constants.AddPupil.PriorAttainmentResults),
-                new PupilViewModel(amendment.Pupil, CheckingWindow)));
+            return View(new ExistingResultsViewModel(
+                amendmentDetail.GetList<PriorAttainmentResult>(Constants.AddPupil.PriorAttainmentResults),
+                new PupilViewModel(amendment.Pupil)));
         }
 
         public IActionResult Edit()
         {
             var amendment = GetAmendment();
             var amendmentDetail = amendment.AmendmentDetail ?? new AmendmentDetail();
-            if (amendment.Pupil == null || amendmentDetail.GetField<string>(Constants.AddPupil.AddReason) != AddReason.Existing)
-            {
+            if (amendment.Pupil == null ||
+                amendmentDetail.GetField<string>(Constants.AddPupil.AddReason) != AddReason.Existing)
                 return RedirectToAction("Index", "AddPupil");
-            }
-            return View(new ExistingResultsViewModel(amendmentDetail.GetList<PriorAttainmentResult>(Constants.AddPupil.PriorAttainmentResults),
-                new PupilViewModel(amendment.Pupil, CheckingWindow)));
+            return View(new ExistingResultsViewModel(
+                amendmentDetail.GetList<PriorAttainmentResult>(Constants.AddPupil.PriorAttainmentResults),
+                new PupilViewModel(amendment.Pupil)));
         }
 
         [HttpPost]

@@ -4,7 +4,7 @@ using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
 
 namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil
 {
-    public class DetailsViewModel
+    public class DetailsViewModel : ContextAwareViewModel
     {
         public PupilViewModel PupilDetails { get; set; }
         public string AmendmentDetails { get; set; }

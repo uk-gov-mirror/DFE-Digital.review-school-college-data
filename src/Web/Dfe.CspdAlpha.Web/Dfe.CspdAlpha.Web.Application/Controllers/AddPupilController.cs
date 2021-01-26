@@ -1,23 +1,21 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Dfe.CspdAlpha.Web.Application.Application.Helpers;
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
 using Dfe.CspdAlpha.Web.Application.Models.Common;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.AddPupil;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Common;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
-using Microsoft.AspNetCore.Mvc;
-using System.Linq;
-using Dfe.CspdAlpha.Web.Application.Application;
 using Dfe.Rscd.Web.ApiClient;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
     public class AddPupilController : SessionController
     {
-        private readonly IPupilService _pupilService;
         private readonly IEstablishmentService _establishmentService;
-        private CheckingWindow CheckingWindow => CheckingWindowHelper.GetCheckingWindow(RouteData);
+        private readonly IPupilService _pupilService;
 
         public AddPupilController(IPupilService pupilService, IEstablishmentService establishmentService)
         {
@@ -33,7 +31,6 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             var amendment = GetAmendment();
 
             if (amendment != null)
-            {
                 return View(new AddPupilViewModel
                 {
                     UPN = amendment.Pupil.Upn,
@@ -45,7 +42,6 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                     YearGroup = amendment.Pupil.YearGroup,
                     SchoolID = amendment.Pupil.DfesNumber
                 });
-            }
             return View(new AddPupilViewModel());
         }
 
@@ -56,17 +52,11 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
             if (!string.IsNullOrEmpty(addPupilViewModel.UPN))
             {
-                existingPupil = _pupilService.GetMatchedPupil(CheckingWindow, addPupilViewModel.UPN);
-                if (existingPupil == null)
-                {
-                    ModelState.AddModelError(nameof(addPupilViewModel.UPN), "Enter a valid UPN");
-                }
+                existingPupil = _pupilService.GetMatchedPupil(addPupilViewModel.UPN);
+                if (existingPupil == null) ModelState.AddModelError(nameof(addPupilViewModel.UPN), "Enter a valid UPN");
             }
 
-            if (!ModelState.IsValid)
-            {
-                return View(addPupilViewModel);
-            }
+            if (!ModelState.IsValid) return View(addPupilViewModel);
 
             if (existingPupil != null)
             {
@@ -88,14 +78,16 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                         YearGroup = existingPupil.PupilViewModel.YearGroup,
                         DfesNumber = existingPupil.PupilViewModel.SchoolID,
                         Urn = existingPupil.PupilViewModel.URN,
-                        Pincl = new PINCLs(){ P_INCL = existingPupil.PupilViewModel.PincludeCode }
+                        Pincl = new PINCLs {P_INCL = existingPupil.PupilViewModel.PincludeCode}
                     },
                     AmendmentDetail = new AmendmentDetail()
                 };
 
                 amendment.AmendmentDetail.AddField(Constants.AddPupil.AddReason, AddReason.Existing);
-                amendment.AmendmentDetail.AddField(Constants.AddPupil.PreviousSchoolLAEstab, existingPupil.PupilViewModel.SchoolID);
-                amendment.AmendmentDetail.AddField(Constants.AddPupil.PreviousSchoolURN, existingPupil.PupilViewModel.URN);
+                amendment.AmendmentDetail.AddField(Constants.AddPupil.PreviousSchoolLAEstab,
+                    existingPupil.PupilViewModel.SchoolID);
+                amendment.AmendmentDetail.AddField(Constants.AddPupil.PreviousSchoolURN,
+                    existingPupil.PupilViewModel.URN);
                 amendment.AmendmentDetail.AddField(Constants.AddPupil.PriorAttainmentResults, existingPupil.Results
                     .Select(r =>
                         new PriorAttainmentResult
@@ -125,7 +117,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                     YearGroup = addPupilViewModel.YearGroup,
                     DfesNumber = addPupilViewModel.SchoolID,
                     Urn = urn,
-                    Pincl = new PINCLs(){ P_INCL = "499" }
+                    Pincl = new PINCLs {P_INCL = "499"}
                 },
                 CheckingWindow = CheckingWindow,
                 AmendmentDetail = new AmendmentDetail(),
@@ -133,7 +125,8 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             };
 
             addPupilAmendment.AmendmentDetail.AddField(Constants.AddPupil.AddReason, AddReason.New);
-            addPupilAmendment.AmendmentDetail.AddField(Constants.AddPupil.PriorAttainmentResults, new List<PriorAttainmentResult>());
+            addPupilAmendment.AmendmentDetail.AddField(Constants.AddPupil.PriorAttainmentResults,
+                new List<PriorAttainmentResult>());
 
             SaveAmendment(addPupilAmendment);
 
@@ -150,13 +143,11 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         {
             var amendment = GetAmendment();
 
-            if (amendment.Pupil == null || amendment.AmendmentDetail.GetField<string>(Constants.AddPupil.AddReason) == AddReason.New)
-            {
-                return RedirectToAction("Index");
-            }
+            if (amendment.Pupil == null || amendment.AmendmentDetail.GetField<string>(Constants.AddPupil.AddReason) ==
+                AddReason.New) return RedirectToAction("Index");
 
             var existingSchoolId = amendment.AmendmentDetail.GetField<string>(Constants.AddPupil.PreviousSchoolLAEstab);
-            var existingSchoolName = _establishmentService.GetSchoolName(CheckingWindow, existingSchoolId);
+            var existingSchoolName = _establishmentService.GetSchoolName(existingSchoolId);
 
             return View(
                 new MatchedAddPupilViewModel

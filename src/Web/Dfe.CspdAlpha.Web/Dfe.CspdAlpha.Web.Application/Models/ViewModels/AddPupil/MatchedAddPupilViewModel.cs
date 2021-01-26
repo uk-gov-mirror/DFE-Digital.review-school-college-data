@@ -2,7 +2,7 @@ using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
 
 namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.AddPupil
 {
-    public class MatchedAddPupilViewModel
+    public class MatchedAddPupilViewModel : ContextAwareViewModel
     {
         public PupilViewModel PupilViewModel { get; set; }
         public string SchoolName { get; set; }

@@ -1,7 +1,9 @@
 @using Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil
+@using Dfe.CspdAlpha.Web.Application.Models.Common
+@using Dfe.Rscd.Web.ApiClient
 @model RemovePupilViewModel
 @{
-    ViewData["Title"] = "This is a match for the student you want to request to remove";
+    ViewData["Title"] = $"This is a match for the {Model.PersonLowercase} you want to request to remove";
 }
 @section BackLink
 {
@@ -22,7 +24,7 @@
 </div>
 <div class="govuk-grid-row govuk-!-padding-top-2">
     <div class="app-grid-column-two-thirds--always">
-        <h2 class="govuk-heading-m govuk-!-margin-bottom-3">Student details</h2>
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-3">@Model.PupilViewModel.PersonTitlecase details</h2>
     </div>
 </div>
 <div class="govuk-grid-row">
@@ -30,10 +32,10 @@
         <dl class="govuk-summary-list app-summary-list app-summary-list--mobile-inline app-summary-list--pupil-details">
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    ULN (Unique Learner Number)
+                    @Model.PupilViewModel.PersonIdLabel
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @Model.PupilViewModel.ULN
+                    @(Model.CheckingWindow == CheckingWindow.KS5 ? Model.PupilViewModel.ULN : Model.PupilViewModel.UPN)
                 </dd>
             </div>
             <div class="govuk-summary-list__row">

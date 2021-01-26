@@ -1,12 +1,10 @@
 using System.Collections.Generic;
-using System.Linq;
-using Dfe.CspdAlpha.Web.Application.Models.Common;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
 using Dfe.Rscd.Web.ApiClient;
 
 namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments
 {
-    public class PromptViewModel
+    public class PromptViewModel : ContextAwareViewModel
     {
         public string GetTitle()
         {
@@ -24,12 +22,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments
 
         private string GetPupilLabel()
         {
-            if (PupilDetails != null)
-            {
-                return PupilDetails.Keystage == Keystage.KS5 ? "student" : "pupil";
-            }
-
-            return string.Empty;
+            return PersonLowercase;
         }
 
         public Prompt CurrentQuestion

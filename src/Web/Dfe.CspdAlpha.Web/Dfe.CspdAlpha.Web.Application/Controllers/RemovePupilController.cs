@@ -4,30 +4,23 @@ using Dfe.CspdAlpha.Web.Application.Models.Common;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
-using Dfe.CspdAlpha.Web.Application.Application;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
 using Dfe.Rscd.Web.ApiClient;
-using Microsoft.Extensions.Configuration;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
     public class RemovePupilController : SessionController
     {
         private readonly IPupilService _pupilService;
-        private IAmendmentService _amendmentService;
-        private IConfiguration _config;
-        private CheckingWindow CheckingWindow => CheckingWindowHelper.GetCheckingWindow(RouteData);
 
-        public RemovePupilController(IPupilService pupilService, IAmendmentService amendmentService, IConfiguration config)
+        public RemovePupilController(IPupilService pupilService)
         {
-            _config = config;
-            _amendmentService = amendmentService;
             _pupilService = pupilService;
         }
 
         public IActionResult Index()
         {
-            return View(new SearchPupilsViewModel{ CheckingWindow = CheckingWindow, Name = string.Empty, PupilID = string.Empty });
+            return View(new SearchPupilsViewModel{ Name = string.Empty, PupilID = string.Empty });
         }
 
         [HttpPost]
@@ -35,14 +28,14 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         {
             if (ModelState.IsValid)
             {
-                return RedirectToAction("Results", new { viewModel.SearchType, Query = viewModel.PupilID ?? viewModel.Name, viewModel.CheckingWindow });
+                return RedirectToAction("Results", new { viewModel.SearchType, Query = viewModel.PupilID ?? viewModel.Name, CheckingWindow });
             }
             return View(viewModel);
         }
 
         public IActionResult Results(SearchQuery viewModel)
         {
-            var pupilsFound = _pupilService.GetPupilDetailsList(CheckingWindow, viewModel);
+            var pupilsFound = _pupilService.GetPupilDetailsList(viewModel);
             if (pupilsFound.Count == 0 || pupilsFound.Count > 1)
             {
                 return View(new ResultsViewModel
@@ -63,21 +56,14 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 SavePupilToSession(viewModel.SelectedID, urn);
                 return RedirectToAction("Reason", new { searchType= viewModel.SearchType, query = viewModel.Query });
             }
-            viewModel.PupilList = _pupilService.GetPupilDetailsList(CheckingWindow, new SearchQuery { Query = viewModel.Query, URN = viewModel.URN, SearchType = viewModel.SearchType});
+            viewModel.PupilList = _pupilService.GetPupilDetailsList(new SearchQuery { Query = viewModel.Query, URN = viewModel.URN, SearchType = viewModel.SearchType});
 
             return View(viewModel);
         }
 
         private RemovePupilViewModel SavePupilToSession(string id, string urn)
         {
-            var viewModel = _pupilService.GetPupil(CheckingWindow, id);
-            var studentPupilText = CheckingWindowHelper.GetCheckingWindow(RouteData) == CheckingWindow.KS5
-                ? "Student"
-                : "Pupil";
-
-            var ulnUpnText = CheckingWindowHelper.GetCheckingWindow(RouteData) == CheckingWindow.KS5
-                ? "ULN (Unique Learner Number)"
-                : "UPN (Unique Pupil Number)";
+            var viewModel = _pupilService.GetPupil(id);
 
             var amendment = new Amendment
             {
@@ -106,7 +92,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
             SaveAmendment(amendment);
 
-            return new RemovePupilViewModel {PupilViewModel = viewModel.PupilViewModel, StudentPupilText = studentPupilText, ULNUPNText = ulnUpnText};
+            return new RemovePupilViewModel { PupilViewModel = viewModel.PupilViewModel };
         }
 
         public IActionResult MatchedPupil(QueryType searchType, string query, string id, string urn)
@@ -129,17 +115,16 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             }
 
             var amendmentDetail = amendment.AmendmentDetail;
-            var reasons = _pupilService.GetInclusionAdjustmentReasons(CheckingWindow, amendment.Pupil.Pincl.P_INCL);
+            var reasons = _pupilService.GetInclusionAdjustmentReasons(amendment.Pupil.Pincl.P_INCL);
 
             return View(new ReasonViewModel
             {
-                PupilDetails = new PupilViewModel(amendment.Pupil, CheckingWindow),
+                PupilDetails = new PupilViewModel(amendment.Pupil),
                 SelectedReasonCode = amendmentDetail.GetField<int?>(Constants.RemovePupil.ReasonCode),
                 SearchType = searchType,
                 Query = query,
                 MatchedId = matchedId,
-                Reasons = reasons.ToList(),
-                CheckingWindow = CheckingWindow
+                Reasons = reasons.ToList()
             });
         }
 
@@ -186,7 +171,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
                 return RedirectToAction("Prompt", "Amendments");
             }
-            return View(new ReasonViewModel { PupilDetails = new PupilViewModel(amendment.Pupil, CheckingWindow) });
+            return View(new ReasonViewModel { PupilDetails = new PupilViewModel(amendment.Pupil) });
         }
 
         public IActionResult Details()
@@ -200,7 +185,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             var amendmentDetail = amendment.AmendmentDetail;
             return View(new DetailsViewModel
             {
-                PupilDetails = new PupilViewModel(amendment.Pupil, CheckingWindow),
+                PupilDetails = new PupilViewModel(amendment.Pupil),
                 AmendmentDetails = amendmentDetail.GetField<string>(Constants.RemovePupil.Detail)
             });
         }
@@ -225,7 +210,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 return RedirectToAction("Confirm","Amendments");
             }
 
-            viewModel.PupilDetails = new PupilViewModel(amendment.Pupil, CheckingWindow);
+            viewModel.PupilDetails = new PupilViewModel(amendment.Pupil);
             return View(viewModel);
         }
     }
