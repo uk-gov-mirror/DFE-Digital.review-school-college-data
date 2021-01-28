@@ -91,7 +91,7 @@ namespace Dfe.Rscd.Api.Services.Rules
             //                                            student.StudentID,
             //                                            inclusionReasonId,
             //                                            answers,
-            //                                            Contants.SCRUTINY_REASON_ADMISSION_FOLLOWING_PERMANENT_EXCLUSION,
+            //                                            Constants.SCRUTINY_REASON_ADMISSION_FOLLOWING_PERMANENT_EXCLUSION,
             //                                            null,
             //                                            Contants.SCRUTINY_STATUS_ACCEPTEDAUTOMATICALLY,
             //                                            null)

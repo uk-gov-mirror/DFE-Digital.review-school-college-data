@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using Dfe.Rscd.Api.BusinessLogic.Common;
 using Dfe.Rscd.Api.BusinessLogic.Entities;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Config;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs;
@@ -45,13 +44,21 @@ namespace Dfe.Rscd.Api.Services
             {
                 var nameParts = query.Name.Split(' ');
                 foreach (var namePart in nameParts)
-                    repoQuery = repoQuery.Where(p => p.Forename.StartsWith(namePart) || p.Surname.StartsWith(namePart));
+                    repoQuery = repoQuery.Where(p => p.Forename.StartsWith(namePart, StringComparison.InvariantCultureIgnoreCase) || 
+                                                     p.Surname.StartsWith(namePart, StringComparison.InvariantCultureIgnoreCase));
             }
 
             var dtos = repoQuery
                 .Select(p => new PupilRecord
-                    {Id = p.id, ForeName = p.Forename, Surname = p.Surname, ULN = p.ULN, UPN = p.UPN, Gender=p.Gender, DateOfBirth = p.DOB})
-                .Take(PageSize);
+                {
+                    Id = p.id, 
+                    ForeName = p.Forename, 
+                    Surname = p.Surname, 
+                    ULN = p.ULN, 
+                    UPN = p.UPN, 
+                    Gender=p.Gender, 
+                    DateOfBirth = p.DOB
+                }).Take(PageSize);
 
             return dtos.ToList();
         }

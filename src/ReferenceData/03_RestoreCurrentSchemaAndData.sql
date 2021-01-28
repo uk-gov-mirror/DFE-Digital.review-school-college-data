@@ -1,4 +1,4 @@
-/****** Object:  Table [dbo].[AmendCodes]    Script Date: 19/01/2021 12:59:37 ******/
+/****** Object:  Table [dbo].[AmendCodes]    Script Date: 27/01/2021 12:29:25 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -12,7 +12,7 @@ CREATE TABLE [dbo].[AmendCodes](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[AwardingBodies]    Script Date: 19/01/2021 12:59:37 ******/
+/****** Object:  Table [dbo].[AwardingBodies]    Script Date: 27/01/2021 12:29:25 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -30,7 +30,7 @@ CREATE TABLE [dbo].[AwardingBodies](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Ethnicities]    Script Date: 19/01/2021 12:59:37 ******/
+/****** Object:  Table [dbo].[Ethnicities]    Script Date: 27/01/2021 12:29:25 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -45,7 +45,7 @@ CREATE TABLE [dbo].[Ethnicities](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[InclusionAdjustmentReasons]    Script Date: 19/01/2021 12:59:37 ******/
+/****** Object:  Table [dbo].[InclusionAdjustmentReasons]    Script Date: 27/01/2021 12:29:25 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -64,7 +64,7 @@ CREATE TABLE [dbo].[InclusionAdjustmentReasons](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Languages]    Script Date: 19/01/2021 12:59:37 ******/
+/****** Object:  Table [dbo].[Languages]    Script Date: 27/01/2021 12:29:25 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -78,7 +78,7 @@ CREATE TABLE [dbo].[Languages](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[PINCLInclusionAdjData]    Script Date: 19/01/2021 12:59:37 ******/
+/****** Object:  Table [dbo].[PINCLInclusionAdjData]    Script Date: 27/01/2021 12:29:25 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -95,7 +95,7 @@ CREATE TABLE [dbo].[PINCLInclusionAdjData](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[PINCLInclusionAdjustments]    Script Date: 19/01/2021 12:59:37 ******/
+/****** Object:  Table [dbo].[PINCLInclusionAdjustments]    Script Date: 27/01/2021 12:29:25 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -110,7 +110,7 @@ CREATE TABLE [dbo].[PINCLInclusionAdjustments](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[PINCLs]    Script Date: 19/01/2021 12:59:37 ******/
+/****** Object:  Table [dbo].[PINCLs]    Script Date: 27/01/2021 12:29:25 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -125,7 +125,7 @@ CREATE TABLE [dbo].[PINCLs](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[PromptResponses]    Script Date: 19/01/2021 12:59:37 ******/
+/****** Object:  Table [dbo].[PromptResponses]    Script Date: 27/01/2021 12:29:25 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -142,7 +142,7 @@ CREATE TABLE [dbo].[PromptResponses](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Prompts]    Script Date: 19/01/2021 12:59:37 ******/
+/****** Object:  Table [dbo].[Prompts]    Script Date: 27/01/2021 12:29:25 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -161,7 +161,7 @@ CREATE TABLE [dbo].[Prompts](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[PromptTypes]    Script Date: 19/01/2021 12:59:37 ******/
+/****** Object:  Table [dbo].[PromptTypes]    Script Date: 27/01/2021 12:29:25 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -175,7 +175,7 @@ CREATE TABLE [dbo].[PromptTypes](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[SENStatus]    Script Date: 19/01/2021 12:59:37 ******/
+/****** Object:  Table [dbo].[SENStatus]    Script Date: 27/01/2021 12:29:25 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -189,7 +189,7 @@ CREATE TABLE [dbo].[SENStatus](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[YearGroups]    Script Date: 19/01/2021 12:59:37 ******/
+/****** Object:  Table [dbo].[YearGroups]    Script Date: 27/01/2021 12:29:25 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2747,15 +2747,19 @@ INSERT [dbo].[PromptTypes] ([PromptTypeID], [PromptTypeName]) VALUES (6, N'Info'
 GO
 INSERT [dbo].[SENStatus] ([SENStatusCode], [SENStatusDescription]) VALUES (N'?', N'Not Supplied')
 GO
-INSERT [dbo].[SENStatus] ([SENStatusCode], [SENStatusDescription]) VALUES (N'A', N'School Action')
+INSERT [dbo].[SENStatus] ([SENStatusCode], [SENStatusDescription]) VALUES (N'A', N'School action or early years action')
 GO
-INSERT [dbo].[SENStatus] ([SENStatusCode], [SENStatusDescription]) VALUES (N'N', N'No special provision')
+INSERT [dbo].[SENStatus] ([SENStatusCode], [SENStatusDescription]) VALUES (N'E', N'Education, health and care plan')
 GO
-INSERT [dbo].[SENStatus] ([SENStatusCode], [SENStatusDescription]) VALUES (N'P', N'School Action Plus')
+INSERT [dbo].[SENStatus] ([SENStatusCode], [SENStatusDescription]) VALUES (N'K', N'SEN support')
+GO
+INSERT [dbo].[SENStatus] ([SENStatusCode], [SENStatusDescription]) VALUES (N'N', N'No special educational need')
+GO
+INSERT [dbo].[SENStatus] ([SENStatusCode], [SENStatusDescription]) VALUES (N'P', N'School action plus or early years action plus')
 GO
 INSERT [dbo].[SENStatus] ([SENStatusCode], [SENStatusDescription]) VALUES (N'Q', N'School action plus statutory assessment')
 GO
-INSERT [dbo].[SENStatus] ([SENStatusCode], [SENStatusDescription]) VALUES (N'S', N'Statement of SEN')
+INSERT [dbo].[SENStatus] ([SENStatusCode], [SENStatusDescription]) VALUES (N'S', N'Statement')
 GO
 INSERT [dbo].[YearGroups] ([YearGroupCode], [YearGroupDescription]) VALUES (N'? ', N'Not Supplied')
 GO
