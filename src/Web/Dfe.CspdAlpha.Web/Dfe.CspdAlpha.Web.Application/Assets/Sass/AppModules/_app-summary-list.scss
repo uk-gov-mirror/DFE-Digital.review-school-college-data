@@ -1,6 +1,8 @@
 .app-summary-list {
   @include govuk-font(19);
 
+  overflow: hidden;
+
   .govuk-summary-list__key,
   .govuk-summary-list__value {
     border-bottom: none;
@@ -54,6 +56,11 @@
       .govuk-summary-list__key {
         float: left;
         width: 40%;
+        padding-right: govuk-spacing(1);
+      }
+
+      .govuk-summary-list__value {
+        float: none;
       }
     }
   }
