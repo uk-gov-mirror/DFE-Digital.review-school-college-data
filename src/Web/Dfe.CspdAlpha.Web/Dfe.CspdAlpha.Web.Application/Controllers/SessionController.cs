@@ -48,11 +48,6 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             HttpContext.Session.Set<TaskListViewModel>(string.Format(TASK_LIST, UserId), model);
         }
 
-        protected void SetCurrentUrn()
-        {
-            ClaimsHelper.GetURN(User);
-        }
-
         protected string GetCurrentUrn()
         {
             return ClaimsHelper.GetURN(User);

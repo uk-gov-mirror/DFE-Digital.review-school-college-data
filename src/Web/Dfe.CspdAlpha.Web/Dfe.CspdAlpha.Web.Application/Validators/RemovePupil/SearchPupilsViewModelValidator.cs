@@ -31,6 +31,11 @@ namespace Dfe.CspdAlpha.Web.Application.Validators.RemovePupil
                 .WithMessage("Enter a pupil full name");
 
             RuleFor(x => x.Name)
+                .MinimumLength(2)
+                .When(x => x.SearchType == QueryType.Name && x.CheckingWindow != CheckingWindow.KS5)
+                .WithMessage("Enter a valid pupil name");
+
+            RuleFor(x => x.Name)
                 .Matches(@"^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$")
                 .When(x => x.SearchType == QueryType.Name && x.CheckingWindow != CheckingWindow.KS5)
                 .WithMessage("Enter a valid pupil name");
@@ -55,6 +60,11 @@ namespace Dfe.CspdAlpha.Web.Application.Validators.RemovePupil
                 .NotEmpty()
                 .When(x => x.SearchType == QueryType.Name && x.CheckingWindow == CheckingWindow.KS5)
                 .WithMessage("Enter a student full name");
+
+            RuleFor(x => x.Name)
+                .MinimumLength(2)
+                .When(x => x.SearchType == QueryType.Name && x.CheckingWindow == CheckingWindow.KS5)
+                .WithMessage("Enter a valid student name");
 
             RuleFor(x => x.Name)
                 .Matches(@"^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$")

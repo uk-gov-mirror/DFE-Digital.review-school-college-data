@@ -7,6 +7,13 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels
 {
     public class TaskListViewModel : ContextAwareViewModel
     {
+        public TaskListViewModel(string phase) : base(phase) { }
+
+        public TaskListViewModel() : base()
+        {
+            
+        }
+
         public CheckDataNavigation CheckDataNavigationModel => new CheckDataNavigation(NavigationItem.TaskList , CheckingWindow);
         public SchoolDetails SchoolDetails { get; set; }
         public bool ReviewChecked { get; set; }

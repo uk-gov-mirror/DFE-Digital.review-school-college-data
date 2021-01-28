@@ -1,4 +1,5 @@
-﻿using Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil;
+﻿using System.Linq;
+using Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil;
 using Dfe.CspdAlpha.Web.Application.Validators.RemovePupil;
 using Xunit;
 
@@ -40,6 +41,26 @@ namespace Dfe.Rscd.Web.UnitTests.Application.Validators
 
             // Assert
             Assert.False(result.IsValid);
+            Assert.True(result.Errors.First().ErrorMessage.Contains("pupil"));
+        }
+
+        [Fact]
+        public void ResultsViewModel_IsInvalid_WithoutSelectedIDKS5()
+        {
+            // Arrange
+            var viewModel = new ResultsViewModel("ks5")
+            {
+                SelectedID = null
+            };
+
+            var validator = new ResultsViewModelValidator();
+
+            // Act
+            var result = validator.Validate(viewModel);
+
+            // Assert
+            Assert.False(result.IsValid);
+            Assert.True(result.Errors.First().ErrorMessage.Contains("student"));
         }
     }
 }
