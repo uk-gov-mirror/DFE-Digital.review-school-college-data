@@ -56,7 +56,7 @@ namespace Dfe.Rscd.Api.Controllers
         )]
         [ProducesResponseType(typeof(GetResponse<IEnumerable<PupilRecord>>), 200)]
         [ProducesResponseType(400)]
-        public async Task<IActionResult> Search(
+        public IActionResult Search(
             [FromQuery] [SwaggerParameter("Pupil search criteria.", Required = true)]
             PupilsSearchRequest request,
             [FromRoute] [SwaggerParameter("The checking window to request pupil or pupils from", Required = true)]

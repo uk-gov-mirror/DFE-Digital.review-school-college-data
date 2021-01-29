@@ -57,7 +57,7 @@ namespace Dfe.Rscd.Api.Controllers
         )]
         [ProducesResponseType(typeof(GetResponse<School>), 200)]
         [ProducesResponseType(400)]
-        public async Task<IActionResult> Search(
+        public IActionResult Search(
             [FromQuery] [SwaggerParameter("Event search criteria.", Required = true)]
             EstablishmentsSearchRequest request,
             [FromRoute] [SwaggerParameter("The checking window to request amendments from", Required = true)]

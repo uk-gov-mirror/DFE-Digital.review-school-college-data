@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 
 namespace Dfe.Rscd.Api.Infrastructure.SqlServer.Repositories
 {

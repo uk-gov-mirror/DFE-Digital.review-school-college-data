@@ -154,7 +154,7 @@ namespace Dfe.Rscd.Api.Controllers
         [Route("inclusion-reasons/pincl/{id}")]
         [ProducesResponseType(400)]
         [ProducesResponseType(typeof(GetResponse<IEnumerable<InclusionAdjustmentReason>>), 200)]
-        public async Task<IActionResult> GetInclusionAdjustmentReasonsByPincl(
+        public IActionResult GetInclusionAdjustmentReasonsByPincl(
             [FromRoute] [SwaggerParameter("The pupil inclusion identifier", Required = true)]
             string id,
             [FromRoute] [SwaggerParameter("The checking window to request amendments from", Required = true)]

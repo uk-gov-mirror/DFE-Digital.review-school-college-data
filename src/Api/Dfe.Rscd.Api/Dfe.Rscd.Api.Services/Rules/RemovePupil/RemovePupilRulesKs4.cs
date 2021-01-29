@@ -34,25 +34,19 @@ namespace Dfe.Rscd.Api.Services.Rules
                         AdmittedFollowingPermanentExclusion(student, amendment.InclusionReasonId, amendment.Answers);
                     break;
 
+                
+                //Reason 11
+                case (int) ReasonsForAdjustment.PermanentlyLeftEngland:
+                    adjOutcomeOut =
+                        ProcessInclusionPromptResponses_PermanentlyLeftEngland(amendment.InclusionReasonId, amendment.Answers,
+                            student.Id);
+                    break;
+
                 //Reason 12
                 case (int) ReasonsForAdjustment.Deceased:
                     adjOutcomeOut =
                         ProcessInclusionPromptResponses_Deceased(amendment.InclusionReasonId, amendment.Answers,
                             student.Id);
-                    break;
-
-                //Reason 19
-                case (int) ReasonsForAdjustment.KS4Other:
-                    adjOutcomeOut =
-                        ProcessInclusionPromptResponses_OtherKS4(student, amendment.InclusionReasonId,
-                            amendment.Answers);
-                    break;
-
-                //Reason 54
-                case (int) ReasonsForAdjustment.NotAtEndOfAdvancedStudy:
-                    adjOutcomeOut =
-                        ProcessInclusionPromptResponses_NotAtEndOfAdvancedStudy(student, amendment.InclusionReasonId,
-                            amendment.Answers);
                     break;
 
                 default:

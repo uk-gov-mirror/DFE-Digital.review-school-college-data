@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Dfe.Rscd.Api.BusinessLogic.Entities;
 using Dfe.Rscd.Api.Models;
 using Dfe.Rscd.Api.Services;
@@ -29,7 +28,7 @@ namespace Dfe.Rscd.Api.Controllers
         [Route("/amendcodes")]
         [ProducesResponseType(400)]
         [ProducesResponseType(typeof(GetResponse<IEnumerable<AmendCode>>), 200)]
-        public async Task<IActionResult> GetAmendReference()
+        public IActionResult GetAmendReference()
         {
             var list = _commonDataService.GetAmendCodes();
             var response = new GetResponse<IEnumerable<AmendCode>>
@@ -50,7 +49,7 @@ namespace Dfe.Rscd.Api.Controllers
         [Route("/awardingbodies")]
         [ProducesResponseType(400)]
         [ProducesResponseType(typeof(GetResponse<IEnumerable<AwardingBody>>), 200)]
-        public async Task<IActionResult> GetAwardingBodies()
+        public IActionResult GetAwardingBodies()
         {
             var list = _commonDataService.GetAwardingBodies();
             var response = new GetResponse<IEnumerable<AwardingBody>>
@@ -71,7 +70,7 @@ namespace Dfe.Rscd.Api.Controllers
         [Route("/ethnicities")]
         [ProducesResponseType(400)]
         [ProducesResponseType(typeof(GetResponse<IEnumerable<Ethnicity>>), 200)]
-        public async Task<IActionResult> GetEthnicities()
+        public IActionResult GetEthnicities()
         {
             var list = _commonDataService.GetEthnicities();
             var response = new GetResponse<IEnumerable<Ethnicity>>
@@ -92,7 +91,7 @@ namespace Dfe.Rscd.Api.Controllers
         [Route("/languages")]
         [ProducesResponseType(400)]
         [ProducesResponseType(typeof(GetResponse<IEnumerable<FirstLanguage>>), 200)]
-        public async Task<IActionResult> GetLanguages()
+        public IActionResult GetLanguages()
         {
             var list = _commonDataService.GetLanguages();
             var response = new GetResponse<IEnumerable<FirstLanguage>>
@@ -113,7 +112,7 @@ namespace Dfe.Rscd.Api.Controllers
         [Route("/pincludes")]
         [ProducesResponseType(400)]
         [ProducesResponseType(typeof(GetResponse<IEnumerable<PINCLs>>), 200)]
-        public async Task<IActionResult> GetPINCls()
+        public IActionResult GetPINCls()
         {
             var list = _commonDataService.GetPINCLs();
             var response = new GetResponse<IEnumerable<PINCLs>>
@@ -134,7 +133,7 @@ namespace Dfe.Rscd.Api.Controllers
         [Route("/senstatuses")]
         [ProducesResponseType(400)]
         [ProducesResponseType(typeof(GetResponse<IEnumerable<SENStatus>>), 200)]
-        public async Task<IActionResult> GetSenStatuses()
+        public IActionResult GetSenStatuses()
         {
             var list = _commonDataService.GetSENStatus();
             var response = new GetResponse<IEnumerable<SENStatus>>
@@ -155,7 +154,7 @@ namespace Dfe.Rscd.Api.Controllers
         [Route("/yeargroups")]
         [ProducesResponseType(400)]
         [ProducesResponseType(typeof(GetResponse<IEnumerable<YearGroup>>), 200)]
-        public async Task<IActionResult> GetYearGroups()
+        public IActionResult GetYearGroups()
         {
             var list = _commonDataService.GetYearGroups();
             var response = new GetResponse<IEnumerable<YearGroup>>
