@@ -45,7 +45,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
         protected void SaveTaskList(TaskListViewModel model)
         {
-            HttpContext.Session.Set<TaskListViewModel>(string.Format(TASK_LIST, UserId), model);
+            HttpContext.Session.Set(string.Format(TASK_LIST, UserId), model);
         }
 
         protected string GetCurrentUrn()

@@ -35,6 +35,7 @@ namespace Dfe.Rscd.Web.UnitTests.Controllers
         {
             if(!_session.ContainsKey(key))
                 _session.Add(key, value);
+            _session[key] = value;
         }
 
         public bool TryGetValue(string key, out byte[] value)

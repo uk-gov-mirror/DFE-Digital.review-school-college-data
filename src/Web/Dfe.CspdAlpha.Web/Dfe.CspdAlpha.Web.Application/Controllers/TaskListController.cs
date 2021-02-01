@@ -40,6 +40,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             viewModel.ReviewChecked = true;
 
             _schoolService.UpdateConfirmation(viewModel, UserId, GetCurrentUrn());
+
             SaveTaskList(viewModel);
 
             return RedirectToAction("Index");
@@ -55,7 +56,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
             _schoolService.UpdateConfirmation(viewModel, UserId, GetCurrentUrn());
 
-            viewModel.ConfirmationDate = DateTime.Now.Date;
+            viewModel.ConfirmationDate = DateTime.Now;
 
             SaveTaskList(viewModel);
 

@@ -12,5 +12,10 @@ namespace Dfe.CspdAlpha.Web.Application.Application
         {
             _httpContextAccessor = httpContextAccessor;
         }
+
+        public static void Configure(HttpContext context)
+        {
+            _httpContextAccessor = new HttpContextAccessor {HttpContext = context};
+        }
     }
 }

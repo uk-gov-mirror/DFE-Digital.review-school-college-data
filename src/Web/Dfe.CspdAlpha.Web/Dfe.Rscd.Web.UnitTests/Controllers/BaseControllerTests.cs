@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
+using Dfe.CspdAlpha.Web.Application.Application;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
@@ -31,6 +32,8 @@ namespace Dfe.Rscd.Web.UnitTests.Controllers
         protected ControllerContext GetControllerContext(string phase, Mock<HttpContext> context)
         {
             var routes = new RouteValueDictionary {{"phase", phase}};
+
+            Context.Configure(context.Object);
 
             return new ControllerContext(new ActionContext(context.Object, new RouteData(routes),
                 new ControllerActionDescriptor()));
