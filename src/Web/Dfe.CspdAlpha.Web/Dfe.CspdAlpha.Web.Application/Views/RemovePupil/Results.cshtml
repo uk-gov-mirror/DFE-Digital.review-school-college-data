@@ -35,21 +35,22 @@ else
                         <legend class="govuk-legend govuk-fieldset__legend--s govuk-!-margin-bottom-4">
                             Select one
                         </legend>
-                        @foreach (var student in Model.PupilList)
-                        {
-                            <div class="govuk-radios" asp-for="SelectedID">
-                                <div class="govuk-radios__item app-radios-multiline__item app-radios-search-result">
-                                    <input type="radio" asp-for="SelectedID" id="PupilId-@student.ID" value="@student.ID" class="govuk-radios__input" />
-                                    <label class="govuk-label govuk-radios__label govuk-!-margin-bottom-0" for="PupilId-@student.ID">
-                                        @student.FirstName @student.LastName
-                                        <span class="app-radios-multiline__label-row">@Model.PersonIdAcronym @(Model.CheckingWindow == CheckingWindow.KS5 ? student.ULN : student.UPN)</span>
-                                    </label>
-                                </div>
-                            </div>
-                            <p class="app-align--below-radios govuk-body-s">
+                        <div class="govuk-radios" asp-for="SelectedID" id="SelectedID">
+                            @foreach (var student in Model.PupilList)
+                            {
+                             <div class="govuk-radios__item app-radios-multiline__item app-radios-search-result">
+                                <input type="radio" asp-for="SelectedID" id="PupilId-@student.ID" value="@student.ID" class="govuk-radios__input" />
+                                <label class="govuk-label govuk-radios__label govuk-!-margin-bottom-0" for="PupilId-@student.ID">
+                                    @student.FirstName @student.LastName
+                                    <span class="app-radios-multiline__label-row">@Model.PersonIdAcronym @(Model.CheckingWindow == CheckingWindow.KS5 ? student.ULN : student.UPN)</span>
+                                </label>
+                             </div>
+
+                             <p class="app-align--below-radios govuk-body-s">
                                 <a asp-controller="RemovePupil" asp-action="MatchedPupil" asp-route-id="@student.ID" asp-route-Query="@Model.Query" asp-route-SearchType="@Model.SearchType">View @Model.PersonLowercase</a>
-                            </p>
-                        }
+                             </p>
+                             }
+                        </div>
                     </fieldset>
                 </div>
             </div>
