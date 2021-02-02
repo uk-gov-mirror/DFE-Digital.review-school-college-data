@@ -44,7 +44,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                         return RedirectToAction("Upload");
                     case EvidenceStatus.Later:
                     case EvidenceStatus.NotRequired:
-                        return RedirectToAction("Confirm", "Amendments");
+                        return RedirectToAction("Prompt", "Amendments");
                     default:
                         var amendmentDetail = amendment.AmendmentDetail;
                         viewModel.PupilDetails = new PupilViewModel(amendment.Pupil);
@@ -89,7 +89,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                     if (!string.IsNullOrWhiteSpace(amendment.EvidenceFolderName))
                     {
                         SaveAmendment(amendment);
-                        return RedirectToAction("Confirm", "Amendments");
+                        return RedirectToAction("Prompt", "Amendments");
                     }
 
                     ModelState.AddModelError("EvidenceFiles", "Upload file");

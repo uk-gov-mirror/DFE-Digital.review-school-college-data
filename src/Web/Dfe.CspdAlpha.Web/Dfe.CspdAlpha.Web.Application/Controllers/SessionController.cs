@@ -94,14 +94,19 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             HttpContext.Session.Set(AMENDMENT_SESSION_KEY, amendment);
         }
 
-        protected void SaveQuestions(List<Prompt> prompts)
+        protected void SaveQuestions(ICollection<Prompt> prompts)
         {
             var existingQuestions = GetQuestions();
             if (existingQuestions == null)
             {
                 existingQuestions = new List<Prompt>();
             }
-            existingQuestions.AddRange(prompts);
+
+            if (prompts != null)
+            {
+                existingQuestions.AddRange(prompts);
+            }
+            
             HttpContext.Session.Set(PROMPT_QUESTIONS, existingQuestions);
         }
 

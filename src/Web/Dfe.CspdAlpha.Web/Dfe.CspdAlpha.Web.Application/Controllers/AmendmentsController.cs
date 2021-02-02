@@ -160,9 +160,9 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             amendment.EvidenceStatus = amendmentOutcome.EvidenceStatus;
 
             SaveAmendment(amendment);
-            SaveQuestions(amendmentOutcome.FurtherPrompts.ToList());
+            SaveQuestions(amendmentOutcome.FurtherPrompts);
 
-            if (amendmentOutcome.IsComplete && amendmentOutcome.FurtherPrompts == null)
+            if (amendmentOutcome.IsComplete || amendmentOutcome.FurtherPrompts == null)
                 return RedirectToAction("Confirm");
 
             var promptViewModel = new PromptViewModel(amendmentOutcome.FurtherPrompts.ToList())
