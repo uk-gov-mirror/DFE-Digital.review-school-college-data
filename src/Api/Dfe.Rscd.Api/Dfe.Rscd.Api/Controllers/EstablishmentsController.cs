@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Dfe.Rscd.Api.BusinessLogic.Entities;
+using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Models;
 using Dfe.Rscd.Api.Models.SearchRequests;
 using Dfe.Rscd.Api.Services;

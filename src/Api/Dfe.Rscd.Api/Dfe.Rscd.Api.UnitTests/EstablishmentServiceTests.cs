@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Dfe.Rscd.Api.BusinessLogic.Entities;
+using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Config;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Repositories;

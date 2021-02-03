@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Dfe.Rscd.Api.BusinessLogic.Entities.Amendments
+﻿namespace Dfe.Rscd.Api.Domain.Entities
 {
     public enum AmendmentState
     {

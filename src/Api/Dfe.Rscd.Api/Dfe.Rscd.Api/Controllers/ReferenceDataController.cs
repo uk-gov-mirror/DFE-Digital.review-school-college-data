@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Dfe.Rscd.Api.BusinessLogic.Entities;
+using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Models;
 using Dfe.Rscd.Api.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -106,16 +106,16 @@ namespace Dfe.Rscd.Api.Controllers
         [SwaggerOperation(
             Summary = "Display a list of Pincludes",
             Description = @"Displays a lists of a common reference data list PIncludes",
-            OperationId = "PINCLs",
+            OperationId = "PInclude",
             Tags = new[] { "CommonLists" }
         )]
         [Route("/pincludes")]
         [ProducesResponseType(400)]
-        [ProducesResponseType(typeof(GetResponse<IEnumerable<PINCLs>>), 200)]
+        [ProducesResponseType(typeof(GetResponse<IEnumerable<PInclude>>), 200)]
         public IActionResult GetPINCls()
         {
             var list = _commonDataService.GetPINCLs();
-            var response = new GetResponse<IEnumerable<PINCLs>>
+            var response = new GetResponse<IEnumerable<PInclude>>
             {
                 Result = list,
                 Error = new Error()
@@ -132,11 +132,11 @@ namespace Dfe.Rscd.Api.Controllers
         )]
         [Route("/senstatuses")]
         [ProducesResponseType(400)]
-        [ProducesResponseType(typeof(GetResponse<IEnumerable<SENStatus>>), 200)]
+        [ProducesResponseType(typeof(GetResponse<IEnumerable<SpecialEducationNeed>>), 200)]
         public IActionResult GetSenStatuses()
         {
             var list = _commonDataService.GetSENStatus();
-            var response = new GetResponse<IEnumerable<SENStatus>>
+            var response = new GetResponse<IEnumerable<SpecialEducationNeed>>
             {
                 Result = list,
                 Error = new Error()

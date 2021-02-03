@@ -8,18 +8,8 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments
     public class PromptAnswerViewModel : ContextAwareViewModel
     {
         public string FieldType { get; set; }
-        public int PromptId { get; set; }
+        public Guid QuestionId { get; set; }
         public int CurrentIndex { get; set; }
-
-        public PromptAnswer GetPromptAnswer(IFormCollection fields)
-        {
-            return new PromptAnswer
-            {
-                PromptAnswerType = GetPromptAnswerType(),
-                PromptID = PromptId,
-                PromptStringAnswer = GetAnswerAsString(fields)
-            };
-        }
 
         public string GetAnswerAsString(IFormCollection fields)
         {
@@ -27,40 +17,40 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments
 
             switch (GetPromptAnswerType())
             {
-                case (PromptAnswerTypeEnum.Date):
+                case (QuestionType.DateTime):
                     answerAsString = $"{fields["date-day"]}/{fields["date-month"]}/{fields["date-year"]}";
                     break;
-                case (PromptAnswerTypeEnum.Info):
-                    //No answer required.
-                    break;
-                case (PromptAnswerTypeEnum.Integer):
+                case (QuestionType.Number):
                     answerAsString = $"{fields["integer"]}";
                     break;
-                case (PromptAnswerTypeEnum.ListBox):
+                case (QuestionType.Select):
                     answerAsString = fields["listbox"];
                     break;
-                case (PromptAnswerTypeEnum.Text):
+                case (QuestionType.String):
                     answerAsString = fields["text"];
                     break;
-                case (PromptAnswerTypeEnum.YesNo):
+                case (QuestionType.Boolean):
                     answerAsString = fields["yesno"];
                     break;
-                default:
-                    //Should never occur.
+                case (QuestionType.ConditionalFurther):
+                    answerAsString = fields["conditionalfurther"];
+                    break;
+                case (QuestionType.NestedConditional):
+                    answerAsString = fields["nestedconditional"];
                     break;
             }
 
             return answerAsString;
         }
 
-        private PromptAnswerTypeEnum GetPromptAnswerType()
+        private QuestionType GetPromptAnswerType()
         {
             if (!string.IsNullOrEmpty(FieldType))
             {
-                if (Enum.GetNames(typeof(PromptAnswerTypeEnum)).Any(
+                if (Enum.GetNames(typeof(QuestionType)).Any(
                     e => e.Trim().ToUpperInvariant() == FieldType.Trim().ToUpperInvariant()))
                 {
-                    return (PromptAnswerTypeEnum) Enum.Parse(typeof(PromptAnswerTypeEnum), FieldType, true);
+                    return (QuestionType) Enum.Parse(typeof(QuestionType), FieldType, true);
                 }
             }
 

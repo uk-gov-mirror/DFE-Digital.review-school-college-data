@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using Dfe.Rscd.Api.BusinessLogic.Entities;
+using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Config;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Repositories;
@@ -71,7 +71,7 @@ namespace Dfe.Rscd.Api.Services
         public Pupil GetPupil(CheckingWindow checkingWindow, PupilDTO pupil, string allocationYear)
         {
             var sen = _dataService.GetSENStatus().SingleOrDefault(x=>x.Code == pupil.SENStatusCode);
-            var pincl = _dataService.GetPINCLs().SingleOrDefault(x => x.P_INCL == pupil.P_INCL);
+            var pincl = _dataService.GetPINCLs().SingleOrDefault(x => x.Code == pupil.P_INCL);
             var ethnicity = _dataService.GetEthnicities().SingleOrDefault(x => x.Code == pupil.EthnicityCode);
             var language = _dataService.GetLanguages().SingleOrDefault(x => x.Code == pupil.FirstLanguageCode);
             var school = _schoolService.GetByDFESNumber(checkingWindow, pupil.DFESNumber);
@@ -104,7 +104,7 @@ namespace Dfe.Rscd.Api.Services
                 FreeSchoolMealsLast6Years = pupil.FSM6 == 1
             };
 
-            if (sen != null) newPupil.SENStatus = sen;
+            if (sen != null) newPupil.SpecialEducationNeed = sen;
             if (ethnicity != null) newPupil.Ethnicity = ethnicity;
             if (language != null) newPupil.FirstLanguage = language;
             if (ethnicity != null) newPupil.Ethnicity = ethnicity;

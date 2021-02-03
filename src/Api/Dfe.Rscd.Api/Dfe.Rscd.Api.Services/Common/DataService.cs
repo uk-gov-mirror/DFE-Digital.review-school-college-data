@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Dfe.Rscd.Api.BusinessLogic.Entities;
+using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Infrastructure.SqlServer.Repositories;
 using DTO = Dfe.Rscd.Api.Infrastructure.SqlServer.DTOs;
 
@@ -33,8 +33,8 @@ namespace Dfe.Rscd.Api.Services
                 .Get<DTO.AwardingBody>()
                 .Select(x => new AwardingBody
                 {
-                    AwardingBodyID = x.AwardingBodyId,
-                    AwardingBodyName = x.AwardingBodyName
+                    Id = x.AwardingBodyId,
+                    Name = x.AwardingBodyName
                 })
                 .ToList();
         }
@@ -51,45 +51,45 @@ namespace Dfe.Rscd.Api.Services
                 .ToList();
         }
 
-        public IList<InclusionAdjustmentReason> GetInclusionAdjustmentReasons(CheckingWindow checkingWindow, string pinclId = "")
+        public IList<AmendmentReason> GetInclusionAdjustmentReasons(CheckingWindow checkingWindow, string pinclId = "")
         {
-            IQueryable<InclusionAdjustmentReason> reasons;
+            IQueryable<AmendmentReason> reasons;
 
             if (pinclId != string.Empty)
             {
                 reasons = _repository.Get<DTO.PinclinclusionAdjustment>()
                     .Where(x => x.PIncl == pinclId)
                     .Select(x => x.IncAdjReason)
-                    .Select(x => new InclusionAdjustmentReason
+                    .Select(x => new AmendmentReason
                     {
-                        IncAdjReasonId = x.IncAdjReasonId,
+                        ReasonId = x.IncAdjReasonId,
                         CanCancel = x.CanCancel,
-                        InJuneChecking = x.InJuneChecking,
-                        IncAdjReasonDescription = x.IncAdjReasonDescription,
+                        InJune = x.InJuneChecking,
+                        Description = x.IncAdjReasonDescription,
                         IsInclusion = x.IsInclusion,
-                        IsNewStudentReason = x.IsNewStudentReason,
-                        ListOrder = x.ListOrder
-                    }).OrderBy(x => x.ListOrder);
+                        IsNew = x.IsNewStudentReason,
+                        Order = x.ListOrder
+                    }).OrderBy(x => x.Order);
             }
             else
             {
                 reasons = _repository
                     .Get<DTO.InclusionAdjustmentReason>()
-                    .Select(x => new InclusionAdjustmentReason
+                    .Select(x => new AmendmentReason
                     {
-                        IncAdjReasonId = x.IncAdjReasonId,
+                        ReasonId = x.IncAdjReasonId,
                         CanCancel = x.CanCancel,
-                        InJuneChecking = x.InJuneChecking,
-                        IncAdjReasonDescription = x.IncAdjReasonDescription,
+                        InJune = x.InJuneChecking,
+                        Description = x.IncAdjReasonDescription,
                         IsInclusion = x.IsInclusion,
-                        IsNewStudentReason = x.IsNewStudentReason,
-                        ListOrder = x.ListOrder
+                        IsNew = x.IsNewStudentReason,
+                        Order = x.ListOrder
                     });
             }
 
             if (checkingWindow == CheckingWindow.KS4June)
             {
-                reasons = reasons.Where(x => x.InJuneChecking);
+                reasons = reasons.Where(x => x.InJune);
             }
 
             return reasons.ToList();
@@ -106,22 +106,22 @@ namespace Dfe.Rscd.Api.Services
                 .ToList();
         }
 
-        public IList<PINCLs> GetPINCLs()
+        public IList<PInclude> GetPINCLs()
         {
             return _repository.Get<DTO.Pincl>()
-                .Select(x => new PINCLs
+                .Select(x => new PInclude
                 {
-                    P_INCL = x.PIncl1,
-                    P_INCLDescription = x.PIncldescription,
+                    Code = x.PIncl1,
+                    Description = x.PIncldescription,
                     DisplayFlag = x.DisplayFlag
                 })
                 .ToList();
         }
 
-        public IList<SENStatus> GetSENStatus()
+        public IList<SpecialEducationNeed> GetSENStatus()
         {
             return _repository.Get<DTO.Senstatus>()
-                .Select(x => new SENStatus
+                .Select(x => new SpecialEducationNeed
                 {
                     Code = x.SenstatusCode,
                     Description = x.SenstatusDescription

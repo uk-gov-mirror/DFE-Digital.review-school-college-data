@@ -12,6 +12,6 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Interfaces
         MatchedPupilViewModel GetPupil(string id);
         MatchedPupilViewModel GetMatchedPupil(string upn);
 
-        List<InclusionAdjustmentReason> GetInclusionAdjustmentReasons(string pinclId);
+        List<AmendmentReason> GetAmendmentReasons(string pinclId);
     }
 }

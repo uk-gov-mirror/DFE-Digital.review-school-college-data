@@ -36,9 +36,9 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
             YearGroup = pupil.YearGroup;
             AllocationYears = GetAllocationYears(pupil.Allocations);
             Allocations = pupil.Allocations;
-            PincludeCode = pupil.Pincl != null ? pupil.Pincl.P_INCL : string.Empty;
+            PincludeCode = pupil.Pincl != null ? pupil.Pincl.Code : string.Empty;
             EthnicCodeGroup = pupil.Ethnicity;
-            SEN = pupil.SenStatus;
+            SEN = pupil.SpecialEducationNeed;
             FirstLanguage = pupil.FirstLanguage;
             FreeSchoolsInLast6Years = pupil.FreeSchoolMealsLast6Years;
             ChildrenLookedAfter = pupil.LookedAfterEver;
@@ -92,7 +92,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
         public int[] AllocationYears { get; set; }
         public string FullName => string.Join(" ", new[] {FirstName, LastName}.Where(n => !string.IsNullOrEmpty(n)));
 
-        public SENStatus SEN { get; set; }
+        public SpecialEducationNeed SEN { get; set; }
 
         public Ethnicity EthnicCodeGroup {get;set;}
         public FirstLanguage FirstLanguage { get;set; }

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Dfe.Rscd.Api.BusinessLogic.Entities;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs;
 using DTO = Dfe.Rscd.Api.Infrastructure.SqlServer.DTOs;
 

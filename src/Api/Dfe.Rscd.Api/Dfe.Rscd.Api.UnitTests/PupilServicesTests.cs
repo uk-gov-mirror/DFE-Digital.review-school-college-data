@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Dfe.Rscd.Api.BusinessLogic.Entities;
+using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Config;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Repositories;
@@ -102,8 +102,8 @@ namespace Dfe.Rscd.Api.UnitTests
             Assert.True(result.FirstLanguage.Code == _testPupil.FirstLanguageCode);
             Assert.True(result.ForvusIndex == int.Parse(_testPupil.ForvusIndex));
             Assert.True(result.DfesNumber == _testPupil.DFESNumber);
-            Assert.True(result.PINCL.P_INCL == _testPupil.P_INCL);
-            Assert.True(result.SENStatus.Code == _testPupil.SENStatusCode);
+            Assert.True(result.PINCL.Code == _testPupil.P_INCL);
+            Assert.True(result.SpecialEducationNeed.Code == _testPupil.SENStatusCode);
         }
 
         [Fact]

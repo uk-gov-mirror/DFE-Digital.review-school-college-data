@@ -1,0 +1,24 @@
+@model Dfe.Rscd.Web.ApiClient.Question
+<div class="govuk-form-group">
+    <fieldset class="govuk-fieldset" aria-describedby="changed-name-hint">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+                @Model.Title
+            </h1>
+        </legend>
+        <div id="changed-name-hint" class="govuk-hint">
+            @Model.Answers.First().Label
+        </div>
+        <div class="govuk-radios govuk-radios--inline">
+            @foreach (var opt in Model.Answers.First().AnswerPotentials)
+            {
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="@opt.Value" name="select" type="radio" value="@opt.Value">
+                    <label class="govuk-label govuk-radios__label" for="@opt.Value">
+                        @opt.Description
+                    </label>
+                </div>
+            }
+        </div>
+    </fieldset>
+</div>

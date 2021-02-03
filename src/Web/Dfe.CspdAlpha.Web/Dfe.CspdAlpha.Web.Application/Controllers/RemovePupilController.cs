@@ -83,7 +83,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                     AdmissionDate = viewModel.PupilViewModel.DateOfAdmission,
                     YearGroup = viewModel.PupilViewModel.YearGroup,
                     Allocations = viewModel.PupilViewModel.Allocations,
-                    Pincl = new PINCLs{ P_INCL = viewModel.PupilViewModel.PincludeCode }
+                    Pincl = new PInclude{ Code = viewModel.PupilViewModel.PincludeCode }
                 },
                 AmendmentDetail = new AmendmentDetail(),
                 IsNewAmendment = true,
@@ -107,7 +107,6 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         {
             var amendment = GetAmendment();
             ClearQuestions();
-            ClearAnswers();
 
             if (amendment == null)
             {
@@ -115,7 +114,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             }
 
             var amendmentDetail = amendment.AmendmentDetail;
-            var reasons = _pupilService.GetInclusionAdjustmentReasons(amendment.Pupil.Pincl.P_INCL);
+            var reasons = _pupilService.GetAmendmentReasons(amendment.Pupil.Pincl.Code);
 
             return View(new ReasonViewModel
             {

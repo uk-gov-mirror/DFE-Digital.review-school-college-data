@@ -1,5 +1,5 @@
 @using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments
-@model PromptViewModel
+@model QuestionViewModel
 @{
     var currentQuestion = Model.CurrentQuestion;
 }
@@ -35,17 +35,10 @@
         <div class="govuk-grid-column-two-thirds">
             <div>
                 <div class="govuk-grid-column-full">
-                    <input name="fieldType" id="fieldType" value="@currentQuestion.PromptType" type="hidden" />
-                    <input name="promptId" id="promptId" value="@currentQuestion.PromptID" type="hidden" />
+                    <input name="fieldType" id="fieldType" value="@currentQuestion.QuestionType" type="hidden" />
+                    <input name="questionId" id="questionId" value="@currentQuestion.Id" type="hidden" />
                     <input name="currentIndex" id="currentIndex" value="@Model.CurrentQuestionIndex" type="hidden" />
-                    @if (currentQuestion.PromptType == "ListBox" && currentQuestion.PromptItemList.Count > 10)
-                    {
-                        <partial name="./Partial/_Control_LargeList" model="@currentQuestion" />
-                    }
-                    else
-                    {
-                        <partial name="./Partial/_Control_@currentQuestion.PromptType" model="@currentQuestion" />
-                    }
+                    <partial name="./Partial/_Control_@currentQuestion.QuestionType.ToString()" model="@currentQuestion" />
                 </div>
                 <div>
                     <button name="Continue" value="true" class="govuk-button govuk-!-margin-right-1" data-module="govuk-button">

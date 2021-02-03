@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using CsvHelper;
-using Dfe.Rscd.Api.BusinessLogic.Entities;
+using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Models;
 using Dfe.Rscd.Api.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -18,13 +18,11 @@ namespace Dfe.Rscd.Api.Controllers
     public class AmendmentsController : ControllerBase
     {
         private readonly IAmendmentService _amendmentService;
-        private readonly IPromptService _promptService;
         private readonly IDataService _dataService;
 
-        public AmendmentsController(IAmendmentService amendmentService, IPromptService promptService, IDataService dataService)
+        public AmendmentsController(IAmendmentService amendmentService, IDataService dataService)
         {
             _amendmentService = amendmentService;
-            _promptService = promptService;
             _dataService = dataService;
         }
 
@@ -99,18 +97,6 @@ namespace Dfe.Rscd.Api.Controllers
         {
             try
             {
-                if (amendment.IsNewAmendment)
-                {
-                    var prompts = _promptService.GetAdjustmentPrompts(amendment.CheckingWindow, amendment.Pupil.PINCL.P_INCL, amendment.InclusionReasonId);
-
-                    var response = new GetResponse<AmendmentOutcome>
-                    {
-                        Result = prompts,
-                        Error = new Error()
-                    };
-                    return Ok(response);
-                }
-
                 var outcome = _amendmentService.AddAmendment(amendment);
                 return Ok(new GetResponse<AmendmentOutcome>
                 {
@@ -148,13 +134,13 @@ namespace Dfe.Rscd.Api.Controllers
         [SwaggerOperation(
             Summary = "Display a list of Inclusion adjustment reasons allowed for a certain pupil inclusion number",
             Description = @"Displays a lists of a common reference data list Inclusion adjustment reasons",
-            OperationId = "InclusionAdjustmentReasons",
+            OperationId = "GetAmendmentReasons",
             Tags = new[] { "Amendments" }
         )]
         [Route("inclusion-reasons/pincl/{id}")]
         [ProducesResponseType(400)]
-        [ProducesResponseType(typeof(GetResponse<IEnumerable<InclusionAdjustmentReason>>), 200)]
-        public IActionResult GetInclusionAdjustmentReasonsByPincl(
+        [ProducesResponseType(typeof(GetResponse<IEnumerable<AmendmentReason>>), 200)]
+        public IActionResult GetAmendmentReasonsByPincl(
             [FromRoute] [SwaggerParameter("The pupil inclusion identifier", Required = true)]
             string id,
             [FromRoute] [SwaggerParameter("The checking window to request amendments from", Required = true)]
@@ -162,7 +148,7 @@ namespace Dfe.Rscd.Api.Controllers
             )
         {
             var list = _dataService.GetInclusionAdjustmentReasons(checkingwindow.ToDomainCheckingWindow(), id);
-            var response = new GetResponse<IEnumerable<InclusionAdjustmentReason>>
+            var response = new GetResponse<IEnumerable<AmendmentReason>>
             {
                 Result = list,
                 Error = new Error()

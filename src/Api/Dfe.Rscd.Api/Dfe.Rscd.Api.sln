@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.Rscd.Api.Infrastructure
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.Rscd.Api.UnitTests", "Dfe.Rscd.Api.UnitTests\Dfe.Rscd.Api.UnitTests.csproj", "{E387A577-D339-4A1C-A147-38B9328AEDE8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.Rscd.Api.BusinessLogic", "Dfe.Rscd.Api.BusinessLogic\Dfe.Rscd.Api.BusinessLogic.csproj", "{58A02DBA-6355-45F4-8790-01162ABC7E17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.Rscd.Api.Domain", "Dfe.Rscd.Api.BusinessLogic\Dfe.Rscd.Api.Domain.csproj", "{58A02DBA-6355-45F4-8790-01162ABC7E17}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.Rscd.Api.Services", "Dfe.Rscd.Api.Services\Dfe.Rscd.Api.Services.csproj", "{F423776F-BC58-4BD5-9975-D953EA7A1874}"
 EndProject

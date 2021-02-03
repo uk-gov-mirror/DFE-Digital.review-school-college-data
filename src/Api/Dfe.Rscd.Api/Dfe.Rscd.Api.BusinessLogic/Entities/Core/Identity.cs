@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 
-namespace Dfe.Rscd.Api.BusinessLogic.Entities
+namespace Dfe.Rscd.Api.Domain.Entities
 {
     public abstract class Identity<T> : IIdentity
     {

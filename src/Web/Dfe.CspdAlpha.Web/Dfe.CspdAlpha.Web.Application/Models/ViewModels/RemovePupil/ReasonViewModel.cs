@@ -17,7 +17,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil
 
         public int? SelectedReasonCode { get; set; }
 
-        public List<InclusionAdjustmentReason> Reasons = new List<InclusionAdjustmentReason>();
+        public List<AmendmentReason> Reasons = new List<AmendmentReason>();
 
         public Dictionary<int, string> ReasonsKs5  => new Dictionary<int, string>
         {

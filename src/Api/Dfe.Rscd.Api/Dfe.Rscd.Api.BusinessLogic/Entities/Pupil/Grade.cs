@@ -1,8 +1,8 @@
-namespace Dfe.Rscd.Api.BusinessLogic.Entities
+namespace Dfe.Rscd.Api.Domain.Entities
 {
 	public class Grade 
 	{
-        public int PointID { get; set; }
+        public int PointId { get; set; }
 
         public string Code { get; set; }
 

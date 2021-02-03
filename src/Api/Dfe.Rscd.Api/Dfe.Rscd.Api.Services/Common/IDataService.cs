@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Dfe.Rscd.Api.BusinessLogic.Entities;
+using Dfe.Rscd.Api.Domain.Entities;
 
 namespace Dfe.Rscd.Api.Services
 {
@@ -9,10 +9,10 @@ namespace Dfe.Rscd.Api.Services
         IList<AmendCode> GetAmendCodes();
         IList<AwardingBody> GetAwardingBodies();
         IList<Ethnicity> GetEthnicities();
-        IList<InclusionAdjustmentReason> GetInclusionAdjustmentReasons(CheckingWindow checkingWindow, string pinclId = "");
+        IList<AmendmentReason> GetInclusionAdjustmentReasons(CheckingWindow checkingWindow, string pinclId = "");
         IList<FirstLanguage> GetLanguages();
-        IList<PINCLs> GetPINCLs();
-        IList<SENStatus> GetSENStatus();
+        IList<PInclude> GetPINCLs();
+        IList<SpecialEducationNeed> GetSENStatus();
         IList<YearGroup> GetYearGroups();
     }
 }

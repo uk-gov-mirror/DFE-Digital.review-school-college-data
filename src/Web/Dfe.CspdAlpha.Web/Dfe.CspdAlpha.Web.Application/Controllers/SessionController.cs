@@ -21,21 +21,6 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             return HttpContext.Session.Get<Amendment>(AMENDMENT_SESSION_KEY);
         }
 
-        protected List<PromptAnswer> GetAnswers()
-        {
-            var amendment = GetAmendment();
-            if (amendment.Answers == null)
-            {
-                return new List<PromptAnswer>();
-            }
-            return amendment.Answers.ToList();
-        }
-
-        protected List<Prompt> GetQuestions()
-        {
-            return HttpContext.Session.Get<List<Prompt>>(PROMPT_QUESTIONS);
-        }
-
         protected string UserId => ClaimsHelper.GetUserId(User) + CheckingWindow;
 
         protected TaskListViewModel GetTaskList()
@@ -57,31 +42,22 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         {
             ClearTaskList();
             ClearAmendment();
-            ClearQuestions();
+        }
+
+        protected void ClearQuestions()
+        {
+            var amendment = GetAmendment();
+            amendment.Questions = new List<Question>();
+            SaveAmendment(amendment);
         }
 
         protected void ClearAmendmentAndRelated()
         {
             ClearAmendment();
-            ClearQuestions();
         }
         protected void ClearAmendment()
         {
             HttpContext.Session.Remove(AMENDMENT_SESSION_KEY);
-        }
-
-        protected void ClearQuestions()
-        {
-            HttpContext.Session.Remove(PROMPT_QUESTIONS);
-        }
-
-        protected void ClearAnswers()
-        {
-            var amendment = GetAmendment();
-            if (amendment != null)
-            {
-                amendment.Answers = new List<PromptAnswer>();
-            }
         }
 
         protected void ClearTaskList()
@@ -92,36 +68,6 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         protected void SaveAmendment(Amendment amendment)
         {
             HttpContext.Session.Set(AMENDMENT_SESSION_KEY, amendment);
-        }
-
-        protected void SaveQuestions(ICollection<Prompt> prompts)
-        {
-            var existingQuestions = GetQuestions();
-            if (existingQuestions == null)
-            {
-                existingQuestions = new List<Prompt>();
-            }
-
-            if (prompts != null)
-            {
-                existingQuestions.AddRange(prompts);
-            }
-            
-            HttpContext.Session.Set(PROMPT_QUESTIONS, existingQuestions);
-        }
-
-        protected void SaveAnswers(List<PromptAnswer> answers)
-        {
-            var amendment = GetAmendment();
-            amendment.Answers = answers ?? new List<PromptAnswer>();
-            SaveAmendment(amendment);
-        }
-
-        protected void AddAnswer(PromptAnswer promptAnswer)
-        {
-            var answers = GetAnswers();
-            answers.Add(promptAnswer);
-            SaveAnswers(answers);
         }
     }
 }

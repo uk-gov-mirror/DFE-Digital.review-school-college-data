@@ -5,7 +5,6 @@ using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
 using Dfe.Rscd.Web.ApiClient;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Office.SharePoint.Tools;
 using ProblemDetails = Dfe.Rscd.Web.ApiClient.ProblemDetails;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
@@ -132,13 +131,18 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         [HttpPost]
         public IActionResult Prompt(PromptAnswerViewModel promptAnswerViewModel)
         {
-            var promptAnswer = promptAnswerViewModel.GetPromptAnswer(Request.Form);
-            var questions = GetQuestions();
+            // Validate Asnwer
+
+            var promptAnswer = promptAnswerViewModel.GetAnswerAsString(Request.Form);
+
             var amendment = GetAmendment();
 
-            AddAnswer(promptAnswer);
+            var currentQuestion = amendment.Questions.Single(x => x.Id == promptAnswerViewModel.QuestionId);
+            currentQuestion.Answers.First().Value = promptAnswer;
 
-            var promptViewModel = new PromptViewModel(questions, promptAnswerViewModel.CurrentIndex + 1)
+            SaveAmendment(amendment);
+            
+            var promptViewModel = new QuestionViewModel(amendment.Questions, promptAnswerViewModel.CurrentIndex + 1)
             {
                 PupilDetails = new PupilViewModel(amendment.Pupil)
             };
@@ -159,13 +163,14 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             amendment.IsNewAmendment = false;
             amendment.EvidenceStatus = amendmentOutcome.EvidenceStatus;
 
-            SaveAmendment(amendment);
-            SaveQuestions(amendmentOutcome.FurtherPrompts);
+            amendment.Questions = amendmentOutcome.FurtherQuestions;
 
-            if (amendmentOutcome.IsComplete || amendmentOutcome.FurtherPrompts == null)
+            SaveAmendment(amendment);
+
+            if (amendmentOutcome.IsComplete || amendmentOutcome.FurtherQuestions == null)
                 return RedirectToAction("Confirm");
 
-            var promptViewModel = new PromptViewModel(amendmentOutcome.FurtherPrompts.ToList())
+            var promptViewModel = new QuestionViewModel(amendmentOutcome.FurtherQuestions.ToList())
             {
                 PupilDetails = new PupilViewModel(amendment.Pupil)
             };

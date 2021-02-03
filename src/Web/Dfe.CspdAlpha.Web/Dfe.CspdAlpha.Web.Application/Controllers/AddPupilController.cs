@@ -25,9 +25,6 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
         public IActionResult Index()
         {
-            ClearQuestions();
-            ClearAnswers();
-
             var amendment = GetAmendment();
 
             if (amendment != null)
@@ -78,7 +75,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                         YearGroup = existingPupil.PupilViewModel.YearGroup,
                         DfesNumber = existingPupil.PupilViewModel.SchoolID,
                         Urn = existingPupil.PupilViewModel.URN,
-                        Pincl = new PINCLs {P_INCL = existingPupil.PupilViewModel.PincludeCode}
+                        Pincl = new PInclude {Code = existingPupil.PupilViewModel.PincludeCode}
                     },
                     AmendmentDetail = new AmendmentDetail()
                 };
@@ -117,7 +114,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                     YearGroup = addPupilViewModel.YearGroup,
                     DfesNumber = addPupilViewModel.SchoolID,
                     Urn = urn,
-                    Pincl = new PINCLs {P_INCL = "499"}
+                    Pincl = new PInclude {Code = "499"}
                 },
                 CheckingWindow = CheckingWindow,
                 AmendmentDetail = new AmendmentDetail(),
@@ -166,7 +163,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                         UPN = amendment.Pupil.Upn,
                         Keystage = CheckingWindowHelper.ToKeyStage(CheckingWindow),
                         SchoolID = existingSchoolId,
-                        PincludeCode = amendment.Pupil.Pincl != null ? amendment.Pupil.Pincl.P_INCL : "499"
+                        PincludeCode = amendment.Pupil.Pincl != null ? amendment.Pupil.Pincl.Code : "499"
                     },
                     SchoolName = existingSchoolName
                 });

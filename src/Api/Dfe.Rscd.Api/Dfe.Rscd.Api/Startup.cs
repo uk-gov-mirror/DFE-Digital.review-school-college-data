@@ -1,6 +1,6 @@
 using System;
 using System.Text.Json.Serialization;
-using Dfe.Rscd.Api.BusinessLogic.Entities;
+using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Config;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Repositories;
 using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Config;
@@ -101,17 +101,14 @@ namespace Dfe.Rscd.Api
 
             services.AddScoped<IDocumentRepository, CosmosDocumentRepository>();
 
+            services.AddScoped<IRule, AdmittedFromAbroadRules>();
+            
             services.AddScoped<IAmendmentBuilder, RemovePupilAmendmentBuilder>();
             services.AddScoped<Amendment, RemovePupilAmendment>();
-            services.AddScoped<IRuleSet, RemovePupilRulesKs5>();
-            services.AddScoped<IRuleSet, RemovePupilRulesKs4>();
-
+            
             services.AddScoped<IAmendmentBuilder, AddPupilAmendmentBuilder>();
             services.AddScoped<Amendment, AddPupilAmendment>();
-            services.AddScoped<IRuleSet, AddPupilRulesKs4>();
-
-            services.AddScoped<IPromptService, RemovePupilPromptsService>();
-            
+           
             services.AddScoped<IEstablishmentService, EstablishmentService>();
             services.AddScoped<IPupilService, PupilService>();
 

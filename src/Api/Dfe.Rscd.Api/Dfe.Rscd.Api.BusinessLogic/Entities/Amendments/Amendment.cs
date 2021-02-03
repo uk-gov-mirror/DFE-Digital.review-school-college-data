@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using Dfe.Rscd.Api.BusinessLogic.Entities.Amendments;
 
-namespace Dfe.Rscd.Api.BusinessLogic.Entities
+namespace Dfe.Rscd.Api.Domain.Entities
 {
     public class Amendment
     {
         public Amendment()
         {
             AmendmentDetail = new AmendmentDetail();
-            Answers = new List<PromptAnswer>();
+            Questions = new List<Question>();
             IsNewAmendment = true;
         }
 
@@ -28,7 +27,7 @@ namespace Dfe.Rscd.Api.BusinessLogic.Entities
 
         public string DfesNumber { get;set; }
 
-        public List<PromptAnswer> Answers { get; set; }
+        public List<Question> Questions { get; set; }
 
         public int InclusionReasonId { get; set; }
 

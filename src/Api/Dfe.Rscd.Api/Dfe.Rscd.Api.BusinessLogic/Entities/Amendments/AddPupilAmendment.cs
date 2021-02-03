@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Dfe.Rscd.Api.BusinessLogic.Entities
+namespace Dfe.Rscd.Api.Domain.Entities
 {
     public class AddPupilAmendment : Amendment
     {

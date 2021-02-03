@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using Dfe.CspdAlpha.Web.Infrastructure.Crm;
-using Dfe.Rscd.Api.BusinessLogic.Entities;
+using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Config;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Messages;

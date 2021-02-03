@@ -2,19 +2,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Dfe.Rscd.Api.BusinessLogic.Entities
+namespace Dfe.Rscd.Api.Domain.Entities
 {
     public class Pupil
     {
         public Pupil()
         {
             var notRecorded = "Not Recorded";
-            SENStatus = new SENStatus{Code = "NR", Description = notRecorded};
+            SpecialEducationNeed = new SpecialEducationNeed{Code = "NR", Description = notRecorded};
             Gender = new Gender{Code = "N", Description = notRecorded};
             Ethnicity = new Ethnicity{Code = "NR", Description = notRecorded};
             FreeSchoolMealsLast6Years = false;
             Allocations = new List<SourceOfAllocation>();
-            PINCL = new PINCLs{P_INCL = "NR", P_INCLDescription = notRecorded};
+            PINCL = new PInclude{Code = "NR", Description = notRecorded};
             FirstLanguage = new FirstLanguage { Code="NR", Description = notRecorded};
             School = new School();
             Results = new List<Result>();
@@ -45,7 +45,7 @@ namespace Dfe.Rscd.Api.BusinessLogic.Entities
 
         public Gender Gender { get; set; }
 
-        public SENStatus SENStatus { get; set; }
+        public SpecialEducationNeed SpecialEducationNeed { get; set; }
 
         public FirstLanguage FirstLanguage { get; set; }
 
@@ -55,7 +55,7 @@ namespace Dfe.Rscd.Api.BusinessLogic.Entities
 
         public School School { get; set; }
 
-        public PINCLs PINCL { get; set; }
+        public PInclude PINCL { get; set; }
 
         public string DfesNumber { get; set; }
 

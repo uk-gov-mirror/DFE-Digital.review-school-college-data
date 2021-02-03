@@ -311,9 +311,9 @@ namespace Dfe.Rscd.Web.ApiClient
         /// <param name="checkingwindow">The checking window to request amendments from</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<InclusionAdjustmentReasonIEnumerableGetResponse> InclusionAdjustmentReasonsAsync(string id, string checkingwindow)
+        public System.Threading.Tasks.Task<AmendmentReasonIEnumerableGetResponse> GetAmendmentReasonsAsync(string id, string checkingwindow)
         {
-            return InclusionAdjustmentReasonsAsync(id, checkingwindow, System.Threading.CancellationToken.None);
+            return GetAmendmentReasonsAsync(id, checkingwindow, System.Threading.CancellationToken.None);
         }
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -322,7 +322,7 @@ namespace Dfe.Rscd.Web.ApiClient
         /// <param name="checkingwindow">The checking window to request amendments from</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<InclusionAdjustmentReasonIEnumerableGetResponse> InclusionAdjustmentReasonsAsync(string id, string checkingwindow, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<AmendmentReasonIEnumerableGetResponse> GetAmendmentReasonsAsync(string id, string checkingwindow, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("api/{checkingwindow}/Amendments/inclusion-reasons/pincl/{id}");
@@ -371,7 +371,7 @@ namespace Dfe.Rscd.Web.ApiClient
                         else
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<InclusionAdjustmentReasonIEnumerableGetResponse>(response_, headers_).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<AmendmentReasonIEnumerableGetResponse>(response_, headers_).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -1338,16 +1338,16 @@ namespace Dfe.Rscd.Web.ApiClient
         /// <summary>Display a list of Pincludes</summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<PINCLsIEnumerableGetResponse> PINCLsAsync()
+        public System.Threading.Tasks.Task<PIncludeIEnumerableGetResponse> PIncludeAsync()
         {
-            return PINCLsAsync(System.Threading.CancellationToken.None);
+            return PIncludeAsync(System.Threading.CancellationToken.None);
         }
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Display a list of Pincludes</summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<PINCLsIEnumerableGetResponse> PINCLsAsync(System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<PIncludeIEnumerableGetResponse> PIncludeAsync(System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("pincludes");
@@ -1390,7 +1390,7 @@ namespace Dfe.Rscd.Web.ApiClient
                         else
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<PINCLsIEnumerableGetResponse>(response_, headers_).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<PIncludeIEnumerableGetResponse>(response_, headers_).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -1420,7 +1420,7 @@ namespace Dfe.Rscd.Web.ApiClient
         /// <summary>Display a list of Sen statuses</summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<SENStatusIEnumerableGetResponse> SenStatusAsync()
+        public System.Threading.Tasks.Task<SpecialEducationNeedIEnumerableGetResponse> SenStatusAsync()
         {
             return SenStatusAsync(System.Threading.CancellationToken.None);
         }
@@ -1429,7 +1429,7 @@ namespace Dfe.Rscd.Web.ApiClient
         /// <summary>Display a list of Sen statuses</summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<SENStatusIEnumerableGetResponse> SenStatusAsync(System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<SpecialEducationNeedIEnumerableGetResponse> SenStatusAsync(System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("senstatuses");
@@ -1472,7 +1472,7 @@ namespace Dfe.Rscd.Web.ApiClient
                         else
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<SENStatusIEnumerableGetResponse>(response_, headers_).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<SpecialEducationNeedIEnumerableGetResponse>(response_, headers_).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);

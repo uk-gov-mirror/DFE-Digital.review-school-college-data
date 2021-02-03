@@ -1,11 +1,11 @@
 
-namespace Dfe.Rscd.Api.BusinessLogic.Entities
+namespace Dfe.Rscd.Api.Domain.Entities
 {
 	public class AwardingBody 
 	{
-        public int AwardingBodyID { get; set; }
+        public int Id { get; set; }
 
-        public string AwardingBodyName { get; set; }
+        public string Name { get; set; }
     }
 }
 

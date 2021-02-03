@@ -1,4 +1,4 @@
-﻿namespace Dfe.Rscd.Api.BusinessLogic.Entities
+﻿namespace Dfe.Rscd.Api.Domain.Entities
 {
     public enum OutcomeStatus
     {

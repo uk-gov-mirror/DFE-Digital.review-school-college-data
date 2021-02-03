@@ -96,9 +96,9 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
             return GetMatchedPupilViewModel(pupil.Result);
         }
 
-        public List<ApiClient.InclusionAdjustmentReason> GetInclusionAdjustmentReasons(string pinclId)
+        public List<ApiClient.AmendmentReason> GetAmendmentReasons(string pinclId)
         {
-            var results = _apiClient.InclusionAdjustmentReasonsAsync(pinclId, CheckingWindowUrl).GetAwaiter()
+            var results = _apiClient.GetAmendmentReasonsAsync(pinclId, CheckingWindowUrl).GetAwaiter()
                 .GetResult();
 
             return results.Result.ToList();

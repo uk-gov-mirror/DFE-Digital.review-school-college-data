@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Dfe.Rscd.Api.BusinessLogic.Common
+namespace Dfe.Rscd.Api.Domain.Common
 {
     public static class ExtensionMethods
     {
