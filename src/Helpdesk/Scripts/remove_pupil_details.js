@@ -1,3 +1,4 @@
+var Rscd = window.Rscd || {};
 (function () {
 // Code to run in the form OnLoad event
   this.removePupilFormOnLoad = function (executionContext) {
@@ -18,7 +19,7 @@
     }
     else {
       const reasonCode = removePupilForm.getControl('rscd_reasoncode').getAttribute().getValue();
- 
+console.log(reasonCode);
       switch (reasonCode) {
         // case 325: // Not at the end of 16 to 18 study
         //   break;
@@ -41,6 +42,10 @@
         case 329: // Other with evidence
           this.showFields(removePupilForm, ['rscd_details']);
           break;
+ 
+		case 8: // admitted from abroad English not 1st language
+			this.showFields(removePupilForm, ['rscd_language', 'rscd_countryoforigin' ,'rscd_dateofarrival']);
+			break;
  
         // case 330: // Other without evidence
         //   break;
