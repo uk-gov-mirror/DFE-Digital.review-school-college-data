@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CsvHelper;
 using Dfe.Rscd.Api.Domain.Entities;
+using Dfe.Rscd.Api.Domain.Entities.Questions;
 using Dfe.Rscd.Api.Models;
 using Dfe.Rscd.Api.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -80,7 +81,6 @@ namespace Dfe.Rscd.Api.Controllers
 
             return Ok(response);
         }
-
 
         // POST: api/Amendments
         [HttpPost]

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Dfe.Rscd.Api.Domain.Entities
+namespace Dfe.Rscd.Api.Domain.Entities.Questions
 {
     public class Answer
     {
@@ -12,7 +12,6 @@ namespace Dfe.Rscd.Api.Domain.Entities
         }
 
         public Guid QuestionId { get; set; }
-        public int Order { get; set; }
         public bool IsConditional { get; set; }
         public bool HasConditional { get;set; }
         public string ConditionalValue { get;set; }
@@ -21,12 +20,5 @@ namespace Dfe.Rscd.Api.Domain.Entities
 
         public string Label { get;set; }
         public string Value { get; set; }
-        public bool AllowNull { get; set; }
-        public bool HistoricalDate { get; set; }
-        public bool FutureDate { get; set; }
-        
-        public string NullErrorMessage { get;set; }
-        public string InValidErrorMessage { get; set; }
-        public string ValidationRegex { get; set; }
     }
 }

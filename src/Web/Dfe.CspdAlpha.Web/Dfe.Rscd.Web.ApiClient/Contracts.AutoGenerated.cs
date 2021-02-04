@@ -651,12 +651,6 @@ namespace Dfe.Rscd.Web.ApiClient
         [System.Runtime.Serialization.EnumMember(Value = @"Boolean")]
         Boolean = 4,
     
-        [System.Runtime.Serialization.EnumMember(Value = @"NestedConditional")]
-        NestedConditional = 5,
-    
-        [System.Runtime.Serialization.EnumMember(Value = @"ConditionalFurther")]
-        ConditionalFurther = 6,
-    
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.3.3.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -676,9 +670,6 @@ namespace Dfe.Rscd.Web.ApiClient
     {
         [Newtonsoft.Json.JsonProperty("questionId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Guid QuestionId { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("order", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int Order { get; set; }
     
         [Newtonsoft.Json.JsonProperty("isConditional", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public bool IsConditional { get; set; }
@@ -701,24 +692,6 @@ namespace Dfe.Rscd.Web.ApiClient
         [Newtonsoft.Json.JsonProperty("value", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Value { get; set; }
     
-        [Newtonsoft.Json.JsonProperty("allowNull", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool AllowNull { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("historicalDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool HistoricalDate { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("futureDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool FutureDate { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("nullErrorMessage", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string NullErrorMessage { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("inValidErrorMessage", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string InValidErrorMessage { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("validationRegex", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string ValidationRegex { get; set; }
-    
     
     }
     
@@ -731,15 +704,12 @@ namespace Dfe.Rscd.Web.ApiClient
         [Newtonsoft.Json.JsonProperty("title", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Title { get; set; }
     
-        [Newtonsoft.Json.JsonProperty("description", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Description { get; set; }
-    
         [Newtonsoft.Json.JsonProperty("questionType", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public QuestionType QuestionType { get; set; }
     
-        [Newtonsoft.Json.JsonProperty("answers", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<Answer> Answers { get; set; }
+        [Newtonsoft.Json.JsonProperty("answer", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public Answer Answer { get; set; }
     
     
     }
@@ -877,6 +847,9 @@ namespace Dfe.Rscd.Web.ApiClient
     {
         [Newtonsoft.Json.JsonProperty("furtherQuestions", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Collections.Generic.ICollection<Question> FurtherQuestions { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("validationErrors", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.ICollection<string> ValidationErrors { get; set; }
     
         [Newtonsoft.Json.JsonProperty("isComplete", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public bool IsComplete { get; set; }

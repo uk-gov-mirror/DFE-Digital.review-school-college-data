@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Domain.Entities.Questions;
 
@@ -30,17 +30,31 @@ namespace Dfe.Rscd.Api.Services.Rules
                     new AnswerPotential {Value = "5", Description = "India"},
                     new AnswerPotential {Value = "?", Description = "Other"}
                 };
-                var languages = _dataService.GetLanguages()
-                    .Select(x => new AnswerPotential {Value = x.Code, Description = x.Description}).ToList();
+                var languages = _dataService.GetLanguages().ToList()
+                    .Select(x => new AnswerPotential { Value = x.Code, Description = x.Description }).ToList();
 
-                var countryQuestion = new PupilNativeLanguageQuestion(languages);
-                var languageQuestion = new PupilCountryQuestion(countries);
+                var countryQuestion = new PupilCountryQuestion(countries);
+                var nativeLanguageQuestion = new PupilNativeLanguageQuestion(languages);
                 var pupilArrivalToUk = new ArrivalDateQuestion();
 
-                return new AmendmentOutcome(new List<Question> { countryQuestion, languageQuestion, pupilArrivalToUk});
+                return new AmendmentOutcome(new List<Question> { nativeLanguageQuestion, countryQuestion, pupilArrivalToUk });
+            }
+
+            var errorMessages = new List<string>();
+
+            foreach (var question in amendment.Questions)
+            {
+                question.Validate();
+            }
+
+            if (errorMessages.Count > 0)
+            {
+                amendment.IsNewAmendment = true;
+                return new AmendmentOutcome(amendment.Questions, errorMessages);
             }
 
             return new AmendmentOutcome(null);
+
         }
     }
 }

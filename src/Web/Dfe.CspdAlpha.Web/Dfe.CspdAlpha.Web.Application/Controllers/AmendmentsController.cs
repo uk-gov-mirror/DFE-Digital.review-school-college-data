@@ -138,7 +138,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             var amendment = GetAmendment();
 
             var currentQuestion = amendment.Questions.Single(x => x.Id == promptAnswerViewModel.QuestionId);
-            currentQuestion.Answers.First().Value = promptAnswer;
+            currentQuestion.Answer.Value = promptAnswer;
 
             SaveAmendment(amendment);
             

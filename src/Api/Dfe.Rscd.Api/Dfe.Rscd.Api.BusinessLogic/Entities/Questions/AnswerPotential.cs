@@ -1,4 +1,4 @@
-namespace Dfe.Rscd.Api.Domain.Entities
+namespace Dfe.Rscd.Api.Domain.Entities.Questions
 {
 	public class AnswerPotential 
 	{

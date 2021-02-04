@@ -1,34 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Dfe.Rscd.Api.Domain.Entities.Questions
 {
-    public class NestedChoiceQuestion : Question
+    public abstract class NestedChoiceQuestion : Question 
     {
-        public NestedChoiceQuestion(string title, string description, string label, 
-            List<AnswerPotential> potentials, bool allowNull, string notNullErrorMessage, string notValidErrorMessage, string conditionalValue, Question nestedQuestion)
+        protected virtual void SetupParentQuestion(Question question)
         {
-            Description = description;
-            Title = title;
+            Title = question.Title;
             Id = Guid.NewGuid();
-            QuestionType = QuestionType.NestedConditional;
-            Answers = new List<Answer>
-            {
-                new Answer
-                {
-                    QuestionId = Id,
-                    AllowNull = allowNull,
-                    Label = label,
-                    AnswerPotentials = potentials,
-                    IsConditional = true,
-                    ConditionalValue = conditionalValue,
-                    ConditionalQuestion = nestedQuestion,
-                    NullErrorMessage = notNullErrorMessage,
-                    InValidErrorMessage = notValidErrorMessage,
-                    Order = 0
-                },
-            };
+            QuestionType = question.QuestionType;
+            Answer = question.Answer;
+            Answer.HasConditional = true;
+        }
+
+        protected virtual void SetupNestedQuestion(Question question, string conditionalValue)
+        {
+            Answer.ConditionalQuestion = question;
+            Answer.ConditionalQuestion.Answer.IsConditional = true;
+            Answer.ConditionalValue = conditionalValue;
         }
     }
 }

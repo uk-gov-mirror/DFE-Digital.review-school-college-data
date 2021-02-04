@@ -32,12 +32,6 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments
                 case (QuestionType.Boolean):
                     answerAsString = fields["yesno"];
                     break;
-                case (QuestionType.ConditionalFurther):
-                    answerAsString = fields["conditionalfurther"];
-                    break;
-                case (QuestionType.NestedConditional):
-                    answerAsString = fields["nestedconditional"];
-                    break;
             }
 
             return answerAsString;

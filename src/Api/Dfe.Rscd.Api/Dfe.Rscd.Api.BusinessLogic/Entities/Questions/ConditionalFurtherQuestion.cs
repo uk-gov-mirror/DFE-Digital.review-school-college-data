@@ -1,34 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Dfe.Rscd.Api.Domain.Entities.Questions
 {
-    public class ConditionalFurtherQuestion : Question
+    public abstract class ConditionalFurtherQuestion : Question
     {
-        public ConditionalFurtherQuestion(string title, string description, string label,
-            List<AnswerPotential> potentials, bool allowNull, string notNullErrorMessage, string notValidErrorMessage, string conditionalValue, Question conditionalQuestion)
+        protected virtual void SetupNonConditionalQuestion(Question question)
         {
-            Description = description;
-            Title = title;
+            Title = question.Title;
             Id = Guid.NewGuid();
-            QuestionType = QuestionType.ConditionalFurther;
-            Answers = new List<Answer>
-            {
-                new Answer
-                {
-                    QuestionId = Id,
-                    AllowNull = allowNull,
-                    Label = label,
-                    AnswerPotentials = potentials,
-                    IsConditional = false,
-                    HasConditional = true,
-                    ConditionalQuestion = conditionalQuestion,
-                    ConditionalValue = conditionalValue,
-                    NullErrorMessage = notNullErrorMessage,
-                    InValidErrorMessage = notValidErrorMessage,
-                    Order = 0,
-                },
-            };
+            QuestionType = question.QuestionType;
+            Answer = question.Answer;
+            Answer.HasConditional = true;
+        }
+
+        protected virtual void SetupConditionalQuestion(Question question, string conditionalValue)
+        {
+            Answer.ConditionalQuestion = question;
+            Answer.ConditionalQuestion.Answer.IsConditional = true;
+            Answer.ConditionalValue = conditionalValue;
         }
     }
 }

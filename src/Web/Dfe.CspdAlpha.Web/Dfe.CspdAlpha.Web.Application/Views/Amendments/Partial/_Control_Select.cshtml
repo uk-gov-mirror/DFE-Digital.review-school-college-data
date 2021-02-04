@@ -7,10 +7,10 @@
             </h1>
         </legend>
         <div id="changed-name-hint" class="govuk-hint">
-            @Model.Answers.First().Label
+            @Model.Answer.Label
         </div>
         <div class="govuk-radios govuk-radios--inline">
-            @foreach (var opt in Model.Answers.First().AnswerPotentials)
+            @foreach (var opt in Model.Answer.AnswerPotentials)
             {
                 <div class="govuk-radios__item">
                     <input class="govuk-radios__input" id="@opt.Value" name="select" type="radio" value="@opt.Value">

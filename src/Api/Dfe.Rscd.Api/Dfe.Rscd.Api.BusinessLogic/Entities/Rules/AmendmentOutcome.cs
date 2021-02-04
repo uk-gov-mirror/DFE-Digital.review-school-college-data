@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using Dfe.Rscd.Api.Domain.Entities.Questions;
 
 namespace Dfe.Rscd.Api.Domain.Entities
 {
     public class AmendmentOutcome
     {
         public List<Question> FurtherQuestions { get; set; }
+        public List<string> ValidationErrors { get; set; }
         public bool IsComplete { get; set; }
         public bool IsAmendmentCreated { get; set; }
         public Guid NewAmendmentId { get; set; }
@@ -27,6 +29,13 @@ namespace Dfe.Rscd.Api.Domain.Entities
             IsComplete = true;
             FurtherQuestions = null;
             Message = message;
+        }
+
+        public AmendmentOutcome(List<Question> questions, List<string> errors)
+        {
+            IsComplete = false;
+            FurtherQuestions = questions;
+            ValidationErrors = errors;
         }
 
         public AmendmentOutcome(OutcomeStatus status)

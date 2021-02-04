@@ -1,12 +1,12 @@
 @model Dfe.Rscd.Web.ApiClient.Question
 <div class="govuk-form-group">
     <h1 class="govuk-label-wrapper">
-        <label class="govuk-label govuk-label--l" for="text">
+        <label class="govuk-label govuk-label--l" for="string">
             @Html.Encode(Model.Title)
         </label>
     </h1>
     <div id="more-detail-hint" class="govuk-hint">
-        @Model.Answers.First().Label
+        @Model.Answer.Label
     </div>
     <textarea class="govuk-textarea" id="string" name="string" rows="5" aria-describedby="more-detail-hint"></textarea>
 </div>

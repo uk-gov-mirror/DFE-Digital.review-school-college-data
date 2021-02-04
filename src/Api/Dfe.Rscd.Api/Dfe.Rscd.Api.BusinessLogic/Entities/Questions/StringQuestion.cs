@@ -2,13 +2,13 @@
 
 namespace Dfe.Rscd.Api.Domain.Entities.Questions
 {
-    public class NumberQuestion : Question
+    public class StringQuestion : Question
     {
-        public NumberQuestion(string title, string label, Validator validator)
+        public StringQuestion(string title, string label, Validator validator)
         {
             Id = Guid.NewGuid();
             Title = title;
-            QuestionType = QuestionType.Number;
+            QuestionType = QuestionType.String;
             Validator = validator;
             Answer = new Answer
             {

@@ -6,37 +6,30 @@ namespace Dfe.Rscd.Api.Domain.Entities.Questions
 {
     public class BooleanQuestion : Question
     {
-        public BooleanQuestion(string title, string description, string label, bool allowNull, string notNullErrorMessage, string notValidErrorMessage)
+        public BooleanQuestion(string title, string label, Validator validator)
         {
-            Description = description;
             Title = title;
             Id = Guid.NewGuid();
             QuestionType = QuestionType.Boolean;
-            Answers = new List<Answer>
+            Validator = validator;
+            Answer = new Answer
             {
-                new Answer
+                QuestionId = Id,
+                Label = label,
+                AnswerPotentials = new List<AnswerPotential>
                 {
-                    QuestionId = Id,
-                    AllowNull = allowNull,
-                    Label = label,
-                    AnswerPotentials = new List<AnswerPotential>
+                    new AnswerPotential
                     {
-                        new AnswerPotential
-                        {
-                            Description = "Yes",
-                            Value = "1"
-                        },
-                        new AnswerPotential
-                        {
-                            Description = "No",
-                            Value = "0"
-                        }
+                        Description = "Yes",
+                        Value = "1"
                     },
-                    IsConditional = false,
-                    NullErrorMessage = notNullErrorMessage,
-                    InValidErrorMessage = notValidErrorMessage,
-                    Order = 0,
+                    new AnswerPotential
+                    {
+                        Description = "No",
+                        Value = "0"
+                    }
                 },
+                IsConditional = false
             };
         }
     }
