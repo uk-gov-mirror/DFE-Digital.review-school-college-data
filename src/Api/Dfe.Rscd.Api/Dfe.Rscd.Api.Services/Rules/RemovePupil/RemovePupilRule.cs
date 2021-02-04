@@ -2,23 +2,11 @@
 
 namespace Dfe.Rscd.Api.Services.Rules
 {
-    public abstract class RemovePupilRule : IRule
+    public abstract class RemovePupilRule : Rule
     {
-        public AmendmentType AmendmentType => AmendmentType.RemovePupil;
-        public abstract int AmendmentReason { get; }
-
-        protected abstract AmendmentOutcome ApplyRule(Amendment amendment);
-
-        public AmendmentOutcome Apply(Amendment amendment)
-        {
-            AmendmentOutcome amendmentOutcome = ApplyRule(amendment);
-            
-            ApplyOutcomeToAmendment(amendment, amendmentOutcome);
-
-            return amendmentOutcome;
-        }
-
-        protected void ApplyOutcomeToAmendment(Amendment amendment, AmendmentOutcome amendmentOutcome)
+        public override AmendmentType AmendmentType => AmendmentType.RemovePupil;
+        
+        protected override void ApplyOutcomeToAmendment(Amendment amendment, AmendmentOutcome amendmentOutcome)
         {
             if (amendmentOutcome.IsComplete && amendmentOutcome.FurtherQuestions == null)
             {

@@ -7,10 +7,11 @@ namespace Dfe.Rscd.Api.Domain.Entities.Questions
         protected virtual void SetupParentQuestion(Question question)
         {
             Title = question.Title;
-            Id = Guid.NewGuid();
+            Id = question.Id;
             QuestionType = question.QuestionType;
             Answer = question.Answer;
             Answer.HasConditional = true;
+            Validator = question.GetValidator();
         }
 
         protected virtual void SetupNestedQuestion(Question question, string conditionalValue)

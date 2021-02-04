@@ -21,6 +21,11 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             return HttpContext.Session.Get<Amendment>(AMENDMENT_SESSION_KEY);
         }
 
+        protected List<Question> GetQuestions()
+        {
+            return HttpContext.Session.Get<List<Question>>(PROMPT_QUESTIONS);
+        }
+
         protected string UserId => ClaimsHelper.GetUserId(User) + CheckingWindow;
 
         protected TaskListViewModel GetTaskList()
@@ -44,17 +49,16 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             ClearAmendment();
         }
 
-        protected void ClearQuestions()
-        {
-            var amendment = GetAmendment();
-            amendment.Questions = new List<Question>();
-            SaveAmendment(amendment);
-        }
-
         protected void ClearAmendmentAndRelated()
         {
             ClearAmendment();
+            ClearQuestions();
         }
+        protected void ClearQuestions()
+        {
+            HttpContext.Session.Remove(PROMPT_QUESTIONS);
+        }
+
         protected void ClearAmendment()
         {
             HttpContext.Session.Remove(AMENDMENT_SESSION_KEY);
@@ -65,6 +69,28 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             HttpContext.Session.Remove(string.Format(TASK_LIST, UserId));
         }
 
+        protected void SaveQuestions(List<Question> questions)
+        {
+            HttpContext.Session.Set(PROMPT_QUESTIONS, questions);
+        }
+
+        protected void SaveAnswer(UserAnswer userAnswer)
+        {
+            var amendment = GetAmendment();
+            amendment.Answers ??= new List<UserAnswer>();
+
+            var answer = amendment.Answers.SingleOrDefault(x => x.QuestionId == userAnswer.QuestionId);
+            if (answer == null)
+                amendment.Answers.Add(userAnswer);
+            else
+            {
+                amendment.Answers.Remove(answer);
+                amendment.Answers.Add(userAnswer);
+            }
+
+            SaveAmendment(amendment);
+        }
+        
         protected void SaveAmendment(Amendment amendment)
         {
             HttpContext.Session.Set(AMENDMENT_SESSION_KEY, amendment);

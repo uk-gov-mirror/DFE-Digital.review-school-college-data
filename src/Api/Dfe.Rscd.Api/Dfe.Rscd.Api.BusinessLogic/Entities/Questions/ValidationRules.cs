@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection.Metadata.Ecma335;
 using System.Text.RegularExpressions;
 
 namespace Dfe.Rscd.Api.Domain.Entities.Questions
@@ -21,7 +22,8 @@ namespace Dfe.Rscd.Api.Domain.Entities.Questions
                 {ValidatorType.NumberHigher, givenValue => NumberMatch(givenValue, compareValue, (g, c) => g > c)},
                 {ValidatorType.NumberHigherOrEqual, givenValue => NumberMatch(givenValue, compareValue,(g, c) => g >= c)},
                 {ValidatorType.NumberLower, givenValue => NumberMatch(givenValue, compareValue,(g, c) => g < c)},
-                {ValidatorType.NumberLowerOrEqual, givenValue => NumberMatch(givenValue, compareValue,(g, c) => g <= c)}
+                {ValidatorType.NumberLowerOrEqual, givenValue => NumberMatch(givenValue, compareValue,(g, c) => g <= c)},
+                {ValidatorType.None, givenValue => true}
             };
         }
 

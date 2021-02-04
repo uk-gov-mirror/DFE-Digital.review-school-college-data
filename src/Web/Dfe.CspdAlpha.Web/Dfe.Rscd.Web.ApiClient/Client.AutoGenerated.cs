@@ -227,9 +227,6 @@ namespace Dfe.Rscd.Web.ApiClient
             if (checkingwindow == null)
                 throw new System.ArgumentNullException("checkingwindow");
     
-            if (body == null)
-                throw new System.ArgumentNullException("body");
-    
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("api/{checkingwindow}/Amendments");
             urlBuilder_.Replace("{checkingwindow}", System.Uri.EscapeDataString(ConvertToString(checkingwindow, System.Globalization.CultureInfo.InvariantCulture)));
@@ -1694,9 +1691,6 @@ namespace Dfe.Rscd.Web.ApiClient
             if (checkingwindow == null)
                 throw new System.ArgumentNullException("checkingwindow");
     
-            if (body == null)
-                throw new System.ArgumentNullException("body");
-    
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("api/{checkingwindow}/SchoolReview");
             urlBuilder_.Replace("{checkingwindow}", System.Uri.EscapeDataString(ConvertToString(checkingwindow, System.Globalization.CultureInfo.InvariantCulture)));
@@ -1779,9 +1773,6 @@ namespace Dfe.Rscd.Web.ApiClient
         {
             if (checkingwindow == null)
                 throw new System.ArgumentNullException("checkingwindow");
-    
-            if (body == null)
-                throw new System.ArgumentNullException("body");
     
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("api/{checkingwindow}/SchoolReview");

@@ -9,8 +9,7 @@ namespace Dfe.Rscd.Api.Domain.Entities
         public Amendment()
         {
             AmendmentDetail = new AmendmentDetail();
-            Questions = new List<Question>();
-            IsNewAmendment = true;
+            Answers = new List<UserAnswer>();
         }
 
         public string URN { get; set; }
@@ -28,11 +27,9 @@ namespace Dfe.Rscd.Api.Domain.Entities
 
         public string DfesNumber { get;set; }
 
-        public List<Question> Questions { get; set; }
+        public List<UserAnswer> Answers { get; set; }
 
         public int InclusionReasonId { get; set; }
-
-        public bool IsNewAmendment { get; set; }
 
         public AmendmentDetail AmendmentDetail { get; set; }
     }

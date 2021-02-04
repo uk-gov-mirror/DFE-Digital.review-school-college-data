@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Dfe.Rscd.Api.Domain.Entities.Questions;
 
 namespace Dfe.Rscd.Api.Domain.Entities
 {
     public class AmendmentOutcome
     {
+        [AllowNull]
         public List<Question> FurtherQuestions { get; set; }
-        public List<string> ValidationErrors { get; set; }
+        [AllowNull]
+        public Dictionary<string, List<string>> ValidationErrors { get; set; }
         public bool IsComplete { get; set; }
         public bool IsAmendmentCreated { get; set; }
         public Guid NewAmendmentId { get; set; }
@@ -31,18 +34,12 @@ namespace Dfe.Rscd.Api.Domain.Entities
             Message = message;
         }
 
-        public AmendmentOutcome(List<Question> questions, List<string> errors)
+        public AmendmentOutcome(List<Question> questions, Dictionary<string, List<string>> errors)
         {
             IsComplete = false;
             FurtherQuestions = questions;
             ValidationErrors = errors;
-        }
-
-        public AmendmentOutcome(OutcomeStatus status)
-        {
-            OutcomeStatus = status;
-            IsComplete = true;
-            FurtherQuestions = null;
+            OutcomeStatus = OutcomeStatus.AwaitingValidationPass;
         }
 
         public AmendmentOutcome(List<Question> furtherQuestion)
@@ -56,6 +53,7 @@ namespace Dfe.Rscd.Api.Domain.Entities
             else
             {
                 FurtherQuestions = furtherQuestion;
+                OutcomeStatus = OutcomeStatus.AwaitingValidationPass;
                 IsComplete = false;
                 IsAmendmentCreated = false;
             }

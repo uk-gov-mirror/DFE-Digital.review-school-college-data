@@ -13,6 +13,7 @@ namespace Dfe.Rscd.Api.Services.Rules
         public void Setup()
         {
             var parentQuestion = new SelectQuestion(
+                "ArrivalDateQuestion",
                 "Do you know pupil's date of arrival to UK?",
                 "Select one",
                 new List<AnswerPotential>
@@ -30,6 +31,7 @@ namespace Dfe.Rscd.Api.Services.Rules
             SetupParentQuestion(parentQuestion);
 
             var nestedQuestion = new DateTimeQuestion(
+                "ArrivalDateQuestion.1",
                 "Enter a date of arrival to UK",
                 "For example, 12 11 2007", new Validator
                 {

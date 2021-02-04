@@ -11,6 +11,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
     public class AmendmentsController : SessionController
     {
+        private const string NotshowedYet = "NotShowed";
         private readonly IAmendmentService _amendmentService;
 
         public AmendmentsController(IAmendmentService amendmentService)
@@ -131,23 +132,33 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
         [HttpPost]
         public IActionResult Prompt(PromptAnswerViewModel promptAnswerViewModel)
         {
-            // Validate Asnwer
-
+            var questions = GetQuestions();
             var promptAnswer = promptAnswerViewModel.GetAnswerAsString(Request.Form);
 
+            SaveAnswer(new UserAnswer{ QuestionId = promptAnswerViewModel.QuestionId, Value = promptAnswer });
             var amendment = GetAmendment();
 
-            var currentQuestion = amendment.Questions.Single(x => x.Id == promptAnswerViewModel.QuestionId);
-            currentQuestion.Answer.Value = promptAnswer;
+            var outcome = _amendmentService.CreateAmendment(amendment);
 
-            SaveAmendment(amendment);
+            if (outcome.ValidationErrors != null && outcome.ValidationErrors.Count > 0)
+            {
+                var errorsPromptViewModel = new QuestionViewModel(questions, promptAnswerViewModel.CurrentIndex, outcome.ValidationErrors)
+                {
+                    PupilDetails = new PupilViewModel(amendment.Pupil)
+                };
+
+                return View("Prompt", errorsPromptViewModel);
+            }
             
-            var promptViewModel = new QuestionViewModel(amendment.Questions, promptAnswerViewModel.CurrentIndex + 1)
+            var nextQuestionViewModel = new QuestionViewModel(questions, promptAnswerViewModel.CurrentIndex + 1)
             {
                 PupilDetails = new PupilViewModel(amendment.Pupil)
             };
 
-            if (promptViewModel.HasMoreQuestions) return View("Prompt", promptViewModel);
+            if (nextQuestionViewModel.HasMoreQuestions)
+            {
+                return View("Prompt", nextQuestionViewModel);
+            }
 
             return RedirectToAction("Confirm");
         }
@@ -160,17 +171,21 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
 
             var amendmentOutcome = _amendmentService.CreateAmendment(amendment);
 
-            amendment.IsNewAmendment = false;
             amendment.EvidenceStatus = amendmentOutcome.EvidenceStatus;
-
-            amendment.Questions = amendmentOutcome.FurtherQuestions;
 
             SaveAmendment(amendment);
 
             if (amendmentOutcome.IsComplete || amendmentOutcome.FurtherQuestions == null)
-                return RedirectToAction("Confirm");
+            {
+                SaveAmendment(amendment);
 
-            var promptViewModel = new QuestionViewModel(amendmentOutcome.FurtherQuestions.ToList())
+                return RedirectToAction("Confirm");
+            }
+
+            var questions = amendmentOutcome.FurtherQuestions.ToList();
+            SaveQuestions(questions);
+
+            var promptViewModel = new QuestionViewModel(questions)
             {
                 PupilDetails = new PupilViewModel(amendment.Pupil)
             };

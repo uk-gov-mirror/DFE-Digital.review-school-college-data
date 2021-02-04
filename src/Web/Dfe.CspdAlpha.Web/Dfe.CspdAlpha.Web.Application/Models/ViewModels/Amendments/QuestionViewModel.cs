@@ -28,10 +28,13 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments
 
         public Question CurrentQuestion => Questions.ToList()[CurrentQuestionIndex];
 
+        private IDictionary<string, ICollection<string>> ValidationErrors { get; set; }
+
         public string BackController { get; set; }
         public string BackAction { get; set; }
 
-        public QuestionViewModel(ICollection<Question> questions, int currentIndex=0)
+
+        public QuestionViewModel(ICollection<Question> questions, int currentIndex=0, IDictionary<string, ICollection<string>> validationErrors=null)
         {
             Questions = questions;
             CurrentQuestionIndex = currentIndex;

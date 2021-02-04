@@ -118,7 +118,6 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                 },
                 CheckingWindow = CheckingWindow,
                 AmendmentDetail = new AmendmentDetail(),
-                IsNewAmendment = true
             };
 
             addPupilAmendment.AmendmentDetail.AddField(Constants.AddPupil.AddReason, AddReason.New);

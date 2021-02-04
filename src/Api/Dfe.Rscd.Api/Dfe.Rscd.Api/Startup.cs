@@ -59,6 +59,7 @@ namespace Dfe.Rscd.Api
                         }
                     });
                 c.EnableAnnotations();
+                c.UseAllOfToExtendReferenceSchemas();
             });
 
             // Adds feature management for Azure App Configuration
@@ -101,7 +102,7 @@ namespace Dfe.Rscd.Api
 
             services.AddScoped<IDocumentRepository, CosmosDocumentRepository>();
 
-            services.AddScoped<IRule, AdmittedFromAbroadRules>();
+            services.AddScoped<IRule, RemovePupilAdmittedFromAbroadRule>();
             
             services.AddScoped<IAmendmentBuilder, RemovePupilAmendmentBuilder>();
             services.AddScoped<Amendment, RemovePupilAmendment>();

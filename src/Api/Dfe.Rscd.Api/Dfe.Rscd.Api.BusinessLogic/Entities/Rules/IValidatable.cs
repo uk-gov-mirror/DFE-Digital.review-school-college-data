@@ -5,6 +5,6 @@ namespace Dfe.Rscd.Api.Domain.Entities
     public interface IValidatable
     {
         bool IsValid();
-        List<string> Validate();
+        List<string> Validate(string answer);
     }
 }

@@ -6,15 +6,14 @@ namespace Dfe.Rscd.Api.Domain.Entities.Questions
 {
     public class BooleanQuestion : Question
     {
-        public BooleanQuestion(string title, string label, Validator validator)
+        public BooleanQuestion(string id, string title, string label, Validator validator)
         {
             Title = title;
-            Id = Guid.NewGuid();
+            Id = id;
             QuestionType = QuestionType.Boolean;
             Validator = validator;
             Answer = new Answer
             {
-                QuestionId = Id,
                 Label = label,
                 AnswerPotentials = new List<AnswerPotential>
                 {

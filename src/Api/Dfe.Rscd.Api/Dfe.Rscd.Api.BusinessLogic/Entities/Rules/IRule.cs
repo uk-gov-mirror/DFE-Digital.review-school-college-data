@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Dfe.Rscd.Api.Domain.Entities
+﻿namespace Dfe.Rscd.Api.Domain.Entities
 {
     public interface IRule
     {

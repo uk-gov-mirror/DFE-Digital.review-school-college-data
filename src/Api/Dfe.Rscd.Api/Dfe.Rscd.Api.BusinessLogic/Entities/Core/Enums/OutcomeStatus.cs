@@ -5,6 +5,7 @@
         AutoAccept,
         AutoReject,
         AwaitingEvidence,
-        AwatingDfeReview
+        AwatingDfeReview,
+        AwaitingValidationPass
     }
 }

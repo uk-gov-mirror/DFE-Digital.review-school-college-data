@@ -86,7 +86,6 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                     Pincl = new PInclude{ Code = viewModel.PupilViewModel.PincludeCode }
                 },
                 AmendmentDetail = new AmendmentDetail(),
-                IsNewAmendment = true,
                 IsUserConfirmed = false
             };
 

@@ -24,10 +24,11 @@ namespace Dfe.Rscd.Api.Domain.Entities.Questions
             if (!AllowNull && string.IsNullOrEmpty(value))
             {
                 errors.Add(NullErrorMessage);
+                return errors;
             }
 
             var rules = ValidationRules.GetValidationRules(ValidatorCompareValue);
-            if (rules[ValidatorType](value))
+            if (!rules[ValidatorType](value))
             {
                 errors.Add(InValidErrorMessage);
             }

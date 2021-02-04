@@ -8,7 +8,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments
     public class PromptAnswerViewModel : ContextAwareViewModel
     {
         public string FieldType { get; set; }
-        public Guid QuestionId { get; set; }
+        public string QuestionId { get; set; }
         public int CurrentIndex { get; set; }
 
         public string GetAnswerAsString(IFormCollection fields)
@@ -21,16 +21,16 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments
                     answerAsString = $"{fields["date-day"]}/{fields["date-month"]}/{fields["date-year"]}";
                     break;
                 case (QuestionType.Number):
-                    answerAsString = $"{fields["integer"]}";
+                    answerAsString = $"{fields["number"]}";
                     break;
                 case (QuestionType.Select):
-                    answerAsString = fields["listbox"];
+                    answerAsString = fields["select"];
                     break;
                 case (QuestionType.String):
-                    answerAsString = fields["text"];
+                    answerAsString = fields["string"];
                     break;
                 case (QuestionType.Boolean):
-                    answerAsString = fields["yesno"];
+                    answerAsString = fields["boolean"];
                     break;
             }
 

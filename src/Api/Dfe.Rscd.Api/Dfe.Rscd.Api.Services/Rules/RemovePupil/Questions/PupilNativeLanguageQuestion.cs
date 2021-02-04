@@ -14,6 +14,7 @@ namespace Dfe.Rscd.Api.Services.Rules
         {
             var nonConditionalQuestion =
                 new SelectQuestion(
+                    "PupilNativeLanguageQuestion",
                     "Pupil's native language",
                     "Select pupil's native language", languages, new Validator
                     {
@@ -23,10 +24,10 @@ namespace Dfe.Rscd.Api.Services.Rules
                         ValidatorType = ValidatorType.None
                     });
 
-
             SetupNonConditionalQuestion(nonConditionalQuestion);
 
             var conditionalQuestion = new StringQuestion(
+                "PupilNativeLanguageQuestion.Other",
                 "Enter pupil's native language",
                 "You have selected 'Other'. Please enter the pupil's native language", 
                 new Validator
