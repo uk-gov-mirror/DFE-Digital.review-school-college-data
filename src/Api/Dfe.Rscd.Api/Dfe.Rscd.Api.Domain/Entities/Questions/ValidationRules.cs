@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Reflection.Metadata.Ecma335;
 using System.Text.RegularExpressions;
@@ -63,7 +64,7 @@ namespace Dfe.Rscd.Api.Domain.Entities.Questions
 
         private static bool DateMatch(string givenValue, Func<DateTime, bool> check=null)
         {
-            if(DateTime.TryParse(givenValue, out var newDate))
+            if(DateTime.TryParseExact(givenValue, "dd-MM-yyyy", new CultureInfo("en-GB"), DateTimeStyles.None, out var newDate))
             {
                 if (check == null)
                 {

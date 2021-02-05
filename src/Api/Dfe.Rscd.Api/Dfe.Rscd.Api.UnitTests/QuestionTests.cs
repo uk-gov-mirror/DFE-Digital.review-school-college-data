@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Domain.Entities.Questions;
 using Dfe.Rscd.Api.Services;
@@ -59,7 +60,7 @@ namespace Dfe.Rscd.Api.UnitTests
                     new UserAnswer{Value = "Other", QuestionId = "PupilCountryQuestion"},
                     new UserAnswer{Value = "Belarus", QuestionId = "PupilCountryQuestion.Other"},
                     new UserAnswer{Value = "1", QuestionId = "ArrivalDateQuestion"},
-                    new UserAnswer{Value = "23/10/2017", QuestionId = "ArrivalDateQuestion.1"}
+                    new UserAnswer{Value = "23-10-2017", QuestionId = "ArrivalDateQuestion.1"}
                 }
             });
 
