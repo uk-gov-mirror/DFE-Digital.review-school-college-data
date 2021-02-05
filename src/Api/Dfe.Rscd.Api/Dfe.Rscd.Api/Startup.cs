@@ -87,7 +87,7 @@ namespace Dfe.Rscd.Api
             var dynamicsOptions = Configuration.GetSection("Dynamics").Get<DynamicsOptions>();
             services.AddSingleton(dynamicsOptions);
 
-            services.AddSingleton<IAllocationYearConfig>(new AllocationYearConfig {Value = Configuration["AllocationYear"] });
+            services.AddSingleton<IAllocationYearConfig>(new AllocationYearConfig {Value = Configuration["AllocationYear"], CensusDate = Configuration["AnnualCensusDate"]});
 
             if (!_env.IsEnvironment(Program.LOCAL_ENVIRONMENT))
             {

@@ -114,7 +114,8 @@ namespace Dfe.Rscd.Api.Services
                 .Select(x => new AnswerPotential
                 {
                     Value = x.Id.ToString(),
-                    Description = x.AnswerValue
+                    Description = x.AnswerValue,
+                    Reject = x.IsRejected
                 })
                 .ToList();
         }

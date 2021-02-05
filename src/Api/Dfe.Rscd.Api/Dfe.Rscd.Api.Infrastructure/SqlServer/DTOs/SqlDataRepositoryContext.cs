@@ -195,7 +195,7 @@ namespace Dfe.Rscd.Api.Infrastructure.SqlServer.DTOs
 
                 entity.Property(e => e.QuestionId);
                 entity.Property(e => e.AnswerValue);
-                entity.Property(e => e.Rejected);
+                entity.Property(e => e.IsRejected);
             });
 
             modelBuilder.Entity<Senstatus>(entity =>

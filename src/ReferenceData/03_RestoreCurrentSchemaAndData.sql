@@ -1,6 +1,4 @@
-USE [rscd]
-GO
-/****** Object:  Table [dbo].[AmendCodes]    Script Date: 05/02/2021 13:50:33 ******/
+/****** Object:  Table [dbo].[AmendCodes]    Script Date: 05/02/2021 18:12:45 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -14,7 +12,7 @@ CREATE TABLE [dbo].[AmendCodes](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[AwardingBodies]    Script Date: 05/02/2021 13:50:33 ******/
+/****** Object:  Table [dbo].[AwardingBodies]    Script Date: 05/02/2021 18:12:45 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -32,7 +30,7 @@ CREATE TABLE [dbo].[AwardingBodies](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Ethnicities]    Script Date: 05/02/2021 13:50:33 ******/
+/****** Object:  Table [dbo].[Ethnicities]    Script Date: 05/02/2021 18:12:45 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -47,7 +45,7 @@ CREATE TABLE [dbo].[Ethnicities](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[InclusionAdjustmentReasons]    Script Date: 05/02/2021 13:50:33 ******/
+/****** Object:  Table [dbo].[InclusionAdjustmentReasons]    Script Date: 05/02/2021 18:12:45 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -66,7 +64,7 @@ CREATE TABLE [dbo].[InclusionAdjustmentReasons](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Languages]    Script Date: 05/02/2021 13:50:33 ******/
+/****** Object:  Table [dbo].[Languages]    Script Date: 05/02/2021 18:12:45 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -80,7 +78,7 @@ CREATE TABLE [dbo].[Languages](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[PINCLInclusionAdjustments]    Script Date: 05/02/2021 13:50:33 ******/
+/****** Object:  Table [dbo].[PINCLInclusionAdjustments]    Script Date: 05/02/2021 18:12:45 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -95,7 +93,7 @@ CREATE TABLE [dbo].[PINCLInclusionAdjustments](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[PINCLs]    Script Date: 05/02/2021 13:50:33 ******/
+/****** Object:  Table [dbo].[PINCLs]    Script Date: 05/02/2021 18:12:45 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -110,7 +108,7 @@ CREATE TABLE [dbo].[PINCLs](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[PotentialAnswers]    Script Date: 05/02/2021 13:50:33 ******/
+/****** Object:  Table [dbo].[PotentialAnswers]    Script Date: 05/02/2021 18:12:45 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -119,14 +117,14 @@ CREATE TABLE [dbo].[PotentialAnswers](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[QuestionId] [nvarchar](150) NOT NULL,
 	[AnswerValue] [nvarchar](150) NOT NULL,
-	[Rejected] [bit] NULL,
+	[IsRejected] [bit] NOT NULL,
  CONSTRAINT [PK_PotentialAnswers] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[SENStatus]    Script Date: 05/02/2021 13:50:33 ******/
+/****** Object:  Table [dbo].[SENStatus]    Script Date: 05/02/2021 18:12:45 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -140,7 +138,7 @@ CREATE TABLE [dbo].[SENStatus](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[YearGroups]    Script Date: 05/02/2021 13:50:33 ******/
+/****** Object:  Table [dbo].[YearGroups]    Script Date: 05/02/2021 18:12:45 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -750,1081 +748,1081 @@ INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'5
 GO
 SET IDENTITY_INSERT [dbo].[PotentialAnswers] ON 
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (1, N'PupilNativeLanguageQuestion', N'Acholi', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (1, N'PupilNativeLanguageQuestion', N'Acholi', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (2, N'PupilNativeLanguageQuestion', N'Adangme', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (2, N'PupilNativeLanguageQuestion', N'Adangme', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (3, N'PupilNativeLanguageQuestion', N'Afar-Saho', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (3, N'PupilNativeLanguageQuestion', N'Afar-Saho', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (4, N'PupilNativeLanguageQuestion', N'Afrikaans', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (4, N'PupilNativeLanguageQuestion', N'Afrikaans', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (5, N'PupilNativeLanguageQuestion', N'Akan', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (5, N'PupilNativeLanguageQuestion', N'Akan', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (6, N'PupilNativeLanguageQuestion', N'Albanian/Shqip', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (6, N'PupilNativeLanguageQuestion', N'Albanian/Shqip', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (7, N'PupilNativeLanguageQuestion', N'Alur', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (7, N'PupilNativeLanguageQuestion', N'Alur', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (8, N'PupilNativeLanguageQuestion', N'Amharic', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (8, N'PupilNativeLanguageQuestion', N'Amharic', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (9, N'PupilNativeLanguageQuestion', N'Anyi-Baule', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (9, N'PupilNativeLanguageQuestion', N'Anyi-Baule', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (10, N'PupilNativeLanguageQuestion', N'Arabic', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (10, N'PupilNativeLanguageQuestion', N'Arabic', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (11, N'PupilNativeLanguageQuestion', N'Armenian', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (11, N'PupilNativeLanguageQuestion', N'Armenian', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (12, N'PupilNativeLanguageQuestion', N'Assamese', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (12, N'PupilNativeLanguageQuestion', N'Assamese', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (13, N'PupilNativeLanguageQuestion', N'Assyrian', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (13, N'PupilNativeLanguageQuestion', N'Assyrian', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (14, N'PupilNativeLanguageQuestion', N'Aymara', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (14, N'PupilNativeLanguageQuestion', N'Aymara', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (15, N'PupilNativeLanguageQuestion', N'Azerbaijani', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (15, N'PupilNativeLanguageQuestion', N'Azerbaijani', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (16, N'PupilNativeLanguageQuestion', N'Azeri', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (16, N'PupilNativeLanguageQuestion', N'Azeri', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (17, N'PupilNativeLanguageQuestion', N'Balochi', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (17, N'PupilNativeLanguageQuestion', N'Balochi', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (18, N'PupilNativeLanguageQuestion', N'Balti', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (18, N'PupilNativeLanguageQuestion', N'Balti', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (19, N'PupilNativeLanguageQuestion', N'Bambara', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (19, N'PupilNativeLanguageQuestion', N'Bambara', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (20, N'PupilNativeLanguageQuestion', N'Bamileke', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (20, N'PupilNativeLanguageQuestion', N'Bamileke', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (21, N'PupilNativeLanguageQuestion', N'Basque/Euskara', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (21, N'PupilNativeLanguageQuestion', N'Basque/Euskara', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (22, N'PupilNativeLanguageQuestion', N'Beja/Bedawi', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (22, N'PupilNativeLanguageQuestion', N'Beja/Bedawi', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (23, N'PupilNativeLanguageQuestion', N'Belarusian', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (23, N'PupilNativeLanguageQuestion', N'Belarusian', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (24, N'PupilNativeLanguageQuestion', N'Bemba', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (24, N'PupilNativeLanguageQuestion', N'Bemba', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (25, N'PupilNativeLanguageQuestion', N'Bengali/Bangla', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (25, N'PupilNativeLanguageQuestion', N'Bengali/Bangla', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (26, N'PupilNativeLanguageQuestion', N'Berber', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (26, N'PupilNativeLanguageQuestion', N'Berber', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (27, N'PupilNativeLanguageQuestion', N'Bhojpuri', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (27, N'PupilNativeLanguageQuestion', N'Bhojpuri', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (28, N'PupilNativeLanguageQuestion', N'Bikol', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (28, N'PupilNativeLanguageQuestion', N'Bikol', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (29, N'PupilNativeLanguageQuestion', N'Bilen', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (29, N'PupilNativeLanguageQuestion', N'Bilen', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (30, N'PupilNativeLanguageQuestion', N'Bosnian', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (30, N'PupilNativeLanguageQuestion', N'Bosnian', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (31, N'PupilNativeLanguageQuestion', N'British Sign Language', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (31, N'PupilNativeLanguageQuestion', N'British Sign Language', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (32, N'PupilNativeLanguageQuestion', N'Bulgarian', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (32, N'PupilNativeLanguageQuestion', N'Bulgarian', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (33, N'PupilNativeLanguageQuestion', N'Burmese', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (33, N'PupilNativeLanguageQuestion', N'Burmese', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (34, N'PupilNativeLanguageQuestion', N'Cambodian/Khmer', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (34, N'PupilNativeLanguageQuestion', N'Cambodian/Khmer', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (35, N'PupilNativeLanguageQuestion', N'Cantonese', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (35, N'PupilNativeLanguageQuestion', N'Cantonese', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (36, N'PupilNativeLanguageQuestion', N'Caribbean Creole English', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (36, N'PupilNativeLanguageQuestion', N'Caribbean Creole English', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (37, N'PupilNativeLanguageQuestion', N'Caribbean Creole French', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (37, N'PupilNativeLanguageQuestion', N'Caribbean Creole French', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (38, N'PupilNativeLanguageQuestion', N'Catalan', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (38, N'PupilNativeLanguageQuestion', N'Catalan', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (39, N'PupilNativeLanguageQuestion', N'Cebuano', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (39, N'PupilNativeLanguageQuestion', N'Cebuano', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (40, N'PupilNativeLanguageQuestion', N'Chaga', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (40, N'PupilNativeLanguageQuestion', N'Chaga', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (41, N'PupilNativeLanguageQuestion', N'Chattisgarhi', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (41, N'PupilNativeLanguageQuestion', N'Chattisgarhi', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (42, N'PupilNativeLanguageQuestion', N'Chechen', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (42, N'PupilNativeLanguageQuestion', N'Chechen', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (43, N'PupilNativeLanguageQuestion', N'Chichewa/Nyanja', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (43, N'PupilNativeLanguageQuestion', N'Chichewa/Nyanja', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (44, N'PupilNativeLanguageQuestion', N'Chinese', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (44, N'PupilNativeLanguageQuestion', N'Chinese', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (45, N'PupilNativeLanguageQuestion', N'Chitrali/Khowar', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (45, N'PupilNativeLanguageQuestion', N'Chitrali/Khowar', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (46, N'PupilNativeLanguageQuestion', N'Chokwe', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (46, N'PupilNativeLanguageQuestion', N'Chokwe', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (47, N'PupilNativeLanguageQuestion', N'Cornish', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (47, N'PupilNativeLanguageQuestion', N'Cornish', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (48, N'PupilNativeLanguageQuestion', N'Creole', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (48, N'PupilNativeLanguageQuestion', N'Creole', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (49, N'PupilNativeLanguageQuestion', N'Croatian', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (49, N'PupilNativeLanguageQuestion', N'Croatian', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (50, N'PupilNativeLanguageQuestion', N'Czech', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (50, N'PupilNativeLanguageQuestion', N'Czech', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (51, N'PupilNativeLanguageQuestion', N'Dagaare', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (51, N'PupilNativeLanguageQuestion', N'Dagaare', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (52, N'PupilNativeLanguageQuestion', N'Dagbani', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (52, N'PupilNativeLanguageQuestion', N'Dagbani', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (53, N'PupilNativeLanguageQuestion', N'Danish', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (53, N'PupilNativeLanguageQuestion', N'Danish', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (54, N'PupilNativeLanguageQuestion', N'Dari', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (54, N'PupilNativeLanguageQuestion', N'Dari', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (55, N'PupilNativeLanguageQuestion', N'Dinka', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (55, N'PupilNativeLanguageQuestion', N'Dinka', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (56, N'PupilNativeLanguageQuestion', N'Dutch/Flemish', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (56, N'PupilNativeLanguageQuestion', N'Dutch/Flemish', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (57, N'PupilNativeLanguageQuestion', N'Dzongkha/Bhutanese', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (57, N'PupilNativeLanguageQuestion', N'Dzongkha/Bhutanese', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (58, N'PupilNativeLanguageQuestion', N'Ebira', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (58, N'PupilNativeLanguageQuestion', N'Ebira', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (59, N'PupilNativeLanguageQuestion', N'Edo/Bini', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (59, N'PupilNativeLanguageQuestion', N'Edo/Bini', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (60, N'PupilNativeLanguageQuestion', N'Efik-Ibibio', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (60, N'PupilNativeLanguageQuestion', N'Efik-Ibibio', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (61, N'PupilNativeLanguageQuestion', N'English', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (61, N'PupilNativeLanguageQuestion', N'English', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (62, N'PupilNativeLanguageQuestion', N'Esan /Ishan', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (62, N'PupilNativeLanguageQuestion', N'Esan /Ishan', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (63, N'PupilNativeLanguageQuestion', N'Estonian', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (63, N'PupilNativeLanguageQuestion', N'Estonian', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (64, N'PupilNativeLanguageQuestion', N'Ewe', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (64, N'PupilNativeLanguageQuestion', N'Ewe', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (65, N'PupilNativeLanguageQuestion', N'Ewondo', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (65, N'PupilNativeLanguageQuestion', N'Ewondo', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (66, N'PupilNativeLanguageQuestion', N'Fang', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (66, N'PupilNativeLanguageQuestion', N'Fang', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (67, N'PupilNativeLanguageQuestion', N'Farsi', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (67, N'PupilNativeLanguageQuestion', N'Farsi', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (68, N'PupilNativeLanguageQuestion', N'Fijian', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (68, N'PupilNativeLanguageQuestion', N'Fijian', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (69, N'PupilNativeLanguageQuestion', N'Filipino', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (69, N'PupilNativeLanguageQuestion', N'Filipino', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (70, N'PupilNativeLanguageQuestion', N'Finnish', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (70, N'PupilNativeLanguageQuestion', N'Finnish', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (71, N'PupilNativeLanguageQuestion', N'Fon', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (71, N'PupilNativeLanguageQuestion', N'Fon', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (72, N'PupilNativeLanguageQuestion', N'French', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (72, N'PupilNativeLanguageQuestion', N'French', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (73, N'PupilNativeLanguageQuestion', N'Fula/Fulfulde-Pulaar', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (73, N'PupilNativeLanguageQuestion', N'Fula/Fulfulde-Pulaar', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (74, N'PupilNativeLanguageQuestion', N'Ga', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (74, N'PupilNativeLanguageQuestion', N'Ga', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (75, N'PupilNativeLanguageQuestion', N'Gaelic, Irish', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (75, N'PupilNativeLanguageQuestion', N'Gaelic, Irish', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (76, N'PupilNativeLanguageQuestion', N'Gaelic, Scottish', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (76, N'PupilNativeLanguageQuestion', N'Gaelic, Scottish', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (77, N'PupilNativeLanguageQuestion', N'Galician/Galego', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (77, N'PupilNativeLanguageQuestion', N'Galician/Galego', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (78, N'PupilNativeLanguageQuestion', N'Georgian', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (78, N'PupilNativeLanguageQuestion', N'Georgian', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (79, N'PupilNativeLanguageQuestion', N'German', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (79, N'PupilNativeLanguageQuestion', N'German', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (80, N'PupilNativeLanguageQuestion', N'Gogo/Chigogo', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (80, N'PupilNativeLanguageQuestion', N'Gogo/Chigogo', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (81, N'PupilNativeLanguageQuestion', N'Greek', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (81, N'PupilNativeLanguageQuestion', N'Greek', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (82, N'PupilNativeLanguageQuestion', N'Guarani', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (82, N'PupilNativeLanguageQuestion', N'Guarani', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (83, N'PupilNativeLanguageQuestion', N'Gujarati', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (83, N'PupilNativeLanguageQuestion', N'Gujarati', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (84, N'PupilNativeLanguageQuestion', N'Gurenne/Frafra', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (84, N'PupilNativeLanguageQuestion', N'Gurenne/Frafra', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (85, N'PupilNativeLanguageQuestion', N'Gurma', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (85, N'PupilNativeLanguageQuestion', N'Gurma', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (86, N'PupilNativeLanguageQuestion', N'Hausa', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (86, N'PupilNativeLanguageQuestion', N'Hausa', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (87, N'PupilNativeLanguageQuestion', N'Hebrew', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (87, N'PupilNativeLanguageQuestion', N'Hebrew', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (88, N'PupilNativeLanguageQuestion', N'Herero', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (88, N'PupilNativeLanguageQuestion', N'Herero', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (89, N'PupilNativeLanguageQuestion', N'Hiligaynon', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (89, N'PupilNativeLanguageQuestion', N'Hiligaynon', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (90, N'PupilNativeLanguageQuestion', N'Hindi', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (90, N'PupilNativeLanguageQuestion', N'Hindi', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (91, N'PupilNativeLanguageQuestion', N'Hindko', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (91, N'PupilNativeLanguageQuestion', N'Hindko', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (92, N'PupilNativeLanguageQuestion', N'Hindustani', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (92, N'PupilNativeLanguageQuestion', N'Hindustani', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (93, N'PupilNativeLanguageQuestion', N'Hungarian', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (93, N'PupilNativeLanguageQuestion', N'Hungarian', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (94, N'PupilNativeLanguageQuestion', N'Iban', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (94, N'PupilNativeLanguageQuestion', N'Iban', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (95, N'PupilNativeLanguageQuestion', N'Icelandic', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (95, N'PupilNativeLanguageQuestion', N'Icelandic', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (96, N'PupilNativeLanguageQuestion', N'Idoma', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (96, N'PupilNativeLanguageQuestion', N'Idoma', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (97, N'PupilNativeLanguageQuestion', N'Igala', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (97, N'PupilNativeLanguageQuestion', N'Igala', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (98, N'PupilNativeLanguageQuestion', N'Igbo (Ibo)', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (98, N'PupilNativeLanguageQuestion', N'Igbo (Ibo)', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (99, N'PupilNativeLanguageQuestion', N'Ijo (Ijaw)', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (99, N'PupilNativeLanguageQuestion', N'Ijo (Ijaw)', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (100, N'PupilNativeLanguageQuestion', N'Ilokano', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (100, N'PupilNativeLanguageQuestion', N'Ilokano', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (101, N'PupilNativeLanguageQuestion', N'Ilonggo', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (101, N'PupilNativeLanguageQuestion', N'Ilonggo', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (102, N'PupilNativeLanguageQuestion', N'Indonesian', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (102, N'PupilNativeLanguageQuestion', N'Indonesian', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (103, N'PupilNativeLanguageQuestion', N'Italian', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (103, N'PupilNativeLanguageQuestion', N'Italian', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (104, N'PupilNativeLanguageQuestion', N'Itsekiri', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (104, N'PupilNativeLanguageQuestion', N'Itsekiri', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (105, N'PupilNativeLanguageQuestion', N'Japanese', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (105, N'PupilNativeLanguageQuestion', N'Japanese', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (106, N'PupilNativeLanguageQuestion', N'Javanese', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (106, N'PupilNativeLanguageQuestion', N'Javanese', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (107, N'PupilNativeLanguageQuestion', N'Jinghpaw/Kachin', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (107, N'PupilNativeLanguageQuestion', N'Jinghpaw/Kachin', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (108, N'PupilNativeLanguageQuestion', N'Kalenjin', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (108, N'PupilNativeLanguageQuestion', N'Kalenjin', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (109, N'PupilNativeLanguageQuestion', N'Kannada', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (109, N'PupilNativeLanguageQuestion', N'Kannada', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (110, N'PupilNativeLanguageQuestion', N'Kanuri', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (110, N'PupilNativeLanguageQuestion', N'Kanuri', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (111, N'PupilNativeLanguageQuestion', N'Kaonde', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (111, N'PupilNativeLanguageQuestion', N'Kaonde', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (112, N'PupilNativeLanguageQuestion', N'Karen (language group)', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (112, N'PupilNativeLanguageQuestion', N'Karen (language group)', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (113, N'PupilNativeLanguageQuestion', N'Kashmiri', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (113, N'PupilNativeLanguageQuestion', N'Kashmiri', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (114, N'PupilNativeLanguageQuestion', N'Kazakh', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (114, N'PupilNativeLanguageQuestion', N'Kazakh', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (115, N'PupilNativeLanguageQuestion', N'Khmer', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (115, N'PupilNativeLanguageQuestion', N'Khmer', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (116, N'PupilNativeLanguageQuestion', N'Kikamba', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (116, N'PupilNativeLanguageQuestion', N'Kikamba', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (117, N'PupilNativeLanguageQuestion', N'Kikongo', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (117, N'PupilNativeLanguageQuestion', N'Kikongo', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (118, N'PupilNativeLanguageQuestion', N'Kikuyu/Gikuyu', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (118, N'PupilNativeLanguageQuestion', N'Kikuyu/Gikuyu', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (119, N'PupilNativeLanguageQuestion', N'Kimbundu', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (119, N'PupilNativeLanguageQuestion', N'Kimbundu', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (120, N'PupilNativeLanguageQuestion', N'Kimeru', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (120, N'PupilNativeLanguageQuestion', N'Kimeru', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (121, N'PupilNativeLanguageQuestion', N'Kinyarwanda', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (121, N'PupilNativeLanguageQuestion', N'Kinyarwanda', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (122, N'PupilNativeLanguageQuestion', N'Kirghiz/Kyrgyz', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (122, N'PupilNativeLanguageQuestion', N'Kirghiz/Kyrgyz', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (123, N'PupilNativeLanguageQuestion', N'Kirundi', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (123, N'PupilNativeLanguageQuestion', N'Kirundi', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (124, N'PupilNativeLanguageQuestion', N'Kisi', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (124, N'PupilNativeLanguageQuestion', N'Kisi', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (125, N'PupilNativeLanguageQuestion', N'Kisii/Ekegusii', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (125, N'PupilNativeLanguageQuestion', N'Kisii/Ekegusii', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (126, N'PupilNativeLanguageQuestion', N'Kisukuma', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (126, N'PupilNativeLanguageQuestion', N'Kisukuma', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (127, N'PupilNativeLanguageQuestion', N'Kiswahili', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (127, N'PupilNativeLanguageQuestion', N'Kiswahili', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (128, N'PupilNativeLanguageQuestion', N'Konkani', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (128, N'PupilNativeLanguageQuestion', N'Konkani', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (129, N'PupilNativeLanguageQuestion', N'Korean', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (129, N'PupilNativeLanguageQuestion', N'Korean', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (130, N'PupilNativeLanguageQuestion', N'Kpelle', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (130, N'PupilNativeLanguageQuestion', N'Kpelle', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (131, N'PupilNativeLanguageQuestion', N'Krio', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (131, N'PupilNativeLanguageQuestion', N'Krio', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (132, N'PupilNativeLanguageQuestion', N'Kru', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (132, N'PupilNativeLanguageQuestion', N'Kru', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (133, N'PupilNativeLanguageQuestion', N'Kurdish', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (133, N'PupilNativeLanguageQuestion', N'Kurdish', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (134, N'PupilNativeLanguageQuestion', N'Kutchi', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (134, N'PupilNativeLanguageQuestion', N'Kutchi', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (135, N'PupilNativeLanguageQuestion', N'Lango', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (135, N'PupilNativeLanguageQuestion', N'Lango', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (136, N'PupilNativeLanguageQuestion', N'Lao', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (136, N'PupilNativeLanguageQuestion', N'Lao', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (137, N'PupilNativeLanguageQuestion', N'Latvian', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (137, N'PupilNativeLanguageQuestion', N'Latvian', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (138, N'PupilNativeLanguageQuestion', N'Lingala', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (138, N'PupilNativeLanguageQuestion', N'Lingala', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (139, N'PupilNativeLanguageQuestion', N'Lithuanian', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (139, N'PupilNativeLanguageQuestion', N'Lithuanian', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (140, N'PupilNativeLanguageQuestion', N'Lozi/Silozi', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (140, N'PupilNativeLanguageQuestion', N'Lozi/Silozi', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (141, N'PupilNativeLanguageQuestion', N'Luba', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (141, N'PupilNativeLanguageQuestion', N'Luba', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (142, N'PupilNativeLanguageQuestion', N'Luganda', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (142, N'PupilNativeLanguageQuestion', N'Luganda', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (143, N'PupilNativeLanguageQuestion', N'Lugbara', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (143, N'PupilNativeLanguageQuestion', N'Lugbara', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (144, N'PupilNativeLanguageQuestion', N'Lugisu/Lumasaba', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (144, N'PupilNativeLanguageQuestion', N'Lugisu/Lumasaba', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (145, N'PupilNativeLanguageQuestion', N'Luhya', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (145, N'PupilNativeLanguageQuestion', N'Luhya', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (146, N'PupilNativeLanguageQuestion', N'Lunda', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (146, N'PupilNativeLanguageQuestion', N'Lunda', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (147, N'PupilNativeLanguageQuestion', N'Luo', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (147, N'PupilNativeLanguageQuestion', N'Luo', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (148, N'PupilNativeLanguageQuestion', N'Lusoga', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (148, N'PupilNativeLanguageQuestion', N'Lusoga', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (149, N'PupilNativeLanguageQuestion', N'Luvale', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (149, N'PupilNativeLanguageQuestion', N'Luvale', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (150, N'PupilNativeLanguageQuestion', N'Luxembourgish', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (150, N'PupilNativeLanguageQuestion', N'Luxembourgish', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (151, N'PupilNativeLanguageQuestion', N'Maasai', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (151, N'PupilNativeLanguageQuestion', N'Maasai', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (152, N'PupilNativeLanguageQuestion', N'Macedonian', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (152, N'PupilNativeLanguageQuestion', N'Macedonian', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (153, N'PupilNativeLanguageQuestion', N'Magahi', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (153, N'PupilNativeLanguageQuestion', N'Magahi', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (154, N'PupilNativeLanguageQuestion', N'Magindanao', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (154, N'PupilNativeLanguageQuestion', N'Magindanao', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (155, N'PupilNativeLanguageQuestion', N'Maithili', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (155, N'PupilNativeLanguageQuestion', N'Maithili', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (156, N'PupilNativeLanguageQuestion', N'Makua', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (156, N'PupilNativeLanguageQuestion', N'Makua', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (157, N'PupilNativeLanguageQuestion', N'Malagasy', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (157, N'PupilNativeLanguageQuestion', N'Malagasy', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (158, N'PupilNativeLanguageQuestion', N'Malay', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (158, N'PupilNativeLanguageQuestion', N'Malay', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (159, N'PupilNativeLanguageQuestion', N'Malayalam', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (159, N'PupilNativeLanguageQuestion', N'Malayalam', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (160, N'PupilNativeLanguageQuestion', N'Maldivian/Dhivehi', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (160, N'PupilNativeLanguageQuestion', N'Maldivian/Dhivehi', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (161, N'PupilNativeLanguageQuestion', N'Maltese', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (161, N'PupilNativeLanguageQuestion', N'Maltese', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (162, N'PupilNativeLanguageQuestion', N'Mandarin', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (162, N'PupilNativeLanguageQuestion', N'Mandarin', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (163, N'PupilNativeLanguageQuestion', N'Mandinka', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (163, N'PupilNativeLanguageQuestion', N'Mandinka', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (164, N'PupilNativeLanguageQuestion', N'Maninka/ Malinke', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (164, N'PupilNativeLanguageQuestion', N'Maninka/ Malinke', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (165, N'PupilNativeLanguageQuestion', N'Maori', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (165, N'PupilNativeLanguageQuestion', N'Maori', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (166, N'PupilNativeLanguageQuestion', N'Marathi', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (166, N'PupilNativeLanguageQuestion', N'Marathi', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (167, N'PupilNativeLanguageQuestion', N'Mauritian Creole', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (167, N'PupilNativeLanguageQuestion', N'Mauritian Creole', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (168, N'PupilNativeLanguageQuestion', N'Mayan (language group)', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (168, N'PupilNativeLanguageQuestion', N'Mayan (language group)', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (169, N'PupilNativeLanguageQuestion', N'Mbosi/Mbochi', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (169, N'PupilNativeLanguageQuestion', N'Mbosi/Mbochi', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (170, N'PupilNativeLanguageQuestion', N'Memon', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (170, N'PupilNativeLanguageQuestion', N'Memon', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (171, N'PupilNativeLanguageQuestion', N'Mende', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (171, N'PupilNativeLanguageQuestion', N'Mende', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (172, N'PupilNativeLanguageQuestion', N'Mirpuri', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (172, N'PupilNativeLanguageQuestion', N'Mirpuri', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (173, N'PupilNativeLanguageQuestion', N'Moldovan', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (173, N'PupilNativeLanguageQuestion', N'Moldovan', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (174, N'PupilNativeLanguageQuestion', N'Mongolian', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (174, N'PupilNativeLanguageQuestion', N'Mongolian', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (175, N'PupilNativeLanguageQuestion', N'Moore/Mossi', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (175, N'PupilNativeLanguageQuestion', N'Moore/Mossi', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (176, N'PupilNativeLanguageQuestion', N'Munda (language group)', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (176, N'PupilNativeLanguageQuestion', N'Munda (language group)', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (177, N'PupilNativeLanguageQuestion', N'Nahuatl', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (177, N'PupilNativeLanguageQuestion', N'Nahuatl', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (178, N'PupilNativeLanguageQuestion', N'Nama/Damara', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (178, N'PupilNativeLanguageQuestion', N'Nama/Damara', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (179, N'PupilNativeLanguageQuestion', N'Ndebele', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (179, N'PupilNativeLanguageQuestion', N'Ndebele', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (180, N'PupilNativeLanguageQuestion', N'Nepali', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (180, N'PupilNativeLanguageQuestion', N'Nepali', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (181, N'PupilNativeLanguageQuestion', N'Newari', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (181, N'PupilNativeLanguageQuestion', N'Newari', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (182, N'PupilNativeLanguageQuestion', N'Norwegian', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (182, N'PupilNativeLanguageQuestion', N'Norwegian', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (183, N'PupilNativeLanguageQuestion', N'Nubian (language group)', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (183, N'PupilNativeLanguageQuestion', N'Nubian (language group)', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (184, N'PupilNativeLanguageQuestion', N'Nuer', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (184, N'PupilNativeLanguageQuestion', N'Nuer', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (185, N'PupilNativeLanguageQuestion', N'Nupe', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (185, N'PupilNativeLanguageQuestion', N'Nupe', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (186, N'PupilNativeLanguageQuestion', N'Nyakyusa-Ngonde', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (186, N'PupilNativeLanguageQuestion', N'Nyakyusa-Ngonde', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (187, N'PupilNativeLanguageQuestion', N'Nyanja', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (187, N'PupilNativeLanguageQuestion', N'Nyanja', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (188, N'PupilNativeLanguageQuestion', N'Nzema', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (188, N'PupilNativeLanguageQuestion', N'Nzema', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (189, N'PupilNativeLanguageQuestion', N'Ogoni (language group)', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (189, N'PupilNativeLanguageQuestion', N'Ogoni (language group)', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (190, N'PupilNativeLanguageQuestion', N'Oriya', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (190, N'PupilNativeLanguageQuestion', N'Oriya', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (191, N'PupilNativeLanguageQuestion', N'Oromo', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (191, N'PupilNativeLanguageQuestion', N'Oromo', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (192, N'PupilNativeLanguageQuestion', N'Oshiwambo', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (192, N'PupilNativeLanguageQuestion', N'Oshiwambo', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (193, N'PupilNativeLanguageQuestion', N'Pahari (Pakistan)', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (193, N'PupilNativeLanguageQuestion', N'Pahari (Pakistan)', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (194, N'PupilNativeLanguageQuestion', N'Pahari/Himachali', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (194, N'PupilNativeLanguageQuestion', N'Pahari/Himachali', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (195, N'PupilNativeLanguageQuestion', N'Pampangan', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (195, N'PupilNativeLanguageQuestion', N'Pampangan', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (196, N'PupilNativeLanguageQuestion', N'Pangasinan', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (196, N'PupilNativeLanguageQuestion', N'Pangasinan', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (197, N'PupilNativeLanguageQuestion', N'Panjabi', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (197, N'PupilNativeLanguageQuestion', N'Panjabi', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (198, N'PupilNativeLanguageQuestion', N'Pashai', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (198, N'PupilNativeLanguageQuestion', N'Pashai', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (199, N'PupilNativeLanguageQuestion', N'Pashto/Pashtu', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (199, N'PupilNativeLanguageQuestion', N'Pashto/Pashtu', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (200, N'PupilNativeLanguageQuestion', N'Patois', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (200, N'PupilNativeLanguageQuestion', N'Patois', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (201, N'PupilNativeLanguageQuestion', N'Pedi', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (201, N'PupilNativeLanguageQuestion', N'Pedi', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (202, N'PupilNativeLanguageQuestion', N'Persian/Farsi', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (202, N'PupilNativeLanguageQuestion', N'Persian/Farsi', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (203, N'PupilNativeLanguageQuestion', N'Polish', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (203, N'PupilNativeLanguageQuestion', N'Polish', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (204, N'PupilNativeLanguageQuestion', N'Portuguese', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (204, N'PupilNativeLanguageQuestion', N'Portuguese', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (205, N'PupilNativeLanguageQuestion', N'Punjabi', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (205, N'PupilNativeLanguageQuestion', N'Punjabi', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (206, N'PupilNativeLanguageQuestion', N'Pushto/Pushtu', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (206, N'PupilNativeLanguageQuestion', N'Pushto/Pushtu', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (207, N'PupilNativeLanguageQuestion', N'Quechua', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (207, N'PupilNativeLanguageQuestion', N'Quechua', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (208, N'PupilNativeLanguageQuestion', N'Rajasthani/Marwari', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (208, N'PupilNativeLanguageQuestion', N'Rajasthani/Marwari', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (209, N'PupilNativeLanguageQuestion', N'Romani', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (209, N'PupilNativeLanguageQuestion', N'Romani', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (210, N'PupilNativeLanguageQuestion', N'Romanian', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (210, N'PupilNativeLanguageQuestion', N'Romanian', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (211, N'PupilNativeLanguageQuestion', N'Romansch', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (211, N'PupilNativeLanguageQuestion', N'Romansch', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (212, N'PupilNativeLanguageQuestion', N'Runyakitara', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (212, N'PupilNativeLanguageQuestion', N'Runyakitara', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (213, N'PupilNativeLanguageQuestion', N'Russian', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (213, N'PupilNativeLanguageQuestion', N'Russian', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (214, N'PupilNativeLanguageQuestion', N'Rwanda', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (214, N'PupilNativeLanguageQuestion', N'Rwanda', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (215, N'PupilNativeLanguageQuestion', N'Samoan', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (215, N'PupilNativeLanguageQuestion', N'Samoan', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (216, N'PupilNativeLanguageQuestion', N'Sango', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (216, N'PupilNativeLanguageQuestion', N'Sango', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (217, N'PupilNativeLanguageQuestion', N'Sardinian', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (217, N'PupilNativeLanguageQuestion', N'Sardinian', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (218, N'PupilNativeLanguageQuestion', N'Scots', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (218, N'PupilNativeLanguageQuestion', N'Scots', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (219, N'PupilNativeLanguageQuestion', N'Serbian', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (219, N'PupilNativeLanguageQuestion', N'Serbian', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (220, N'PupilNativeLanguageQuestion', N'Sesotho', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (220, N'PupilNativeLanguageQuestion', N'Sesotho', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (221, N'PupilNativeLanguageQuestion', N'Setswana', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (221, N'PupilNativeLanguageQuestion', N'Setswana', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (222, N'PupilNativeLanguageQuestion', N'Shelta/Traveller Irish', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (222, N'PupilNativeLanguageQuestion', N'Shelta/Traveller Irish', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (223, N'PupilNativeLanguageQuestion', N'Shilluk/Chollo', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (223, N'PupilNativeLanguageQuestion', N'Shilluk/Chollo', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (224, N'PupilNativeLanguageQuestion', N'Shona', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (224, N'PupilNativeLanguageQuestion', N'Shona', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (225, N'PupilNativeLanguageQuestion', N'Sidamo', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (225, N'PupilNativeLanguageQuestion', N'Sidamo', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (226, N'PupilNativeLanguageQuestion', N'Sindhi', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (226, N'PupilNativeLanguageQuestion', N'Sindhi', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (227, N'PupilNativeLanguageQuestion', N'Sinhala', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (227, N'PupilNativeLanguageQuestion', N'Sinhala', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (228, N'PupilNativeLanguageQuestion', N'Siraiki', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (228, N'PupilNativeLanguageQuestion', N'Siraiki', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (229, N'PupilNativeLanguageQuestion', N'Slovak', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (229, N'PupilNativeLanguageQuestion', N'Slovak', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (230, N'PupilNativeLanguageQuestion', N'Slovenian', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (230, N'PupilNativeLanguageQuestion', N'Slovenian', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (231, N'PupilNativeLanguageQuestion', N'Somali', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (231, N'PupilNativeLanguageQuestion', N'Somali', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (232, N'PupilNativeLanguageQuestion', N'Sotho', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (232, N'PupilNativeLanguageQuestion', N'Sotho', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (233, N'PupilNativeLanguageQuestion', N'Spanish', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (233, N'PupilNativeLanguageQuestion', N'Spanish', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (234, N'PupilNativeLanguageQuestion', N'Sunda', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (234, N'PupilNativeLanguageQuestion', N'Sunda', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (235, N'PupilNativeLanguageQuestion', N'Surigaonon', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (235, N'PupilNativeLanguageQuestion', N'Surigaonon', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (236, N'PupilNativeLanguageQuestion', N'Swahili', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (236, N'PupilNativeLanguageQuestion', N'Swahili', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (237, N'PupilNativeLanguageQuestion', N'Swazi', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (237, N'PupilNativeLanguageQuestion', N'Swazi', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (238, N'PupilNativeLanguageQuestion', N'Swedish', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (238, N'PupilNativeLanguageQuestion', N'Swedish', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (239, N'PupilNativeLanguageQuestion', N'Sylheti', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (239, N'PupilNativeLanguageQuestion', N'Sylheti', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (240, N'PupilNativeLanguageQuestion', N'Tagalog', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (240, N'PupilNativeLanguageQuestion', N'Tagalog', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (241, N'PupilNativeLanguageQuestion', N'Tajiki', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (241, N'PupilNativeLanguageQuestion', N'Tajiki', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (242, N'PupilNativeLanguageQuestion', N'Tamazight', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (242, N'PupilNativeLanguageQuestion', N'Tamazight', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (243, N'PupilNativeLanguageQuestion', N'Tamil', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (243, N'PupilNativeLanguageQuestion', N'Tamil', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (244, N'PupilNativeLanguageQuestion', N'Telugu', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (244, N'PupilNativeLanguageQuestion', N'Telugu', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (245, N'PupilNativeLanguageQuestion', N'Temne', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (245, N'PupilNativeLanguageQuestion', N'Temne', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (246, N'PupilNativeLanguageQuestion', N'Teso/Ateso', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (246, N'PupilNativeLanguageQuestion', N'Teso/Ateso', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (247, N'PupilNativeLanguageQuestion', N'Tetum/Tetun', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (247, N'PupilNativeLanguageQuestion', N'Tetum/Tetun', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (248, N'PupilNativeLanguageQuestion', N'Thai', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (248, N'PupilNativeLanguageQuestion', N'Thai', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (249, N'PupilNativeLanguageQuestion', N'Tibetan', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (249, N'PupilNativeLanguageQuestion', N'Tibetan', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (250, N'PupilNativeLanguageQuestion', N'Tigre', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (250, N'PupilNativeLanguageQuestion', N'Tigre', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (251, N'PupilNativeLanguageQuestion', N'Tigrinya', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (251, N'PupilNativeLanguageQuestion', N'Tigrinya', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (252, N'PupilNativeLanguageQuestion', N'Tiv', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (252, N'PupilNativeLanguageQuestion', N'Tiv', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (253, N'PupilNativeLanguageQuestion', N'Tok Pisin', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (253, N'PupilNativeLanguageQuestion', N'Tok Pisin', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (254, N'PupilNativeLanguageQuestion', N'Tonga/Chitonga', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (254, N'PupilNativeLanguageQuestion', N'Tonga/Chitonga', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (255, N'PupilNativeLanguageQuestion', N'Tongan', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (255, N'PupilNativeLanguageQuestion', N'Tongan', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (256, N'PupilNativeLanguageQuestion', N'Tsonga', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (256, N'PupilNativeLanguageQuestion', N'Tsonga', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (257, N'PupilNativeLanguageQuestion', N'Tswana', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (257, N'PupilNativeLanguageQuestion', N'Tswana', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (258, N'PupilNativeLanguageQuestion', N'Tulu', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (258, N'PupilNativeLanguageQuestion', N'Tulu', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (259, N'PupilNativeLanguageQuestion', N'Tumbuka', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (259, N'PupilNativeLanguageQuestion', N'Tumbuka', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (260, N'PupilNativeLanguageQuestion', N'Turkish', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (260, N'PupilNativeLanguageQuestion', N'Turkish', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (261, N'PupilNativeLanguageQuestion', N'Turkmen', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (261, N'PupilNativeLanguageQuestion', N'Turkmen', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (262, N'PupilNativeLanguageQuestion', N'Twi', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (262, N'PupilNativeLanguageQuestion', N'Twi', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (263, N'PupilNativeLanguageQuestion', N'Ukrainian', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (263, N'PupilNativeLanguageQuestion', N'Ukrainian', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (264, N'PupilNativeLanguageQuestion', N'Umbundu', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (264, N'PupilNativeLanguageQuestion', N'Umbundu', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (265, N'PupilNativeLanguageQuestion', N'Urdu', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (265, N'PupilNativeLanguageQuestion', N'Urdu', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (266, N'PupilNativeLanguageQuestion', N'Urhobo', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (266, N'PupilNativeLanguageQuestion', N'Urhobo', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (267, N'PupilNativeLanguageQuestion', N'Uyghur', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (267, N'PupilNativeLanguageQuestion', N'Uyghur', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (268, N'PupilNativeLanguageQuestion', N'Uzbek', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (268, N'PupilNativeLanguageQuestion', N'Uzbek', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (269, N'PupilNativeLanguageQuestion', N'Venda', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (269, N'PupilNativeLanguageQuestion', N'Venda', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (270, N'PupilNativeLanguageQuestion', N'Vietnamese', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (270, N'PupilNativeLanguageQuestion', N'Vietnamese', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (271, N'PupilNativeLanguageQuestion', N'Visayan/Bisaya', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (271, N'PupilNativeLanguageQuestion', N'Visayan/Bisaya', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (272, N'PupilNativeLanguageQuestion', N'Wali', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (272, N'PupilNativeLanguageQuestion', N'Wali', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (273, N'PupilNativeLanguageQuestion', N'Wa-Parauk', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (273, N'PupilNativeLanguageQuestion', N'Wa-Parauk', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (274, N'PupilNativeLanguageQuestion', N'Waray', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (274, N'PupilNativeLanguageQuestion', N'Waray', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (275, N'PupilNativeLanguageQuestion', N'Welsh', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (275, N'PupilNativeLanguageQuestion', N'Welsh', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (276, N'PupilNativeLanguageQuestion', N'Wolof', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (276, N'PupilNativeLanguageQuestion', N'Wolof', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (277, N'PupilNativeLanguageQuestion', N'Xhosa', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (277, N'PupilNativeLanguageQuestion', N'Xhosa', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (278, N'PupilNativeLanguageQuestion', N'Yao/Chiyao', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (278, N'PupilNativeLanguageQuestion', N'Yao/Chiyao', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (279, N'PupilNativeLanguageQuestion', N'Yiddish', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (279, N'PupilNativeLanguageQuestion', N'Yiddish', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (280, N'PupilNativeLanguageQuestion', N'Yoruba', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (280, N'PupilNativeLanguageQuestion', N'Yoruba', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (281, N'PupilNativeLanguageQuestion', N'Zande', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (281, N'PupilNativeLanguageQuestion', N'Zande', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (282, N'PupilNativeLanguageQuestion', N'Zulu', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (282, N'PupilNativeLanguageQuestion', N'Zulu', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (283, N'PupilNativeLanguageQuestion', N'Other', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (283, N'PupilNativeLanguageQuestion', N'Other', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (284, N'PupilCountryQuestion', N'Afghanistan', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (284, N'PupilCountryQuestion', N'Afghanistan', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (285, N'PupilCountryQuestion', N'Aland Islands  ', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (285, N'PupilCountryQuestion', N'Aland Islands  ', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (286, N'PupilCountryQuestion', N'Albania', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (286, N'PupilCountryQuestion', N'Albania', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (287, N'PupilCountryQuestion', N'Algeria', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (287, N'PupilCountryQuestion', N'Algeria', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (288, N'PupilCountryQuestion', N'American Samoa', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (288, N'PupilCountryQuestion', N'American Samoa', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (289, N'PupilCountryQuestion', N'Andorra', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (289, N'PupilCountryQuestion', N'Andorra', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (290, N'PupilCountryQuestion', N'Angola', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (290, N'PupilCountryQuestion', N'Angola', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (291, N'PupilCountryQuestion', N'Argentina', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (291, N'PupilCountryQuestion', N'Argentina', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (292, N'PupilCountryQuestion', N'Armenia', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (292, N'PupilCountryQuestion', N'Armenia', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (293, N'PupilCountryQuestion', N'Aruba', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (293, N'PupilCountryQuestion', N'Aruba', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (294, N'PupilCountryQuestion', N'Australia', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (294, N'PupilCountryQuestion', N'Australia', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (295, N'PupilCountryQuestion', N'Austria', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (295, N'PupilCountryQuestion', N'Austria', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (296, N'PupilCountryQuestion', N'Azerbaijan', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (296, N'PupilCountryQuestion', N'Azerbaijan', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (297, N'PupilCountryQuestion', N'Bahamas', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (297, N'PupilCountryQuestion', N'Bahamas', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (298, N'PupilCountryQuestion', N'Bahrain', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (298, N'PupilCountryQuestion', N'Bahrain', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (299, N'PupilCountryQuestion', N'Bangladesh', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (299, N'PupilCountryQuestion', N'Bangladesh', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (300, N'PupilCountryQuestion', N'Barbados', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (300, N'PupilCountryQuestion', N'Barbados', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (301, N'PupilCountryQuestion', N'Belarus', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (301, N'PupilCountryQuestion', N'Belarus', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (302, N'PupilCountryQuestion', N'Belgium', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (302, N'PupilCountryQuestion', N'Belgium', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (303, N'PupilCountryQuestion', N'Belize', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (303, N'PupilCountryQuestion', N'Belize', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (304, N'PupilCountryQuestion', N'Benin', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (304, N'PupilCountryQuestion', N'Benin', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (305, N'PupilCountryQuestion', N'Bermuda ', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (305, N'PupilCountryQuestion', N'Bermuda ', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (306, N'PupilCountryQuestion', N'Bhutan', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (306, N'PupilCountryQuestion', N'Bhutan', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (307, N'PupilCountryQuestion', N'Bolivia', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (307, N'PupilCountryQuestion', N'Bolivia', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (308, N'PupilCountryQuestion', N'Bosnia and Herzegovina', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (308, N'PupilCountryQuestion', N'Bosnia and Herzegovina', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (309, N'PupilCountryQuestion', N'Botswana', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (309, N'PupilCountryQuestion', N'Botswana', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (310, N'PupilCountryQuestion', N'Brazil', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (310, N'PupilCountryQuestion', N'Brazil', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (311, N'PupilCountryQuestion', N'Brunei', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (311, N'PupilCountryQuestion', N'Brunei', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (312, N'PupilCountryQuestion', N'Bulgaria', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (312, N'PupilCountryQuestion', N'Bulgaria', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (313, N'PupilCountryQuestion', N'Burkina Faso', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (313, N'PupilCountryQuestion', N'Burkina Faso', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (314, N'PupilCountryQuestion', N'Burundi', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (314, N'PupilCountryQuestion', N'Burundi', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (315, N'PupilCountryQuestion', N'Cambodia', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (315, N'PupilCountryQuestion', N'Cambodia', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (316, N'PupilCountryQuestion', N'Cameroon', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (316, N'PupilCountryQuestion', N'Cameroon', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (317, N'PupilCountryQuestion', N'Canada', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (317, N'PupilCountryQuestion', N'Canada', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (318, N'PupilCountryQuestion', N'Cape Verde Islands', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (318, N'PupilCountryQuestion', N'Cape Verde Islands', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (319, N'PupilCountryQuestion', N'Cayman Islands', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (319, N'PupilCountryQuestion', N'Cayman Islands', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (320, N'PupilCountryQuestion', N'Central African Republic', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (320, N'PupilCountryQuestion', N'Central African Republic', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (321, N'PupilCountryQuestion', N'Chad', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (321, N'PupilCountryQuestion', N'Chad', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (322, N'PupilCountryQuestion', N'Channel Islands Alderney', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (322, N'PupilCountryQuestion', N'Channel Islands Alderney', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (323, N'PupilCountryQuestion', N'Channel Islands Guernsey', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (323, N'PupilCountryQuestion', N'Channel Islands Guernsey', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (324, N'PupilCountryQuestion', N'Channel Islands Jersey', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (324, N'PupilCountryQuestion', N'Channel Islands Jersey', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (325, N'PupilCountryQuestion', N'Channel Islands Sark', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (325, N'PupilCountryQuestion', N'Channel Islands Sark', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (326, N'PupilCountryQuestion', N'Chechnya  ', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (326, N'PupilCountryQuestion', N'Chechnya  ', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (327, N'PupilCountryQuestion', N'Guyana', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (327, N'PupilCountryQuestion', N'Guyana', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (328, N'PupilCountryQuestion', N'Haiti', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (328, N'PupilCountryQuestion', N'Haiti', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (329, N'PupilCountryQuestion', N'Holy See  (Vatican City)', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (329, N'PupilCountryQuestion', N'Holy See  (Vatican City)', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (330, N'PupilCountryQuestion', N'Honduras', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (330, N'PupilCountryQuestion', N'Honduras', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (331, N'PupilCountryQuestion', N'Hong Kong', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (331, N'PupilCountryQuestion', N'Hong Kong', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (332, N'PupilCountryQuestion', N'Hungary', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (332, N'PupilCountryQuestion', N'Hungary', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (333, N'PupilCountryQuestion', N'Iceland', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (333, N'PupilCountryQuestion', N'Iceland', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (334, N'PupilCountryQuestion', N'India', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (334, N'PupilCountryQuestion', N'India', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (335, N'PupilCountryQuestion', N'Indonesia', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (335, N'PupilCountryQuestion', N'Indonesia', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (336, N'PupilCountryQuestion', N'Iran', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (336, N'PupilCountryQuestion', N'Iran', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (337, N'PupilCountryQuestion', N'Iraq', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (337, N'PupilCountryQuestion', N'Iraq', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (338, N'PupilCountryQuestion', N'Ireland (Eire)', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (338, N'PupilCountryQuestion', N'Ireland (Eire)', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (339, N'PupilCountryQuestion', N'Isle of Man', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (339, N'PupilCountryQuestion', N'Isle of Man', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (340, N'PupilCountryQuestion', N'Israel', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (340, N'PupilCountryQuestion', N'Israel', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (341, N'PupilCountryQuestion', N'Italy', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (341, N'PupilCountryQuestion', N'Italy', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (342, N'PupilCountryQuestion', N'Ivory Coast', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (342, N'PupilCountryQuestion', N'Ivory Coast', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (343, N'PupilCountryQuestion', N'Jamaica', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (343, N'PupilCountryQuestion', N'Jamaica', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (344, N'PupilCountryQuestion', N'Japan', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (344, N'PupilCountryQuestion', N'Japan', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (345, N'PupilCountryQuestion', N'Jordan', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (345, N'PupilCountryQuestion', N'Jordan', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (346, N'PupilCountryQuestion', N'Kazakhstan', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (346, N'PupilCountryQuestion', N'Kazakhstan', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (347, N'PupilCountryQuestion', N'Kenya', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (347, N'PupilCountryQuestion', N'Kenya', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (348, N'PupilCountryQuestion', N'Kiribati', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (348, N'PupilCountryQuestion', N'Kiribati', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (349, N'PupilCountryQuestion', N'Kosovo', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (349, N'PupilCountryQuestion', N'Kosovo', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (350, N'PupilCountryQuestion', N'Kurdistan', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (350, N'PupilCountryQuestion', N'Kurdistan', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (351, N'PupilCountryQuestion', N'Kuwait', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (351, N'PupilCountryQuestion', N'Kuwait', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (352, N'PupilCountryQuestion', N'Kyrgyzstan', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (352, N'PupilCountryQuestion', N'Kyrgyzstan', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (353, N'PupilCountryQuestion', N'Laos', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (353, N'PupilCountryQuestion', N'Laos', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (354, N'PupilCountryQuestion', N'Latvia', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (354, N'PupilCountryQuestion', N'Latvia', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (355, N'PupilCountryQuestion', N'Lebanon', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (355, N'PupilCountryQuestion', N'Lebanon', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (356, N'PupilCountryQuestion', N'Leeward Islands Anguilla', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (356, N'PupilCountryQuestion', N'Leeward Islands Anguilla', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (357, N'PupilCountryQuestion', N'Leeward Islands Antigua', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (357, N'PupilCountryQuestion', N'Leeward Islands Antigua', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (358, N'PupilCountryQuestion', N'Leeward Islands Barbuda', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (358, N'PupilCountryQuestion', N'Leeward Islands Barbuda', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (359, N'PupilCountryQuestion', N'Leeward Islands British Virgin Islands', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (359, N'PupilCountryQuestion', N'Leeward Islands British Virgin Islands', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (360, N'PupilCountryQuestion', N'Leeward Islands Guadeloupe', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (360, N'PupilCountryQuestion', N'Leeward Islands Guadeloupe', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (361, N'PupilCountryQuestion', N'Leeward Islands Iles des Saintes', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (361, N'PupilCountryQuestion', N'Leeward Islands Iles des Saintes', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (362, N'PupilCountryQuestion', N'Leeward Islands La Desirade', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (362, N'PupilCountryQuestion', N'Leeward Islands La Desirade', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (363, N'PupilCountryQuestion', N'Leeward Islands Marie-Galante', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (363, N'PupilCountryQuestion', N'Leeward Islands Marie-Galante', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (364, N'PupilCountryQuestion', N'Leeward Islands Montserrat', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (364, N'PupilCountryQuestion', N'Leeward Islands Montserrat', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (365, N'PupilCountryQuestion', N'Leeward Islands Nevis', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (365, N'PupilCountryQuestion', N'Leeward Islands Nevis', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (366, N'PupilCountryQuestion', N'Leeward Islands Puerto Rican Virgin Islands/Spanish Virgin Islands', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (366, N'PupilCountryQuestion', N'Leeward Islands Puerto Rican Virgin Islands/Spanish Virgin Islands', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (367, N'PupilCountryQuestion', N'Leeward Islands Redonda', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (367, N'PupilCountryQuestion', N'Leeward Islands Redonda', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (368, N'PupilCountryQuestion', N'Leeward Islands Saba', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (368, N'PupilCountryQuestion', N'Leeward Islands Saba', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (369, N'PupilCountryQuestion', N'Leeward Islands Saint-Barthelemy', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (369, N'PupilCountryQuestion', N'Leeward Islands Saint-Barthelemy', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (370, N'PupilCountryQuestion', N'Leeward Islands Saint Kitts', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (370, N'PupilCountryQuestion', N'Leeward Islands Saint Kitts', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (371, N'PupilCountryQuestion', N'Leeward Islands Saint Martin/Sint Maarten', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (371, N'PupilCountryQuestion', N'Leeward Islands Saint Martin/Sint Maarten', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (372, N'PupilCountryQuestion', N'Leeward Islands Sint Eustatius', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (372, N'PupilCountryQuestion', N'Leeward Islands Sint Eustatius', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (373, N'PupilCountryQuestion', N'Leeward Islands U.S. Virgin Islands', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (373, N'PupilCountryQuestion', N'Leeward Islands U.S. Virgin Islands', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (374, N'PupilCountryQuestion', N'Peru', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (374, N'PupilCountryQuestion', N'Peru', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (375, N'PupilCountryQuestion', N'Philippines', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (375, N'PupilCountryQuestion', N'Philippines', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (376, N'PupilCountryQuestion', N'Poland', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (376, N'PupilCountryQuestion', N'Poland', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (377, N'PupilCountryQuestion', N'Portugal', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (377, N'PupilCountryQuestion', N'Portugal', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (378, N'PupilCountryQuestion', N'Puerto Rico', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (378, N'PupilCountryQuestion', N'Puerto Rico', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (379, N'PupilCountryQuestion', N'Qatar', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (379, N'PupilCountryQuestion', N'Qatar', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (380, N'PupilCountryQuestion', N'Republic of the Congo', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (380, N'PupilCountryQuestion', N'Republic of the Congo', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (381, N'PupilCountryQuestion', N'Reunion ', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (381, N'PupilCountryQuestion', N'Reunion ', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (382, N'PupilCountryQuestion', N'Romania', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (382, N'PupilCountryQuestion', N'Romania', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (383, N'PupilCountryQuestion', N'Russia', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (383, N'PupilCountryQuestion', N'Russia', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (384, N'PupilCountryQuestion', N'Rwanda', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (384, N'PupilCountryQuestion', N'Rwanda', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (385, N'PupilCountryQuestion', N'Saint Helena', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (385, N'PupilCountryQuestion', N'Saint Helena', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (386, N'PupilCountryQuestion', N'Saint Pierre and Miquelon', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (386, N'PupilCountryQuestion', N'Saint Pierre and Miquelon', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (387, N'PupilCountryQuestion', N'Samoa', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (387, N'PupilCountryQuestion', N'Samoa', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (388, N'PupilCountryQuestion', N'San Marino', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (388, N'PupilCountryQuestion', N'San Marino', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (389, N'PupilCountryQuestion', N'Sao Tome and Principe', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (389, N'PupilCountryQuestion', N'Sao Tome and Principe', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (390, N'PupilCountryQuestion', N'Saudi Arabia', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (390, N'PupilCountryQuestion', N'Saudi Arabia', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (391, N'PupilCountryQuestion', N'Scotland', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (391, N'PupilCountryQuestion', N'Scotland', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (392, N'PupilCountryQuestion', N'Senegal', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (392, N'PupilCountryQuestion', N'Senegal', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (393, N'PupilCountryQuestion', N'Serbia', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (393, N'PupilCountryQuestion', N'Serbia', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (394, N'PupilCountryQuestion', N'Seychelles', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (394, N'PupilCountryQuestion', N'Seychelles', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (395, N'PupilCountryQuestion', N'Sierra Leone', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (395, N'PupilCountryQuestion', N'Sierra Leone', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (396, N'PupilCountryQuestion', N'Singapore', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (396, N'PupilCountryQuestion', N'Singapore', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (397, N'PupilCountryQuestion', N'Slovakia', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (397, N'PupilCountryQuestion', N'Slovakia', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (398, N'PupilCountryQuestion', N'Slovenia', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (398, N'PupilCountryQuestion', N'Slovenia', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (399, N'PupilCountryQuestion', N'Solomon Islands', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (399, N'PupilCountryQuestion', N'Solomon Islands', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (400, N'PupilCountryQuestion', N'Somalia', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (400, N'PupilCountryQuestion', N'Somalia', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (401, N'PupilCountryQuestion', N'South Africa', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (401, N'PupilCountryQuestion', N'South Africa', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (402, N'PupilCountryQuestion', N'South Korea', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (402, N'PupilCountryQuestion', N'South Korea', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (403, N'PupilCountryQuestion', N'South Sudan', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (403, N'PupilCountryQuestion', N'South Sudan', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (404, N'PupilCountryQuestion', N'Spain', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (404, N'PupilCountryQuestion', N'Spain', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (405, N'PupilCountryQuestion', N'Sri Lanka', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (405, N'PupilCountryQuestion', N'Sri Lanka', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (406, N'PupilCountryQuestion', N'Sudan', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (406, N'PupilCountryQuestion', N'Sudan', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (407, N'PupilCountryQuestion', N'Suriname', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (407, N'PupilCountryQuestion', N'Suriname', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (408, N'PupilCountryQuestion', N'Swaziland', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (408, N'PupilCountryQuestion', N'Swaziland', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (409, N'PupilCountryQuestion', N'Sweden', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (409, N'PupilCountryQuestion', N'Sweden', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (410, N'PupilCountryQuestion', N'Chile', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (410, N'PupilCountryQuestion', N'Chile', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (411, N'PupilCountryQuestion', N'China', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (411, N'PupilCountryQuestion', N'China', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (412, N'PupilCountryQuestion', N'Christmas Island  ', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (412, N'PupilCountryQuestion', N'Christmas Island  ', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (413, N'PupilCountryQuestion', N'Cocos (Keeling) Islands', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (413, N'PupilCountryQuestion', N'Cocos (Keeling) Islands', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (414, N'PupilCountryQuestion', N'Colombia', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (414, N'PupilCountryQuestion', N'Colombia', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (415, N'PupilCountryQuestion', N'Comoros', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (415, N'PupilCountryQuestion', N'Comoros', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (416, N'PupilCountryQuestion', N'Cook Islands', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (416, N'PupilCountryQuestion', N'Cook Islands', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (417, N'PupilCountryQuestion', N'Costa Rica', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (417, N'PupilCountryQuestion', N'Costa Rica', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (418, N'PupilCountryQuestion', N'Croatia', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (418, N'PupilCountryQuestion', N'Croatia', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (419, N'PupilCountryQuestion', N'Cuba', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (419, N'PupilCountryQuestion', N'Cuba', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (420, N'PupilCountryQuestion', N'Curaçao', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (420, N'PupilCountryQuestion', N'Curaçao', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (421, N'PupilCountryQuestion', N'Cyprus', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (421, N'PupilCountryQuestion', N'Cyprus', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (422, N'PupilCountryQuestion', N'Czech Republic (Czechia)', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (422, N'PupilCountryQuestion', N'Czech Republic (Czechia)', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (423, N'PupilCountryQuestion', N'Democratic Republic of the Congo (formerly known as Zaire)', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (423, N'PupilCountryQuestion', N'Democratic Republic of the Congo (formerly known as Zaire)', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (424, N'PupilCountryQuestion', N'Democratic Republic of Timor-Leste (East Timor)', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (424, N'PupilCountryQuestion', N'Democratic Republic of Timor-Leste (East Timor)', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (425, N'PupilCountryQuestion', N'Denmark', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (425, N'PupilCountryQuestion', N'Denmark', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (426, N'PupilCountryQuestion', N'Djibouti', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (426, N'PupilCountryQuestion', N'Djibouti', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (427, N'PupilCountryQuestion', N'Dominican Republic', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (427, N'PupilCountryQuestion', N'Dominican Republic', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (428, N'PupilCountryQuestion', N'Ecuador', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (428, N'PupilCountryQuestion', N'Ecuador', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (429, N'PupilCountryQuestion', N'Egypt', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (429, N'PupilCountryQuestion', N'Egypt', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (430, N'PupilCountryQuestion', N'El Salvador', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (430, N'PupilCountryQuestion', N'El Salvador', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (431, N'PupilCountryQuestion', N'Equatorial Guinea', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (431, N'PupilCountryQuestion', N'Equatorial Guinea', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (432, N'PupilCountryQuestion', N'Eritrea', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (432, N'PupilCountryQuestion', N'Eritrea', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (433, N'PupilCountryQuestion', N'Estonia', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (433, N'PupilCountryQuestion', N'Estonia', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (434, N'PupilCountryQuestion', N'Ethiopia', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (434, N'PupilCountryQuestion', N'Ethiopia', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (435, N'PupilCountryQuestion', N'Falkland Islands', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (435, N'PupilCountryQuestion', N'Falkland Islands', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (436, N'PupilCountryQuestion', N'Faroe Islands', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (436, N'PupilCountryQuestion', N'Faroe Islands', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (437, N'PupilCountryQuestion', N'Fiji', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (437, N'PupilCountryQuestion', N'Fiji', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (438, N'PupilCountryQuestion', N'Finland', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (438, N'PupilCountryQuestion', N'Finland', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (439, N'PupilCountryQuestion', N'France', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (439, N'PupilCountryQuestion', N'France', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (440, N'PupilCountryQuestion', N'French Guiana', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (440, N'PupilCountryQuestion', N'French Guiana', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (441, N'PupilCountryQuestion', N'French Polynesia', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (441, N'PupilCountryQuestion', N'French Polynesia', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (442, N'PupilCountryQuestion', N'Gabon', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (442, N'PupilCountryQuestion', N'Gabon', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (443, N'PupilCountryQuestion', N'Gambia', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (443, N'PupilCountryQuestion', N'Gambia', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (444, N'PupilCountryQuestion', N'Georgia', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (444, N'PupilCountryQuestion', N'Georgia', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (445, N'PupilCountryQuestion', N'Germany', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (445, N'PupilCountryQuestion', N'Germany', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (446, N'PupilCountryQuestion', N'Ghana', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (446, N'PupilCountryQuestion', N'Ghana', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (447, N'PupilCountryQuestion', N'Gibraltar', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (447, N'PupilCountryQuestion', N'Gibraltar', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (448, N'PupilCountryQuestion', N'Greece', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (448, N'PupilCountryQuestion', N'Greece', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (449, N'PupilCountryQuestion', N'Greenland', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (449, N'PupilCountryQuestion', N'Greenland', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (450, N'PupilCountryQuestion', N'Guam ', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (450, N'PupilCountryQuestion', N'Guam ', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (451, N'PupilCountryQuestion', N'Guatemala', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (451, N'PupilCountryQuestion', N'Guatemala', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (452, N'PupilCountryQuestion', N'Guinea', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (452, N'PupilCountryQuestion', N'Guinea', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (453, N'PupilCountryQuestion', N'Guinea-Bissau', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (453, N'PupilCountryQuestion', N'Guinea-Bissau', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (454, N'PupilCountryQuestion', N'Lesotho', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (454, N'PupilCountryQuestion', N'Lesotho', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (455, N'PupilCountryQuestion', N'Liberia', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (455, N'PupilCountryQuestion', N'Liberia', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (456, N'PupilCountryQuestion', N'Libya', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (456, N'PupilCountryQuestion', N'Libya', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (457, N'PupilCountryQuestion', N'Liechtenstein', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (457, N'PupilCountryQuestion', N'Liechtenstein', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (458, N'PupilCountryQuestion', N'Lithuania', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (458, N'PupilCountryQuestion', N'Lithuania', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (459, N'PupilCountryQuestion', N'Luxembourg', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (459, N'PupilCountryQuestion', N'Luxembourg', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (460, N'PupilCountryQuestion', N'Macau ', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (460, N'PupilCountryQuestion', N'Macau ', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (461, N'PupilCountryQuestion', N'Madagascar', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (461, N'PupilCountryQuestion', N'Madagascar', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (462, N'PupilCountryQuestion', N'Malawi', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (462, N'PupilCountryQuestion', N'Malawi', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (463, N'PupilCountryQuestion', N'Malaysia', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (463, N'PupilCountryQuestion', N'Malaysia', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (464, N'PupilCountryQuestion', N'Maldives', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (464, N'PupilCountryQuestion', N'Maldives', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (465, N'PupilCountryQuestion', N'Mali', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (465, N'PupilCountryQuestion', N'Mali', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (466, N'PupilCountryQuestion', N'Malta', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (466, N'PupilCountryQuestion', N'Malta', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (467, N'PupilCountryQuestion', N'Marshall Islands ', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (467, N'PupilCountryQuestion', N'Marshall Islands ', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (468, N'PupilCountryQuestion', N'Mauritania', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (468, N'PupilCountryQuestion', N'Mauritania', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (469, N'PupilCountryQuestion', N'Mauritius', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (469, N'PupilCountryQuestion', N'Mauritius', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (470, N'PupilCountryQuestion', N'Mayotte ', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (470, N'PupilCountryQuestion', N'Mayotte ', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (471, N'PupilCountryQuestion', N'Mexico', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (471, N'PupilCountryQuestion', N'Mexico', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (472, N'PupilCountryQuestion', N'Micronesia', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (472, N'PupilCountryQuestion', N'Micronesia', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (473, N'PupilCountryQuestion', N'Moldova', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (473, N'PupilCountryQuestion', N'Moldova', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (474, N'PupilCountryQuestion', N'Monaco', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (474, N'PupilCountryQuestion', N'Monaco', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (475, N'PupilCountryQuestion', N'Mongolia', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (475, N'PupilCountryQuestion', N'Mongolia', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (476, N'PupilCountryQuestion', N'Montenegro', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (476, N'PupilCountryQuestion', N'Montenegro', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (477, N'PupilCountryQuestion', N'Montserrat ', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (477, N'PupilCountryQuestion', N'Montserrat ', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (478, N'PupilCountryQuestion', N'Morocco', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (478, N'PupilCountryQuestion', N'Morocco', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (479, N'PupilCountryQuestion', N'Mozambique', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (479, N'PupilCountryQuestion', N'Mozambique', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (480, N'PupilCountryQuestion', N'Myanmar (formally known as Burma)', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (480, N'PupilCountryQuestion', N'Myanmar (formally known as Burma)', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (481, N'PupilCountryQuestion', N'Namibia', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (481, N'PupilCountryQuestion', N'Namibia', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (482, N'PupilCountryQuestion', N'Nauru ', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (482, N'PupilCountryQuestion', N'Nauru ', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (483, N'PupilCountryQuestion', N'Nepal', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (483, N'PupilCountryQuestion', N'Nepal', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (484, N'PupilCountryQuestion', N'Netherlands (Holland)', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (484, N'PupilCountryQuestion', N'Netherlands (Holland)', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (485, N'PupilCountryQuestion', N'New Caledonia', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (485, N'PupilCountryQuestion', N'New Caledonia', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (486, N'PupilCountryQuestion', N'New Zealand', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (486, N'PupilCountryQuestion', N'New Zealand', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (487, N'PupilCountryQuestion', N'Nicaragua', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (487, N'PupilCountryQuestion', N'Nicaragua', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (488, N'PupilCountryQuestion', N'Niger', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (488, N'PupilCountryQuestion', N'Niger', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (489, N'PupilCountryQuestion', N'Nigeria', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (489, N'PupilCountryQuestion', N'Nigeria', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (490, N'PupilCountryQuestion', N'Niue', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (490, N'PupilCountryQuestion', N'Niue', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (491, N'PupilCountryQuestion', N'Norfolk Island ', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (491, N'PupilCountryQuestion', N'Norfolk Island ', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (492, N'PupilCountryQuestion', N'North Korea', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (492, N'PupilCountryQuestion', N'North Korea', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (493, N'PupilCountryQuestion', N'Northern Mariana Islands ', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (493, N'PupilCountryQuestion', N'Northern Mariana Islands ', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (494, N'PupilCountryQuestion', N'Norway', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (494, N'PupilCountryQuestion', N'Norway', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (495, N'PupilCountryQuestion', N'Oman', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (495, N'PupilCountryQuestion', N'Oman', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (496, N'PupilCountryQuestion', N'Pakistan', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (496, N'PupilCountryQuestion', N'Pakistan', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (497, N'PupilCountryQuestion', N'Palau', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (497, N'PupilCountryQuestion', N'Palau', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (498, N'PupilCountryQuestion', N'Palestine ', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (498, N'PupilCountryQuestion', N'Palestine ', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (499, N'PupilCountryQuestion', N'Panama', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (499, N'PupilCountryQuestion', N'Panama', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (500, N'PupilCountryQuestion', N'Papua New Guinea', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (500, N'PupilCountryQuestion', N'Papua New Guinea', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (501, N'PupilCountryQuestion', N'Paraguay', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (501, N'PupilCountryQuestion', N'Paraguay', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (502, N'PupilCountryQuestion', N'Switzerland', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (502, N'PupilCountryQuestion', N'Switzerland', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (503, N'PupilCountryQuestion', N'Syria', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (503, N'PupilCountryQuestion', N'Syria', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (504, N'PupilCountryQuestion', N'Taiwan', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (504, N'PupilCountryQuestion', N'Taiwan', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (505, N'PupilCountryQuestion', N'Tajikistan', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (505, N'PupilCountryQuestion', N'Tajikistan', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (506, N'PupilCountryQuestion', N'Tanzania', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (506, N'PupilCountryQuestion', N'Tanzania', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (507, N'PupilCountryQuestion', N'Thailand', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (507, N'PupilCountryQuestion', N'Thailand', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (508, N'PupilCountryQuestion', N'Togo', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (508, N'PupilCountryQuestion', N'Togo', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (509, N'PupilCountryQuestion', N'Tokelau', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (509, N'PupilCountryQuestion', N'Tokelau', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (510, N'PupilCountryQuestion', N'Tonga', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (510, N'PupilCountryQuestion', N'Tonga', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (511, N'PupilCountryQuestion', N'Tunisia', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (511, N'PupilCountryQuestion', N'Tunisia', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (512, N'PupilCountryQuestion', N'Turkey', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (512, N'PupilCountryQuestion', N'Turkey', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (513, N'PupilCountryQuestion', N'Turkmenistan', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (513, N'PupilCountryQuestion', N'Turkmenistan', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (514, N'PupilCountryQuestion', N'Turks and Caicos Islands', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (514, N'PupilCountryQuestion', N'Turks and Caicos Islands', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (515, N'PupilCountryQuestion', N'Tuvalu', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (515, N'PupilCountryQuestion', N'Tuvalu', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (516, N'PupilCountryQuestion', N'Uganda', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (516, N'PupilCountryQuestion', N'Uganda', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (517, N'PupilCountryQuestion', N'Ukraine', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (517, N'PupilCountryQuestion', N'Ukraine', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (518, N'PupilCountryQuestion', N'United Arab Emirates', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (518, N'PupilCountryQuestion', N'United Arab Emirates', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (519, N'PupilCountryQuestion', N'Uruguay', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (519, N'PupilCountryQuestion', N'Uruguay', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (520, N'PupilCountryQuestion', N'USA', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (520, N'PupilCountryQuestion', N'USA', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (521, N'PupilCountryQuestion', N'Uzbekistan', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (521, N'PupilCountryQuestion', N'Uzbekistan', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (522, N'PupilCountryQuestion', N'Vanuatu', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (522, N'PupilCountryQuestion', N'Vanuatu', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (523, N'PupilCountryQuestion', N'Venezuela', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (523, N'PupilCountryQuestion', N'Venezuela', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (524, N'PupilCountryQuestion', N'Vietnam', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (524, N'PupilCountryQuestion', N'Vietnam', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (525, N'PupilCountryQuestion', N'Wales', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (525, N'PupilCountryQuestion', N'Wales', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (526, N'PupilCountryQuestion', N'Wallis and Futuna', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (526, N'PupilCountryQuestion', N'Wallis and Futuna', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (527, N'PupilCountryQuestion', N'Western Sahara', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (527, N'PupilCountryQuestion', N'Western Sahara', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (528, N'PupilCountryQuestion', N'Windward Islands ', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (528, N'PupilCountryQuestion', N'Windward Islands ', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (529, N'PupilCountryQuestion', N'Windward Islands  Dominica', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (529, N'PupilCountryQuestion', N'Windward Islands  Dominica', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (530, N'PupilCountryQuestion', N'Windward Islands  Martinique', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (530, N'PupilCountryQuestion', N'Windward Islands  Martinique', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (531, N'PupilCountryQuestion', N'Windward Islands  Saint Lucia', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (531, N'PupilCountryQuestion', N'Windward Islands  Saint Lucia', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (532, N'PupilCountryQuestion', N'Windward Islands  Saint Vincent and the Grenadines', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (532, N'PupilCountryQuestion', N'Windward Islands  Saint Vincent and the Grenadines', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (533, N'PupilCountryQuestion', N'Windward Islands  Grenada', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (533, N'PupilCountryQuestion', N'Windward Islands  Grenada', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (534, N'PupilCountryQuestion', N'Windward Islands  Trinidad and Tobago', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (534, N'PupilCountryQuestion', N'Windward Islands  Trinidad and Tobago', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (535, N'PupilCountryQuestion', N'Yemen', NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (535, N'PupilCountryQuestion', N'Yemen', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (536, N'PupilCountryQuestion', N'Zambia', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (536, N'PupilCountryQuestion', N'Zambia', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (537, N'PupilCountryQuestion', N'Zimbabwe', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (537, N'PupilCountryQuestion', N'Zimbabwe', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (538, N'PupilCountryQuestion', N'Other', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (538, N'PupilCountryQuestion', N'Other', 1)
 GO
 SET IDENTITY_INSERT [dbo].[PotentialAnswers] OFF
 GO
@@ -1891,6 +1889,8 @@ GO
 INSERT [dbo].[YearGroups] ([YearGroupCode], [YearGroupDescription]) VALUES (N'R ', N'Reception')
 GO
 INSERT [dbo].[YearGroups] ([YearGroupCode], [YearGroupDescription]) VALUES (N'X ', N'National Curriculum not followed')
+GO
+ALTER TABLE [dbo].[PotentialAnswers] ADD  CONSTRAINT [DF_PotentialAnswers_IsRejected]  DEFAULT ((0)) FOR [IsRejected]
 GO
 ALTER TABLE [dbo].[PINCLInclusionAdjustments]  WITH CHECK ADD  CONSTRAINT [FK_PINCLNORAdjustments_NORAdjustmentReasons] FOREIGN KEY([IncAdjReasonID])
 REFERENCES [dbo].[InclusionAdjustmentReasons] ([IncAdjReasonID])

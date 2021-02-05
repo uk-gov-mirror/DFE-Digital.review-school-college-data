@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Reflection.Metadata.Ecma335;
 using System.Text.RegularExpressions;
+using Dfe.Rscd.Api.Domain.Common;
 
 namespace Dfe.Rscd.Api.Domain.Entities.Questions
 {
@@ -64,14 +65,15 @@ namespace Dfe.Rscd.Api.Domain.Entities.Questions
 
         private static bool DateMatch(string givenValue, Func<DateTime, bool> check=null)
         {
-            if(DateTime.TryParseExact(givenValue, "dd-MM-yyyy", new CultureInfo("en-GB"), DateTimeStyles.None, out var newDate))
+            var newDate = givenValue.ToDateTime("dd/MM/yyyy");
+            if(newDate != null)
             {
                 if (check == null)
                 {
                     return true;
                 }
 
-                if (check(newDate))
+                if (check(newDate.Value))
                 {
                     return true;
                 }

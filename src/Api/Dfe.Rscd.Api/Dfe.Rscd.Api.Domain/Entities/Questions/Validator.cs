@@ -36,7 +36,5 @@ namespace Dfe.Rscd.Api.Domain.Entities.Questions
             return errors;
         }
 
-
-        
     }
 }

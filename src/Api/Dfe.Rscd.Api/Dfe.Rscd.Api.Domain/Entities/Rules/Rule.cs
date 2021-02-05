@@ -44,16 +44,20 @@ namespace Dfe.Rscd.Api.Domain.Entities
                 }
             }
 
-            if (amendment.Answers == null || amendment.Answers.Count == 0)
+            if (errorMessages.Count > 0)
+            {
+                return new AmendmentOutcome(questions, errorMessages);
+            }
+
+            if (amendment.Answers == null || amendment.Answers
+                .Where(x => !x.QuestionId.Contains("."))
+                .Select(x => x.QuestionId)
+                .Distinct()
+                .Count() < questions.Count)
             {
                 return new AmendmentOutcome(questions);
             }
 
-            if (errorMessages.Count > 0 && amendment.Answers != null && amendment.Answers.Count > 0)
-            {
-                return new AmendmentOutcome(questions, errorMessages);
-            }
-            
             AmendmentOutcome amendmentOutcome = ApplyRule(amendment);
 
             ApplyOutcomeToAmendment(amendment, amendmentOutcome);

@@ -23,19 +23,23 @@ namespace Dfe.Rscd.Api.Services
             {
                 var outcome = ruleSet.Apply(amendment);
 
-                if (amendment.EvidenceStatus == EvidenceStatus.Later)
+                if (outcome.OutcomeStatus != OutcomeStatus.AwaitingValidationPass)
                 {
-                    amendmentDto.rscd_Outcome = rscd_Outcome.Awaitingevidence;
-                }
-                else
-                {
-                    if (outcome.OutcomeStatus == OutcomeStatus.AutoAccept)
-                        amendmentDto.rscd_Outcome = rscd_Outcome.Autoapproved;
-                    else if (outcome.OutcomeStatus == OutcomeStatus.AutoReject)
-                        amendmentDto.rscd_Outcome = rscd_Outcome.Autorejected;
+                    if (amendment.EvidenceStatus == EvidenceStatus.Later)
+                    {
+                        amendmentDto.rscd_Outcome = rscd_Outcome.Awaitingevidence;
+                    }
                     else
-                        amendmentDto.rscd_Outcome = rscd_Outcome.AwaitingDfEreview;
+                    {
+                        if (outcome.OutcomeStatus == OutcomeStatus.AutoAccept)
+                            amendmentDto.rscd_Outcome = rscd_Outcome.Autoapproved;
+                        else if (outcome.OutcomeStatus == OutcomeStatus.AutoReject)
+                            amendmentDto.rscd_Outcome = rscd_Outcome.Autorejected;
+                        else
+                            amendmentDto.rscd_Outcome = rscd_Outcome.AwaitingDfEreview;
+                    }
                 }
+                
 
                 return outcome;
             }

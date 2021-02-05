@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
+using System.Linq;
 using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Domain.Entities.Questions;
 using Dfe.Rscd.Api.Services;
@@ -25,7 +25,7 @@ namespace Dfe.Rscd.Api.UnitTests
         {
             var dataService = new Mock<IDataService>();
             dataService.Setup(x => x.GetAnswerPotentials(It.IsAny<string>())).Returns(new List<AnswerPotential>());
-            var admittedFromAbroadRules = new RemovePupilAdmittedFromAbroadRule(dataService.Object);
+            var admittedFromAbroadRules = new RemovePupilAdmittedFromAbroadRule(dataService.Object, null);
 
             var outcome = admittedFromAbroadRules.Apply(new Amendment()
             {
@@ -44,26 +44,63 @@ namespace Dfe.Rscd.Api.UnitTests
         }
 
         [Fact]
-        public void ItShouldShowNoErrorIfAnswerIsNotNull()
+        public void ItShouldShowErrorIfDateIsNotEntered()
         {
             var dataService = new Mock<IDataService>();
             dataService.Setup(x => x.GetAnswerPotentials(It.IsAny<string>())).Returns(new List<AnswerPotential>());
-            var admittedFromAbroadRules = new RemovePupilAdmittedFromAbroadRule(dataService.Object);
+            var admittedFromAbroadRules = new RemovePupilAdmittedFromAbroadRule(dataService.Object, null);
 
             var outcome = admittedFromAbroadRules.Apply(new Amendment()
             {
                 Answers = new List<UserAnswer>
                 {
-                    new UserAnswer{Value = "Other", QuestionId = "PupilNativeLanguageQuestion"},
-                    new UserAnswer{Value = "Afrikaans", QuestionId = "PupilNativeLanguageQuestion.Other"},
-                    new UserAnswer{Value = "Other", QuestionId = "PupilCountryQuestion"},
-                    new UserAnswer{Value = "Belarus", QuestionId = "PupilCountryQuestion.Other"},
-                    new UserAnswer{Value = "23-10-2017", QuestionId = "ArrivalDateQuestion"}
+                    new UserAnswer{Value = "", QuestionId = "ArrivalDateQuestion"}
                 }
             });
 
-            Assert.True(outcome.ValidationErrors == null);
-            Assert.True(outcome.IsComplete);
+            Assert.True(outcome.ValidationErrors.Count == 1);
+            Assert.True(outcome.ValidationErrors.First().Key == nameof(ArrivalDateQuestion));
+            Assert.True(outcome.IsComplete == false);
+        }
+
+        [Fact]
+        public void ItShouldShowErrorIfAnswerIsNotEntered()
+        {
+            var dataService = new Mock<IDataService>();
+            dataService.Setup(x => x.GetAnswerPotentials(It.IsAny<string>())).Returns(new List<AnswerPotential>());
+            var admittedFromAbroadRules = new RemovePupilAdmittedFromAbroadRule(dataService.Object, null);
+
+            var outcome = admittedFromAbroadRules.Apply(new Amendment()
+            {
+                Answers = new List<UserAnswer>
+                {
+                    new UserAnswer{Value = "", QuestionId = nameof(PupilCountryQuestion)}
+                }
+            });
+
+            Assert.True(outcome.ValidationErrors.Count == 1);
+            Assert.True(outcome.ValidationErrors.First().Key == nameof(PupilCountryQuestion));
+            Assert.True(outcome.IsComplete == false);
+        }
+
+        [Fact]
+        public void ItShouldShowErrorIfDateIsNotValid()
+        {
+            var dataService = new Mock<IDataService>();
+            dataService.Setup(x => x.GetAnswerPotentials(It.IsAny<string>())).Returns(new List<AnswerPotential>());
+            var admittedFromAbroadRules = new RemovePupilAdmittedFromAbroadRule(dataService.Object, null);
+
+            var outcome = admittedFromAbroadRules.Apply(new Amendment()
+            {
+                Answers = new List<UserAnswer>
+                {
+                    new UserAnswer{Value = "23/10/2021", QuestionId = "ArrivalDateQuestion"}
+                }
+            });
+
+            Assert.True(outcome.ValidationErrors.Count == 1);
+            Assert.True(outcome.ValidationErrors.First().Key == nameof(ArrivalDateQuestion));
+            Assert.True(outcome.IsComplete == false);
         }
 
         [Fact]
@@ -89,7 +126,7 @@ namespace Dfe.Rscd.Api.UnitTests
         {
             var dataService = new Mock<IDataService>();
             dataService.Setup(x => x.GetAnswerPotentials(It.IsAny<string>())).Returns(new List<AnswerPotential>());
-            var admittedFromAbroadRules = new RemovePupilAdmittedFromAbroadRule(dataService.Object);
+            var admittedFromAbroadRules = new RemovePupilAdmittedFromAbroadRule(dataService.Object, null);
 
             var outcome = admittedFromAbroadRules.Apply(new Amendment());
 

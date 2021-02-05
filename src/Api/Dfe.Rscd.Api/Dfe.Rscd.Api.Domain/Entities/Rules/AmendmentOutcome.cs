@@ -24,14 +24,20 @@ namespace Dfe.Rscd.Api.Domain.Entities
         public OutcomeStatus OutcomeStatus { get; set; }
 
         public EvidenceStatus EvidenceStatus { get; set; }
-        public string Message { get; set; }
 
-        public AmendmentOutcome(OutcomeStatus status, string message)
+        public AmendmentOutcome(OutcomeStatus status, string scrutinyDetail)
         {
             OutcomeStatus = status;
             IsComplete = true;
             FurtherQuestions = null;
-            Message = message;
+            ScrutinyStatusCode = scrutinyDetail;
+        }
+
+        public AmendmentOutcome(OutcomeStatus status)
+        {
+            OutcomeStatus = status;
+            IsComplete = true;
+            FurtherQuestions = null;
         }
 
         public AmendmentOutcome(List<Question> questions, Dictionary<string, List<string>> errors)

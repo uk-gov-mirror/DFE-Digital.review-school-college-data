@@ -6,7 +6,6 @@ using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
 using Dfe.Rscd.Web.ApiClient;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.SharePoint.Client;
 using ProblemDetails = Dfe.Rscd.Web.ApiClient.ProblemDetails;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
