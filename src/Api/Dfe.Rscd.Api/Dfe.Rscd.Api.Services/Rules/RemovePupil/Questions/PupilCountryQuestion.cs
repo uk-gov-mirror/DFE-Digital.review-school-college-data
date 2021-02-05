@@ -14,7 +14,7 @@ namespace Dfe.Rscd.Api.Services.Rules
         {
             var nonConditionalQuestion =
                 new SelectQuestion(
-                    "PupilCountryQuestion",
+                    nameof(PupilCountryQuestion),
                     "Pupil's originating country",
                     "Select pupil's originating country",
                     countries, new Validator
@@ -28,7 +28,7 @@ namespace Dfe.Rscd.Api.Services.Rules
             SetupNonConditionalQuestion(nonConditionalQuestion);
 
             var conditionalQuestion = new StringQuestion(
-                "PupilCountryQuestion.Other",
+                $"{nameof(PupilCountryQuestion)}.Other",
                 "Select pupil's originating country",
                 "You have selected 'Other'. Please enter the pupil's originating country.", new Validator
                 {

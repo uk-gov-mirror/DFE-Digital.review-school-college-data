@@ -771,6 +771,9 @@ namespace Dfe.Rscd.Web.ApiClient
         [System.Runtime.Serialization.EnumMember(Value = @"Boolean")]
         Boolean = 4,
     
+        [System.Runtime.Serialization.EnumMember(Value = @"NullableDate")]
+        NullableDate = 5,
+    
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.3.3.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -842,6 +845,9 @@ namespace Dfe.Rscd.Web.ApiClient
     
         [System.Runtime.Serialization.EnumMember(Value = @"AwatingDfeReview")]
         AwatingDfeReview = 3,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"AwaitingValidationPass")]
+        AwaitingValidationPass = 4,
     
     }
     

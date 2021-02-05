@@ -22,14 +22,10 @@ namespace Dfe.Rscd.Api.Infrastructure.SqlServer.DTOs
         internal virtual DbSet<AmendCode> AmendCodes { get; set; }
         internal virtual DbSet<AwardingBody> AwardingBodies { get; set; }
         internal virtual DbSet<Ethnicity> Ethnicities { get; set; }
-        internal virtual DbSet<InclusionAdjustmentReason> InclusionAdjustmentReasons { get; set; }
         internal virtual DbSet<Language> Languages { get; set; }
+        internal virtual DbSet<InclusionAdjustmentReason> InclusionAdjustmentReasons { get; set; }
         internal virtual DbSet<Pincl> Pincls { get; set; }
-        internal virtual DbSet<PinclinclusionAdjDatum> PinclinclusionAdjData { get; set; }
-        internal virtual DbSet<PinclinclusionAdjustment> PinclinclusionAdjustments { get; set; }
-        internal virtual DbSet<Prompt> Prompts { get; set; }
-        internal virtual DbSet<PromptResponse> PromptResponses { get; set; }
-        internal virtual DbSet<PromptType> PromptTypes { get; set; }
+        internal virtual DbSet<PotentialAnswer> PotentialAnswers { get; set; }
         internal virtual DbSet<Senstatus> Senstatuses { get; set; }
         internal virtual DbSet<YearGroup> YearGroups { get; set; }
 
@@ -87,6 +83,21 @@ namespace Dfe.Rscd.Api.Infrastructure.SqlServer.DTOs
                     .HasColumnName("Was_Other");
             });
 
+            modelBuilder.Entity<Language>(entity =>
+            {
+                entity.HasKey(e => e.LanguageCode);
+
+                entity.Property(e => e.LanguageCode)
+                    .HasMaxLength(5)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.LanguageDescription)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
+
+
             modelBuilder.Entity<Ethnicity>(entity =>
             {
                 entity.HasKey(e => e.EthnicityCode);
@@ -129,20 +140,6 @@ namespace Dfe.Rscd.Api.Infrastructure.SqlServer.DTOs
                 entity.Property(e => e.IsNewStudentReason);
             });
 
-            modelBuilder.Entity<Language>(entity =>
-            {
-                entity.HasKey(e => e.LanguageCode);
-
-                entity.Property(e => e.LanguageCode)
-                    .HasMaxLength(5)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.LanguageDescription)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-            });
-
             modelBuilder.Entity<Pincl>(entity =>
             {
                 entity.HasKey(e => e.PIncl1);
@@ -163,35 +160,6 @@ namespace Dfe.Rscd.Api.Infrastructure.SqlServer.DTOs
                     .IsRequired()
                     .HasMaxLength(1000)
                     .HasColumnName("P_INCLDescription");
-            });
-
-            modelBuilder.Entity<PinclinclusionAdjDatum>(entity =>
-            {
-                entity.HasKey(e => new { e.PinclinclusionAdjustmentsPIncl, e.PinclinclusionAdjustmentsIncAdjReasonId, e.PromptsPromptId });
-
-                entity.ToTable("PINCLInclusionAdjData");
-
-                entity.Property(e => e.PinclinclusionAdjustmentsPIncl)
-                    .HasMaxLength(3)
-                    .IsUnicode(false)
-                    .HasColumnName("PINCLInclusionAdjustments_P_INCL")
-                    .IsFixedLength(true);
-
-                entity.Property(e => e.PinclinclusionAdjustmentsIncAdjReasonId).HasColumnName("PINCLInclusionAdjustments_IncAdjReasonID");
-
-                entity.Property(e => e.PromptsPromptId).HasColumnName("Prompts_PromptID");
-
-                entity.HasOne(d => d.PromptsPrompt)
-                    .WithMany(p => p.PinclinclusionAdjData)
-                    .HasForeignKey(d => d.PromptsPromptId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_PINCLInclusionAdjData_Prompts");
-
-                entity.HasOne(d => d.PinclinclusionAdjustments)
-                    .WithMany(p => p.PinclinclusionAdjData)
-                    .HasForeignKey(d => new { d.PinclinclusionAdjustmentsPIncl, d.PinclinclusionAdjustmentsIncAdjReasonId })
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_PINCLInclusionAdjData_PINCLInclusionAdjustments");
             });
 
             modelBuilder.Entity<PinclinclusionAdjustment>(entity =>
@@ -221,64 +189,13 @@ namespace Dfe.Rscd.Api.Infrastructure.SqlServer.DTOs
                     .HasConstraintName("FK_PINCLNORAdjustments_PINCLs");
             });
 
-            modelBuilder.Entity<Prompt>(entity =>
+            modelBuilder.Entity<PotentialAnswer>(entity =>
             {
-                entity.Property(e => e.PromptId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("PromptID");
+                entity.HasKey(e => new { e.Id });
 
-                entity.Property(e => e.ColumnName)
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
-
-                entity.Property(x => x.IsConditional);
-
-                entity.Property(e => e.PromptShortText)
-                    .HasMaxLength(1000)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.PromptText)
-                    .IsRequired()
-                    .HasMaxLength(1000)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.PromptTypesPromptTypeId).HasColumnName("PromptTypes_PromptTypeID");
-
-                entity.HasOne(d => d.PromptTypesPromptType)
-                    .WithMany(p => p.Prompts)
-                    .HasForeignKey(d => d.PromptTypesPromptTypeId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Prompts_PromptTypes");
-            });
-
-            modelBuilder.Entity<PromptResponse>(entity =>
-            {
-                entity.HasKey(e => new { e.PromptId, e.ListOrder });
-
-                entity.Property(e => e.PromptId).HasColumnName("PromptID");
-
-                entity.Property(e => e.ListValue)
-                    .IsRequired()
-                    .HasMaxLength(70)
-                    .IsUnicode(false);
-
-                entity.HasOne(d => d.Prompt)
-                    .WithMany(p => p.PromptResponses)
-                    .HasForeignKey(d => d.PromptId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_PromptResponses_Prompts");
-            });
-
-            modelBuilder.Entity<PromptType>(entity =>
-            {
-                entity.Property(e => e.PromptTypeId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("PromptTypeID");
-
-                entity.Property(e => e.PromptTypeName)
-                    .IsRequired()
-                    .HasMaxLength(10)
-                    .IsUnicode(false);
+                entity.Property(e => e.QuestionId);
+                entity.Property(e => e.AnswerValue);
+                entity.Property(e => e.Rejected);
             });
 
             modelBuilder.Entity<Senstatus>(entity =>

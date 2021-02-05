@@ -17,20 +17,11 @@ namespace Dfe.Rscd.Api.Services.Rules
 
         public override List<Question> GetQuestions()
         {
-            var countries = new List<AnswerPotential>
-            {
-                new AnswerPotential {Value = "1", Description = "France"},
-                new AnswerPotential {Value = "2", Description = "United States of America"},
-                new AnswerPotential {Value = "3", Description = "Nigeria"},
-                new AnswerPotential {Value = "4", Description = "South Africa"},
-                new AnswerPotential {Value = "5", Description = "India"},
-                new AnswerPotential {Value = "?", Description = "Other"}
-            };
-            var languages = _dataService.GetLanguages().ToList()
-                .Select(x => new AnswerPotential { Value = x.Code, Description = x.Description }).ToList();
+            var countries = _dataService.GetAnswerPotentials(nameof(PupilCountryQuestion));
+            var languages = _dataService.GetAnswerPotentials(nameof(PupilNativeLanguageQuestion));
 
-            var nativeLanguageQuestion = new PupilNativeLanguageQuestion(languages);
-            var countryQuestion = new PupilCountryQuestion(countries);
+            var nativeLanguageQuestion = new PupilNativeLanguageQuestion(languages.ToList());
+            var countryQuestion = new PupilCountryQuestion(countries.ToList());
             var pupilArrivalToUk = new ArrivalDateQuestion();
 
             return new List<Question> {nativeLanguageQuestion, countryQuestion, pupilArrivalToUk};

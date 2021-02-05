@@ -6,19 +6,16 @@
                 @Model.Title
             </h1>
         </legend>
-        <div id="changed-name-hint" class="govuk-hint">
+        <label class="govuk-label" for="sort">
             @Model.Answer.Label
-        </div>
-        <div class="govuk-radios govuk-radios--inline">
-            @foreach (var opt in Model.Answer.AnswerPotentials)
+        </label>
+        <select class="govuk-select" id="select" name="select">
+            <option value="">Please select</option>
+            @foreach (var potential in Model.Answer.AnswerPotentials)
             {
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="@opt.Value" name="select" type="radio" value="@opt.Value">
-                    <label class="govuk-label govuk-radios__label" for="@opt.Value">
-                        @opt.Description
-                    </label>
-                </div>
+                <option value="@potential.Value">@potential.Description</option>
             }
-        </div>
+        </select>
     </fieldset>
 </div>
+

@@ -9,7 +9,6 @@ namespace Dfe.Rscd.Api.Infrastructure.SqlServer.DTOs
     {
         internal PinclinclusionAdjustment()
         {
-            PinclinclusionAdjData = new HashSet<PinclinclusionAdjDatum>();
         }
 
         internal string PIncl { get; set; }
@@ -17,6 +16,5 @@ namespace Dfe.Rscd.Api.Infrastructure.SqlServer.DTOs
 
         internal virtual InclusionAdjustmentReason IncAdjReason { get; set; }
         internal virtual Pincl PInclNavigation { get; set; }
-        internal virtual ICollection<PinclinclusionAdjDatum> PinclinclusionAdjData { get; set; }
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using Dfe.CspdAlpha.Web.Application.Application.Helpers;
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
@@ -5,13 +6,13 @@ using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments;
 using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
 using Dfe.Rscd.Web.ApiClient;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.SharePoint.Client;
 using ProblemDetails = Dfe.Rscd.Web.ApiClient.ProblemDetails;
 
 namespace Dfe.CspdAlpha.Web.Application.Controllers
 {
     public class AmendmentsController : SessionController
     {
-        private const string NotshowedYet = "NotShowed";
         private readonly IAmendmentService _amendmentService;
 
         public AmendmentsController(IAmendmentService amendmentService)
@@ -129,22 +130,60 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             return View("Received", viewModel);
         }
 
+        private bool ThisQuestionIsTheConditionalQuestion(Question thisQuestion, string promptAnswer)
+        {
+            if (thisQuestion.Answer.AnswerPotentials == null || thisQuestion.Answer.AnswerPotentials.Count == 0 || promptAnswer == string.Empty)
+            {
+                return thisQuestion.Answer.ConditionalValue == promptAnswer;
+            }
+
+            var answerText = thisQuestion.Answer.AnswerPotentials.Single(x => x.Value == promptAnswer).Description;
+
+            return thisQuestion.Answer.ConditionalValue == promptAnswer || thisQuestion.Answer.ConditionalValue == answerText;
+        }
+
+        private Question FindQuestion(IList<Question> questions, string questionId)
+        {
+            var thisQuestion = questions.SingleOrDefault(x => x.Id == questionId);
+            if (thisQuestion == null)
+            {
+                return questions.Select(x => x.Answer.ConditionalQuestion).Single(x => x != null && x.Id == questionId);
+            }
+
+            return thisQuestion;
+        }
+
         [HttpPost]
         public IActionResult Prompt(PromptAnswerViewModel promptAnswerViewModel)
         {
             var questions = GetQuestions();
             var promptAnswer = promptAnswerViewModel.GetAnswerAsString(Request.Form);
 
+            var thisQuestion = FindQuestion(questions, promptAnswerViewModel.QuestionId);
+            
+            
             SaveAnswer(new UserAnswer{ QuestionId = promptAnswerViewModel.QuestionId, Value = promptAnswer });
             var amendment = GetAmendment();
 
+            if (thisQuestion.Answer.HasConditional && ThisQuestionIsTheConditionalQuestion(thisQuestion, promptAnswer))
+            {
+                var conditionalViewModel = new QuestionViewModel(questions, promptAnswerViewModel.CurrentIndex)
+                {
+                    PupilDetails = new PupilViewModel(amendment.Pupil),
+                    ShowConditional = true
+                };
+
+                return View("Prompt", conditionalViewModel);
+            }
+            
             var outcome = _amendmentService.CreateAmendment(amendment);
 
             if (outcome.ValidationErrors != null && outcome.ValidationErrors.Count > 0)
             {
                 var errorsPromptViewModel = new QuestionViewModel(questions, promptAnswerViewModel.CurrentIndex, outcome.ValidationErrors)
                 {
-                    PupilDetails = new PupilViewModel(amendment.Pupil)
+                    PupilDetails = new PupilViewModel(amendment.Pupil),
+                    ShowConditional = thisQuestion.Answer.IsConditional
                 };
 
                 return View("Prompt", errorsPromptViewModel);

@@ -1,4 +1,6 @@
-/****** Object:  Table [dbo].[AmendCodes]    Script Date: 27/01/2021 12:29:25 ******/
+USE [rscd]
+GO
+/****** Object:  Table [dbo].[AmendCodes]    Script Date: 05/02/2021 13:50:33 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -12,7 +14,7 @@ CREATE TABLE [dbo].[AmendCodes](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[AwardingBodies]    Script Date: 27/01/2021 12:29:25 ******/
+/****** Object:  Table [dbo].[AwardingBodies]    Script Date: 05/02/2021 13:50:33 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -30,7 +32,7 @@ CREATE TABLE [dbo].[AwardingBodies](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Ethnicities]    Script Date: 27/01/2021 12:29:25 ******/
+/****** Object:  Table [dbo].[Ethnicities]    Script Date: 05/02/2021 13:50:33 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -45,7 +47,7 @@ CREATE TABLE [dbo].[Ethnicities](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[InclusionAdjustmentReasons]    Script Date: 27/01/2021 12:29:25 ******/
+/****** Object:  Table [dbo].[InclusionAdjustmentReasons]    Script Date: 05/02/2021 13:50:33 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -64,7 +66,7 @@ CREATE TABLE [dbo].[InclusionAdjustmentReasons](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Languages]    Script Date: 27/01/2021 12:29:25 ******/
+/****** Object:  Table [dbo].[Languages]    Script Date: 05/02/2021 13:50:33 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -78,24 +80,7 @@ CREATE TABLE [dbo].[Languages](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[PINCLInclusionAdjData]    Script Date: 27/01/2021 12:29:25 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[PINCLInclusionAdjData](
-	[PINCLInclusionAdjustments_P_INCL] [char](3) NOT NULL,
-	[PINCLInclusionAdjustments_IncAdjReasonID] [smallint] NOT NULL,
-	[Prompts_PromptID] [smallint] NOT NULL,
- CONSTRAINT [PK_PINCLInclusionAdjData] PRIMARY KEY CLUSTERED 
-(
-	[PINCLInclusionAdjustments_P_INCL] ASC,
-	[PINCLInclusionAdjustments_IncAdjReasonID] ASC,
-	[Prompts_PromptID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[PINCLInclusionAdjustments]    Script Date: 27/01/2021 12:29:25 ******/
+/****** Object:  Table [dbo].[PINCLInclusionAdjustments]    Script Date: 05/02/2021 13:50:33 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -110,7 +95,7 @@ CREATE TABLE [dbo].[PINCLInclusionAdjustments](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[PINCLs]    Script Date: 27/01/2021 12:29:25 ******/
+/****** Object:  Table [dbo].[PINCLs]    Script Date: 05/02/2021 13:50:33 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -125,57 +110,23 @@ CREATE TABLE [dbo].[PINCLs](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[PromptResponses]    Script Date: 27/01/2021 12:29:25 ******/
+/****** Object:  Table [dbo].[PotentialAnswers]    Script Date: 05/02/2021 13:50:33 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[PromptResponses](
-	[PromptID] [smallint] NOT NULL,
-	[ListOrder] [smallint] NOT NULL,
-	[ListValue] [varchar](70) NOT NULL,
-	[Rejected] [bit] NOT NULL,
- CONSTRAINT [PK_PromptResponses] PRIMARY KEY CLUSTERED 
+CREATE TABLE [dbo].[PotentialAnswers](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[QuestionId] [nvarchar](150) NOT NULL,
+	[AnswerValue] [nvarchar](150) NOT NULL,
+	[Rejected] [bit] NULL,
+ CONSTRAINT [PK_PotentialAnswers] PRIMARY KEY CLUSTERED 
 (
-	[PromptID] ASC,
-	[ListOrder] ASC
+	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Prompts]    Script Date: 27/01/2021 12:29:25 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[Prompts](
-	[PromptID] [smallint] NOT NULL,
-	[PromptText] [varchar](1000) NOT NULL,
-	[IsConditional] [bit] NOT NULL,
-	[AllowNulls] [bit] NOT NULL,
-	[PromptTypes_PromptTypeID] [smallint] NOT NULL,
-	[ColumnName] [varchar](20) NULL,
-	[PromptShortText] [varchar](1000) NULL,
- CONSTRAINT [PK_Prompts] PRIMARY KEY CLUSTERED 
-(
-	[PromptID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[PromptTypes]    Script Date: 27/01/2021 12:29:25 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[PromptTypes](
-	[PromptTypeID] [smallint] NOT NULL,
-	[PromptTypeName] [varchar](10) NOT NULL,
- CONSTRAINT [PK_PromptTypes] PRIMARY KEY CLUSTERED 
-(
-	[PromptTypeID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[SENStatus]    Script Date: 27/01/2021 12:29:25 ******/
+/****** Object:  Table [dbo].[SENStatus]    Script Date: 05/02/2021 13:50:33 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -189,7 +140,7 @@ CREATE TABLE [dbo].[SENStatus](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[YearGroups]    Script Date: 27/01/2021 12:29:25 ******/
+/****** Object:  Table [dbo].[YearGroups]    Script Date: 05/02/2021 13:50:33 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -523,620 +474,6 @@ INSERT [dbo].[Languages] ([LanguageCode], [LanguageDescription]) VALUES (N'OTH',
 GO
 INSERT [dbo].[Languages] ([LanguageCode], [LanguageDescription]) VALUES (N'REF', N'Refused')
 GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'201', 8, 801)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'201', 8, 802)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'201', 8, 803)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'201', 8, 804)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'201', 8, 22200)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'201', 8, 22210)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'201', 8, 22220)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'201', 8, 22230)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'201', 212, 21200)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'201', 213, 21310)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'201', 213, 21320)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'201', 213, 21330)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'201', 218, 21801)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'201', 218, 21810)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'201', 218, 21820)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'201', 218, 21830)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'201', 218, 21840)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'201', 219, 21900)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'202', 213, 21310)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'202', 213, 21320)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'202', 213, 21330)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'299', 8, 801)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'299', 8, 802)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'299', 8, 803)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'299', 8, 804)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'299', 8, 21600)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'299', 8, 21610)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'299', 8, 21620)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'299', 8, 21630)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'299', 218, 21801)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'299', 218, 21810)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'299', 218, 21820)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'299', 218, 21830)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'299', 218, 21840)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'301', 8, 801)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'301', 8, 802)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'301', 8, 803)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'301', 8, 804)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'301', 8, 32200)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'301', 8, 32210)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'301', 8, 32220)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'301', 8, 32230)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'301', 11, 1101)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'301', 11, 1102)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'301', 11, 1103)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'301', 12, 1201)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'301', 313, 31310)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'301', 313, 31320)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'301', 313, 31330)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'301', 318, 31801)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'301', 318, 31810)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'301', 318, 31820)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'301', 318, 31830)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'301', 318, 31840)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'301', 319, 31900)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'301', 319, 31901)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'301', 319, 31902)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'301', 319, 31903)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'301', 319, 31906)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'301', 319, 31907)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'301', 319, 31908)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'301', 319, 31909)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'301', 319, 31910)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'301', 319, 31911)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'301', 319, 31912)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'301', 319, 31913)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'301', 319, 31914)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'301', 323, 32300)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'302', 313, 31310)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'302', 313, 31320)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'302', 313, 31330)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'302', 321, 31400)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'302', 321, 31410)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'302', 321, 31420)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'302', 321, 31430)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'302', 321, 31440)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'302', 321, 31450)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'302', 321, 31460)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'302', 321, 32110)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'302', 323, 32300)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'401', 8, 801)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'401', 8, 802)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'401', 8, 803)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'401', 8, 804)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'401', 8, 2200)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'401', 8, 2210)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'401', 8, 2220)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'401', 9, 900)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'401', 10, 1001)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'401', 10, 1002)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'401', 11, 1101)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'401', 11, 1102)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'401', 11, 1103)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'401', 12, 1201)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'401', 13, 1310)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'401', 13, 1320)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'401', 18, 1801)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'401', 18, 1810)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'401', 18, 1820)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'401', 19, 1900)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'401', 19, 1901)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'401', 19, 1902)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'401', 19, 1903)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'401', 19, 1904)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'401', 19, 1906)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'401', 19, 1907)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'401', 19, 1908)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'401', 19, 1909)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'401', 19, 1910)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'401', 19, 1911)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'401', 19, 1912)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'401', 19, 1913)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'401', 19, 1914)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'403', 3, 300)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'404', 17, 1400)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'404', 17, 1410)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'404', 17, 1420)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'404', 17, 1430)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'404', 17, 1440)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'404', 17, 1450)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'404', 17, 1460)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'404', 17, 1470)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'404', 17, 1480)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'404', 17, 1700)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'405', 8, 801)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'405', 8, 802)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'405', 8, 803)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'405', 8, 804)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'405', 8, 2200)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'405', 8, 2210)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'405', 8, 2220)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'405', 10, 1001)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'405', 10, 1002)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'405', 11, 1101)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'405', 11, 1102)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'405', 11, 1103)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'405', 12, 1201)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'405', 13, 1310)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'405', 13, 1320)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'405', 18, 1801)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'405', 18, 1810)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'405', 18, 1820)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'405', 19, 1900)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'405', 19, 1901)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'405', 19, 1902)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'405', 19, 1903)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'405', 19, 1904)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'405', 19, 1906)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'405', 19, 1907)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'405', 19, 1908)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'405', 19, 1909)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'405', 19, 1910)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'405', 19, 1911)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'405', 19, 1912)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'405', 19, 1913)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'405', 19, 1914)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'407', 4, 400)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'407', 5, 500)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'408', 4, 400)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'408', 5, 500)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'409', 4, 400)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'409', 5, 500)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'410', 6, 600)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'411', 7, 700)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'412', 7, 700)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'421', 8, 801)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'421', 8, 802)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'421', 8, 803)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'421', 8, 804)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'421', 8, 2200)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'421', 8, 2210)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'421', 8, 2220)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'421', 11, 1101)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'421', 11, 1102)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'421', 11, 1103)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'421', 12, 1201)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'421', 13, 1310)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'421', 13, 1320)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'421', 18, 1801)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'421', 18, 1810)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'421', 18, 1820)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'421', 19, 1900)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'421', 19, 1901)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'421', 19, 1902)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'421', 19, 1903)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'421', 19, 1904)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'421', 19, 1906)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'421', 19, 1907)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'421', 19, 1908)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'421', 19, 1909)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'421', 19, 1910)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'421', 19, 1911)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'421', 19, 1912)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'421', 19, 1913)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'421', 19, 1914)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'421', 23, 2300)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'422', 8, 801)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'422', 8, 802)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'422', 8, 803)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'422', 8, 804)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'422', 8, 2200)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'422', 8, 2210)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'422', 8, 2220)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'422', 11, 1101)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'422', 11, 1102)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'422', 11, 1103)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'422', 12, 1201)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'422', 13, 1310)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'422', 13, 1320)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'422', 18, 1801)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'422', 18, 1810)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'422', 18, 1820)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'422', 19, 1900)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'422', 19, 1901)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'422', 19, 1902)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'422', 19, 1903)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'422', 19, 1904)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'422', 19, 1906)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'422', 19, 1907)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'422', 19, 1908)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'422', 19, 1909)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'422', 19, 1910)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'422', 19, 1911)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'422', 19, 1912)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'422', 19, 1913)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'422', 19, 1914)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'422', 23, 2300)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'423', 8, 801)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'423', 8, 802)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'423', 8, 803)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'423', 8, 804)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'423', 8, 2200)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'423', 8, 2210)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'423', 8, 2220)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'423', 11, 1101)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'423', 11, 1102)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'423', 11, 1103)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'423', 12, 1201)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'423', 13, 1310)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'423', 13, 1320)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'423', 18, 1801)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'423', 18, 1810)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'423', 18, 1820)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'423', 19, 1900)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'423', 19, 1901)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'423', 19, 1902)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'423', 19, 1903)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'423', 19, 1904)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'423', 19, 1906)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'423', 19, 1907)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'423', 19, 1908)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'423', 19, 1909)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'423', 19, 1910)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'423', 19, 1911)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'423', 19, 1912)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'423', 19, 1913)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'423', 19, 1914)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'423', 23, 2300)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'424', 23, 2300)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'425', 7, 700)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'427', 7, 700)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'498', 8, 801)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'498', 8, 802)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'498', 8, 803)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'498', 8, 2200)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'498', 8, 2210)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'498', 8, 2220)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'498', 10, 1001)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'498', 10, 1002)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'499', 8, 801)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'499', 8, 802)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'499', 8, 803)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'499', 8, 2200)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'499', 8, 2210)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'499', 8, 2220)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'499', 11, 1101)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'499', 11, 1102)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'501', 54, 5410)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'501', 54, 5420)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'501', 55, 5500)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'501', 56, 5600)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'501', 56, 5610)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'501', 56, 5620)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'501', 56, 5630)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'501', 56, 5640)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'501', 56, 5660)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'502', 57, 5710)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'502', 57, 5720)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'502', 58, 5800)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'503', 57, 5710)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'503', 57, 5720)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'503', 58, 5800)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'521', 54, 5410)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'521', 54, 5420)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'521', 55, 5500)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'521', 56, 5600)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'521', 56, 5610)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'521', 56, 5620)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'521', 56, 5630)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'521', 56, 5640)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'521', 56, 5660)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'521', 58, 5800)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'522', 57, 5710)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'522', 57, 5720)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'522', 58, 5800)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'523', 59, 5900)
-GO
-INSERT [dbo].[PINCLInclusionAdjData] ([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID], [Prompts_PromptID]) VALUES (N'524', 59, 5900)
-GO
 INSERT [dbo].[PINCLInclusionAdjustments] ([P_INCL], [IncAdjReasonID]) VALUES (N'201', 8)
 GO
 INSERT [dbo].[PINCLInclusionAdjustments] ([P_INCL], [IncAdjReasonID]) VALUES (N'201', 212)
@@ -1411,1339 +748,1085 @@ INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'5
 GO
 INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'599', N'Unlisted pupils for a Plasc school with an active Add Pupil request.', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 1, N'Afghan', 0)
+SET IDENTITY_INSERT [dbo].[PotentialAnswers] ON 
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 2, N'Afrikaans', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (1, N'PupilNativeLanguageQuestion', N'Acholi', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 3, N'Akan', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (2, N'PupilNativeLanguageQuestion', N'Adangme', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 4, N'Albanian', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (3, N'PupilNativeLanguageQuestion', N'Afar-Saho', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 5, N'Amharic', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (4, N'PupilNativeLanguageQuestion', N'Afrikaans', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 6, N'Arabic', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (5, N'PupilNativeLanguageQuestion', N'Akan', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 7, N'Armenian', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (6, N'PupilNativeLanguageQuestion', N'Albanian/Shqip', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 8, N'Assyrian', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (7, N'PupilNativeLanguageQuestion', N'Alur', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 9, N'Azerbaijani', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (8, N'PupilNativeLanguageQuestion', N'Amharic', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 10, N'Azeri', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (9, N'PupilNativeLanguageQuestion', N'Anyi-Baule', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 11, N'Balochi', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (10, N'PupilNativeLanguageQuestion', N'Arabic', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 12, N'Bemba', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (11, N'PupilNativeLanguageQuestion', N'Armenian', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 13, N'Bengali', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (12, N'PupilNativeLanguageQuestion', N'Assamese', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 14, N'Berber', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (13, N'PupilNativeLanguageQuestion', N'Assyrian', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 15, N'Bicol', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (14, N'PupilNativeLanguageQuestion', N'Aymara', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 16, N'Bosnian', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (15, N'PupilNativeLanguageQuestion', N'Azerbaijani', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 17, N'Bulgarian', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (16, N'PupilNativeLanguageQuestion', N'Azeri', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 18, N'Burmese', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (17, N'PupilNativeLanguageQuestion', N'Balochi', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 19, N'Cantonese', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (18, N'PupilNativeLanguageQuestion', N'Balti', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 20, N'Cebuano', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (19, N'PupilNativeLanguageQuestion', N'Bambara', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 21, N'Chichewa', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (20, N'PupilNativeLanguageQuestion', N'Bamileke', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 22, N'Chinese', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (21, N'PupilNativeLanguageQuestion', N'Basque/Euskara', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 23, N'Creole', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (22, N'PupilNativeLanguageQuestion', N'Beja/Bedawi', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 24, N'Croatian', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (23, N'PupilNativeLanguageQuestion', N'Belarusian', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 25, N'Czech', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (24, N'PupilNativeLanguageQuestion', N'Bemba', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 26, N'Danish', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (25, N'PupilNativeLanguageQuestion', N'Bengali/Bangla', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 27, N'Dari', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (26, N'PupilNativeLanguageQuestion', N'Berber', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 28, N'Dutch', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (27, N'PupilNativeLanguageQuestion', N'Bhojpuri', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 29, N'Edo', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (28, N'PupilNativeLanguageQuestion', N'Bikol', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 30, N'Efik', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (29, N'PupilNativeLanguageQuestion', N'Bilen', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 31, N'English', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (30, N'PupilNativeLanguageQuestion', N'Bosnian', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 32, N'Eritrean', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (31, N'PupilNativeLanguageQuestion', N'British Sign Language', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 33, N'Ethiopian', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (32, N'PupilNativeLanguageQuestion', N'Bulgarian', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 34, N'Ewe', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (33, N'PupilNativeLanguageQuestion', N'Burmese', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 35, N'Fante', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (34, N'PupilNativeLanguageQuestion', N'Cambodian/Khmer', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 36, N'Fanti', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (35, N'PupilNativeLanguageQuestion', N'Cantonese', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 37, N'Farsi', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (36, N'PupilNativeLanguageQuestion', N'Caribbean Creole English', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 38, N'Fijian', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (37, N'PupilNativeLanguageQuestion', N'Caribbean Creole French', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 39, N'Filipino', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (38, N'PupilNativeLanguageQuestion', N'Catalan', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 40, N'Finnish', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (39, N'PupilNativeLanguageQuestion', N'Cebuano', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 41, N'Frafra', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (40, N'PupilNativeLanguageQuestion', N'Chaga', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 42, N'French', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (41, N'PupilNativeLanguageQuestion', N'Chattisgarhi', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 43, N'Fulani', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (42, N'PupilNativeLanguageQuestion', N'Chechen', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 44, N'Ga', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (43, N'PupilNativeLanguageQuestion', N'Chichewa/Nyanja', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 45, N'Gambian', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (44, N'PupilNativeLanguageQuestion', N'Chinese', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 46, N'German', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (45, N'PupilNativeLanguageQuestion', N'Chitrali/Khowar', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 47, N'Greek', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (46, N'PupilNativeLanguageQuestion', N'Chokwe', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 48, N'Gujarati', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (47, N'PupilNativeLanguageQuestion', N'Cornish', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 49, N'Hausa', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (48, N'PupilNativeLanguageQuestion', N'Creole', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 50, N'Hebrew', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (49, N'PupilNativeLanguageQuestion', N'Croatian', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 51, N'Hindi', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (50, N'PupilNativeLanguageQuestion', N'Czech', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 52, N'Hindustani', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (51, N'PupilNativeLanguageQuestion', N'Dagaare', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 53, N'Hilgaynon', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (52, N'PupilNativeLanguageQuestion', N'Dagbani', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 54, N'Hungarian', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (53, N'PupilNativeLanguageQuestion', N'Danish', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 55, N'Ibo', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (54, N'PupilNativeLanguageQuestion', N'Dari', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 56, N'Igbo', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (55, N'PupilNativeLanguageQuestion', N'Dinka', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 57, N'Ilocan', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (56, N'PupilNativeLanguageQuestion', N'Dutch/Flemish', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 58, N'Ilongo', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (57, N'PupilNativeLanguageQuestion', N'Dzongkha/Bhutanese', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 59, N'Indonesian', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (58, N'PupilNativeLanguageQuestion', N'Ebira', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 60, N'Italian', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (59, N'PupilNativeLanguageQuestion', N'Edo/Bini', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 61, N'Japanese', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (60, N'PupilNativeLanguageQuestion', N'Efik-Ibibio', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 62, N'Jegawa', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (61, N'PupilNativeLanguageQuestion', N'English', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 63, N'Kaonda', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (62, N'PupilNativeLanguageQuestion', N'Esan /Ishan', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 64, N'Kikuyu', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (63, N'PupilNativeLanguageQuestion', N'Estonian', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 65, N'Kinyarwanda', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (64, N'PupilNativeLanguageQuestion', N'Ewe', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 66, N'Kisi', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (65, N'PupilNativeLanguageQuestion', N'Ewondo', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 67, N'Kiswahili', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (66, N'PupilNativeLanguageQuestion', N'Fang', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 68, N'Konkani', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (67, N'PupilNativeLanguageQuestion', N'Farsi', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 69, N'Korean', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (68, N'PupilNativeLanguageQuestion', N'Fijian', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 71, N'Krio', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (69, N'PupilNativeLanguageQuestion', N'Filipino', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 72, N'Kurdi', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (70, N'PupilNativeLanguageQuestion', N'Finnish', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 73, N'Kurdish', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (71, N'PupilNativeLanguageQuestion', N'Fon', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 74, N'Latvian', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (72, N'PupilNativeLanguageQuestion', N'French', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 75, N'Lingala', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (73, N'PupilNativeLanguageQuestion', N'Fula/Fulfulde-Pulaar', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 76, N'Lithuanian', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (74, N'PupilNativeLanguageQuestion', N'Ga', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 77, N'Lozi', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (75, N'PupilNativeLanguageQuestion', N'Gaelic, Irish', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 78, N'Luganda', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (76, N'PupilNativeLanguageQuestion', N'Gaelic, Scottish', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 79, N'Lunda', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (77, N'PupilNativeLanguageQuestion', N'Galician/Galego', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 80, N'Luo', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (78, N'PupilNativeLanguageQuestion', N'Georgian', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 81, N'Lusaga', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (79, N'PupilNativeLanguageQuestion', N'German', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 82, N'Luvale', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (80, N'PupilNativeLanguageQuestion', N'Gogo/Chigogo', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 83, N'Malay', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (81, N'PupilNativeLanguageQuestion', N'Greek', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 84, N'Malayalam', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (82, N'PupilNativeLanguageQuestion', N'Guarani', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 85, N'Mandarin', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (83, N'PupilNativeLanguageQuestion', N'Gujarati', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 86, N'Mandinka', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (84, N'PupilNativeLanguageQuestion', N'Gurenne/Frafra', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 87, N'Mbochi', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (85, N'PupilNativeLanguageQuestion', N'Gurma', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 88, N'Memon', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (86, N'PupilNativeLanguageQuestion', N'Hausa', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 89, N'Mende', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (87, N'PupilNativeLanguageQuestion', N'Hebrew', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 90, N'Mirpuri', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (88, N'PupilNativeLanguageQuestion', N'Herero', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 91, N'Mongolian', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (89, N'PupilNativeLanguageQuestion', N'Hiligaynon', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 92, N'Ndebele', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (90, N'PupilNativeLanguageQuestion', N'Hindi', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 93, N'Nepalese', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (91, N'PupilNativeLanguageQuestion', N'Hindko', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 94, N'Nigerian', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (92, N'PupilNativeLanguageQuestion', N'Hindustani', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 95, N'Norwegian', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (93, N'PupilNativeLanguageQuestion', N'Hungarian', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 96, N'Nyanja', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (94, N'PupilNativeLanguageQuestion', N'Iban', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 97, N'Pampango', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (95, N'PupilNativeLanguageQuestion', N'Icelandic', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 98, N'Pangasinense', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (96, N'PupilNativeLanguageQuestion', N'Idoma', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 99, N'Panjabi', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (97, N'PupilNativeLanguageQuestion', N'Igala', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 100, N'Pashai', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (98, N'PupilNativeLanguageQuestion', N'Igbo (Ibo)', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 101, N'Pashto', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (99, N'PupilNativeLanguageQuestion', N'Ijo (Ijaw)', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 102, N'Pashtu', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (100, N'PupilNativeLanguageQuestion', N'Ilokano', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 103, N'Patois', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (101, N'PupilNativeLanguageQuestion', N'Ilonggo', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 104, N'Pedi', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (102, N'PupilNativeLanguageQuestion', N'Indonesian', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 105, N'Persian', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (103, N'PupilNativeLanguageQuestion', N'Italian', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 106, N'Polish', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (104, N'PupilNativeLanguageQuestion', N'Itsekiri', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 107, N'Portugese', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (105, N'PupilNativeLanguageQuestion', N'Japanese', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 108, N'Portuguese', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (106, N'PupilNativeLanguageQuestion', N'Javanese', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 109, N'Punjabi', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (107, N'PupilNativeLanguageQuestion', N'Jinghpaw/Kachin', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 110, N'Pushto', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (108, N'PupilNativeLanguageQuestion', N'Kalenjin', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 111, N'Pushtu', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (109, N'PupilNativeLanguageQuestion', N'Kannada', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 112, N'Roma(ny)', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (110, N'PupilNativeLanguageQuestion', N'Kanuri', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 113, N'Romanian', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (111, N'PupilNativeLanguageQuestion', N'Kaonde', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 114, N'Russian', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (112, N'PupilNativeLanguageQuestion', N'Karen (language group)', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 115, N'Rwanda', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (113, N'PupilNativeLanguageQuestion', N'Kashmiri', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 116, N'Serbian', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (114, N'PupilNativeLanguageQuestion', N'Kazakh', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 118, N'Sesotho', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (115, N'PupilNativeLanguageQuestion', N'Khmer', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 119, N'Setswana', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (116, N'PupilNativeLanguageQuestion', N'Kikamba', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 120, N'Shona', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (117, N'PupilNativeLanguageQuestion', N'Kikongo', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 121, N'Sinhala', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (118, N'PupilNativeLanguageQuestion', N'Kikuyu/Gikuyu', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 122, N'Slovak', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (119, N'PupilNativeLanguageQuestion', N'Kimbundu', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 123, N'Somali', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (120, N'PupilNativeLanguageQuestion', N'Kimeru', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 124, N'Sotho', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (121, N'PupilNativeLanguageQuestion', N'Kinyarwanda', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 125, N'Spanish', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (122, N'PupilNativeLanguageQuestion', N'Kirghiz/Kyrgyz', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 126, N'Sri Lankan', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (123, N'PupilNativeLanguageQuestion', N'Kirundi', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 127, N'Sunda', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (124, N'PupilNativeLanguageQuestion', N'Kisi', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 128, N'Surigaonan', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (125, N'PupilNativeLanguageQuestion', N'Kisii/Ekegusii', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 129, N'Swahili', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (126, N'PupilNativeLanguageQuestion', N'Kisukuma', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 130, N'Swazi', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (127, N'PupilNativeLanguageQuestion', N'Kiswahili', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 131, N'Swedish', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (128, N'PupilNativeLanguageQuestion', N'Konkani', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 132, N'Sylheti', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (129, N'PupilNativeLanguageQuestion', N'Korean', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 133, N'Tagalog', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (130, N'PupilNativeLanguageQuestion', N'Kpelle', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 134, N'Tamil', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (131, N'PupilNativeLanguageQuestion', N'Krio', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 135, N'Temne', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (132, N'PupilNativeLanguageQuestion', N'Kru', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 136, N'Thai', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (133, N'PupilNativeLanguageQuestion', N'Kurdish', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 137, N'Tigranya', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (134, N'PupilNativeLanguageQuestion', N'Kutchi', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 138, N'Tigre', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (135, N'PupilNativeLanguageQuestion', N'Lango', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 139, N'Tigrinya', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (136, N'PupilNativeLanguageQuestion', N'Lao', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 140, N'Tonga', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (137, N'PupilNativeLanguageQuestion', N'Latvian', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 141, N'Tsonga', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (138, N'PupilNativeLanguageQuestion', N'Lingala', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 142, N'Tswana', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (139, N'PupilNativeLanguageQuestion', N'Lithuanian', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 143, N'Turkish', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (140, N'PupilNativeLanguageQuestion', N'Lozi/Silozi', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 144, N'Turkmen', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (141, N'PupilNativeLanguageQuestion', N'Luba', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 145, N'Twi', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (142, N'PupilNativeLanguageQuestion', N'Luganda', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 146, N'Ukrainian', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (143, N'PupilNativeLanguageQuestion', N'Lugbara', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 147, N'Urdu', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (144, N'PupilNativeLanguageQuestion', N'Lugisu/Lumasaba', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 148, N'Urhobo', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (145, N'PupilNativeLanguageQuestion', N'Luhya', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 149, N'Uzbek', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (146, N'PupilNativeLanguageQuestion', N'Lunda', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 150, N'Venda', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (147, N'PupilNativeLanguageQuestion', N'Luo', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 151, N'Vietnamese', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (148, N'PupilNativeLanguageQuestion', N'Lusoga', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 152, N'Waray', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (149, N'PupilNativeLanguageQuestion', N'Luvale', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 153, N'Welsh', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (150, N'PupilNativeLanguageQuestion', N'Luxembourgish', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 154, N'Wolof', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (151, N'PupilNativeLanguageQuestion', N'Maasai', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 155, N'Xhosa', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (152, N'PupilNativeLanguageQuestion', N'Macedonian', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 156, N'Yoruba', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (153, N'PupilNativeLanguageQuestion', N'Magahi', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 157, N'Zulu', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (154, N'PupilNativeLanguageQuestion', N'Magindanao', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (801, 158, N'Other', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (155, N'PupilNativeLanguageQuestion', N'Maithili', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 1, N'Afghanistan', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (156, N'PupilNativeLanguageQuestion', N'Makua', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 2, N'Albania', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (157, N'PupilNativeLanguageQuestion', N'Malagasy', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 3, N'Algeria', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (158, N'PupilNativeLanguageQuestion', N'Malay', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 4, N'Angola', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (159, N'PupilNativeLanguageQuestion', N'Malayalam', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 5, N'Argentina', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (160, N'PupilNativeLanguageQuestion', N'Maldivian/Dhivehi', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 6, N'Armenia', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (161, N'PupilNativeLanguageQuestion', N'Maltese', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 7, N'Australia', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (162, N'PupilNativeLanguageQuestion', N'Mandarin', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 8, N'Austria', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (163, N'PupilNativeLanguageQuestion', N'Mandinka', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 9, N'Azerbaijan', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (164, N'PupilNativeLanguageQuestion', N'Maninka/ Malinke', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 10, N'Bahamas', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (165, N'PupilNativeLanguageQuestion', N'Maori', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 11, N'Bangladesh', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (166, N'PupilNativeLanguageQuestion', N'Marathi', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 12, N'Barbados', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (167, N'PupilNativeLanguageQuestion', N'Mauritian Creole', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 13, N'Belgium', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (168, N'PupilNativeLanguageQuestion', N'Mayan (language group)', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 14, N'Bolivia', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (169, N'PupilNativeLanguageQuestion', N'Mbosi/Mbochi', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 15, N'Bosnia', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (170, N'PupilNativeLanguageQuestion', N'Memon', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 16, N'Botswana', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (171, N'PupilNativeLanguageQuestion', N'Mende', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 17, N'Brazil', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (172, N'PupilNativeLanguageQuestion', N'Mirpuri', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 18, N'Brunei', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (173, N'PupilNativeLanguageQuestion', N'Moldovan', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 19, N'Bulgaria', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (174, N'PupilNativeLanguageQuestion', N'Mongolian', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 20, N'Burundi', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (175, N'PupilNativeLanguageQuestion', N'Moore/Mossi', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 21, N'Burma', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (176, N'PupilNativeLanguageQuestion', N'Munda (language group)', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 22, N'Canada', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (177, N'PupilNativeLanguageQuestion', N'Nahuatl', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 23, N'Cameroon', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (178, N'PupilNativeLanguageQuestion', N'Nama/Damara', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 24, N'Channel Islands', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (179, N'PupilNativeLanguageQuestion', N'Ndebele', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 25, N'Chile', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (180, N'PupilNativeLanguageQuestion', N'Nepali', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 26, N'China', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (181, N'PupilNativeLanguageQuestion', N'Newari', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 27, N'Colombia', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (182, N'PupilNativeLanguageQuestion', N'Norwegian', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 28, N'Congo', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (183, N'PupilNativeLanguageQuestion', N'Nubian (language group)', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 29, N'Croatia', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (184, N'PupilNativeLanguageQuestion', N'Nuer', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 30, N'Cuba', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (185, N'PupilNativeLanguageQuestion', N'Nupe', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 31, N'Cyprus', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (186, N'PupilNativeLanguageQuestion', N'Nyakyusa-Ngonde', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 32, N'Czech Republic', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (187, N'PupilNativeLanguageQuestion', N'Nyanja', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 33, N'Denmark', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (188, N'PupilNativeLanguageQuestion', N'Nzema', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 34, N'Djibouti', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (189, N'PupilNativeLanguageQuestion', N'Ogoni (language group)', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 35, N'Dominican Republic', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (190, N'PupilNativeLanguageQuestion', N'Oriya', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 36, N'Egypt', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (191, N'PupilNativeLanguageQuestion', N'Oromo', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 37, N'Eire', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (192, N'PupilNativeLanguageQuestion', N'Oshiwambo', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 38, N'Ecuador', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (193, N'PupilNativeLanguageQuestion', N'Pahari (Pakistan)', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 39, N'Eritrea', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (194, N'PupilNativeLanguageQuestion', N'Pahari/Himachali', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 40, N'Estonia', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (195, N'PupilNativeLanguageQuestion', N'Pampangan', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 41, N'Ethiopia', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (196, N'PupilNativeLanguageQuestion', N'Pangasinan', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 42, N'Finland', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (197, N'PupilNativeLanguageQuestion', N'Panjabi', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 43, N'Fiji', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (198, N'PupilNativeLanguageQuestion', N'Pashai', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 44, N'France', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (199, N'PupilNativeLanguageQuestion', N'Pashto/Pashtu', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 45, N'Gabon', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (200, N'PupilNativeLanguageQuestion', N'Patois', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 46, N'Gambia', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (201, N'PupilNativeLanguageQuestion', N'Pedi', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 47, N'Georgia', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (202, N'PupilNativeLanguageQuestion', N'Persian/Farsi', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 48, N'Germany', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (203, N'PupilNativeLanguageQuestion', N'Polish', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 49, N'Ghana', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (204, N'PupilNativeLanguageQuestion', N'Portuguese', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 50, N'Greece', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (205, N'PupilNativeLanguageQuestion', N'Punjabi', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 51, N'Grenada', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (206, N'PupilNativeLanguageQuestion', N'Pushto/Pushtu', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 52, N'Guinea', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (207, N'PupilNativeLanguageQuestion', N'Quechua', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 53, N'Guyana', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (208, N'PupilNativeLanguageQuestion', N'Rajasthani/Marwari', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 54, N'Holland', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (209, N'PupilNativeLanguageQuestion', N'Romani', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 55, N'Hong Kong', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (210, N'PupilNativeLanguageQuestion', N'Romanian', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 56, N'Hungary', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (211, N'PupilNativeLanguageQuestion', N'Romansch', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 57, N'India', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (212, N'PupilNativeLanguageQuestion', N'Runyakitara', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 58, N'Indonesia', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (213, N'PupilNativeLanguageQuestion', N'Russian', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 59, N'Iran', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (214, N'PupilNativeLanguageQuestion', N'Rwanda', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 60, N'Iraq', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (215, N'PupilNativeLanguageQuestion', N'Samoan', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 61, N'Ireland', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (216, N'PupilNativeLanguageQuestion', N'Sango', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 62, N'Israel', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (217, N'PupilNativeLanguageQuestion', N'Sardinian', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 63, N'Italy', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (218, N'PupilNativeLanguageQuestion', N'Scots', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 64, N'Ivory Coast', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (219, N'PupilNativeLanguageQuestion', N'Serbian', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 65, N'Jamaica', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (220, N'PupilNativeLanguageQuestion', N'Sesotho', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 66, N'Japan', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (221, N'PupilNativeLanguageQuestion', N'Setswana', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 67, N'Jordan', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (222, N'PupilNativeLanguageQuestion', N'Shelta/Traveller Irish', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 68, N'Kazakhstan', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (223, N'PupilNativeLanguageQuestion', N'Shilluk/Chollo', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 69, N'Kenya', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (224, N'PupilNativeLanguageQuestion', N'Shona', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 70, N'Korea', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (225, N'PupilNativeLanguageQuestion', N'Sidamo', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 71, N'Kosovo', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (226, N'PupilNativeLanguageQuestion', N'Sindhi', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 72, N'Kurdistan', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (227, N'PupilNativeLanguageQuestion', N'Sinhala', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 73, N'Kuwait', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (228, N'PupilNativeLanguageQuestion', N'Siraiki', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 74, N'Latvia', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (229, N'PupilNativeLanguageQuestion', N'Slovak', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 75, N'Lebanon', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (230, N'PupilNativeLanguageQuestion', N'Slovenian', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 76, N'Lesotho', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (231, N'PupilNativeLanguageQuestion', N'Somali', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 77, N'Leeward Islands', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (232, N'PupilNativeLanguageQuestion', N'Sotho', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 78, N'Liberia', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (233, N'PupilNativeLanguageQuestion', N'Spanish', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 79, N'Libya', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (234, N'PupilNativeLanguageQuestion', N'Sunda', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 80, N'Lithuania', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (235, N'PupilNativeLanguageQuestion', N'Surigaonon', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 81, N'Macau', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (236, N'PupilNativeLanguageQuestion', N'Swahili', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 82, N'Macedonia', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (237, N'PupilNativeLanguageQuestion', N'Swazi', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 83, N'Malawi', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (238, N'PupilNativeLanguageQuestion', N'Swedish', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 84, N'Malaysia', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (239, N'PupilNativeLanguageQuestion', N'Sylheti', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 85, N'Martinique', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (240, N'PupilNativeLanguageQuestion', N'Tagalog', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 86, N'Mauritius', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (241, N'PupilNativeLanguageQuestion', N'Tajiki', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 87, N'Mexico', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (242, N'PupilNativeLanguageQuestion', N'Tamazight', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 88, N'Moldova', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (243, N'PupilNativeLanguageQuestion', N'Tamil', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 89, N'Mongolia', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (244, N'PupilNativeLanguageQuestion', N'Telugu', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 90, N'Montenegro', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (245, N'PupilNativeLanguageQuestion', N'Temne', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 91, N'Montserrat', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (246, N'PupilNativeLanguageQuestion', N'Teso/Ateso', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 92, N'Morocco', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (247, N'PupilNativeLanguageQuestion', N'Tetum/Tetun', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 93, N'Mozambique', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (248, N'PupilNativeLanguageQuestion', N'Thai', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 94, N'Nepal', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (249, N'PupilNativeLanguageQuestion', N'Tibetan', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 95, N'Netherlands', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (250, N'PupilNativeLanguageQuestion', N'Tigre', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 96, N'New Zealand', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (251, N'PupilNativeLanguageQuestion', N'Tigrinya', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 97, N'Nigeria', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (252, N'PupilNativeLanguageQuestion', N'Tiv', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 98, N'Norway', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (253, N'PupilNativeLanguageQuestion', N'Tok Pisin', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 99, N'Oman', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (254, N'PupilNativeLanguageQuestion', N'Tonga/Chitonga', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 100, N'Pakistan', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (255, N'PupilNativeLanguageQuestion', N'Tongan', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 101, N'Peru', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (256, N'PupilNativeLanguageQuestion', N'Tsonga', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 102, N'Philippines', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (257, N'PupilNativeLanguageQuestion', N'Tswana', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 103, N'Poland', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (258, N'PupilNativeLanguageQuestion', N'Tulu', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 104, N'Portugal', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (259, N'PupilNativeLanguageQuestion', N'Tumbuka', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 105, N'Romania', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (260, N'PupilNativeLanguageQuestion', N'Turkish', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 106, N'Russia', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (261, N'PupilNativeLanguageQuestion', N'Turkmen', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 107, N'Rwanda', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (262, N'PupilNativeLanguageQuestion', N'Twi', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 108, N'Saudi Arabia', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (263, N'PupilNativeLanguageQuestion', N'Ukrainian', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 109, N'Scotland', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (264, N'PupilNativeLanguageQuestion', N'Umbundu', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 110, N'Senegal', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (265, N'PupilNativeLanguageQuestion', N'Urdu', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 111, N'Serbia', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (266, N'PupilNativeLanguageQuestion', N'Urhobo', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 112, N'Seychelles', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (267, N'PupilNativeLanguageQuestion', N'Uyghur', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 113, N'Sierra Leone', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (268, N'PupilNativeLanguageQuestion', N'Uzbek', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 114, N'Singapore', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (269, N'PupilNativeLanguageQuestion', N'Venda', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 115, N'Slovakia', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (270, N'PupilNativeLanguageQuestion', N'Vietnamese', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 116, N'Somalia', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (271, N'PupilNativeLanguageQuestion', N'Visayan/Bisaya', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 117, N'South Africa', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (272, N'PupilNativeLanguageQuestion', N'Wali', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 118, N'South Korea', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (273, N'PupilNativeLanguageQuestion', N'Wa-Parauk', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 119, N'Spain', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (274, N'PupilNativeLanguageQuestion', N'Waray', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 120, N'Sri Lanka', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (275, N'PupilNativeLanguageQuestion', N'Welsh', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 121, N'St Lucia', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (276, N'PupilNativeLanguageQuestion', N'Wolof', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 122, N'Sudan', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (277, N'PupilNativeLanguageQuestion', N'Xhosa', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 123, N'Sweden', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (278, N'PupilNativeLanguageQuestion', N'Yao/Chiyao', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 124, N'Switzerland', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (279, N'PupilNativeLanguageQuestion', N'Yiddish', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 125, N'Syria', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (280, N'PupilNativeLanguageQuestion', N'Yoruba', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 126, N'Taiwan', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (281, N'PupilNativeLanguageQuestion', N'Zande', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 127, N'Tanzania', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (282, N'PupilNativeLanguageQuestion', N'Zulu', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 128, N'Thailand', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (283, N'PupilNativeLanguageQuestion', N'Other', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 129, N'Tobago', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (284, N'PupilCountryQuestion', N'Afghanistan', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 130, N'Togo', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (285, N'PupilCountryQuestion', N'Aland Islands  ', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 131, N'Trinidad', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (286, N'PupilCountryQuestion', N'Albania', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 132, N'Turkey', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (287, N'PupilCountryQuestion', N'Algeria', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 133, N'United Arab Emirates', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (288, N'PupilCountryQuestion', N'American Samoa', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 134, N'Uganda', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (289, N'PupilCountryQuestion', N'Andorra', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 135, N'Ukraine', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (290, N'PupilCountryQuestion', N'Angola', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 136, N'USA', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (291, N'PupilCountryQuestion', N'Argentina', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 137, N'Uzbekistan', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (292, N'PupilCountryQuestion', N'Armenia', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 138, N'Venezuela', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (293, N'PupilCountryQuestion', N'Aruba', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 139, N'Vietnam', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (294, N'PupilCountryQuestion', N'Australia', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 140, N'Wales', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (295, N'PupilCountryQuestion', N'Austria', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 141, N'Windward Islands', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (296, N'PupilCountryQuestion', N'Azerbaijan', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 142, N'Yemen', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (297, N'PupilCountryQuestion', N'Bahamas', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 143, N'Yugoslavia', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (298, N'PupilCountryQuestion', N'Bahrain', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 144, N'Zaire', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (299, N'PupilCountryQuestion', N'Bangladesh', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 145, N'Zambia', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (300, N'PupilCountryQuestion', N'Barbados', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 146, N'Zimbabwe', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (301, N'PupilCountryQuestion', N'Belarus', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (802, 147, N'Other', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (302, N'PupilCountryQuestion', N'Belgium', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 1, N'Afghanistan', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (303, N'PupilCountryQuestion', N'Belize', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 2, N'Albania', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (304, N'PupilCountryQuestion', N'Benin', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 3, N'Algeria', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (305, N'PupilCountryQuestion', N'Bermuda ', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 4, N'Angola', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (306, N'PupilCountryQuestion', N'Bhutan', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 5, N'Argentina', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (307, N'PupilCountryQuestion', N'Bolivia', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 6, N'Armenia', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (308, N'PupilCountryQuestion', N'Bosnia and Herzegovina', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 7, N'Australia', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (309, N'PupilCountryQuestion', N'Botswana', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 8, N'Austria', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (310, N'PupilCountryQuestion', N'Brazil', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 9, N'Azerbaijan', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (311, N'PupilCountryQuestion', N'Brunei', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 10, N'Bahamas', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (312, N'PupilCountryQuestion', N'Bulgaria', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 11, N'Bangladesh', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (313, N'PupilCountryQuestion', N'Burkina Faso', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 12, N'Barbados', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (314, N'PupilCountryQuestion', N'Burundi', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 13, N'Belgium', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (315, N'PupilCountryQuestion', N'Cambodia', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 14, N'Bolivia', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (316, N'PupilCountryQuestion', N'Cameroon', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 15, N'Bosnia', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (317, N'PupilCountryQuestion', N'Canada', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 16, N'Botswana', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (318, N'PupilCountryQuestion', N'Cape Verde Islands', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 17, N'Brazil', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (319, N'PupilCountryQuestion', N'Cayman Islands', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 18, N'Brunei', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (320, N'PupilCountryQuestion', N'Central African Republic', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 19, N'Bulgaria', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (321, N'PupilCountryQuestion', N'Chad', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 20, N'Burundi', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (322, N'PupilCountryQuestion', N'Channel Islands Alderney', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 21, N'Burma', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (323, N'PupilCountryQuestion', N'Channel Islands Guernsey', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 22, N'Canada', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (324, N'PupilCountryQuestion', N'Channel Islands Jersey', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 23, N'Cameroon', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (325, N'PupilCountryQuestion', N'Channel Islands Sark', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 24, N'Channel Islands', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (326, N'PupilCountryQuestion', N'Chechnya  ', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 25, N'Chile', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (327, N'PupilCountryQuestion', N'Guyana', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 26, N'China', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (328, N'PupilCountryQuestion', N'Haiti', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 27, N'Colombia', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (329, N'PupilCountryQuestion', N'Holy See  (Vatican City)', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 28, N'Congo', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (330, N'PupilCountryQuestion', N'Honduras', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 29, N'Croatia', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (331, N'PupilCountryQuestion', N'Hong Kong', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 30, N'Cuba', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (332, N'PupilCountryQuestion', N'Hungary', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 31, N'Cyprus', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (333, N'PupilCountryQuestion', N'Iceland', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 32, N'Czech Republic', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (334, N'PupilCountryQuestion', N'India', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 33, N'Denmark', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (335, N'PupilCountryQuestion', N'Indonesia', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 34, N'Djibouti', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (336, N'PupilCountryQuestion', N'Iran', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 35, N'Dominican Republic', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (337, N'PupilCountryQuestion', N'Iraq', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 36, N'Egypt', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (338, N'PupilCountryQuestion', N'Ireland (Eire)', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 37, N'Eire', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (339, N'PupilCountryQuestion', N'Isle of Man', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 38, N'Ecuador', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (340, N'PupilCountryQuestion', N'Israel', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 39, N'Eritrea', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (341, N'PupilCountryQuestion', N'Italy', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 40, N'Estonia', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (342, N'PupilCountryQuestion', N'Ivory Coast', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 41, N'Ethiopia', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (343, N'PupilCountryQuestion', N'Jamaica', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 42, N'Finland', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (344, N'PupilCountryQuestion', N'Japan', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 43, N'Fiji', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (345, N'PupilCountryQuestion', N'Jordan', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 44, N'France', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (346, N'PupilCountryQuestion', N'Kazakhstan', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 45, N'Gabon', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (347, N'PupilCountryQuestion', N'Kenya', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 46, N'Gambia', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (348, N'PupilCountryQuestion', N'Kiribati', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 47, N'Georgia', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (349, N'PupilCountryQuestion', N'Kosovo', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 48, N'Germany', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (350, N'PupilCountryQuestion', N'Kurdistan', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 49, N'Ghana', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (351, N'PupilCountryQuestion', N'Kuwait', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 50, N'Greece', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (352, N'PupilCountryQuestion', N'Kyrgyzstan', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 51, N'Grenada', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (353, N'PupilCountryQuestion', N'Laos', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 52, N'Guinea', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (354, N'PupilCountryQuestion', N'Latvia', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 53, N'Guyana', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (355, N'PupilCountryQuestion', N'Lebanon', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 54, N'Holland', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (356, N'PupilCountryQuestion', N'Leeward Islands Anguilla', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 55, N'Hong Kong', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (357, N'PupilCountryQuestion', N'Leeward Islands Antigua', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 56, N'Hungary', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (358, N'PupilCountryQuestion', N'Leeward Islands Barbuda', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 57, N'India', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (359, N'PupilCountryQuestion', N'Leeward Islands British Virgin Islands', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 58, N'Indonesia', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (360, N'PupilCountryQuestion', N'Leeward Islands Guadeloupe', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 59, N'Iran', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (361, N'PupilCountryQuestion', N'Leeward Islands Iles des Saintes', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 60, N'Iraq', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (362, N'PupilCountryQuestion', N'Leeward Islands La Desirade', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 61, N'Ireland', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (363, N'PupilCountryQuestion', N'Leeward Islands Marie-Galante', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 62, N'Israel', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (364, N'PupilCountryQuestion', N'Leeward Islands Montserrat', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 63, N'Italy', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (365, N'PupilCountryQuestion', N'Leeward Islands Nevis', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 64, N'Ivory Coast', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (366, N'PupilCountryQuestion', N'Leeward Islands Puerto Rican Virgin Islands/Spanish Virgin Islands', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 65, N'Jamaica', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (367, N'PupilCountryQuestion', N'Leeward Islands Redonda', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 66, N'Japan', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (368, N'PupilCountryQuestion', N'Leeward Islands Saba', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 67, N'Jordan', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (369, N'PupilCountryQuestion', N'Leeward Islands Saint-Barthelemy', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 68, N'Kazakhstan', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (370, N'PupilCountryQuestion', N'Leeward Islands Saint Kitts', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 69, N'Kenya', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (371, N'PupilCountryQuestion', N'Leeward Islands Saint Martin/Sint Maarten', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 70, N'Korea', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (372, N'PupilCountryQuestion', N'Leeward Islands Sint Eustatius', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 71, N'Kosovo', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (373, N'PupilCountryQuestion', N'Leeward Islands U.S. Virgin Islands', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 72, N'Kurdistan', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (374, N'PupilCountryQuestion', N'Peru', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 73, N'Kuwait', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (375, N'PupilCountryQuestion', N'Philippines', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 74, N'Latvia', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (376, N'PupilCountryQuestion', N'Poland', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 75, N'Lebanon', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (377, N'PupilCountryQuestion', N'Portugal', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 76, N'Lesotho', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (378, N'PupilCountryQuestion', N'Puerto Rico', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 77, N'Leeward Islands', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (379, N'PupilCountryQuestion', N'Qatar', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 78, N'Liberia', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (380, N'PupilCountryQuestion', N'Republic of the Congo', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 79, N'Libya', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (381, N'PupilCountryQuestion', N'Reunion ', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 80, N'Lithuania', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (382, N'PupilCountryQuestion', N'Romania', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 81, N'Macau', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (383, N'PupilCountryQuestion', N'Russia', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 82, N'Macedonia', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (384, N'PupilCountryQuestion', N'Rwanda', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 83, N'Malawi', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (385, N'PupilCountryQuestion', N'Saint Helena', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 84, N'Malaysia', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (386, N'PupilCountryQuestion', N'Saint Pierre and Miquelon', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 85, N'Martinique', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (387, N'PupilCountryQuestion', N'Samoa', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 86, N'Mauritius', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (388, N'PupilCountryQuestion', N'San Marino', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 87, N'Mexico', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (389, N'PupilCountryQuestion', N'Sao Tome and Principe', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 88, N'Moldova', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (390, N'PupilCountryQuestion', N'Saudi Arabia', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 89, N'Mongolia', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (391, N'PupilCountryQuestion', N'Scotland', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 90, N'Montenegro', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (392, N'PupilCountryQuestion', N'Senegal', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 91, N'Montserrat', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (393, N'PupilCountryQuestion', N'Serbia', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 92, N'Morocco', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (394, N'PupilCountryQuestion', N'Seychelles', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 93, N'Mozambique', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (395, N'PupilCountryQuestion', N'Sierra Leone', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 94, N'Nepal', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (396, N'PupilCountryQuestion', N'Singapore', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 95, N'Netherlands', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (397, N'PupilCountryQuestion', N'Slovakia', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 96, N'New Zealand', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (398, N'PupilCountryQuestion', N'Slovenia', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 97, N'Nigeria', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (399, N'PupilCountryQuestion', N'Solomon Islands', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 98, N'Norway', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (400, N'PupilCountryQuestion', N'Somalia', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 99, N'Oman', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (401, N'PupilCountryQuestion', N'South Africa', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 100, N'Pakistan', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (402, N'PupilCountryQuestion', N'South Korea', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 101, N'Peru', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (403, N'PupilCountryQuestion', N'South Sudan', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 102, N'Philippines', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (404, N'PupilCountryQuestion', N'Spain', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 103, N'Poland', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (405, N'PupilCountryQuestion', N'Sri Lanka', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 104, N'Portugal', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (406, N'PupilCountryQuestion', N'Sudan', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 105, N'Romania', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (407, N'PupilCountryQuestion', N'Suriname', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 106, N'Russia', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (408, N'PupilCountryQuestion', N'Swaziland', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 107, N'Rwanda', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (409, N'PupilCountryQuestion', N'Sweden', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 108, N'Saudi Arabia', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (410, N'PupilCountryQuestion', N'Chile', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 109, N'Scotland', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (411, N'PupilCountryQuestion', N'China', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 110, N'Senegal', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (412, N'PupilCountryQuestion', N'Christmas Island  ', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 111, N'Serbia', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (413, N'PupilCountryQuestion', N'Cocos (Keeling) Islands', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 112, N'Seychelles', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (414, N'PupilCountryQuestion', N'Colombia', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 113, N'Sierra Leone', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (415, N'PupilCountryQuestion', N'Comoros', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 114, N'Singapore', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (416, N'PupilCountryQuestion', N'Cook Islands', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 115, N'Slovakia', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (417, N'PupilCountryQuestion', N'Costa Rica', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 116, N'Somalia', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (418, N'PupilCountryQuestion', N'Croatia', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 117, N'South Africa', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (419, N'PupilCountryQuestion', N'Cuba', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 118, N'South Korea', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (420, N'PupilCountryQuestion', N'Curaçao', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 119, N'Spain', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (421, N'PupilCountryQuestion', N'Cyprus', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 120, N'Sri Lanka', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (422, N'PupilCountryQuestion', N'Czech Republic (Czechia)', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 121, N'St Lucia', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (423, N'PupilCountryQuestion', N'Democratic Republic of the Congo (formerly known as Zaire)', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 122, N'Sudan', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (424, N'PupilCountryQuestion', N'Democratic Republic of Timor-Leste (East Timor)', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 123, N'Sweden', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (425, N'PupilCountryQuestion', N'Denmark', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 124, N'Switzerland', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (426, N'PupilCountryQuestion', N'Djibouti', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 125, N'Syria', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (427, N'PupilCountryQuestion', N'Dominican Republic', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 126, N'Taiwan', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (428, N'PupilCountryQuestion', N'Ecuador', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 127, N'Tanzania', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (429, N'PupilCountryQuestion', N'Egypt', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 128, N'Thailand', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (430, N'PupilCountryQuestion', N'El Salvador', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 129, N'Tobago', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (431, N'PupilCountryQuestion', N'Equatorial Guinea', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 130, N'Togo', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (432, N'PupilCountryQuestion', N'Eritrea', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 131, N'Trinidad', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (433, N'PupilCountryQuestion', N'Estonia', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 132, N'Turkey', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (434, N'PupilCountryQuestion', N'Ethiopia', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 133, N'United Arab Emirates', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (435, N'PupilCountryQuestion', N'Falkland Islands', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 134, N'Uganda', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (436, N'PupilCountryQuestion', N'Faroe Islands', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 135, N'Ukraine', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (437, N'PupilCountryQuestion', N'Fiji', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 136, N'USA', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (438, N'PupilCountryQuestion', N'Finland', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 137, N'Uzbekistan', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (439, N'PupilCountryQuestion', N'France', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 138, N'Venezuela', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (440, N'PupilCountryQuestion', N'French Guiana', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 139, N'Vietnam', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (441, N'PupilCountryQuestion', N'French Polynesia', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 140, N'Wales', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (442, N'PupilCountryQuestion', N'Gabon', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 141, N'Windward Islands', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (443, N'PupilCountryQuestion', N'Gambia', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 142, N'Yemen', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (444, N'PupilCountryQuestion', N'Georgia', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 143, N'Yugoslavia', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (445, N'PupilCountryQuestion', N'Germany', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 144, N'Zaire', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (446, N'PupilCountryQuestion', N'Ghana', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 145, N'Zambia', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (447, N'PupilCountryQuestion', N'Gibraltar', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 146, N'Zimbabwe', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (448, N'PupilCountryQuestion', N'Greece', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1101, 147, N'Other', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (449, N'PupilCountryQuestion', N'Greenland', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1900, 1901, N'Ilness/pregnancy', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (450, N'PupilCountryQuestion', N'Guam ', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1900, 1902, N'Home tuition', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (451, N'PupilCountryQuestion', N'Guatemala', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1900, 1903, N'EOTAS - Education other than at school', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (452, N'PupilCountryQuestion', N'Guinea', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1900, 1904, N'Work or work experience', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (453, N'PupilCountryQuestion', N'Guinea-Bissau', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1900, 1905, N'Permanently excluded from this school', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (454, N'PupilCountryQuestion', N'Lesotho', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1900, 1906, N'Persistent non attender, school phobic, untraceable', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (455, N'PupilCountryQuestion', N'Liberia', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1900, 1907, N'Repeating year 11', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (456, N'PupilCountryQuestion', N'Libya', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1900, 1908, N'SEN - Special Educational Needs', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (457, N'PupilCountryQuestion', N'Liechtenstein', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1900, 1909, N'Dual registered and should be published elsewhere', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (458, N'PupilCountryQuestion', N'Lithuania', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1900, 1910, N'In young offenders institution, prison, or on remand', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (459, N'PupilCountryQuestion', N'Luxembourg', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1900, 1911, N'Not known at this school', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (460, N'PupilCountryQuestion', N'Macau ', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1900, 1912, N'Travellers', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (461, N'PupilCountryQuestion', N'Madagascar', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1900, 1913, N'Contingency for Bird flu', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (462, N'PupilCountryQuestion', N'Malawi', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (1900, 1914, N'Other', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (463, N'PupilCountryQuestion', N'Malaysia', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (5100, 1, N'Yes', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (464, N'PupilCountryQuestion', N'Maldives', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (5100, 2, N'No', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (465, N'PupilCountryQuestion', N'Mali', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (5600, 5610, N'Deceased', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (466, N'PupilCountryQuestion', N'Malta', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (5600, 5620, N'One year course of study', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (467, N'PupilCountryQuestion', N'Marshall Islands ', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (5600, 5630, N'Work based learner', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (468, N'PupilCountryQuestion', N'Mauritania', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (5600, 5640, N'Part-time learner', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (469, N'PupilCountryQuestion', N'Mauritius', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (5600, 5650, N'Contingency for Bird flu', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (470, N'PupilCountryQuestion', N'Mayotte ', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (5600, 5660, N'Other', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (471, N'PupilCountryQuestion', N'Mexico', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (31900, 1, N'Ilness/pregnancy', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (472, N'PupilCountryQuestion', N'Micronesia', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (31900, 2, N'Home tuition', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (473, N'PupilCountryQuestion', N'Moldova', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (31900, 3, N'EOTAS - Education other than at school', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (474, N'PupilCountryQuestion', N'Monaco', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (31900, 5, N'Permanently excluded from this school', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (475, N'PupilCountryQuestion', N'Mongolia', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (31900, 6, N'Persistent non attender, school phobic, untraceable', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (476, N'PupilCountryQuestion', N'Montenegro', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (31900, 7, N'Repeating year 9', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (477, N'PupilCountryQuestion', N'Montserrat ', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (31900, 8, N'SEN - Special Educational Needs', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (478, N'PupilCountryQuestion', N'Morocco', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (31900, 9, N'Dual registered and should be published elsewhere', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (479, N'PupilCountryQuestion', N'Mozambique', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (31900, 10, N'In young offenders institution, prison, or on remand', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (480, N'PupilCountryQuestion', N'Myanmar (formally known as Burma)', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (31900, 11, N'Not known at this school', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (481, N'PupilCountryQuestion', N'Namibia', 1)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (31900, 12, N'Travellers', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (482, N'PupilCountryQuestion', N'Nauru ', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (31900, 13, N'Contingency for Bird flu', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (483, N'PupilCountryQuestion', N'Nepal', NULL)
 GO
-INSERT [dbo].[PromptResponses] ([PromptID], [ListOrder], [ListValue], [Rejected]) VALUES (31900, 14, N'Other', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (484, N'PupilCountryQuestion', N'Netherlands (Holland)', NULL)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (100, N'Was pupil on your roll on 15th January 2009??', 0, 0, 5, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (485, N'PupilCountryQuestion', N'New Caledonia', NULL)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (110, N'Please make sure the year group we have estimated is correct: use yeargroup 11 for pupils completing Key Stage 4 in 2009', 0, 0, 6, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (486, N'PupilCountryQuestion', N'New Zealand', 1)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (120, N'Enter the other Forvus Index for this pupil. We will merge the results under that Index number', 0, 0, 3, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (487, N'PupilCountryQuestion', N'Nicaragua', NULL)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (130, N'Pupil will be removed from all published data. The NOR figures will not change. If January census NOR totals are incorrect please amend them on your School Summary page.', 0, 0, 6, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (488, N'PupilCountryQuestion', N'Niger', NULL)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (200, N'Was pupil ever enrolled at your school?', 0, 0, 5, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (489, N'PupilCountryQuestion', N'Nigeria', 1)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (210, N'Age 15 historical data is no longer calculated. No amendment is needed unless DOB is incorrect.', 0, 0, 6, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (490, N'PupilCountryQuestion', N'Niue', 1)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (220, N'Pupil will be removed from all published data', 0, 0, 6, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (491, N'PupilCountryQuestion', N'Norfolk Island ', 1)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (300, N'Pupil not on roll at 15/01/2009. Reached the end of compulsory schooling at your school without being published at end of KS4. Left your roll before 15/01/2009 and now added back. This pupil has been added back because they were not published in the KS4 data last year when they completed compulsory schooling. If you wish to appeal this add-back please give your reasons here.', 0, 0, 4, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (492, N'PupilCountryQuestion', N'North Korea', NULL)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (400, N'This pupil has been removed from the published Number on Roll but their results are included in the published percentages and CVA. Please explain why you think they should be included in the NOR', 0, 0, 4, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (493, N'PupilCountryQuestion', N'Northern Mariana Islands ', 1)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (500, N'This pupil has been removed from the published Number on Roll but their results are included in the published percentages and CVA. Please explain why their results should be removed also', 0, 0, 4, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (494, N'PupilCountryQuestion', N'Norway', NULL)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (600, N'Please explain why this pupil should be published at your school rather than the school where they are dually-registered. Please also ensure that all the details above are correct for YOUR school as they may currently reflect details provided by the other school', 0, 0, 4, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (495, N'PupilCountryQuestion', N'Oman', NULL)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (700, N'This pupil was removed from published data at the school''s request. Please explain why you wish to cancel that removal and reinstate them', 0, 0, 4, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (496, N'PupilCountryQuestion', N'Pakistan', NULL)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (801, N'Language', 0, 0, 1, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (497, N'PupilCountryQuestion', N'Palau', NULL)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (802, N'Country', 0, 0, 1, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (498, N'PupilCountryQuestion', N'Palestine ', NULL)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (803, N'Arrival Date', 0, 1, 2, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (499, N'PupilCountryQuestion', N'Panama', NULL)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (804, N'Please provide the country name', 1, 0, 4, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (500, N'PupilCountryQuestion', N'Papua New Guinea', NULL)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (805, N'Please provide the language name', 1, 0, 4, N'Explanation', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (501, N'PupilCountryQuestion', N'Paraguay', NULL)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (810, N'Please pick the date where the student joined the roll', 1, 0, 2, NULL, NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (502, N'PupilCountryQuestion', N'Switzerland', NULL)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (820, N'Pupil will be removed from Age15 historical data', 0, 0, 6, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (503, N'PupilCountryQuestion', N'Syria', NULL)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (830, N'Please choose the revised admission date if available', 1, 1, 2, NULL, NULL)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (504, N'PupilCountryQuestion', N'Taiwan', NULL)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (900, N'Please give full details', 0, 0, 4, N'Explanation', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (505, N'PupilCountryQuestion', N'Tajikistan', NULL)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1001, N'Please specify the excluding school using its 7 digit DCSF number. If you do not know this you can search the <a href="http://www.edubase.gov.uk" target="_blank" Title="Link opens in a new window">www.edubase.gov.uk</a> website – the DCSF number consists of the 3 digit LA number followed by the 4 digit Establishment Number.', 0, 0, 3, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (506, N'PupilCountryQuestion', N'Tanzania', NULL)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1002, N'Exclusion date', 0, 0, 2, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (507, N'PupilCountryQuestion', N'Thailand', NULL)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1010, N'The excluding school must be a recognized maintained school to meet DCSF criteria for ''pupils admitted following permanent exclusion from a maintained school''. Please give further details in support of this request.', 1, 0, 4, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (508, N'PupilCountryQuestion', N'Togo', NULL)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1020, N'The exclusion date is after the date of admission to your school. Please explain why you are making this request.', 1, 0, 4, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (509, N'PupilCountryQuestion', N'Tokelau', NULL)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1030, N'Exclusion Date before 1st September 2007 - does not meet DCSF criteria for ''pupils admitted following permanent exclusion from a maintained school''. Please explain why you are making this request', 1, 0, 4, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (510, N'PupilCountryQuestion', N'Tonga', NULL)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1040, N'Request to add an unlisted pupil who was admitted following permanent exclusion from a maintained school.  Addition will be reviewed. Please add any missing attainment and send the evidence requested.', 1, 0, 6, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (511, N'PupilCountryQuestion', N'Tunisia', NULL)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1101, N'Country', 0, 0, 1, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (512, N'PupilCountryQuestion', N'Turkey', NULL)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1102, N'Off roll date', 0, 0, 2, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (513, N'PupilCountryQuestion', N'Turkmenistan', NULL)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1103, N'Please provide the country name', 1, 0, 4, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (514, N'PupilCountryQuestion', N'Turks and Caicos Islands', 1)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1110, N'The date off roll is after the start of the tests. Please explain why you are making this request', 1, 0, 4, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (515, N'PupilCountryQuestion', N'Tuvalu', NULL)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1120, N'The date off roll is before the January census but this pupil was recorded on your January census. Please explain your request', 1, 0, 4, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (516, N'PupilCountryQuestion', N'Uganda', 1)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1130, N'Request to add an unlisted pupil who has permanently left England.  Addition will be reviewed.', 1, 0, 6, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (517, N'PupilCountryQuestion', N'Ukraine', NULL)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1201, N'Date off roll', 0, 0, 2, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (518, N'PupilCountryQuestion', N'United Arab Emirates', NULL)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1210, N'The date off roll is before the January census but this pupil was recorded on your January census. Please explain your request', 1, 0, 4, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (519, N'PupilCountryQuestion', N'Uruguay', NULL)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1310, N'We are aware this pupil is not at the end of Key Stage 4 and they are NOT included in the KS4 indicators. But they must stay in the Age15 historical figures unless you can give valid grounds for removal', 1, 0, 4, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (520, N'PupilCountryQuestion', N'USA', 1)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1320, N'Please revise year group to make this request. Note 11 is correct for pupils at end of KS4 even if your school ends KS4 in year 10 or year 12. If pupil will repeat year 11 in 2010 please enter this as year 10', 1, 0, 6, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (521, N'PupilCountryQuestion', N'Uzbekistan', NULL)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1400, N'National Curriculum Year Group', 0, 0, 3, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (522, N'PupilCountryQuestion', N'Vanuatu', NULL)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1410, N'This pupil will be added to the pupils at the end of Key Stage 4 published this year', 1, 0, 6, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (523, N'PupilCountryQuestion', N'Venezuela', NULL)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1420, N'If accepted, this change will remove the pupil from the published end of Key Stage 4 data', 1, 0, 6, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (524, N'PupilCountryQuestion', N'Vietnam', NULL)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1430, N'Pupil will be removed from the end of Key Stage 4 published data.', 1, 0, 6, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (525, N'PupilCountryQuestion', N'Wales', 1)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1440, N'Pupil will be removed from the end of Key Stage 4 published data BUT this pupil will be published in the end of Key Stage 4 data for your school in 2010 whether or not they continue their education at your school or elsewhere.', 1, 0, 6, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (526, N'PupilCountryQuestion', N'Wallis and Futuna', NULL)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1445, N'Please explain why this pupil is more than two years out of the normal year group for their age.', 1, 0, 4, N'Explanation', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (527, N'PupilCountryQuestion', N'Western Sahara', NULL)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1450, N'DCSF will consider your request', 1, 0, 6, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (528, N'PupilCountryQuestion', N'Windward Islands ', NULL)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1455, N'Please explain why this pupil is more than two years out of the normal year group for their age. If accepted, this changes the year we estimated and removes the pupil from the KS4 measures. It does not alter the School Number On Roll total as reported in your January School Census return.', 1, 0, 4, N'Explanation', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (529, N'PupilCountryQuestion', N'Windward Islands  Dominica', 1)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1460, N'This changes the year we estimated and removes the pupil from the KS4 measures. It does not alter the School Number On Roll total as reported in your January School Census return.', 1, 0, 6, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (530, N'PupilCountryQuestion', N'Windward Islands  Martinique', NULL)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1470, N'This changes the year we estimated and adds the pupil to the KS4 measures.  It does not alter the School Number On Roll total as reported in your January School Census return.', 1, 0, 6, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (531, N'PupilCountryQuestion', N'Windward Islands  Saint Lucia', 1)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1480, N'This changes the year group which we estimated.  It does not alter the School Number On Roll total as reported in your January School Census return. Results are only included for year 11 pupils.', 1, 0, 6, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (532, N'PupilCountryQuestion', N'Windward Islands  Saint Vincent and the Grenadines', 1)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1500, N'Date of Birth', 0, 0, 2, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (533, N'PupilCountryQuestion', N'Windward Islands  Grenada', 1)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1510, N'DCSF will consider your request', 0, 0, 6, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (534, N'PupilCountryQuestion', N'Windward Islands  Trinidad and Tobago', 1)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1520, N'Pupil will no longer be counted as an ''early-taker''', 0, 0, 6, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (535, N'PupilCountryQuestion', N'Yemen', NULL)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1530, N'This change may alter the results and number on roll in the Age 15 historical data', 0, 0, 6, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (536, N'PupilCountryQuestion', N'Zambia', 1)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1540, N'This change may alter the results included in the Age 15 historical data. It will not alter the published Number on Roll', 0, 0, 6, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (537, N'PupilCountryQuestion', N'Zimbabwe', 1)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1600, N'Date of admission to school', 0, 0, 2, N'', N'')
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [Rejected]) VALUES (538, N'PupilCountryQuestion', N'Other', 1)
 GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1610, N'Please explain why this pupil was recorded on your January school census if they joined your roll after it', 0, 0, 4, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1620, N'Pupil joined after ASC so explain why should be published at your school', 0, 0, 4, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1700, N'Please revise year group to make this request. Use 11 for pupils at end of KS4 even if your school ends KS4 in year 10 or year 12. Note that if pupil will repeat year 11 in 2010 then year group 10 is correct.', 0, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1801, N'Please enter the effective date this pupil was removed from your roll (use earlier date if backdated)', 0, 0, 2, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1810, N'Please explain why this pupil was recorded on your January school census if they were removed from your roll before it.', 1, 0, 4, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1820, N'All pupils must be published at the school where they were on roll in January. You are entitled to any results obtained after this pupil left your roll.', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1900, N'Other', 0, 0, 1, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1901, N'If pupil will complete Key Stage 4 in 2010 you can ask for deferral by amending the NC Year Group to 10. Otherwise please give full details of illness, date last attended and plans for continuing the pupil''s education.', 1, 0, 4, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1902, N'Pupils kept on roll by LA for funding or other purposes cannot be removed', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1903, N'Pupils kept on roll by LA for funding or other purposes cannot be removed', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1904, N'Pupils on roll for the January census who leave school to start work or attend a mix of work/study cannot be removed', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1906, N'Please give details of steps taken to ensure attendance', 1, 0, 4, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1907, N'If pupil will complete Key Stage 4 in 2010 you can change the taught year in 2009 to 10 BUT this pupil will be published in the end of Key Stage 4 data for your school in 2010', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1908, N'Special Needs do not offer grounds for removal from published Achievement and Attainment Tables', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1909, N'Please give details of the school where you believe this pupil should be published. DCSF are unlikely to agree this request unless the other school requests the addition of this pupil', 1, 0, 4, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1910, N'Please give outline details and dates of incarceration', 1, 0, 4, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1911, N'The pupil was listed on your January 2009 school census return but may have been shown under a different name. Please check with the registry.', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1912, N'DCFS does not generally accept removal', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1913, N'Please give details of problem', 1, 0, 4, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (1914, N'Please give full details', 1, 0, 4, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (2000, N'If you feel there are exceptional circumstances regarding this pupil, please enter them here.', 0, 1, 4, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (2010, N'We regret that we are unable to remove this pupil without details of the circumstances.', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (2020, N'Thank you. Your request will be passed to DCSF to decide.', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (2100, N'Please check that this pupil is not already included under another name and is at end of KS4 in 2009. If you are confident they are not already listed please check/supply all details on this screen', 0, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (2200, N'Please enter the date the pupil joined your roll.', 1, 0, 2, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (2210, N'Please explain, if possible, how the pupil was omitted from your school census return', 1, 0, 4, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (2220, N'Please explain why the pupil should be published at your school if they joined the roll after the school census', 1, 0, 4, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (2300, N'Enter the Forvus Index Number of the pupil to whom these results belong. The results will be merged under that Index.', 0, 0, 3, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (5100, N'Was student on your roll on 15/01/2009? (Must answer this question)', 0, 0, 1, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (5110, N'Please make sure the year group we have estimated is correct: use year group 13 for students completing Level 3 study in 2009', 0, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (5120, N'Enter the other Forvus Index for this pupil. We will merge the results under that Index number', 0, 0, 3, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (5130, N'Student will be removed from all published data.', 0, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (5200, N'National Curriculum Year Group', 0, 0, 3, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (5210, N'This student will be added to the published tables. Please add any missing attainment and send the evidence requested.', 0, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (5220, N'This student will not be included in the post 16 publication.', 0, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (5300, N'Date of Birth', 0, 0, 2, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (5310, N'Student aged 19+ is too old to be published in post 16 tables and will be removed', 0, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (5320, N'Student aged under 16 is too young to be published in post 16 tables and will be removed', 0, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (5410, N'We are aware this student is not at the end of advanced study and they are NOT included in the post 16 indicators.', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (5420, N'Please revise year group. Use 12 for students who will complete next year, and 14 for those who completed last year.', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (5500, N'Please amend each result to ''Withdrawn'' and provide evidence as requested.', 0, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (5600, N'Other', 0, 0, 1, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (5610, N'Student will be removed from published tables', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (5620, N'Student will be removed from published tables', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (5630, N'Student will be removed from published tables', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (5640, N'Student will be removed from published tables', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (5650, N'Please give full details', 1, 0, 4, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (5660, N'Please give full details', 1, 0, 4, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (5710, N'This student will be added to the published tables. Please add any missing attainment and send the evidence requested.', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (5720, N'Student cannot be included in published tables unless you change the taught year group to 13', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (5800, N'Enter the Forvus Index Number of the student to whom these results belong. The results will be merged under that Index.', 0, 0, 3, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (5900, N'This student was removed from published data at the school''s request. Please explain why you wish to cancel that removal and reinstate them', 0, 0, 4, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (21200, N'Please give full details', 0, 0, 4, N'Explanation', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (21310, N'We are aware this pupil is not at the end of Key Stage 2 and they are NOT included in the KS2 Tables. They are included in the checking exercise so that you can check the KS2 results', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (21320, N'Please explain why a year [Year Group] pupil should not be treated as being at the end of KS2.', 1, 0, 4, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (21330, N'Although this pupil is not in Year group 6, they seem to have valid KS2 results for all subjects.  Please explain why this pupil is not at end of KS2', 1, 0, 4, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (21400, N'National Curriculum Year Group', 0, 0, 3, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (21410, N'Year Group change accepted. This pupil will be added to the pupils at the end of Key Stage 2 published this year. Warning: all KS2 ''Future'' results will be changed to ''Missing'' for publication - please amend these results, and provide evidence.  If this pupil is genuinely in Year Group 6 but is not at the end of KS2, please select option '' Pupil not at end of KS2 in all subjects'' to request removal from the Tables', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (21420, N'Year Group change accepted. This pupil will continue to be reported in Key Stage 2 2009 tables', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (21430, N'Year Group change accepted. This pupil will be removed from the pupils at the end of Key Stage 2 published this year.', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (21440, N'Year Group change accepted. Warning: This pupil  has valid KS2 results for 2009 for one or more subjects. The pupil will NOT be removed from the pupils at the end of Key Stage 2 published this year.  If this year group change indicates that the pupil is not at end of KS2 in 2009, please select removal option ''Pupil not at end of KS2 in all subjects''', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (21450, N'Year Group change accepted. This pupil has valid KS2 results for 2009.  They will NOT be removed from the pupils at the end of Key Stage 2 published this year.  If this year group change indicates that the pupil is not at end of KS2 in 2009, please select removal option ''Pupil not at end of KS2 in all subjects''', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (21460, N'Year Group change accepted. The pupil will continue to be reported in the KS2 2009 Tables', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (21500, N'Date of Birth', 0, 0, 2, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (21510, N'Data of birth change accepted. The pupil will continue to be reported in the KS2 2009 Tables', 0, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (21520, N'Data of birth change accepted.  The pupil will continue NOT to be reported in the KS2 2009 Tables, as age is not a criteria for inclusion in the Tables', 0, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (21600, N'Date of admission to school', 1, 0, 2, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (21610, N'Date of admission change accepted. The pupil will continue to be reported in the KS2 2009 Tables', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (21620, N'Pupil joined during test week. Request will be reviwed by the DfES', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (21630, N'Please explain why this pupil was recorded with KS2 results at your school if they joined your roll after the KS2 testing week', 1, 0, 4, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (21801, N'Please enter the effective date this pupil was removed from your roll (use earlier date if backdated)', 0, 0, 2, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (21810, N'This pupil will be removed from your KS2 Tables', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (21820, N'This pupil will be removed from your KS2 Tables', 1, 0, 4, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (21830, N'All pupils must be published at the school where they took the KS2 tests. You are entitled to any results obtained by this pupil', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (21840, N'Pupil has not done all 3 tests. Please provide more details for DCSF.', 1, 0, 4, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (21900, N'Please give full details', 0, 0, 4, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (22200, N'Please enter the date the pupil joined your roll.', 1, 0, 2, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (22210, N'Addition will be reviewed.  Please make sure that you provide details and evidence for Pupils KS2 test results.   Please explain, if possible, how the pupil was omitted from your school census return.', 1, 0, 4, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (22220, N'Addition will be reviewed.  Please make sure that you provide details and evidence for Pupils KS2 test results', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (22230, N'Please explain why the pupil should be published at your school if they joined the roll after the KS2 test week. Addition will be reviewed.  Please make sure that you provide details and evidence for Pupils KS2 test results', 1, 0, 4, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (22300, N'Enter the Forvus Index Number of the pupil to whom these results belong. The results will be merged under that Index.', 0, 0, 3, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (31310, N'We are aware this pupil is not at the end of Key Stage 3 and they are NOT included in the KS3 Tables. They are included in the checking exercise so that you can check and amend any tests taken in earlier years.', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (31320, N'Please explain why a year <Year Group> pupil is not at end of KS3.', 1, 0, 4, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (31330, N'Although this pupil is not in Year group 9, they seem to have valid KS3 results for all subjects.  Please explain why this pupil is not at end of KS3', 1, 0, 4, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (31400, N'National Curriculum Year Group', 0, 0, 3, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (31410, N'Year Group change accepted. This pupil will be added to the pupils at the end of Key Stage 3 published this year. Warning: all KS3 ''Future'' results will be changed to ''Missing'' for publication - please amend these results, and provide evidence.  If this pupil is genuinely in Year Group 9 but is not at the end of KS3, please select option '' Pupil not at end of KS3 in all subjects'' to request removal from the Tables', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (31420, N'Year Group change accepted. This pupil will continue to be reported in Key Stage 3 2007 tables', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (31430, N'Year Group change accepted. This pupil will be removed from the pupils at the end of Key Stage 3 published this year.', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (31440, N'Year Group change accepted. This pupil has valid KS3 results for 2007 for all subjects. The pupil will NOT be removed from the pupils at the end of Key Stage 3 published this year.  If this year group change indicates that the pupil is not at end of KS3 in 2007, please select removal option ''Pupil not at end of KS3 in all subjects''', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (31450, N'Year Group change accepted. This pupil has valid KS3 results for 2007. They will NOT be removed from the pupils at the end of Key Stage 3 published this year.  If this year group change indicates that the pupil is not at end of KS3 in 2007, please select removal option ''Pupil not at end of KS3 in all subjects''', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (31460, N'Year Group change accepted. The pupil will continue to be reported in the KS3 2007 Tables', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (31500, N'Date of Birth', 0, 0, 2, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (31510, N'Data of birth change accepted. The pupil will continue to be reported in the KS3 2007 Tables', 0, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (31520, N'Data of birth change accepted. The pupil will continue NOT to be reported in the KS3 2007 Tables, as age is not a criteria for inclusion in the Tables', 0, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (31600, N'Date of admission to school', 0, 0, 2, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (31610, N'Date of admission change accepted. The pupil will continue to be reported in the KS3 2007 Tables', 0, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (31620, N'Pupil joined during test week. Request will be reviewed by the DfES', 0, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (31630, N'Please explain why this pupil was recorded with KS3 results at your school if they joined your roll after the KS3 testing week', 0, 0, 4, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (31801, N'Please enter the effective date this pupil was removed from your roll (use earlier date if backdated)', 0, 0, 2, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (31810, N'This pupil will be removed from your KS3 Tables', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (31820, N'Please explain why this pupil was recorded on your January school census if they were removed from your roll before it.', 1, 0, 4, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (31830, N'All pupils must be published at the school where they took the KS3 tests. You are entitled to any results obtained by this pupil', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (31840, N'Pupil has not done all 3 tests. Please provide more details for DfES.', 1, 0, 4, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (31900, N'Other', 0, 0, 1, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (31901, N'If pupil will complete Key Stage 3 in 2008 you can ask for deferral by picking the option for ''Pupils not at end of Key Stage''. Otherwise please give full details of illness, date last attended and plans for continuing the pupil''s education.', 1, 0, 4, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (31902, N'Pupils kept on roll by LA for funding or other purposes cannot be removed', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (31903, N'Pupils kept on roll by LA for funding or other purposes cannot be removed', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (31906, N'Please give details of steps taken to ensure attendance', 1, 0, 4, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (31907, N'If pupil will complete Key Stage 3 in 2008 and has ''Future'' results flagged for some tests, you can change the taught year in 2007 to 8.  If the pupil has completed all KS3 tests, then these results will be reported in the 2007 tables.', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (31908, N'Special Needs do not offer grounds for removal from published Achievement and Attainment Tables', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (31909, N'Please give details of the school where you believe this pupil should be published. DfES are unlikly to agree this request unless the other school requests the addition of this pupil', 1, 0, 4, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (31910, N'Please give outline details and dates of incarceration', 1, 0, 4, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (31911, N'The pupil was listed on your May KS3 Tests return but may have been shown under a different name. Please check with the registry.', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (31912, N'DfES does not generally accept removal', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (31913, N'Please give details of problem', 1, 0, 4, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (31914, N'Please give full details', 1, 0, 4, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (32110, N'This pupil is not in Year Group 9, and is listed as having ''Future'' results, and so is regarded as ''Not at end of KS3''. If the Year Group is in error, please amend to its correct value.  Please also amend any erroneous KS3 results, and send in appropriate evidence.  Otherwise these ''Future'' results will be reported as ''Missing''', 0, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (32200, N'Please enter the date the pupil joined your roll.', 1, 0, 2, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (32210, N'Addition will be reviewed.  Please make sure that you provide details and evidence for Pupils KS3 test results.   Please explain, if possible, how the pupil was omitted from your school census return.', 1, 0, 4, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (32220, N'Addition will be reviewed.  Please make sure that you provide details and evidence for Pupils KS3 test results', 1, 0, 6, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (32230, N'Please explain why the pupil should be published at your school if they joined the roll after the KS3 test week. Addition will be reviewed.  Please make sure that you provide details and evidence for Pupils KS3 test results', 1, 0, 4, N'', N'')
-GO
-INSERT [dbo].[Prompts] ([PromptID], [PromptText], [IsConditional], [AllowNulls], [PromptTypes_PromptTypeID], [ColumnName], [PromptShortText]) VALUES (32300, N'Enter the Forvus Index Number of the pupil to whom these results belong. The results will be merged under that Index.', 0, 0, 3, N'', N'')
-GO
-INSERT [dbo].[PromptTypes] ([PromptTypeID], [PromptTypeName]) VALUES (1, N'ListBox')
-GO
-INSERT [dbo].[PromptTypes] ([PromptTypeID], [PromptTypeName]) VALUES (2, N'Date')
-GO
-INSERT [dbo].[PromptTypes] ([PromptTypeID], [PromptTypeName]) VALUES (3, N'Integer')
-GO
-INSERT [dbo].[PromptTypes] ([PromptTypeID], [PromptTypeName]) VALUES (4, N'Text')
-GO
-INSERT [dbo].[PromptTypes] ([PromptTypeID], [PromptTypeName]) VALUES (5, N'YesNo')
-GO
-INSERT [dbo].[PromptTypes] ([PromptTypeID], [PromptTypeName]) VALUES (6, N'Info')
+SET IDENTITY_INSERT [dbo].[PotentialAnswers] OFF
 GO
 INSERT [dbo].[SENStatus] ([SENStatusCode], [SENStatusDescription]) VALUES (N'?', N'Not Supplied')
 GO
@@ -2809,16 +1892,6 @@ INSERT [dbo].[YearGroups] ([YearGroupCode], [YearGroupDescription]) VALUES (N'R 
 GO
 INSERT [dbo].[YearGroups] ([YearGroupCode], [YearGroupDescription]) VALUES (N'X ', N'National Curriculum not followed')
 GO
-ALTER TABLE [dbo].[PINCLInclusionAdjData]  WITH CHECK ADD  CONSTRAINT [FK_PINCLInclusionAdjData_PINCLInclusionAdjustments] FOREIGN KEY([PINCLInclusionAdjustments_P_INCL], [PINCLInclusionAdjustments_IncAdjReasonID])
-REFERENCES [dbo].[PINCLInclusionAdjustments] ([P_INCL], [IncAdjReasonID])
-GO
-ALTER TABLE [dbo].[PINCLInclusionAdjData] CHECK CONSTRAINT [FK_PINCLInclusionAdjData_PINCLInclusionAdjustments]
-GO
-ALTER TABLE [dbo].[PINCLInclusionAdjData]  WITH CHECK ADD  CONSTRAINT [FK_PINCLInclusionAdjData_Prompts] FOREIGN KEY([Prompts_PromptID])
-REFERENCES [dbo].[Prompts] ([PromptID])
-GO
-ALTER TABLE [dbo].[PINCLInclusionAdjData] CHECK CONSTRAINT [FK_PINCLInclusionAdjData_Prompts]
-GO
 ALTER TABLE [dbo].[PINCLInclusionAdjustments]  WITH CHECK ADD  CONSTRAINT [FK_PINCLNORAdjustments_NORAdjustmentReasons] FOREIGN KEY([IncAdjReasonID])
 REFERENCES [dbo].[InclusionAdjustmentReasons] ([IncAdjReasonID])
 GO
@@ -2828,14 +1901,4 @@ ALTER TABLE [dbo].[PINCLInclusionAdjustments]  WITH CHECK ADD  CONSTRAINT [FK_PI
 REFERENCES [dbo].[PINCLs] ([P_INCL])
 GO
 ALTER TABLE [dbo].[PINCLInclusionAdjustments] CHECK CONSTRAINT [FK_PINCLNORAdjustments_PINCLs]
-GO
-ALTER TABLE [dbo].[PromptResponses]  WITH CHECK ADD  CONSTRAINT [FK_PromptResponses_Prompts] FOREIGN KEY([PromptID])
-REFERENCES [dbo].[Prompts] ([PromptID])
-GO
-ALTER TABLE [dbo].[PromptResponses] CHECK CONSTRAINT [FK_PromptResponses_Prompts]
-GO
-ALTER TABLE [dbo].[Prompts]  WITH CHECK ADD  CONSTRAINT [FK_Prompts_PromptTypes] FOREIGN KEY([PromptTypes_PromptTypeID])
-REFERENCES [dbo].[PromptTypes] ([PromptTypeID])
-GO
-ALTER TABLE [dbo].[Prompts] CHECK CONSTRAINT [FK_Prompts_PromptTypes]
 GO

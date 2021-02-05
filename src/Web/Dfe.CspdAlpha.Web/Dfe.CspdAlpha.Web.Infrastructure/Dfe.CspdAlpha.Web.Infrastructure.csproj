@@ -7,7 +7,6 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.6" />
-    <PackageReference Include="Microsoft.Powerplatform.Cds.Client" Version="0.2.17-Alpha" />
     <PackageReference Include="Microsoft.SharePointOnline.CSOM" Version="16.1.20412.12000" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.7.1" />

@@ -4,6 +4,12 @@
 		<TargetFramework>netcoreapp3.1</TargetFramework>
 	</PropertyGroup>
 
+	<ItemGroup>
+	  <Compile Remove="SqlServer\Config\**" />
+	  <EmbeddedResource Remove="SqlServer\Config\**" />
+	  <None Remove="SqlServer\Config\**" />
+	</ItemGroup>
+
   <ItemGroup>
     <None Remove="SqlServer\POCOs.tt" />
   </ItemGroup>
@@ -30,10 +36,6 @@
     </PackageReference>
     <PackageReference Include="Microsoft.PowerPlatform.Cds.Client" Version="0.2.17-Alpha" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="SqlServer\Config\" />
   </ItemGroup>
 
   <ItemGroup>

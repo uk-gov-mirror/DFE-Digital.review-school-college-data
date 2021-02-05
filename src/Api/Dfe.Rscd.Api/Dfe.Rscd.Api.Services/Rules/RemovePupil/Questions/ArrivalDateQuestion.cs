@@ -3,7 +3,7 @@ using Dfe.Rscd.Api.Domain.Entities.Questions;
 
 namespace Dfe.Rscd.Api.Services.Rules
 {
-    public class ArrivalDateQuestion : NestedChoiceQuestion
+    public class ArrivalDateQuestion : NullableDateQuestion
     {
         public ArrivalDateQuestion()
         {
@@ -12,28 +12,14 @@ namespace Dfe.Rscd.Api.Services.Rules
 
         public void Setup()
         {
-            var parentQuestion = new SelectQuestion(
-                "ArrivalDateQuestion",
+            SetupParentYesNo(
+                nameof(ArrivalDateQuestion),
                 "Do you know pupil's date of arrival to UK?",
-                "Select one",
-                new List<AnswerPotential>
+                "Select one", new List<AnswerPotential>
                 {
                     new AnswerPotential {Value = "1", Description = "Enter pupil's date of arrival to UK"},
                     new AnswerPotential {Value = "2", Description = "Do not know pupil's date of arrival to UK"}
                 }, new Validator
-                {
-                    AllowNull = false,
-                    InValidErrorMessage = string.Empty,
-                    NullErrorMessage = "Select one",
-                    ValidatorType = ValidatorType.None
-                });
-
-            SetupParentQuestion(parentQuestion);
-
-            var nestedQuestion = new DateTimeQuestion(
-                "ArrivalDateQuestion.1",
-                "Enter a date of arrival to UK",
-                "For example, 12 11 2007", new Validator
                 {
                     InValidErrorMessage = "Enter a valid date of arrival to UK",
                     NullErrorMessage = "Enter a date of arrival to UK",
@@ -41,7 +27,12 @@ namespace Dfe.Rscd.Api.Services.Rules
                     AllowNull = false,
                 });
 
-            SetupNestedQuestion(nestedQuestion, "1");
+            var dateTimeQuestion = new DateTimeQuestion(
+                nameof(ArrivalDateQuestion),
+                "Enter a date of arrival to UK",
+                "For example, 12 11 2007", new Validator{ ValidatorType = ValidatorType.None });
+
+            SetupDateQuestion(dateTimeQuestion);
         }
     }
 }

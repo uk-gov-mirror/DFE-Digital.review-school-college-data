@@ -26,13 +26,24 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments
             return PersonLowercase;
         }
 
-        public Question CurrentQuestion => Questions.ToList()[CurrentQuestionIndex];
+        public Question CurrentQuestion
+        {
+            get
+            {
+                var currentQuestion = Questions.ToList()[CurrentQuestionIndex];
+                if (ShowConditional)
+                    return currentQuestion.Answer.ConditionalQuestion;
+
+                return currentQuestion;
+            }
+        } 
 
         private IDictionary<string, ICollection<string>> ValidationErrors { get; set; }
 
         public string BackController { get; set; }
         public string BackAction { get; set; }
 
+        public bool ShowConditional { get; set; }
 
         public QuestionViewModel(ICollection<Question> questions, int currentIndex=0, IDictionary<string, ICollection<string>> validationErrors=null)
         {

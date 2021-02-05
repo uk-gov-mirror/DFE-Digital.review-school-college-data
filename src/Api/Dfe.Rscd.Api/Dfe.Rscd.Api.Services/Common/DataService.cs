@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Dfe.Rscd.Api.Domain.Entities;
+using Dfe.Rscd.Api.Domain.Entities.Questions;
 using Dfe.Rscd.Api.Infrastructure.SqlServer.Repositories;
 using DTO = Dfe.Rscd.Api.Infrastructure.SqlServer.DTOs;
 
@@ -51,6 +52,17 @@ namespace Dfe.Rscd.Api.Services
                 .ToList();
         }
 
+        public IList<FirstLanguage> GetLanguages()
+        {
+            return _repository.Get<DTO.Language>()
+                .Select(x => new FirstLanguage
+                {
+                    Code = x.LanguageCode,
+                    Description = x.LanguageDescription
+                })
+                .ToList();
+        }
+
         public IList<AmendmentReason> GetInclusionAdjustmentReasons(CheckingWindow checkingWindow, string pinclId = "")
         {
             IQueryable<AmendmentReason> reasons;
@@ -95,13 +107,14 @@ namespace Dfe.Rscd.Api.Services
             return reasons.ToList();
         }
 
-        public IList<FirstLanguage> GetLanguages()
+        public IList<AnswerPotential> GetAnswerPotentials(string questionId)
         {
-            return _repository.Get<DTO.Language>()
-                .Select(x => new FirstLanguage
+            return _repository.Get<DTO.PotentialAnswer>()
+                .Where(x=> x.QuestionId == questionId)
+                .Select(x => new AnswerPotential
                 {
-                    Code = x.LanguageCode,
-                    Description = x.LanguageDescription
+                    Value = x.Id.ToString(),
+                    Description = x.AnswerValue
                 })
                 .ToList();
         }

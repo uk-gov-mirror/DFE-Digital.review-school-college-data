@@ -6,6 +6,7 @@ namespace Dfe.Rscd.Api.Domain.Entities.Questions
         DateTime,
         Number,
         String,
-        Boolean
+        Boolean,
+        NullableDate
     }
 }

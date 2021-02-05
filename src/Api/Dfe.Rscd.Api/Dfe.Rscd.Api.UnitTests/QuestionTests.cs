@@ -24,7 +24,7 @@ namespace Dfe.Rscd.Api.UnitTests
         public void ItShouldShowErrorIfAnswerIsNull()
         {
             var dataService = new Mock<IDataService>();
-            dataService.Setup(x => x.GetLanguages()).Returns(new List<FirstLanguage>());
+            dataService.Setup(x => x.GetAnswerPotentials(It.IsAny<string>())).Returns(new List<AnswerPotential>());
             var admittedFromAbroadRules = new RemovePupilAdmittedFromAbroadRule(dataService.Object);
 
             var outcome = admittedFromAbroadRules.Apply(new Amendment()
@@ -35,12 +35,11 @@ namespace Dfe.Rscd.Api.UnitTests
                     new UserAnswer{Value = string.Empty, QuestionId = "PupilNativeLanguageQuestion.Other"},
                     new UserAnswer{Value = string.Empty, QuestionId = "PupilCountryQuestion"},
                     new UserAnswer{Value = string.Empty, QuestionId = "PupilCountryQuestion.Other"},
-                    new UserAnswer{Value = string.Empty, QuestionId = "ArrivalDateQuestion"},
-                    new UserAnswer{Value = string.Empty, QuestionId = "ArrivalDateQuestion.1"}
+                    new UserAnswer{Value = string.Empty, QuestionId = "ArrivalDateQuestion"}
                 }
             });
 
-            Assert.True(outcome.ValidationErrors.Count == 6);
+            Assert.True(outcome.ValidationErrors.Count == 5);
             Assert.True(outcome.IsComplete == false);
         }
 
@@ -48,7 +47,7 @@ namespace Dfe.Rscd.Api.UnitTests
         public void ItShouldShowNoErrorIfAnswerIsNotNull()
         {
             var dataService = new Mock<IDataService>();
-            dataService.Setup(x => x.GetLanguages()).Returns(new List<FirstLanguage>());
+            dataService.Setup(x => x.GetAnswerPotentials(It.IsAny<string>())).Returns(new List<AnswerPotential>());
             var admittedFromAbroadRules = new RemovePupilAdmittedFromAbroadRule(dataService.Object);
 
             var outcome = admittedFromAbroadRules.Apply(new Amendment()
@@ -59,8 +58,7 @@ namespace Dfe.Rscd.Api.UnitTests
                     new UserAnswer{Value = "Afrikaans", QuestionId = "PupilNativeLanguageQuestion.Other"},
                     new UserAnswer{Value = "Other", QuestionId = "PupilCountryQuestion"},
                     new UserAnswer{Value = "Belarus", QuestionId = "PupilCountryQuestion.Other"},
-                    new UserAnswer{Value = "1", QuestionId = "ArrivalDateQuestion"},
-                    new UserAnswer{Value = "23-10-2017", QuestionId = "ArrivalDateQuestion.1"}
+                    new UserAnswer{Value = "23-10-2017", QuestionId = "ArrivalDateQuestion"}
                 }
             });
 
@@ -90,7 +88,7 @@ namespace Dfe.Rscd.Api.UnitTests
         public void ItShouldPresentExpectedQuestionsForAdmittedFromAboard()
         {
             var dataService = new Mock<IDataService>();
-            dataService.Setup(x => x.GetLanguages()).Returns(new List<FirstLanguage>());
+            dataService.Setup(x => x.GetAnswerPotentials(It.IsAny<string>())).Returns(new List<AnswerPotential>());
             var admittedFromAbroadRules = new RemovePupilAdmittedFromAbroadRule(dataService.Object);
 
             var outcome = admittedFromAbroadRules.Apply(new Amendment());

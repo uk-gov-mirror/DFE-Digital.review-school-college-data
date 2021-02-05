@@ -1,0 +1,70 @@
+@model Dfe.Rscd.Web.ApiClient.Question
+<div class="govuk-form-group">
+    <fieldset class="govuk-fieldset" aria-describedby="changed-name-hint">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+                @Model.Title
+            </h1>
+        </legend>
+        <div id="changed-name-hint" class="govuk-hint">
+            @Model.Answer.Label
+        </div>
+        <!-- Jon, We need to show 'select one' when the user hasn't picked an option. The other validations below will be in ValidationErrors in the Viewmodel -->
+        <div class="govuk-radios govuk-radios--inline">
+            <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="changed-name" name="changed-name" type="radio" value="yes">
+                <label class="govuk-label govuk-radios__label" for="changed-name">
+                    @Model.Answer.AnswerPotentials.First().Description
+                </label>
+                <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <h1 class="govuk-fieldset__heading">
+                            @Model.Answer.ConditionalQuestion.Title
+                        </h1>
+                    </legend>
+                    <div id="passport-issued-hint" class="govuk-hint">
+                        @Model.Answer.ConditionalQuestion.Answer.Label
+                    </div>
+                    <div class="govuk-date-input" id="passport-issued">
+                        <div class="govuk-date-input__item">
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-date-input__label" for="date-day">
+                                    Day
+                                </label>
+                                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="date-day" name="date-day" type="text" pattern="[0-9]*" inputmode="numeric">
+                            </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-date-input__label" for="date-month">
+                                    Month
+                                </label>
+                                <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="date-month" name="date-month" type="text" pattern="[0-9]*" inputmode="numeric">
+                            </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-date-input__label" for="date-year">
+                                    Year
+                                </label>
+                                <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="date-year" name="date-year" type="text" pattern="[0-9]*" inputmode="numeric">
+                            </div>
+                        </div>
+                    </div>
+
+                </fieldset>
+            </div>
+            <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="changed-name-2" name="changed-name" type="radio" value="no">
+                <label class="govuk-label govuk-radios__label" for="changed-name-2">
+                    @Model.Answer.AnswerPotentials.Last().Description
+                </label>
+            </div>
+        </div>
+
+    </fieldset>
+</div>
+
+<div class="govuk-form-group">
+
+</div>

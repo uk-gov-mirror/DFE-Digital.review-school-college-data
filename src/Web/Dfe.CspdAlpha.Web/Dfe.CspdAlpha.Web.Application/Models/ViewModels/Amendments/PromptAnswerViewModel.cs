@@ -20,6 +20,9 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments
                 case (QuestionType.DateTime):
                     answerAsString = $"{fields["date-day"]}/{fields["date-month"]}/{fields["date-year"]}";
                     break;
+                case (QuestionType.NullableDate):
+                    answerAsString = $"{fields["date-day"]}/{fields["date-month"]}/{fields["date-year"]}";
+                    break;
                 case (QuestionType.Number):
                     answerAsString = $"{fields["number"]}";
                     break;
@@ -33,6 +36,9 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments
                     answerAsString = fields["boolean"];
                     break;
             }
+
+            if (answerAsString == "//")
+                answerAsString = string.Empty;
 
             return answerAsString;
         }
