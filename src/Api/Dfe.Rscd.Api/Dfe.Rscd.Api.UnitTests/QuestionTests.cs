@@ -39,12 +39,12 @@ namespace Dfe.Rscd.Api.UnitTests
                 }
             });
 
-            Assert.True(outcome.ValidationErrors.Count == 5);
+            Assert.True(outcome.ValidationErrors.Count == 4);
             Assert.True(outcome.IsComplete == false);
         }
 
         [Fact]
-        public void ItShouldShowErrorIfDateIsNotEntered()
+        public void ItShouldShowNotErrorIfDateIsNotEnteredAsNullable()
         {
             var dataService = new Mock<IDataService>();
             dataService.Setup(x => x.GetAnswerPotentials(It.IsAny<string>())).Returns(new List<AnswerPotential>());
@@ -58,8 +58,7 @@ namespace Dfe.Rscd.Api.UnitTests
                 }
             });
 
-            Assert.True(outcome.ValidationErrors.Count == 1);
-            Assert.True(outcome.ValidationErrors.First().Key == nameof(ArrivalDateQuestion));
+            Assert.True(outcome.ValidationErrors == null);
             Assert.True(outcome.IsComplete == false);
         }
 
