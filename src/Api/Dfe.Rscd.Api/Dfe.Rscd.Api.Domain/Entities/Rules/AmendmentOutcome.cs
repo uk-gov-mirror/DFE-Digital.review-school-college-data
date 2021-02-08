@@ -18,21 +18,22 @@ namespace Dfe.Rscd.Api.Domain.Entities
 
         public List<UserAnswer> ValidatedAnswers { get;set; }
 
-        public string ScrutinyDetail { get; set; }
+        public string OutcomeReasonDescription { get; set; }
         public string ScrutinyStatusCode { get; set; }
 
         public int ReasonId { get; set; }
+        public string ReasonDescription { get; set; }
 
         public OutcomeStatus OutcomeStatus { get; set; }
 
         public EvidenceStatus EvidenceStatus { get; set; }
 
-        public AmendmentOutcome(OutcomeStatus status, string scrutinyDetail)
+        public AmendmentOutcome(OutcomeStatus status, string outcomeReasonDescription)
         {
             OutcomeStatus = status;
             IsComplete = true;
             FurtherQuestions = null;
-            ScrutinyDetail = scrutinyDetail;
+            OutcomeReasonDescription = outcomeReasonDescription;
         }
 
         public AmendmentOutcome(OutcomeStatus status)

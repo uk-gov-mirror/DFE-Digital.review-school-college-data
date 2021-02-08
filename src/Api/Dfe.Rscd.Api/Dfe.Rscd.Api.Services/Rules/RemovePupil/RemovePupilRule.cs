@@ -12,14 +12,14 @@ namespace Dfe.Rscd.Api.Services.Rules
         {
             if (amendmentOutcome.IsComplete && amendmentOutcome.FurtherQuestions == null)
             {
-                amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_ScrutinyReasonCode,
-                    amendmentOutcome.ScrutinyStatusCode);
+                amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_ReasonDescription,
+                    amendmentOutcome.ReasonDescription);
 
                 amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_ReasonCode,
                     amendmentOutcome.ReasonId);
 
-                amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_Detail,
-                    amendmentOutcome.ScrutinyDetail);
+                amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_SubReason,
+                    amendmentOutcome.OutcomeReasonDescription);
 
                 amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_CountryOfOrigin, 
                     GetAnswer(answers, nameof(PupilCountryQuestion)).Value);
