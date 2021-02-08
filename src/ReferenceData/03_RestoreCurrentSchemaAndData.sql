@@ -101,7 +101,7 @@ GO
 CREATE TABLE [dbo].[PINCLs](
 	[P_INCL] [char](3) NOT NULL,
 	[P_INCLDescription] [nvarchar](1000) NOT NULL,
-	[DisplayFlag] [char](1) NULL,
+	[DisplayFlag] [nvarchar](1) NULL,
  CONSTRAINT [PK_PINCLs] PRIMARY KEY CLUSTERED 
 (
 	[P_INCL] ASC
@@ -660,59 +660,59 @@ INSERT [dbo].[PINCLInclusionAdjustments] ([P_INCL], [IncAdjReasonID]) VALUES (N'
 GO
 INSERT [dbo].[PINCLInclusionAdjustments] ([P_INCL], [IncAdjReasonID]) VALUES (N'599', 95)
 GO
-INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'201', N'Pupils with current year KS2 attainment for all subjects and at end of Key Stage : Included in KS2 calculations', N'√')
+INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'201', N'Pupils with current year KS2 attainment for all subjects and at end of Key Stage : Included in KS2 calculations', N'1')
 GO
-INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'202', N'Pupils with current year KS2 attainment for subset of subjects and NOT at end of Key Stage : Presentation and checking only – excluded from KS2 calculations', N'X')
+INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'202', N'Pupils with current year KS2 attainment for subset of subjects and NOT at end of Key Stage : Presentation and checking only – excluded from KS2 calculations', N'0')
 GO
 INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'298', N'Unlisted pupils for a non-Plasc school with an active Add Pupil request.', NULL)
 GO
 INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'299', N'Unlisted pupils for a Plasc school with an active Add Pupil request.', NULL)
 GO
-INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'301', N'Pupil on roll during KS3 test week in 2008 and is at End of KS3 in all subjects Included in Key Stage 3', N'√')
+INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'301', N'Pupil on roll during KS3 test week in 2008 and is at End of KS3 in all subjects Included in Key Stage 3', N'1')
 GO
-INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'302', N'Pupil on roll during KS3 test week in 2008 but is NOT at End of KS3 in all subjects Excluded from Key Stage 3', N'X')
+INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'302', N'Pupil on roll during KS3 test week in 2008 but is NOT at End of KS3 in all subjects Excluded from Key Stage 3', N'0')
 GO
-INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'401', N'Pupil on roll at 16/01/2020 Included in Key Stage 4 (both NOR and results)', N'√')
+INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'401', N'Pupil on roll at 16/01/2020 Included in Key Stage 4 (both NOR and results)', N'1')
 GO
-INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'402', N'Pupil not on roll at 16/01/2020 and omitted from all figures to be published', N'X')
+INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'402', N'Pupil not on roll at 16/01/2020 and omitted from all figures to be published', N'0')
 GO
-INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'403', N'Pupil not on roll at 16/01/2020 Reached the end of compulsory schooling at your school without being published at end of KS4. Left your roll before 16/01/2020 and now added back. Included in Key Stage 4 (both NOR and results)', N'P')
+INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'403', N'Pupil not on roll at 16/01/2020 Reached the end of compulsory schooling at your school without being published at end of KS4. Left your roll before 16/01/2020 and now added back. Included in Key Stage 4 (both NOR and results)',N'3')
 GO
-INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'404', N'Pupil on roll at 16/01/2020 Pupil is not at the end of Key Stage 4 Omitted from Key Stage 4', N'X')
+INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'404', N'Pupil on roll at 16/01/2020 Pupil is not at the end of Key Stage 4 Omitted from Key Stage 4', N'0')
 GO
-INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'405', N'Pupil on roll at 16/01/2020 Included in Key Stage 4 (both NOR and results)', N'√')
+INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'405', N'Pupil on roll at 16/01/2020 Included in Key Stage 4 (both NOR and results)', N'1')
 GO
-INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'407', N'Pupil on roll at 16/01/2020 Pupil admitted following permanent exclusion from a maintained school. Omitted from NOR and results data.', N'X')
+INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'407', N'Pupil on roll at 16/01/2020 Pupil admitted following permanent exclusion from a maintained school. Omitted from NOR and results data.', N'0')
 GO
-INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'408', N'Pupil on roll at 16/01/2020 Pupil aged 15 admitted following permanent exclusion from a maintained school Omitted from Key Stage 4', N'X')
+INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'408', N'Pupil on roll at 16/01/2020 Pupil aged 15 admitted following permanent exclusion from a maintained school Omitted from Key Stage 4', N'0')
 GO
-INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'409', N'Pupil on roll at 16/01/2020 Pupil at end of KS4 admitted following permanent exclusion from a maintained school Included in Key Stage 4 (results only - Omitted from NOR)', N'P')
+INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'409', N'Pupil on roll at 16/01/2020 Pupil at end of KS4 admitted following permanent exclusion from a maintained school Included in Key Stage 4 (results only - Omitted from NOR)',N'3')
 GO
-INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'410', N'Pupil on roll at 16/01/2020 but dual-registered with another school and is published elsewhere', N'X')
+INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'410', N'Pupil on roll at 16/01/2020 but dual-registered with another school and is published elsewhere', N'0')
 GO
-INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'411', N'Pupil on roll at 16/01/2020 but admitted from overseas with English not first language. Omitted from all data', N'X')
+INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'411', N'Pupil on roll at 16/01/2020 but admitted from overseas with English not first language. Omitted from all data', N'0')
 GO
-INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'412', N'Pupil on roll at 16/01/2020 but removed on request from school. Omitted from all data', N'X')
+INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'412', N'Pupil on roll at 16/01/2020 but removed on request from school. Omitted from all data', N'0')
 GO
-INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'413', N'Year group adjusted to 12. Pupil previously reported as end of Key Stage 4. Omitted from all data.', N'X')
+INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'413', N'Year group adjusted to 12. Pupil previously reported as end of Key Stage 4. Omitted from all data.', N'0')
 GO
-INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'414', N'Year group adjusted to 11. Pupil reported as Year 10 or below last year. Included in key stage 4 NoR and results.', N'√')
+INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'414', N'Year group adjusted to 11. Pupil reported as Year 10 or below last year. Included in key stage 4 NoR and results.', N'1')
 GO
-INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'421', N'Pupil assumed to be on your roll on 16/01/2020 (please remove if not on roll at that date) Pupil also assumed to be in year 11 (please correct year group if necessary) Included in Key Stage 4 data', N'√')
+INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'421', N'Pupil assumed to be on your roll on 16/01/2020 (please remove if not on roll at that date) Pupil also assumed to be in year 11 (please correct year group if necessary) Included in Key Stage 4 data', N'1')
 GO
-INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'422', N'Pupil assumed to be on your roll on 16/01/2020 Pupil is estimated not to be in year 11 (please correct year group if necessary) Omitted from Key Stage 4', N'X')
+INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'422', N'Pupil assumed to be on your roll on 16/01/2020 Pupil is estimated not to be in year 11 (please correct year group if necessary) Omitted from Key Stage 4', N'0')
 GO
-INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'423', N'Pupil assumed to be on your roll on 16/01/2020 (please remove if not on roll then) Estimated to be in year 11 (please correct year group if necessary) Included in Key Stage 4 data', N'√')
+INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'423', N'Pupil assumed to be on your roll on 16/01/2020 (please remove if not on roll then) Estimated to be in year 11 (please correct year group if necessary) Included in Key Stage 4 data', N'1')
 GO
-INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'424', N'TBC', N'√')
+INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'424', N'TBC', N'1')
 GO
-INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'425', N'Pupil not on roll on 16/01/2020 and removed from all performance measures', N'X')
+INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'425', N'Pupil not on roll on 16/01/2020 and removed from all performance measures', N'0')
 GO
-INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'427', N'Pupil on roll at 16/01/2020 but admitted from overseas with poor English. Omitted from all data', N'X')
+INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'427', N'Pupil on roll at 16/01/2020 but admitted from overseas with poor English. Omitted from all data', N'0')
 GO
-INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'430', N'Year group adjusted to 12. Pupil previously reported as end of Key Stage 4. Omitted from all data.', N'X')
+INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'430', N'Year group adjusted to 12. Pupil previously reported as end of Key Stage 4. Omitted from all data.', N'0')
 GO
-INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'431', N'Year group adjusted to 11. Pupil reported as Year 10 or below last year. Included in key stage 4 NoR and results.', N'√')
+INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'431', N'Year group adjusted to 11. Pupil reported as Year 10 or below last year. Included in key stage 4 NoR and results.', N'1')
 GO
 INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'497', N'Unlisted pupils for a FE College with an active Add Pupil request.', NULL)
 GO
@@ -720,27 +720,27 @@ INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'4
 GO
 INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'499', N'Unlisted pupils for a Plasc school with an active Add Pupil request.', NULL)
 GO
-INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'501', N'Student included in performance measures for level 3, technical certificates and/or English and maths', N'√')
+INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'501', N'Student included in performance measures for level 3, technical certificates and/or English and maths', N'1')
 GO
-INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'502', N'Student not included in performance measures for level 3, technical certificates and/or English and maths', N'P')
+INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'502', N'Student not included in performance measures for level 3, technical certificates and/or English and maths',N'3')
 GO
-INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'503', N'Pupil excluded from Performance indicators. On roll at 16/01/2020 but excluded from Performance Tables as not in year 13', N'X')
+INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'503', N'Pupil excluded from Performance indicators. On roll at 16/01/2020 but excluded from Performance Tables as not in year 13', N'0')
 GO
-INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'504', N'Pupil on roll at 16/01/2020. Deferred to year 12 last year and now added back. Included in 16-18 tables (both NOR and results)', N'P')
+INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'504', N'Pupil on roll at 16/01/2020. Deferred to year 12 last year and now added back. Included in 16-18 tables (both NOR and results)',N'3')
 GO
-INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'505', N'Student previously published in performance tables', N'P')
+INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'505', N'Student previously published in performance tables',N'3')
 GO
-INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'506', N'KS5 Specific removal reasons', N' ')
+INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'506', N'KS5 Specific removal reasons', N'')
 GO
-INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'521', N'Pupil assumed to be on your roll on 16/01/2020 (please remove if not on roll then) Estimated to be in year 13 (please correct year group if necessary)', N'√')
+INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'521', N'Pupil assumed to be on your roll on 16/01/2020 (please remove if not on roll then) Estimated to be in year 13 (please correct year group if necessary)', N'1')
 GO
-INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'522', N'Pupil is excluded because s/he does not appear to be in year 13. If this pupil was on your roll and at the end of 2 years of advanced study, please change the year group to 13 and add the pupil', N'X')
+INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'522', N'Pupil is excluded because s/he does not appear to be in year 13. If this pupil was on your roll and at the end of 2 years of advanced study, please change the year group to 13 and add the pupil', N'0')
 GO
-INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'523', N'Pupil removed from Performance Tables - not at end of advanced study', N'X')
+INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'523', N'Pupil removed from Performance Tables - not at end of advanced study', N'0')
 GO
-INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'524', N'Pupil removed from Performance Tables - other', N'X')
+INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'524', N'Pupil removed from Performance Tables - other', N'0')
 GO
-INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'525', N'Pupil deferred to year 12 last year and now added back. Included in 16-18 tables (both NOR and results) regardless of whether they were on roll at 16/01/2020', N'P')
+INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'525', N'Pupil deferred to year 12 last year and now added back. Included in 16-18 tables (both NOR and results) regardless of whether they were on roll at 16/01/2020',N'3')
 GO
 INSERT [dbo].[PINCLs] ([P_INCL], [P_INCLDescription], [DisplayFlag]) VALUES (N'598', N'Unlisted pupils for a non-Plasc school with an active Add Pupil request.', NULL)
 GO
