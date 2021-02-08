@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using Dfe.CspdAlpha.Web.Application.Application.Helpers;
 using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
@@ -177,6 +178,27 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             
             var outcome = _amendmentService.CreateAmendment(amendment);
 
+            if (thisQuestion.QuestionType == QuestionType.NullableDate && string.IsNullOrEmpty(Request.Form[thisQuestion.Id]))
+            {
+                ViewData.ModelState.AddModelError(promptAnswerViewModel.QuestionId, "Select one");
+                ViewData["errorMessage"] = "Select one";
+                ViewData["errorType"] = "NoneSelected";
+
+                List<string> errorCollection = new List<string>();
+                errorCollection.Add("Select one");
+                ICollection collection = errorCollection;
+                var validationErrors = new Dictionary<string, ICollection<string>>();
+                validationErrors.Add(promptAnswerViewModel.QuestionId, errorCollection);
+
+               var errorsPromptViewModel = new QuestionViewModel(questions, promptAnswerViewModel.CurrentIndex, validationErrors)
+                {
+                    PupilDetails = new PupilViewModel(amendment.Pupil),
+                    ShowConditional = thisQuestion.Answer.IsConditional
+                };
+
+                return View("Prompt", errorsPromptViewModel);
+            }
+
             if (outcome.ValidationErrors != null && outcome.ValidationErrors.Count > 0)
             {
                 var errorsPromptViewModel = new QuestionViewModel(questions, promptAnswerViewModel.CurrentIndex, outcome.ValidationErrors)
@@ -184,6 +206,20 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
                     PupilDetails = new PupilViewModel(amendment.Pupil),
                     ShowConditional = thisQuestion.Answer.IsConditional
                 };
+
+                string actualMessage = string.Empty;
+                foreach(var errorMessage in outcome.ValidationErrors)
+                {
+                    foreach(var promptError in errorMessage.Value)
+                    {
+                        ViewData.ModelState.AddModelError(errorMessage.Key, promptError);
+                        actualMessage = promptError;
+                    }
+                }
+                if (!string.IsNullOrEmpty(actualMessage))
+                {
+                    ViewData["errorMessage"] = actualMessage;
+                }
 
                 return View("Prompt", errorsPromptViewModel);
             }

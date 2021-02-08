@@ -38,7 +38,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments
             }
         } 
 
-        private IDictionary<string, ICollection<string>> ValidationErrors { get; set; }
+        public IDictionary<string, ICollection<string>> ValidationErrors { get; set; }
 
         public string BackController { get; set; }
         public string BackAction { get; set; }
@@ -49,6 +49,7 @@ namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments
         {
             Questions = questions;
             CurrentQuestionIndex = currentIndex;
+            ValidationErrors = validationErrors;
         }
     }
 }

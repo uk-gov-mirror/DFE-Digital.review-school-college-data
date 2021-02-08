@@ -2,6 +2,7 @@
 @model QuestionViewModel
 @{
     var currentQuestion = Model.CurrentQuestion;
+    ViewData["hasErrors"] = Model.ValidationErrors?.Any();
 }
 
 @section BackLink
@@ -13,7 +14,7 @@
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
-        <h1 class="govuk-heading-l govuk-!-margin-bottom-3">Questions:</h1>
+        <h1 class="govuk-heading-l govuk-!-margin-bottom-3">@Model.GetTitle()</h1>
     </div>
 
     <div class="govuk-grid-column-full">
@@ -30,22 +31,17 @@
     </div>
 </div>
 
-<form method="post">
+<form method="post" novalidate="novalidate">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <div>
-                <div class="govuk-grid-column-full">
-                    <input name="fieldType" id="fieldType" value="@currentQuestion.QuestionType" type="hidden" />
-                    <input name="questionId" id="questionId" value="@currentQuestion.Id" type="hidden" />
-                    <input name="currentIndex" id="currentIndex" value="@Model.CurrentQuestionIndex" type="hidden" />
-                    <partial name="./Partial/_Control_@currentQuestion.QuestionType.ToString()" model="@currentQuestion" />
-                </div>
+                <input name="fieldType" id="fieldType" value="@currentQuestion.QuestionType" type="hidden" />
+                <input name="questionId" id="questionId" value="@currentQuestion.Id" type="hidden" />
+                <input name="currentIndex" id="currentIndex" value="@Model.CurrentQuestionIndex" type="hidden" />
+                <partial name="./Partial/_Control_@currentQuestion.QuestionType.ToString()" model="@currentQuestion" view-data='ViewData'/>
                 <div>
                     <button name="Continue" value="true" class="govuk-button govuk-!-margin-right-1" data-module="govuk-button">
                         Continue
-                    </button>
-                    <button name="Back" value="false" class="govuk-button govuk-button--secondary app-modal__cancel-link" data-module="govuk-button">
-                        Back
                     </button>
                 </div>
             </div>

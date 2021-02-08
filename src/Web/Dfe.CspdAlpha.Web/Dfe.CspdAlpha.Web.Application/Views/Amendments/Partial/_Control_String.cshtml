@@ -1,12 +1,20 @@
 @model Dfe.Rscd.Web.ApiClient.Question
-<div class="govuk-form-group">
-    <h1 class="govuk-label-wrapper">
-        <label class="govuk-label govuk-label--l" for="string">
-            @Html.Encode(Model.Title)
-        </label>
-    </h1>
-    <div id="more-detail-hint" class="govuk-hint">
+@{
+    var formGroupClasses = "govuk-form-group";
+    var errorMessage = string.Empty;
+    if (ViewData.ContainsKey("hasErrors") && ViewData["hasErrors"] != null)
+    {
+        formGroupClasses = string.Concat(formGroupClasses, " govuk-form-group--error");
+    }
+}
+<div class="@formGroupClasses">
+    <label class="govuk-label govuk-!-width-two-thirds" for="string">
         @Model.Answer.Label
-    </div>
-    <textarea class="govuk-textarea" id="string" name="string" rows="5" aria-describedby="more-detail-hint"></textarea>
+    </label>
+    @if (ViewData.ContainsKey("errorMessage") && ViewData["errorMessage"] != null)
+    {
+        <span class="govuk-error-message">@ViewData["errorMessage"]</span>
+    }
+    <input type="text" class="govuk-input govuk-!-width-two-thirds" id="string" name="string" />
+    @*<textarea class="govuk-textarea" id="string" name="string" rows="5" aria-describedby="more-detail-hint"></textarea>*@
 </div>

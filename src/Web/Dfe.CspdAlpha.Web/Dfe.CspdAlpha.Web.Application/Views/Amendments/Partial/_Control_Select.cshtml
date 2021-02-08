@@ -1,21 +1,25 @@
 @model Dfe.Rscd.Web.ApiClient.Question
-<div class="govuk-form-group">
-    <fieldset class="govuk-fieldset" aria-describedby="changed-name-hint">
-        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-            <h1 class="govuk-fieldset__heading">
-                @Model.Title
-            </h1>
-        </legend>
-        <label class="govuk-label" for="sort">
-            @Model.Answer.Label
-        </label>
-        <select class="govuk-select" id="select" name="select">
-            <option value="">Please select</option>
-            @foreach (var potential in Model.Answer.AnswerPotentials)
-            {
-                <option value="@potential.Value">@potential.Description</option>
-            }
-        </select>
-    </fieldset>
+@{
+    var formGroupClasses = "govuk-form-group";
+    var errorMessage = string.Empty;
+    if (ViewData.ContainsKey("hasErrors") && ViewData["hasErrors"] != null) {
+        formGroupClasses = string.Concat(formGroupClasses, " govuk-form-group--error");
+    }
+}
+
+<div class="@formGroupClasses">
+    <label class="govuk-label" for="@Model.Id">
+        @Model.Answer.Label
+    </label>
+    @if (ViewData.ContainsKey("errorMessage") && ViewData["errorMessage"] != null)
+    {
+        <span class="govuk-error-message">@ViewData["errorMessage"]</span>
+    }
+    <select class="govuk-select govuk-input--width-20" id="@Model.Id" name="select">
+        <option value="">Please select</option>
+        @foreach (var potential in Model.Answer.AnswerPotentials)
+        {
+        <option value="@potential.Value">@potential.Description</option>}
+    </select>
 </div>
 
