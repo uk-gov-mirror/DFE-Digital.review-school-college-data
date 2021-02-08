@@ -101,7 +101,7 @@ GO
 CREATE TABLE [dbo].[PINCLs](
 	[P_INCL] [char](3) NOT NULL,
 	[P_INCLDescription] [nvarchar](1000) NOT NULL,
-	[DisplayFlag] [nvarchar](1) NULL,
+	[DisplayFlag] [char](1) NULL,
  CONSTRAINT [PK_PINCLs] PRIMARY KEY CLUSTERED 
 (
 	[P_INCL] ASC

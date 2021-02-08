@@ -65,7 +65,7 @@ namespace Dfe.Rscd.Api.Services.Rules
 
             if (studentCountryOfOrigin.IsRejected)
             {
-                return new AmendmentOutcome(OutcomeStatus.AutoReject, "The country not on the accept list")
+                return new AmendmentOutcome(OutcomeStatus.AutoReject, "The country is not on the accept list")
                 {
                     ScrutinyStatusCode = ScrutinyCode.ToString(),
                     ReasonId = (int) AmendmentReasonCode.AdmittedFromAbroadWithEnglishNotFirstLanguageCode
