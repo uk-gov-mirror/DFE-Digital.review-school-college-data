@@ -30,7 +30,8 @@ namespace Dfe.CspdAlpha.Web.Application.Application.Services
                     {
                         FirstName = a.Pupil.Forename,
                         LastName = a.Pupil.Surname,
-                        PupilId = a.Pupil.Id,
+                        Uln = a.Pupil.Uln,
+                        Upn = a.Pupil.Upn,
                         DateRequested = a.CreatedDate.DateTime,
                         ReferenceId = a.Reference,
                         Id = a.Id,

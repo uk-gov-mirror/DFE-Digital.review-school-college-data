@@ -9,7 +9,9 @@ namespace Dfe.CspdAlpha.Web.Application.Models
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string PupilId { get; set; }
+        public string Upn { get; set; }
+
+        public string Uln { get; set; }
         public DateTime DateRequested { get; set; }
         public string ReferenceId { get; set; }
         public string Id { get; set; }
