@@ -16,6 +16,8 @@ namespace Dfe.Rscd.Api.Domain.Entities
         public Guid NewAmendmentId { get; set; }
         public string NewAmendmentReferenceNumber { get; set; }
 
+        public List<UserAnswer> ValidatedAnswers { get;set; }
+
         public string ScrutinyDetail { get; set; }
         public string ScrutinyStatusCode { get; set; }
 
@@ -30,7 +32,7 @@ namespace Dfe.Rscd.Api.Domain.Entities
             OutcomeStatus = status;
             IsComplete = true;
             FurtherQuestions = null;
-            ScrutinyStatusCode = scrutinyDetail;
+            ScrutinyDetail = scrutinyDetail;
         }
 
         public AmendmentOutcome(OutcomeStatus status)

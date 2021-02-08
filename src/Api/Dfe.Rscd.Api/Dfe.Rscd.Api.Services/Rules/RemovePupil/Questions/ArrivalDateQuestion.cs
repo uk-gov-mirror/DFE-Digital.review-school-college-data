@@ -24,7 +24,7 @@ namespace Dfe.Rscd.Api.Services.Rules
                     InValidErrorMessage = "Enter a valid date of arrival to UK",
                     NullErrorMessage = "Enter a date of arrival to UK",
                     ValidatorType = ValidatorType.DateTimeHistorical,
-                    AllowNull = false,
+                    AllowNull = true,
                 });
 
             var dateTimeQuestion = new DateTimeQuestion(

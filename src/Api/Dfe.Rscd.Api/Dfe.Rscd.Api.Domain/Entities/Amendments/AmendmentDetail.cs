@@ -27,7 +27,10 @@ namespace Dfe.Rscd.Api.Domain.Entities
         public void SetField(string name, object value)
         {
             var field = Fields.SingleOrDefault(x => x.Name == name);
-            if (field != null) field.Value = value;
+            if(field == null)
+                AddField(name, value);
+            else 
+                field.Value = value;
         }
 
         public object GetField(string name)
@@ -55,6 +58,17 @@ namespace Dfe.Rscd.Api.Domain.Entities
             }
 
             return (List<T>) value;
+        }
+
+        public DateTime? GetDateTime(string field)
+        {
+            var fieldValue = ""+GetField(field);
+            if (DateTime.TryParse(fieldValue, out var newDate))
+            {
+                return newDate;
+            }
+
+            return null;
         }
 
         public T GetField<T>(string name)

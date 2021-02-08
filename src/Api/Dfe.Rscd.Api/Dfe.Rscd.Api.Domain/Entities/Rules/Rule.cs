@@ -58,17 +58,26 @@ namespace Dfe.Rscd.Api.Domain.Entities
                 return new AmendmentOutcome(questions);
             }
 
-            AmendmentOutcome amendmentOutcome = ApplyRule(amendment);
+            var validatedAnswers = GetValidatedAnswers(amendment.Answers);
 
-            ApplyOutcomeToAmendment(amendment, amendmentOutcome);
+            AmendmentOutcome amendmentOutcome = ApplyRule(amendment, validatedAnswers);
+
+            ApplyOutcomeToAmendment(amendment, amendmentOutcome, validatedAnswers);
 
             return amendmentOutcome;
         }
 
-        protected abstract AmendmentOutcome ApplyRule(Amendment amendment);
+        protected abstract List<ValidatedAnswer> GetValidatedAnswers(List<UserAnswer> userAnswers);
 
-        protected abstract void ApplyOutcomeToAmendment(Amendment amendment, AmendmentOutcome amendmentOutcome);
+        protected abstract AmendmentOutcome ApplyRule(Amendment amendment, List<ValidatedAnswer> answers);
+
+        protected abstract void ApplyOutcomeToAmendment(Amendment amendment, AmendmentOutcome amendmentOutcome, List<ValidatedAnswer> answers);
 
         public abstract int AmendmentReason { get; }
+
+        protected ValidatedAnswer GetAnswer(List<ValidatedAnswer> answers, string questionId)
+        {
+            return answers.Single(x => x.QuestionId == questionId);
+        }
     }
 }

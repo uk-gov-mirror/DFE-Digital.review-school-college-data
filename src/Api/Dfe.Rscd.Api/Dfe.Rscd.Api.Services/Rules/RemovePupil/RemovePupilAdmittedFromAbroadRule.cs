@@ -35,16 +35,24 @@ namespace Dfe.Rscd.Api.Services.Rules
 
         public override int AmendmentReason => (int)AmendmentReasonCode.AdmittedFromAbroadWithEnglishNotFirstLanguageCode;
 
-        protected override AmendmentOutcome ApplyRule(Amendment amendment)
+        protected override List<ValidatedAnswer> GetValidatedAnswers(List<UserAnswer> userAnswers)
         {
-            var answers = amendment.Answers;
-            var countryAnswer = answers
-                .Single(x => x.QuestionId == nameof(PupilCountryQuestion));
-            var languageAnswer = answers
-                .Single(x => x.QuestionId == nameof(PupilNativeLanguageQuestion));
-            var arrivalDate = answers
-                .Single(x => x.QuestionId == nameof(ArrivalDateQuestion));
+            var questions = GetQuestions();
 
+            var languageQuestion = questions.Single(x => x.Id == nameof(PupilNativeLanguageQuestion));
+            var countryAnswer = questions.Single(x => x.Id == nameof(PupilCountryQuestion));
+            var studentArrivalDate = questions.Single(x => x.Id == nameof(ArrivalDateQuestion));
+
+            return new List<ValidatedAnswer>
+            {
+                languageQuestion.GetAnswer(userAnswers),
+                countryAnswer.GetAnswer(userAnswers),
+                studentArrivalDate.GetAnswer(userAnswers)
+            };
+        }
+
+        protected override AmendmentOutcome ApplyRule(Amendment amendment, List<ValidatedAnswer> validatedAnswers)
+        {
             var admissionDate = amendment.Pupil.AdmissionDate;
             var hasKs2Result = amendment.Pupil.Results.Any(x => x.Qualification.ToLower() == "ks2"); // TODO CHECK
             var annualCensusDate = _config.CensusDate.ToDateTimeWhenSureNotNull("dd/MM/yyyy");
@@ -53,10 +61,9 @@ namespace Dfe.Rscd.Api.Services.Rules
                 amendment.Pupil.Results.Any(x => x.SubjectCode == "LEV2EM" && x.TestMark == "1"); // TODO CHECK
             var firstLanguage = amendment.Pupil.FirstLanguage;
 
-            var studentCountryOfOrigin = _dataService.GetAnswerPotentials(nameof(PupilCountryQuestion))
-                .Single(x => x.Value == countryAnswer.Value);
+            var studentCountryOfOrigin = validatedAnswers.Single(x => x.QuestionId == nameof(PupilCountryQuestion));
 
-            if (studentCountryOfOrigin.Reject)
+            if (studentCountryOfOrigin.IsRejected)
             {
                 return new AmendmentOutcome(OutcomeStatus.AutoReject, "The country not on the accept list")
                 {
@@ -92,10 +99,9 @@ namespace Dfe.Rscd.Api.Services.Rules
                 };
             }
 
-            var studentLanguage = _dataService.GetAnswerPotentials(nameof(PupilNativeLanguageQuestion))
-                .Single(x => x.Value == languageAnswer.Value);
+            var studentLanguage = validatedAnswers.Single(x => x.QuestionId == nameof(PupilNativeLanguageQuestion));
 
-            if (studentLanguage.Reject)
+            if (studentLanguage.IsRejected)
             {
                 return new AmendmentOutcome(OutcomeStatus.AutoReject, "The language is not on the accept list.")
                 {
@@ -103,6 +109,8 @@ namespace Dfe.Rscd.Api.Services.Rules
                     ReasonId = (int) AmendmentReasonCode.AdmittedFromAbroadWithEnglishNotFirstLanguageCode
                 };
             }
+
+            var arrivalDate = validatedAnswers.Single(x => x.QuestionId == nameof(ArrivalDateQuestion));
 
             var twoYearsBeforeAnnualCensusDate = annualCensusDate.AddYears(-2);
             var studentArrivalDate = arrivalDate.Value.ToDateTime("dd/MM/yyyy");
@@ -132,8 +140,7 @@ namespace Dfe.Rscd.Api.Services.Rules
                     ReasonId = (int) AmendmentReasonCode.AdmittedFromAbroadWithEnglishNotFirstLanguageCode
                 };
             }
-
-
+            
             return new AmendmentOutcome(OutcomeStatus.AutoAccept)
             {
                 ScrutinyStatusCode = ScrutinyCode.ToString(),

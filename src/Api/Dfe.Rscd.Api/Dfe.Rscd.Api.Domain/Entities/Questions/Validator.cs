@@ -21,6 +21,12 @@ namespace Dfe.Rscd.Api.Domain.Entities.Questions
         public List<string> Validate(string value)
         {
             var errors = new List<string>();
+
+            if (AllowNull && string.IsNullOrEmpty(value))
+            {
+                return errors;
+            }
+
             if (!AllowNull && string.IsNullOrEmpty(value))
             {
                 errors.Add(NullErrorMessage);
