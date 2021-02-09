@@ -28,17 +28,8 @@ namespace Dfe.Rscd.Api.Services
 
         public Pupil GetById(CheckingWindow checkingWindow, string id)
         {
-            var pupilDtos = _documentRepository
-                .Get<PupilDTO>(GetCollection(checkingWindow))
-                .Where(x => x.id == id)
-                .ToList();
-
-            if (pupilDtos.Any())
-            {
-                return GetPupil(checkingWindow, pupilDtos.First(), _allocationYear);
-            }
-
-            return null;
+            var pupilDTO = _documentRepository.GetById<PupilDTO>(GetCollection(checkingWindow), id);
+            return GetPupil(checkingWindow, pupilDTO, _allocationYear);
         }
 
         public List<PupilRecord> QueryPupils(CheckingWindow checkingWindow, PupilsSearchRequest query)
@@ -77,7 +68,7 @@ namespace Dfe.Rscd.Api.Services
             return $"{checkingWindow.ToString().ToLower()}_pupils_{_allocationYear}";
         }
 
-        private Pupil GetPupil(CheckingWindow checkingWindow, PupilDTO pupil, string allocationYear)
+        public Pupil GetPupil(CheckingWindow checkingWindow, PupilDTO pupil, string allocationYear)
         {
             var sen = _dataService.GetSENStatus().SingleOrDefault(x=>x.Code == pupil.SENStatusCode);
             var pincl = _dataService.GetPINCLs().SingleOrDefault(x => x.Code == pupil.P_INCL);

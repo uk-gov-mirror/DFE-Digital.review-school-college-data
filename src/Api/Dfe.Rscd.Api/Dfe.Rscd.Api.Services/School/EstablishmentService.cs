@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Config;
@@ -21,21 +20,17 @@ namespace Dfe.Rscd.Api.Services
 
         public School GetByURN(CheckingWindow checkingWindow, URN urn)
         {
-            return Get(x => x.id == urn.Value, checkingWindow);
+            var establishmentDTO = _documentRepository.GetById<EstablishmentDTO>(GetCollection(checkingWindow), urn.Value);
+            return GetEstablishment(establishmentDTO);
         }
 
         public School GetByDFESNumber(CheckingWindow checkingWindow, string dfesNumber)
         {
-            return Get(x => x.DFESNumber == dfesNumber, checkingWindow);
-        }
-
-        private School Get(Func<EstablishmentDTO, bool> predicate, CheckingWindow checkingWindow)
-        {
-            var collectionName = $"{checkingWindow.ToString().ToLower()}_establishments_{_allocationYear}";
+            var collectionUri = GetCollection(checkingWindow);
 
             var establishmentDtos = _documentRepository
-                .Get<EstablishmentDTO>(collectionName)
-                .Where(predicate)
+                .Get<EstablishmentDTO>(collectionUri)
+                .Where(x => x.DFESNumber == dfesNumber)
                 .ToList();
 
             if (establishmentDtos.Any())
@@ -46,7 +41,12 @@ namespace Dfe.Rscd.Api.Services
             return null;
         }
 
-        private School GetEstablishment(EstablishmentDTO dto)
+        private string GetCollection(CheckingWindow checkingWindow)
+        {
+            return $"{checkingWindow.ToString().ToLower()}_establishments_{_allocationYear}";
+        }
+
+        public School GetEstablishment(EstablishmentDTO dto)
         {
             return new School
             {
