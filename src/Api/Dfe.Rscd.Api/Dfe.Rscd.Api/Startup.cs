@@ -107,9 +107,6 @@ namespace Dfe.Rscd.Api
             services.AddScoped<IAmendmentBuilder, RemovePupilAmendmentBuilder>();
             services.AddScoped<Amendment, RemovePupilAmendment>();
             
-            services.AddScoped<IAmendmentBuilder, AddPupilAmendmentBuilder>();
-            services.AddScoped<Amendment, AddPupilAmendment>();
-           
             services.AddScoped<IEstablishmentService, EstablishmentService>();
             services.AddScoped<IPupilService, PupilService>();
 

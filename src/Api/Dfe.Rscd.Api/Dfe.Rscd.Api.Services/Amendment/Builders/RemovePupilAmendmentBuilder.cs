@@ -37,7 +37,7 @@ namespace Dfe.Rscd.Api.Services
                         context.rscd_RemovepupilSet.FirstOrDefault(x => x.Id == amendment.rscd_Removepupil.Id);
 
                     amendmentDetail.AddField(RemovePupilAmendment.FIELD_ReasonCode, removePupil.rscd_reasoncode.Value);
-                    amendmentDetail.AddField(RemovePupilAmendment.FIELD_SubReason, removePupil.rscd_Subreason);
+                    amendmentDetail.AddField(RemovePupilAmendment.FIELD_OutcomeReasonDescription, removePupil.rscd_Subreason);
                     amendmentDetail.AddField(RemovePupilAmendment.FIELD_ReasonDescription, removePupil.rscd_reasondescription);
                     amendmentDetail.AddField(RemovePupilAmendment.FIELD_CountryOfOrigin, removePupil.rscd_Countryoforigin);
                     amendmentDetail.AddField(RemovePupilAmendment.FIELD_DateOfArrivalUk, removePupil.rscd_Dateofarrival.HasValue ? removePupil.rscd_Dateofarrival.Value.ToShortDateString() : string.Empty);
@@ -49,7 +49,7 @@ namespace Dfe.Rscd.Api.Services
 
             amendmentDetail = new AmendmentDetail();
             amendmentDetail.AddField(RemovePupilAmendment.FIELD_ReasonCode, default(int?));
-            amendmentDetail.AddField(RemovePupilAmendment.FIELD_SubReason, string.Empty);
+            amendmentDetail.AddField(RemovePupilAmendment.FIELD_OutcomeReasonDescription, string.Empty);
             amendmentDetail.AddField(RemovePupilAmendment.FIELD_CountryOfOrigin, string.Empty);
             amendmentDetail.AddField(RemovePupilAmendment.FIELD_DateOfArrivalUk, string.Empty);
             amendmentDetail.AddField(RemovePupilAmendment.FIELD_NativeLanguage, string.Empty);
@@ -79,7 +79,7 @@ namespace Dfe.Rscd.Api.Services
 
             amendmentDto.rscd_rm_scrutiny_reason_code = amendment.AmendmentDetail.GetField<int?>(RemovePupilAmendment.FIELD_ReasonCode);
             amendmentDto.cr3d5_Outcomereason = amendment.AmendmentDetail.GetField<string>(RemovePupilAmendment.FIELD_ReasonDescription);
-
+            
             amendmentDto.rscd_Evidencestatus = amendment.EvidenceStatus.ToCRMEvidenceStatus();
         }
 
@@ -94,7 +94,7 @@ namespace Dfe.Rscd.Api.Services
             var removeDetail = amendment.AmendmentDetail;
 
             removeDto.rscd_reasoncode = removeDetail.GetField<int?>(RemovePupilAmendment.FIELD_ReasonCode);
-            removeDto.rscd_Subreason = removeDetail.GetField<string>(RemovePupilAmendment.FIELD_SubReason);
+            removeDto.rscd_Subreason = removeDetail.GetField<string>(RemovePupilAmendment.FIELD_OutcomeReasonDescription);
             removeDto.rscd_Countryoforigin = removeDetail.GetField<string>(RemovePupilAmendment.FIELD_CountryOfOrigin);
             removeDto.rscd_Language = removeDetail.GetField<string>(RemovePupilAmendment.FIELD_NativeLanguage);
             removeDto.rscd_Dateofarrival = removeDetail.GetDateTime(RemovePupilAmendment.FIELD_DateOfArrivalUk);

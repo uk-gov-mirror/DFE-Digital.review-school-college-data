@@ -18,7 +18,7 @@ namespace Dfe.Rscd.Api.Services.Rules
                 amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_ReasonCode,
                     amendmentOutcome.ReasonId);
 
-                amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_SubReason,
+                amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_OutcomeReasonDescription,
                     amendmentOutcome.OutcomeReasonDescription);
 
                 amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_CountryOfOrigin, 
