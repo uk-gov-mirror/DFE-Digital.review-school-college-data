@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Config;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs;
@@ -18,19 +19,14 @@ namespace Dfe.Rscd.Api.UnitTests
         
         private void Given()
         {
-            _testEstab = Builder.GetEstablishment("200000");
+            _testUrn = "200000";
+            _testEstab = Builder.GetEstablishment(_testUrn);
 
             _repository = new Mock<IDocumentRepository>();
-            _ks4JuneEstablishments = "ks4june_establishments_2021";
-
-            _repository.Setup(x =>
-                    x.GetById<EstablishmentDTO>(_ks4JuneEstablishments,
-                        It.IsAny<string>()))
-                .Returns(_testEstab);
 
             _repository.Setup(x =>
                     x.Get<EstablishmentDTO>(_ks4JuneEstablishments))
-                .Returns(Builder.GetEstablisments().AsQueryable());
+                .Returns(new List<EstablishmentDTO> { _testEstab }.AsQueryable());
 
             _configuration = new Mock<IAllocationYearConfig>();
             _configuration.Setup(x => x.Value).Returns("2021");
@@ -39,16 +35,17 @@ namespace Dfe.Rscd.Api.UnitTests
         private Mock<IDocumentRepository> _repository;
         private Mock<IAllocationYearConfig> _configuration;
         private EstablishmentDTO _testEstab;
-        private string _ks4JuneEstablishments;
+        private const string _ks4JuneEstablishments = "ks4june_establishments_2021";
+        private string _testUrn;
 
         [Fact]
         public void WhenGetEstablishmentByURNIsCalledEstablishmentDTOMapsRootFieldsToEntityObject()
         {
             var establishmentService = new EstablishmentService(_repository.Object, _configuration.Object);
 
-            var result = establishmentService.GetByURN(CheckingWindow.KS4June, new URN("200000"));
+            var result = establishmentService.GetByURN(CheckingWindow.KS4June, new URN(_testUrn));
 
-            _repository.Verify(x => x.GetById<EstablishmentDTO>(_ks4JuneEstablishments, "200000"), Times.Once);
+            _repository.Verify(x => x.Get<EstablishmentDTO>(_ks4JuneEstablishments), Times.Once);
 
             Assert.NotNull(result);
             Assert.True(result.DfesNumber.ToString() == _testEstab.DFESNumber);
@@ -58,7 +55,7 @@ namespace Dfe.Rscd.Api.UnitTests
             Assert.True(result.LowestAge == _testEstab.LowestAge);
             Assert.True(result.HighestAge == _testEstab.HighestAge);
             Assert.True(result.HeadTeacher == _testEstab.HeadTitleCode+ " " +_testEstab.HeadFirstName + " " +_testEstab.HeadLastName);
-            Assert.True(result.Urn.Value == "200000");
+            Assert.True(result.Urn.Value == _testUrn);
         }
 
         [Fact]
@@ -66,15 +63,15 @@ namespace Dfe.Rscd.Api.UnitTests
         {
             var establishmentService = new EstablishmentService(_repository.Object, _configuration.Object);
 
-            var result = establishmentService.GetByDFESNumber(CheckingWindow.KS4June, "99100000");
+            var result = establishmentService.GetByDFESNumber(CheckingWindow.KS4June, $"99{_testUrn}");
 
             _repository.Verify(x => x.Get<EstablishmentDTO>(_ks4JuneEstablishments), Times.Once);
 
             Assert.NotNull(result);
-            Assert.True(result.DfesNumber == 99100000);
+            Assert.True(result.DfesNumber == int.Parse($"99{_testUrn}"));
             Assert.True(result.SchoolName == _testEstab.SchoolName);
             Assert.True(result.SchoolType == _testEstab.SchoolType);
-            Assert.True(result.Urn.Value == "100000");
+            Assert.True(result.Urn.Value == _testUrn);
         }
 
         [Fact]
@@ -82,9 +79,9 @@ namespace Dfe.Rscd.Api.UnitTests
         {
             var establishmentService = new EstablishmentService(_repository.Object, _configuration.Object);
 
-            var result = establishmentService.GetByURN(CheckingWindow.KS4June, new URN("200000"));
+            var result = establishmentService.GetByURN(CheckingWindow.KS4June, new URN(_testUrn));
 
-            _repository.Verify(x => x.GetById<EstablishmentDTO>(_ks4JuneEstablishments, "200000"), Times.Once);
+            _repository.Verify(x => x.Get<EstablishmentDTO>(_ks4JuneEstablishments), Times.Once);
 
             Assert.NotNull(result);
             Assert.NotNull(result.PerformanceMeasures);
