@@ -24,16 +24,16 @@
 
 }
 <div class="@noneSelectedContainerClasses">
-    <fieldset class="govuk-fieldset" aria-describedby="changed-name-hint">
+    <fieldset class="govuk-fieldset">
         <legend class="govuk-fieldset__legend govuk-!-font-weight-bold">
             Select one
         </legend>
         <div id="changed-name-hint" class="govuk-hint">
             For example, 12 11 2007
         </div>
-        @if (ViewData.ContainsKey("errorMessage") && ViewData["errorMessage"] != null)
+        @if (ViewData.ContainsKey("errorMessage1") && ViewData["errorMessage1"] != null)
         {
-            <span class="govuk-error-message">@ViewData["errorMessage"]</span>
+            <span class="govuk-error-message">@ViewData["errorMessage1"]</span>
         }
         <div class="govuk-radios  govuk-radios--conditional" data-module="govuk-radios" id="@Model.Id">
             <div class="govuk-radios__item">
@@ -43,9 +43,13 @@
                 </label>
             </div>
             <div class="@validationContainerClasses" id="date-known-expander">
-                <div id="passport-issued-hint" class="govuk-hint">
+                <div class="govuk-hint">
                     @Model.Answer.ConditionalQuestion.Answer.Label
                 </div>
+                @if (ViewData.ContainsKey("errorMessage") && ViewData["errorMessage"] != null)
+                {
+                    <span class="govuk-error-message">@ViewData["errorMessage"]</span>
+                }
                 <div class="govuk-date-input">
                     <div class="govuk-date-input__item">
                         <div class="govuk-form-group">

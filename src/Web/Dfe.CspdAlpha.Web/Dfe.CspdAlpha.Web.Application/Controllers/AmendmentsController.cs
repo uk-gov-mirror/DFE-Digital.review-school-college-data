@@ -181,7 +181,7 @@ namespace Dfe.Rscd.Web.Application.Controllers
             if (thisQuestion.QuestionType == QuestionType.NullableDate && string.IsNullOrEmpty(Request.Form[thisQuestion.Id]))
             {
                 ViewData.ModelState.AddModelError(promptAnswerViewModel.QuestionId, "Select one");
-                ViewData["errorMessage"] = "Select one";
+                ViewData["errorMessage1"] = "Select one";
                 ViewData["errorType"] = "NoneSelected";
 
                 List<string> errorCollection = new List<string>();
@@ -191,6 +191,30 @@ namespace Dfe.Rscd.Web.Application.Controllers
                 validationErrors.Add(promptAnswerViewModel.QuestionId, errorCollection);
 
                var errorsPromptViewModel = new QuestionViewModel(questions, promptAnswerViewModel.CurrentIndex, validationErrors)
+                {
+                    PupilDetails = new PupilViewModel(amendment.Pupil),
+                    ShowConditional = thisQuestion.Answer.IsConditional
+                };
+
+                return View("Prompt", errorsPromptViewModel);
+            }
+
+            if (thisQuestion.QuestionType == QuestionType.NullableDate &&
+                Request.Form[thisQuestion.Id] == "1" &&
+                string.IsNullOrEmpty(Request.Form["date-day"]) &&
+                string.IsNullOrEmpty(Request.Form["date-month"]) &&
+                string.IsNullOrEmpty(Request.Form["date-year"]))
+            {
+                ViewData.ModelState.AddModelError(promptAnswerViewModel.QuestionId, "Enter a valid date of arrival to UK");
+                ViewData["errorMessage"] = "Enter a valid date of arrival to UK";
+
+                List<string> errorCollection = new List<string>();
+                errorCollection.Add("Enter a valid date of arrival to UK");
+                ICollection collection = errorCollection;
+                var validationErrors = new Dictionary<string, ICollection<string>>();
+                validationErrors.Add(promptAnswerViewModel.QuestionId, errorCollection);
+
+                var errorsPromptViewModel = new QuestionViewModel(questions, promptAnswerViewModel.CurrentIndex, validationErrors)
                 {
                     PupilDetails = new PupilViewModel(amendment.Pupil),
                     ShowConditional = thisQuestion.Answer.IsConditional
