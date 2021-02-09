@@ -16,7 +16,7 @@
         <span class="govuk-error-message">@ViewData["errorMessage"]</span>
     }
     <select class="govuk-select govuk-input--width-20" id="@Model.Id" name="select">
-        <option value="">Please select</option>
+        <option value="">Select one</option>
         @foreach (var potential in Model.Answer.AnswerPotentials)
         {
         <option value="@potential.Value">@potential.Description</option>}
