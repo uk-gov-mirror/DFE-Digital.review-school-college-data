@@ -1,4 +1,4 @@
-namespace Dfe.CspdAlpha.Web.Application.TagHelpers
+namespace Dfe.Rscd.Web.Application.TagHelpers
 {
     namespace MarkupConstants
     {

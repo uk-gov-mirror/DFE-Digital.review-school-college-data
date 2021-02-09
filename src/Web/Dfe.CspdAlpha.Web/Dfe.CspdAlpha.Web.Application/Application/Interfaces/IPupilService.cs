@@ -1,10 +1,9 @@
 using System.Collections.Generic;
-using Dfe.CspdAlpha.Web.Application.Application.Helpers;
-using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
-using Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil;
 using Dfe.Rscd.Web.ApiClient;
+using Dfe.Rscd.Web.Application.Models.ViewModels.Pupil;
+using Dfe.Rscd.Web.Application.Models.ViewModels.RemovePupil;
 
-namespace Dfe.CspdAlpha.Web.Application.Application.Interfaces
+namespace Dfe.Rscd.Web.Application.Application.Interfaces
 {
     public interface IPupilService
     {

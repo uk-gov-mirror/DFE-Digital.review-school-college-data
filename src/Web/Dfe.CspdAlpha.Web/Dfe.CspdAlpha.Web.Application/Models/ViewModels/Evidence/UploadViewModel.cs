@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
 using Dfe.Rscd.Web.ApiClient;
+using Dfe.Rscd.Web.Application.Models.ViewModels.Pupil;
 using Microsoft.AspNetCore.Http;
 
-namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Evidence
+namespace Dfe.Rscd.Web.Application.Models.ViewModels.Evidence
 {
     public class UploadViewModel : ContextAwareViewModel
     {

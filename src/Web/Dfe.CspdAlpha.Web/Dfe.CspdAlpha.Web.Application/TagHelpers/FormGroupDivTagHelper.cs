@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
-namespace Dfe.CspdAlpha.Web.Application.TagHelpers
+namespace Dfe.Rscd.Web.Application.TagHelpers
 {
     /// <summary>
     /// Parent div for form input elements. Applies validation markup as necessary.

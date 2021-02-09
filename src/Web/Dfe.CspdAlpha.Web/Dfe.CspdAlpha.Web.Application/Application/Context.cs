@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Http;
 
-namespace Dfe.CspdAlpha.Web.Application.Application
+namespace Dfe.Rscd.Web.Application.Application
 {
     public static class Context
     {

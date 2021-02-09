@@ -1,3 +1,5 @@
+using System;
+using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc;
@@ -6,10 +8,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.Options;
-using System;
-using System.Text.Encodings.Web;
 
-namespace Dfe.CspdAlpha.Web.Application.TagHelpers
+namespace Dfe.Rscd.Web.Application.TagHelpers
 {
     /// <summary>
     /// Overrides validation summary generation of DefaultHtmlGenerator.

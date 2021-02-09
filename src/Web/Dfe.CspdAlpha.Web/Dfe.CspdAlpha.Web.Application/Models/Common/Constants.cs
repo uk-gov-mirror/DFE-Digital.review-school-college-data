@@ -1,4 +1,4 @@
-namespace Dfe.CspdAlpha.Web.Application.Models.Common
+namespace Dfe.Rscd.Web.Application.Models.Common
 {
     public class Constants
     {

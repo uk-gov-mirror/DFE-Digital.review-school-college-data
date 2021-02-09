@@ -1,7 +1,7 @@
-using Dfe.CspdAlpha.Web.Application.Models.ViewModels.AddPupil;
+using Dfe.Rscd.Web.Application.Models.ViewModels.AddPupil;
 using FluentValidation;
 
-namespace Dfe.CspdAlpha.Web.Application.Validators.AddPupil
+namespace Dfe.Rscd.Web.Application.Validators.AddPupil
 {
     public class AddPupilViewModelValidator : AbstractValidator<AddPupilViewModel>
     {

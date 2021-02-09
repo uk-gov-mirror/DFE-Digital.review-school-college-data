@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
-namespace Dfe.CspdAlpha.Web.Application.TagHelpers
+namespace Dfe.Rscd.Web.Application.TagHelpers
 {
     /// <summary>
     /// Adds GOV.UK Frontend validation markup to the text input element.

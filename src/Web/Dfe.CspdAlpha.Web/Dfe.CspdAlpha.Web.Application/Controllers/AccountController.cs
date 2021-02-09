@@ -1,10 +1,10 @@
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
-namespace Dfe.CspdAlpha.Web.Application.Controllers
+namespace Dfe.Rscd.Web.Application.Controllers
 {
     public class AccountController : SessionController
     {

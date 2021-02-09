@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Dfe.CspdAlpha.Web.Application.Models.School
+﻿namespace Dfe.Rscd.Web.Application.Models.School
 {
     public class Measure
     {

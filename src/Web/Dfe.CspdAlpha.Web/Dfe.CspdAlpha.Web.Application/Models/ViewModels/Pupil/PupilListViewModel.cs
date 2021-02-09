@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using Dfe.CspdAlpha.Web.Application.Models.Common;
-using Dfe.CspdAlpha.Web.Application.Models.School;
+using Dfe.Rscd.Web.Application.Models.Common;
+using Dfe.Rscd.Web.Application.Models.School;
 using Newtonsoft.Json;
 
-namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
+namespace Dfe.Rscd.Web.Application.Models.ViewModels.Pupil
 {
     public class PupilListViewModel : ContextAwareViewModel
     {

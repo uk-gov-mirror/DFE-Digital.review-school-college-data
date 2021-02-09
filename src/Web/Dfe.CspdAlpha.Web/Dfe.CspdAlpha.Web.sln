@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.CspdAlpha.Web.Application", "Dfe.CspdAlpha.Web.Application\Dfe.CspdAlpha.Web.Application.csproj", "{B3258362-B8EF-4626-A5D5-EC0087545ABF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.Rscd.Web.Application", "Dfe.CspdAlpha.Web.Application\Dfe.Rscd.Web.Application.csproj", "{B3258362-B8EF-4626-A5D5-EC0087545ABF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.CspdAlpha.Web.Infrastructure", "Dfe.CspdAlpha.Web.Infrastructure\Dfe.CspdAlpha.Web.Infrastructure.csproj", "{09E830B3-0B78-463D-A546-BFDF5DFAD16A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.Rscd.Web.Infrastructure", "Dfe.CspdAlpha.Web.Infrastructure\Dfe.Rscd.Web.Infrastructure.csproj", "{09E830B3-0B78-463D-A546-BFDF5DFAD16A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.CspdAlpha.Web.Shared", "Dfe.CspdAlpha.Web.Shared\Dfe.CspdAlpha.Web.Shared.csproj", "{9E402193-AC4C-40AE-9E9C-FFAFBE7449A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.Rscd.Web.Shared", "Dfe.CspdAlpha.Web.Shared\Dfe.Rscd.Web.Shared.csproj", "{9E402193-AC4C-40AE-9E9C-FFAFBE7449A9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.Rscd.Web.UnitTests", "Dfe.Rscd.Web.UnitTests\Dfe.Rscd.Web.UnitTests.csproj", "{BFCEEEC3-1E18-41BF-99EA-16D5FC89CBB5}"
 EndProject

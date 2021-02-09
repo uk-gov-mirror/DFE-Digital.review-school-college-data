@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
 
-namespace Dfe.CspdAlpha.Web.Application.Controllers
+namespace Dfe.Rscd.Web.Application.Controllers
 {
     public class QaController : SessionController
     {

@@ -12,6 +12,7 @@ namespace Dfe.Rscd.Api.Services.Rules
     {
         private readonly IDataService _dataService;
         private readonly IAllocationYearConfig _config;
+        private const string ReasonDescription = "Admited from aboard with English not first language";
 
         public const int ScrutinyCode = 2;
 
@@ -68,7 +69,8 @@ namespace Dfe.Rscd.Api.Services.Rules
                 return new AmendmentOutcome(OutcomeStatus.AutoReject, "The country is not on the accept list")
                 {
                     ScrutinyStatusCode = ScrutinyCode.ToString(),
-                    ReasonId = (int) AmendmentReasonCode.AdmittedFromAbroadWithEnglishNotFirstLanguageCode
+                    ReasonId = (int) AmendmentReasonCode.AdmittedFromAbroadWithEnglishNotFirstLanguageCode,
+                    ReasonDescription = ReasonDescription
                 };
             }
 
@@ -77,7 +79,8 @@ namespace Dfe.Rscd.Api.Services.Rules
                 return new AmendmentOutcome(OutcomeStatus.AutoReject, "Admission date is before 1st June  + (CurrentYear - 2)")
                 {
                     ScrutinyStatusCode = ScrutinyCode.ToString(),
-                    ReasonId = (int) AmendmentReasonCode.AdmittedFromAbroadWithEnglishNotFirstLanguageCode
+                    ReasonId = (int) AmendmentReasonCode.AdmittedFromAbroadWithEnglishNotFirstLanguageCode,
+                    ReasonDescription = ReasonDescription
                 };
             }
 
@@ -86,7 +89,8 @@ namespace Dfe.Rscd.Api.Services.Rules
                 return new AmendmentOutcome(OutcomeStatus.AutoReject, "Prior key stage test results found.")
                 {
                     ScrutinyStatusCode = ScrutinyCode.ToString(),
-                    ReasonId = (int) AmendmentReasonCode.AdmittedFromAbroadWithEnglishNotFirstLanguageCode
+                    ReasonId = (int) AmendmentReasonCode.AdmittedFromAbroadWithEnglishNotFirstLanguageCode,
+                    ReasonDescription = ReasonDescription
                 };
             }
 
@@ -95,7 +99,8 @@ namespace Dfe.Rscd.Api.Services.Rules
                 return new AmendmentOutcome(OutcomeStatus.AutoReject, "The admission date is after January census.")
                 {
                     ScrutinyStatusCode = ScrutinyCode.ToString(),
-                    ReasonId = (int) AmendmentReasonCode.AdmittedFromAbroadWithEnglishNotFirstLanguageCode
+                    ReasonId = (int) AmendmentReasonCode.AdmittedFromAbroadWithEnglishNotFirstLanguageCode,
+                    ReasonDescription = ReasonDescription
                 };
             }
 
@@ -106,7 +111,8 @@ namespace Dfe.Rscd.Api.Services.Rules
                 return new AmendmentOutcome(OutcomeStatus.AutoReject, "The language is not on the accept list.")
                 {
                     ScrutinyStatusCode = ScrutinyCode.ToString(),
-                    ReasonId = (int) AmendmentReasonCode.AdmittedFromAbroadWithEnglishNotFirstLanguageCode
+                    ReasonId = (int) AmendmentReasonCode.AdmittedFromAbroadWithEnglishNotFirstLanguageCode,
+                    ReasonDescription = ReasonDescription
                 };
             }
 
@@ -119,7 +125,8 @@ namespace Dfe.Rscd.Api.Services.Rules
                 return new AmendmentOutcome(OutcomeStatus.AutoReject, "UK Arrival Date more than two years before ASC date.")
                 {
                     ScrutinyStatusCode = ScrutinyCode.ToString(),
-                    ReasonId = (int) AmendmentReasonCode.AdmittedFromAbroadWithEnglishNotFirstLanguageCode
+                    ReasonId = (int) AmendmentReasonCode.AdmittedFromAbroadWithEnglishNotFirstLanguageCode,
+                    ReasonDescription = ReasonDescription
                 };
             }
 
@@ -128,7 +135,8 @@ namespace Dfe.Rscd.Api.Services.Rules
                 return new AmendmentOutcome(OutcomeStatus.AutoReject, "The current attainment is at level 2 including English and Maths. ")
                 {
                     ScrutinyStatusCode = ScrutinyCode.ToString(),
-                    ReasonId = (int) AmendmentReasonCode.AdmittedFromAbroadWithEnglishNotFirstLanguageCode
+                    ReasonId = (int) AmendmentReasonCode.AdmittedFromAbroadWithEnglishNotFirstLanguageCode,
+                    ReasonDescription = ReasonDescription
                 };
             }
 
@@ -137,14 +145,16 @@ namespace Dfe.Rscd.Api.Services.Rules
                 return new AmendmentOutcome(OutcomeStatus.AwatingDfeReview, "First Language Code is ENG or ENB.")
                 {
                     ScrutinyStatusCode = ScrutinyCode.ToString(),
-                    ReasonId = (int) AmendmentReasonCode.AdmittedFromAbroadWithEnglishNotFirstLanguageCode
+                    ReasonId = (int) AmendmentReasonCode.AdmittedFromAbroadWithEnglishNotFirstLanguageCode,
+                    ReasonDescription = ReasonDescription
                 };
             }
             
             return new AmendmentOutcome(OutcomeStatus.AutoAccept)
             {
                 ScrutinyStatusCode = ScrutinyCode.ToString(),
-                ReasonId = (int) AmendmentReasonCode.AdmittedFromAbroadWithEnglishNotFirstLanguageCode
+                ReasonId = (int) AmendmentReasonCode.AdmittedFromAbroadWithEnglishNotFirstLanguageCode,
+                ReasonDescription = ReasonDescription
             };
         }
     }

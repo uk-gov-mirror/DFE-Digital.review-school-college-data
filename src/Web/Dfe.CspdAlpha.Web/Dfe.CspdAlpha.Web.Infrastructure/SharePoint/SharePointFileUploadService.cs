@@ -1,13 +1,13 @@
-﻿using Dfe.CspdAlpha.Web.Infrastructure.Interfaces;
-using Dfe.CspdAlpha.Web.Infrastructure.Models;
-using Dfe.CspdAlpha.Web.Shared.Config;
-using Microsoft.Extensions.Options;
-using Microsoft.SharePoint.Client;
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
+using Dfe.Rscd.Web.Infrastructure.Interfaces;
+using Dfe.Rscd.Web.Infrastructure.Models;
+using Dfe.Rscd.Web.Shared.Config;
+using Microsoft.Extensions.Options;
+using Microsoft.SharePoint.Client;
 
-namespace Dfe.CspdAlpha.Web.Infrastructure.SharePoint
+namespace Dfe.Rscd.Web.Infrastructure.SharePoint
 {
     public class SharePointFileUploadService : IFileUploadService
     {

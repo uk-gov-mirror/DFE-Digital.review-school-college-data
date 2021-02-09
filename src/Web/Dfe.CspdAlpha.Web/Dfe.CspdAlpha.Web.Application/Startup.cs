@@ -1,12 +1,16 @@
-using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
-using Dfe.CspdAlpha.Web.Application.Application.Services;
-using Dfe.CspdAlpha.Web.Application.Middleware;
-using Dfe.CspdAlpha.Web.Application.TagHelpers;
-using Dfe.CspdAlpha.Web.Application.Validators.AddPupil;
-using Dfe.CspdAlpha.Web.Infrastructure.Interfaces;
-using Dfe.CspdAlpha.Web.Infrastructure.SharePoint;
-using Dfe.CspdAlpha.Web.Shared.Config;
+using System;
+using System.Net.Http.Headers;
+using System.Text;
 using Dfe.Rscd.Web.ApiClient;
+using Dfe.Rscd.Web.Application.Application;
+using Dfe.Rscd.Web.Application.Application.Interfaces;
+using Dfe.Rscd.Web.Application.Application.Services;
+using Dfe.Rscd.Web.Application.Middleware;
+using Dfe.Rscd.Web.Application.TagHelpers;
+using Dfe.Rscd.Web.Application.Validators.AddPupil;
+using Dfe.Rscd.Web.Infrastructure.Interfaces;
+using Dfe.Rscd.Web.Infrastructure.SharePoint;
+using Dfe.Rscd.Web.Shared.Config;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -26,12 +30,8 @@ using Newtonsoft.Json;
 using Sustainsys.Saml2;
 using Sustainsys.Saml2.AspNetCore2;
 using Sustainsys.Saml2.Metadata;
-using System;
-using System.Net.Http.Headers;
-using System.Text;
-using Dfe.CspdAlpha.Web.Application.Application;
 
-namespace Dfe.CspdAlpha.Web.Application
+namespace Dfe.Rscd.Web.Application
 {
     public class Startup
     {

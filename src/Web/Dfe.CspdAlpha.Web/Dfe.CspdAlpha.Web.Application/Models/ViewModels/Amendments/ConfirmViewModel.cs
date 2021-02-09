@@ -1,8 +1,8 @@
-using Dfe.CspdAlpha.Web.Application.Models.Common;
-using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
 using Dfe.Rscd.Web.ApiClient;
+using Dfe.Rscd.Web.Application.Models.Common;
+using Dfe.Rscd.Web.Application.Models.ViewModels.Pupil;
 
-namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments
+namespace Dfe.Rscd.Web.Application.Models.ViewModels.Amendments
 {
     public class ConfirmViewModel : ContextAwareViewModel
     {

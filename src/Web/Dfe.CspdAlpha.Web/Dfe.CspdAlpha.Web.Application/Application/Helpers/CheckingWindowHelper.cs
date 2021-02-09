@@ -1,8 +1,8 @@
-using Dfe.CspdAlpha.Web.Application.Models.Common;
 using Dfe.Rscd.Web.ApiClient;
+using Dfe.Rscd.Web.Application.Models.Common;
 using Microsoft.AspNetCore.Routing;
 
-namespace Dfe.CspdAlpha.Web.Application.Application.Helpers
+namespace Dfe.Rscd.Web.Application.Application.Helpers
 {
     public class CheckingWindowHelper
     {

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
-namespace Dfe.CspdAlpha.Web.Application.TagHelpers
+namespace Dfe.Rscd.Web.Application.TagHelpers
 {
     [HtmlTargetElement("div", Attributes = MarkupConstants.Classes.AspFor + ",[class^='app-upload__element']")]
     public class FileUploadTagHelper : TagHelper

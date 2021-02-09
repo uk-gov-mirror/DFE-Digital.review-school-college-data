@@ -1,15 +1,15 @@
-using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
-using Dfe.CspdAlpha.Web.Application.Application.Helpers;
-using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
-using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments;
-using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
 using Dfe.Rscd.Web.ApiClient;
+using Dfe.Rscd.Web.Application.Application.Helpers;
+using Dfe.Rscd.Web.Application.Application.Interfaces;
+using Dfe.Rscd.Web.Application.Models.ViewModels.Amendments;
+using Dfe.Rscd.Web.Application.Models.ViewModels.Pupil;
 using Microsoft.AspNetCore.Mvc;
 using ProblemDetails = Dfe.Rscd.Web.ApiClient.ProblemDetails;
 
-namespace Dfe.CspdAlpha.Web.Application.Controllers
+namespace Dfe.Rscd.Web.Application.Controllers
 {
     public class AmendmentsController : SessionController
     {
@@ -237,7 +237,7 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             return RedirectToAction("Confirm");
         }
 
-        public IActionResult Prompt()
+        public IActionResult Prompt(bool back=false, int index=0)
         {
             var amendment = GetAmendment();
 
@@ -259,7 +259,12 @@ namespace Dfe.CspdAlpha.Web.Application.Controllers
             var questions = amendmentOutcome.FurtherQuestions.ToList();
             SaveQuestions(questions);
 
-            var promptViewModel = new QuestionViewModel(questions)
+            if (back && index == -1)
+            {
+                return RedirectToAction("Index", "TaskList");
+            }
+
+            var promptViewModel = new QuestionViewModel(questions, index)
             {
                 PupilDetails = new PupilViewModel(amendment.Pupil)
             };

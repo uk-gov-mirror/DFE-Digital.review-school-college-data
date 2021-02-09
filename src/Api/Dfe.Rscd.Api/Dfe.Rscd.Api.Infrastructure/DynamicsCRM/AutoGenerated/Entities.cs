@@ -44,6 +44,8 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 		{
 		}
 		
+		public const string AlternateKeys = "cr3d5_urn";
+		
 		public const string EntityLogicalName = "cr3d5_establishment";
 		
 		public const string EntitySchemaName = "cr3d5_establishment";
@@ -2593,7 +2595,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 		}
 		
 		/// <summary>
-		/// 
+		/// Can't figure out how to show the dependencies for this one so unable to delete
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("cr3d5_outcomereason")]
 		public string cr3d5_Outcomereason
@@ -3449,6 +3451,26 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 		/// <summary>
 		/// 
 		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_subreason")]
+		public string rscd_subreason
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("rscd_subreason");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("rscd_subreason");
+				this.SetAttributeValue("rscd_subreason", value);
+				this.OnPropertyChanged("rscd_subreason");
+			}
+		}
+		
+		/// <summary>
+		/// 
+		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_uln")]
 		public string rscd_ULN
 		{
@@ -3841,6 +3863,26 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 			if ((this.PropertyChanging != null))
 			{
 				this.PropertyChanging(this, new System.ComponentModel.PropertyChangingEventArgs(propertyName));
+			}
+		}
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("cr3d5_outcomereason")]
+		public string cr3d5_Outcomereason
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("cr3d5_outcomereason");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("cr3d5_Outcomereason");
+				this.SetAttributeValue("cr3d5_outcomereason", value);
+				this.OnPropertyChanged("cr3d5_Outcomereason");
 			}
 		}
 		

@@ -1,5 +1,5 @@
-﻿using Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil;
-using Dfe.CspdAlpha.Web.Application.Validators.RemovePupil;
+﻿using Dfe.Rscd.Web.Application.Models.ViewModels.RemovePupil;
+using Dfe.Rscd.Web.Application.Validators.RemovePupil;
 using Microsoft.AspNetCore.Http;
 using Xunit;
 

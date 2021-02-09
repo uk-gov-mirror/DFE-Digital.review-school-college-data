@@ -1,7 +1,7 @@
-using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Evidence;
+using Dfe.Rscd.Web.Application.Models.ViewModels.Evidence;
 using FluentValidation;
 
-namespace Dfe.CspdAlpha.Web.Application.Validators.Evidence
+namespace Dfe.Rscd.Web.Application.Validators.Evidence
 {
     public class UploadViewModelValidator: AbstractValidator<UploadViewModel>
     {

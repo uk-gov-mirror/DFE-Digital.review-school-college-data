@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 
-namespace Dfe.CspdAlpha.Web.Application.Middleware
+namespace Dfe.Rscd.Web.Application.Middleware
 {
     public static class IApplicationBuilderExtensions
     {

@@ -1,13 +1,13 @@
-using Dfe.CspdAlpha.Web.Shared.Config;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Options;
-using Microsoft.Net.Http.Headers;
 using System;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Dfe.Rscd.Web.Shared.Config;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Options;
+using Microsoft.Net.Http.Headers;
 
-namespace Dfe.CspdAlpha.Web.Application.Middleware
+namespace Dfe.Rscd.Web.Application.Middleware
 {
     public class BasicAuthMiddleware
     {

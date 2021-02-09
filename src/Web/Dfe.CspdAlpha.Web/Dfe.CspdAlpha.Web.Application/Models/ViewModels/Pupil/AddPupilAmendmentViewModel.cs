@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Results;
 using Dfe.Rscd.Web.ApiClient;
+using Dfe.Rscd.Web.Application.Models.ViewModels.Results;
 
-namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
+namespace Dfe.Rscd.Web.Application.Models.ViewModels.Pupil
 {
     public class AddPupilAmendmentViewModel : ContextAwareViewModel
     {

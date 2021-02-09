@@ -1,4 +1,4 @@
-namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels
+namespace Dfe.Rscd.Web.Application.Models.ViewModels
 {
     public class ErrorViewModel
     {

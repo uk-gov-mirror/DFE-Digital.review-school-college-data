@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
-using Dfe.CspdAlpha.Web.Application.Application;
-using Dfe.CspdAlpha.Web.Application.Application.Helpers;
-using Dfe.CspdAlpha.Web.Application.Models.ViewModels;
 using Dfe.Rscd.Web.ApiClient;
+using Dfe.Rscd.Web.Application.Application;
+using Dfe.Rscd.Web.Application.Application.Helpers;
+using Dfe.Rscd.Web.Application.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Dfe.CspdAlpha.Web.Application.Controllers
+namespace Dfe.Rscd.Web.Application.Controllers
 {
     public class SessionController : Controller
     {

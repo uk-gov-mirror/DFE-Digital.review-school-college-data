@@ -1,7 +1,7 @@
-﻿using Dfe.CspdAlpha.Web.Infrastructure.Models;
-using System.IO;
+﻿using System.IO;
+using Dfe.Rscd.Web.Infrastructure.Models;
 
-namespace Dfe.CspdAlpha.Web.Infrastructure.Interfaces
+namespace Dfe.Rscd.Web.Infrastructure.Interfaces
 {
     public interface IFileUploadService
     {

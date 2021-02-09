@@ -1,8 +1,8 @@
-using Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil;
 using Dfe.Rscd.Web.ApiClient;
+using Dfe.Rscd.Web.Application.Models.ViewModels.RemovePupil;
 using FluentValidation;
 
-namespace Dfe.CspdAlpha.Web.Application.Validators.RemovePupil
+namespace Dfe.Rscd.Web.Application.Validators.RemovePupil
 {
     public class ResultsViewModelValidator : AbstractValidator<ResultsViewModel>
     {

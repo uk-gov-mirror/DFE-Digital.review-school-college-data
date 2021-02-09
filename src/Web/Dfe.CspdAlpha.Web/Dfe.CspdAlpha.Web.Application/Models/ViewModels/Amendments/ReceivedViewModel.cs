@@ -1,6 +1,6 @@
 using System;
 
-namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments
+namespace Dfe.Rscd.Web.Application.Models.ViewModels.Amendments
 {
     public class ReceivedViewModel : ContextAwareViewModel
     {

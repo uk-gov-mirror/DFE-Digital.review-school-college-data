@@ -1,4 +1,4 @@
-namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil
+namespace Dfe.Rscd.Web.Application.Models.ViewModels.RemovePupil
 {
     public class SearchPupilsViewModel : ContextAwareViewModel
     {

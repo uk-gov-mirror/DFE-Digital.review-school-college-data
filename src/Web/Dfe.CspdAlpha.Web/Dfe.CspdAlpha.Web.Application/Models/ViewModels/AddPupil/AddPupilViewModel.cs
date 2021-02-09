@@ -1,8 +1,6 @@
-using Dfe.CspdAlpha.Web.Application.Models.Common;
-using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Common;
-using Dfe.Rscd.Web.ApiClient;
+using Dfe.Rscd.Web.Application.Models.ViewModels.Common;
 
-namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.AddPupil
+namespace Dfe.Rscd.Web.Application.Models.ViewModels.AddPupil
 {
     public class AddPupilViewModel : ContextAwareViewModel
     {

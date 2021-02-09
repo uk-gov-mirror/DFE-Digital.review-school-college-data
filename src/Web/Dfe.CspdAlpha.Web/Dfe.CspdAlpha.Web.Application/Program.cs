@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.AzureAppConfiguration;
 using Microsoft.Extensions.Hosting;
 
-namespace Dfe.CspdAlpha.Web.Application
+namespace Dfe.Rscd.Web.Application
 {
     public class Program
     {

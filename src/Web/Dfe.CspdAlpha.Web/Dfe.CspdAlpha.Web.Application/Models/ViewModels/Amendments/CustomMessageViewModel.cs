@@ -1,6 +1,6 @@
-using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
+using Dfe.Rscd.Web.Application.Models.ViewModels.Pupil;
 
-namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments
+namespace Dfe.Rscd.Web.Application.Models.ViewModels.Amendments
 {
     public class CustomMessageViewModel : ContextAwareViewModel
     {

@@ -1,7 +1,7 @@
-using Dfe.CspdAlpha.Web.Application.Models.Common;
 using Dfe.Rscd.Web.ApiClient;
+using Dfe.Rscd.Web.Application.Models.Common;
 
-namespace Dfe.CspdAlpha.Web.Application.Application
+namespace Dfe.Rscd.Web.Application.Application
 {
     public static class Extensions
     {

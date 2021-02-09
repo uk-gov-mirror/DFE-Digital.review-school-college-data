@@ -1,6 +1,6 @@
 using System;
 
-namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Common
+namespace Dfe.Rscd.Web.Application.Models.ViewModels.Common
 {
     public class DateViewModel
     {

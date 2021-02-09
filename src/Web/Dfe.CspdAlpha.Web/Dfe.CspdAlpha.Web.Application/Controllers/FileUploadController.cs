@@ -1,10 +1,10 @@
 using System.Threading.Tasks;
-using Dfe.CspdAlpha.Web.Infrastructure.Interfaces;
+using Dfe.Rscd.Web.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace Dfe.CspdAlpha.Web.Application.Controllers
+namespace Dfe.Rscd.Web.Application.Controllers
 {
     public class FileUploadController : SessionController
     {

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace Dfe.CspdAlpha.Web.Application.Application.Helpers
+namespace Dfe.Rscd.Web.Application.Application.Helpers
 {
     public static class HtmlHelper
     {

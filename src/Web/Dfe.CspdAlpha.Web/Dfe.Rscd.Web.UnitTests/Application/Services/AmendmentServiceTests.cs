@@ -1,5 +1,5 @@
-using Dfe.CspdAlpha.Web.Application.Application.Services;
-using Dfe.CspdAlpha.Web.Infrastructure.Interfaces;
+using Dfe.Rscd.Web.Application.Application.Services;
+using Dfe.Rscd.Web.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Moq;
 using Xunit;

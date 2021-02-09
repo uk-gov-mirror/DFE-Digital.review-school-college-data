@@ -1,8 +1,8 @@
-using Dfe.CspdAlpha.Web.Application.Models.Common;
-using Dfe.CspdAlpha.Web.Application.Models.School;
 using System.Collections.Generic;
+using Dfe.Rscd.Web.Application.Models.Common;
+using Dfe.Rscd.Web.Application.Models.School;
 
-namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels
+namespace Dfe.Rscd.Web.Application.Models.ViewModels
 {
     public class SchoolViewModel : ContextAwareViewModel
     {

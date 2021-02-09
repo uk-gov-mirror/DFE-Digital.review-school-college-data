@@ -1,7 +1,7 @@
-using Dfe.CspdAlpha.Web.Application.Application.Helpers;
 using Dfe.Rscd.Web.ApiClient;
+using Dfe.Rscd.Web.Application.Application.Helpers;
 
-namespace Dfe.CspdAlpha.Web.Application.Application.Services
+namespace Dfe.Rscd.Web.Application.Application.Services
 {
     public class ContextAwareService
     {

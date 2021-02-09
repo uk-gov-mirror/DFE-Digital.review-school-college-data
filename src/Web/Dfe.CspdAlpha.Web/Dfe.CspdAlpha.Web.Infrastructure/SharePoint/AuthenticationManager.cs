@@ -1,15 +1,13 @@
-﻿using Microsoft.SharePoint.Client;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Net.Http;
-using System.Security;
 using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
+using Microsoft.SharePoint.Client;
 
-namespace Dfe.CspdAlpha.Web.Infrastructure.SharePoint
+namespace Dfe.Rscd.Web.Infrastructure.SharePoint
 {
     /// <summary>
     /// This is taken from https://github.com/elnurrr/CSOM-NET-Standard/blob/master/AuthenticationManager.cs

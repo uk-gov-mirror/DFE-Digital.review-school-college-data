@@ -1,5 +1,4 @@
-@using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
-@model ViewPupilViewModel
+@model Dfe.Rscd.Web.Application.Models.ViewModels.Pupil.ViewPupilViewModel
 @{
     var phase = Model.CheckingWindow.ToString().ToLower().Substring(0, 3);
     ViewData["Title"] = $"View {Model.PersonLowercase}: {Model.MatchedPupilViewModel.PupilViewModel.FullName}";

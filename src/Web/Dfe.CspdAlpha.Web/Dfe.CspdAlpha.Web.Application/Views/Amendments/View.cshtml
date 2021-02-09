@@ -1,9 +1,8 @@
-@using Dfe.CspdAlpha.Web.Application.Application.Helpers
-@using Dfe.CspdAlpha.Web.Application.Models.Common
-@using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments
 @using Dfe.Rscd.Web.ApiClient
-@using Ks2Subject = Dfe.CspdAlpha.Web.Application.Models.Common.Ks2Subject
-@model AmendmentViewModel
+@using Dfe.Rscd.Web.Application.Application.Helpers
+@using Dfe.Rscd.Web.Application.Models.Common
+@using Ks2Subject = Dfe.Rscd.Web.Application.Models.Common.Ks2Subject
+@model Dfe.Rscd.Web.Application.Models.ViewModels.Amendments.AmendmentViewModel
 @{
     ViewData["Title"] = "Requested amendment for: " + Model.Amendment.Pupil.FullName;
     ViewBag.ContentClass = "app-detail-page-main";

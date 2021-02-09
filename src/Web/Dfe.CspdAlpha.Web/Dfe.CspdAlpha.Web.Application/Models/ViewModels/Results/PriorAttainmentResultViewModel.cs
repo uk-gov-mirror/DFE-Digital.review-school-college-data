@@ -1,8 +1,7 @@
 using System.Collections.Generic;
-using Dfe.CspdAlpha.Web.Application.Models.Common;
-using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
+using Dfe.Rscd.Web.Application.Models.ViewModels.Pupil;
 
-namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Results
+namespace Dfe.Rscd.Web.Application.Models.ViewModels.Results
 {
     public class PriorAttainmentResultViewModel
     {

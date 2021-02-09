@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Dfe.CspdAlpha.Web.Infrastructure\Dfe.CspdAlpha.Web.Infrastructure.csproj" />
+    <ProjectReference Include="..\Dfe.CspdAlpha.Web.Infrastructure\Dfe.Rscd.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\Dfe.Rscd.Web.ApiClient\Dfe.Rscd.Web.ApiClient.csproj" />
   </ItemGroup>
 

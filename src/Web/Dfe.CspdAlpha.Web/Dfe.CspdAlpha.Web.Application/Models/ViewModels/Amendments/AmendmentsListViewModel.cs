@@ -1,8 +1,8 @@
-using Dfe.CspdAlpha.Web.Application.Models.Common;
-using Newtonsoft.Json;
 using System.Collections.Generic;
+using Dfe.Rscd.Web.Application.Models.Common;
+using Newtonsoft.Json;
 
-namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments
+namespace Dfe.Rscd.Web.Application.Models.ViewModels.Amendments
 {
     public class AmendmentsListViewModel : ContextAwareViewModel
     {

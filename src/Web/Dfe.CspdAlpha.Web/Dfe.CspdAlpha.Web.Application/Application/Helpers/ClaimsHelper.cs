@@ -1,7 +1,7 @@
 using System.Linq;
 using System.Security.Claims;
 
-namespace Dfe.CspdAlpha.Web.Application.Application.Helpers
+namespace Dfe.Rscd.Web.Application.Application.Helpers
 {
     public class ClaimsHelper
     {

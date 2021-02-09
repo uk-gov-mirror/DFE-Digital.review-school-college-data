@@ -1,12 +1,11 @@
-using Dfe.CspdAlpha.Web.Application.Models.Common;
-using Dfe.CspdAlpha.Web.Application.Models.ViewModels.AddPupil;
-using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Common;
-using Dfe.CspdAlpha.Web.Application.Validators.AddPupil;
 using System;
 using Dfe.Rscd.Web.ApiClient;
+using Dfe.Rscd.Web.Application.Models.ViewModels.AddPupil;
+using Dfe.Rscd.Web.Application.Models.ViewModels.Common;
+using Dfe.Rscd.Web.Application.Validators.AddPupil;
 using Xunit;
 
-namespace Dfe.Rscd.Web.UnitTests.Application
+namespace Dfe.Rscd.Web.UnitTests.Application.Validators
 {
     public class AddPupilViewModelValidatorTests
     {

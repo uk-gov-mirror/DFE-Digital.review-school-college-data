@@ -1,7 +1,6 @@
-@using Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil
-@using Dfe.CspdAlpha.Web.Application.Models.Common
 @using Dfe.Rscd.Web.ApiClient
-@model RemovePupilViewModel
+@using Dfe.Rscd.Web.Application.Models.ViewModels.RemovePupil
+@model Dfe.Rscd.Web.Application.Models.ViewModels.RemovePupil.RemovePupilViewModel
 @{
     var phase = Model.CheckingWindow.ToString().ToLower().Substring(0, 3);
     ViewData["Title"] = $"This is a match for the {Model.PersonLowercase} you want to request to remove";

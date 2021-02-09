@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Dfe.CspdAlpha.Web.Shared\Dfe.CspdAlpha.Web.Shared.csproj" />
+    <ProjectReference Include="..\Dfe.CspdAlpha.Web.Shared\Dfe.Rscd.Web.Shared.csproj" />
   </ItemGroup>
 
 </Project>

@@ -3,7 +3,7 @@ using System.Linq;
 using Dfe.Rscd.Web.ApiClient;
 using Microsoft.AspNetCore.Http;
 
-namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Amendments
+namespace Dfe.Rscd.Web.Application.Models.ViewModels.Amendments
 {
     public class PromptAnswerViewModel : ContextAwareViewModel
     {

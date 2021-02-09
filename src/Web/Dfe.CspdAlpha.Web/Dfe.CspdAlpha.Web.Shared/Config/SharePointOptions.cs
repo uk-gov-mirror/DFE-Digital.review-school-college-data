@@ -1,4 +1,4 @@
-namespace Dfe.CspdAlpha.Web.Shared.Config
+namespace Dfe.Rscd.Web.Shared.Config
 {
     public class SharePointOptions
     {

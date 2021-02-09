@@ -1,10 +1,10 @@
-using Dfe.CspdAlpha.Web.Application.Application;
-using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
-using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
-using Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil;
+using Dfe.Rscd.Web.Application.Application;
+using Dfe.Rscd.Web.Application.Application.Interfaces;
+using Dfe.Rscd.Web.Application.Models.ViewModels.Pupil;
+using Dfe.Rscd.Web.Application.Models.ViewModels.RemovePupil;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Dfe.CspdAlpha.Web.Application.Controllers
+namespace Dfe.Rscd.Web.Application.Controllers
 {
     [TasksReviewedFilter("Index,View")]
     public class PupilController : SessionController

@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Dfe.CspdAlpha.Web.Application\Dfe.CspdAlpha.Web.Application.csproj" />
+    <ProjectReference Include="..\Dfe.CspdAlpha.Web.Application\Dfe.Rscd.Web.Application.csproj" />
   </ItemGroup>
 
 </Project>

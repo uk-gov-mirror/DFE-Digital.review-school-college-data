@@ -1,17 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using Dfe.CspdAlpha.Web.Application.Application.Helpers;
-using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
-using Dfe.CspdAlpha.Web.Application.Models.Common;
-using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
-using Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil;
-using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Results;
-using ApiClient = Dfe.Rscd.Web.ApiClient;
 using System.Linq;
-using Microsoft.AspNetCore.Http;
+using Dfe.Rscd.Web.Application.Application.Interfaces;
+using Dfe.Rscd.Web.Application.Models.ViewModels.Pupil;
+using Dfe.Rscd.Web.Application.Models.ViewModels.RemovePupil;
+using Dfe.Rscd.Web.Application.Models.ViewModels.Results;
+using Ks2Subject = Dfe.Rscd.Web.Application.Models.Common.Ks2Subject;
 
-namespace Dfe.CspdAlpha.Web.Application.Application.Services
+namespace Dfe.Rscd.Web.Application.Application.Services
 {
     public class PupilService : ContextAwareService, IPupilService
     {

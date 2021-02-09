@@ -1,9 +1,8 @@
 using System;
-using Dfe.CspdAlpha.Web.Application.Models.ViewModels;
-using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
 using Dfe.Rscd.Web.ApiClient;
+using Dfe.Rscd.Web.Application.Models.ViewModels;
 
-namespace Dfe.CspdAlpha.Web.Application.Models
+namespace Dfe.Rscd.Web.Application.Models
 {
     public class AmendmentListItem : ContextAwareViewModel
     {

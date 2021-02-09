@@ -1,13 +1,10 @@
-using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
-using ApiClient = Dfe.Rscd.Web.ApiClient;
-using System.Linq;
-using Dfe.CspdAlpha.Web.Application.Application.Helpers;
-using Dfe.CspdAlpha.Web.Application.Models.School;
-using Dfe.CspdAlpha.Web.Application.Models.ViewModels;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Http;
+using System.Linq;
+using Dfe.Rscd.Web.Application.Application.Interfaces;
+using Dfe.Rscd.Web.Application.Models.School;
+using Dfe.Rscd.Web.Application.Models.ViewModels;
 
-namespace Dfe.CspdAlpha.Web.Application.Application.Services
+namespace Dfe.Rscd.Web.Application.Application.Services
 {
     public class EstablishmentService : ContextAwareService, IEstablishmentService
     {

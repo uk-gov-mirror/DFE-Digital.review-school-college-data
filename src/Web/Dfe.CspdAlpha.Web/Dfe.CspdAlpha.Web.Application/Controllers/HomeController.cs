@@ -1,9 +1,9 @@
 using System.Diagnostics;
-using Dfe.CspdAlpha.Web.Application.Models.ViewModels;
+using Dfe.Rscd.Web.Application.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace Dfe.CspdAlpha.Web.Application.Controllers
+namespace Dfe.Rscd.Web.Application.Controllers
 {
     public class HomeController : SessionController
     {

@@ -1,12 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
-using Dfe.CspdAlpha.Web.Application.Models.Common;
 using System.Linq;
-using Dfe.CspdAlpha.Web.Application.Application;
 using Dfe.Rscd.Web.ApiClient;
+using Dfe.Rscd.Web.Application.Application;
+using Dfe.Rscd.Web.Application.Models.Common;
 using DateTime = System.DateTime;
 
-namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil
+namespace Dfe.Rscd.Web.Application.Models.ViewModels.Pupil
 {
     public class PupilViewModel : ContextAwareViewModel
     {

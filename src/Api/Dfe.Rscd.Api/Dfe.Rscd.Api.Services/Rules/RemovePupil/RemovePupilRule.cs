@@ -18,8 +18,8 @@ namespace Dfe.Rscd.Api.Services.Rules
                 amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_ReasonCode,
                     amendmentOutcome.ReasonId);
 
-                amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_OutcomeReasonDescription,
-                    amendmentOutcome.OutcomeReasonDescription);
+                amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_OutcomeDescription,
+                    amendmentOutcome.OutcomeDescription);
 
                 amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_CountryOfOrigin, 
                     GetAnswer(answers, nameof(PupilCountryQuestion)).Value);

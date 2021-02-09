@@ -1,8 +1,8 @@
-using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
-using Dfe.CspdAlpha.Web.Application.Models.ViewModels;
 using Dfe.Rscd.Web.ApiClient;
+using Dfe.Rscd.Web.Application.Application.Interfaces;
+using Dfe.Rscd.Web.Application.Models.ViewModels;
 
-namespace Dfe.CspdAlpha.Web.Application.Application.Services
+namespace Dfe.Rscd.Web.Application.Application.Services
 {
     public class SchoolService : ContextAwareService, ISchoolService
     {

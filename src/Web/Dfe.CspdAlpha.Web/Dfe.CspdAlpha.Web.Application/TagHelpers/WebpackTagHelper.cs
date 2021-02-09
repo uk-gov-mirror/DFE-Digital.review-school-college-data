@@ -1,10 +1,10 @@
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Razor.TagHelpers;
 using System;
 using System.IO;
 using System.Linq;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 
-namespace Dfe.CspdAlpha.Web.Application.TagHelpers
+namespace Dfe.Rscd.Web.Application.TagHelpers
 {
     [HtmlTargetElement("script", Attributes = "webpack-src")]
     public class WebpackTagHelper : TagHelper

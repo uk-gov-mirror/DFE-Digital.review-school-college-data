@@ -1,13 +1,13 @@
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
-namespace Dfe.CspdAlpha.Web.Application.Application
+namespace Dfe.Rscd.Web.Application.Application
 {
     public static class SessionExtension
     {
         private static JsonSerializerSettings settings = new JsonSerializerSettings
         {
-            TypeNameHandling = TypeNameHandling.All
+            TypeNameHandling = TypeNameHandling.Auto
         };
 
         public static void Set<T>(this ISession session, string key, T value)

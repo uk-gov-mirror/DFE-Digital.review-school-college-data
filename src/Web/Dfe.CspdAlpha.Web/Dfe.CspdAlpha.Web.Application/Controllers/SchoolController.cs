@@ -1,9 +1,9 @@
-using Dfe.CspdAlpha.Web.Application.Application.Helpers;
-using Dfe.CspdAlpha.Web.Application.Application.Interfaces;
+using Dfe.Rscd.Web.Application.Application.Helpers;
+using Dfe.Rscd.Web.Application.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
-namespace Dfe.CspdAlpha.Web.Application.Controllers
+namespace Dfe.Rscd.Web.Application.Controllers
 {
     public class SchoolController : SessionController
     {

@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Pupil;
+using Dfe.Rscd.Web.Application.Models.ViewModels.Pupil;
 
-namespace Dfe.CspdAlpha.Web.Application.Models.ViewModels.RemovePupil
+namespace Dfe.Rscd.Web.Application.Models.ViewModels.RemovePupil
 {
     public class RemovePupilViewModel : ContextAwareViewModel
     {

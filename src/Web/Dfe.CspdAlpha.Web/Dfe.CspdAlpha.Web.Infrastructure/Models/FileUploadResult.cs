@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Dfe.CspdAlpha.Web.Infrastructure.Models
+namespace Dfe.Rscd.Web.Infrastructure.Models
 {
     public class FileUploadResult
     {

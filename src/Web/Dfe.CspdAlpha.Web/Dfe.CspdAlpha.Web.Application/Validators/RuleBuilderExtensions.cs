@@ -1,7 +1,7 @@
-using Dfe.CspdAlpha.Web.Application.Models.ViewModels.Common;
+using Dfe.Rscd.Web.Application.Models.ViewModels.Common;
 using FluentValidation;
 
-namespace Dfe.CspdAlpha.Web.Application.Validators
+namespace Dfe.Rscd.Web.Application.Validators
 {
     public static class RuleBuilderExtensions
     {
