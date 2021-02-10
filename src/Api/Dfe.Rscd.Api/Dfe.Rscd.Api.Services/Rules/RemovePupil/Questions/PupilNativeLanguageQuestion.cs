@@ -32,7 +32,7 @@ namespace Dfe.Rscd.Api.Services.Rules
                 "You have selected 'Other'. Please enter the pupil's native language", 
                 new Validator
                 {
-                    InValidErrorMessage = "Enter a valid pupil's native language",
+                    InValidErrorMessage = "Enter pupil's native language",
                     NullErrorMessage = "Enter pupil's native language",
                     ValidatorType = ValidatorType.AlphabeticalIncludingSpecialChars,
                     AllowNull = false,

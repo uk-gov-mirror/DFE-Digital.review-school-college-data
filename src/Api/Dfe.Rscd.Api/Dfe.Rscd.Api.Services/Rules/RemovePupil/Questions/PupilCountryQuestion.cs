@@ -36,7 +36,7 @@ namespace Dfe.Rscd.Api.Services.Rules
                 "You have selected 'Other'. Please enter the pupil's originating country.", new Validator
                 {
                     InValidErrorMessage = "Enter pupil's originating country",
-                    NullErrorMessage = "Enter a valid pupil's originating country",
+                    NullErrorMessage = "Enter pupil's originating country",
                     ValidatorType = ValidatorType.AlphabeticalIncludingSpecialChars,
                     AllowNull = false,
                 });
