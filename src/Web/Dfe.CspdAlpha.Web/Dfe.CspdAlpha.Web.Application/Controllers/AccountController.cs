@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Dfe.Rscd.Web.Application.Controllers
 {
-    public class AccountController : SessionController
+    public class AccountController : Controller
     {
         private readonly ILogger<AccountController> _logger;
 
@@ -17,8 +17,6 @@ namespace Dfe.Rscd.Web.Application.Controllers
 
         public async Task<IActionResult> SignOut()
         {
-            ClearAll();
-
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             
             return RedirectToAction("Index", "Home");

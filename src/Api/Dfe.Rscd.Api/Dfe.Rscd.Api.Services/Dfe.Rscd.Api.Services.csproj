@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Dfe.Rscd.Api.Services.csproj.DotSettings" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Dfe.Rscd.Api.Domain\Dfe.Rscd.Api.Domain.csproj" />
     <ProjectReference Include="..\Dfe.Rscd.Api.Infrastructure\Dfe.Rscd.Api.Infrastructure.csproj" />
   </ItemGroup>

@@ -6,7 +6,7 @@
 
 @section BackLink
 {
-    <a class="govuk-back-link" asp-controller="Amendments" asp-action="Prompt" asp-route-back="true" asp-route-index="@(Model.CurrentQuestionIndex-1)">Back</a>
+    <a class="govuk-back-link" onclick="history.go(-1); return false;" href="#">Back</a>
 }
 
 <div asp-validation-summary="All"></div>

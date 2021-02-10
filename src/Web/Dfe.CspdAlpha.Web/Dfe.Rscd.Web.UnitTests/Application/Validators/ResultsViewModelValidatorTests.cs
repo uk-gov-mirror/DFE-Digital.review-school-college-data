@@ -41,7 +41,7 @@ namespace Dfe.Rscd.Web.UnitTests.Application.Validators
 
             // Assert
             Assert.False(result.IsValid);
-            Assert.True(result.Errors.First().ErrorMessage.Contains("pupil"));
+            Assert.Contains(result.Errors.First().ErrorMessage, "pupil");
         }
 
         [Fact]
@@ -60,7 +60,7 @@ namespace Dfe.Rscd.Web.UnitTests.Application.Validators
 
             // Assert
             Assert.False(result.IsValid);
-            Assert.True(result.Errors.First().ErrorMessage.Contains("student"));
+            Assert.Contains(result.Errors.First().ErrorMessage, "student");
         }
     }
 }

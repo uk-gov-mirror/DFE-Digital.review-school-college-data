@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Dfe.Rscd.Api.Domain.Entities.Questions;
 
 namespace Dfe.Rscd.Api.Domain.Entities
 {

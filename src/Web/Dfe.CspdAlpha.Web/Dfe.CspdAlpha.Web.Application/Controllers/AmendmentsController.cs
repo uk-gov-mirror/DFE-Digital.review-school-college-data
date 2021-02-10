@@ -261,11 +261,15 @@ namespace Dfe.Rscd.Web.Application.Controllers
             return RedirectToAction("Confirm");
         }
 
-        public IActionResult Prompt(bool back=false, int index=0)
+        public IActionResult Prompt()
         {
             var amendment = GetAmendment();
 
             if (amendment == null) return RedirectToAction("Index", "TaskList");
+
+            amendment.Answers?.Remove(amendment.Answers.Last());
+
+            SaveAmendment(amendment);
 
             var amendmentOutcome = _amendmentService.CreateAmendment(amendment);
 
@@ -283,12 +287,7 @@ namespace Dfe.Rscd.Web.Application.Controllers
             var questions = amendmentOutcome.FurtherQuestions.ToList();
             SaveQuestions(questions);
 
-            if (back && index == -1)
-            {
-                return RedirectToAction("Index", "TaskList");
-            }
-
-            var promptViewModel = new QuestionViewModel(questions, index)
+            var promptViewModel = new QuestionViewModel(questions)
             {
                 PupilDetails = new PupilViewModel(amendment.Pupil)
             };
