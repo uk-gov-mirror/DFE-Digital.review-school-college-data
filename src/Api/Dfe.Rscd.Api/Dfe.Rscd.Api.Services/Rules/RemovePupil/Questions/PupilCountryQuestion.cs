@@ -32,11 +32,11 @@ namespace Dfe.Rscd.Api.Services.Rules
 
             var conditionalQuestion = new StringQuestion(
                 $"{nameof(PupilCountryQuestion)}.Other",
-                "Select pupil's originating country",
+                "Enter pupil's originating country",
                 "You have selected 'Other'. Please enter the pupil's originating country.", new Validator
                 {
-                    InValidErrorMessage = "Enter pupil's native language",
-                    NullErrorMessage = "Enter a valid pupil's native language",
+                    InValidErrorMessage = "Enter pupil's originating country",
+                    NullErrorMessage = "Enter a valid pupil's originating country",
                     ValidatorType = ValidatorType.AlphabeticalIncludingSpecialChars,
                     AllowNull = false,
                 });
