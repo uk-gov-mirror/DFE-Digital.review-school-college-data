@@ -21,7 +21,7 @@ namespace Dfe.Rscd.Api.Services.Rules
                     new AnswerPotential {Value = "2", Description = "Do not know pupil's date of arrival to UK"}
                 }, new Validator
                 {
-                    InValidErrorMessage = "Enter a valid date of arrival to UK",
+                    InValidErrorMessage = "Enter a date of arrival to UK",
                     NullErrorMessage = "Enter a date of arrival to UK",
                     ValidatorType = ValidatorType.DateTimeHistorical,
                     AllowNull = true,
