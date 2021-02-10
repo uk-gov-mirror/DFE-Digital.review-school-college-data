@@ -206,10 +206,10 @@ namespace Dfe.Rscd.Web.Application.Controllers
                 string.IsNullOrEmpty(Request.Form["date-year"]))
             {
                 ViewData.ModelState.AddModelError(promptAnswerViewModel.QuestionId, "Enter a valid date of arrival to UK");
-                ViewData["errorMessage"] = "Enter a valid date of arrival to UK";
+                ViewData["errorMessage"] = "Enter a date of arrival to UK";
 
                 List<string> errorCollection = new List<string>();
-                errorCollection.Add("Enter a valid date of arrival to UK");
+                errorCollection.Add("Enter a date of arrival to UK");
                 ICollection collection = errorCollection;
                 var validationErrors = new Dictionary<string, ICollection<string>>();
                 validationErrors.Add(promptAnswerViewModel.QuestionId, errorCollection);
