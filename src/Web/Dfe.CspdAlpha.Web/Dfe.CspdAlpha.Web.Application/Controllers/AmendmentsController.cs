@@ -205,7 +205,7 @@ namespace Dfe.Rscd.Web.Application.Controllers
                 string.IsNullOrEmpty(Request.Form["date-month"]) &&
                 string.IsNullOrEmpty(Request.Form["date-year"]))
             {
-                ViewData.ModelState.AddModelError(promptAnswerViewModel.QuestionId, "Enter a valid date of arrival to UK");
+                ViewData.ModelState.AddModelError(promptAnswerViewModel.QuestionId, "Enter a date of arrival to UK");
                 ViewData["errorMessage"] = "Enter a date of arrival to UK";
 
                 List<string> errorCollection = new List<string>();
