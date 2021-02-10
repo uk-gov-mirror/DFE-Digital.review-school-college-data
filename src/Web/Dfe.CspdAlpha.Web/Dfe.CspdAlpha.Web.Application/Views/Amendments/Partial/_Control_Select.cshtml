@@ -19,7 +19,7 @@
         <option value="">Select one</option>
         @foreach (var potential in Model.Answer.AnswerPotentials)
         {
-        <option value="@potential.Value">@potential.Description</option>}
+        <option value="@potential.Value">@potential.Description.Trim()</option>}
     </select>
 </div>
 
