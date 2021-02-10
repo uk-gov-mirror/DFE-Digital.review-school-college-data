@@ -103,7 +103,7 @@ namespace Dfe.Rscd.Api.UnitTests
         }
 
         [Fact]
-        public void ItShouldParseRobustDateFormats()
+        public void ItShouldParseDateFormats()
         {
             var dataService = new Mock<IDataService>();
             dataService.Setup(x => x.GetAnswerPotentials(It.IsAny<string>())).Returns(new List<AnswerPotential>());
@@ -129,6 +129,17 @@ namespace Dfe.Rscd.Api.UnitTests
             });
 
             Assert.True(outcome.ValidationErrors == null);
+            Assert.True(outcome.IsComplete == false);
+
+            outcome = admittedFromAbroadRules.Apply(new Amendment()
+            {
+                Answers = new List<UserAnswer>
+                {
+                    new UserAnswer{Value = "2-1-21", QuestionId = "ArrivalDateQuestion"}
+                }
+            });
+
+            Assert.True(outcome.ValidationErrors != null);
             Assert.True(outcome.IsComplete == false);
         }
 

@@ -5,37 +5,37 @@ namespace Dfe.Rscd.Api.Domain.Common
 {
     public static class ExtensionMethods
     {
-        public static DateTime ToDateTimeWhenSureNotNull(this string potentialDateString, string format)
+        public static DateTime ToDateTimeWhenSureNotNull(this string potentialDateString)
         {
-            var date = potentialDateString.ToDateTime(format);
-            if(date.HasValue)
+            var date = potentialDateString.ToDateTime();
+            if (date.HasValue)
                 return date.Value;
 
             return DateTime.MinValue;
         }
 
-        public static DateTime? ToDateTime(this string potentialDateString, string format)
+        public static DateTime? ToDateTime(this string potentialDateString)
         {
-            var parts = potentialDateString.Split("/");
-            if (parts.Length < 2)
-                parts = potentialDateString.Split("-");
-
-            try
+            if (DateTime.TryParseExact(potentialDateString, "d-M-yyyy", new CultureInfo("en-GB"), DateTimeStyles.None, out var newDate))
             {
-                var day = int.Parse(parts[0]);
-                var month = int.Parse(parts[1]);
-                var year = int.Parse(parts[2]);
+                return newDate;
+            }
 
-                return new DateTime(year, month, day);
-            }
-            catch (Exception e)
+            if (DateTime.TryParseExact(potentialDateString, "dd-MM-yyyy", new CultureInfo("en-GB"), DateTimeStyles.None, out newDate))
             {
-                if (DateTime.TryParseExact(potentialDateString, format, new CultureInfo("en-GB"), DateTimeStyles.None, out var newDate))
-                {
-                    return newDate;
-                }
+                return newDate;
             }
-      
+
+            if (DateTime.TryParseExact(potentialDateString, "d/M/yyyy", new CultureInfo("en-GB"), DateTimeStyles.None, out newDate))
+            {
+                return newDate;
+            }
+
+            if (DateTime.TryParseExact(potentialDateString, "dd/MM/yyyy", new CultureInfo("en-GB"), DateTimeStyles.None, out newDate))
+            {
+                return newDate;
+            }
+
             return null;
         }
     }

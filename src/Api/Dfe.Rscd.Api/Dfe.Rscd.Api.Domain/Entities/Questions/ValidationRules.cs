@@ -65,7 +65,7 @@ namespace Dfe.Rscd.Api.Domain.Entities.Questions
 
         private static bool DateMatch(string givenValue, Func<DateTime, bool> check=null)
         {
-            var newDate = givenValue.ToDateTime("dd/MM/yyyy");
+            var newDate = givenValue.ToDateTime();
             if(newDate != null)
             {
                 if (check == null)

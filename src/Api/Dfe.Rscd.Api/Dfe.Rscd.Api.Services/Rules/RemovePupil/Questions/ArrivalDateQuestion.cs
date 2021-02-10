@@ -22,7 +22,7 @@ namespace Dfe.Rscd.Api.Services.Rules
                 }, new Validator
                 {
                     InValidErrorMessage = "Enter a valid date of arrival to UK",
-                    NullErrorMessage = "Enter a valid date of arrival to UK",
+                    NullErrorMessage = "Enter a date of arrival to UK",
                     ValidatorType = ValidatorType.DateTimeHistorical,
                     AllowNull = true,
                 });

@@ -56,7 +56,7 @@ namespace Dfe.Rscd.Api.Services.Rules
         {
             var admissionDate = amendment.Pupil.AdmissionDate;
             var hasKs2Result = amendment.Pupil.Results.Any(x => x.Qualification.ToLower() == "ks2"); // TODO CHECK
-            var annualCensusDate = _config.CensusDate.ToDateTimeWhenSureNotNull("dd/MM/yyyy");
+            var annualCensusDate = _config.CensusDate.ToDateTimeWhenSureNotNull();
             var twoYearsAgo = DateTime.Now.AddYears(-1);
             var currentAttainmentLevel2 =
                 amendment.Pupil.Results.Any(x => x.SubjectCode == "LEV2EM" && x.TestMark == "1"); // TODO CHECK
@@ -119,7 +119,7 @@ namespace Dfe.Rscd.Api.Services.Rules
             var arrivalDate = validatedAnswers.Single(x => x.QuestionId == nameof(ArrivalDateQuestion));
 
             var twoYearsBeforeAnnualCensusDate = annualCensusDate.AddYears(-2);
-            var studentArrivalDate = arrivalDate.Value.ToDateTime("dd/MM/yyyy");
+            var studentArrivalDate = arrivalDate.Value.ToDateTime();
             if (studentArrivalDate.HasValue && studentArrivalDate.Value < twoYearsBeforeAnnualCensusDate)
             {
                 return new AmendmentOutcome(OutcomeStatus.AutoReject, "UK Arrival Date more than two years before ASC date.")
