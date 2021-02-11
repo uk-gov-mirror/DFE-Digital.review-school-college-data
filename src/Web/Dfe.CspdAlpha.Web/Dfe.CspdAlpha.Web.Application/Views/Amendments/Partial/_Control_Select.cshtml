@@ -1,3 +1,4 @@
+@using Dfe.Rscd.Web.Application.Models.Common
 @model Dfe.Rscd.Web.ApiClient.Question
 @{
     var formGroupClasses = "govuk-form-group";
@@ -19,7 +20,7 @@
         <option value="">Select one</option>
         @foreach (var potential in Model.Answer.AnswerPotentials)
         {
-        <option value="@potential.Value">@potential.Description.Trim()</option>}
+        <option value="@potential.Value">@potential.Description.Encode().Trim()</option>}
     </select>
 </div>
 
