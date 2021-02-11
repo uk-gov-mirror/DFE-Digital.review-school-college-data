@@ -25,6 +25,7 @@ namespace Dfe.Rscd.Api.Domain.Entities.Questions
                 {ValidatorType.NumberHigherOrEqual, givenValue => NumberMatch(givenValue, compareValue,(g, c) => g >= c)},
                 {ValidatorType.NumberLower, givenValue => NumberMatch(givenValue, compareValue,(g, c) => g < c)},
                 {ValidatorType.NumberLowerOrEqual, givenValue => NumberMatch(givenValue, compareValue,(g, c) => g <= c)},
+                {ValidatorType.LAESTABNumber, givenValue => RegexMatch(givenValue, compareValue)},
                 {ValidatorType.None, givenValue => true}
             };
         }

@@ -8,7 +8,7 @@ using Dfe.Rscd.Api.Infrastructure.CosmosDb.Config;
 
 namespace Dfe.Rscd.Api.Services.Rules
 {
-    public class RemovePupilAdmittedFromAbroadRule : RemovePupilRule
+    public class RemovePupilAdmittedFromAbroadRule : Rule
     {
         private readonly IDataService _dataService;
         private readonly IAllocationYearConfig _config;
@@ -35,6 +35,7 @@ namespace Dfe.Rscd.Api.Services.Rules
         }
 
         public override int AmendmentReason => (int)AmendmentReasonCode.AdmittedFromAbroadWithEnglishNotFirstLanguageCode;
+        public override AmendmentType AmendmentType => AmendmentType.RemovePupil;
 
         protected override List<ValidatedAnswer> GetValidatedAnswers(List<UserAnswer> userAnswers)
         {
@@ -156,6 +157,30 @@ namespace Dfe.Rscd.Api.Services.Rules
                 ReasonId = (int) AmendmentReasonCode.AdmittedFromAbroadWithEnglishNotFirstLanguageCode,
                 ReasonDescription = ReasonDescription
             };
+        }
+
+        protected override void ApplyOutcomeToAmendment(Amendment amendment, AmendmentOutcome amendmentOutcome, List<ValidatedAnswer> answers)
+        {
+            if (amendmentOutcome.IsComplete && amendmentOutcome.FurtherQuestions == null)
+            {
+                amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_ReasonDescription,
+                    amendmentOutcome.ReasonDescription);
+
+                amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_ReasonCode,
+                    amendmentOutcome.ReasonId);
+
+                amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_OutcomeDescription,
+                    amendmentOutcome.OutcomeDescription);
+
+                amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_CountryOfOrigin, 
+                    GetAnswer(answers, nameof(PupilCountryQuestion)).Value);
+
+                amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_NativeLanguage, 
+                    GetAnswer(answers, nameof(PupilNativeLanguageQuestion)).Value);
+
+                amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_DateOfArrivalUk, 
+                    GetAnswer(answers, nameof(ArrivalDateQuestion)).Value);
+            }
         }
     }
 }

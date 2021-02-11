@@ -11,6 +11,8 @@ namespace Dfe.Rscd.Api.Domain.Entities
             PerformanceMeasures = new List<PerformanceMeasure>();
         }
 
+        public static List<int> StateFundedSchools = new List<int>{20, 21, 22, 23, 24, 25, 26, 27, 50, 51, 52, 53, 55, 57, 58};
+        
         public int DfesNumber { get; set; }
 
         public URN Urn { get; set; }

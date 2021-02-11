@@ -13,6 +13,8 @@
 
     public enum AmendmentReasonCode
     {
-        AdmittedFromAbroadWithEnglishNotFirstLanguageCode = 8
+        AdmittedFromAbroadWithEnglishNotFirstLanguageCode = 8,
+        AdmittedFollowingPermanentExclusion = 10,
+        Deceased = 12
     }
 }

@@ -34,6 +34,7 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs
         public int FSM6 { get; set; }
         public string ForvusIndex { get; set; }
         public int LookedAfterEver { get; set; }
+        public int? PortlandStudentID { get; set; }
 
         public List<ResultDTO> performance { get; set; }
 

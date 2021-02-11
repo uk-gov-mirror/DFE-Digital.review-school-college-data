@@ -101,7 +101,8 @@ namespace Dfe.Rscd.Api.Services
                 ForvusIndex = int.Parse(pupil.ForvusIndex),
                 LookedAfterEver = pupil.LookedAfterEver == 1,
                 School = school,
-                FreeSchoolMealsLast6Years = pupil.FSM6 == 1
+                FreeSchoolMealsLast6Years = pupil.FSM6 == 1,
+                PortlandStudentID = pupil.PortlandStudentID
             };
 
             if (sen != null) newPupil.SpecialEducationNeed = sen;

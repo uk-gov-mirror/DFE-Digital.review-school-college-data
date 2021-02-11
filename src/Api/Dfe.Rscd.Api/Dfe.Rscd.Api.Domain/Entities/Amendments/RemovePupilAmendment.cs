@@ -8,6 +8,9 @@
         public const string FIELD_CountryOfOrigin = "CountryOfOrigin";
         public const string FIELD_NativeLanguage = "NativeLanguage";
         public const string FIELD_DateOfArrivalUk = "DateOfArrivalUk";
+        public const string FIELD_LAESTABNumber = "LAESTABNumber";
+        public const string FIELD_ExclusionDate = "PupilExclusionDate";
+        public const string FIELD_DateOffRoll = "PupilDateOffRoll";
 
         public RemovePupilAmendment()
         {
@@ -18,6 +21,9 @@
             AmendmentDetail.AddField(FIELD_CountryOfOrigin, string.Empty);
             AmendmentDetail.AddField(FIELD_NativeLanguage, string.Empty);
             AmendmentDetail.AddField(FIELD_DateOfArrivalUk, string.Empty);
+            AmendmentDetail.AddField(FIELD_LAESTABNumber, string.Empty);
+            AmendmentDetail.AddField(FIELD_ExclusionDate, string.Empty);
+            AmendmentDetail.AddField(FIELD_DateOffRoll, string.Empty);
         }
     }
 }

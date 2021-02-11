@@ -12,6 +12,7 @@
         NumberHigher,
         NumberLower,
         NumberHigherOrEqual,
-        NumberLowerOrEqual
+        NumberLowerOrEqual,
+        LAESTABNumber
     }
 }

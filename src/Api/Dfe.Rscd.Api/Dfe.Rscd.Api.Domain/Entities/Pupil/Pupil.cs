@@ -59,7 +59,7 @@ namespace Dfe.Rscd.Api.Domain.Entities
 
         public string DfesNumber { get; set; }
 
-        public string ScrutinyStatusText { get; set; }
+        public int? PortlandStudentID { get; set; }
 
         public string DOBDisplayString { get; set; }
 
