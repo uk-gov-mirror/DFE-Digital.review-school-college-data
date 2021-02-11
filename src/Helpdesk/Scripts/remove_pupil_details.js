@@ -36,7 +36,7 @@ console.log(reasonCode);
         this.showFields(removePupilForm, ['rscd_language', 'rscd_countryoforigin' ,'rscd_dateofarrival']);
         break;
     case 10: // Admitted following permanent exclusion from maintained school
-         this.showFields(removePupilForm, ['rscd_LAESTABofexcludedschool', 'rscd_Pupilexclusiondate']);
+         this.showFields(removePupilForm, ['rscd_laestabofexcludedschool', 'rscd_pupilexclusiondate']);
         // case 330: // Other without evidence
         //   break;
           default:
