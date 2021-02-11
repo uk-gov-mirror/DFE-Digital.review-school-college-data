@@ -78,7 +78,7 @@ namespace Dfe.Rscd.Api.Services.Rules
                     amendmentOutcome.OutcomeDescription);
 
                 amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_DateOffRoll, 
-                    GetAnswer(answers, nameof(PupilExclusionDateQuestion)).Value);
+                    GetAnswer(answers, nameof(PupilDateOffRollQuestion)).Value);
             }
         }
 
