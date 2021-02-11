@@ -7,7 +7,7 @@
         public string TestMark { get; set; }
         public string ScaledScore { get; set; }
         public string SeasonYear { get; set; }
-        public string Qualification { get; set; }
+        public string QualificationTypeCode { get; set; }
         public string ExamDate { get; set; }
         public string SyllabusCode { get; set; }
         public string AwardingOrganisation { get; set; }

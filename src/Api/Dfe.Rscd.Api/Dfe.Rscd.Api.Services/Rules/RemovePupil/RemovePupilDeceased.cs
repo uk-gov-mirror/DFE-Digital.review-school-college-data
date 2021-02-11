@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Dfe.Rscd.Api.Domain.Common;
 using Dfe.Rscd.Api.Domain.Entities;
+using Dfe.Rscd.Api.Domain.Entities.Amendments;
 using Dfe.Rscd.Api.Domain.Entities.Questions;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Config;
 using Dfe.Rscd.Api.Services.Rules.RemovePupil.Questions;
@@ -47,7 +48,7 @@ namespace Dfe.Rscd.Api.Services.Rules
             
             if (dateOffRoll.Value.ToDateTimeWhenSureNotNull() < _allocationYearConfig.CensusDate.ToDateTimeWhenSureNotNull())
             {
-                return new AmendmentOutcome(OutcomeStatus.AutoReject, "Death")
+                return new AmendmentOutcome(OutcomeStatus.AutoReject, "Pupil off roll date is before the Annual School Census date")
                 {
                     ScrutinyStatusCode = ScrutinyCode.ToString(),
                     ReasonId = (int) AmendmentReasonCode.Deceased,

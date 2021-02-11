@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using Newtonsoft.Json.Linq;
 
-namespace Dfe.Rscd.Api.Domain.Entities
+namespace Dfe.Rscd.Api.Domain.Entities.Amendments
 {
     public class AmendmentDetail
     {
@@ -15,20 +15,11 @@ namespace Dfe.Rscd.Api.Domain.Entities
 
         public IList<AmendmentField> Fields { get; }
 
-        public void AddField(string name, object value)
-        {
-            var field = Fields.SingleOrDefault(x => x.Name == name);
-            if (field == null)
-                Fields.Add(new AmendmentField {Name = name, Value = value});
-            else
-                field.Value = value;
-        }
-
         public void SetField(string name, object value)
         {
             var field = Fields.SingleOrDefault(x => x.Name == name);
             if(field == null)
-                AddField(name, value);
+                Fields.Add(new AmendmentField {Name = name, Value = value});
             else 
                 field.Value = value;
         }

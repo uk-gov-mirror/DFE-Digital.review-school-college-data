@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Dfe.Rscd.Api.Domain.Entities
+namespace Dfe.Rscd.Api.Domain.Entities.Amendments
 {
     public class Amendment
     {

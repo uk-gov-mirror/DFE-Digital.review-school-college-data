@@ -4340,6 +4340,26 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 		/// <summary>
 		/// 
 		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_laestabofexcludedschool")]
+		public string rscd_LAESTABofexcludedschool
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("rscd_laestabofexcludedschool");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("rscd_LAESTABofexcludedschool");
+				this.SetAttributeValue("rscd_laestabofexcludedschool", value);
+				this.OnPropertyChanged("rscd_LAESTABofexcludedschool");
+			}
+		}
+		
+		/// <summary>
+		/// 
+		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_language")]
 		public string rscd_Language
 		{
@@ -4374,6 +4394,26 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				this.OnPropertyChanging("rscd_Name");
 				this.SetAttributeValue("rscd_name", value);
 				this.OnPropertyChanged("rscd_Name");
+			}
+		}
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_pupilexclusiondate")]
+		public string rscd_Pupilexclusiondate
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("rscd_pupilexclusiondate");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("rscd_Pupilexclusiondate");
+				this.SetAttributeValue("rscd_pupilexclusiondate", value);
+				this.OnPropertyChanged("rscd_Pupilexclusiondate");
 			}
 		}
 		

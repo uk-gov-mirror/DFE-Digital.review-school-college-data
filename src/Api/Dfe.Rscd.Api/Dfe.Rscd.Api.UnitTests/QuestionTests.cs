@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Dfe.Rscd.Api.Domain.Entities;
+using Dfe.Rscd.Api.Domain.Entities.Amendments;
 using Dfe.Rscd.Api.Domain.Entities.Questions;
 using Dfe.Rscd.Api.Services;
 using Dfe.Rscd.Api.Services.Rules;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Dfe.Rscd.Api.Domain.Common;
 using Dfe.Rscd.Api.Domain.Entities;
+using Dfe.Rscd.Api.Domain.Entities.Amendments;
 using Dfe.Rscd.Api.Domain.Entities.Questions;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Config;
 
@@ -56,11 +57,11 @@ namespace Dfe.Rscd.Api.Services.Rules
         protected override AmendmentOutcome ApplyRule(Amendment amendment, List<ValidatedAnswer> validatedAnswers)
         {
             var admissionDate = amendment.Pupil.AdmissionDate;
-            var hasKs2Result = amendment.Pupil.Results.Any(x => x.Qualification.ToLower() == "ks2"); // TODO CHECK
+            var hasKs2Result = amendment.Pupil.Results.Any(x => x.QualificationTypeCode.ToLower() == "ks2");
             var annualCensusDate = _config.CensusDate.ToDateTimeWhenSureNotNull();
             var twoYearsAgo = DateTime.Now.AddYears(-1);
-            var currentAttainmentLevel2 =
-                amendment.Pupil.Results.Any(x => x.SubjectCode == "LEV2EM" && x.TestMark == "1"); // TODO CHECK
+            //var currentAttainmentLevel2 =
+            //    amendment.Pupil.Results.Any(x => x.SubjectCode == "LEV2EM" && x.TestMark == "1"); // TODO: Implement when ready
             var firstLanguage = amendment.Pupil.FirstLanguage;
 
             var studentCountryOfOrigin = validatedAnswers.Single(x => x.QuestionId == nameof(PupilCountryQuestion));
@@ -131,15 +132,15 @@ namespace Dfe.Rscd.Api.Services.Rules
                 };
             }
 
-            if (currentAttainmentLevel2)
-            {
-                return new AmendmentOutcome(OutcomeStatus.AutoReject, "The current attainment is at level 2 including English and Maths. ")
-                {
-                    ScrutinyStatusCode = ScrutinyCode.ToString(),
-                    ReasonId = (int) AmendmentReasonCode.AdmittedFromAbroadWithEnglishNotFirstLanguageCode,
-                    ReasonDescription = ReasonDescription
-                };
-            }
+            //if (currentAttainmentLevel2)
+            //{
+            //    return new AmendmentOutcome(OutcomeStatus.AutoReject, "The current attainment is at level 2 including English and Maths. ")
+            //    {
+            //        ScrutinyStatusCode = ScrutinyCode.ToString(),
+            //        ReasonId = (int) AmendmentReasonCode.AdmittedFromAbroadWithEnglishNotFirstLanguageCode,
+            //        ReasonDescription = ReasonDescription
+            //    };
+            //}
 
             if (firstLanguage.Code == "ENG" || firstLanguage.Code == "ENB")
             {

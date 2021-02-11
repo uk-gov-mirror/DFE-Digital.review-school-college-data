@@ -1,6 +1,7 @@
 ﻿using System;
 using Dfe.CspdAlpha.Web.Infrastructure.Crm;
 using Dfe.Rscd.Api.Domain.Entities;
+using Dfe.Rscd.Api.Domain.Entities.Amendments;
 
 namespace Dfe.Rscd.Api.Services
 {

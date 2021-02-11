@@ -104,7 +104,8 @@ namespace Dfe.Rscd.Api.Services
                     SubjectCode = p.SubjectCode,
                     ExamYear = p.ExamYear,
                     TestMark = p.TestMark,
-                    ScaledScore = p.ScaledScore
+                    ScaledScore = p.ScaledScore,
+                    QualificationTypeCode = p.QualificationTypeCode
                 }).ToList() ?? new List<Result>(Enumerable.Empty<Result>()),
                 Allocations = GetSourceOfAllocations(pupil, allocationYear),
                 ForvusIndex = int.Parse(pupil.ForvusIndex),

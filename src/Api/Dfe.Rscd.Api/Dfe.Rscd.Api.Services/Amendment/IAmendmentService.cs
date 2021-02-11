@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Dfe.Rscd.Api.Domain.Entities;
+using Dfe.Rscd.Api.Domain.Entities.Amendments;
 
 namespace Dfe.Rscd.Api.Services
 {

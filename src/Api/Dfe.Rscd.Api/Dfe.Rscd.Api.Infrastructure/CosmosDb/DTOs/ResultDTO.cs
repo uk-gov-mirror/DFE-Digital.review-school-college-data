@@ -6,5 +6,7 @@
         public string ExamYear { get; set; }
         public string TestMark { get; set; }
         public string ScaledScore { get; set; }
+
+        public string QualificationTypeCode { get; set; }
     }
 }

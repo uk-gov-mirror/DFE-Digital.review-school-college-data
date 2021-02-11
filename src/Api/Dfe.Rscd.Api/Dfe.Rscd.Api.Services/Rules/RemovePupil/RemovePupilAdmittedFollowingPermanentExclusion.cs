@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Dfe.Rscd.Api.Domain.Common;
 using Dfe.Rscd.Api.Domain.Entities;
+using Dfe.Rscd.Api.Domain.Entities.Amendments;
 using Dfe.Rscd.Api.Domain.Entities.Questions;
 using Dfe.Rscd.Api.Services.Rules.RemovePupil.Questions;
 
@@ -62,7 +63,7 @@ namespace Dfe.Rscd.Api.Services.Rules
                 };
             }
 
-            if (IsStateFundedOrFeCollege(establishment.InstitutionTypeNumber??0))
+            if (!IsStateFundedOrFeCollege(establishment.InstitutionTypeNumber??0))
             {
                 return new AmendmentOutcome(OutcomeStatus.AutoReject, "The excluding school must be a recognized maintained school to meet DCSF criteria for 'pupils admitted following permanent exclusion from a maintained school'")
                 {
