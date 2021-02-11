@@ -17,8 +17,8 @@ namespace Dfe.Rscd.Api.Domain.Entities.Questions
             {
                 {ValidatorType.AlphabeticalValues, s => RegexMatch(s, @"[a-zA-Z]")},
                 {ValidatorType.AlphabeticalIncludingSpecialChars, s => RegexMatch(s, @"^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$")},
-                {ValidatorType.DateTimeHistorical, givenValue => DateMatch(givenValue, g => g < DateTime.Now ) },
-                {ValidatorType.DateTimeFuture, givenValue => DateMatch(givenValue, g => g > DateTime.Now )},
+                {ValidatorType.DateTimeHistorical, givenValue => DateMatch(givenValue, g => g < DateTime.Today ) },
+                {ValidatorType.DateTimeFuture, givenValue => DateMatch(givenValue, g => g > DateTime.Today )},
                 {ValidatorType.Regex, givenValue => RegexMatch(givenValue, compareValue)},
                 {ValidatorType.Number, givenValue => NumberMatch(givenValue) },
                 {ValidatorType.NumberHigher, givenValue => NumberMatch(givenValue, compareValue, (g, c) => g > c)},

@@ -103,6 +103,26 @@ namespace Dfe.Rscd.Api.UnitTests
         }
 
         [Fact]
+        public void ItShouldShowErrorIfDateIsNotHistorical()
+        {
+            var dataService = new Mock<IDataService>();
+            dataService.Setup(x => x.GetAnswerPotentials(It.IsAny<string>())).Returns(new List<AnswerPotential>());
+            var admittedFromAbroadRules = new RemovePupilAdmittedFromAbroadRule(dataService.Object, null);
+
+            var outcome = admittedFromAbroadRules.Apply(new Amendment()
+            {
+                Answers = new List<UserAnswer>
+                {
+                    new UserAnswer{Value = "11/02/2021", QuestionId = "ArrivalDateQuestion"}
+                }
+            });
+
+            Assert.True(outcome.ValidationErrors.Count == 1);
+            Assert.True(outcome.ValidationErrors.First().Key == nameof(ArrivalDateQuestion));
+            Assert.True(outcome.IsComplete == false);
+        }
+
+        [Fact]
         public void ItShouldParseDateFormats()
         {
             var dataService = new Mock<IDataService>();
