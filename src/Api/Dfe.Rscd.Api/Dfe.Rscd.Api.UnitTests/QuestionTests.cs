@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Domain.Entities.Amendments;
@@ -114,7 +115,7 @@ namespace Dfe.Rscd.Api.UnitTests
             {
                 Answers = new List<UserAnswer>
                 {
-                    new UserAnswer{Value = "11/02/2021", QuestionId = "ArrivalDateQuestion"}
+                    new UserAnswer{Value = DateTime.Now.AddDays(1).ToString("dd/MM/yyyy"), QuestionId = "ArrivalDateQuestion"}
                 }
             });
 

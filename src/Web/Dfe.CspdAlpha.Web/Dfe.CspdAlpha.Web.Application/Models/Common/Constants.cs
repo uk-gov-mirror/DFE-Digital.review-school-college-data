@@ -12,14 +12,6 @@ namespace Dfe.Rscd.Web.Application.Models.Common
         public const string PROMPT_ANSWERS = "new-promptanswers-ref";
        
 
-        // Remove reason codes
-        public const int NOT_AT_END_OF_16_TO_18_STUDY = 325;
-        public const int INTERNATIONAL_STUDENT = 326;
-        public const int DECEASED = 327;
-        public const int NOT_ON_ROLL = 328;
-        public const int OTHER_WITH_EVIDENCE = 329;
-        public const int OTHER_EVIDENCE_NOT_REQUIRED = 330;
-
         public class AddPupil
         {
             public const string PriorAttainmentResults = "PriorAttainmentResults";
@@ -30,8 +22,16 @@ namespace Dfe.Rscd.Web.Application.Models.Common
 
         public class RemovePupil
         {
-            public const string ReasonCode = "ReasonCode";
-            public const string Detail = "Detail";
+            public const string FIELD_ReasonCode = "ReasonCode";
+            public const string FIELD_ReasonDescription = "ReasonDescription";
+            public const string FIELD_OutcomeDescription = "OutcomeDescription";
+            public const string FIELD_CountryOfOrigin = "CountryOfOrigin";
+            public const string FIELD_NativeLanguage = "NativeLanguage";
+            public const string FIELD_DateOfArrivalUk = "DateOfArrivalUk";
+            public const string FIELD_LAESTABNumber = "LAESTABNumber";
+            public const string FIELD_ExclusionDate = "PupilExclusionDate";
+            public const string FIELD_DateOffRoll = "PupilDateOffRoll";
+            public const string FIELD_UserProvidedDetails = "UserProvidedDetails";
         }
     }
 }

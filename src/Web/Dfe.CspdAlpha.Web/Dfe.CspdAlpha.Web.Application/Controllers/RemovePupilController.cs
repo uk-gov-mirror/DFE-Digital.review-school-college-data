@@ -118,7 +118,7 @@ namespace Dfe.Rscd.Web.Application.Controllers
             return View(new ReasonViewModel
             {
                 PupilDetails = new PupilViewModel(amendment.Pupil),
-                SelectedReasonCode = amendmentDetail.GetField<int?>(Constants.RemovePupil.ReasonCode),
+                SelectedReasonCode = amendmentDetail.GetField<int?>(Constants.RemovePupil.FIELD_ReasonCode),
                 SearchType = searchType,
                 Query = query,
                 MatchedId = matchedId,
@@ -133,34 +133,7 @@ namespace Dfe.Rscd.Web.Application.Controllers
 
             if (ModelState.IsValid)
             {
-                amendment.AmendmentDetail.AddField(Constants.RemovePupil.ReasonCode, viewModel.SelectedReasonCode.Value);
-
-                // This is for the old system to work. Will be removed once redundant
-                if (CheckingWindow == CheckingWindow.KS5)
-                {
-                    amendment.EvidenceStatus = viewModel.SelectedReasonCode == 329 ? EvidenceStatus.Now : EvidenceStatus.NotRequired;
-                    SaveAmendment(amendment);
-                    if (new[]
-                    {
-                        Constants.NOT_AT_END_OF_16_TO_18_STUDY,
-                        Constants.INTERNATIONAL_STUDENT,
-                        Constants.DECEASED,
-                        Constants.NOT_ON_ROLL
-                    }.Any(r => r == viewModel.SelectedReasonCode))
-                    {
-                        return RedirectToAction("Confirm", "Amendments");
-                    }
-                    if (new[]
-                        {
-                            Constants.OTHER_WITH_EVIDENCE,
-                            Constants.OTHER_EVIDENCE_NOT_REQUIRED
-                        }
-                        .Any(r => r == viewModel.SelectedReasonCode))
-                    {
-                        return RedirectToAction("Details");
-                    }
-                }
-
+                amendment.AmendmentDetail.AddField(Constants.RemovePupil.FIELD_ReasonCode, viewModel.SelectedReasonCode.Value);
                 amendment.InclusionReasonId = viewModel.SelectedReasonCode.Value;
 
                 amendment.EvidenceStatus = EvidenceStatus.NotRequired;
@@ -184,7 +157,7 @@ namespace Dfe.Rscd.Web.Application.Controllers
             return View(new DetailsViewModel
             {
                 PupilDetails = new PupilViewModel(amendment.Pupil),
-                AmendmentDetails = amendmentDetail.GetField<string>(Constants.RemovePupil.Detail)
+                AmendmentDetails = amendmentDetail.GetField<string>(Constants.RemovePupil.FIELD_UserProvidedDetails)
             });
         }
 
@@ -196,7 +169,7 @@ namespace Dfe.Rscd.Web.Application.Controllers
 
             if (ModelState.IsValid)
             {
-                amendmentDetail.AddField(Constants.RemovePupil.Detail, viewModel.AmendmentDetails);
+                amendmentDetail.AddField(Constants.RemovePupil.FIELD_UserProvidedDetails, viewModel.AmendmentDetails);
 
                 SaveAmendment(amendment);
 
