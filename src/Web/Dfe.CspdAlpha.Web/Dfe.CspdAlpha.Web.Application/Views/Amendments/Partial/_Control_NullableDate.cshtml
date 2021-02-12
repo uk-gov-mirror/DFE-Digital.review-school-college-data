@@ -27,9 +27,7 @@
         <legend class="govuk-fieldset__legend govuk-!-font-weight-bold">
             Select one
         </legend>
-        <div id="changed-name-hint" class="govuk-hint">
-            For example, 12 11 2007
-        </div>
+        
         @if (ViewData.ContainsKey("errorMessage1") && ViewData["errorMessage1"] != null)
         {
             <span class="govuk-error-message">@ViewData["errorMessage1"]</span>
