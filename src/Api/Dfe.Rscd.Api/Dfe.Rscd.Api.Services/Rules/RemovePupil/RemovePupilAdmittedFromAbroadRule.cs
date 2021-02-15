@@ -13,7 +13,7 @@ namespace Dfe.Rscd.Api.Services.Rules
     {
         private readonly IDataService _dataService;
         private readonly IAllocationYearConfig _config;
-        private const string ReasonDescription = "Admited from abroad with English not first language";
+        private const string ReasonDescription = "Admitted from abroad with English not first language";
 
         public const int ScrutinyCode = 2;
 
