@@ -78,7 +78,7 @@ namespace Dfe.Rscd.Api.Services.Rules
 
             if (admissionDate < twoYearsAgo)
             {
-                return new AmendmentOutcome(OutcomeStatus.AutoReject, "Admission date is before 1st June  + (CurrentYear - 2)")
+                return new AmendmentOutcome(OutcomeStatus.AutoReject, string.Concat("Admission date is before 1st June ", twoYearsAgo))
                 {
                     ScrutinyStatusCode = ScrutinyCode.ToString(),
                     ReasonId = (int) AmendmentReasonCode.AdmittedFromAbroadWithEnglishNotFirstLanguageCode,
