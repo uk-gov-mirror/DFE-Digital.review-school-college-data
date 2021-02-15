@@ -59,7 +59,7 @@ namespace Dfe.Rscd.Api.Services.Rules
             var admissionDate = amendment.Pupil.AdmissionDate;
             var hasKs2Result = amendment.Pupil.Results.Any(x => x.QualificationTypeCode.ToLower() == "ks2");
             var annualCensusDate = _config.CensusDate.ToDateTimeWhenSureNotNull();
-            var twoYearsAgo = DateTime.Now.AddYears(-1);
+            var twoYearsAgo = new DateTime(DateTime.Now.AddYears(-2).Year, 6, 1);
             //var currentAttainmentLevel2 =
             //    amendment.Pupil.Results.Any(x => x.SubjectCode == "LEV2EM" && x.TestMark == "1"); // TODO: Implement when ready
             var firstLanguage = amendment.Pupil.FirstLanguage;

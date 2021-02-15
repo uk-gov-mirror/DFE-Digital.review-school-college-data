@@ -40,6 +40,11 @@ namespace Dfe.Rscd.Web.Application.Models.ViewModels.Amendments
             if (answerAsString == "//")
                 answerAsString = string.Empty;
 
+            if (GetPromptAnswerType() == QuestionType.DateTime || GetPromptAnswerType() == QuestionType.NullableDate)
+            {
+                answerAsString = $"{fields["date-day"]:D2}/{fields["date-month"]:D2}/{fields["date-year"]}";
+            }
+
             return answerAsString;
         }
 
