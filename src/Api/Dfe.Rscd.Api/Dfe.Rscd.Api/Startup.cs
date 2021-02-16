@@ -71,7 +71,9 @@ namespace Dfe.Rscd.Api
             var referenceDataConnectionString = Configuration.GetConnectionString("ReferenceData");
             
             services.AddDbContext<SqlDataRepositoryContext>(options =>
-                options.UseSqlServer(referenceDataConnectionString));
+                options.UseSqlServer(
+                    referenceDataConnectionString,
+                    providerOptions => providerOptions.EnableRetryOnFailure()));
 
             services.AddScoped<IDataRepository, DataRepository>();
             services.AddScoped<IDataService, DataService>();
