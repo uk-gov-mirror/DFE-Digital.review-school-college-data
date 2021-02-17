@@ -10,10 +10,10 @@
 <div class="@formGroupClasses">
     <fieldset class="govuk-fieldset" role="group" aria-describedby="date-prompt-hint">
         <legend class="govuk-fieldset__legend">
-            @Model.Title
+            @Model.Answer.Label
         </legend>
         <div class="govuk-hint" id="date-prompt-hint">
-            @Model.Answer.Label
+            For example, 12 11 2007
         </div>
         @if (ViewData.ContainsKey("errorMessage") && ViewData["errorMessage"] != null)
         {
