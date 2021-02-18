@@ -103,7 +103,7 @@ namespace Dfe.Rscd.Api
             var cosmosDbOptions = Configuration.GetSection("CosmosDb").Get<CosmosDbOptions>();
             services.AddSingleton(cosmosDbOptions);
 
-            services.AddScoped<IDocumentRepository, CosmosDocumentRepository>();
+            services.AddSingleton<IDocumentRepository, CosmosDocumentRepository>();
 
             services.AddScoped<IRule, RemovePupilAdmittedFromAbroadRule>();
             services.AddScoped<IRule, RemovePupilAdmittedFollowingPermanentExclusion>();
