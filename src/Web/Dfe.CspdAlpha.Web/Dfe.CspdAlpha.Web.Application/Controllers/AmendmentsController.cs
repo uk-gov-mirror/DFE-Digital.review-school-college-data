@@ -1,8 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Dfe.Rscd.Web.ApiClient;
-using Dfe.Rscd.Web.Application.Application.Helpers;
 using Dfe.Rscd.Web.Application.Application.Interfaces;
 using Dfe.Rscd.Web.Application.Models.ViewModels.Amendments;
 using Dfe.Rscd.Web.Application.Models.ViewModels.Pupil;
@@ -22,7 +20,6 @@ namespace Dfe.Rscd.Web.Application.Controllers
 
         public IActionResult Index(string urn)
         {
-            var checkingWindow = CheckingWindowHelper.GetCheckingWindow(RouteData);
             var amendments = _amendmentService.GetAmendmentsListViewModel(urn);
 
             return View(amendments);
@@ -184,13 +181,13 @@ namespace Dfe.Rscd.Web.Application.Controllers
                 ViewData["errorMessage1"] = "Select one";
                 ViewData["errorType"] = "NoneSelected";
 
-                List<string> errorCollection = new List<string>();
-                errorCollection.Add("Select one");
-                ICollection collection = errorCollection;
-                var validationErrors = new Dictionary<string, ICollection<string>>();
-                validationErrors.Add(promptAnswerViewModel.QuestionId, errorCollection);
+                List<string> errorCollection = new List<string> {"Select one"};
+                var validationErrors = new Dictionary<string, ICollection<string>>
+                {
+                    {promptAnswerViewModel.QuestionId, errorCollection}
+                };
 
-               var errorsPromptViewModel = new QuestionViewModel(questions, promptAnswerViewModel.CurrentIndex, validationErrors)
+                var errorsPromptViewModel = new QuestionViewModel(questions, promptAnswerViewModel.CurrentIndex, validationErrors)
                 {
                     PupilDetails = new PupilViewModel(amendment.Pupil),
                     ShowConditional = thisQuestion.Answer.IsConditional
@@ -205,14 +202,15 @@ namespace Dfe.Rscd.Web.Application.Controllers
                 string.IsNullOrEmpty(Request.Form["date-month"]) &&
                 string.IsNullOrEmpty(Request.Form["date-year"]))
             {
+                // TODO: Add required field labels to API. This should not be here in Web
                 ViewData.ModelState.AddModelError(promptAnswerViewModel.QuestionId, "Enter a date of arrival to UK");
                 ViewData["errorMessage"] = "Enter a date of arrival to UK";
 
-                List<string> errorCollection = new List<string>();
-                errorCollection.Add("Enter a date of arrival to UK");
-                ICollection collection = errorCollection;
-                var validationErrors = new Dictionary<string, ICollection<string>>();
-                validationErrors.Add(promptAnswerViewModel.QuestionId, errorCollection);
+                List<string> errorCollection = new List<string> {"Enter a date of arrival to UK"};
+                var validationErrors = new Dictionary<string, ICollection<string>>
+                {
+                    {promptAnswerViewModel.QuestionId, errorCollection}
+                };
 
                 var errorsPromptViewModel = new QuestionViewModel(questions, promptAnswerViewModel.CurrentIndex, validationErrors)
                 {
@@ -266,10 +264,6 @@ namespace Dfe.Rscd.Web.Application.Controllers
             var amendment = GetAmendment();
 
             if (amendment == null) return RedirectToAction("Index", "TaskList");
-
-            amendment.Answers?.Remove(amendment.Answers.Last());
-
-            SaveAmendment(amendment);
 
             var amendmentOutcome = _amendmentService.CreateAmendment(amendment);
 
