@@ -13,7 +13,7 @@ namespace Dfe.Rscd.Api.Services.Rules
     {
         private readonly IDataService _dataService;
         private readonly IAllocationYearConfig _config;
-        private const string ReasonDescription = "Admited from aboard with English not first language";
+        private const string ReasonDescription = "Admitted from abroad with English not first language";
 
         public const int ScrutinyCode = 2;
 
@@ -59,7 +59,7 @@ namespace Dfe.Rscd.Api.Services.Rules
             var admissionDate = amendment.Pupil.AdmissionDate;
             var hasKs2Result = amendment.Pupil.Results.Any(x => x.QualificationTypeCode.ToLower() == "ks2");
             var annualCensusDate = _config.CensusDate.ToDateTimeWhenSureNotNull();
-            var twoYearsAgo = DateTime.Now.AddYears(-1);
+            var twoYearsAgo = new DateTime(DateTime.Now.AddYears(-2).Year, 6, 1);
             //var currentAttainmentLevel2 =
             //    amendment.Pupil.Results.Any(x => x.SubjectCode == "LEV2EM" && x.TestMark == "1"); // TODO: Implement when ready
             var firstLanguage = amendment.Pupil.FirstLanguage;
@@ -78,7 +78,7 @@ namespace Dfe.Rscd.Api.Services.Rules
 
             if (admissionDate < twoYearsAgo)
             {
-                return new AmendmentOutcome(OutcomeStatus.AutoReject, "Admission date is before 1st June  + (CurrentYear - 2)")
+                return new AmendmentOutcome(OutcomeStatus.AutoReject, string.Concat("Admission date is before 1st June ", twoYearsAgo.Year))
                 {
                     ScrutinyStatusCode = ScrutinyCode.ToString(),
                     ReasonId = (int) AmendmentReasonCode.AdmittedFromAbroadWithEnglishNotFirstLanguageCode,

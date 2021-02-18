@@ -11,6 +11,10 @@
     <label class="govuk-label  govuk-!-width-two-thirds" for="number">
         @Model.Answer.Label
     </label>
+    @if(Model.Id == "LaestabNumberQuestion")
+    {
+        <span class="govuk-hint">For example, 1234567</span>
+    }
     @if (ViewData.ContainsKey("errorMessage") && ViewData["errorMessage"] != null)
     {
         <span class="govuk-error-message">@ViewData["errorMessage"]</span>
