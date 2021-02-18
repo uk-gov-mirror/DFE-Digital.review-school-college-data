@@ -259,7 +259,7 @@ namespace Dfe.Rscd.Web.Application.Controllers
             return RedirectToAction("Confirm");
         }
 
-        public IActionResult Prompt()
+        public IActionResult Prompt(int currentIndex=0)
         {
             var amendment = GetAmendment();
 
@@ -281,7 +281,7 @@ namespace Dfe.Rscd.Web.Application.Controllers
             var questions = amendmentOutcome.FurtherQuestions.ToList();
             SaveQuestions(questions);
 
-            var promptViewModel = new QuestionViewModel(questions)
+            var promptViewModel = new QuestionViewModel(questions, currentIndex)
             {
                 PupilDetails = new PupilViewModel(amendment.Pupil)
             };
