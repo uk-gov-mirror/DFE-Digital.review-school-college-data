@@ -34,7 +34,7 @@ namespace Dfe.Rscd.Api.Services
             removeDto.rscd_Language = amendmentDetail.GetField<string>(RemovePupilAmendment.FIELD_NativeLanguage);
             removeDto.rscd_Dateofarrival = amendmentDetail.GetDateTime(RemovePupilAmendment.FIELD_DateOfArrivalUk);
             removeDto.rscd_LAESTABofexcludedschool = amendmentDetail.GetField<string>(RemovePupilAmendment.FIELD_LAESTABNumber);
-            removeDto.rscd_Pupilexclusiondate = amendmentDetail.GetField<string>(RemovePupilAmendment.FIELD_ExclusionDate);
+            removeDto.rscd_Pupilexclusiondate = amendmentDetail.GetDateTime(RemovePupilAmendment.FIELD_ExclusionDate);
             removeDto.rscd_Dateoffroll = amendmentDetail.GetDateTime(RemovePupilAmendment.FIELD_DateOffRoll);
 
             if (pupil.Allocations != null && pupil.Allocations.Count > 0)

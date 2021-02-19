@@ -6,17 +6,17 @@
 //     Changes to this file may cause incorrect behavior and will be lost if
 //     the code is regenerated.
 // </auto-generated>
-// Created via this command line: "C:\Users\MPREEZ\AppData\Roaming\MscrmTools\XrmToolBox\Plugins\DLaB.EarlyBoundGenerator\crmsvcutil.exe" /url:"https://rscd-dev.api.crm4.dynamics.com" /namespace:"Dfe.CspdAlpha.Web.Infrastructure.Crm" /out:"C:\Users\MPREEZ\OneDrive - Olive Jar Digital Ltd\EBG\Entities.cs" /servicecontextname:"CrmServiceContext" /SuppressGeneratedCodeAttribute /codecustomization:"DLaB.CrmSvcUtilExtensions.Entity.CustomizeCodeDomService,DLaB.CrmSvcUtilExtensions" /codegenerationservice:"DLaB.CrmSvcUtilExtensions.Entity.CustomCodeGenerationService,DLaB.CrmSvcUtilExtensions" /codewriterfilter:"DLaB.CrmSvcUtilExtensions.Entity.CodeWriterFilterService,DLaB.CrmSvcUtilExtensions" /namingservice:"DLaB.CrmSvcUtilExtensions.NamingService,DLaB.CrmSvcUtilExtensions" /metadataproviderservice:"DLaB.CrmSvcUtilExtensions.Entity.MetadataProviderService,DLaB.CrmSvcUtilExtensions" 
+
 //------------------------------------------------------------------------------
 
 [assembly: Microsoft.Xrm.Sdk.Client.ProxyTypesAssemblyAttribute()]
-[assembly: System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.71")]
 
 namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 {
 	
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.71")]
 	public enum cr3d5_establishmentState
 	{
 		
@@ -32,6 +32,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("cr3d5_establishment")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.71")]
 	public partial class cr3d5_establishment : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -652,6 +653,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 	}
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.71")]
 	public enum new_reviewandconfirmschoolState
 	{
 		
@@ -667,6 +669,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("new_reviewandconfirmschool")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.71")]
 	public partial class new_reviewandconfirmschool : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -1219,6 +1222,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 	}
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.71")]
 	public enum rscd_AddpupilState
 	{
 		
@@ -1234,6 +1238,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("rscd_addpupil")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.71")]
 	public partial class rscd_Addpupil : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -1946,6 +1951,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 	}
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.71")]
 	public enum rscd_AddstudentState
 	{
 		
@@ -1961,6 +1967,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("rscd_addstudent")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.71")]
 	public partial class rscd_Addstudent : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -2533,6 +2540,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 	}
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.71")]
 	public enum rscd_AmendmentState
 	{
 		
@@ -2548,6 +2556,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("rscd_amendment")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.71")]
 	public partial class rscd_Amendment : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -3805,6 +3814,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 	}
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.71")]
 	public enum rscd_RemovepupilState
 	{
 		
@@ -3820,6 +3830,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("rscd_removepupil")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.71")]
 	public partial class rscd_Removepupil : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -4261,19 +4272,19 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 		/// 
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_dateofadmission")]
-		public string rscd_Dateofadmission
+		public System.Nullable<System.DateTime> rscd_DateofAdmission
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetAttributeValue<string>("rscd_dateofadmission");
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("rscd_dateofadmission");
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.OnPropertyChanging("rscd_Dateofadmission");
+				this.OnPropertyChanging("rscd_DateofAdmission");
 				this.SetAttributeValue("rscd_dateofadmission", value);
-				this.OnPropertyChanged("rscd_Dateofadmission");
+				this.OnPropertyChanged("rscd_DateofAdmission");
 			}
 		}
 		
@@ -4401,12 +4412,12 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 		/// 
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_pupilexclusiondate")]
-		public string rscd_Pupilexclusiondate
+		public System.Nullable<System.DateTime> rscd_Pupilexclusiondate
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetAttributeValue<string>("rscd_pupilexclusiondate");
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("rscd_pupilexclusiondate");
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
@@ -4694,6 +4705,7 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 	/// <summary>
 	/// Represents a source of entities bound to a CRM service. It tracks and manages changes made to the retrieved entities.
 	/// </summary>
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.71")]
 	public partial class CrmServiceContext : Microsoft.Xrm.Sdk.Client.OrganizationServiceContext
 	{
 		
@@ -4794,91 +4806,6 @@ namespace Dfe.CspdAlpha.Web.Infrastructure.Crm
 				}
 			}
 			return null;
-		}
-	}
-	
-	/// <summary>
-	/// Attribute to handle storing the OptionSet's Metadata.
-	/// </summary>
-	[System.AttributeUsageAttribute(System.AttributeTargets.Field)]
-	public sealed class OptionSetMetadataAttribute : System.Attribute
-	{
-		
-		/// <summary>
-		/// Color of the OptionSetValue.
-		/// </summary>
-		public string Color { get; set; }
-		
-		/// <summary>
-		/// Description of the OptionSetValue.
-		/// </summary>
-		public string Description { get; set; }
-		
-		/// <summary>
-		/// Display order index of the OptionSetValue.
-		/// </summary>
-		public int DisplayIndex { get; set; }
-		
-		/// <summary>
-		/// External value of the OptionSetValue.
-		/// </summary>
-		public string ExternalValue { get; set; }
-		
-		/// <summary>
-		/// Name of the OptionSetValue.
-		/// </summary>
-		public string Name { get; set; }
-		
-		/// <summary>
-		/// Initializes a new instance of the <see cref="OptionSetMetadataAttribute"/> class.
-		/// </summary>
-		/// <param name="name">Name of the value.</param>
-		/// <param name="displayIndex">Display order index of the value.</param>
-		/// <param name="color">Color of the value.</param>
-		/// <param name="description">Description of the value.</param>
-		/// <param name="externalValue">External value of the value.</param>
-		[System.Diagnostics.DebuggerNonUserCode()]
-		public OptionSetMetadataAttribute(string name, int displayIndex, string color = null, string description = null, string externalValue = null)
-		{
-			this.Color = color;
-			this.Description = description;
-			this.ExternalValue = externalValue;
-			this.DisplayIndex = displayIndex;
-			this.Name = name;
-		}
-	}
-	
-	/// <summary>
-	/// Extension class to handle retrieving of OptionSetMetadataAttribute.
-	/// </summary>
-	public static class OptionSetExtension
-	{
-		
-		/// <summary>
-		/// Returns the OptionSetMetadataAttribute for the given enum value
-		/// </summary>
-		/// <typeparam name="T">OptionSet Enum Type</typeparam>
-		/// <param name="value">Enum Value with OptionSetMetadataAttribute</param>
-		[System.Diagnostics.DebuggerNonUserCode()]
-		public static OptionSetMetadataAttribute GetMetadata<T>(this T value)
-			where T :  struct, System.IConvertible
-		{
-			System.Type enumType = typeof(T);
-			if (!enumType.IsEnum)
-			{
-				throw new System.ArgumentException("T must be an enum!");
-			}
-			System.Reflection.MemberInfo[] members = enumType.GetMember(value.ToString());
-			for (int i = 0; (i < members.Length); i++
-			)
-			{
-				System.Attribute attribute = System.Reflection.CustomAttributeExtensions.GetCustomAttribute(members[i], typeof(OptionSetMetadataAttribute));
-				if (attribute != null)
-				{
-					return ((OptionSetMetadataAttribute)(attribute));
-				}
-			}
-			throw new System.ArgumentException("T must be an enum adorned with an OptionSetMetadataAttribute!");
 		}
 	}
 }

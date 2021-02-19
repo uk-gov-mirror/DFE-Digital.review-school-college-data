@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using Newtonsoft.Json.Linq;
 
@@ -54,7 +55,7 @@ namespace Dfe.Rscd.Api.Domain.Entities.Amendments
         public DateTime? GetDateTime(string field)
         {
             var fieldValue = ""+GetField(field);
-            if (DateTime.TryParse(fieldValue, out var newDate))
+            if (DateTime.TryParse(fieldValue, new CultureInfo("en-GB"), DateTimeStyles.None, out var newDate))
             {
                 return newDate;
             }
