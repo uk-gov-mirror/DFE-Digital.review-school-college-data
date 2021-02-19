@@ -11,6 +11,7 @@
 	</ItemGroup>
 
   <ItemGroup>
+    <None Remove="Dfe.Rscd.Api.Infrastructure.csproj.DotSettings" />
     <None Remove="SqlServer\POCOs.tt" />
   </ItemGroup>
 

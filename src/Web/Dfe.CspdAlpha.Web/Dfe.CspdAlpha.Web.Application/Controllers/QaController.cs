@@ -15,7 +15,7 @@ namespace Dfe.Rscd.Web.Application.Controllers
         }
 
         [HttpPost]
-        public ActionResult SetSession(Amendment amendment)
+        public ActionResult SetSession([FromBody] Amendment amendment)
         {
             if (IsDevelopment() || _env.IsStaging())
             {

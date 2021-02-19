@@ -49,11 +49,11 @@ namespace Dfe.Rscd.Web.Application.Controllers
         public IActionResult Confirm()
         {
             var amendment = GetAmendment();
-            return View(GetConfirmViewModel(amendment));
-        }
 
-        private ConfirmViewModel GetConfirmViewModel(Amendment amendment)
-        {
+            if (amendment == null)
+            {
+                RedirectToAction("Index", "TaskList");
+            }
             var viewModel = new ConfirmViewModel
             {
                 AmendmentType = amendment.AmendmentType,
@@ -63,7 +63,7 @@ namespace Dfe.Rscd.Web.Application.Controllers
             viewModel.BackAction = "Index";
             viewModel.BackController = "Reason";
 
-            return viewModel;
+            return View(viewModel);
         }
 
         [HttpPost]

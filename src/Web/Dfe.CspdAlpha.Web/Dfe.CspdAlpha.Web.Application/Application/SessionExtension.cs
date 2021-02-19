@@ -11,8 +11,9 @@ namespace Dfe.Rscd.Web.Application.Application
         };
 
         public static void Set<T>(this ISession session, string key, T value)
-        { 
-            session.SetString(key, JsonConvert.SerializeObject(value, Formatting.Indented, settings));
+        {
+            var objString = JsonConvert.SerializeObject(value, Formatting.Indented, settings);
+            session.SetString(key, objString);
         }
 
         public static T Get<T>(this ISession session, string key)
