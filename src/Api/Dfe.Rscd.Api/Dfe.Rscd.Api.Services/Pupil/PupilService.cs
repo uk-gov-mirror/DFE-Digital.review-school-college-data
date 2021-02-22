@@ -125,16 +125,6 @@ namespace Dfe.Rscd.Api.Services
             return newPupil;
         }
 
-        private int ConvertId(string id)
-        {
-            if (int.TryParse(id, out var idParsed))
-            {
-                return idParsed;
-            }
-
-            return 0;
-        }
-
         public PupilRecord GetPupilRecord(PupilDTO pupil)
         {
             return new PupilRecord

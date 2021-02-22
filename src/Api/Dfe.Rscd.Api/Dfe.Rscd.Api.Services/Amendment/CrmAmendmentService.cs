@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml;
-using Dfe.CspdAlpha.Web.Infrastructure.Crm;
+using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Entities;
 using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Domain.Entities.Amendments;
 using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Config;
@@ -332,17 +332,17 @@ namespace Dfe.Rscd.Api.Services
             return false;
         }
 
-        private cr3d5_establishment GetOrCreateEstablishment(CheckingWindow checkingWindow, string id)
+        private rscd_Establishment GetOrCreateEstablishment(CheckingWindow checkingWindow, string id)
         {
             using (var context = new CrmServiceContext(_organizationService))
             {
                 var establishmentDto =
-                    context.cr3d5_establishmentSet.SingleOrDefault(
-                        e => e.cr3d5_Urn == id);
+                    context.rscd_EstablishmentSet.SingleOrDefault(
+                        e => e.rscd_URN == id);
                 if (establishmentDto == null)
                     establishmentDto =
-                        context.cr3d5_establishmentSet.SingleOrDefault(
-                            e => e.cr3d5_LAEstab == id);
+                        context.rscd_EstablishmentSet.SingleOrDefault(
+                            e => e.rscd_LAEstab == id);
 
                 if (establishmentDto != null) return establishmentDto;
 
@@ -360,13 +360,13 @@ namespace Dfe.Rscd.Api.Services
                 if (establishment == null) return null;
 
 
-                establishmentDto = new cr3d5_establishment
+                establishmentDto = new rscd_Establishment()
                 {
-                    cr3d5_name = establishment.SchoolName,
-                    cr3d5_Urn = establishment.Urn.Value,
-                    cr3d5_LAEstab = establishment.DfesNumber.ToString(),
-                    cr3d5_Schooltype = establishment.SchoolType,
-                    cr3d5_Numberofamendments = 0
+                    rscd_Name = establishment.SchoolName,
+                    rscd_URN = establishment.Urn.Value,
+                    rscd_LAEstab = establishment.DfesNumber.ToString(),
+                    rscd_Schooltype = establishment.SchoolType,
+                    rscd_NumberofAmendments = 0
                 };
                 context.AddObject(establishmentDto);
                 var result = context.SaveChanges();
@@ -377,10 +377,10 @@ namespace Dfe.Rscd.Api.Services
             }
         }
 
-        private void RelateEstablishmentToAmendment(cr3d5_establishment establishment, Guid amendmentId)
+        private void RelateEstablishmentToAmendment(rscd_Establishment establishment, Guid amendmentId)
         {
-            var relationship = new Relationship("rscd_cr3d5_establishment_rscd_amendments");
-            _organizationService.Associate(cr3d5_establishment.EntityLogicalName, establishment.Id, relationship,
+            var relationship = new Relationship("rscd_EstablishmentV3");
+            _organizationService.Associate(rscd_Establishment.EntityLogicalName, establishment.Id, relationship,
                 new EntityReferenceCollection
                 {
                     new EntityReference(rscd_Amendment.EntityLogicalName, amendmentId)
