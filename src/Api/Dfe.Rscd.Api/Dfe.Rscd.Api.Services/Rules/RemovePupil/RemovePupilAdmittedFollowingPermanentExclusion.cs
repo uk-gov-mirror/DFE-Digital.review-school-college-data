@@ -86,7 +86,7 @@ namespace Dfe.Rscd.Api.Services.Rules
             if (pupilExclusionDate.Value.ToDateTimeWhenSureNotNull() < 
                 new DateTime(DateTime.Today.AddYears(-2).Year, 8, 01))
             {
-                return new AmendmentOutcome(OutcomeStatus.AutoReject, "Exclusion Date before 1st September YYYY - does not meet DCSF criteria for 'pupils admitted following permanent exclusion from a maintained school'")
+                return new AmendmentOutcome(OutcomeStatus.AutoReject, $"Exclusion Date before 1st September {DateTime.Today.AddYears(-2).Year} - does not meet DCSF criteria for 'pupils admitted following permanent exclusion from a maintained school'")
                 {
                     ScrutinyStatusCode = ScrutinyCode.ToString(),
                     ReasonId = (int) AmendmentReasonCode.AdmittedFollowingPermanentExclusion,

@@ -969,24 +969,6 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Entities
 		/// <summary>
 		/// 
 		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_establishmentv2")]
-		public Microsoft.Xrm.Sdk.EntityReference rscd_Establishmentv2
-		{
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("rscd_establishmentv2");
-			}
-			set
-			{
-				this.OnPropertyChanging("rscd_Establishmentv2");
-				this.SetAttributeValue("rscd_establishmentv2", value);
-				this.OnPropertyChanged("rscd_Establishmentv2");
-			}
-		}
-		
-		/// <summary>
-		/// 
-		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_establishmentv3")]
 		public Microsoft.Xrm.Sdk.EntityReference rscd_Establishmentv3
 		{
@@ -1757,7 +1739,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Entities
 		/// 
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_activerequests")]
-		public System.Nullable<int> rscd_Activerequests
+		public System.Nullable<int> rscd_ActiveRequests
 		{
 			get
 			{
@@ -1765,45 +1747,33 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Entities
 			}
 			set
 			{
-				this.OnPropertyChanging("rscd_Activerequests");
+				this.OnPropertyChanging("rscd_ActiveRequests");
 				this.SetAttributeValue("rscd_activerequests", value);
-				this.OnPropertyChanged("rscd_Activerequests");
+				this.OnPropertyChanged("rscd_ActiveRequests");
 			}
 		}
 		
 		/// <summary>
-		/// 
+		/// Last Updated time of rollup field ActiveRequests.
 		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_amendmentcount_date")]
-		public System.Nullable<System.DateTime> rscd_amendmentcount_date
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_activerequests_date")]
+		public System.Nullable<System.DateTime> rscd_ActiveRequests_Date
 		{
 			get
 			{
-				return this.GetAttributeValue<System.Nullable<System.DateTime>>("rscd_amendmentcount_date");
-			}
-			set
-			{
-				this.OnPropertyChanging("rscd_amendmentcount_date");
-				this.SetAttributeValue("rscd_amendmentcount_date", value);
-				this.OnPropertyChanged("rscd_amendmentcount_date");
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("rscd_activerequests_date");
 			}
 		}
 		
 		/// <summary>
-		/// 
+		/// State of rollup field ActiveRequests.
 		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_amendmentcount_state")]
-		public System.Nullable<int> rscd_Amendmentcount_State
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_activerequests_state")]
+		public System.Nullable<int> rscd_ActiveRequests_State
 		{
 			get
 			{
-				return this.GetAttributeValue<System.Nullable<int>>("rscd_amendmentcount_state");
-			}
-			set
-			{
-				this.OnPropertyChanging("rscd_Amendmentcount_State");
-				this.SetAttributeValue("rscd_amendmentcount_state", value);
-				this.OnPropertyChanged("rscd_Amendmentcount_State");
+				return this.GetAttributeValue<System.Nullable<int>>("rscd_activerequests_state");
 			}
 		}
 		
@@ -2489,7 +2459,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Entities
 		/// 
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_dateofarrival")]
-		public System.Nullable<System.DateTime> rscd_Dateofarrival
+		public System.Nullable<System.DateTime> rscd_DateOfArrival
 		{
 			get
 			{
@@ -2497,9 +2467,9 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Entities
 			}
 			set
 			{
-				this.OnPropertyChanging("rscd_Dateofarrival");
+				this.OnPropertyChanging("rscd_DateOfArrival");
 				this.SetAttributeValue("rscd_dateofarrival", value);
-				this.OnPropertyChanged("rscd_Dateofarrival");
+				this.OnPropertyChanged("rscd_DateOfArrival");
 			}
 		}
 		
@@ -2507,7 +2477,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Entities
 		/// 
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_dateoffroll")]
-		public System.Nullable<System.DateTime> rscd_Dateoffroll
+		public System.Nullable<System.DateTime> rscd_DateOffRoll
 		{
 			get
 			{
@@ -2515,9 +2485,9 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Entities
 			}
 			set
 			{
-				this.OnPropertyChanging("rscd_Dateoffroll");
+				this.OnPropertyChanging("rscd_DateOffRoll");
 				this.SetAttributeValue("rscd_dateoffroll", value);
-				this.OnPropertyChanged("rscd_Dateoffroll");
+				this.OnPropertyChanged("rscd_DateOffRoll");
 			}
 		}
 		
