@@ -94,7 +94,7 @@ namespace Dfe.Rscd.Api.Services.Rules
                 };
             }
 
-            if (!amendment.Pupil.PortlandStudentID.HasValue || amendment.Pupil.PortlandStudentID.Value == 0)
+            if (!amendment.Pupil.PortlandStudentID.HasValue)
             {
                 return new AmendmentOutcome(OutcomeStatus.AutoReject, "Request to add an unlisted pupil who was admitted following permanent exclusion from a maintained school.  Addition will be reviewed. Please add any missing attainment and send the evidence requested.")
                 {

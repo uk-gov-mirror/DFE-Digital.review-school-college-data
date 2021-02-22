@@ -41,6 +41,7 @@ namespace Dfe.Rscd.Web.Application.Models.ViewModels.Pupil
             FirstLanguage = pupil.FirstLanguage;
             FreeSchoolsInLast6Years = pupil.FreeSchoolMealsLast6Years;
             ChildrenLookedAfter = pupil.LookedAfterEver;
+            PortlandStudendId = pupil.PortlandStudentID;
         }
 
         private int[] GetAllocationYears(ICollection<SourceOfAllocation> originalAllocations)
@@ -59,6 +60,7 @@ namespace Dfe.Rscd.Web.Application.Models.ViewModels.Pupil
         public string FirstName { get; set; }
 
         public string PincludeCode { get;set; }
+        public int? PortlandStudendId { get; set; }
         public string LastName { get; set; }
         public DateTime DateOfBirth { get; set; }
         public int Age { get; set; }
