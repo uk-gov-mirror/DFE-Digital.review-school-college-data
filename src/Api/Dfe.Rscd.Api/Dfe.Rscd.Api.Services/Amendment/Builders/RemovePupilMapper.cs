@@ -17,7 +17,7 @@ namespace Dfe.Rscd.Api.Services
             amendmentDetail.SetField(RemovePupilAmendment.FIELD_DateOfArrivalUk, crmPupil.rscd_DateOfArrival);
             amendmentDetail.SetField(RemovePupilAmendment.FIELD_NativeLanguage, crmPupil.rscd_Language);
             amendmentDetail.SetField(RemovePupilAmendment.FIELD_LAESTABNumber, crmPupil.rscd_LAESTABofexcludedschool);
-            amendmentDetail.SetField(RemovePupilAmendment.FIELD_ExclusionDate, crmPupil.rscd_Pupilexclusiondate);
+            amendmentDetail.SetField(RemovePupilAmendment.FIELD_ExclusionDate, crmPupil.rscd_PupilExclusionDate);
             amendmentDetail.SetField(RemovePupilAmendment.FIELD_DateOffRoll, crmPupil.rscd_DateOffRoll);
 
             return amendmentDetail;
@@ -34,7 +34,7 @@ namespace Dfe.Rscd.Api.Services
             removeDto.rscd_Language = amendmentDetail.GetField<string>(RemovePupilAmendment.FIELD_NativeLanguage);
             removeDto.rscd_DateOfArrival = amendmentDetail.GetDateTimeUTC(RemovePupilAmendment.FIELD_DateOfArrivalUk);
             removeDto.rscd_LAESTABofexcludedschool = amendmentDetail.GetField<string>(RemovePupilAmendment.FIELD_LAESTABNumber);
-            removeDto.rscd_Pupilexclusiondate = amendmentDetail.GetDateTimeUTC(RemovePupilAmendment.FIELD_ExclusionDate);
+            removeDto.rscd_PupilExclusionDate = amendmentDetail.GetDateTimeUTC(RemovePupilAmendment.FIELD_ExclusionDate);
             removeDto.rscd_DateOffRoll = amendmentDetail.GetDateTimeUTC(RemovePupilAmendment.FIELD_DateOffRoll);
 
             if (pupil.Allocations != null && pupil.Allocations.Count > 0)

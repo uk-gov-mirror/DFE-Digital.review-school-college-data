@@ -2084,60 +2084,6 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Entities
 		}
 		
 		/// <summary>
-		/// 
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("cr3d5_outcomereason")]
-		public string cr3d5_Outcomereason
-		{
-			get
-			{
-				return this.GetAttributeValue<string>("cr3d5_outcomereason");
-			}
-			set
-			{
-				this.OnPropertyChanging("cr3d5_Outcomereason");
-				this.SetAttributeValue("cr3d5_outcomereason", value);
-				this.OnPropertyChanged("cr3d5_Outcomereason");
-			}
-		}
-		
-		/// <summary>
-		/// 
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("cr3d5_rscd_native_language")]
-		public string cr3d5_rscd_Native_language
-		{
-			get
-			{
-				return this.GetAttributeValue<string>("cr3d5_rscd_native_language");
-			}
-			set
-			{
-				this.OnPropertyChanging("cr3d5_rscd_Native_language");
-				this.SetAttributeValue("cr3d5_rscd_native_language", value);
-				this.OnPropertyChanged("cr3d5_rscd_Native_language");
-			}
-		}
-		
-		/// <summary>
-		/// 
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("cr3d5_rscd_originating_country")]
-		public string cr3d5_rscd_originating_country
-		{
-			get
-			{
-				return this.GetAttributeValue<string>("cr3d5_rscd_originating_country");
-			}
-			set
-			{
-				this.OnPropertyChanging("cr3d5_rscd_originating_country");
-				this.SetAttributeValue("cr3d5_rscd_originating_country", value);
-				this.OnPropertyChanged("cr3d5_rscd_originating_country");
-			}
-		}
-		
-		/// <summary>
 		/// Unique identifier of the user who created the record.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("createdby")]
@@ -2441,7 +2387,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Entities
 		/// 
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_dateofadmission")]
-		public System.Nullable<System.DateTime> rscd_DateofAdmission
+		public System.Nullable<System.DateTime> rscd_DateOfAdmission
 		{
 			get
 			{
@@ -2449,9 +2395,9 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Entities
 			}
 			set
 			{
-				this.OnPropertyChanging("rscd_DateofAdmission");
+				this.OnPropertyChanging("rscd_DateOfAdmission");
 				this.SetAttributeValue("rscd_dateofadmission", value);
-				this.OnPropertyChanged("rscd_DateofAdmission");
+				this.OnPropertyChanged("rscd_DateOfAdmission");
 			}
 		}
 		
@@ -2567,7 +2513,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Entities
 		/// 
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_pupilexclusiondate")]
-		public System.Nullable<System.DateTime> rscd_Pupilexclusiondate
+		public System.Nullable<System.DateTime> rscd_PupilExclusionDate
 		{
 			get
 			{
@@ -2575,9 +2521,9 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Entities
 			}
 			set
 			{
-				this.OnPropertyChanging("rscd_Pupilexclusiondate");
+				this.OnPropertyChanging("rscd_PupilExclusionDate");
 				this.SetAttributeValue("rscd_pupilexclusiondate", value);
-				this.OnPropertyChanged("rscd_Pupilexclusiondate");
+				this.OnPropertyChanged("rscd_PupilExclusionDate");
 			}
 		}
 		
