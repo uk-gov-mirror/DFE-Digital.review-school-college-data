@@ -489,8 +489,8 @@ namespace Dfe.Rscd.Web.ApiClient
         [Newtonsoft.Json.JsonProperty("seasonYear", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string SeasonYear { get; set; }
     
-        [Newtonsoft.Json.JsonProperty("qualification", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Qualification { get; set; }
+        [Newtonsoft.Json.JsonProperty("qualificationTypeCode", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string QualificationTypeCode { get; set; }
     
         [Newtonsoft.Json.JsonProperty("examDate", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string ExamDate { get; set; }
@@ -612,8 +612,8 @@ namespace Dfe.Rscd.Web.ApiClient
         [Newtonsoft.Json.JsonProperty("dfesNumber", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string DfesNumber { get; set; }
     
-        [Newtonsoft.Json.JsonProperty("scrutinyStatusText", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string ScrutinyStatusText { get; set; }
+        [Newtonsoft.Json.JsonProperty("portlandStudentID", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? PortlandStudentID { get; set; }
     
         [Newtonsoft.Json.JsonProperty("dobDisplayString", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string DobDisplayString { get; set; }
@@ -875,14 +875,20 @@ namespace Dfe.Rscd.Web.ApiClient
         [Newtonsoft.Json.JsonProperty("newAmendmentReferenceNumber", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string NewAmendmentReferenceNumber { get; set; }
     
-        [Newtonsoft.Json.JsonProperty("scrutinyDetail", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string ScrutinyDetail { get; set; }
+        [Newtonsoft.Json.JsonProperty("validatedAnswers", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.ICollection<UserAnswer> ValidatedAnswers { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("outcomeDescription", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string OutcomeDescription { get; set; }
     
         [Newtonsoft.Json.JsonProperty("scrutinyStatusCode", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string ScrutinyStatusCode { get; set; }
     
         [Newtonsoft.Json.JsonProperty("reasonId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int ReasonId { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("reasonDescription", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string ReasonDescription { get; set; }
     
         [Newtonsoft.Json.JsonProperty("outcomeStatus", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]

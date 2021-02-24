@@ -63,6 +63,17 @@ namespace Dfe.Rscd.Api.Domain.Entities.Amendments
             return null;
         }
 
+        public DateTime? GetDateTimeUTC(string field)
+        {
+            var fieldValue = ""+GetField(field);
+            if (DateTime.TryParse(fieldValue, new CultureInfo("en-GB"), DateTimeStyles.None, out var newDate))
+            {
+                return newDate.ToUniversalTime();
+            }
+
+            return null;
+        }
+
         public T GetField<T>(string name)
         {
             var stringRep = string.Empty + GetField(name);

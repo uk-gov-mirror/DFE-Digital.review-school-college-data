@@ -83,7 +83,8 @@ namespace Dfe.Rscd.Web.Application.Controllers
                     AdmissionDate = viewModel.PupilViewModel.DateOfAdmission,
                     YearGroup = viewModel.PupilViewModel.YearGroup,
                     Allocations = viewModel.PupilViewModel.Allocations,
-                    Pincl = new PInclude{ Code = viewModel.PupilViewModel.PincludeCode }
+                    Pincl = new PInclude{ Code = viewModel.PupilViewModel.PincludeCode },
+                    PortlandStudentID = viewModel.PupilViewModel.PortlandStudendId
                 },
                 AmendmentDetail = new AmendmentDetail(),
                 IsUserConfirmed = false

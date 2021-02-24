@@ -86,7 +86,7 @@ namespace Dfe.Rscd.Api.Services.Rules
             if (pupilExclusionDate.Value.ToDateTimeWhenSureNotNull() < 
                 new DateTime(DateTime.Today.AddYears(-2).Year, 8, 01))
             {
-                return new AmendmentOutcome(OutcomeStatus.AutoReject, "Exclusion Date before 1st September YYYY - does not meet DCSF criteria for 'pupils admitted following permanent exclusion from a maintained school'")
+                return new AmendmentOutcome(OutcomeStatus.AutoReject, $"Exclusion Date before 1st September {DateTime.Today.AddYears(-2).Year} - does not meet DCSF criteria for 'pupils admitted following permanent exclusion from a maintained school'")
                 {
                     ScrutinyStatusCode = ScrutinyCode.ToString(),
                     ReasonId = (int) AmendmentReasonCode.AdmittedFollowingPermanentExclusion,
@@ -94,7 +94,7 @@ namespace Dfe.Rscd.Api.Services.Rules
                 };
             }
 
-            if (!amendment.Pupil.PortlandStudentID.HasValue || amendment.Pupil.PortlandStudentID.Value == 0)
+            if (!amendment.Pupil.PortlandStudentID.HasValue)
             {
                 return new AmendmentOutcome(OutcomeStatus.AutoReject, "Request to add an unlisted pupil who was admitted following permanent exclusion from a maintained school.  Addition will be reviewed. Please add any missing attainment and send the evidence requested.")
                 {
