@@ -16,12 +16,15 @@ namespace Dfe.Rscd.Web.Application.Controllers
             _logger = logger;
         }
 
-        public async Task<IActionResult> SignOut()
+        public IActionResult SignOut()
         {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            await HttpContext.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme);
-
-            return RedirectToAction("Index", "Home");
+            return SignOut(
+                new AuthenticationProperties
+                {
+                    RedirectUri = "/",
+                },
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                OpenIdConnectDefaults.AuthenticationScheme);
         }
     }
 }
