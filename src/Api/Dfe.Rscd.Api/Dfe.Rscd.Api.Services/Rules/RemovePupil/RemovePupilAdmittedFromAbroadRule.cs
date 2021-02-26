@@ -57,7 +57,9 @@ namespace Dfe.Rscd.Api.Services.Rules
         protected override AmendmentOutcome ApplyRule(Amendment amendment, List<ValidatedAnswer> validatedAnswers)
         {
             var admissionDate = amendment.Pupil.AdmissionDate;
-            var hasKs2Result = amendment.Pupil.Results.Any(x => x.QualificationTypeCode.ToLower() == "ks2");
+            var hasKs2Result = amendment.Pupil.Results.Any(x =>
+                string.Equals(x.QualificationTypeCode, "ks2", StringComparison.InvariantCultureIgnoreCase));
+            
             var annualCensusDate = _config.CensusDate.ToDateTimeWhenSureNotNull();
             var twoYearsAgo = new DateTime(DateTime.Now.AddYears(-2).Year, 6, 1);
             //var currentAttainmentLevel2 =
