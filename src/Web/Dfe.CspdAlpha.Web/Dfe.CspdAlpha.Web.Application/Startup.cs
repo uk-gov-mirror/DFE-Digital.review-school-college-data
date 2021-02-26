@@ -90,6 +90,7 @@ namespace Dfe.Rscd.Web.Application
             })
             .AddCookie(options =>
             {
+                options.ExpireTimeSpan = new TimeSpan(0, 20, 0);
                 options.LoginPath = "/Account/Login/";
             })
             .AddOpenIdConnect(options =>
@@ -123,7 +124,7 @@ namespace Dfe.Rscd.Web.Application
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
             services.AddSession(options =>
-            { 
+            {
                 options.Cookie.IsEssential = true;
             });
 
@@ -207,7 +208,7 @@ namespace Dfe.Rscd.Web.Application
             {
                 endpoints.MapControllerRoute(
                     name: "checking-phase",
-                    pattern: "{phase}/{urn}/{controller}/{action}/{id?}",
+                    pattern: "{phase}/{urn:int}/{controller}/{action}/{id?}",
                     defaults: new {controller = "TaskList", action = "Index"});
 
                 endpoints.MapControllerRoute(
