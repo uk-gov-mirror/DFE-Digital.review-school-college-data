@@ -96,6 +96,7 @@ namespace Dfe.Rscd.Web.Application
             {
                 options.MetadataAddress = oidcAuthOptions.MetadataUrl;
                 options.CallbackPath = "/auth/cb";
+                options.SignedOutCallbackPath = "/signout/complete";
                 options.ClientId = oidcAuthOptions.ClientId;
                 options.ClientSecret = oidcAuthOptions.ClientSecret;                
                 options.ResponseType = "code";
@@ -106,7 +107,7 @@ namespace Dfe.Rscd.Web.Application
                 options.Scope.Add("organisation");
                 //options.Scope.Add("organisationid");
                 //options.Scope.Add("offline_access");
-                //options.SaveTokens = true;
+                options.SaveTokens = true;
                 options.GetClaimsFromUserInfoEndpoint = false;
             });
 
