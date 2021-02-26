@@ -34,7 +34,7 @@ namespace Dfe.Rscd.Api.UnitTests
                 URN = urn,
                 performance = new List<ResultDTO>
                 {
-                    new ResultDTO {ExamYear = "2020", ScaledScore = "A", SubjectCode = "YUG", TestMark = "B"}
+                    new ResultDTO {ExamYear = 2020, ScaledScore = "A", SubjectCode = "YUG", TestMark = "B"}
                 },
                 ForvusIndex = "10020",
                 LookedAfterEver = 1,
