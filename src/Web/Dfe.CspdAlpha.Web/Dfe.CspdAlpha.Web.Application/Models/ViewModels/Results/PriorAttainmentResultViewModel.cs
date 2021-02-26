@@ -12,5 +12,9 @@ namespace Dfe.Rscd.Web.Application.Models.ViewModels.Results
         public string ExamYear { get; set; }
         public string TestMark { get; set; }
         public string ScaledScore { get; set; }
+
+        public string SubjectCode { get; set; }
+
+        public string QualificationTypeCode { get; set; }
     }
 }
