@@ -5,6 +5,7 @@ using Dfe.Rscd.Web.Application.Application.Interfaces;
 using Dfe.Rscd.Web.Application.Models.Common;
 using Dfe.Rscd.Web.Application.Models.ViewModels.Pupil;
 using Dfe.Rscd.Web.Application.Models.ViewModels.RemovePupil;
+using Dfe.Rscd.Web.Application.Models.ViewModels.Results;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dfe.Rscd.Web.Application.Controllers
@@ -84,7 +85,9 @@ namespace Dfe.Rscd.Web.Application.Controllers
                     YearGroup = viewModel.PupilViewModel.YearGroup,
                     Allocations = viewModel.PupilViewModel.Allocations,
                     Pincl = new PInclude{ Code = viewModel.PupilViewModel.PincludeCode },
-                    PortlandStudentID = viewModel.PupilViewModel.PortlandStudendId
+                    PortlandStudentID = viewModel.PupilViewModel.PortlandStudendId,
+                    FirstLanguage = viewModel.PupilViewModel.FirstLanguage,
+                    Results = viewModel.Results.Select(MapResult).ToList()
                 },
                 AmendmentDetail = new AmendmentDetail(),
                 IsUserConfirmed = false
@@ -93,6 +96,18 @@ namespace Dfe.Rscd.Web.Application.Controllers
             SaveAmendment(amendment);
 
             return new RemovePupilViewModel { MatchedPupilViewModel = viewModel };
+        }
+
+        private Result MapResult(PriorAttainmentResultViewModel from)
+        {
+            return new Result
+            {
+                SubjectCode = from.SubjectCode,
+                ExamYear = from.ExamYear,
+                TestMark = from.TestMark,
+                ScaledScore = from.ScaledScore,
+                QualificationTypeCode = from.QualificationTypeCode
+            };
         }
 
         public IActionResult MatchedPupil(QueryType searchType, string query, string id, string urn)
