@@ -70,11 +70,25 @@ namespace Dfe.Rscd.Web.Application.Application.Services
                 Results = pupil.Results
                     .Select(r => new PriorAttainmentResultViewModel
                     {
-                        Subject = GetSubject(r.SubjectCode),
-                        ExamYear = ValidateValue(r.ExamYear),
+                        SubjectCode = GetSubject(r.SubjectCode),
+                        ExamYear = r.ExamYear,
                         TestMark = ValidateValue(r.TestMark),
-                        ScaledScore = ValidateValue(r.ScaledScore)
-                    }).Where(r => r.Subject != Ks2Subject.Unknown).ToList()
+                        ScaledScore = ValidateValue(r.ScaledScore),
+                        QualificationTypeCode = ValidateValue(r.QualificationTypeCode),
+                        ExamNumber = r.ExamNumber,
+                        FineGrade = r.FineGrade,
+                        GradeCode = ValidateValue(r.GradeCode),
+                        MatchReg = r.MatchReg,
+                        RIncl = r.RIncl,
+                        SeasonCode = ValidateValue(r.SeasonCode),
+                        TierCode = ValidateValue(r.TierCode),
+                        AwardingBodyNumber = r.AwardingBodyNumber,
+                        BoardSubjectNumber = ValidateValue(r.BoardSubjectNumber),
+                        NationalCentreNumber = ValidateValue(r.NationalCentreNumber),
+                        QAN = ValidateValue(r.Qan),
+                        SubLevelCode = r.SubLevelCode,
+                        PortlandResultID = r.PortlandResultID,
+                    }).Where(r => r.SubjectCode != Ks2Subject.Unknown).ToList()
             };
         }
 

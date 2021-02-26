@@ -126,7 +126,7 @@
 </div>
 <div class="govuk-grid-row">
     @{
-        var reading = Model.Results.FirstOrDefault(r => r.Subject == Ks2Subject.Reading);
+        var reading = Model.Results.FirstOrDefault(r => r.SubjectCode == Ks2Subject.Reading);
     }
     <div class="govuk-grid-column-two-thirds app-padding-top-mobile-2">
         <h2 class="govuk-heading-s govuk-!-margin-bottom-3">Key stage 2 Reading</h2>
@@ -138,7 +138,7 @@
                     Exam year
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @Html.NotRecordedIfNullOrEmpty(reading?.ExamYear)
+                    @Html.NotRecordedIfNullOrEmpty(reading?.ExamYear.ToString())
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -162,7 +162,7 @@
 </div>
 <div class="govuk-grid-row">
     @{
-        var writing = Model.Results.FirstOrDefault(r => r.Subject == Ks2Subject.Writing);
+        var writing = Model.Results.FirstOrDefault(r => r.SubjectCode == Ks2Subject.Writing);
     }
     <div class="govuk-grid-column-two-thirds app-padding-top-mobile-2">
         <h2 class="govuk-heading-s govuk-!-margin-bottom-3">Key stage 2 Writing</h2>
@@ -174,7 +174,7 @@
                     Exam year
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @Html.NotRecordedIfNullOrEmpty(writing?.ExamYear)
+                    @Html.NotRecordedIfNullOrEmpty(writing?.ExamYear.ToString())
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -198,7 +198,7 @@
 </div>
 <div class="govuk-grid-row">
     @{
-        var maths = Model.Results.FirstOrDefault(r => r.Subject == Ks2Subject.Maths);
+        var maths = Model.Results.FirstOrDefault(r => r.SubjectCode == Ks2Subject.Maths);
     }
     <div class="govuk-grid-column-two-thirds app-padding-top-mobile-2">
         <h2 class="govuk-heading-s govuk-!-margin-bottom-3">Key stage 2 Maths</h2>
@@ -210,7 +210,7 @@
                     Exam year
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @Html.NotRecordedIfNullOrEmpty(maths?.ExamYear)
+                    @Html.NotRecordedIfNullOrEmpty(maths?.ExamYear.ToString())
                 </dd>
             </div>
             <div class="govuk-summary-list__row">

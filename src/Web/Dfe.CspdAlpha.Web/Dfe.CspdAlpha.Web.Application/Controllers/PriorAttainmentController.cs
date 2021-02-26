@@ -55,8 +55,8 @@ namespace Dfe.Rscd.Web.Application.Controllers
 
                 priorAttainmentResults.Add(new PriorAttainmentResult
                 {
-                    Ks2Subject = result.Subject,
-                    ExamYear = result.ExamYear,
+                    Ks2Subject = result.SubjectCode,
+                    ExamYear = result.ExamYear.ToString(),
                     Mark = result.TestMark,
                     ScaledScore = result.ScaledScore
                 });

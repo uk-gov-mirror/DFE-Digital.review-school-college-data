@@ -106,7 +106,21 @@ namespace Dfe.Rscd.Web.Application.Controllers
                 ExamYear = from.ExamYear,
                 TestMark = from.TestMark,
                 ScaledScore = from.ScaledScore,
-                QualificationTypeCode = from.QualificationTypeCode
+                QualificationTypeCode = from.QualificationTypeCode,
+                ExamDate = from.ExamDate,
+                ExamNumber = from.ExamNumber,
+                FineGrade = from.FineGrade,
+                GradeCode = from.GradeCode,
+                MatchReg = from.MatchReg,
+                RIncl = from.RIncl,
+                SeasonCode = from.SeasonCode,
+                TierCode = from.TierCode,
+                AwardingBodyNumber = from.AwardingBodyNumber,
+                BoardSubjectNumber = from.BoardSubjectNumber,
+                NationalCentreNumber = from.NationalCentreNumber,
+                Qan = from.QAN,
+                SubLevelCode = from.SubLevelCode,
+                PortlandResultID = from.PortlandResultID,
             };
         }
 
