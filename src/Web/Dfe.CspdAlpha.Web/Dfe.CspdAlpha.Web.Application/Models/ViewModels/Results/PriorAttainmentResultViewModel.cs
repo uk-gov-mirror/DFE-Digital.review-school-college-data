@@ -20,7 +20,7 @@ namespace Dfe.Rscd.Web.Application.Models.ViewModels.Results
         public int? MatchReg { get; set; }
         public int? SubLevelCode { get; set; }
         public string NationalCentreNumber { get; set; }
-        public double? FineGrade { get; set; }
+        public string FineGrade { get; set; }
         public string TierCode { get; set; }
         public string TestMark { get; set; }
         public string GradeCode { get; set; }
