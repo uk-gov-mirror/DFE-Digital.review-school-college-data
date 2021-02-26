@@ -36,7 +36,7 @@ namespace Dfe.Rscd.Web.Application.Application.Helpers
             return JsonSerializer.Deserialize<Organisation>(orgClaim);
         }
 
-        private class Organisation
+        public class Organisation
         {
             public string id { get; set; }
             public string name { get; set; }
@@ -59,38 +59,38 @@ namespace Dfe.Rscd.Web.Application.Application.Helpers
             public object companyRegistrationNumber { get; set; }
         }
 
-        private class Category
+        public class Category
         {
             public string id { get; set; }
             public string name { get; set; }
         }
 
-        private class Type
+        public class Type
         {
             public string id { get; set; }
             public string name { get; set; }
         }
 
-        private class Status
+        public class Status
         {
             public int id { get; set; }
             public string name { get; set; }
         }
 
-        private class Region
+        public class Region
         {
             public string id { get; set; }
             public string name { get; set; }
         }
 
-        private class Localauthority
+        public class Localauthority
         {
             public string id { get; set; }
             public string name { get; set; }
             public string code { get; set; }
         }
 
-        private class Phaseofeducation
+        public class Phaseofeducation
         {
             public int id { get; set; }
             public string name { get; set; }
