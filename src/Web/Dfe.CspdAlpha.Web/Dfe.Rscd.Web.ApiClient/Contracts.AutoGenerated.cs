@@ -511,7 +511,7 @@ namespace Dfe.Rscd.Web.ApiClient
         public string NationalCentreNumber { get; set; }
     
         [Newtonsoft.Json.JsonProperty("fineGrade", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public double? FineGrade { get; set; }
+        public string FineGrade { get; set; }
     
         [Newtonsoft.Json.JsonProperty("tierCode", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string TierCode { get; set; }
