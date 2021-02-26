@@ -1066,7 +1066,7 @@ INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]
 GO
 INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (304, N'PupilCountryQuestion', N'Benin', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (305, N'PupilCountryQuestion', N'Bermuda ', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (305, N'PupilCountryQuestion', N'Bermuda', 1)
 GO
 INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (306, N'PupilCountryQuestion', N'Bhutan', 0)
 GO
@@ -1100,21 +1100,21 @@ INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]
 GO
 INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (321, N'PupilCountryQuestion', N'Chad', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (322, N'PupilCountryQuestion', N'Channel Islands Alderney', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (322, N'PupilCountryQuestion', N'Channel Islands - Alderney', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (323, N'PupilCountryQuestion', N'Channel Islands Guernsey', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (323, N'PupilCountryQuestion', N'Channel Islands - Guernsey', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (324, N'PupilCountryQuestion', N'Channel Islands Jersey', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (324, N'PupilCountryQuestion', N'Channel Islands - Jersey', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (325, N'PupilCountryQuestion', N'Channel Islands Sark', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (325, N'PupilCountryQuestion', N'Channel Islands - Sark', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (326, N'PupilCountryQuestion', N'Chechnya  ', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (326, N'PupilCountryQuestion', N'Chechnya', 0)
 GO
 INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (327, N'PupilCountryQuestion', N'Chile', 0)
 GO
 INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (328, N'PupilCountryQuestion', N'China', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (329, N'PupilCountryQuestion', N'Christmas Island  ', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (329, N'PupilCountryQuestion', N'Christmas Island', 1)
 GO
 INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (330, N'PupilCountryQuestion', N'Cocos (Keeling) Islands', 1)
 GO
@@ -1190,7 +1190,7 @@ INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]
 GO
 INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (366, N'PupilCountryQuestion', N'Greenland', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (367, N'PupilCountryQuestion', N'Guam ', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (367, N'PupilCountryQuestion', N'Guam', 1)
 GO
 INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (368, N'PupilCountryQuestion', N'Guatemala', 0)
 GO
@@ -1256,41 +1256,41 @@ INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]
 GO
 INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (399, N'PupilCountryQuestion', N'Lebanon', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (400, N'PupilCountryQuestion', N'Leeward Islands Anguilla', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (400, N'PupilCountryQuestion', N'Leeward Islands - Anguilla', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (401, N'PupilCountryQuestion', N'Leeward Islands Antigua', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (401, N'PupilCountryQuestion', N'Leeward Islands - Antigua', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (402, N'PupilCountryQuestion', N'Leeward Islands Barbuda', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (402, N'PupilCountryQuestion', N'Leeward Islands - Barbuda', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (403, N'PupilCountryQuestion', N'Leeward Islands British Virgin Islands', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (403, N'PupilCountryQuestion', N'Leeward Islands - British Virgin Islands', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (404, N'PupilCountryQuestion', N'Leeward Islands Guadeloupe', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (404, N'PupilCountryQuestion', N'Leeward Islands - Guadeloupe', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (405, N'PupilCountryQuestion', N'Leeward Islands Iles des Saintes', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (405, N'PupilCountryQuestion', N'Leeward Islands - Iles des Saintes', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (406, N'PupilCountryQuestion', N'Leeward Islands La Desirade', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (406, N'PupilCountryQuestion', N'Leeward Islands - La Desirade', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (407, N'PupilCountryQuestion', N'Leeward Islands Marie-Galante', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (407, N'PupilCountryQuestion', N'Leeward Islands - Marie-Galante', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (408, N'PupilCountryQuestion', N'Leeward Islands Montserrat', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (408, N'PupilCountryQuestion', N'Leeward Islands - Montserrat', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (409, N'PupilCountryQuestion', N'Leeward Islands Nevis', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (409, N'PupilCountryQuestion', N'Leeward Islands - Nevis', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (410, N'PupilCountryQuestion', N'Leeward Islands Puerto Rican Virgin Islands/Spanish Virgin Islands', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (410, N'PupilCountryQuestion', N'Leeward Islands - Puerto Rican Virgin Islands/Spanish Virgin Islands', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (411, N'PupilCountryQuestion', N'Leeward Islands Redonda', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (411, N'PupilCountryQuestion', N'Leeward Islands - Redonda', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (412, N'PupilCountryQuestion', N'Leeward Islands Saba', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (412, N'PupilCountryQuestion', N'Leeward Islands - Saba', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (413, N'PupilCountryQuestion', N'Leeward Islands Saint Kitts', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (413, N'PupilCountryQuestion', N'Leeward Islands - Saint Kitts', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (414, N'PupilCountryQuestion', N'Leeward Islands Saint Martin/Sint Maarten', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (414, N'PupilCountryQuestion', N'Leeward Islands - Saint Martin/Sint Maarten', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (415, N'PupilCountryQuestion', N'Leeward Islands Saint-Barthelemy', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (415, N'PupilCountryQuestion', N'Leeward Islands - Saint-Barthelemy', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (416, N'PupilCountryQuestion', N'Leeward Islands Sint Eustatius', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (416, N'PupilCountryQuestion', N'Leeward Islands - Sint Eustatius', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (417, N'PupilCountryQuestion', N'Leeward Islands U.S. Virgin Islands', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (417, N'PupilCountryQuestion', N'Leeward Islands - U.S. Virgin Islands', 1)
 GO
 INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (418, N'PupilCountryQuestion', N'Lesotho', 1)
 GO
@@ -1304,7 +1304,7 @@ INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]
 GO
 INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (423, N'PupilCountryQuestion', N'Luxembourg', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (424, N'PupilCountryQuestion', N'Macau ', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (424, N'PupilCountryQuestion', N'Macau', 0)
 GO
 INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (425, N'PupilCountryQuestion', N'Madagascar', 0)
 GO
@@ -1318,13 +1318,13 @@ INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]
 GO
 INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (430, N'PupilCountryQuestion', N'Malta', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (431, N'PupilCountryQuestion', N'Marshall Islands ', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (431, N'PupilCountryQuestion', N'Marshall Islands', 0)
 GO
 INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (432, N'PupilCountryQuestion', N'Mauritania', 0)
 GO
 INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (433, N'PupilCountryQuestion', N'Mauritius', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (434, N'PupilCountryQuestion', N'Mayotte ', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (434, N'PupilCountryQuestion', N'Mayotte', 0)
 GO
 INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (435, N'PupilCountryQuestion', N'Mexico', 0)
 GO
@@ -1338,7 +1338,7 @@ INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]
 GO
 INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (440, N'PupilCountryQuestion', N'Montenegro', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (441, N'PupilCountryQuestion', N'Montserrat ', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (441, N'PupilCountryQuestion', N'Montserrat', 1)
 GO
 INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (442, N'PupilCountryQuestion', N'Morocco', 0)
 GO
@@ -1348,7 +1348,7 @@ INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]
 GO
 INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (445, N'PupilCountryQuestion', N'Namibia', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (446, N'PupilCountryQuestion', N'Nauru ', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (446, N'PupilCountryQuestion', N'Nauru', 0)
 GO
 INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (447, N'PupilCountryQuestion', N'Nepal', 0)
 GO
@@ -1366,11 +1366,11 @@ INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]
 GO
 INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (454, N'PupilCountryQuestion', N'Niue', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (455, N'PupilCountryQuestion', N'Norfolk Island ', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (455, N'PupilCountryQuestion', N'Norfolk Island', 1)
 GO
 INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (456, N'PupilCountryQuestion', N'North Korea', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (457, N'PupilCountryQuestion', N'Northern Mariana Islands ', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (457, N'PupilCountryQuestion', N'Northern Mariana Islands', 1)
 GO
 INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (458, N'PupilCountryQuestion', N'Norway', 0)
 GO
@@ -1380,7 +1380,7 @@ INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]
 GO
 INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (461, N'PupilCountryQuestion', N'Palau', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (462, N'PupilCountryQuestion', N'Palestine ', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (462, N'PupilCountryQuestion', N'Palestine', 0)
 GO
 INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (463, N'PupilCountryQuestion', N'Panama', 0)
 GO
@@ -1402,7 +1402,7 @@ INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]
 GO
 INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (472, N'PupilCountryQuestion', N'Republic of the Congo', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (473, N'PupilCountryQuestion', N'Reunion ', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (473, N'PupilCountryQuestion', N'Reunion', 0)
 GO
 INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (474, N'PupilCountryQuestion', N'Romania', 0)
 GO
@@ -1512,19 +1512,17 @@ INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]
 GO
 INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (527, N'PupilCountryQuestion', N'Western Sahara', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (528, N'PupilCountryQuestion', N'Windward Islands ', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (529, N'PupilCountryQuestion', N'Windward Islands - Dominica', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (529, N'PupilCountryQuestion', N'Windward Islands  Dominica', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (530, N'PupilCountryQuestion', N'Windward Islands - Grenada', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (530, N'PupilCountryQuestion', N'Windward Islands  Grenada', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (531, N'PupilCountryQuestion', N'Windward Islands - Martinique', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (531, N'PupilCountryQuestion', N'Windward Islands  Martinique', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (532, N'PupilCountryQuestion', N'Windward Islands - Saint Lucia', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (532, N'PupilCountryQuestion', N'Windward Islands  Saint Lucia', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (533, N'PupilCountryQuestion', N'Windward Islands - Saint Vincent and the Grenadines', 1)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (533, N'PupilCountryQuestion', N'Windward Islands  Saint Vincent and the Grenadines', 1)
-GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (534, N'PupilCountryQuestion', N'Windward Islands  Trinidad and Tobago', 1)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (534, N'PupilCountryQuestion', N'Windward Islands - Trinidad and Tobago', 1)
 GO
 INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (535, N'PupilCountryQuestion', N'Yemen', 0)
 GO
