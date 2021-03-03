@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
+using System.Text.Json;
 using Dfe.Rscd.Web.Application.Application;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Routing;
 using Moq;
+using static Dfe.Rscd.Web.Application.Application.Helpers.ClaimsHelper;
 
 namespace Dfe.Rscd.Web.UnitTests.Controllers
 {
@@ -17,11 +19,14 @@ namespace Dfe.Rscd.Web.UnitTests.Controllers
 
         protected ClaimsPrincipal GetClaimsPrincipal()
         {
+            var org = new Organisation()
+            {
+                urn = SchoolUrn
+            };
             var claims = new List<Claim>() 
             { 
-                new Claim("urn:oid:0.9.2342.19200300.100.1.1", UserId),
-                new Claim("https://sa.education.gov.uk/idp/org/establishment/uRN", SchoolUrn),
-                new Claim("name", "John Doe"),
+                new Claim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier", UserId),
+                new Claim("organisation", JsonSerializer.Serialize(org))
             };
             var identity = new ClaimsIdentity(claims, "TestAuthType");
             var claimsPrincipal = new ClaimsPrincipal(identity);

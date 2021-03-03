@@ -13,6 +13,7 @@ using Dfe.Rscd.Web.Infrastructure.SharePoint;
 using Dfe.Rscd.Web.Shared.Config;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,9 +28,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.FeatureManagement;
 using Newtonsoft.Json;
-using Sustainsys.Saml2;
-using Sustainsys.Saml2.AspNetCore2;
-using Sustainsys.Saml2.Metadata;
 
 namespace Dfe.Rscd.Web.Application
 {
@@ -83,23 +81,35 @@ namespace Dfe.Rscd.Web.Application
 
             //services.AddControllers().AddJsonOptions()
 
-            // configure SAML authentication
-            var samlAuthOptions = Configuration.GetSection("SamlAuth").Get<SamlAuthOptions>();
-            var authenticationBuilder = services.AddAuthentication(o =>
+            // configure OpenID Connect authentication
+            var oidcAuthOptions = Configuration.GetSection("OidcAuth").Get<OidcAuthOptions>();
+            services.AddAuthentication(options =>
             {
-                o.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                o.DefaultChallengeScheme = Saml2Defaults.Scheme;
+                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
             })
-            .AddCookie()
-            .AddSaml2(options =>
+            .AddCookie(options =>
             {
-                options.SPOptions.EntityId = new EntityId(samlAuthOptions.SpEntityId);
-                options.IdentityProviders.Add(
-                    new IdentityProvider(
-                        new EntityId($"{samlAuthOptions.IdpEntityId}/Metadata"), options.SPOptions)
-                    {
-                        LoadMetadata = true
-                    });
+                options.ExpireTimeSpan = new TimeSpan(0, 20, 0);
+                options.LoginPath = "/Account/Login/";
+            })
+            .AddOpenIdConnect(options =>
+            {
+                options.MetadataAddress = oidcAuthOptions.MetadataUrl;
+                options.CallbackPath = "/auth/cb";
+                options.SignedOutCallbackPath = "/signout/complete";
+                options.ClientId = oidcAuthOptions.ClientId;
+                options.ClientSecret = oidcAuthOptions.ClientSecret;                
+                options.ResponseType = "code";
+                options.Scope.Clear();
+                options.Scope.Add("openid");
+                options.Scope.Add("email");
+                options.Scope.Add("profile");
+                options.Scope.Add("organisation");
+                //options.Scope.Add("organisationid");
+                //options.Scope.Add("offline_access");
+                options.SaveTokens = true;
+                options.GetClaimsFromUserInfoEndpoint = false;
             });
 
             if (_env.IsDevelopment() || _env.IsStaging())
@@ -114,7 +124,7 @@ namespace Dfe.Rscd.Web.Application
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
             services.AddSession(options =>
-            { 
+            {
                 options.Cookie.IsEssential = true;
             });
 
@@ -198,7 +208,7 @@ namespace Dfe.Rscd.Web.Application
             {
                 endpoints.MapControllerRoute(
                     name: "checking-phase",
-                    pattern: "{phase}/{urn}/{controller}/{action}/{id?}",
+                    pattern: "{phase}/{urn:int}/{controller}/{action}/{id?}",
                     defaults: new {controller = "TaskList", action = "Index"});
 
                 endpoints.MapControllerRoute(

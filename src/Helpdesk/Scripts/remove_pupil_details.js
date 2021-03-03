@@ -38,14 +38,21 @@ console.log(reasonCode);
     case 10: // Admitted following permanent exclusion from maintained school
          this.showFields(removePupilForm, ['rscd_laestabofexcludedschool', 'rscd_pupilexclusiondate']);
          break;
-    case 12: // Deceased
+     case 11: // Perm left England
+           this.showFields(removePupilForm, ['rscd_countrypupilleftenglandfor', 'rscd_dateoffroll', 'rscd_details']);
+           break;
+    case 12: // Deceased 
           this.showFields(removePupilForm, ['rscd_dateoffroll']);
           break;
-        // case 330: // Other without evidence
+    case 19: // Other  > sub reasons
+            this.showFields(removePupilForm,['rscd_subreason', 'rscd_reasondescription']);
+            break;
+        // case 330: // Other without evidence  
         //   break;
           default:
           // no additional fields to show
       }
+      
     }
   }
   this.showFields = function (removePupilForm, fieldsToShow,) {
@@ -54,3 +61,4 @@ console.log(reasonCode);
   });
   }
 }).call(Rscd);
+
