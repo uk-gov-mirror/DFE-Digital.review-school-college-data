@@ -44,6 +44,9 @@ console.log(reasonCode);
     case 12: // Deceased 
           this.showFields(removePupilForm, ['rscd_dateoffroll']);
           break;
+    case 19: // Other  > sub reasons
+            this.showFields(removePupilForm,['rscd_subreason', 'rscd_reasondescription']);
+            break;
         // case 330: // Other without evidence  
         //   break;
           default:
@@ -58,3 +61,4 @@ console.log(reasonCode);
   });
   }
 }).call(Rscd);
+
