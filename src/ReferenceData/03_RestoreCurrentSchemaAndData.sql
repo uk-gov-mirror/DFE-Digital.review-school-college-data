@@ -1202,7 +1202,7 @@ INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]
 GO
 INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (372, N'PupilCountryQuestion', N'Haiti', 0)
 GO
-INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (373, N'PupilCountryQuestion', N'Holy See  (Vatican City)', 0)
+INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (373, N'PupilCountryQuestion', N'Holy See (Vatican City)', 0)
 GO
 INSERT [dbo].[PotentialAnswers] ([Id], [QuestionId], [AnswerValue], [IsRejected]) VALUES (374, N'PupilCountryQuestion', N'Honduras', 0)
 GO
