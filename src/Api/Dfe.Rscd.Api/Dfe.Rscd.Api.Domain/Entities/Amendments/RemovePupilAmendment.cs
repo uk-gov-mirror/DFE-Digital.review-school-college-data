@@ -8,6 +8,9 @@ namespace Dfe.Rscd.Api.Domain.Entities
         public const string FIELD_ReasonDescription = "ReasonDescription";
         public const string FIELD_OutcomeDescription = "OutcomeDescription";
         public const string FIELD_CountryOfOrigin = "CountryOfOrigin";
+        public const string FIELD_CountryLeftEnglandFor = "CountryLeftEnglandFor";
+        public const string FIELD_Detail = "Detail";
+        public const string FIELD_EvidenceFolder = "EvidenceFolder";
         public const string FIELD_NativeLanguage = "NativeLanguage";
         public const string FIELD_DateOfArrivalUk = "DateOfArrivalUk";
         public const string FIELD_LAESTABNumber = "LAESTABNumber";

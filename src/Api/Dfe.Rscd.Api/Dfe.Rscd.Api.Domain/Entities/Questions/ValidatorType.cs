@@ -13,6 +13,7 @@
         NumberLower,
         NumberHigherOrEqual,
         NumberLowerOrEqual,
-        LAESTABNumber
+        LAESTABNumber,
+        MaxCharacters
     }
 }

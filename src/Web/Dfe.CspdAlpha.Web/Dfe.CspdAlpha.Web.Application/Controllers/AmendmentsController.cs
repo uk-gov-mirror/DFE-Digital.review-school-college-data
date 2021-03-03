@@ -4,6 +4,7 @@ using Dfe.Rscd.Web.ApiClient;
 using Dfe.Rscd.Web.Application.Application.Interfaces;
 using Dfe.Rscd.Web.Application.Models.ViewModels.Amendments;
 using Dfe.Rscd.Web.Application.Models.ViewModels.Pupil;
+using Dfe.Rscd.Web.Infrastructure.Models;
 using Microsoft.AspNetCore.Mvc;
 using ProblemDetails = Dfe.Rscd.Web.ApiClient.ProblemDetails;
 
@@ -12,10 +13,12 @@ namespace Dfe.Rscd.Web.Application.Controllers
     public class AmendmentsController : SessionController
     {
         private readonly IAmendmentService _amendmentService;
+        private readonly IEvidenceService _evidenceService;
 
-        public AmendmentsController(IAmendmentService amendmentService)
+        public AmendmentsController(IAmendmentService amendmentService, IEvidenceService evidenceService)
         {
             _amendmentService = amendmentService;
+            _evidenceService = evidenceService;
         }
 
         public IActionResult Index(string urn)
@@ -151,14 +154,46 @@ namespace Dfe.Rscd.Web.Application.Controllers
         }
 
         [HttpPost]
-        public IActionResult Prompt(PromptAnswerViewModel promptAnswerViewModel)
+        public IActionResult Prompt(PromptAnswerViewModel promptAnswerViewModel, bool Continue)
         {
             var questions = GetQuestions();
-            var promptAnswer = promptAnswerViewModel.GetAnswerAsString(Request.Form);
             var thisQuestion = FindQuestion(questions, promptAnswerViewModel.QuestionId);
+            var promptAnswer = promptAnswerViewModel.GetAnswerAsString(Request.Form);
+            var amendment = GetAmendment();
+
+            if (thisQuestion.QuestionType == QuestionType.Evidence)
+            {
+                if (string.IsNullOrEmpty(amendment.EvidenceFolderName))
+                {
+                    var file = _evidenceService.UploadEvidence(Request.Form.Files.First());
+                    promptAnswer = amendment.EvidenceFolderName = file.FolderName;
+                    AddFile(file);
+                    SaveAmendment(amendment);
+                }
+                else
+                {
+                    var file = _evidenceService.UploadEvidence(amendment.EvidenceFolderName, Request.Form.Files.First());
+                    promptAnswer = file.FolderName;
+                    AddFile(file);
+                }
+
+                if (!Continue)
+                {
+                    var uploadEvidenceViewModel = new QuestionViewModel(questions, promptAnswerViewModel.CurrentIndex)
+                    {
+                        PupilDetails = new PupilViewModel(amendment.Pupil),
+                        ShowConditional = true
+                    };
+
+                    uploadEvidenceViewModel.CurrentQuestion.FileNames = GetFiles()
+                        .Select(x=>x.FileName).ToList();
+
+                    return View("Prompt", uploadEvidenceViewModel);
+                }
+            }
 
             SaveAnswer(new UserAnswer{ QuestionId = promptAnswerViewModel.QuestionId, Value = promptAnswer });
-            var amendment = GetAmendment();
+            amendment = GetAmendment();
 
             if (ConditionalQuestion(thisQuestion, promptAnswer))
             {

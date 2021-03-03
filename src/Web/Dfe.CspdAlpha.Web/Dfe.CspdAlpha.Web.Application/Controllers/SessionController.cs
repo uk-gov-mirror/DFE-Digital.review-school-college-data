@@ -4,6 +4,8 @@ using Dfe.Rscd.Web.ApiClient;
 using Dfe.Rscd.Web.Application.Application;
 using Dfe.Rscd.Web.Application.Application.Helpers;
 using Dfe.Rscd.Web.Application.Models.ViewModels;
+using Dfe.Rscd.Web.Infrastructure.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dfe.Rscd.Web.Application.Controllers
@@ -13,12 +15,27 @@ namespace Dfe.Rscd.Web.Application.Controllers
         private const string AMENDMENT_SESSION_KEY = "current-amendment";
         private const string PROMPT_QUESTIONS = "new-promptquestions-ref";
         private const string TASK_LIST = "task-list-{0}";
+        private const string FILE_LIST = "files-list";
 
         protected CheckingWindow CheckingWindow => CheckingWindowHelper.GetCheckingWindow(RouteData);
 
         protected Amendment GetAmendment()
         {
             return HttpContext.Session.Get<Amendment>(AMENDMENT_SESSION_KEY);
+        }
+
+        protected List<FileUploadResult> GetFiles()
+        {
+            return HttpContext.Session.Get<List<FileUploadResult>>(PROMPT_QUESTIONS);
+        }
+
+        protected void AddFile(FileUploadResult file)
+        {
+            var files = GetFiles();
+            if(!files.Contains(file))
+                files.Add(file);
+
+            HttpContext.Session.Set(PROMPT_QUESTIONS, files);
         }
 
         protected List<Question> GetQuestions()
@@ -90,7 +107,7 @@ namespace Dfe.Rscd.Web.Application.Controllers
 
             SaveAmendment(amendment);
         }
-        
+
         protected void SaveAmendment(Amendment amendment)
         {
             HttpContext.Session.Set(AMENDMENT_SESSION_KEY, amendment);

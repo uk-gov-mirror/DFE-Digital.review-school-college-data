@@ -1,3 +1,4 @@
+using System.IO;
 using Dfe.Rscd.Web.Application.Application.Services;
 using Dfe.Rscd.Web.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Http;
@@ -14,16 +15,16 @@ namespace Dfe.Rscd.Web.UnitTests.Application.Services
             // Arrange
             var mockFileUploadService = new Mock<IFileUploadService>();
             var service = new EvidenceService(mockFileUploadService.Object);
-            var file = new FormFile(new System.IO.MemoryStream(), 0, 10, "test.txt", "test.txt")
+            var file = new FormFile(new MemoryStream(), 0, 10, "test.txt", "test.txt")
             {
                 Headers = new HeaderDictionary
                 {
-                    { "content-type", "text/plain" }
+                    {"content-type", "text/plain"}
                 }
             };
 
             // Act
-            var folderName = service.UploadEvidence(new[] { file });
+            var folderName = service.UploadEvidence(new[] {file});
 
             // Assert
             Assert.True(!string.IsNullOrWhiteSpace(folderName));
@@ -37,7 +38,7 @@ namespace Dfe.Rscd.Web.UnitTests.Application.Services
             var service = new EvidenceService(mockFileUploadService.Object);
 
             // Act
-            var folderName = service.UploadEvidence(new[] { new FormFile(new System.IO.MemoryStream(), 0, 0, "", "") });
+            var folderName = service.UploadEvidence(new[] {new FormFile(new MemoryStream(), 0, 0, "", "")});
 
             // Assert
             Assert.Null(folderName);

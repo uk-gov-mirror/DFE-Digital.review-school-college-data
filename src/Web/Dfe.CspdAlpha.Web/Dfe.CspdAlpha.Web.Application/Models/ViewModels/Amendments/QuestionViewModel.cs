@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Dfe.Rscd.Web.ApiClient;
 using Dfe.Rscd.Web.Application.Models.ViewModels.Pupil;
+using Microsoft.AspNetCore.Http;
 
 namespace Dfe.Rscd.Web.Application.Models.ViewModels.Amendments
 {
@@ -36,7 +37,7 @@ namespace Dfe.Rscd.Web.Application.Models.ViewModels.Amendments
 
                 return currentQuestion;
             }
-        } 
+        }
 
         public IDictionary<string, ICollection<string>> ValidationErrors { get; set; }
 

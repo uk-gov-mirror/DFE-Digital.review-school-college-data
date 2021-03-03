@@ -792,6 +792,12 @@ namespace Dfe.Rscd.Web.ApiClient
         [System.Runtime.Serialization.EnumMember(Value = @"NullableDate")]
         NullableDate = 5,
     
+        [System.Runtime.Serialization.EnumMember(Value = @"Evidence")]
+        Evidence = 6,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"Explain")]
+        Explain = 7,
+    
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.3.8.0 (Newtonsoft.Json v12.0.0.0)")]
@@ -832,6 +838,9 @@ namespace Dfe.Rscd.Web.ApiClient
     
         [System.Runtime.Serialization.EnumMember(Value = @"LAESTABNumber")]
         LAESTABNumber = 11,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"MaxCharacters")]
+        MaxCharacters = 12,
     
     }
     
@@ -907,6 +916,9 @@ namespace Dfe.Rscd.Web.ApiClient
     
         [Newtonsoft.Json.JsonProperty("title", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Title { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("helpTextHtml", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string HelpTextHtml { get; set; }
     
         [Newtonsoft.Json.JsonProperty("questionType", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
