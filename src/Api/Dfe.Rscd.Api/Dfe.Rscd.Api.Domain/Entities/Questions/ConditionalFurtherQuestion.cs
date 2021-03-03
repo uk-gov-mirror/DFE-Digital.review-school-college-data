@@ -13,7 +13,7 @@ namespace Dfe.Rscd.Api.Domain.Entities.Questions
             QuestionType = question.QuestionType;
             Answer = question.Answer;
             Answer.HasConditional = true;
-            Validator = question.GetValidator();
+            Validator = question.Validator;
         }
 
         protected virtual void SetupConditionalQuestion(Question question, string conditionalValue)

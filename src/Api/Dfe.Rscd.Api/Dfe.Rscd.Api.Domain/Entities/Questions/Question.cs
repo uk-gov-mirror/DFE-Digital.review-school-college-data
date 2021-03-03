@@ -25,12 +25,7 @@ namespace Dfe.Rscd.Api.Domain.Entities.Questions
             return Validator.Validate(answer);
         }
 
-        protected Validator Validator { get; set; }
-
-        public Validator GetValidator()
-        {
-            return Validator;
-        }
+        public Validator Validator { get; set; }
 
         public Answer Answer { get; set; }
 

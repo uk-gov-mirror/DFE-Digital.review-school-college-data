@@ -795,6 +795,72 @@ namespace Dfe.Rscd.Web.ApiClient
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.3.8.0 (Newtonsoft.Json v12.0.0.0)")]
+    public enum ValidatorType
+    {
+        [System.Runtime.Serialization.EnumMember(Value = @"None")]
+        None = 0,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"Regex")]
+        Regex = 1,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"DateTimeHistorical")]
+        DateTimeHistorical = 2,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"DateTimeFuture")]
+        DateTimeFuture = 3,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"AlphabeticalValues")]
+        AlphabeticalValues = 4,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"AlphabeticalIncludingSpecialChars")]
+        AlphabeticalIncludingSpecialChars = 5,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"Number")]
+        Number = 6,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"NumberHigher")]
+        NumberHigher = 7,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"NumberLower")]
+        NumberLower = 8,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"NumberHigherOrEqual")]
+        NumberHigherOrEqual = 9,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"NumberLowerOrEqual")]
+        NumberLowerOrEqual = 10,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"LAESTABNumber")]
+        LAESTABNumber = 11,
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.3.8.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class Validator 
+    {
+        [Newtonsoft.Json.JsonProperty("validationErrors", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.ICollection<string> ValidationErrors { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("allowNull", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public bool AllowNull { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("nullErrorMessage", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string NullErrorMessage { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("inValidErrorMessage", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string InValidErrorMessage { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("validatorType", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        public ValidatorType ValidatorType { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("validatorCompareValue", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string ValidatorCompareValue { get; set; }
+    
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.3.8.0 (Newtonsoft.Json v12.0.0.0)")]
     public partial class AnswerPotential 
     {
         [Newtonsoft.Json.JsonProperty("value", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
@@ -845,6 +911,9 @@ namespace Dfe.Rscd.Web.ApiClient
         [Newtonsoft.Json.JsonProperty("questionType", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public QuestionType QuestionType { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("validator", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public Validator Validator { get; set; }
     
         [Newtonsoft.Json.JsonProperty("answer", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public Answer Answer { get; set; }

@@ -155,101 +155,45 @@ namespace Dfe.Rscd.Web.Application.Controllers
         {
             var questions = GetQuestions();
             var promptAnswer = promptAnswerViewModel.GetAnswerAsString(Request.Form);
-
             var thisQuestion = FindQuestion(questions, promptAnswerViewModel.QuestionId);
-            
-            
+
             SaveAnswer(new UserAnswer{ QuestionId = promptAnswerViewModel.QuestionId, Value = promptAnswer });
             var amendment = GetAmendment();
 
-            if (thisQuestion.Answer.HasConditional && ThisQuestionIsTheConditionalQuestion(thisQuestion, promptAnswer))
+            if (ConditionalQuestion(thisQuestion, promptAnswer))
             {
-                var conditionalViewModel = new QuestionViewModel(questions, promptAnswerViewModel.CurrentIndex)
-                {
-                    PupilDetails = new PupilViewModel(amendment.Pupil),
-                    ShowConditional = true
-                };
+                var conditionalViewModel = CreateConditionalPrompt(promptAnswerViewModel, questions, amendment);
 
                 return View("Prompt", conditionalViewModel);
             }
-            
+
             var outcome = _amendmentService.CreateAmendment(amendment);
 
-            if (thisQuestion.QuestionType == QuestionType.NullableDate && string.IsNullOrEmpty(Request.Form[thisQuestion.Id]))
+            if (NotNullableDateIsSelected(thisQuestion))
             {
-                ViewData.ModelState.AddModelError(promptAnswerViewModel.QuestionId, "Select one");
-                ViewData["errorMessage1"] = "Select one";
-                ViewData["errorType"] = "NoneSelected";
-
-                List<string> errorCollection = new List<string> {"Select one"};
-                var validationErrors = new Dictionary<string, ICollection<string>>
-                {
-                    {promptAnswerViewModel.QuestionId, errorCollection}
-                };
-
-                var errorsPromptViewModel = new QuestionViewModel(questions, promptAnswerViewModel.CurrentIndex, validationErrors)
-                {
-                    PupilDetails = new PupilViewModel(amendment.Pupil),
-                    ShowConditional = thisQuestion.Answer.IsConditional
-                };
+                var errorsPromptViewModel = CreateNullableDateErrorPrompt(promptAnswerViewModel,
+                    thisQuestion, questions, amendment);
 
                 return View("Prompt", errorsPromptViewModel);
             }
 
-            if (thisQuestion.QuestionType == QuestionType.NullableDate &&
-                Request.Form[thisQuestion.Id] == "1" &&
-                string.IsNullOrEmpty(Request.Form["date-day"]) &&
-                string.IsNullOrEmpty(Request.Form["date-month"]) &&
-                string.IsNullOrEmpty(Request.Form["date-year"]))
+            if (NullableDateQuestionHasErrors(thisQuestion))
             {
-                // TODO: Add required field labels to API. This should not be here in Web
-                ViewData.ModelState.AddModelError(promptAnswerViewModel.QuestionId, "Enter a date of arrival to UK");
-                ViewData["errorMessage"] = "Enter a date of arrival to UK";
-
-                List<string> errorCollection = new List<string> {"Enter a date of arrival to UK"};
-                var validationErrors = new Dictionary<string, ICollection<string>>
-                {
-                    {promptAnswerViewModel.QuestionId, errorCollection}
-                };
-
-                var errorsPromptViewModel = new QuestionViewModel(questions, promptAnswerViewModel.CurrentIndex, validationErrors)
-                {
-                    PupilDetails = new PupilViewModel(amendment.Pupil),
-                    ShowConditional = thisQuestion.Answer.IsConditional
-                };
+                var errorsPromptViewModel = CreateNullableInvalidDateErrorPrompt(promptAnswerViewModel,
+                    thisQuestion, questions, amendment);
 
                 return View("Prompt", errorsPromptViewModel);
             }
 
-            if (outcome.ValidationErrors != null && outcome.ValidationErrors.Count > 0)
+            if (GenericQuestionHasErrors(outcome))
             {
-                var errorsPromptViewModel = new QuestionViewModel(questions, promptAnswerViewModel.CurrentIndex, outcome.ValidationErrors)
-                {
-                    PupilDetails = new PupilViewModel(amendment.Pupil),
-                    ShowConditional = thisQuestion.Answer.IsConditional
-                };
-
-                string actualMessage = string.Empty;
-                foreach(var errorMessage in outcome.ValidationErrors)
-                {
-                    foreach(var promptError in errorMessage.Value)
-                    {
-                        ViewData.ModelState.AddModelError(errorMessage.Key, promptError);
-                        actualMessage = promptError;
-                    }
-                }
-                if (!string.IsNullOrEmpty(actualMessage))
-                {
-                    ViewData["errorMessage"] = actualMessage;
-                }
+                var errorsPromptViewModel = CreateGenericQuestionErrorPrompt(promptAnswerViewModel, questions,
+                    outcome, amendment, thisQuestion);
 
                 return View("Prompt", errorsPromptViewModel);
             }
-            
-            var nextQuestionViewModel = new QuestionViewModel(questions, promptAnswerViewModel.CurrentIndex + 1)
-            {
-                PupilDetails = new PupilViewModel(amendment.Pupil)
-            };
+
+            var nextQuestionViewModel = GoToTheNextQuestion(promptAnswerViewModel, questions, amendment);
 
             if (nextQuestionViewModel.HasMoreQuestions)
             {
@@ -257,6 +201,120 @@ namespace Dfe.Rscd.Web.Application.Controllers
             }
 
             return RedirectToAction("Confirm");
+        }
+
+        private static QuestionViewModel GoToTheNextQuestion(PromptAnswerViewModel promptAnswerViewModel, List<Question> questions,
+            Amendment amendment)
+        {
+            var nextQuestionViewModel = new QuestionViewModel(questions, promptAnswerViewModel.CurrentIndex + 1)
+            {
+                PupilDetails = new PupilViewModel(amendment.Pupil)
+            };
+            return nextQuestionViewModel;
+        }
+
+        private bool ConditionalQuestion(Question thisQuestion, string promptAnswer)
+        {
+            return thisQuestion.Answer.HasConditional && ThisQuestionIsTheConditionalQuestion(thisQuestion, promptAnswer);
+        }
+
+        private bool NotNullableDateIsSelected(Question thisQuestion)
+        {
+            return thisQuestion.QuestionType == QuestionType.NullableDate && string.IsNullOrEmpty(Request.Form[thisQuestion.Id]);
+        }
+
+        private bool NullableDateQuestionHasErrors(Question thisQuestion)
+        {
+            return thisQuestion.QuestionType == QuestionType.NullableDate &&
+                   Request.Form[thisQuestion.Id] == "1" &&
+                   string.IsNullOrEmpty(Request.Form["date-day"]) &&
+                   string.IsNullOrEmpty(Request.Form["date-month"]) &&
+                   string.IsNullOrEmpty(Request.Form["date-year"]);
+        }
+
+        private static bool GenericQuestionHasErrors(AmendmentOutcome outcome)
+        {
+            return outcome.ValidationErrors != null && outcome.ValidationErrors.Count > 0;
+        }
+
+        private static QuestionViewModel CreateConditionalPrompt(PromptAnswerViewModel promptAnswerViewModel, List<Question> questions,
+            Amendment amendment)
+        {
+            var conditionalViewModel = new QuestionViewModel(questions, promptAnswerViewModel.CurrentIndex)
+            {
+                PupilDetails = new PupilViewModel(amendment.Pupil),
+                ShowConditional = true
+            };
+            return conditionalViewModel;
+        }
+
+        private QuestionViewModel CreateGenericQuestionErrorPrompt(PromptAnswerViewModel promptAnswerViewModel, List<Question> questions,
+            AmendmentOutcome outcome, Amendment amendment, Question thisQuestion)
+        {
+            var errorsPromptViewModel =
+                new QuestionViewModel(questions, promptAnswerViewModel.CurrentIndex, outcome.ValidationErrors)
+                {
+                    PupilDetails = new PupilViewModel(amendment.Pupil),
+                    ShowConditional = thisQuestion.Answer.IsConditional
+                };
+
+            string actualMessage = string.Empty;
+            foreach (var errorMessage in outcome.ValidationErrors)
+            {
+                foreach (var promptError in errorMessage.Value)
+                {
+                    ViewData.ModelState.AddModelError(errorMessage.Key, promptError);
+                    actualMessage = promptError;
+                }
+            }
+
+            if (!string.IsNullOrEmpty(actualMessage))
+            {
+                ViewData["errorMessage"] = actualMessage;
+            }
+
+            return errorsPromptViewModel;
+        }
+
+        private QuestionViewModel CreateNullableInvalidDateErrorPrompt(PromptAnswerViewModel promptAnswerViewModel,
+            Question thisQuestion, List<Question> questions, Amendment amendment)
+        {
+            ViewData.ModelState.AddModelError(promptAnswerViewModel.QuestionId, thisQuestion.Validator.NullErrorMessage);
+            ViewData["errorMessage"] = thisQuestion.Validator.NullErrorMessage;
+
+            List<string> errorCollection = new List<string> {thisQuestion.Validator.NullErrorMessage};
+            var validationErrors = new Dictionary<string, ICollection<string>>
+            {
+                {promptAnswerViewModel.QuestionId, errorCollection}
+            };
+
+            var errorsPromptViewModel = new QuestionViewModel(questions, promptAnswerViewModel.CurrentIndex, validationErrors)
+            {
+                PupilDetails = new PupilViewModel(amendment.Pupil),
+                ShowConditional = thisQuestion.Answer.IsConditional
+            };
+            return errorsPromptViewModel;
+        }
+
+        private QuestionViewModel CreateNullableDateErrorPrompt(PromptAnswerViewModel promptAnswerViewModel,
+            Question thisQuestion, List<Question> questions, Amendment amendment)
+        {
+            ViewData.ModelState.AddModelError(promptAnswerViewModel.QuestionId, thisQuestion.Answer.Label);
+            ViewData["errorMessage1"] = thisQuestion.Answer.Label;
+            ViewData["errorType"] = "NoneSelected";
+
+            List<string> errorCollection = new List<string> {thisQuestion.Answer.Label};
+            var validationErrors = new Dictionary<string, ICollection<string>>
+            {
+                {promptAnswerViewModel.QuestionId, errorCollection}
+            };
+
+            var errorsPromptViewModel = new QuestionViewModel(questions, promptAnswerViewModel.CurrentIndex, validationErrors)
+            {
+                PupilDetails = new PupilViewModel(amendment.Pupil),
+                ShowConditional = thisQuestion.Answer.IsConditional
+            };
+            return errorsPromptViewModel;
         }
 
         public IActionResult Prompt(int currentIndex=0)
