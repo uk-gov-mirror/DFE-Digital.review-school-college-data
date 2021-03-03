@@ -45,7 +45,11 @@ console.log(reasonCode);
           this.showFields(removePupilForm, ['rscd_dateoffroll']);
           break;
     case 19: // Other  > sub reasons
-            this.showFields(removePupilForm,['rscd_subreason', 'rscd_reasondescription']);
+            var fieldsArray = ['rscd_subreason', 'rscd_reasondescription'];
+            if (removePupilForm.getControl('rscd_subreason').getAttribute().getValue().ToLowerCase().indexOf('elective home education') > -1){
+                fieldsArray.push('rcsd_details');
+            }
+            this.showFields(removePupilForm, fieldsArray);
             break;
         // case 330: // Other without evidence  
         //   break;
