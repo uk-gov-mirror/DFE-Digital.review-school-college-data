@@ -46,9 +46,13 @@ console.log(reasonCode);
           break;
     case 19: // Other  > sub reasons
             var fieldsArray = ['rscd_subreason', 'rscd_reasondescription'];
-            if (removePupilForm.getControl('rscd_subreason').getAttribute().getValue().ToLowerCase().indexOf('elective home education') > -1){
+            var subReasonValue = removePupilForm.getControl('rscd_subreason').getAttribute().getValue();
+            if (subReasonValue.toLowerCase().indexOf('elective home education') > -1){
                 fieldsArray.push('rcsd_details');
             }
+           if (subReasonValue.toLowerCase().indexOf('pupil missing in education') > -1){
+                fieldsArray.push('rscd_dateoffroll');
+           }
             this.showFields(removePupilForm, fieldsArray);
             break;
         // case 330: // Other without evidence  
@@ -65,4 +69,3 @@ console.log(reasonCode);
   });
   }
 }).call(Rscd);
-
