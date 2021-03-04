@@ -39,11 +39,15 @@
                 <input name="questionId" id="questionId" value="@currentQuestion.Id" type="hidden" />
                 <input name="currentIndex" id="currentIndex" value="@Model.CurrentQuestionIndex" type="hidden" />
                 <partial name="./Partial/_Control_@currentQuestion.QuestionType.ToString()" model="@currentQuestion" view-data='ViewData'/>
-                <div>
-                    <button name="Continue" value="true" class="govuk-button govuk-!-margin-right-1" data-module="govuk-button">
-                        Continue
-                    </button>
-                </div>
+                @if (currentQuestion.QuestionType != QuestionType.Evidence)
+                {
+                    // continue button for Evidence is in the partial so it can be toggled with the add more files button
+                    <div>
+                        <button name="Continue" value="true" class="govuk-button govuk-!-margin-right-1" data-module="govuk-button">
+                            Continue
+                        </button>
+                    </div>
+                }
             </div>
         </div>
     </div>

@@ -169,7 +169,7 @@ namespace Dfe.Rscd.Web.Application.Controllers
                 {
                     UploadEvidence(amendment);
                 }
-                else if(!Continue)
+                else if(!Continue && !Request.Form.ContainsKey("skipValidation"))
                 {
                     var errorUploadViewModel = CreateErrorUploadViewModel(promptAnswerViewModel, thisQuestion,
                         questions, amendment);
@@ -182,6 +182,7 @@ namespace Dfe.Rscd.Web.Application.Controllers
                     var uploadEvidenceViewModel = CreateUploadMoreViewModel(promptAnswerViewModel, questions,
                         amendment);
 
+                    ViewBag.HasAdded = !Request.Form.ContainsKey("skipValidation");
                     return View("Prompt", uploadEvidenceViewModel);
                 }
 
@@ -243,6 +244,7 @@ namespace Dfe.Rscd.Web.Application.Controllers
             };
 
             ViewBag.Upload = GetFiles();
+            ViewBag.HasAdded = !Request.Form.ContainsKey("skipValidation");
             return uploadEvidenceViewModel;
         }
 

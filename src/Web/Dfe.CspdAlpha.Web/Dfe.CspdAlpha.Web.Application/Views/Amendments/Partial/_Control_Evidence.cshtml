@@ -1,48 +1,97 @@
 @using Dfe.Rscd.Web.Application.Models.ViewModels
 @using Dfe.Rscd.Web.Infrastructure.Models
 @model Dfe.Rscd.Web.ApiClient.Question
-
-<div class="govuk-grid-row">
-<div class="govuk-grid-column-full">
-    <p>
-        @HtmlEncoder.Encode(Model.HelpTextHtml)
-    </p>
-</div>
-</div>
 @{
     // JON, I still need to do the remove file bit, but you can get going on the rest.
     // There are some validation on Evidence that you can implement in the controller and I can refactor it.
     // Check through Explain, Evidence and the Boolean partials for validation hooking up. Some missing, but in Model.
-}
-@{ var uploaded = ViewBag.Upload as FilesViewModel; }
-@if (uploaded != null)
-{
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-        <ul class="govuk-list govuk-!-font-size-16 " id="upload-file-list">
-            @foreach (var file in uploaded.Files)
-            {
-                <li>@file.FileName | remove-link </li>
-            }
-        </ul>
-    </div>
-</div>
+
+    var formGroupClasses = "govuk-form-group";
+    var errorMessage = string.Empty;
+    if (ViewData.ContainsKey("errorMessage") && ViewData["errorMessage"] != null)
+    {
+        formGroupClasses = string.Concat(formGroupClasses, " govuk-form-group--error");
+    }
+    var uploaded = ViewBag.Upload as FilesViewModel;
 }
 
 <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds" id="app-upload__files-container">
-        <div class="govuk-form-group app-upload__element">
-            <label class="govuk-label">
-                "Upload"
-            </label>
-            <input class="govuk-file-upload" type="file" name="evidence" id="evidence">
+    <div class="govuk-grid-column-full">
+        <h2 class="govuk-heading-s">Files you have uploaded</h2>
+        <details class="govuk-details" data-module="govuk-details">
+            <summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text">View file guidance</span>
+            </summary>
+            <div class="govuk-details__text">
+                <div class="app-unclassed-html">
+                    @Html.Raw(Model.HelpTextHtml)
+                </div>
+            </div>
+        </details>
+
+        <hr class="govuk-section-break govuk-section-break--visible"/>
+        <dl class="govuk-summary-list app-files-list">
+            @if (uploaded == null)
+            {
+                <div class="govuk-summary-list__row" id="row-zero">
+                    <dt class="govuk-summary-list__key">
+                        0 file uploaded
+                    </dt>
+                </div>
+            }
+            else
+            {
+                var count = 1;
+                @foreach (var file in uploaded.Files)
+                {
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            @count.ToString(). @file.FileName
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            <a class="govuk-link" href="#">
+                                Remove<span class="govuk-visually-hidden">@file.FileName</span>
+                            </a>
+                            @* OR <button class="app-link-button">@file.FileName</button> *@
+                        </dd>
+                    </div>
+                    count++;
+                }
+            }
+        </dl>
+    </div>
+</div>
+
+@if (ViewBag.HasAdded == true)
+{
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <p>
+                <button class="app-link-button" value="true" name="skipValidation">Upload another file</button>
+            </p>
+            <div class="govuk-form-group">
+                <button name="Continue" value="true" class="govuk-button govuk-!-margin-right-1" data-module="govuk-button">
+                    Continue
+                </button>
+            </div>
         </div>
     </div>
-    <div class="govuk-grid-column-two-thirds">
-        <input type="submit" class="govuk-button" data-module="govuk-button" value="Upload" id="upload-button-next" />
+}
+else
+{
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds" id="app-upload__files-container">
+            <div class="@formGroupClasses">
+                <label class="govuk-label">Upload a file</label>
+                @if (ViewData.ContainsKey("errorMessage") && ViewData["errorMessage"] != null)
+                {
+                    <span class="govuk-error-message">@ViewData["errorMessage"]</span>
+                }
+                <input class="govuk-file-upload" type="file" name="evidence" id="evidence">
+            </div>
+        </div>
+        <div class="govuk-grid-column-two-thirds">
+            <input type="submit" class="govuk-button" data-module="govuk-button" value="Upload" />
+        </div>
     </div>
-</div>
-
-@{
-    //<script webpack-src="submit-evidence"></script>
 }
