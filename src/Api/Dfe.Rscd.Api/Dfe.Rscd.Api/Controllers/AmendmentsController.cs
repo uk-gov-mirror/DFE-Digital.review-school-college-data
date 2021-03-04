@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using CsvHelper;
 using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Domain.Entities.Amendments;
-using Dfe.Rscd.Api.Domain.Entities.Questions;
 using Dfe.Rscd.Api.Models;
 using Dfe.Rscd.Api.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +13,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace Dfe.Rscd.Api.Controllers
 {
-    [Route("api/{checkingwindow}/[controller]")]
+    [Route("api/{checkingWindow}/[controller]")]
     [ApiController]
     public class AmendmentsController : ControllerBase
     {
@@ -42,9 +40,9 @@ namespace Dfe.Rscd.Api.Controllers
             [FromRoute] [SwaggerParameter("The id of the requested amendment", Required = true)]
             string id,
             [FromRoute] [SwaggerParameter("The checking window to request amendments from", Required = true)]
-            string checkingwindow)
+            CheckingWindow checkingWindow)
         {
-            var amendment = _amendmentService.GetAmendment(checkingwindow.ToDomainCheckingWindow(), id);
+            var amendment = _amendmentService.GetAmendment(checkingWindow, id);
 
             var response = new GetResponse<Amendment>
             {
@@ -68,10 +66,10 @@ namespace Dfe.Rscd.Api.Controllers
             [FromRoute] [SwaggerParameter("The URN of the school requesting amendments", Required = true)]
             string urn,
             [FromRoute] [SwaggerParameter("The checking window to request amendments from", Required = true)]
-            string checkingwindow)
+            CheckingWindow checkingWindow)
         {
             var amendments = _amendmentService
-                .GetAmendments(checkingwindow.ToDomainCheckingWindow(), urn)
+                .GetAmendments(checkingWindow, urn)
                 .ToList();
 
             var response = new GetResponse<List<Amendment>>
@@ -94,7 +92,8 @@ namespace Dfe.Rscd.Api.Controllers
         [ProducesResponseType(typeof(GetResponse<AmendmentOutcome>), 200)]
         [ProducesResponseType(400)]
         public IActionResult Post([FromBody] [SwaggerRequestBody("Amendment to add to CRM", Required = true)]
-            Amendment amendment)
+            Amendment amendment, [FromRoute] [SwaggerParameter("The checking window to request amendments from", Required = false)]
+            CheckingWindow checkingWindow)
         {
             try
             {
@@ -133,22 +132,22 @@ namespace Dfe.Rscd.Api.Controllers
 
         [HttpGet]
         [SwaggerOperation(
-            Summary = "Display a list of Inclusion adjustment reasons allowed for a certain pupil inclusion number",
-            Description = @"Displays a lists of a common reference data list Inclusion adjustment reasons",
+            Summary = "Display a list of amendment reasons allowed for a certain pupil inclusion number",
+            Description = @"Displays a lists of a common reference data list amendment reasons",
             OperationId = "GetAmendmentReasons",
             Tags = new[] { "Amendments" }
         )]
-        [Route("inclusion-reasons/pincl/{id}")]
+        [Route("amendment-reasons/{amendmentType}")]
         [ProducesResponseType(400)]
         [ProducesResponseType(typeof(GetResponse<IEnumerable<AmendmentReason>>), 200)]
-        public IActionResult GetAmendmentReasonsByPincl(
-            [FromRoute] [SwaggerParameter("The pupil inclusion identifier", Required = true)]
-            string id,
+        public IActionResult GetAmendmentReasons(
+            [FromRoute] [SwaggerParameter("The type of amendment", Required = true)]
+            AmendmentType amendmentType,
             [FromRoute] [SwaggerParameter("The checking window to request amendments from", Required = true)]
-            string checkingwindow
+            CheckingWindow checkingWindow
             )
         {
-            var list = _dataService.GetInclusionAdjustmentReasons(checkingwindow.ToDomainCheckingWindow(), id);
+            var list = _dataService.GetAmendmentReasons(checkingWindow, amendmentType);
             var response = new GetResponse<IEnumerable<AmendmentReason>>
             {
                 Result = list,
@@ -167,7 +166,8 @@ namespace Dfe.Rscd.Api.Controllers
         )]
         [ProducesResponseType(typeof(GetResponse<bool>), 200)]
         public IActionResult RelateEvidence(
-            [FromBody] [SwaggerRequestBody("Amendment to add to CRM", Required = true)] string amendmentId, string evidenceFolderName)
+            [FromBody] [SwaggerRequestBody("Amendment to add to CRM", Required = true)] string amendmentId, string evidenceFolderName, [FromRoute] [SwaggerParameter("The checking window to request amendments from", Required = false)]
+        CheckingWindow checkingWindow)
         {
             _amendmentService.RelateEvidence(amendmentId, evidenceFolderName, true);
 
@@ -189,7 +189,8 @@ namespace Dfe.Rscd.Api.Controllers
             Tags = new[] {"Amendments"})]
         [ProducesResponseType(typeof(GetResponse<bool>), 200)]
         public IActionResult Delete([FromRoute] [SwaggerParameter("The id of the amendment to cancel", Required = true)]
-            string id)
+            string id, [FromRoute] [SwaggerParameter("The checking window to request amendments from", Required = false)]
+            CheckingWindow checkingWindow)
         {
             var result = _amendmentService.CancelAmendment(id);
             var response = new GetResponse<bool>

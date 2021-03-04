@@ -1,7 +1,7 @@
 @using Dfe.Rscd.Web.ApiClient
 @model Dfe.Rscd.Web.Application.Models.ViewModels.RemovePupil.ReasonViewModel
 
-@foreach (var reason in Model.Reasons.OrderBy(x=>x.Order))
+@foreach (var reason in Model.Reasons)
 {
     <div class="govuk-radios__item">
         <input type="radio" asp-for="SelectedReasonCode" id="SelectedReason-@reason.ReasonId" value="@reason.ReasonId" class="govuk-radios__input" />

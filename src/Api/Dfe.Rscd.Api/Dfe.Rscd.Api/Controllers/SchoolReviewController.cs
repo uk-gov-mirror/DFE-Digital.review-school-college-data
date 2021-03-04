@@ -6,7 +6,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace Dfe.Rscd.Api.Controllers
 {
-    [Route("api/{checkingwindow}/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class SchoolReviewController : ControllerBase
     {
