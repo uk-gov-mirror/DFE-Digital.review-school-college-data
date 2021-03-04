@@ -40,7 +40,7 @@ namespace Dfe.Rscd.Web.ApiClient
 
             if (value != null && value.GetType() == typeof(JArray))
             {
-                JArray jsonResponse = (JArray)value;
+                var jsonResponse = (JArray) value;
                 var newList = new List<T>();
 
                 foreach (var item in jsonResponse)
@@ -52,18 +52,15 @@ namespace Dfe.Rscd.Web.ApiClient
                 return newList;
             }
 
-            return (List<T>)value;
+            return (List<T>) value;
         }
 
         public T GetField<T>(string name)
         {
-            var stringRep = string.Empty+GetField(name);
-            if (stringRep != string.Empty)
-            {
-                return Convert<T>(stringRep);
-            }
+            var stringRep = string.Empty + GetField(name);
+            if (stringRep != string.Empty) return Convert<T>(stringRep);
 
-            return default(T);
+            return default;
         }
 
         public static T Convert<T>(string input)
@@ -72,15 +69,13 @@ namespace Dfe.Rscd.Web.ApiClient
             {
                 var converter = TypeDescriptor.GetConverter(typeof(T));
                 if (converter != null)
-                {
                     // Cast ConvertFromString(string text) : object to (T)
-                    return (T)converter.ConvertFromString(input);
-                }
-                return default(T);
+                    return (T) converter.ConvertFromString(input);
+                return default;
             }
             catch (NotSupportedException)
             {
-                return default(T);
+                return default;
             }
         }
     }

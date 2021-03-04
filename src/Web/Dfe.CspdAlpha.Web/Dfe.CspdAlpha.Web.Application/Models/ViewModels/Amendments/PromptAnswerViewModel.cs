@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Dfe.Rscd.Web.ApiClient;
 using Microsoft.AspNetCore.Http;
@@ -34,6 +35,9 @@ namespace Dfe.Rscd.Web.Application.Models.ViewModels.Amendments
                     break;
                 case (QuestionType.Boolean):
                     answerAsString = fields["boolean"];
+                    break;
+                case (QuestionType.Explain):
+                    answerAsString = fields["explain"];
                     break;
             }
 

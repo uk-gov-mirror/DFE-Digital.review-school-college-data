@@ -15,18 +15,18 @@ namespace Dfe.Rscd.Web.UnitTests.Controllers
     {
         protected string SchoolUrn => "10345";
         protected string UserId => "987198729";
-        protected TestSession Session { get; } = new TestSession();
+        protected TestSession Session { get; } = new();
 
         protected ClaimsPrincipal GetClaimsPrincipal()
         {
-            var org = new Organisation()
+            var org = new Organisation
             {
                 urn = SchoolUrn
             };
-            var claims = new List<Claim>() 
-            { 
-                new Claim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier", UserId),
-                new Claim("organisation", JsonSerializer.Serialize(org))
+            var claims = new List<Claim>
+            {
+                new("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier", UserId),
+                new("organisation", JsonSerializer.Serialize(org))
             };
             var identity = new ClaimsIdentity(claims, "TestAuthType");
             var claimsPrincipal = new ClaimsPrincipal(identity);

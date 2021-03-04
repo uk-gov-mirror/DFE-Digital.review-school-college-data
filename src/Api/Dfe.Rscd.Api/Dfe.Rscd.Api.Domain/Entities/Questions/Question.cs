@@ -8,6 +8,7 @@ namespace Dfe.Rscd.Api.Domain.Entities.Questions
     {
         public string Id { get; set; }
         public string Title { get; set; }
+        public string HelpTextHtml { get; set; }
         public QuestionType QuestionType { get; set; }
         public bool IsValid()
         {

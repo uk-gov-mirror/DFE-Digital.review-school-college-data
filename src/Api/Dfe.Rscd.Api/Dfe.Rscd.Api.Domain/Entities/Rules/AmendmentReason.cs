@@ -15,6 +15,7 @@
     {
         AdmittedFromAbroadWithEnglishNotFirstLanguageCode = 8,
         AdmittedFollowingPermanentExclusion = 10,
-        Deceased = 12
+        Deceased = 12,
+        PermanentlyLeftEngland = 11
     }
 }

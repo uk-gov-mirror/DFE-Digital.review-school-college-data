@@ -1,6 +1,5 @@
 ﻿using Dfe.Rscd.Web.Application.Models.ViewModels.RemovePupil;
 using Dfe.Rscd.Web.Application.Validators.RemovePupil;
-using Microsoft.AspNetCore.Http;
 using Xunit;
 
 namespace Dfe.Rscd.Web.UnitTests.Application.Validators
@@ -200,7 +199,7 @@ namespace Dfe.Rscd.Web.UnitTests.Application.Validators
             // Assert
             Assert.True(result.IsValid);
         }
-        
+
         [Theory]
         [InlineData("ks5")]
         [InlineData("ks4-june")]
@@ -222,7 +221,5 @@ namespace Dfe.Rscd.Web.UnitTests.Application.Validators
             // Assert
             Assert.False(result.IsValid);
         }
-
-
     }
 }

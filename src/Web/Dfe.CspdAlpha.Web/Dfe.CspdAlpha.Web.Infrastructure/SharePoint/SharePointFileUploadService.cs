@@ -156,7 +156,8 @@ namespace Dfe.Rscd.Web.Infrastructure.SharePoint
             {
                 FileId = uploadFile.UniqueId,
                 FileName = filename,
-                FileSizeInBytes = uploadFile.Length
+                FileSizeInBytes = uploadFile.Length,
+                FolderName = folderName
             };
         }
     }

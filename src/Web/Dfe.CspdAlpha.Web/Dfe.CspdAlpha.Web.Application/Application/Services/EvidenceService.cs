@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Dfe.Rscd.Web.Application.Application.Interfaces;
 using Dfe.Rscd.Web.Infrastructure.Interfaces;
+using Dfe.Rscd.Web.Infrastructure.Models;
 using Microsoft.AspNetCore.Http;
 
 namespace Dfe.Rscd.Web.Application.Application.Services
@@ -15,28 +16,20 @@ namespace Dfe.Rscd.Web.Application.Application.Services
             _fileUploadService = fileUploadService;
         }
 
-        public string UploadEvidence(IEnumerable<IFormFile> files)
+        public FileUploadResult UploadEvidence(IFormFile file)
         {
             var now = DateTime.UtcNow;
             var folderName = $"{now:yyyy-MM-dd-HH-mm-ss}-{Guid.NewGuid()}";
-            var validFileReceived = false;
 
-            foreach (var file in files)
+            return UploadEvidence(folderName, file);
+        }
+
+        public FileUploadResult UploadEvidence(string folderName, IFormFile file)
+        {
+            using (var fs = file.OpenReadStream())
             {
-                if (file.Length == 0)
-                {
-                    continue;
-                }
-
-                validFileReceived = true;
-
-                using (var fs = file.OpenReadStream())
-                {
-                    _fileUploadService.UploadFile(fs, file.FileName, file.ContentType, folderName);
-                }
+                return _fileUploadService.UploadFile(fs, file.FileName, file.ContentType, folderName);
             }
-
-            return validFileReceived ? folderName : null;
         }
 
         public void RelateEvidence(Guid amendmentId, string evidenceFolderName)

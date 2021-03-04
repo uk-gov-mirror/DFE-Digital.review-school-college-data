@@ -7,6 +7,8 @@ namespace Dfe.Rscd.Api.Domain.Entities.Questions
         Number,
         String,
         Boolean,
-        NullableDate
+        NullableDate,
+        Evidence,
+        Explain
     }
 }

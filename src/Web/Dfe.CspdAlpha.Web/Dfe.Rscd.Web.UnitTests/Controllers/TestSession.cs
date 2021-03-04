@@ -16,12 +16,12 @@ namespace Dfe.Rscd.Web.UnitTests.Controllers
             _session.Clear();
         }
 
-        public Task CommitAsync(CancellationToken cancellationToken = new CancellationToken())
+        public Task CommitAsync(CancellationToken cancellationToken = new())
         {
             throw new NotImplementedException();
         }
 
-        public Task LoadAsync(CancellationToken cancellationToken = new CancellationToken())
+        public Task LoadAsync(CancellationToken cancellationToken = new())
         {
             throw new NotImplementedException();
         }
@@ -33,7 +33,7 @@ namespace Dfe.Rscd.Web.UnitTests.Controllers
 
         public void Set(string key, byte[] value)
         {
-            if(!_session.ContainsKey(key))
+            if (!_session.ContainsKey(key))
                 _session.Add(key, value);
             _session[key] = value;
         }

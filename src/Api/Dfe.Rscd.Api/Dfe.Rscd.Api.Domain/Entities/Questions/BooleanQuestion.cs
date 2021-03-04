@@ -6,7 +6,7 @@ namespace Dfe.Rscd.Api.Domain.Entities.Questions
 {
     public class BooleanQuestion : Question
     {
-        public BooleanQuestion(string id, string title, string label, Validator validator)
+        public BooleanQuestion(string id, string title, string label, string yesText, string noText, Validator validator)
         {
             Title = title;
             Id = id;
@@ -19,12 +19,12 @@ namespace Dfe.Rscd.Api.Domain.Entities.Questions
                 {
                     new AnswerPotential
                     {
-                        Description = "Yes",
+                        Description = yesText,
                         Value = "1"
                     },
                     new AnswerPotential
                     {
-                        Description = "No",
+                        Description = noText,
                         Value = "0"
                     }
                 },

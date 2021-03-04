@@ -9,5 +9,7 @@ namespace Dfe.Rscd.Web.Infrastructure.Models
         public long FileSizeInBytes { get; internal set; }
 
         public string FileName { get; internal set; }
+        
+        public string FolderName { get; internal set; }
     }
 }
