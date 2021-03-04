@@ -43,7 +43,7 @@ namespace Dfe.Rscd.Web.Application.Controllers
                 });
             }
 
-             HttpContext.Session.Set(FILE_LIST, files);
+            HttpContext.Session.Set(FILE_LIST, files);
         }
 
         protected List<Question> GetQuestions()
@@ -68,12 +68,6 @@ namespace Dfe.Rscd.Web.Application.Controllers
             return ClaimsHelper.GetURN(User);
         }
 
-        protected void ClearAll()
-        {
-            ClearTaskList();
-            ClearAmendment();
-        }
-
         protected void ClearAmendmentAndRelated()
         {
             ClearAmendment();
@@ -87,6 +81,7 @@ namespace Dfe.Rscd.Web.Application.Controllers
         protected void ClearAmendment()
         {
             HttpContext.Session.Remove(AMENDMENT_SESSION_KEY);
+            HttpContext.Session.Remove(FILE_LIST);
         }
 
         protected void ClearTaskList()

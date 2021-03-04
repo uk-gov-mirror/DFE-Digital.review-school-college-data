@@ -18,7 +18,7 @@ namespace Dfe.Rscd.Web.Application.Application.Services
         public AmendmentsListViewModel GetAmendmentsListViewModel(string urn)
         {
             var amendments = _apiClient
-                .GetAmendmentsAsync(urn, CheckingWindowUrl)
+                .GetAmendmentsAsync(urn, CheckingWindow)
                 .GetAwaiter()
                 .GetResult();
 
@@ -45,14 +45,14 @@ namespace Dfe.Rscd.Web.Application.Application.Services
 
         public AmendmentOutcome CreateAmendment(Amendment amendment)
         {
-            var result = _apiClient.Create_AmendmentAsync(CheckingWindowUrl, amendment).GetAwaiter().GetResult();
+            var result = _apiClient.Create_AmendmentAsync(CheckingWindow, amendment).GetAwaiter().GetResult();
 
             return result.Result;
         }
 
         public Amendment GetAmendment(string id)
         {
-            var response = _apiClient.GetAmendmentAsync(id, CheckingWindowUrl).GetAwaiter().GetResult();
+            var response = _apiClient.GetAmendmentAsync(id, CheckingWindow).GetAwaiter().GetResult();
             var apiAmendment = response.Result;
 
             return apiAmendment;
@@ -60,13 +60,13 @@ namespace Dfe.Rscd.Web.Application.Application.Services
 
         public bool CancelAmendment(string id)
         {
-            return _apiClient.CancelAmendmentAsync(id, CheckingWindowUrl).GetAwaiter().GetResult().Result;
+            return _apiClient.CancelAmendmentAsync(id, CheckingWindow).GetAwaiter().GetResult().Result;
         }
 
         public bool RelateEvidence(string amendmentId, string evidenceFolder)
         {
             return _apiClient
-                .RelateEvidenceAsync(evidenceFolder, CheckingWindowUrl,amendmentId) 
+                .RelateEvidenceAsync(evidenceFolder, CheckingWindow,amendmentId)
                 .GetAwaiter()
                 .GetResult().Result;
         }

@@ -125,7 +125,7 @@ namespace Dfe.Rscd.Web.Application.Application.Services
         }
         private ApiClient.School GetEstablishmentData(string urn)
         {
-            var school = _apiClient.GetEstablishmentByURNAsync(urn, CheckingWindowUrl).GetAwaiter().GetResult();
+            var school = _apiClient.GetEstablishmentByURNAsync(urn, CheckingWindow).GetAwaiter().GetResult();
             if (string.IsNullOrWhiteSpace(school.Error.ErrorMessage))
             {
                 return school.Result;
@@ -147,7 +147,7 @@ namespace Dfe.Rscd.Web.Application.Application.Services
 
         public string GetSchoolName(string laestab)
         {
-            var school = _apiClient.SearchTEstablishmentsAsync(laestab, CheckingWindowUrl).GetAwaiter().GetResult();
+            var school = _apiClient.SearchTEstablishmentsAsync(laestab, CheckingWindow).GetAwaiter().GetResult();
             return school != null ? school.Result.SchoolName : string.Empty;
         }
     }

@@ -9,7 +9,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace Dfe.Rscd.Api.Controllers
 {
-    [Route("api/{checkingwindow}/[controller]")]
+    [Route("api/{checkingWindow}/[controller]")]
     [ApiController]
     public class EstablishmentsController : ControllerBase
     {
@@ -33,11 +33,9 @@ namespace Dfe.Rscd.Api.Controllers
             [FromRoute] [SwaggerParameter("The URN of the school requesting amendments", Required = true)]
             string urn,
             [FromRoute] [SwaggerParameter("The checking window to request amendments from", Required = true)]
-            string checkingwindow)
+            CheckingWindow checkingWindow)
         {
             var urnValue = new URN(urn);
-            Enum.TryParse(checkingwindow.Replace("-", string.Empty), true,
-                out CheckingWindow checkingWindow);
             var establishmentData = _establishmentService.GetByURN(checkingWindow, urnValue);
             var response = new GetResponse<School>
             {
@@ -61,13 +59,10 @@ namespace Dfe.Rscd.Api.Controllers
             [FromQuery] [SwaggerParameter("Event search criteria.", Required = true)]
             EstablishmentsSearchRequest request,
             [FromRoute] [SwaggerParameter("The checking window to request amendments from", Required = true)]
-            string checkingwindow)
+            CheckingWindow checkingWindow)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            CheckingWindow checkingWindow;
-            Enum.TryParse(checkingwindow.Replace("-", string.Empty), true,
-                out checkingWindow);
             var establishmentData = _establishmentService.GetByDFESNumber(checkingWindow, request.DFESNumber);
             var response = new GetResponse<School>
             {

@@ -11,7 +11,7 @@ namespace Dfe.Rscd.Api.Services
         IList<AwardingBody> GetAwardingBodies();
         IList<Ethnicity> GetEthnicities();
         IList<FirstLanguage> GetLanguages();
-        IList<AmendmentReason> GetInclusionAdjustmentReasons(CheckingWindow checkingWindow, string pinclId = "");
+        IList<AmendmentReason> GetAmendmentReasons(CheckingWindow checkingWindow, AmendmentType amendmentType);
         IList<AnswerPotential> GetAnswerPotentials(string questionId);
         IList<PInclude> GetPINCLs();
         IList<SpecialEducationNeed> GetSENStatus();

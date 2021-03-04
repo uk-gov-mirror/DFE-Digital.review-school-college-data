@@ -63,48 +63,24 @@ namespace Dfe.Rscd.Api.Services
                 .ToList();
         }
 
-        public IList<AmendmentReason> GetInclusionAdjustmentReasons(CheckingWindow checkingWindow, string pinclId = "")
+        public IList<AmendmentReason> GetAmendmentReasons(CheckingWindow checkingWindow, AmendmentType amendmentType)
         {
-            IQueryable<AmendmentReason> reasons;
-
-            if (pinclId != string.Empty)
+            return new List<AmendmentReason>
             {
-                reasons = _repository.Get<DTO.PinclinclusionAdjustment>()
-                    .Where(x => x.PIncl == pinclId)
-                    .Select(x => x.IncAdjReason)
-                    .Select(x => new AmendmentReason
-                    {
-                        ReasonId = x.IncAdjReasonId,
-                        CanCancel = x.CanCancel,
-                        InJune = x.InJuneChecking,
-                        Description = x.IncAdjReasonDescription,
-                        IsInclusion = x.IsInclusion,
-                        IsNew = x.IsNewStudentReason,
-                        Order = x.ListOrder
-                    }).OrderBy(x => x.Order);
-            }
-            else
-            {
-                reasons = _repository
-                    .Get<DTO.InclusionAdjustmentReason>()
-                    .Select(x => new AmendmentReason
-                    {
-                        ReasonId = x.IncAdjReasonId,
-                        CanCancel = x.CanCancel,
-                        InJune = x.InJuneChecking,
-                        Description = x.IncAdjReasonDescription,
-                        IsInclusion = x.IsInclusion,
-                        IsNew = x.IsNewStudentReason,
-                        Order = x.ListOrder
-                    });
-            }
-
-            if (checkingWindow == CheckingWindow.KS4June)
-            {
-                reasons = reasons.Where(x => x.InJune);
-            }
-
-            return reasons.ToList();
+                new AmendmentReason{Description ="Admitted following permanent exclusion from a maintained school", ReasonId = 10, AmendmentType = AmendmentType.RemovePupil},
+                new AmendmentReason{Description ="Admitted from abroad with English not first language", ReasonId = 8, AmendmentType = AmendmentType.RemovePupil},
+                new AmendmentReason{Description ="Deceased", ReasonId = 12, AmendmentType = AmendmentType.RemovePupil},
+                new AmendmentReason{Description ="Permanently left England", ReasonId = 11, AmendmentType = AmendmentType.RemovePupil},
+                new AmendmentReason{Description ="Other", ReasonId = 19, AmendmentType = AmendmentType.RemovePupil},
+                new AmendmentReason{Description ="Other - EAL exceptional circumstances", ReasonId = 1901, ParentReasonId = 19, AmendmentType = AmendmentType.RemovePupil},
+                new AmendmentReason{Description ="Other - Elective home education", ReasonId = 1902, ParentReasonId = 19, AmendmentType = AmendmentType.RemovePupil},
+                new AmendmentReason{Description ="Other - In prison/remand centre/secure unit", ReasonId = 1903, ParentReasonId = 19, AmendmentType = AmendmentType.RemovePupil},
+                new AmendmentReason{Description ="Other - Permanently excluded from this school", ReasonId = 1904, ParentReasonId = 19, AmendmentType = AmendmentType.RemovePupil},
+                new AmendmentReason{Description ="Other - Police involvement/bail restrictions", ReasonId = 1905, ParentReasonId = 19, AmendmentType = AmendmentType.RemovePupil},
+                new AmendmentReason{Description ="Other - Pupil missing in education", ReasonId = 1906, ParentReasonId = 19, AmendmentType = AmendmentType.RemovePupil},
+                new AmendmentReason{Description ="Other - Safeguarding/FAP", ReasonId = 1907, ParentReasonId = 19, AmendmentType = AmendmentType.RemovePupil},
+                new AmendmentReason{Description ="Other - Terminal/Long illness", ReasonId = 1908, ParentReasonId = 19, AmendmentType = AmendmentType.RemovePupil}
+            }.Where(x => x.AmendmentType == amendmentType).ToList();
         }
 
         public IList<AnswerPotential> GetAnswerPotentials(string questionId)

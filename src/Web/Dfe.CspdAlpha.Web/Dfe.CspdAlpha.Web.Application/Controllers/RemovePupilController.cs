@@ -143,7 +143,9 @@ namespace Dfe.Rscd.Web.Application.Controllers
             }
 
             var amendmentDetail = amendment.AmendmentDetail;
-            var reasons = _pupilService.GetAmendmentReasons(amendment.Pupil.Pincl.Code);
+            var reasons = _pupilService
+                .GetAmendmentReasons(AmendmentType.RemovePupil)
+                .Where(x=>x.ParentReasonId == 0);
 
             return View(new ReasonViewModel
             {
@@ -173,46 +175,6 @@ namespace Dfe.Rscd.Web.Application.Controllers
                 return RedirectToAction("Prompt", "Amendments");
             }
             return View(new ReasonViewModel { PupilDetails = new PupilViewModel(amendment.Pupil) });
-        }
-
-        public IActionResult Details()
-        {
-            var amendment = GetAmendment();
-            if (amendment == null)
-            {
-                return RedirectToAction("Index");
-            }
-
-            var amendmentDetail = amendment.AmendmentDetail;
-            return View(new DetailsViewModel
-            {
-                PupilDetails = new PupilViewModel(amendment.Pupil),
-                AmendmentDetails = amendmentDetail.GetField<string>(Constants.RemovePupil.FIELD_UserProvidedDetails)
-            });
-        }
-
-        [HttpPost]
-        public IActionResult Details(DetailsViewModel viewModel)
-        {
-            var amendment = GetAmendment();
-            var amendmentDetail = amendment.AmendmentDetail;
-
-            if (ModelState.IsValid)
-            {
-                amendmentDetail.AddField(Constants.RemovePupil.FIELD_UserProvidedDetails, viewModel.AmendmentDetails);
-
-                SaveAmendment(amendment);
-
-                if (amendment.EvidenceStatus == EvidenceStatus.Now)
-                {
-                    return RedirectToAction("Upload", "Evidence");
-                }
-
-                return RedirectToAction("Confirm","Amendments");
-            }
-
-            viewModel.PupilDetails = new PupilViewModel(amendment.Pupil);
-            return View(viewModel);
         }
     }
 }
