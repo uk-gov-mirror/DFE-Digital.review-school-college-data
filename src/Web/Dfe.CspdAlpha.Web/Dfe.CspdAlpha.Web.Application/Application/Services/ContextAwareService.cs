@@ -7,7 +7,5 @@ namespace Dfe.Rscd.Web.Application.Application.Services
     {
         protected CheckingWindow CheckingWindow =>
             CheckingWindowHelper.GetCheckingWindow(Context.Current.Request.RouteValues);
-
-        protected string CheckingWindowUrl => CheckingWindowHelper.GetCheckingWindowURL(CheckingWindow);
     }
 }

@@ -20,87 +20,93 @@ namespace Dfe.Rscd.Web.ApiClient
     {
         /// <summary>Returns the requested amendment</summary>
         /// <param name="id">The id of the requested amendment</param>
-        /// <param name="checkingwindow">The checking window to request amendments from</param>
+        /// <param name="checkingWindow">The checking window to request amendments from</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<AmendmentGetResponse> GetAmendmentAsync(string id, string checkingwindow);
+        System.Threading.Tasks.Task<AmendmentGetResponse> GetAmendmentAsync(string id, CheckingWindow checkingWindow);
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Returns the requested amendment</summary>
         /// <param name="id">The id of the requested amendment</param>
-        /// <param name="checkingwindow">The checking window to request amendments from</param>
+        /// <param name="checkingWindow">The checking window to request amendments from</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<AmendmentGetResponse> GetAmendmentAsync(string id, string checkingwindow, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<AmendmentGetResponse> GetAmendmentAsync(string id, CheckingWindow checkingWindow, System.Threading.CancellationToken cancellationToken);
     
         /// <summary>Searches for amendments by school or college</summary>
         /// <param name="urn">The URN of the school requesting amendments</param>
-        /// <param name="checkingwindow">The checking window to request amendments from</param>
+        /// <param name="checkingWindow">The checking window to request amendments from</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<AmendmentListGetResponse> GetAmendmentsAsync(string urn, string checkingwindow);
+        System.Threading.Tasks.Task<AmendmentListGetResponse> GetAmendmentsAsync(string urn, CheckingWindow checkingWindow);
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Searches for amendments by school or college</summary>
         /// <param name="urn">The URN of the school requesting amendments</param>
-        /// <param name="checkingwindow">The checking window to request amendments from</param>
+        /// <param name="checkingWindow">The checking window to request amendments from</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<AmendmentListGetResponse> GetAmendmentsAsync(string urn, string checkingwindow, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<AmendmentListGetResponse> GetAmendmentsAsync(string urn, CheckingWindow checkingWindow, System.Threading.CancellationToken cancellationToken);
     
         /// <summary>Creates an amendment</summary>
+        /// <param name="checkingWindow">The checking window to request amendments from</param>
         /// <param name="body">Amendment to add to CRM</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<AmendmentOutcomeGetResponse> Create_AmendmentAsync(string checkingwindow, Amendment body);
+        System.Threading.Tasks.Task<AmendmentOutcomeGetResponse> Create_AmendmentAsync(CheckingWindow? checkingWindow, Amendment body);
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Creates an amendment</summary>
+        /// <param name="checkingWindow">The checking window to request amendments from</param>
         /// <param name="body">Amendment to add to CRM</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<AmendmentOutcomeGetResponse> Create_AmendmentAsync(string checkingwindow, Amendment body, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<AmendmentOutcomeGetResponse> Create_AmendmentAsync(CheckingWindow? checkingWindow, Amendment body, System.Threading.CancellationToken cancellationToken);
     
-        /// <summary>Display a list of Inclusion adjustment reasons allowed for a certain pupil inclusion number</summary>
-        /// <param name="id">The pupil inclusion identifier</param>
-        /// <param name="checkingwindow">The checking window to request amendments from</param>
+        /// <summary>Display a list of amendment reasons allowed for a certain pupil inclusion number</summary>
+        /// <param name="amendmentType">The type of amendment</param>
+        /// <param name="checkingWindow">The checking window to request amendments from</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<AmendmentReasonIEnumerableGetResponse> GetAmendmentReasonsAsync(string id, string checkingwindow);
+        System.Threading.Tasks.Task<AmendmentReasonIEnumerableGetResponse> GetAmendmentReasonsAsync(AmendmentType amendmentType, CheckingWindow checkingWindow);
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>Display a list of Inclusion adjustment reasons allowed for a certain pupil inclusion number</summary>
-        /// <param name="id">The pupil inclusion identifier</param>
-        /// <param name="checkingwindow">The checking window to request amendments from</param>
+        /// <summary>Display a list of amendment reasons allowed for a certain pupil inclusion number</summary>
+        /// <param name="amendmentType">The type of amendment</param>
+        /// <param name="checkingWindow">The checking window to request amendments from</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<AmendmentReasonIEnumerableGetResponse> GetAmendmentReasonsAsync(string id, string checkingwindow, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<AmendmentReasonIEnumerableGetResponse> GetAmendmentReasonsAsync(AmendmentType amendmentType, CheckingWindow checkingWindow, System.Threading.CancellationToken cancellationToken);
     
         /// <summary>Relates evidence to an amendment</summary>
+        /// <param name="checkingWindow">The checking window to request amendments from</param>
         /// <param name="body">Amendment to add to CRM</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<BooleanGetResponse> RelateEvidenceAsync(string evidenceFolderName, string checkingwindow, string body);
+        System.Threading.Tasks.Task<BooleanGetResponse> RelateEvidenceAsync(string evidenceFolderName, CheckingWindow? checkingWindow, string body);
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Relates evidence to an amendment</summary>
+        /// <param name="checkingWindow">The checking window to request amendments from</param>
         /// <param name="body">Amendment to add to CRM</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<BooleanGetResponse> RelateEvidenceAsync(string evidenceFolderName, string checkingwindow, string body, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<BooleanGetResponse> RelateEvidenceAsync(string evidenceFolderName, CheckingWindow? checkingWindow, string body, System.Threading.CancellationToken cancellationToken);
     
         /// <summary>Cancel an amendment</summary>
         /// <param name="id">The id of the amendment to cancel</param>
+        /// <param name="checkingWindow">The checking window to request amendments from</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<BooleanGetResponse> CancelAmendmentAsync(string id, string checkingwindow);
+        System.Threading.Tasks.Task<BooleanGetResponse> CancelAmendmentAsync(string id, CheckingWindow? checkingWindow);
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Cancel an amendment</summary>
         /// <param name="id">The id of the amendment to cancel</param>
+        /// <param name="checkingWindow">The checking window to request amendments from</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<BooleanGetResponse> CancelAmendmentAsync(string id, string checkingwindow, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<BooleanGetResponse> CancelAmendmentAsync(string id, CheckingWindow? checkingWindow, System.Threading.CancellationToken cancellationToken);
     
         /// <summary>Generates CSV file of all recorded accepted amendments</summary>
         /// <returns>Success</returns>
@@ -115,59 +121,59 @@ namespace Dfe.Rscd.Web.ApiClient
     
         /// <summary>Searches for a school</summary>
         /// <param name="urn">The URN of the school requesting amendments</param>
-        /// <param name="checkingwindow">The checking window to request amendments from</param>
+        /// <param name="checkingWindow">The checking window to request amendments from</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<SchoolGetResponse> GetEstablishmentByURNAsync(string urn, string checkingwindow);
+        System.Threading.Tasks.Task<SchoolGetResponse> GetEstablishmentByURNAsync(string urn, CheckingWindow checkingWindow);
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Searches for a school</summary>
         /// <param name="urn">The URN of the school requesting amendments</param>
-        /// <param name="checkingwindow">The checking window to request amendments from</param>
+        /// <param name="checkingWindow">The checking window to request amendments from</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<SchoolGetResponse> GetEstablishmentByURNAsync(string urn, string checkingwindow, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<SchoolGetResponse> GetEstablishmentByURNAsync(string urn, CheckingWindow checkingWindow, System.Threading.CancellationToken cancellationToken);
     
         /// <summary>Searches for schools or colleges.</summary>
-        /// <param name="checkingwindow">The checking window to request amendments from</param>
+        /// <param name="checkingWindow">The checking window to request amendments from</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<SchoolGetResponse> SearchTEstablishmentsAsync(string dFESNumber, string checkingwindow);
+        System.Threading.Tasks.Task<SchoolGetResponse> SearchTEstablishmentsAsync(string dFESNumber, CheckingWindow checkingWindow);
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Searches for schools or colleges.</summary>
-        /// <param name="checkingwindow">The checking window to request amendments from</param>
+        /// <param name="checkingWindow">The checking window to request amendments from</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<SchoolGetResponse> SearchTEstablishmentsAsync(string dFESNumber, string checkingwindow, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<SchoolGetResponse> SearchTEstablishmentsAsync(string dFESNumber, CheckingWindow checkingWindow, System.Threading.CancellationToken cancellationToken);
     
         /// <summary>Searches for a pupil</summary>
         /// <param name="id">The id of the pupil requesting amendments</param>
-        /// <param name="checkingwindow">The checking window to request pupil from</param>
+        /// <param name="checkingWindow">The checking window to request pupil from</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<PupilGetResponse> GetPupilByIdAsync(string id, string checkingwindow);
+        System.Threading.Tasks.Task<PupilGetResponse> GetPupilByIdAsync(string id, CheckingWindow checkingWindow);
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Searches for a pupil</summary>
         /// <param name="id">The id of the pupil requesting amendments</param>
-        /// <param name="checkingwindow">The checking window to request pupil from</param>
+        /// <param name="checkingWindow">The checking window to request pupil from</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<PupilGetResponse> GetPupilByIdAsync(string id, string checkingwindow, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<PupilGetResponse> GetPupilByIdAsync(string id, CheckingWindow checkingWindow, System.Threading.CancellationToken cancellationToken);
     
         /// <summary>Searches for a pupil or pupils.</summary>
-        /// <param name="checkingwindow">The checking window to request pupil or pupils from</param>
+        /// <param name="checkingWindow">The checking window to request pupil or pupils from</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<PupilRecordIEnumerableGetResponse> SearchPupilsAsync(string uRN, string name, string iD, string checkingwindow);
+        System.Threading.Tasks.Task<PupilRecordIEnumerableGetResponse> SearchPupilsAsync(string uRN, string name, string iD, CheckingWindow checkingWindow);
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Searches for a pupil or pupils.</summary>
-        /// <param name="checkingwindow">The checking window to request pupil or pupils from</param>
+        /// <param name="checkingWindow">The checking window to request pupil or pupils from</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<PupilRecordIEnumerableGetResponse> SearchPupilsAsync(string uRN, string name, string iD, string checkingwindow, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<PupilRecordIEnumerableGetResponse> SearchPupilsAsync(string uRN, string name, string iD, CheckingWindow checkingWindow, System.Threading.CancellationToken cancellationToken);
     
         /// <summary>Display a list of Amend codes</summary>
         /// <returns>Success</returns>
@@ -251,7 +257,7 @@ namespace Dfe.Rscd.Web.ApiClient
         /// <param name="urn">The urn of the school requesting the school review record</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ConfirmationRecordGetResponse> GetSchoolReviewRecordAsync(string userid, string urn, string checkingwindow);
+        System.Threading.Tasks.Task<ConfirmationRecordGetResponse> GetSchoolReviewRecordAsync(string userid, string urn);
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Returns the requested school review record</summary>
@@ -259,60 +265,32 @@ namespace Dfe.Rscd.Web.ApiClient
         /// <param name="urn">The urn of the school requesting the school review record</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ConfirmationRecordGetResponse> GetSchoolReviewRecordAsync(string userid, string urn, string checkingwindow, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<ConfirmationRecordGetResponse> GetSchoolReviewRecordAsync(string userid, string urn, System.Threading.CancellationToken cancellationToken);
     
         /// <summary>Creates the requested school review record</summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<BooleanGetResponse> CreateSchoolReviewRecordAsync(string checkingwindow, ConfirmationRecord body);
+        System.Threading.Tasks.Task<BooleanGetResponse> CreateSchoolReviewRecordAsync(ConfirmationRecord body);
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Creates the requested school review record</summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<BooleanGetResponse> CreateSchoolReviewRecordAsync(string checkingwindow, ConfirmationRecord body, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<BooleanGetResponse> CreateSchoolReviewRecordAsync(ConfirmationRecord body, System.Threading.CancellationToken cancellationToken);
     
         /// <summary>Updates the requested school review record</summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<BooleanGetResponse> UpdateSchoolReviewRecordAsync(string checkingwindow, ConfirmationRecord body);
+        System.Threading.Tasks.Task<BooleanGetResponse> UpdateSchoolReviewRecordAsync(ConfirmationRecord body);
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Updates the requested school review record</summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<BooleanGetResponse> UpdateSchoolReviewRecordAsync(string checkingwindow, ConfirmationRecord body, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<BooleanGetResponse> UpdateSchoolReviewRecordAsync(ConfirmationRecord body, System.Threading.CancellationToken cancellationToken);
     
     }
 
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.3.8.0 (Newtonsoft.Json v12.0.0.0)")]
-    public enum AmendmentType
-    {
-        [System.Runtime.Serialization.EnumMember(Value = @"AddPupil")]
-        AddPupil = 0,
-    
-        [System.Runtime.Serialization.EnumMember(Value = @"RemovePupil")]
-        RemovePupil = 1,
-    
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.3.8.0 (Newtonsoft.Json v12.0.0.0)")]
-    public enum EvidenceStatus
-    {
-        [System.Runtime.Serialization.EnumMember(Value = @"Unknown")]
-        Unknown = 0,
-    
-        [System.Runtime.Serialization.EnumMember(Value = @"Now")]
-        Now = 1,
-    
-        [System.Runtime.Serialization.EnumMember(Value = @"Later")]
-        Later = 2,
-    
-        [System.Runtime.Serialization.EnumMember(Value = @"NotRequired")]
-        NotRequired = 3,
-    
-    }
-    
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.3.8.0 (Newtonsoft.Json v12.0.0.0)")]
     public enum CheckingWindow
     {
@@ -339,6 +317,34 @@ namespace Dfe.Rscd.Web.ApiClient
     
         [System.Runtime.Serialization.EnumMember(Value = @"KS5Errata")]
         KS5Errata = 7,
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.3.8.0 (Newtonsoft.Json v12.0.0.0)")]
+    public enum AmendmentType
+    {
+        [System.Runtime.Serialization.EnumMember(Value = @"AddPupil")]
+        AddPupil = 0,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"RemovePupil")]
+        RemovePupil = 1,
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.3.8.0 (Newtonsoft.Json v12.0.0.0)")]
+    public enum EvidenceStatus
+    {
+        [System.Runtime.Serialization.EnumMember(Value = @"Unknown")]
+        Unknown = 0,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"Now")]
+        Now = 1,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"Later")]
+        Later = 2,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"NotRequired")]
+        NotRequired = 3,
     
     }
     
@@ -777,26 +783,29 @@ namespace Dfe.Rscd.Web.ApiClient
         [System.Runtime.Serialization.EnumMember(Value = @"Select")]
         Select = 0,
     
+        [System.Runtime.Serialization.EnumMember(Value = @"Choice")]
+        Choice = 1,
+    
         [System.Runtime.Serialization.EnumMember(Value = @"DateTime")]
-        DateTime = 1,
+        DateTime = 2,
     
         [System.Runtime.Serialization.EnumMember(Value = @"Number")]
-        Number = 2,
+        Number = 3,
     
         [System.Runtime.Serialization.EnumMember(Value = @"String")]
-        String = 3,
+        String = 4,
     
         [System.Runtime.Serialization.EnumMember(Value = @"Boolean")]
-        Boolean = 4,
+        Boolean = 5,
     
         [System.Runtime.Serialization.EnumMember(Value = @"NullableDate")]
-        NullableDate = 5,
+        NullableDate = 6,
     
         [System.Runtime.Serialization.EnumMember(Value = @"Evidence")]
-        Evidence = 6,
+        Evidence = 7,
     
         [System.Runtime.Serialization.EnumMember(Value = @"Explain")]
-        Explain = 7,
+        Explain = 8,
     
     }
     
@@ -1051,20 +1060,12 @@ namespace Dfe.Rscd.Web.ApiClient
         [Newtonsoft.Json.JsonProperty("description", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Description { get; set; }
     
-        [Newtonsoft.Json.JsonProperty("inJune", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool InJune { get; set; }
+        [Newtonsoft.Json.JsonProperty("parentReasonId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int ParentReasonId { get; set; }
     
-        [Newtonsoft.Json.JsonProperty("canCancel", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool CanCancel { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("isInclusion", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool IsInclusion { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("isNew", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool IsNew { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("order", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? Order { get; set; }
+        [Newtonsoft.Json.JsonProperty("amendmentType", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        public AmendmentType AmendmentType { get; set; }
     
     
     }

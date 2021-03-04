@@ -11,6 +11,6 @@ namespace Dfe.Rscd.Web.Application.Application.Interfaces
         MatchedPupilViewModel GetPupil(string id);
         MatchedPupilViewModel GetMatchedPupil(string upn);
 
-        List<AmendmentReason> GetAmendmentReasons(string pinclId);
+        List<AmendmentReason> GetAmendmentReasons(AmendmentType amendmentType);
     }
 }

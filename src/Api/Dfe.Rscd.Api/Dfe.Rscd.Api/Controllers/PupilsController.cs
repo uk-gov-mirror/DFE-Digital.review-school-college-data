@@ -9,7 +9,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace Dfe.Rscd.Api.Controllers
 {
-    [Route("api/{checkingwindow}/[controller]")]
+    [Route("api/{checkingWindow}/[controller]")]
     [ApiController]
     public class PupilsController : ControllerBase
     {
@@ -33,10 +33,8 @@ namespace Dfe.Rscd.Api.Controllers
             [FromRoute] [SwaggerParameter("The id of the pupil requesting amendments", Required = true)]
             string id,
             [FromRoute] [SwaggerParameter("The checking window to request pupil from", Required = true)]
-            string checkingwindow)
+            CheckingWindow checkingWindow)
         {
-            Enum.TryParse(checkingwindow.Replace("-", string.Empty), true,
-                out CheckingWindow checkingWindow);
             var pupil = _pupilService.GetById(checkingWindow, id);
             var response = new GetResponse<Pupil>
             {
@@ -60,12 +58,10 @@ namespace Dfe.Rscd.Api.Controllers
             [FromQuery] [SwaggerParameter("Pupil search criteria.", Required = true)]
             PupilsSearchRequest request,
             [FromRoute] [SwaggerParameter("The checking window to request pupil or pupils from", Required = true)]
-            string checkingwindow)
+            CheckingWindow checkingWindow)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            Enum.TryParse(checkingwindow.Replace("-", string.Empty), true,
-                out CheckingWindow checkingWindow);
             var pupils = _pupilService.QueryPupils(checkingWindow, request);
             var response = new GetResponse<IEnumerable<PupilRecord>>
             {

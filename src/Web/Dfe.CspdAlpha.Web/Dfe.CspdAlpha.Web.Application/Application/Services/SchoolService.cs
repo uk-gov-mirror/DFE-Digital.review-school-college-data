@@ -38,7 +38,7 @@ namespace Dfe.Rscd.Web.Application.Application.Services
         {
             var schoolReviewRecord = GetConfirmationRecordFromCRM(userId, urn);
             if (schoolReviewRecord == null)
-                return _apiClient.CreateSchoolReviewRecordAsync(CheckingWindowUrl, new ConfirmationRecord
+                return _apiClient.CreateSchoolReviewRecordAsync(new ConfirmationRecord
                 {
                     UserId = userId,
                     EstablishmentId = urn,
@@ -48,7 +48,7 @@ namespace Dfe.Rscd.Web.Application.Application.Services
 
             schoolReviewRecord.ReviewCompleted = taskListViewModel.ReviewChecked;
             schoolReviewRecord.DataConfirmed = taskListViewModel.DataConfirmed;
-            return _apiClient.UpdateSchoolReviewRecordAsync(CheckingWindowUrl, schoolReviewRecord).GetAwaiter()
+            return _apiClient.UpdateSchoolReviewRecordAsync(schoolReviewRecord).GetAwaiter()
                 .GetResult().Result;
         }
 
@@ -56,7 +56,7 @@ namespace Dfe.Rscd.Web.Application.Application.Services
         {
             try
             {
-                var schoolReviewRecord = _apiClient.GetSchoolReviewRecordAsync(userId, urn, CheckingWindowUrl)
+                var schoolReviewRecord = _apiClient.GetSchoolReviewRecordAsync(userId, urn)
                     .GetAwaiter().GetResult();
                 return schoolReviewRecord.Result;
             }

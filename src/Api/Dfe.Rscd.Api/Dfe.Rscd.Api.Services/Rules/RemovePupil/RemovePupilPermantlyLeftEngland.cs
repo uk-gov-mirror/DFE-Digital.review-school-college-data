@@ -22,6 +22,7 @@ namespace Dfe.Rscd.Api.Services.Rules
         }
         
         public override AmendmentType AmendmentType => AmendmentType.RemovePupil;
+
         public override List<Question> GetQuestions()
         {
             var countries = _dataService.GetAnswerPotentials(nameof(PupilCountryQuestion));
@@ -63,7 +64,7 @@ namespace Dfe.Rscd.Api.Services.Rules
                 return new AmendmentOutcome(OutcomeStatus.AwatingDfeReview, "Permanently Left England")
                 {
                     ScrutinyStatusCode = ScrutinyCode,
-                    ReasonId = (int) AmendmentReasonCode.PermanentlyLeftEngland,
+                    ReasonId = AmendmentReason,
                     ReasonDescription = ReasonDescription
                 };
             }
@@ -73,7 +74,7 @@ namespace Dfe.Rscd.Api.Services.Rules
                 return new AmendmentOutcome(OutcomeStatus.AutoReject, "Request to add an unlisted pupil who has permanently left England. Addition will be reviewed.")
                 {
                     ScrutinyStatusCode = ScrutinyCode,
-                    ReasonId = (int) AmendmentReasonCode.PermanentlyLeftEngland,
+                    ReasonId = AmendmentReason,
                     ReasonDescription = ReasonDescription
                 };
             }
@@ -81,7 +82,7 @@ namespace Dfe.Rscd.Api.Services.Rules
             return new AmendmentOutcome(OutcomeStatus.AwatingDfeReview, "Emigrated")
             {
                 ScrutinyStatusCode = ScrutinyCode,
-                ReasonId = (int) AmendmentReasonCode.PermanentlyLeftEngland,
+                ReasonId = AmendmentReason,
                 ReasonDescription = ReasonDescription
             };
         }
@@ -110,6 +111,6 @@ namespace Dfe.Rscd.Api.Services.Rules
             }
         }
 
-        public override int AmendmentReason => 11;
+        public override int AmendmentReason => (int)AmendmentReasonCode.PermanentlyLeftEngland;
     }
 }

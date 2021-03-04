@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using Dfe.Rscd.Web.ApiClient;
 using Dfe.Rscd.Web.Application.Application.Interfaces;
 using Dfe.Rscd.Web.Application.Models.ViewModels.Pupil;
 using Dfe.Rscd.Web.Application.Models.ViewModels.RemovePupil;
@@ -24,7 +25,7 @@ namespace Dfe.Rscd.Web.Application.Application.Services
             var pupilDetails = _apiClient
                 .SearchPupilsAsync(searchQuery.URN, searchQuery.SearchType == QueryType.Name ? searchQuery.Query : string.Empty,
                     searchQuery.SearchType == QueryType.PupilID ? searchQuery.Query : string.Empty,
-                    CheckingWindowUrl)
+                    CheckingWindow)
                 .GetAwaiter()
                 .GetResult();
 
@@ -53,7 +54,7 @@ namespace Dfe.Rscd.Web.Application.Application.Services
 
         public MatchedPupilViewModel GetPupil(string id)
         {
-            var pupil = _apiClient.GetPupilByIdAsync(id, CheckingWindowUrl).GetAwaiter().GetResult();
+            var pupil = _apiClient.GetPupilByIdAsync(id, CheckingWindow).GetAwaiter().GetResult();
             if (pupil == null)
             {
                 return null;
@@ -94,7 +95,7 @@ namespace Dfe.Rscd.Web.Application.Application.Services
 
         public MatchedPupilViewModel GetMatchedPupil(string upn)
         {
-            var pupilResults = _apiClient.SearchPupilsAsync(string.Empty, string.Empty, upn, CheckingWindowUrl).GetAwaiter()
+            var pupilResults = _apiClient.SearchPupilsAsync(string.Empty, string.Empty, upn, CheckingWindow).GetAwaiter()
                 .GetResult();
 
             if (pupilResults == null || pupilResults.Result == null || pupilResults.Result.Count == 0 || pupilResults.Result.Count > 1)
@@ -102,14 +103,14 @@ namespace Dfe.Rscd.Web.Application.Application.Services
                 return null;
             }
 
-            var pupil = _apiClient.GetPupilByIdAsync(pupilResults.Result.First().Id, CheckingWindowUrl).GetAwaiter().GetResult();
+            var pupil = _apiClient.GetPupilByIdAsync(pupilResults.Result.First().Id, CheckingWindow).GetAwaiter().GetResult();
 
             return GetMatchedPupilViewModel(pupil.Result);
         }
 
-        public List<ApiClient.AmendmentReason> GetAmendmentReasons(string pinclId)
+        public List<AmendmentReason> GetAmendmentReasons(AmendmentType amendmentType)
         {
-            var results = _apiClient.GetAmendmentReasonsAsync(pinclId, CheckingWindowUrl).GetAwaiter()
+            var results = _apiClient.GetAmendmentReasonsAsync(amendmentType, CheckingWindow).GetAwaiter()
                 .GetResult();
 
             return results.Result.ToList();
