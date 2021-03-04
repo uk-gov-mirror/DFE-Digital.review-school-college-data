@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Dfe.Rscd.Api.Domain.Common;
 using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Domain.Entities.Amendments;
 using Dfe.Rscd.Api.Domain.Entities.Questions;
@@ -53,7 +54,31 @@ namespace Dfe.Rscd.Api.Services.Rules
 
         protected override AmendmentOutcome ApplyRule(Amendment amendment, List<ValidatedAnswer> answers)
         {
-            return new AmendmentOutcome(OutcomeStatus.AwatingDfeReview)
+            var dateOffRoll = answers.Single(x => x.QuestionId == nameof(PupilDateOffRollQuestion));
+            var explainRequestAnswer = answers.Single(x => x.QuestionId == nameof(ExplainYourRequestQuestion));
+
+            if (dateOffRoll.Value.ToDateTimeWhenSureNotNull() <
+                _config.CensusDate.ToDateTimeWhenSureNotNull() && !string.IsNullOrEmpty(explainRequestAnswer.Value))
+            {
+                return new AmendmentOutcome(OutcomeStatus.AwatingDfeReview, "Permanently Left England")
+                {
+                    ScrutinyStatusCode = ScrutinyCode,
+                    ReasonId = (int) AmendmentReasonCode.PermanentlyLeftEngland,
+                    ReasonDescription = ReasonDescription
+                };
+            }
+
+            if (!amendment.Pupil.PortlandStudentID.HasValue)
+            {
+                return new AmendmentOutcome(OutcomeStatus.AutoReject, "Request to add an unlisted pupil who has permanently left England. Addition will be reviewed.")
+                {
+                    ScrutinyStatusCode = ScrutinyCode,
+                    ReasonId = (int) AmendmentReasonCode.PermanentlyLeftEngland,
+                    ReasonDescription = ReasonDescription
+                };
+            }
+            
+            return new AmendmentOutcome(OutcomeStatus.AwatingDfeReview, "Emigrated")
             {
                 ScrutinyStatusCode = ScrutinyCode,
                 ReasonId = (int) AmendmentReasonCode.PermanentlyLeftEngland,
