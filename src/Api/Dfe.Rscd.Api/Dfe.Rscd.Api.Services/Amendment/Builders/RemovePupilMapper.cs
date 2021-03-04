@@ -19,6 +19,8 @@ namespace Dfe.Rscd.Api.Services
             amendmentDetail.SetField(RemovePupilAmendment.FIELD_LAESTABNumber, crmPupil.rscd_LAESTABofexcludedschool);
             amendmentDetail.SetField(RemovePupilAmendment.FIELD_ExclusionDate, crmPupil.rscd_PupilExclusionDate);
             amendmentDetail.SetField(RemovePupilAmendment.FIELD_DateOffRoll, crmPupil.rscd_DateOffRoll);
+            amendmentDetail.SetField(RemovePupilAmendment.FIELD_Detail, crmPupil.rscd_Details);
+            amendmentDetail.SetField(RemovePupilAmendment.FIELD_CountryLeftEnglandFor, crmPupil.rscd_CountrypupilleftEnglandfor);
 
             return amendmentDetail;
         }
@@ -36,6 +38,8 @@ namespace Dfe.Rscd.Api.Services
             removeDto.rscd_LAESTABofexcludedschool = amendmentDetail.GetField<string>(RemovePupilAmendment.FIELD_LAESTABNumber);
             removeDto.rscd_PupilExclusionDate = amendmentDetail.GetDateTimeUTC(RemovePupilAmendment.FIELD_ExclusionDate);
             removeDto.rscd_DateOffRoll = amendmentDetail.GetDateTimeUTC(RemovePupilAmendment.FIELD_DateOffRoll);
+            removeDto.rscd_Details = amendmentDetail.GetField<string>(RemovePupilAmendment.FIELD_Detail);
+            removeDto.rscd_CountrypupilleftEnglandfor = amendmentDetail.GetField<string>(RemovePupilAmendment.FIELD_CountryLeftEnglandFor);
 
             if (pupil.Allocations != null && pupil.Allocations.Count > 0)
             {

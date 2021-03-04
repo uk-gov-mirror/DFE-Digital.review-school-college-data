@@ -4,9 +4,7 @@ using Dfe.Rscd.Web.ApiClient;
 using Dfe.Rscd.Web.Application.Application.Interfaces;
 using Dfe.Rscd.Web.Application.Models.ViewModels.Amendments;
 using Dfe.Rscd.Web.Application.Models.ViewModels.Pupil;
-using Dfe.Rscd.Web.Infrastructure.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Office.SharePoint.Tools;
 using ProblemDetails = Dfe.Rscd.Web.ApiClient.ProblemDetails;
 
 namespace Dfe.Rscd.Web.Application.Controllers
@@ -159,16 +157,19 @@ namespace Dfe.Rscd.Web.Application.Controllers
         {
             var questions = GetQuestions();
             var thisQuestion = FindQuestion(questions, promptAnswerViewModel.QuestionId);
+
             var promptAnswer = promptAnswerViewModel.GetAnswerAsString(Request.Form);
+            SaveAnswer(new UserAnswer{ QuestionId = promptAnswerViewModel.QuestionId, Value = promptAnswer });
+
             var amendment = GetAmendment();
 
             if (thisQuestion.QuestionType == QuestionType.Evidence)
             {
                 if (Request.Form.Files.Count > 0)
                 {
-                    promptAnswer = UploadEvidence(amendment);
+                    UploadEvidence(amendment);
                 }
-                else
+                else if(!Continue)
                 {
                     var errorUploadViewModel = CreateErrorUploadViewModel(promptAnswerViewModel, thisQuestion,
                         questions, amendment);
@@ -183,9 +184,10 @@ namespace Dfe.Rscd.Web.Application.Controllers
 
                     return View("Prompt", uploadEvidenceViewModel);
                 }
+
+                SaveAnswer(new UserAnswer{ QuestionId = promptAnswerViewModel.QuestionId, Value = amendment.EvidenceFolderName });
             }
 
-            SaveAnswer(new UserAnswer{ QuestionId = promptAnswerViewModel.QuestionId, Value = promptAnswer });
             amendment = GetAmendment();
 
             if (ConditionalQuestion(thisQuestion, promptAnswer))
@@ -260,25 +262,22 @@ namespace Dfe.Rscd.Web.Application.Controllers
             return errorUploadViewModel;
         }
 
-        private string UploadEvidence(Amendment amendment)
+        private void UploadEvidence(Amendment amendment)
         {
-            string promptAnswer;
             if (string.IsNullOrEmpty(amendment.EvidenceFolderName))
             {
                 var fileUploadResult = _evidenceService.UploadEvidence(Request.Form.Files.First());
-                promptAnswer = amendment.EvidenceFolderName = fileUploadResult.FolderName;
+
+                amendment.EvidenceFolderName = fileUploadResult.FolderName;
                 AddFile(fileUploadResult);
                 SaveAmendment(amendment);
             }
             else
             {
-                var fileUploadResult =
-                    _evidenceService.UploadEvidence(amendment.EvidenceFolderName, Request.Form.Files.First());
-                promptAnswer = fileUploadResult.FolderName;
+                var fileUploadResult = _evidenceService.UploadEvidence(amendment.EvidenceFolderName, Request.Form.Files.First());
+
                 AddFile(fileUploadResult);
             }
-
-            return promptAnswer;
         }
 
         private static QuestionViewModel GoToTheNextQuestion(PromptAnswerViewModel promptAnswerViewModel, List<Question> questions,

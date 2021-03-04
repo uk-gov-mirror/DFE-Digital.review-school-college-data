@@ -2386,6 +2386,24 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Entities
 		/// <summary>
 		/// 
 		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_countrypupilleftenglandfor")]
+		public string rscd_CountrypupilleftEnglandfor
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("rscd_countrypupilleftenglandfor");
+			}
+			set
+			{
+				this.OnPropertyChanging("rscd_CountrypupilleftEnglandfor");
+				this.SetAttributeValue("rscd_countrypupilleftenglandfor", value);
+				this.OnPropertyChanged("rscd_CountrypupilleftEnglandfor");
+			}
+		}
+		
+		/// <summary>
+		/// 
+		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_dateofadmission")]
 		public System.Nullable<System.DateTime> rscd_DateOfAdmission
 		{
