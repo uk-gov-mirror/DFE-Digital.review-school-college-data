@@ -37,4 +37,9 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Evidence\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Evidence\Upload.cshtml" />
+  </ItemGroup>
+
 </Project>

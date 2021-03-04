@@ -1,3 +1,4 @@
+@using Dfe.Rscd.Web.Application.Models.ViewModels
 @using Dfe.Rscd.Web.Infrastructure.Models
 @model Dfe.Rscd.Web.ApiClient.Question
 
@@ -13,14 +14,15 @@
     // There are some validation on Evidence that you can implement in the controller and I can refactor it.
     // Check through Explain, Evidence and the Boolean partials for validation hooking up. Some missing, but in Model.
 }
-@if (Model.FileNames != null)
+@{ var uploaded = ViewBag.Upload as FilesViewModel; }
+@if (uploaded != null)
 {
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
         <ul class="govuk-list govuk-!-font-size-16 " id="upload-file-list">
-            @foreach (var file in Model.FileNames)
+            @foreach (var file in uploaded.Files)
             {
-                <li>@file | remove-link </li>
+                <li>@file.FileName | remove-link </li>
             }
         </ul>
     </div>

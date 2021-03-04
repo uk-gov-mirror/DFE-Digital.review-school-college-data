@@ -24,18 +24,26 @@ namespace Dfe.Rscd.Web.Application.Controllers
             return HttpContext.Session.Get<Amendment>(AMENDMENT_SESSION_KEY);
         }
 
-        protected List<FileUploadResult> GetFiles()
+        protected FilesViewModel GetFiles()
         {
-            return HttpContext.Session.Get<List<FileUploadResult>>(PROMPT_QUESTIONS);
+            return HttpContext.Session.Get<FilesViewModel>(FILE_LIST);
         }
 
         protected void AddFile(FileUploadResult file)
         {
-            var files = GetFiles();
-            if(!files.Contains(file))
-                files.Add(file);
+            var files = GetFiles() ?? new FilesViewModel();
 
-            HttpContext.Session.Set(PROMPT_QUESTIONS, files);
+            if (files.Files.All(x => x.Id != file.FileId.ToString()))
+            {
+                files.Files.Add(new FileViewModel
+                {
+                    Id = file.FileId.ToString(),
+                    FileName = file.FileName,
+                    FolderName = file.FolderName
+                });
+            }
+
+             HttpContext.Session.Set(FILE_LIST, files);
         }
 
         protected List<Question> GetQuestions()
