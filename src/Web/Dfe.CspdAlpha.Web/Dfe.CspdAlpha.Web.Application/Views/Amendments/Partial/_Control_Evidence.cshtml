@@ -2,10 +2,6 @@
 @using Dfe.Rscd.Web.Infrastructure.Models
 @model Dfe.Rscd.Web.ApiClient.Question
 @{
-    // JON, I still need to do the remove file bit, but you can get going on the rest.
-    // There are some validation on Evidence that you can implement in the controller and I can refactor it.
-    // Check through Explain, Evidence and the Boolean partials for validation hooking up. Some missing, but in Model.
-
     var formGroupClasses = "govuk-form-group";
     var errorMessage = string.Empty;
     if (ViewData.ContainsKey("errorMessage") && ViewData["errorMessage"] != null)

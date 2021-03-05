@@ -10,8 +10,8 @@ namespace Dfe.Rscd.Api.Services.Rules
             {
                 AllowNull = false,
                 ValidatorType = ValidatorType.MaxCharacters,
-                InValidErrorMessage = "You have XXXX characters too many",
-                ValidatorCompareValue = "5000",
+                InValidErrorMessage = "You have 500 characters too many",
+                ValidatorCompareValue = "500",
                 NullErrorMessage = "Please provide details to explain your request "
             })
         {

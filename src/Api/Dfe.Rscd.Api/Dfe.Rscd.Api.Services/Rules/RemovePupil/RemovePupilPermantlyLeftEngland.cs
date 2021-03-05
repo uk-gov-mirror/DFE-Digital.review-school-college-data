@@ -57,6 +57,10 @@ namespace Dfe.Rscd.Api.Services.Rules
         {
             var dateOffRoll = answers.Single(x => x.QuestionId == nameof(PupilDateOffRollQuestion));
             var explainRequestAnswer = answers.Single(x => x.QuestionId == nameof(ExplainYourRequestQuestion));
+            var evidenceUploadQuestion = answers.Single(x => x.QuestionId == nameof(EvidenceUploadQuestion));
+
+            amendment.EvidenceStatus = string.IsNullOrEmpty(evidenceUploadQuestion.Value) || evidenceUploadQuestion.Value == "0"
+                ? EvidenceStatus.Later : EvidenceStatus.Now;
 
             if (dateOffRoll.Value.ToDateTimeWhenSureNotNull() <
                 _config.CensusDate.ToDateTimeWhenSureNotNull() && !string.IsNullOrEmpty(explainRequestAnswer.Value))
