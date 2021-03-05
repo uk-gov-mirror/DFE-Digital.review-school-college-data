@@ -191,11 +191,11 @@ namespace Dfe.Rscd.Web.Application.Controllers
 
             if (ModelState.IsValid)
             {
-                var subreasons = _pupilService
+                var subReasons = _pupilService
                     .GetAmendmentReasons(AmendmentType.RemovePupil)
                     .Where(x=>x.ParentReasonId == viewModel.SelectedReasonCode.Value);
 
-                if (subreasons != null && subreasons.Any())
+                if (subReasons != null && subReasons.Any())
                     return RedirectToAction("Subreason", viewModel);
 
                 amendment.AmendmentDetail.AddField(Constants.RemovePupil.FIELD_ReasonCode, viewModel.SelectedReasonCode.Value);
