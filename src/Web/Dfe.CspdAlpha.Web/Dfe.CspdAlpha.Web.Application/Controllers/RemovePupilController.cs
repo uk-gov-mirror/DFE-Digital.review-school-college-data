@@ -158,6 +158,32 @@ namespace Dfe.Rscd.Web.Application.Controllers
             });
         }
 
+        public IActionResult SubReason(ReasonViewModel viewModel)
+        {
+            var amendment = GetAmendment();
+            ClearQuestions();
+
+            if (amendment == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var amendmentDetail = amendment.AmendmentDetail;
+            var reasons = _pupilService
+                .GetAmendmentReasons(AmendmentType.RemovePupil)
+                .Where(x=>x.ParentReasonId == viewModel.SelectedReasonCode);
+
+            return View("Reason", new ReasonViewModel
+            {
+                PupilDetails = new PupilViewModel(amendment.Pupil),
+                SelectedReasonCode = amendmentDetail.GetField<int?>(Constants.RemovePupil.FIELD_ReasonCode),
+                SearchType = viewModel.SearchType,
+                Query = viewModel.Query,
+                MatchedId = viewModel.MatchedId,
+                Reasons = reasons.ToList()
+            });
+        }
+
         [HttpPost]
         public IActionResult Reason(ReasonViewModel viewModel)
         {
@@ -165,6 +191,13 @@ namespace Dfe.Rscd.Web.Application.Controllers
 
             if (ModelState.IsValid)
             {
+                var subreasons = _pupilService
+                    .GetAmendmentReasons(AmendmentType.RemovePupil)
+                    .Where(x=>x.ParentReasonId == viewModel.SelectedReasonCode.Value);
+
+                if (subreasons != null && subreasons.Any())
+                    return RedirectToAction("Subreason", viewModel);
+
                 amendment.AmendmentDetail.AddField(Constants.RemovePupil.FIELD_ReasonCode, viewModel.SelectedReasonCode.Value);
                 amendment.InclusionReasonId = viewModel.SelectedReasonCode.Value;
 
