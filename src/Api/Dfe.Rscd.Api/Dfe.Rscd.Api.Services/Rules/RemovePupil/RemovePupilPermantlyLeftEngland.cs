@@ -15,6 +15,9 @@ namespace Dfe.Rscd.Api.Services.Rules
         private const string ReasonDescription = "Permanently Left England";
         private string ScrutinyCode = "3";
 
+        private string _evidenceHelpDeskText =>
+            "<p>Evidence to provide:</p><ul><li>Parent Letter</li><li>Letter from School to LA</li><li>Evidence of enrolment in non-UK school</li></ul>";
+
         public RemovePupilPermanentlyLeftEngland(IDataService dataService, IAllocationYearConfig config)
         {
             _dataService = dataService;
@@ -30,7 +33,7 @@ namespace Dfe.Rscd.Api.Services.Rules
             var countryQuestion = new CountryPupilLeftEnglandFor(countries.ToList());
             var pupilDateOffRoleQuestion = new PupilDateOffRollQuestion();
             var explainQuestion = new ExplainYourRequestQuestion("The date off roll is before the January census but this pupil was recorded on your January census");
-            var evidenceQuestion = new EvidenceUploadQuestion();
+            var evidenceQuestion = new EvidenceUploadQuestion(_evidenceHelpDeskText);
 
             return new List<Question> { countryQuestion, pupilDateOffRoleQuestion, explainQuestion, evidenceQuestion };
         }

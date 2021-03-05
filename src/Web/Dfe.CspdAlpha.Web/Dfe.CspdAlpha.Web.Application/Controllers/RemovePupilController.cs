@@ -172,7 +172,7 @@ namespace Dfe.Rscd.Web.Application.Controllers
 
                 SaveAmendment(amendment);
 
-                return RedirectToAction("Prompt", "Amendments");
+                return RedirectToAction("Prompt", "Questions");
             }
             return View(new ReasonViewModel { PupilDetails = new PupilViewModel(amendment.Pupil) });
         }

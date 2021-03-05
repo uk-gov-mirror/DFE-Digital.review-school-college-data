@@ -12,4 +12,16 @@ namespace Dfe.Rscd.Web.Infrastructure.Models
         
         public string FolderName { get; internal set; }
     }
+
+    public class FileValidationError
+    {
+        public FileValidationError(string title, string detail)
+        {
+            Title = title;
+            Detail = detail;
+        }
+        
+        public string Title { get; }
+        public string Detail { get; }
+    }
 }
