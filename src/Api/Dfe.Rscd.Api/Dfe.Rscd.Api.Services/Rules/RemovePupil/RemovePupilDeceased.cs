@@ -23,22 +23,22 @@ namespace Dfe.Rscd.Api.Services.Rules
             _allocationYearConfig = allocationYearConfig;
         }
 
-        public override List<Question> GetQuestions()
+        public override List<Question> GetQuestions(Amendment amendment)
         {
             var dateOffRoll = new PupilDateOffRollQuestion();
 
             return new List<Question> { dateOffRoll };
         }
 
-        protected override List<ValidatedAnswer> GetValidatedAnswers(List<UserAnswer> userAnswers)
+        protected override List<ValidatedAnswer> GetValidatedAnswers(Amendment amendment)
         {
-            var questions = GetQuestions();
+            var questions = GetQuestions(amendment);
 
             var dateOffRoll = questions.Single(x => x.Id == nameof(PupilDateOffRollQuestion));
             
             return new List<ValidatedAnswer>
             {
-                dateOffRoll.GetAnswer(userAnswers)
+                dateOffRoll.GetAnswer(amendment)
             };
         }
 

@@ -94,6 +94,14 @@ namespace Dfe.Rscd.Web.Application.Controllers
             HttpContext.Session.Set(PROMPT_QUESTIONS, questions);
         }
 
+        protected void SaveQuestions(ICollection<Question> questions)
+        {
+            if (questions != null)
+            {
+                HttpContext.Session.Set(PROMPT_QUESTIONS, questions.ToList());
+            }
+        }
+
         protected void SaveAnswer(UserAnswer userAnswer)
         {
             var amendment = GetAmendment();

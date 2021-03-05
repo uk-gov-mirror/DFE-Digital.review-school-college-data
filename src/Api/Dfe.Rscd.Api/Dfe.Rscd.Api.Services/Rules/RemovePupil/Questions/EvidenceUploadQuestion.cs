@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Dfe.Rscd.Api.Domain.Entities;
+using Dfe.Rscd.Api.Domain.Entities.Amendments;
 using Dfe.Rscd.Api.Domain.Entities.Questions;
 
 namespace Dfe.Rscd.Api.Services.Rules
@@ -39,14 +40,14 @@ namespace Dfe.Rscd.Api.Services.Rules
             SetupConditionalQuestion(conditionalQuestion, "1");
         }
 
-        public override ValidatedAnswer GetAnswer(List<UserAnswer> userAnswers)
+        public override ValidatedAnswer GetAnswer(Amendment amendment)
         {
-            var userAnswer = userAnswers.Single(x => x.QuestionId == Id);
+            var userAnswer = amendment.Answers.Single(x => x.QuestionId == Id);
             var answer = GetAnswerPotential(userAnswer.Value);
 
             if (Answer.HasConditional && (Answer.ConditionalValue == answer.Value || Answer.ConditionalValue == answer.Description))
             {
-                userAnswer = userAnswers.Single(x => x.QuestionId == Answer.ConditionalQuestion.Id);
+                userAnswer = amendment.Answers.Single(x => x.QuestionId == Answer.ConditionalQuestion.Id);
                 
                 return new ValidatedAnswer
                 {

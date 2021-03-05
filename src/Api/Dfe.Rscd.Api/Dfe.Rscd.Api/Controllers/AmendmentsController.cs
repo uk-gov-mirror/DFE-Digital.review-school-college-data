@@ -92,7 +92,8 @@ namespace Dfe.Rscd.Api.Controllers
         [ProducesResponseType(typeof(GetResponse<AmendmentOutcome>), 200)]
         [ProducesResponseType(400)]
         public IActionResult Post([FromBody] [SwaggerRequestBody("Amendment to add to CRM", Required = true)]
-            Amendment amendment, [FromRoute] [SwaggerParameter("The checking window to request amendments from", Required = false)]
+            Amendment amendment,
+            [FromRoute] [SwaggerParameter("The checking window to request amendments from", Required = false)]
             CheckingWindow checkingWindow)
         {
             try
@@ -135,7 +136,7 @@ namespace Dfe.Rscd.Api.Controllers
             Summary = "Display a list of amendment reasons allowed for a certain pupil inclusion number",
             Description = @"Displays a lists of a common reference data list amendment reasons",
             OperationId = "GetAmendmentReasons",
-            Tags = new[] { "Amendments" }
+            Tags = new[] {"Amendments"}
         )]
         [Route("amendment-reasons/{amendmentType}")]
         [ProducesResponseType(400)]
@@ -145,7 +146,7 @@ namespace Dfe.Rscd.Api.Controllers
             AmendmentType amendmentType,
             [FromRoute] [SwaggerParameter("The checking window to request amendments from", Required = true)]
             CheckingWindow checkingWindow
-            )
+        )
         {
             var list = _dataService.GetAmendmentReasons(checkingWindow, amendmentType);
             var response = new GetResponse<IEnumerable<AmendmentReason>>
@@ -166,8 +167,10 @@ namespace Dfe.Rscd.Api.Controllers
         )]
         [ProducesResponseType(typeof(GetResponse<bool>), 200)]
         public IActionResult RelateEvidence(
-            [FromBody] [SwaggerRequestBody("Amendment to add to CRM", Required = true)] string amendmentId, string evidenceFolderName, [FromRoute] [SwaggerParameter("The checking window to request amendments from", Required = false)]
-        CheckingWindow checkingWindow)
+            [FromBody] [SwaggerRequestBody("Amendment to add to CRM", Required = true)]
+            string amendmentId, string evidenceFolderName, [FromRoute]
+            [SwaggerParameter("The checking window to request amendments from", Required = false)]
+            CheckingWindow checkingWindow)
         {
             _amendmentService.RelateEvidence(amendmentId, evidenceFolderName, true);
 
@@ -189,7 +192,8 @@ namespace Dfe.Rscd.Api.Controllers
             Tags = new[] {"Amendments"})]
         [ProducesResponseType(typeof(GetResponse<bool>), 200)]
         public IActionResult Delete([FromRoute] [SwaggerParameter("The id of the amendment to cancel", Required = true)]
-            string id, [FromRoute] [SwaggerParameter("The checking window to request amendments from", Required = false)]
+            string id, [FromRoute]
+            [SwaggerParameter("The checking window to request amendments from", Required = false)]
             CheckingWindow checkingWindow)
         {
             var result = _amendmentService.CancelAmendment(id);
