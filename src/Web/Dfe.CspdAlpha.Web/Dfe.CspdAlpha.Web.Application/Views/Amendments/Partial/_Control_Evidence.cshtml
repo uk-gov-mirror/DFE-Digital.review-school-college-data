@@ -18,7 +18,7 @@
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
         <h2 class="govuk-heading-s">Files you have uploaded</h2>
-        <details class="govuk-details" data-module="govuk-details">
+        <details class="govuk-details govuk-!-font-size-16" data-module="govuk-details">
             <summary class="govuk-details__summary">
                 <span class="govuk-details__summary-text">View file guidance</span>
             </summary>
@@ -82,12 +82,12 @@ else
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds" id="app-upload__files-container">
             <div class="@formGroupClasses">
-                <label class="govuk-label">Upload a file</label>
+                <label class="govuk-label" for="@Model.Id">Upload a file</label>
                 @if (ViewData.ContainsKey("errorMessage") && ViewData["errorMessage"] != null)
                 {
                     <span class="govuk-error-message">@ViewData["errorMessage"]</span>
                 }
-                <input class="govuk-file-upload" type="file" name="evidence" id="evidence">
+                <input class="govuk-file-upload" type="file" name="evidence" id="@Model.Id">
             </div>
         </div>
         <div class="govuk-grid-column-two-thirds">
