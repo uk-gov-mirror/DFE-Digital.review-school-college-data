@@ -9,11 +9,11 @@ namespace Dfe.Rscd.Api.Domain.Entities
     {
         public abstract AmendmentType AmendmentType { get; }
 
-        public abstract List<Question> GetQuestions();
+        public abstract List<Question> GetQuestions(Amendment amendment);
 
         public virtual AmendmentOutcome Apply(Amendment amendment)
         {
-            var questions = GetQuestions();
+            var questions = GetQuestions(amendment);
 
             var errorMessages = new Dictionary<string, List<string>>();
 
@@ -59,7 +59,7 @@ namespace Dfe.Rscd.Api.Domain.Entities
                 return new AmendmentOutcome(questions);
             }
 
-            var validatedAnswers = GetValidatedAnswers(amendment.Answers);
+            var validatedAnswers = GetValidatedAnswers(amendment);
 
             AmendmentOutcome amendmentOutcome = ApplyRule(amendment, validatedAnswers);
 
@@ -68,7 +68,7 @@ namespace Dfe.Rscd.Api.Domain.Entities
             return amendmentOutcome;
         }
 
-        protected abstract List<ValidatedAnswer> GetValidatedAnswers(List<UserAnswer> userAnswers);
+        protected abstract List<ValidatedAnswer> GetValidatedAnswers(Amendment amendment);
 
         protected abstract AmendmentOutcome ApplyRule(Amendment amendment, List<ValidatedAnswer> answers);
 
@@ -76,9 +76,19 @@ namespace Dfe.Rscd.Api.Domain.Entities
 
         public abstract int AmendmentReason { get; }
 
+        protected bool HasAnswer(List<ValidatedAnswer> answers, string questionId)
+        {
+            return answers.Any(x => x.QuestionId == questionId);
+        }
+        
         protected ValidatedAnswer GetAnswer(List<ValidatedAnswer> answers, string questionId)
         {
-            return answers.Single(x => x.QuestionId == questionId);
+            if (HasAnswer(answers, questionId))
+            {
+                return answers.Single(x => x.QuestionId == questionId);
+            }
+
+            return null;
         }
     }
 }

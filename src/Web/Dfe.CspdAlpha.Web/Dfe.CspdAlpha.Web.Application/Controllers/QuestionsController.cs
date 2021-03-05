@@ -21,27 +21,33 @@ namespace Dfe.Rscd.Web.Application.Controllers
             _amendmentService = amendmentService;
             _evidenceService = evidenceService;
         }
-        private bool ThisQuestionIsTheConditionalQuestion(Question thisQuestion, string promptAnswer)
+
+        public IActionResult Prompt(int currentIndex=0)
         {
-            if (thisQuestion.Answer.AnswerPotentials == null || thisQuestion.Answer.AnswerPotentials.Count == 0 || string.IsNullOrEmpty(promptAnswer))
+            var amendment = GetAmendment();
+
+            if (amendment == null) return RedirectToAction("Index", "TaskList");
+
+            var amendmentOutcome = _amendmentService.CreateAmendment(amendment);
+
+            SaveAmendment(amendment);
+
+            if (amendmentOutcome.IsComplete || amendmentOutcome.FurtherQuestions == null)
             {
-                return thisQuestion.Answer.ConditionalValue == promptAnswer;
+                SaveAmendment(amendment);
+
+                return RedirectToAction("Confirm", "Amendments");
             }
 
-            var answerText = thisQuestion.Answer.AnswerPotentials.Single(x => x.Value == promptAnswer).Description;
+            var questions = amendmentOutcome.FurtherQuestions.ToList();
+            SaveQuestions(questions);
 
-            return thisQuestion.Answer.ConditionalValue == promptAnswer || thisQuestion.Answer.ConditionalValue == answerText;
-        }
-
-        private Question FindQuestion(IList<Question> questions, string questionId)
-        {
-            var thisQuestion = questions.SingleOrDefault(x => x.Id == questionId);
-            if (thisQuestion == null)
+            var promptViewModel = new QuestionViewModel(questions, currentIndex)
             {
-                return questions.Select(x => x.Answer.ConditionalQuestion).Single(x => x != null && x.Id == questionId);
-            }
+                PupilDetails = new PupilViewModel(amendment.Pupil)
+            };
 
-            return thisQuestion;
+            return View("Prompt", promptViewModel);
         }
 
         [HttpPost]
@@ -99,6 +105,12 @@ namespace Dfe.Rscd.Web.Application.Controllers
             }
 
             var outcome = _amendmentService.CreateAmendment(amendment);
+
+            if (outcome.FurtherQuestions != null)
+            {
+                SaveQuestions(outcome.FurtherQuestions);
+                questions = GetQuestions();
+            }
 
             if (NotNullableDateIsSelected(thisQuestion))
             {
@@ -192,6 +204,11 @@ namespace Dfe.Rscd.Web.Application.Controllers
             if (file.Length > ThreeMegabytes)
             {
                 return new FileValidationError("The file size can not be more than 3MB", "The file size can not be more than 3MB");
+            }
+
+            if(GetFiles().Files.Count > 12)
+            {
+                return new FileValidationError("Only 12 files allowed", "There is only a maximum of 12 files allowable. Please remove file(s) before uploading more evidence.");
             }
 
             if (string.IsNullOrEmpty(amendment.EvidenceFolderName))
@@ -326,35 +343,27 @@ namespace Dfe.Rscd.Web.Application.Controllers
             return errorsPromptViewModel;
         }
 
-        public IActionResult Prompt(int currentIndex=0)
+        private bool ThisQuestionIsTheConditionalQuestion(Question thisQuestion, string promptAnswer)
         {
-            var amendment = GetAmendment();
-
-            if (amendment == null) return RedirectToAction("Index", "TaskList");
-
-            var amendmentOutcome = _amendmentService.CreateAmendment(amendment);
-
-            amendment.EvidenceStatus = amendmentOutcome.EvidenceStatus;
-
-            SaveAmendment(amendment);
-
-            if (amendmentOutcome.IsComplete || amendmentOutcome.FurtherQuestions == null)
+            if (thisQuestion.Answer.AnswerPotentials == null || thisQuestion.Answer.AnswerPotentials.Count == 0 || string.IsNullOrEmpty(promptAnswer))
             {
-                SaveAmendment(amendment);
-
-                return RedirectToAction("Confirm", "Amendments");
+                return thisQuestion.Answer.ConditionalValue == promptAnswer;
             }
 
-            var questions = amendmentOutcome.FurtherQuestions.ToList();
-            SaveQuestions(questions);
+            var answerText = thisQuestion.Answer.AnswerPotentials.Single(x => x.Value == promptAnswer).Description;
 
-            var promptViewModel = new QuestionViewModel(questions, currentIndex)
-            {
-                PupilDetails = new PupilViewModel(amendment.Pupil)
-            };
-
-            return View("Prompt", promptViewModel);
+            return thisQuestion.Answer.ConditionalValue == promptAnswer || thisQuestion.Answer.ConditionalValue == answerText;
         }
 
+        private Question FindQuestion(IList<Question> questions, string questionId)
+        {
+            var thisQuestion = questions.SingleOrDefault(x => x.Id == questionId);
+            if (thisQuestion == null)
+            {
+                return questions.Select(x => x.Answer.ConditionalQuestion).Single(x => x != null && x.Id == questionId);
+            }
+
+            return thisQuestion;
+        }
     }
 }

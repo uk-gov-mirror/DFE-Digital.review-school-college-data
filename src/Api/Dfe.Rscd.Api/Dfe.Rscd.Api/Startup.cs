@@ -69,7 +69,7 @@ namespace Dfe.Rscd.Api
 
 
             var referenceDataConnectionString = Configuration.GetConnectionString("ReferenceData");
-            
+
             services.AddDbContext<SqlDataRepositoryContext>(options =>
                 options.UseSqlServer(
                     referenceDataConnectionString,
@@ -77,7 +77,7 @@ namespace Dfe.Rscd.Api
 
             services.AddScoped<IDataRepository, DataRepository>();
             services.AddScoped<IDataService, DataService>();
-            
+
             // Dynamics 365 configuration
             var dynamicsConnString = Configuration.GetConnectionString("DynamicsCds");
 
@@ -90,12 +90,12 @@ namespace Dfe.Rscd.Api
             var dynamicsOptions = Configuration.GetSection("Dynamics").Get<DynamicsOptions>();
             services.AddSingleton(dynamicsOptions);
 
-            services.AddSingleton<IAllocationYearConfig>(new AllocationYearConfig {Value = Configuration["AllocationYear"], CensusDate = Configuration["AnnualCensusDate"]});
+            services.AddSingleton<IAllocationYearConfig>(new AllocationYearConfig
+                {Value = Configuration["AllocationYear"], CensusDate = Configuration["AnnualCensusDate"]});
 
             if (!_env.IsEnvironment(Program.LOCAL_ENVIRONMENT))
-            {
                 services.Configure<BasicAuthOptions>(Configuration.GetSection("BasicAuth"));
-            };
+            ;
 
             // Microsoft Extensions Configuration (services.Configure) is still in Alpha.
             // This affects EntityFramework Core in Infra Assembly
@@ -109,10 +109,14 @@ namespace Dfe.Rscd.Api
             services.AddScoped<IRule, RemovePupilAdmittedFollowingPermanentExclusion>();
             services.AddScoped<IRule, RemovePupilDeceased>();
             services.AddScoped<IRule, RemovePupilPermanentlyLeftEngland>();
-            
+            services.AddScoped<IRule, RemovePupilOtherTerminalLongIllnessRule>();
+            services.AddScoped<IRule, RemovePupilOtherPoliceInvolvementBailRule>();
+            services.AddScoped<IRule, RemovePupilOtherSafeguardingFapRule>();
+            services.AddScoped<IRule, RemovePupilOtherInPrisonRemandCentreSecureUnitRule>();
+
             services.AddScoped<IAmendmentBuilder, RemovePupilAmendmentBuilder>();
             services.AddScoped<Amendment, RemovePupilAmendment>();
-            
+
             services.AddScoped<IEstablishmentService, EstablishmentService>();
             services.AddScoped<IPupilService, PupilService>();
 
@@ -126,10 +130,8 @@ namespace Dfe.Rscd.Api
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             // This needs to come before swagger
-            if (!_env.IsEnvironment(Program.LOCAL_ENVIRONMENT))
-            {
-                app.UseBasicAuth();
-            };
+            if (!_env.IsEnvironment(Program.LOCAL_ENVIRONMENT)) app.UseBasicAuth();
+            ;
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
@@ -139,10 +141,7 @@ namespace Dfe.Rscd.Api
                 }
             );
 
-            if (_env.IsEnvironment(Program.LOCAL_ENVIRONMENT) || env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            if (_env.IsEnvironment(Program.LOCAL_ENVIRONMENT) || env.IsDevelopment()) app.UseDeveloperExceptionPage();
 
             app.UseHttpsRedirection();
 

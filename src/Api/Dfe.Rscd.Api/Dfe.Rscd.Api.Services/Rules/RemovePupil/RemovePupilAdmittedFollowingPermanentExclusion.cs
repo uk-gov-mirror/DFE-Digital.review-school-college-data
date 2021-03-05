@@ -22,7 +22,7 @@ namespace Dfe.Rscd.Api.Services.Rules
             _establishmentService = establishmentService;
         }
 
-        public override List<Question> GetQuestions()
+        public override List<Question> GetQuestions(Amendment amendment)
         {
             var laestabQuestion = new LaestabNumberQuestion();
             var pupilExclusionDateQuestion = new PupilExclusionDateQuestion();
@@ -30,17 +30,17 @@ namespace Dfe.Rscd.Api.Services.Rules
             return new List<Question> { laestabQuestion, pupilExclusionDateQuestion };
         }
 
-        protected override List<ValidatedAnswer> GetValidatedAnswers(List<UserAnswer> userAnswers)
+        protected override List<ValidatedAnswer> GetValidatedAnswers(Amendment amendment)
         {
-            var questions = GetQuestions();
+            var questions = GetQuestions(amendment);
 
             var laestabQuestion = questions.Single(x => x.Id == nameof(LaestabNumberQuestion));
             var pupilExclusionDateQuestion = questions.Single(x => x.Id == nameof(PupilExclusionDateQuestion));
             
             return new List<ValidatedAnswer>
             {
-                laestabQuestion.GetAnswer(userAnswers),
-                pupilExclusionDateQuestion.GetAnswer(userAnswers)
+                laestabQuestion.GetAnswer(amendment),
+                pupilExclusionDateQuestion.GetAnswer(amendment)
             };
         }
 

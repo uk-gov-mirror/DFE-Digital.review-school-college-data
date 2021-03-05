@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO.Pipes;
 using System.Linq;
 using Dfe.Rscd.Api.Domain.Common;
 using Dfe.Rscd.Api.Domain.Entities;
@@ -26,47 +27,62 @@ namespace Dfe.Rscd.Api.Services.Rules
         
         public override AmendmentType AmendmentType => AmendmentType.RemovePupil;
 
-        public override List<Question> GetQuestions()
+        public override List<Question> GetQuestions(Amendment amendment)
         {
-            var countries = _dataService.GetAnswerPotentials(nameof(PupilCountryQuestion));
+            var questions = new List<Question>();
             
+            var countries = _dataService.GetAnswerPotentials(nameof(PupilCountryQuestion));
             var countryQuestion = new CountryPupilLeftEnglandFor(countries.ToList());
+            questions.Add(countryQuestion);
+            
             var pupilDateOffRoleQuestion = new PupilDateOffRollQuestion();
-            var explainQuestion = new ExplainYourRequestQuestion("The date off roll is before the January census but this pupil was recorded on your January census");
-            var evidenceQuestion = new EvidenceUploadQuestion(_evidenceHelpDeskText);
+            questions.Add(pupilDateOffRoleQuestion);
 
-            return new List<Question> { countryQuestion, pupilDateOffRoleQuestion, explainQuestion, evidenceQuestion };
+            if (pupilDateOffRoleQuestion.HasAnswer(amendment) && 
+                pupilDateOffRoleQuestion.GetAnswer(amendment).Value.ToDateTimeWhenSureNotNull() < _config.CensusDate.ToDateTimeWhenSureNotNull())
+            {
+                var explainQuestion = new ExplainYourRequestQuestion("The date off roll is before the January census but this pupil was recorded on your January census");
+                questions.Add(explainQuestion);
+            }
+            
+            var evidenceQuestion = new EvidenceUploadQuestion(_evidenceHelpDeskText);
+            questions.Add(evidenceQuestion);
+
+            return questions;
         }
 
-        protected override List<ValidatedAnswer> GetValidatedAnswers(List<UserAnswer> userAnswers)
+        protected override List<ValidatedAnswer> GetValidatedAnswers(Amendment amendment)
         {
-            var questions = GetQuestions();
+            var answers = new List<ValidatedAnswer>();
+            var questions = GetQuestions(amendment);
 
-            var countryAnswer = questions.Single(x => x.Id == nameof(CountryPupilLeftEnglandFor));
-            var pupilDateOffRoleAnswer = questions.Single(x => x.Id == nameof(PupilDateOffRollQuestion));
-            var explainRequestAnswer = questions.Single(x => x.Id == nameof(ExplainYourRequestQuestion));
-            var evidenceAnswer = questions.Single(x => x.Id == nameof(EvidenceUploadQuestion));
+            var countryQuestion = questions.Single(x => x.Id == nameof(CountryPupilLeftEnglandFor));
+            answers.Add(countryQuestion.GetAnswer(amendment));
             
-            return new List<ValidatedAnswer>
+            var dateOffRollQuestion = questions.Single(x => x.Id == nameof(PupilDateOffRollQuestion));
+            answers.Add(dateOffRollQuestion.GetAnswer(amendment));
+
+            if (questions.Any(x => x.Id == nameof(ExplainYourRequestQuestion)))
             {
-                countryAnswer.GetAnswer(userAnswers),
-                pupilDateOffRoleAnswer.GetAnswer(userAnswers),
-                explainRequestAnswer.GetAnswer(userAnswers),
-                evidenceAnswer.GetAnswer(userAnswers)
-            };
+                var explainRequestQuestion = questions.Single(x => x.Id == nameof(ExplainYourRequestQuestion));
+                answers.Add(explainRequestQuestion.GetAnswer(amendment));
+            }
+            
+            var evidenceQuestion = questions.Single(x => x.Id == nameof(EvidenceUploadQuestion));
+            answers.Add(evidenceQuestion.GetAnswer(amendment));
+
+            return answers;
         }
 
         protected override AmendmentOutcome ApplyRule(Amendment amendment, List<ValidatedAnswer> answers)
         {
             var dateOffRoll = answers.Single(x => x.QuestionId == nameof(PupilDateOffRollQuestion));
-            var explainRequestAnswer = answers.Single(x => x.QuestionId == nameof(ExplainYourRequestQuestion));
             var evidenceUploadQuestion = answers.Single(x => x.QuestionId == nameof(EvidenceUploadQuestion));
 
             amendment.EvidenceStatus = string.IsNullOrEmpty(evidenceUploadQuestion.Value) || evidenceUploadQuestion.Value == "0"
                 ? EvidenceStatus.Later : EvidenceStatus.Now;
 
-            if (dateOffRoll.Value.ToDateTimeWhenSureNotNull() <
-                _config.CensusDate.ToDateTimeWhenSureNotNull() && !string.IsNullOrEmpty(explainRequestAnswer.Value))
+            if (dateOffRoll.Value.ToDateTimeWhenSureNotNull() < _config.CensusDate.ToDateTimeWhenSureNotNull())
             {
                 return new AmendmentOutcome(OutcomeStatus.AwatingDfeReview, "Permanently Left England")
                 {
@@ -113,8 +129,11 @@ namespace Dfe.Rscd.Api.Services.Rules
                 amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_DateOffRoll,
                     GetAnswer(answers, nameof(PupilDateOffRollQuestion)).Value);
 
-                amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_Detail,
-                    GetAnswer(answers, nameof(ExplainYourRequestQuestion)).Value);
+                if (HasAnswer(answers, nameof(ExplainYourRequestQuestion)))
+                {
+                    amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_Detail,
+                        GetAnswer(answers, nameof(ExplainYourRequestQuestion)).Value);
+                }
             }
         }
 

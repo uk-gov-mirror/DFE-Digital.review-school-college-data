@@ -23,7 +23,7 @@ namespace Dfe.Rscd.Api.Services.Rules
             _config = config;
         }
 
-        public override List<Question> GetQuestions()
+        public override List<Question> GetQuestions(Amendment amendment)
         {
             var countries = _dataService.GetAnswerPotentials(nameof(PupilCountryQuestion));
             var languages = _dataService.GetAnswerPotentials(nameof(PupilNativeLanguageQuestion));
@@ -38,9 +38,9 @@ namespace Dfe.Rscd.Api.Services.Rules
         public override int AmendmentReason => (int)AmendmentReasonCode.AdmittedFromAbroadWithEnglishNotFirstLanguageCode;
         public override AmendmentType AmendmentType => AmendmentType.RemovePupil;
 
-        protected override List<ValidatedAnswer> GetValidatedAnswers(List<UserAnswer> userAnswers)
+        protected override List<ValidatedAnswer> GetValidatedAnswers(Amendment amendment)
         {
-            var questions = GetQuestions();
+            var questions = GetQuestions(amendment);
 
             var languageQuestion = questions.Single(x => x.Id == nameof(PupilNativeLanguageQuestion));
             var countryAnswer = questions.Single(x => x.Id == nameof(PupilCountryQuestion));
@@ -48,9 +48,9 @@ namespace Dfe.Rscd.Api.Services.Rules
 
             return new List<ValidatedAnswer>
             {
-                languageQuestion.GetAnswer(userAnswers),
-                countryAnswer.GetAnswer(userAnswers),
-                studentArrivalDate.GetAnswer(userAnswers)
+                languageQuestion.GetAnswer(amendment),
+                countryAnswer.GetAnswer(amendment),
+                studentArrivalDate.GetAnswer(amendment)
             };
         }
 

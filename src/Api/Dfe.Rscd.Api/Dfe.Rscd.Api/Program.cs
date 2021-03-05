@@ -23,9 +23,7 @@ namespace Dfe.Rscd.Api
                         .ConfigureAppConfiguration((hostingContext, config) =>
                         {
                             if (hostingContext.HostingEnvironment.IsEnvironment(LOCAL_ENVIRONMENT))
-                            {
                                 config.AddUserSecrets<Program>();
-                            }
 
                             var settings = config.Build();
                             var configLabel = settings["ConfigLabel"];
