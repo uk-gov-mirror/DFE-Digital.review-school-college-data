@@ -39,7 +39,12 @@ console.log(reasonCode);
          this.showFields(removePupilForm, ['rscd_laestabofexcludedschool', 'rscd_pupilexclusiondate']);
          break;
      case 11: // Perm left England
-           this.showFields(removePupilForm, ['rscd_countrypupilleftenglandfor', 'rscd_dateoffroll', 'rscd_details']);
+           var fieldsArray =  ['rscd_countrypupilleftenglandfor', 'rscd_dateoffroll'];
+           var detailsValue = removePupilForm.getControl('rscd_details').getAttribute().getValue();
+          if (detailsValue !== ''){
+              fieldsArray.push('rscd_details');
+          }
+           this.showFields(removePupilForm, fieldsArray);
            break;
     case 12: // Deceased 
           this.showFields(removePupilForm, ['rscd_dateoffroll']);
@@ -69,3 +74,4 @@ console.log(reasonCode);
   });
   }
 }).call(Rscd);
+
