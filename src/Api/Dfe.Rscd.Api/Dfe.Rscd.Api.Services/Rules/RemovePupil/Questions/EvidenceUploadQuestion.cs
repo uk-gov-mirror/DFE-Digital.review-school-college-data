@@ -7,15 +7,13 @@ namespace Dfe.Rscd.Api.Services.Rules
 {
     public class EvidenceUploadQuestion : ConditionalFurtherQuestion
     {
-        public EvidenceUploadQuestion()
+        public EvidenceUploadQuestion(string htmlEvidenceRequiredText)
         {
-            Setup();
+            Setup(htmlEvidenceRequiredText);
         }
         
-        private void Setup()
+        private void Setup(string htmlEvidenceRequiredText)
         {
-            var helpTextUpload = "Evidence to provide<br/><ul><li>Lorem ipsum</li><li>Lorem ipsum</li><li>Lorem ipsum</li>";
-            
             var nonConditionalQuestion =
                 new BooleanQuestion(
                     nameof(EvidenceUploadQuestion),
@@ -31,14 +29,12 @@ namespace Dfe.Rscd.Api.Services.Rules
                         ValidatorType = ValidatorType.None
                     });
 
-            nonConditionalQuestion.HelpTextHtml = "Evidence to provide<br/><ul><li>Lorem ipsum</li><li>Lorem ipsum</li><li>Lorem ipsum</li>";
-
             SetupNonConditionalQuestion(nonConditionalQuestion);
 
             var conditionalQuestion = new EvidenceQuestion(
                 $"{nameof(EvidenceUploadQuestion)}.1",
                 "Upload evidence",
-                helpTextUpload);
+                htmlEvidenceRequiredText);
 
             SetupConditionalQuestion(conditionalQuestion, "1");
         }
