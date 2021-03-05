@@ -31,7 +31,7 @@ namespace Dfe.Rscd.Api.Domain.Entities.Questions
         public Answer Answer { get; set; }
 
         
-        public ValidatedAnswer GetAnswer(List<UserAnswer> userAnswers)
+        public virtual ValidatedAnswer GetAnswer(List<UserAnswer> userAnswers)
         {
             var userAnswer = userAnswers.Single(x => x.QuestionId == Id);
             var answer = GetAnswerPotential(userAnswer.Value);
@@ -39,7 +39,7 @@ namespace Dfe.Rscd.Api.Domain.Entities.Questions
             if (Answer.HasConditional && (Answer.ConditionalValue == answer.Value || Answer.ConditionalValue == answer.Description))
             {
                 userAnswer = userAnswers.Single(x => x.QuestionId == Answer.ConditionalQuestion.Id);
-
+                
                 return new ValidatedAnswer
                 {
                     Value = answer.Description + " - " + userAnswer.Value,
@@ -47,7 +47,7 @@ namespace Dfe.Rscd.Api.Domain.Entities.Questions
                     QuestionId = Id
                 };
             }
-
+            
             return new ValidatedAnswer
             {
                 Value = answer.Description,
@@ -56,7 +56,7 @@ namespace Dfe.Rscd.Api.Domain.Entities.Questions
             };
         }
 
-        private AnswerPotential GetAnswerPotential(string value)
+        protected AnswerPotential GetAnswerPotential(string value)
         {
             if (Answer.AnswerPotentials != null && Answer.AnswerPotentials.Count > 0)
             {

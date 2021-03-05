@@ -131,7 +131,7 @@ namespace Dfe.Rscd.Web.Application.Controllers
 
         private bool ThisQuestionIsTheConditionalQuestion(Question thisQuestion, string promptAnswer)
         {
-            if (thisQuestion.Answer.AnswerPotentials == null || thisQuestion.Answer.AnswerPotentials.Count == 0 || promptAnswer == string.Empty)
+            if (thisQuestion.Answer.AnswerPotentials == null || thisQuestion.Answer.AnswerPotentials.Count == 0 || string.IsNullOrEmpty(promptAnswer))
             {
                 return thisQuestion.Answer.ConditionalValue == promptAnswer;
             }

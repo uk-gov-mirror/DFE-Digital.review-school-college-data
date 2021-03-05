@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Linq;
+using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Domain.Entities.Questions;
 
 namespace Dfe.Rscd.Api.Services.Rules
@@ -38,6 +41,31 @@ namespace Dfe.Rscd.Api.Services.Rules
                 helpTextUpload);
 
             SetupConditionalQuestion(conditionalQuestion, "1");
+        }
+
+        public override ValidatedAnswer GetAnswer(List<UserAnswer> userAnswers)
+        {
+            var userAnswer = userAnswers.Single(x => x.QuestionId == Id);
+            var answer = GetAnswerPotential(userAnswer.Value);
+
+            if (Answer.HasConditional && (Answer.ConditionalValue == answer.Value || Answer.ConditionalValue == answer.Description))
+            {
+                userAnswer = userAnswers.Single(x => x.QuestionId == Answer.ConditionalQuestion.Id);
+                
+                return new ValidatedAnswer
+                {
+                    Value = userAnswer.Value,
+                    IsRejected = answer.Reject,
+                    QuestionId = Id
+                };
+            }
+            
+            return new ValidatedAnswer
+            {
+                Value = answer.Value,
+                IsRejected = answer.Reject,
+                QuestionId = Id
+            };
         }
     }
 }

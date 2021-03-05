@@ -64,9 +64,11 @@ namespace Dfe.Rscd.Api.Services
                 var amendmentEstablishment = GetOrCreateEstablishment(amendment.CheckingWindow, amendment.URN);
                 RelateEstablishmentToAmendment(amendmentEstablishment, outcome.NewAmendmentId);
 
-                if (!string.IsNullOrEmpty(amendment.EvidenceFolderName))
+                if (amendment.EvidenceStatus == EvidenceStatus.Now)
+                {
                     RelateEvidence(outcome.NewAmendmentId, amendment.EvidenceFolderName, false);
-
+                }
+                   
                 outcome.NewAmendmentReferenceNumber = GetAmendment(amendment.CheckingWindow, outcome.NewAmendmentId).Reference;
             }
 
