@@ -206,7 +206,9 @@ namespace Dfe.Rscd.Web.Application.Controllers
                 return new FileValidationError("The file size can not be more than 3MB", "The file size can not be more than 3MB");
             }
 
-            if(GetFiles().Files.Count > 12)
+            var files = GetFiles();
+
+            if(files?.Files != null && files.Files.Count > 12)
             {
                 return new FileValidationError("Only 12 files allowed", "There is only a maximum of 12 files allowable. Please remove file(s) before uploading more evidence.");
             }

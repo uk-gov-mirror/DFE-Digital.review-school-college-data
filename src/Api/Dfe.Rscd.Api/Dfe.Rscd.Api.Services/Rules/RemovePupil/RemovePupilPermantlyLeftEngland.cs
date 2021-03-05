@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.IO.Pipes;
 using System.Linq;
 using Dfe.Rscd.Api.Domain.Common;
 using Dfe.Rscd.Api.Domain.Entities;
