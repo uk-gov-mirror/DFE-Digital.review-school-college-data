@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -74,6 +75,19 @@ namespace Dfe.Rscd.Web.Application.Controllers
 
                         return View("Prompt", errorUploadViewModel);
                     }
+                }
+                else if (!Continue && Request.Form.ContainsKey("remove"))
+                {
+                    var fileId = Request.Form["remove"];
+                    var file = GetFiles().Files.Single(x => x.Id == fileId);
+                    _evidenceService.DeleteEvidenceFile(Guid.Parse(file.Id));
+
+                    RemoveFile(fileId);
+                    var uploadEvidenceViewModel = CreateUploadMoreViewModel(promptAnswerViewModel, questions,
+                        amendment);
+
+                    ViewBag.HasAdded = !Request.Form.ContainsKey("skipValidation");
+                    return View("Prompt", uploadEvidenceViewModel);
                 }
                 else if(!Continue && !Request.Form.ContainsKey("skipValidation"))
                 {

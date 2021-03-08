@@ -32,6 +32,11 @@ namespace Dfe.Rscd.Web.Application.Application.Services
             }
         }
 
+        public bool DeleteEvidenceFile(Guid fileId)
+        {
+            return _fileUploadService.DeleteFile(fileId);
+        }
+
         public void RelateEvidence(Guid amendmentId, string evidenceFolderName)
         {
             throw new NotImplementedException();

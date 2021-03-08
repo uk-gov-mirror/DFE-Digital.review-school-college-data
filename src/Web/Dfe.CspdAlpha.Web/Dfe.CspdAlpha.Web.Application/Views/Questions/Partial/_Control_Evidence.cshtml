@@ -50,10 +50,7 @@
                             @count.ToString(). @file.FileName
                         </dt>
                         <dd class="govuk-summary-list__value">
-                            <a class="govuk-link" href="#">
-                                Remove<span class="govuk-visually-hidden">@file.FileName</span>
-                            </a>
-                            @* OR <button class="app-link-button">@file.FileName</button> *@
+                            <button class="app-link-button" name="remove" value="@file.Id">Remove</button>
                         </dd>
                     </div>
                     count++;
