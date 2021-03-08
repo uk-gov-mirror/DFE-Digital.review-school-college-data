@@ -6,8 +6,6 @@ using Dfe.Rscd.Web.Application.Models.Common;
 using Dfe.Rscd.Web.Application.Models.ViewModels.Pupil;
 using Dfe.Rscd.Web.Application.Models.ViewModels.RemovePupil;
 using Dfe.Rscd.Web.Application.Models.ViewModels.Results;
-using Dfe.Rscd.Web.Application.Validators.RemovePupil;
-using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dfe.Rscd.Web.Application.Controllers
@@ -29,10 +27,6 @@ namespace Dfe.Rscd.Web.Application.Controllers
         [HttpPost]
         public IActionResult Index(SearchPupilsViewModel viewModel)
         {
-            var validator = new SearchPupilsViewModelValidator();
-            var results = validator.Validate(viewModel);
-            results.AddToModelState(ModelState, null);
-
             if (ModelState.IsValid)
             {
                 return RedirectToAction("Results", new { viewModel.SearchType, Query = viewModel.PupilID ?? viewModel.Name, CheckingWindow });

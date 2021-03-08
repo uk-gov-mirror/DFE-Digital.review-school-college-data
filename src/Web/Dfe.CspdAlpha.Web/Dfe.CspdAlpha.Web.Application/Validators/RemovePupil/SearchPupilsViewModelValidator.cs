@@ -9,14 +9,17 @@ namespace Dfe.Rscd.Web.Application.Validators.RemovePupil
         public SearchPupilsViewModelValidator()
         {
             RuleFor(x => x.PupilID)
-                .Cascade(CascadeMode.Stop)
                 .NotEmpty()
                 .When(x => x.SearchType == QueryType.PupilID && x.CheckingWindow != CheckingWindow.KS5)
                 .WithMessage("Enter a UPN");
 
             RuleFor(x => x.PupilID)
-                .Cascade(CascadeMode.Stop)
-                .Matches(@"^[a-zA-Z]{1}[a-zA-Z0-9]{1,13}$")
+                .Matches(@"^[a-zA-Z]+[a-zA-Z0-9]*$")
+                .When(x => x.SearchType == QueryType.PupilID && x.CheckingWindow != CheckingWindow.KS5)
+                .WithMessage("Enter a valid UPN");
+
+            RuleFor(x => x.PupilID)
+                .MaximumLength(14)
                 .When(x => x.SearchType == QueryType.PupilID && x.CheckingWindow != CheckingWindow.KS5)
                 .WithMessage("Enter a valid UPN");
 
