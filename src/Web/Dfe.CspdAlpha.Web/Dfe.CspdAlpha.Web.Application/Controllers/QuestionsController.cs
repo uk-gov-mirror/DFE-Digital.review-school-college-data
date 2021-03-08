@@ -222,7 +222,7 @@ namespace Dfe.Rscd.Web.Application.Controllers
 
             var files = GetFiles();
 
-            if(files?.Files != null && files.Files.Count > 12)
+            if(files?.Files != null && files.Files.Count >= 12)
             {
                 return new FileValidationError("Only 12 files allowed", "There is only a maximum of 12 files allowable. Please remove file(s) before uploading more evidence.");
             }
