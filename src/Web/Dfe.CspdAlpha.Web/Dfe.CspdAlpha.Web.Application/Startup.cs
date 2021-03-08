@@ -11,6 +11,7 @@ using Dfe.Rscd.Web.Application.Application.Services;
 using Dfe.Rscd.Web.Application.Middleware;
 using Dfe.Rscd.Web.Application.TagHelpers;
 using Dfe.Rscd.Web.Application.Validators.AddPupil;
+using Dfe.Rscd.Web.Application.Validators.RemovePupil;
 using Dfe.Rscd.Web.Infrastructure.Interfaces;
 using Dfe.Rscd.Web.Infrastructure.SharePoint;
 using Dfe.Rscd.Web.Shared.Config;
@@ -62,10 +63,10 @@ namespace Dfe.Rscd.Web.Application
             })
             .AddFluentValidation(fv =>
                 {
-                    fv.RegisterValidatorsFromAssemblyContaining<AddPupilViewModelValidator>();
+                    fv.RegisterValidatorsFromAssemblyContaining<SearchPupilsViewModelValidator>();
                     fv.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
                 }).AddNewtonsoftJson(o => { o.SerializerSettings.TypeNameHandling = TypeNameHandling.All; });
-            
+
             // Adds feature management for Azure App Configuration
             services.AddFeatureManagement();
             services.AddAzureAppConfiguration();
