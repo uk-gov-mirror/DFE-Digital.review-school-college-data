@@ -11,6 +11,8 @@ namespace Dfe.Rscd.Web.Application.Application.Interfaces
 
         FileUploadResult UploadEvidence(string folderName, IFormFile file);
 
+        bool DeleteEvidenceFile(Guid fileId);
+
         void RelateEvidence(Guid amendmentId, string evidenceFolderName);
     }
 }

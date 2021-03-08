@@ -18,6 +18,34 @@ namespace Dfe.Rscd.Web.Infrastructure.SharePoint
             _options = options.Value;
         }
 
+        public bool DeleteFile(Guid fileId)
+        {
+            Uri site = new Uri(_options.SiteUrl);
+            using (var authenticationManager = new AuthenticationManager(_options.TenantId))
+            {
+                using (var ctx = authenticationManager.GetContext(site, _options.ClientId, _options.ClientSecret))
+                {
+                    try
+                    {
+                        var fileToDelete = ctx.Web.GetFileById(fileId);
+                        ctx.Load(fileToDelete);
+                        ctx.ExecuteQuery();
+                        
+                        fileToDelete.DeleteObject();
+                        ctx.ExecuteQuery();
+                        
+                        return true;
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                        return false;
+                    }
+                    
+                }
+            }
+        }
+
         public FileUploadResult UploadFile(Stream file, string filename, string mimeType, string folderName)
         {
             // TODO: Consider updating this to use PnP Core when it supports .NET Standard (https://github.com/pnp/PnP-Sites-Core)
@@ -121,7 +149,7 @@ namespace Dfe.Rscd.Web.Infrastructure.SharePoint
                                     // Get a reference to our file
                                     uploadFile = ctx.Web.GetFileByServerRelativeUrl(
                                         targetFolder.ServerRelativeUrl + System.IO.Path.AltDirectorySeparatorChar + filename);
-
+                                    
                                     if (totalBytesRead == fileSize)
                                     {
                                         // We've reached the end of the file

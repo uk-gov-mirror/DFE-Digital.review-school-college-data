@@ -46,6 +46,16 @@ namespace Dfe.Rscd.Web.Application.Controllers
             HttpContext.Session.Set(FILE_LIST, files);
         }
 
+        protected void RemoveFile(string fileId)
+        {
+            var files = GetFiles() ?? new FilesViewModel();
+
+            var file = files.Files.Single(x => x.Id == fileId);
+            files.Files.Remove(file);
+
+            HttpContext.Session.Set(FILE_LIST, files);
+        }
+
         protected List<Question> GetQuestions()
         {
             return HttpContext.Session.Get<List<Question>>(PROMPT_QUESTIONS);
