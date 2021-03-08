@@ -1,6 +1,9 @@
 using System;
+using System.Diagnostics;
+using System.IO;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading.Tasks;
 using Dfe.Rscd.Web.ApiClient;
 using Dfe.Rscd.Web.Application.Application;
 using Dfe.Rscd.Web.Application.Application.Interfaces;
@@ -26,7 +29,9 @@ using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.FeatureManagement;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Newtonsoft.Json;
 
 namespace Dfe.Rscd.Web.Application
@@ -83,33 +88,54 @@ namespace Dfe.Rscd.Web.Application
 
             // configure OpenID Connect authentication
             var oidcAuthOptions = Configuration.GetSection("OidcAuth").Get<OidcAuthOptions>();
+            var overallSessionTimeout = TimeSpan.FromMinutes(20);
+
             services.AddAuthentication(options =>
             {
-                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
             })
             .AddCookie(options =>
             {
-                options.ExpireTimeSpan = new TimeSpan(0, 20, 0);
+                options.Cookie.Name = "rscd-auth-cookie";
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                options.SlidingExpiration = true;
+                options.ExpireTimeSpan = overallSessionTimeout;
                 options.LoginPath = "/Account/Login/";
             })
             .AddOpenIdConnect(options =>
             {
+                options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 options.MetadataAddress = oidcAuthOptions.MetadataUrl;
                 options.CallbackPath = "/auth/cb";
                 options.SignedOutCallbackPath = "/signout/complete";
+
                 options.ClientId = oidcAuthOptions.ClientId;
-                options.ClientSecret = oidcAuthOptions.ClientSecret;                
-                options.ResponseType = "code";
+                options.ClientSecret = oidcAuthOptions.ClientSecret;
+                options.ResponseType = OpenIdConnectResponseType.Code;
+                options.AuthenticationMethod = OpenIdConnectRedirectBehavior.FormPost;
+
                 options.Scope.Clear();
                 options.Scope.Add("openid");
                 options.Scope.Add("email");
                 options.Scope.Add("profile");
                 options.Scope.Add("organisation");
-                //options.Scope.Add("organisationid");
-                //options.Scope.Add("offline_access");
+
                 options.SaveTokens = true;
-                options.GetClaimsFromUserInfoEndpoint = false;
+                options.GetClaimsFromUserInfoEndpoint = true;
+
+                // When we expire the session, ensure user is prompted to sign in again at DfE Sign In
+                options.MaxAge = overallSessionTimeout;
+
+                options.ProtocolValidator = new OpenIdConnectProtocolValidator
+                {
+                    RequireSub = true,
+                    RequireStateValidation = false,
+                    NonceLifetime = overallSessionTimeout
+                };
+
+                options.DisableTelemetry = true;
             });
 
             if (_env.IsDevelopment() || _env.IsStaging())
