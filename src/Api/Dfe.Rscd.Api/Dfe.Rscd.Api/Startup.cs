@@ -10,6 +10,7 @@ using Dfe.Rscd.Api.Infrastructure.SqlServer.Repositories;
 using Dfe.Rscd.Api.Middleware.BasicAuth;
 using Dfe.Rscd.Api.Services;
 using Dfe.Rscd.Api.Services.Rules;
+using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -66,6 +67,12 @@ namespace Dfe.Rscd.Api
             // Adds feature management for Azure App Configuration
             services.AddFeatureManagement();
             services.AddAzureAppConfiguration();
+
+            if (!_env.IsProduction())
+            {
+                // obtain CRM request messages in non-prod environments
+                services.AddSingleton<ITelemetryInitializer, CrmTelemetryInitializer>();
+            }
 
             services.AddApplicationInsightsTelemetry();
 
