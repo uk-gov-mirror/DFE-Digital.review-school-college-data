@@ -67,6 +67,7 @@ namespace Dfe.Rscd.Api
             services.AddFeatureManagement();
             services.AddAzureAppConfiguration();
 
+            services.AddApplicationInsightsTelemetry();
 
             var referenceDataConnectionString = Configuration.GetConnectionString("ReferenceData");
 
