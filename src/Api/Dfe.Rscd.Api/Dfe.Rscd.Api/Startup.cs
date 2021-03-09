@@ -115,6 +115,7 @@ namespace Dfe.Rscd.Api
             services.AddScoped<IRule, RemovePupilOtherSafeguardingFapRule>();
             services.AddScoped<IRule, RemovePupilOtherInPrisonRemandCentreSecureUnitRule>();
             services.AddScoped<IRule, RemovePupilOtherPermanentlyExcluded>();
+            services.AddScoped<IRule, RemovePupilOtherElectiveHomeEducationRule>();
 
             services.AddScoped<IAmendmentBuilder, RemovePupilAmendmentBuilder>();
             services.AddScoped<Amendment, RemovePupilAmendment>();
