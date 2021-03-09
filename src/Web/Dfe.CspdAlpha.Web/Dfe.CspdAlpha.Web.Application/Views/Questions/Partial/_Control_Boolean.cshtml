@@ -1,10 +1,23 @@
 @model Dfe.Rscd.Web.ApiClient.Question
+
+@{
+    var formGroupClasses = "govuk-form-group govuk-radios--inline";
+    var errorMessage = string.Empty;
+    if (ViewData.ContainsKey("hasErrors") && ViewData["hasErrors"] != null)
+    {
+        formGroupClasses = string.Concat(formGroupClasses, " govuk-form-group--error");
+    }
+}
 <div class="govuk-form-group">
     <fieldset class="govuk-fieldset">
         <legend class="govuk-fieldset__legend">
             @Model.Answer.Label
         </legend>
-        <div class="govuk-radios govuk-radios--inline">
+        <div class="@formGroupClasses">
+            @if (ViewData.ContainsKey("errorMessage") && ViewData["errorMessage"] != null)
+            {
+                <span class="govuk-error-message">@ViewData["errorMessage"]</span>
+            }
             @foreach (var opt in Model.Answer.AnswerPotentials)
             {
                 <div class="govuk-radios__item">
