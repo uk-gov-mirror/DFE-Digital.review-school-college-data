@@ -73,8 +73,7 @@ namespace Dfe.Rscd.Api.Services
                         throw result.FirstOrDefault(e => e.Error != null)?.Error ?? new ApplicationException();
 
                     if (amendmentDto.rscd_Outcome == rscd_Outcome.Autoapproved ||
-                        amendmentDto.rscd_Outcome == rscd_Outcome.Autorejected ||
-                        amendmentDto.rscd_Evidencestatus == rscd_Evidencestatus.Later)
+                        amendmentDto.rscd_Outcome == rscd_Outcome.Autorejected)
                     {
                         amendmentDto.StateCode = rscd_AmendmentState.Inactive;
                         amendmentDto.rscd_recorded_by = _autoRecordedUser;
