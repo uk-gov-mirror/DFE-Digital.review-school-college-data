@@ -26,22 +26,14 @@ namespace Dfe.Rscd.Api.Services
 
                 if (outcome.OutcomeStatus != OutcomeStatus.AwaitingValidationPass)
                 {
-                    if (amendment.EvidenceStatus == EvidenceStatus.Later)
-                    {
-                        amendmentDto.rscd_Outcome = rscd_Outcome.Awaitingevidence;
-                    }
-                    else
-                    {
-                        if (outcome.OutcomeStatus == OutcomeStatus.AutoAccept)
+                    if (outcome.OutcomeStatus == OutcomeStatus.AutoAccept)
                             amendmentDto.rscd_Outcome = rscd_Outcome.Autoapproved;
-                        else if (outcome.OutcomeStatus == OutcomeStatus.AutoReject)
-                            amendmentDto.rscd_Outcome = rscd_Outcome.Autorejected;
-                        else
-                            amendmentDto.rscd_Outcome = rscd_Outcome.AwaitingDfEreview;
-                    }
+                    else if (outcome.OutcomeStatus == OutcomeStatus.AutoReject)
+                        amendmentDto.rscd_Outcome = rscd_Outcome.Autorejected;
+                    else
+                        amendmentDto.rscd_Outcome = rscd_Outcome.AwaitingDfEreview;
                 }
                 
-
                 return outcome;
             }
 
