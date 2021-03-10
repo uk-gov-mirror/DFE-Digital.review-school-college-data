@@ -173,6 +173,8 @@ namespace Dfe.Rscd.Web.Application.Controllers
                 .GetAmendmentReasons(AmendmentType.RemovePupil)
                 .Where(x=>x.ParentReasonId == viewModel.SelectedReasonCode);
 
+            ViewData["isSubReason"] = true;
+
             return View("Reason", new ReasonViewModel
             {
                 PupilDetails = new PupilViewModel(amendment.Pupil),

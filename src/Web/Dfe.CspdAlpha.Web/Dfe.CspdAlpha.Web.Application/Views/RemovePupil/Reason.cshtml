@@ -1,7 +1,12 @@
 @using Dfe.Rscd.Web.ApiClient
 @model Dfe.Rscd.Web.Application.Models.ViewModels.RemovePupil.ReasonViewModel
 @{
-    ViewData["Title"] = $"Select a reason for request to remove a {Model.PersonLowercase}";
+    ViewData["Title"] = $"Request to remove a {Model.PersonLowercase} reason";
+
+    if (ViewData.ContainsKey("isSubReason"))
+    {
+        ViewData["Title"] = $"Request to remove a {Model.PersonLowercase}  sub-reason other";
+    }
 }
 
 @section BackLink
