@@ -7,9 +7,15 @@ namespace Dfe.Rscd.Web.Application.Validators.RemovePupil
     {
         public ReasonViewModelValidator()
         {
-            RuleFor(x => x.SelectedReasonCode)
-                .NotNull()
-                .WithMessage("Select a reason");
+            When(x => x.IsSubReason, () => {
+                RuleFor(x => x.SelectedReasonCode)
+                    .NotNull()
+                    .WithMessage("Select a sub-reason");
+            }).Otherwise(() => {
+                RuleFor(x => x.SelectedReasonCode)
+                    .NotNull()
+                    .WithMessage("Select a reason");
+            });
         }
     }
 }

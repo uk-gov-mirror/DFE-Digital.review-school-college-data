@@ -2,10 +2,11 @@
 @model Dfe.Rscd.Web.Application.Models.ViewModels.RemovePupil.ReasonViewModel
 @{
     ViewData["Title"] = $"Request to remove a {Model.PersonLowercase} reason";
-
-    if (ViewData.ContainsKey("isSubReason"))
+    var legendText = "Select a reason";
+    if (Model.IsSubReason)
     {
         ViewData["Title"] = $"Request to remove a {Model.PersonLowercase}  sub-reason other";
+        legendText = "Select a sub-reason";
     }
 }
 
@@ -52,7 +53,7 @@
             <div class="govuk-form-group" asp-for="SelectedReasonCode">
                 <fieldset class="govuk-fieldset">
                     <legend class="govuk-legend govuk-fieldset__legend--s govuk-!-margin-bottom-4">
-                        Select a reason
+                       @legendText
                     </legend>
                     <div class="govuk-radios" asp-for="SelectedReasonCode">
                         <partial name="./Partial/_Reason_@Model.CheckingWindow.ToString().ToLower()" model="@Model" />
@@ -67,6 +68,7 @@
             <input type="submit" class="govuk-button" data-module="govuk-button" value="Continue" />
         </div>
     </div>
+    <input type="hidden" asp-for="IsSubReason">
 </form>
 
 <partial name="_CancelAmendment" />

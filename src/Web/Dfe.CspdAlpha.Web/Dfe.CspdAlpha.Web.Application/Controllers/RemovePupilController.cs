@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Dfe.Rscd.Web.ApiClient;
 using Dfe.Rscd.Web.Application.Application.Helpers;
@@ -173,16 +174,15 @@ namespace Dfe.Rscd.Web.Application.Controllers
                 .GetAmendmentReasons(AmendmentType.RemovePupil)
                 .Where(x=>x.ParentReasonId == viewModel.SelectedReasonCode);
 
-            ViewData["isSubReason"] = true;
-
-            return View("Reason", new ReasonViewModel
+           return View("Reason", new ReasonViewModel
             {
                 PupilDetails = new PupilViewModel(amendment.Pupil),
                 SelectedReasonCode = amendmentDetail.GetField<int?>(Constants.RemovePupil.FIELD_ReasonCode),
                 SearchType = viewModel.SearchType,
                 Query = viewModel.Query,
                 MatchedId = viewModel.MatchedId,
-                Reasons = reasons.ToList()
+                Reasons = reasons.ToList(),
+                IsSubReason = true
             });
         }
 
@@ -198,7 +198,10 @@ namespace Dfe.Rscd.Web.Application.Controllers
                     .Where(x=>x.ParentReasonId == viewModel.SelectedReasonCode.Value);
 
                 if (subReasons != null && subReasons.Any())
+                {
+                    viewModel.IsSubReason = true;
                     return RedirectToAction("Subreason", viewModel);
+                }
 
                 amendment.AmendmentDetail.AddField(Constants.RemovePupil.FIELD_ReasonCode, viewModel.SelectedReasonCode.Value);
                 amendment.InclusionReasonId = viewModel.SelectedReasonCode.Value;
@@ -209,7 +212,16 @@ namespace Dfe.Rscd.Web.Application.Controllers
 
                 return RedirectToAction("Prompt", "Questions");
             }
-            return View(new ReasonViewModel { PupilDetails = new PupilViewModel(amendment.Pupil) });
+
+            var parentReasonCode = viewModel.IsSubReason ? 19 : 0;
+
+            viewModel.Reasons = _pupilService
+                .GetAmendmentReasons(AmendmentType.RemovePupil)
+                .Where(x => x.ParentReasonId == parentReasonCode).ToList();
+
+            viewModel.PupilDetails = new PupilViewModel(amendment.Pupil);
+
+            return View(viewModel);
         }
     }
 }
