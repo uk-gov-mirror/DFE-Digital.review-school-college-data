@@ -6,14 +6,14 @@ namespace Dfe.Rscd.Api.Services.Rules
     {
         public PupilExclusionDateQuestion() : 
             base(nameof(PupilExclusionDateQuestion), 
-                "Pupil's exclusion date",
-                "Enter the date that the pupil was excluded from the previous school",
+                Content.PupilExclusionDateQuestion_Title,
+                Content.PupilExclusionDateQuestion_Label,
                 new Validator
                 {
                     AllowNull = false,
-                    NullErrorMessage = "Enter pupil's exclusion date",
+                    NullErrorMessage = Content.PupilExclusionDateQuestion_NullErrorMessage,
                     ValidatorType = ValidatorType.DateTimeHistorical,
-                    InValidErrorMessage = "Enter a valid pupil's exclusion date"
+                    InValidErrorMessage = Content.PupilExclusionDateQuestion_InvalidErrorMessage
                 })
         {
             

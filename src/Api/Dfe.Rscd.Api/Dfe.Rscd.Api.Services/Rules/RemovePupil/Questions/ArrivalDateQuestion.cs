@@ -14,23 +14,23 @@ namespace Dfe.Rscd.Api.Services.Rules
         {
             SetupParentYesNo(
                 nameof(ArrivalDateQuestion),
-                "Do you know pupil's date of arrival to UK?",
-                "Select one", new List<AnswerPotential>
+                Content.ArrivalDateQuestion_Title,
+                Content.ArrivalDateQuestion_Label, new List<AnswerPotential>
                 {
-                    new AnswerPotential {Value = "1", Description = "Enter pupil's date of arrival to UK"},
-                    new AnswerPotential {Value = "2", Description = "Do not know pupil's date of arrival to UK"}
+                    new AnswerPotential {Value = "1", Description = Content.ArrivalDateQuestion_Yes_Description},
+                    new AnswerPotential {Value = "2", Description = Content.ArrivalDateQuestion_No_Description}
                 }, new Validator
                 {
-                    InValidErrorMessage = "Enter a valid date of arrival to UK",
-                    NullErrorMessage = "Enter a date of arrival to UK",
+                    InValidErrorMessage = Content.ArrivalDateQuestion_InvalidErrorMessage,
+                    NullErrorMessage = Content.ArrivalDateQuestion_NullErrorMessage,
                     ValidatorType = ValidatorType.DateTimeHistorical,
                     AllowNull = true,
                 });
 
             var dateTimeQuestion = new DateTimeQuestion(
                 nameof(ArrivalDateQuestion),
-                "Enter a date of arrival to UK",
-                "For example, 12 11 2007", new Validator{ ValidatorType = ValidatorType.None });
+                Content.ArrivalDateQuestion_Date_Title,
+                Content.ArrivalDateQuestion_Date_Label, new Validator{ ValidatorType = ValidatorType.None });
 
             SetupDateQuestion(dateTimeQuestion);
         }

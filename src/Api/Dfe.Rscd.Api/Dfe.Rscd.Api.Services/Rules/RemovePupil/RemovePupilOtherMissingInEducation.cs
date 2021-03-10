@@ -21,8 +21,7 @@ namespace Dfe.Rscd.Api.Services.Rules
         public override List<Question> GetQuestions(Amendment amendment)
         {
             var dateOffRoll = new PupilDateOffRollQuestion();
-            var evidence = new EvidenceUploadQuestion(
-                "<p>Evidence to include</p><ul><li>Efforts to locate pupil</li><li>Evidence from the local authority that the pupil is missing in education</li><li>When the pupil was reported to the police as missing - if not reported please provide reason why</li><li>Reason for pupil missing from education (if known)</li><li>Awareness of pupil sitting key stage 4 qualifications</li></ul>");
+            var evidence = new EvidenceUploadQuestion(Content.RemovePupilOtherMissingInEducation_HTML);
 
             return new List<Question>{dateOffRoll, evidence};
         }

@@ -6,14 +6,14 @@ namespace Dfe.Rscd.Api.Services.Rules
     {
         public PupilDateOffRollQuestion() : 
             base(nameof(PupilDateOffRollQuestion), 
-                "Pupil's date off roll",
-                "Enter the date that the pupil was off roll",
+                Content.PupilDateOffRollQuestion_Title,
+                Content.PupilDateOffRollQuestion_Label,
                 new Validator
                 {
                     AllowNull = false,
-                    NullErrorMessage = "Enter pupil's date off roll",
+                    NullErrorMessage = Content.PupilDateOffRollQuestion_NullErrorMessage,
                     ValidatorType = ValidatorType.DateTimeHistorical,
-                    InValidErrorMessage = "Enter a valid pupil's date off roll"
+                    InValidErrorMessage = Content.PupilDateOffRollQuestion_InvalidErrorMessage
                 })
         {
             

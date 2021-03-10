@@ -21,8 +21,7 @@ namespace Dfe.Rscd.Api.Services.Rules
         public override List<Question> GetQuestions(Amendment amendment)
         {
             var dateOffRoll = new PupilDateOffRollQuestion();
-            var evidence = new EvidenceUploadQuestion(
-                "<p>Evidence to include:</p><ul> <li>Timing and outcome of any review process</li><li>The DfE number or name and postcode of the educational establishment pupil went on to or came from.</li></ul>");
+            var evidence = new EvidenceUploadQuestion(Content.RemovePupilOtherPermanentlyExcluded_HTML);
 
             return new List<Question>{dateOffRoll, evidence};
         }

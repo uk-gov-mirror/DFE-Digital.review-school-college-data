@@ -15,12 +15,12 @@ namespace Dfe.Rscd.Api.Services.Rules
             var nonConditionalQuestion =
                 new SelectQuestion(
                     nameof(PupilNativeLanguageQuestion),
-                    "Pupil's native language",
-                    "Select pupil's native language", languages, new Validator
+                    Content.PupilNativeLanguageQuestion_Select_Title,
+                    Content.PupilNativeLanguageQuestion_Select_Label, languages, new Validator
                     {
                         AllowNull = false,
                         InValidErrorMessage = string.Empty,
-                        NullErrorMessage = "Select pupil's native language",
+                        NullErrorMessage = Content.PupilNativeLanguageQuestion_Select_NullErrorMessage,
                         ValidatorType = ValidatorType.None
                     });
 
@@ -28,12 +28,12 @@ namespace Dfe.Rscd.Api.Services.Rules
 
             var conditionalQuestion = new StringQuestion(
                 $"{nameof(PupilNativeLanguageQuestion)}.Other",
-                "Enter pupil's native language",
-                "You have selected 'Other'. Please enter the pupil's native language", 
+                Content.PupilNativeLanguageQuestion_Other_Title,
+                Content.PupilNativeLanguageQuestion_Other_Label, 
                 new Validator
                 {
-                    InValidErrorMessage = "Enter a valid pupil's native language",
-                    NullErrorMessage = "Enter pupil's native language",
+                    InValidErrorMessage = Content.PupilNativeLanguageQuestion_Other_InvalidErrorMessage,
+                    NullErrorMessage = Content.PupilNativeLanguageQuestion_Other_NullErrorMessage,
                     ValidatorType = ValidatorType.AlphabeticalIncludingSpecialChars,
                     AllowNull = false,
                 });

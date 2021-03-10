@@ -18,15 +18,15 @@ namespace Dfe.Rscd.Api.Services.Rules
             var nonConditionalQuestion =
                 new BooleanQuestion(
                     nameof(EvidenceUploadQuestion),
-                    "Are you able to provide evidence now?",
-                    "Select one",
-                    "I will provide electronic evidence now",
-                    "I will submit electronic evidence before 5pm on DD/MM/YYYY",
+                    Content.EvidenceUploadQuestion_Boolean_Title,
+                    Content.EvidenceUploadQuestion_Boolean_Label,
+                    Content.EvidenceUploadQuestion_Boolean_Yes_Description,
+                    Content.EvidenceUploadQuestion_Boolean_No_Description,
                     new Validator
                     {
                         AllowNull = false,
                         InValidErrorMessage = string.Empty,
-                        NullErrorMessage = "Select one",
+                        NullErrorMessage = Content.EvidenceUploadQuestion_Boolean_NullErrorMessage,
                         ValidatorType = ValidatorType.None
                     });
 
@@ -34,7 +34,7 @@ namespace Dfe.Rscd.Api.Services.Rules
 
             var conditionalQuestion = new EvidenceQuestion(
                 $"{nameof(EvidenceUploadQuestion)}.1",
-                "Upload evidence",
+                Content.EvidenceUploadQuestion_Upload_Title,
                 htmlEvidenceRequiredText);
 
             SetupConditionalQuestion(conditionalQuestion, "1");

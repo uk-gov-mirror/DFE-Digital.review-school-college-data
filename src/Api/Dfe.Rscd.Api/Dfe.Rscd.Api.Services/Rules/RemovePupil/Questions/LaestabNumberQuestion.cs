@@ -9,15 +9,15 @@ namespace Dfe.Rscd.Api.Services.Rules.RemovePupil.Questions
     {
         public LaestabNumberQuestion() 
             : base(nameof(LaestabNumberQuestion), 
-                "LAESTAB of excluded school", 
-                "Enter the LAESTAB of the school the pupil was permanently excluded from", 
+                Content.LaestabNumberQuestion_Title, 
+                Content.LaestabNumberQuestion_Label, 
                 new Validator
                 {
                     AllowNull = false,
-                    NullErrorMessage = "Enter the LAESTAB",
+                    NullErrorMessage = Content.LaestabNumberQuestion_NullErrorMessage,
                     ValidatorType = ValidatorType.LAESTABNumber,
                     ValidatorCompareValue = @"^\d{7}$",
-                    InValidErrorMessage = "Enter a valid LAESTAB"
+                    InValidErrorMessage = Content.LaestabNumberQuestion_InvalidErrorMessage
                 })
         {
 

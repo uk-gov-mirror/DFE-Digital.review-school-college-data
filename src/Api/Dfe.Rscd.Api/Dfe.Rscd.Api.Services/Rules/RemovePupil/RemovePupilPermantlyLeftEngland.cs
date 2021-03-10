@@ -15,8 +15,7 @@ namespace Dfe.Rscd.Api.Services.Rules
         private const string ReasonDescription = "Permanently Left England";
         private string ScrutinyCode = "3";
 
-        private string _evidenceHelpDeskText =>
-            "<p>Evidence to provide:</p><ul><li>Parent Letter</li><li>Letter from School to LA</li><li>Evidence of enrolment in non-UK school</li></ul>";
+        private string _evidenceHelpDeskText => Content.RemovePupilPermanentlyLeftEngland_HTML;
 
         public RemovePupilPermanentlyLeftEngland(IDataService dataService, IAllocationYearConfig config)
         {

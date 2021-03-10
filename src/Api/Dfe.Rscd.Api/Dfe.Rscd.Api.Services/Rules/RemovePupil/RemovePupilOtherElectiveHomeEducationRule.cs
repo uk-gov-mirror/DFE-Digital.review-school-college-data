@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Resources;
 using Dfe.Rscd.Api.Domain.Common;
 using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Domain.Entities.Amendments;
@@ -13,7 +14,7 @@ namespace Dfe.Rscd.Api.Services.Rules
         private readonly IDataService _dataService;
         private readonly IAllocationYearConfig _config;
         
-        private string _evidenceHelpDeskText => "<p>Evidence to provide:</p><ul><li>A copy of the parental letter withdrawing the pupil from school<li></ul>";
+        private string _evidenceHelpDeskText => Content.RemovePupilOtherElectiveHomeEducationRule_HTML;
 
         public RemovePupilOtherElectiveHomeEducationRule(IDataService dataService, IAllocationYearConfig config)
         {

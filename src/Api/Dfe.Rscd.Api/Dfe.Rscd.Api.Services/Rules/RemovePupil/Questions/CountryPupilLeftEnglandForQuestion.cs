@@ -18,13 +18,13 @@ namespace Dfe.Rscd.Api.Services.Rules
             var nonConditionalQuestion =
                 new SelectQuestion(
                     nameof(CountryPupilLeftEnglandFor),
-                    "Pupil's destination country",
-                    "Select the country that the pupil left England for",
+                    Content.CountryPupilLeftEnglandFor_Select_Title,
+                    Content.CountryPupilLeftEnglandFor_Select_Label,
                     countries, new Validator
                     {
                         AllowNull = false,
                         InValidErrorMessage = string.Empty,
-                        NullErrorMessage = "Select the country that the pupil left England for",
+                        NullErrorMessage = Content.CountryPupilLeftEnglandFor_Select_NullErrorMessage,
                         ValidatorType = ValidatorType.None
                     });
 
@@ -32,11 +32,11 @@ namespace Dfe.Rscd.Api.Services.Rules
 
             var conditionalQuestion = new StringQuestion(
                 $"{nameof(CountryPupilLeftEnglandFor)}.Other",
-                "Enter the country pupil left England for",
-                "You have selected 'Other'. Please enter the country that the pupil left England for", new Validator
+                Content.CountryPupilLeftEnglandFor_Other_Title,
+                Content.CountryPupilLeftEnglandFor_Other_Label, new Validator
                 {
-                    InValidErrorMessage = "Enter a valid country that the pupil left England for",
-                    NullErrorMessage = "Enter the country that the pupil left England for",
+                    InValidErrorMessage = Content.CountryPupilLeftEnglandFor_Other_InvalidErrorMessage,
+                    NullErrorMessage = Content.CountryPupilLeftEnglandFor_Other_NullErrorMessage,
                     ValidatorType = ValidatorType.AlphabeticalIncludingSpecialChars,
                     AllowNull = false,
                 });
