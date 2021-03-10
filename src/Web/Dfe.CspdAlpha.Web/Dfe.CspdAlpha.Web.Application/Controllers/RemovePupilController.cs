@@ -7,8 +7,6 @@ using Dfe.Rscd.Web.Application.Models.Common;
 using Dfe.Rscd.Web.Application.Models.ViewModels.Pupil;
 using Dfe.Rscd.Web.Application.Models.ViewModels.RemovePupil;
 using Dfe.Rscd.Web.Application.Models.ViewModels.Results;
-using Dfe.Rscd.Web.Application.Validators.RemovePupil;
-using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dfe.Rscd.Web.Application.Controllers
