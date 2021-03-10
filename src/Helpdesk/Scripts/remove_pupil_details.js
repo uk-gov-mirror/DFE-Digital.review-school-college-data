@@ -60,6 +60,12 @@ console.log(reasonCode);
            }
             this.showFields(removePupilForm, fieldsArray);
             break;
+          case 1902: // 
+           var detailsValue = removePupilForm.getControl('rscd_details').getAttribute().getValue();
+          if (detailsValue !== ''){
+             this.showFields(removePupilForm,['rscd_details']);
+          }
+           break;
         // case 330: // Other without evidence  
         //   break;
           default:
@@ -74,4 +80,3 @@ console.log(reasonCode);
   });
   }
 }).call(Rscd);
-
