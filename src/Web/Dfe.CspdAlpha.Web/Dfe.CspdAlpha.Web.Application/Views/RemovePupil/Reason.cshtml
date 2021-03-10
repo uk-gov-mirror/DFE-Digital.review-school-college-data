@@ -55,7 +55,7 @@
                     <legend class="govuk-legend govuk-fieldset__legend--s govuk-!-margin-bottom-4">
                        @legendText
                     </legend>
-                    <div class="govuk-radios" asp-for="SelectedReasonCode">
+                    <div class="govuk-radios" asp-for="SelectedReasonCode" id="SelectedReasonCode">
                         <partial name="./Partial/_Reason_@Model.CheckingWindow.ToString().ToLower()" model="@Model" />
                     </div>
                 </fieldset>
