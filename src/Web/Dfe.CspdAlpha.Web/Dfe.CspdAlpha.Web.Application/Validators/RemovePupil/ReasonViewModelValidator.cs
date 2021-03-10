@@ -10,7 +10,7 @@ namespace Dfe.Rscd.Web.Application.Validators.RemovePupil
             When(x => x.IsSubReason, () => {
                 RuleFor(x => x.SelectedReasonCode)
                     .NotNull()
-                    .WithMessage("Select a sub reason");
+                    .WithMessage("Select a sub-reason");
             }).Otherwise(() => {
                 RuleFor(x => x.SelectedReasonCode)
                     .NotNull()
