@@ -18,5 +18,6 @@ namespace Dfe.Rscd.Web.Application.Models.ViewModels.RemovePupil
         public int? SelectedReasonCode { get; set; }
 
         public List<AmendmentReason> Reasons = new List<AmendmentReason>();
+        public bool IsSubReason { get; set; } = false;
     }
 }
