@@ -392,5 +392,11 @@ namespace Dfe.Rscd.Api {
                 return ResourceManager.GetString("RemovePupilPermanentlyLeftEngland.HTML", resourceCulture);
             }
         }
+        
+        internal static string RemovePupilOtherEalExceptionalCirumstances_HTML {
+            get {
+                return ResourceManager.GetString("RemovePupilOtherEalExceptionalCirumstances.HTML", resourceCulture);
+            }
+        }
     }
 }

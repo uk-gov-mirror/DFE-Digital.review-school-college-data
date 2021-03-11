@@ -124,6 +124,7 @@ namespace Dfe.Rscd.Api
             services.AddScoped<IRule, RemovePupilOtherPermanentlyExcluded>();
             services.AddScoped<IRule, RemovePupilOtherElectiveHomeEducationRule>();
             services.AddScoped<IRule, RemovePupilOtherMissingInEducation>();
+            services.AddScoped<IRule, RemovePupilOtherEalExceptionalCircumstances>();
 
             services.AddScoped<IAmendmentBuilder, RemovePupilAmendmentBuilder>();
             services.AddScoped<Amendment, RemovePupilAmendment>();
