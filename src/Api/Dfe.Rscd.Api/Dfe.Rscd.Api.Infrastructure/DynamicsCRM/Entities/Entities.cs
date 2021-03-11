@@ -2567,7 +2567,7 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Entities
 		/// 
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_reasondescription")]
-		public string rscd_reasondescription
+		public string rscd_ReasonDescription
 		{
 			get
 			{
@@ -2575,9 +2575,9 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Entities
 			}
 			set
 			{
-				this.OnPropertyChanging("rscd_reasondescription");
+				this.OnPropertyChanging("rscd_ReasonDescription");
 				this.SetAttributeValue("rscd_reasondescription", value);
-				this.OnPropertyChanged("rscd_reasondescription");
+				this.OnPropertyChanged("rscd_ReasonDescription");
 			}
 		}
 		
