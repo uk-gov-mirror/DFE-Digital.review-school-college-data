@@ -1111,6 +1111,24 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Entities
 		}
 		
 		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_outcomereason")]
+		public string rscd_OutcomeReason
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("rscd_outcomereason");
+			}
+			set
+			{
+				this.OnPropertyChanging("rscd_OutcomeReason");
+				this.SetAttributeValue("rscd_outcomereason", value);
+				this.OnPropertyChanged("rscd_OutcomeReason");
+			}
+		}
+		
+		/// <summary>
 		/// Calculated field, joining first name and last name
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_pupilname")]
@@ -1269,24 +1287,6 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Entities
 				this.OnPropertyChanging("rscd_rm_scrutiny_reason_code");
 				this.SetAttributeValue("rscd_rm_scrutiny_reason_code", value);
 				this.OnPropertyChanged("rscd_rm_scrutiny_reason_code");
-			}
-		}
-		
-		/// <summary>
-		/// 
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_subreason")]
-		public string rscd_subreason
-		{
-			get
-			{
-				return this.GetAttributeValue<string>("rscd_subreason");
-			}
-			set
-			{
-				this.OnPropertyChanging("rscd_subreason");
-				this.SetAttributeValue("rscd_subreason", value);
-				this.OnPropertyChanged("rscd_subreason");
 			}
 		}
 		

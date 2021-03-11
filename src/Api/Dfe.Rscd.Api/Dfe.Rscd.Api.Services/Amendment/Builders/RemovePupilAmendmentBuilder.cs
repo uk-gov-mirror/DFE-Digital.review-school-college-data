@@ -62,7 +62,7 @@ namespace Dfe.Rscd.Api.Services
             }
 
             amendmentDto.rscd_rm_scrutiny_reason_code = amendment.AmendmentDetail.GetField<int?>(RemovePupilAmendment.FIELD_ReasonCode);
-            amendmentDto.rscd_subreason = amendment.AmendmentDetail.GetField<string>(RemovePupilAmendment.FIELD_OutcomeDescription);
+            amendmentDto.rscd_OutcomeReason = amendment.AmendmentDetail.GetField<string>(RemovePupilAmendment.FIELD_OutcomeDescription);
             
             amendmentDto.rscd_Evidencestatus = amendment.EvidenceStatus.ToCRMEvidenceStatus();
         }
