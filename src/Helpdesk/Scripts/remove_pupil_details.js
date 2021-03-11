@@ -59,7 +59,7 @@ console.log(reasonCode);
                 fieldsArray.push('rscd_dateoffroll');
            }
            if (subReasonValue.toLowerCase().indexOf('eal exceptional circumstances') > -1){
-                fieldsArray.push('rscd_language', 'rscd_countryoforigin');
+                fieldsArray.push('rscd_language', 'rscd_countryoforigin', 'rscd_dateofarrival');
            }
             this.showFields(removePupilForm, fieldsArray);
             break;
