@@ -169,27 +169,30 @@
         <value>Enter pupil's native language</value>
     </data>
     <data name="RemovePupilOtherMissingInEducation.HTML" xml:space="preserve">
-        <value>&lt;p&gt;Evidence to include&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Efforts to locate pupil&lt;/li&gt;&lt;li&gt;Evidence from the local authority that the pupil is missing in education&lt;/li&gt;&lt;li&gt;When the pupil was reported to the police as missing - if not reported please provide reason why&lt;/li&gt;&lt;li&gt;Reason for pupil missing from education (if known)&lt;/li&gt;&lt;li&gt;Awareness of pupil sitting key stage 4 qualifications&lt;/li&gt;&lt;/ul&gt;</value>
+        <value>&lt;p  class="govuk-!-font-weight-bold"&gt;Evidence to include&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Efforts to locate pupil&lt;/li&gt;&lt;li&gt;Evidence from the local authority that the pupil is missing in education&lt;/li&gt;&lt;li&gt;When the pupil was reported to the police as missing - if not reported please provide reason why&lt;/li&gt;&lt;li&gt;Reason for pupil missing from education (if known)&lt;/li&gt;&lt;li&gt;Awareness of pupil sitting key stage 4 qualifications&lt;/li&gt;&lt;/ul&gt;</value>
     </data>
     <data name="RemovePupilOtherInPrisonRemandCentreSecureUnitRule.HTML" xml:space="preserve">
-        <value>&lt;p&gt;Evidence to provide:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Dates spent in prison/ remand centre/secure unit&lt;/li&gt;&lt;li&gt;Details of prison/ remand centre/secure unit&lt;/li&gt;&lt;ul/&gt;</value>
+        <value>&lt;p  class="govuk-!-font-weight-bold"&gt;Evidence to provide:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Dates spent in prison/ remand centre/secure unit&lt;/li&gt;&lt;li&gt;Details of prison/ remand centre/secure unit&lt;/li&gt;&lt;ul/&gt;</value>
     </data>
     <data name="RemovePupilOtherElectiveHomeEducationRule.HTML" xml:space="preserve">
-        <value>&lt;p&gt;Evidence to provide:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;A copy of the parental letter withdrawing the pupil from school&lt;li&gt;&lt;/ul&gt;</value>
+        <value>&lt;p class="govuk-!-font-weight-bold"&gt;Evidence to provide:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;A copy of the parental letter withdrawing the pupil from school&lt;li&gt;&lt;/ul&gt;</value>
     </data>
     <data name="RemovePupilOtherPermanentlyExcluded.HTML" xml:space="preserve">
-        <value>&lt;p&gt;Evidence to include:&lt;/p&gt;&lt;ul&gt; &lt;li&gt;Timing and outcome of any review process&lt;/li&gt;&lt;li&gt;The DfE number or name and postcode of the educational establishment pupil went on to or came from.&lt;/li&gt;&lt;/ul&gt;</value>
+        <value>&lt;p class="govuk-!-font-weight-bold"&gt;Evidence to include:&lt;/p&gt;&lt;ul&gt; &lt;li&gt;Timing and outcome of any review process&lt;/li&gt;&lt;li&gt;The DfE number or name and postcode of the educational establishment pupil went on to or came from.&lt;/li&gt;&lt;/ul&gt;</value>
     </data>
     <data name="RemovePupilOtherPoliceInvolvementBailRule.HTML" xml:space="preserve">
-        <value>&lt;p&gt;Evidence to provide:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Date of incident&lt;/li&gt;&lt;li&gt;Crime reference number&lt;/li&gt;&lt;li&gt;Police report&lt;/li&gt;&lt;li&gt;Restrictions put in place which prevented pupil accessing education&lt;/li&gt;&lt;li&gt;Alternative education provided&lt;/li&gt;&lt;ul/&gt;</value>
+        <value>&lt;p  class="govuk-!-font-weight-bold"&gt;Evidence to provide:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Date of incident&lt;/li&gt;&lt;li&gt;Crime reference number&lt;/li&gt;&lt;li&gt;Police report&lt;/li&gt;&lt;li&gt;Restrictions put in place which prevented pupil accessing education&lt;/li&gt;&lt;li&gt;Alternative education provided&lt;/li&gt;&lt;ul/&gt;</value>
     </data>
     <data name="RemovePupilOtherSafeguardingFapRule.HTML" xml:space="preserve">
-        <value>&lt;p&gt;Evidence to provide:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Evidence from the governing body, MAT or local authority giving the timing of the move and the reason why the pupil was placed in your school&lt;/li&gt;&lt;ul/&gt;</value>
+        <value>&lt;p class="govuk-!-font-weight-bold"&gt;Evidence to provide:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Evidence from the governing body, MAT or local authority giving the timing of the move and the reason why the pupil was placed in your school&lt;/li&gt;&lt;ul/&gt;</value>
     </data>
     <data name="RemovePupilOtherTerminalLongIllnessRule.HTML" xml:space="preserve">
-        <value>&lt;p&gt;Evidence to provide:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Recent supporting statement from a medical professional stating pupil unable to attend school/sit exams and medical evidence to support long term illness&lt;/li&gt;&lt;li&gt;% Attendance - Yr 10&lt;/li&gt;&lt;li&gt;% Attendance - Yr 11&lt;/li&gt;&lt;li&gt;Details of support provided to pupil by school&lt;/li&gt;&lt;li&gt;Details of home or hospital tuition: how many weeks/hours per week&lt;/li&gt;&lt;li&gt;Name of the hospital where the pupil was an inpatient and unable to study&lt;/li&gt;&lt;li&gt;Dates when the pupil was an inpatient, or held in a secure hospital under the Mental Health Act&lt;/li&gt;&lt;ul/&gt;</value>
+        <value>&lt;p class="govuk-!-font-weight-bold"&gt;Evidence to provide:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Recent supporting statement from a medical professional stating pupil unable to attend school/sit exams and medical evidence to support long term illness&lt;/li&gt;&lt;li&gt;% Attendance - Yr 10&lt;/li&gt;&lt;li&gt;% Attendance - Yr 11&lt;/li&gt;&lt;li&gt;Details of support provided to pupil by school&lt;/li&gt;&lt;li&gt;Details of home or hospital tuition: how many weeks/hours per week&lt;/li&gt;&lt;li&gt;Name of the hospital where the pupil was an inpatient and unable to study&lt;/li&gt;&lt;li&gt;Dates when the pupil was an inpatient, or held in a secure hospital under the Mental Health Act&lt;/li&gt;&lt;ul/&gt;</value>
     </data>
     <data name="RemovePupilPermanentlyLeftEngland.HTML" xml:space="preserve">
-        <value>&lt;p&gt;Evidence to provide:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Parent Letter&lt;/li&gt;&lt;li&gt;Letter from School to LA&lt;/li&gt;&lt;li&gt;Evidence of enrolment in non-UK school&lt;/li&gt;&lt;/ul&gt;</value>
+        <value>&lt;p class="govuk-!-font-weight-bold"&gt;Evidence to provide:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Parent Letter&lt;/li&gt;&lt;li&gt;Letter from School to LA&lt;/li&gt;&lt;li&gt;Evidence of enrolment in non-UK school&lt;/li&gt;&lt;/ul&gt;</value>
+    </data>
+    <data name="RemovePupilOtherEalExceptionalCirumstances.HTML" xml:space="preserve">
+        <value>&lt;p class="govuk-!-font-weight-bold"&gt;Evidence to provide:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Details of any large gap between the pupil arriving from overseas and being placed in an English  school, for example awaiting immigration status.&lt;/li&gt;&lt;/ul&gt;</value>
     </data>
 </root>
