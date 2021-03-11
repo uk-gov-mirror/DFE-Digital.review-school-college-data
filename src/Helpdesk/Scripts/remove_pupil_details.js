@@ -66,6 +66,9 @@ console.log(reasonCode);
              this.showFields(removePupilForm,['rscd_details']);
           }
            break;
+           case 1903: //
+           this.showFields(removePupilForm,['rscd_reasondescription']);
+           break;
         // case 330: // Other without evidence  
         //   break;
           default:
