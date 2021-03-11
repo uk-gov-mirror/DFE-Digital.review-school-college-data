@@ -88,7 +88,7 @@
         <value>Explain your request</value>
     </data>
     <data name="ExplainYourRequestQuestion.NullErrorMessage" xml:space="preserve">
-        <value>You have 500 characters too many</value>
+        <value>Please provide details to explain your request</value>
     </data>
     <data name="LaestabNumberQuestion.Title" xml:space="preserve">
         <value>LAESTAB of excluded school</value>
