@@ -58,6 +58,9 @@ console.log(reasonCode);
            if (subReasonValue.toLowerCase().indexOf('pupil missing in education') > -1){
                 fieldsArray.push('rscd_dateoffroll');
            }
+           if (subReasonValue.toLowerCase().indexOf('eal exceptional circumstances') > -1){
+                fieldsArray.push('rscd_language', 'rscd_countryoforigin');
+           }
             this.showFields(removePupilForm, fieldsArray);
             break;
           case 1902: // 
