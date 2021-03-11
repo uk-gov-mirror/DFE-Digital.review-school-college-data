@@ -11,8 +11,8 @@ namespace Dfe.Rscd.Api.Services
         {
             var amendmentDetail = new AmendmentDetail();
             amendmentDetail.SetField(RemovePupilAmendment.FIELD_ReasonCode, crmPupil.rscd_reasoncode.Value);
-            amendmentDetail.SetField(RemovePupilAmendment.FIELD_OutcomeDescription, crmPupil.rscd_Subreason);
             amendmentDetail.SetField(RemovePupilAmendment.FIELD_ReasonDescription, crmPupil.rscd_reasondescription);
+            amendmentDetail.SetField(RemovePupilAmendment.FIELD_SubReasonDescription, crmPupil.rscd_Subreason);
             amendmentDetail.SetField(RemovePupilAmendment.FIELD_CountryOfOrigin, crmPupil.rscd_Countryoforigin);
             amendmentDetail.SetField(RemovePupilAmendment.FIELD_DateOfArrivalUk, crmPupil.rscd_DateOfArrival);
             amendmentDetail.SetField(RemovePupilAmendment.FIELD_NativeLanguage, crmPupil.rscd_Language);
@@ -31,7 +31,8 @@ namespace Dfe.Rscd.Api.Services
             var pupil = amendment.Pupil;
             
             removeDto.rscd_reasoncode = amendmentDetail.GetField<int?>(RemovePupilAmendment.FIELD_ReasonCode);
-            removeDto.rscd_Subreason = amendmentDetail.GetField<string>(RemovePupilAmendment.FIELD_ReasonDescription);
+            removeDto.rscd_reasondescription = amendmentDetail.GetField<string>(RemovePupilAmendment.FIELD_ReasonDescription);
+            removeDto.rscd_Subreason = amendmentDetail.GetField<string>(RemovePupilAmendment.FIELD_SubReasonDescription);
             removeDto.rscd_Countryoforigin = amendmentDetail.GetField<string>(RemovePupilAmendment.FIELD_CountryOfOrigin);
             removeDto.rscd_Language = amendmentDetail.GetField<string>(RemovePupilAmendment.FIELD_NativeLanguage);
             removeDto.rscd_DateOfArrival = amendmentDetail.GetDateTimeUTC(RemovePupilAmendment.FIELD_DateOfArrivalUk);

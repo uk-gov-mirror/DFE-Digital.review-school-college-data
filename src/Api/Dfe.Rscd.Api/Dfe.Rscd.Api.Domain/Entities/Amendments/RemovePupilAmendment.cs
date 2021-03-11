@@ -6,6 +6,7 @@ namespace Dfe.Rscd.Api.Domain.Entities
     {
         public const string FIELD_ReasonCode = "ReasonCode";
         public const string FIELD_ReasonDescription = "ReasonDescription";
+        public const string FIELD_SubReasonDescription = "SubReasonDescription";
         public const string FIELD_OutcomeDescription = "OutcomeDescription";
         public const string FIELD_CountryOfOrigin = "CountryOfOrigin";
         public const string FIELD_CountryLeftEnglandFor = "CountryLeftEnglandFor";

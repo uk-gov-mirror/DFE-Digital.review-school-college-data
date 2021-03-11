@@ -29,11 +29,11 @@ namespace Dfe.Rscd.Api.Services.Rules
             amendment.EvidenceStatus = string.IsNullOrEmpty(evidenceUploadQuestion.Value) || evidenceUploadQuestion.Value == "0"
                 ? EvidenceStatus.Later : EvidenceStatus.Now;
             
-            return new AmendmentOutcome(OutcomeStatus.AwatingDfeReview, "Other")
+            return new AmendmentOutcome(OutcomeStatus.AwatingDfeReview, ReasonDescription)
             {
-                ScrutinyStatusCode = "Other",
-                ReasonId = AmendmentReason,
-                ReasonDescription = ReasonDescription
+                ReasonId = (int)AmendmentReasonCode.Other,
+                ReasonDescription = "Other",
+                SubReason = ReasonDescription
             };
         }
 
@@ -46,6 +46,9 @@ namespace Dfe.Rscd.Api.Services.Rules
 
                 amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_ReasonCode,
                     amendmentOutcome.ReasonId);
+                
+                amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_SubReasonDescription,
+                    amendmentOutcome.SubReason);
 
                 amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_OutcomeDescription,
                     amendmentOutcome.OutcomeDescription);

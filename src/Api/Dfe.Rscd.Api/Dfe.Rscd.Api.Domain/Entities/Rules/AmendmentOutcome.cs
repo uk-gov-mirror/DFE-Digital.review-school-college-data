@@ -15,18 +15,14 @@ namespace Dfe.Rscd.Api.Domain.Entities
         public bool IsAmendmentCreated { get; set; }
         public Guid NewAmendmentId { get; set; }
         public string NewAmendmentReferenceNumber { get; set; }
-
-        public List<UserAnswer> ValidatedAnswers { get;set; }
-
         public string OutcomeDescription { get; set; }
         public string ScrutinyStatusCode { get; set; }
 
         public int ReasonId { get; set; }
         public string ReasonDescription { get; set; }
+        public string SubReason { get; set; }
 
         public OutcomeStatus OutcomeStatus { get; set; }
-
-        public EvidenceStatus EvidenceStatus { get; set; }
 
         public AmendmentOutcome(OutcomeStatus status, string outcomeDescription)
         {

@@ -11,14 +11,12 @@ namespace Dfe.Rscd.Api.Services.Rules
 {
     public class RemovePupilOtherElectiveHomeEducationRule : Rule
     {
-        private readonly IDataService _dataService;
         private readonly IAllocationYearConfig _config;
         
         private string _evidenceHelpDeskText => Content.RemovePupilOtherElectiveHomeEducationRule_HTML;
 
-        public RemovePupilOtherElectiveHomeEducationRule(IDataService dataService, IAllocationYearConfig config)
+        public RemovePupilOtherElectiveHomeEducationRule(IAllocationYearConfig config)
         {
-            _dataService = dataService;
             _config = config;
         }
         
@@ -76,16 +74,18 @@ namespace Dfe.Rscd.Api.Services.Rules
                 return new AmendmentOutcome(OutcomeStatus.AutoReject, "Date Pupil Removed from Roll should older than Annual School Census Date")
                 {
                     ScrutinyStatusCode = string.Empty,
-                    ReasonId = AmendmentReason,
-                    ReasonDescription = ReasonDescription
+                    ReasonId = (int)AmendmentReasonCode.Other,
+                    ReasonDescription = "Other",
+                    SubReason = ReasonDescription
                 };
             }
             
-            return new AmendmentOutcome(OutcomeStatus.AwatingDfeReview, "Other - Elective home education")
+            return new AmendmentOutcome(OutcomeStatus.AwatingDfeReview, ReasonDescription)
             {
                 ScrutinyStatusCode = string.Empty,
-                ReasonId = AmendmentReason,
-                ReasonDescription = ReasonDescription
+                ReasonId = (int)AmendmentReasonCode.Other,
+                ReasonDescription = "Other",
+                SubReason = ReasonDescription
             };
         }
 
@@ -98,6 +98,9 @@ namespace Dfe.Rscd.Api.Services.Rules
 
                 amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_ReasonCode,
                     amendmentOutcome.ReasonId);
+                
+                amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_SubReasonDescription,
+                    amendmentOutcome.SubReason);
 
                 amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_OutcomeDescription,
                     amendmentOutcome.OutcomeDescription);
