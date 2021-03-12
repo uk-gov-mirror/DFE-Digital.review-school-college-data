@@ -14,5 +14,9 @@
     }
   }
 
+  p.govuk-\!-font-weight-bold {
+    margin-bottom: govuk-spacing(2);
+  }
+
   @extend %govuk-body-m;
 }

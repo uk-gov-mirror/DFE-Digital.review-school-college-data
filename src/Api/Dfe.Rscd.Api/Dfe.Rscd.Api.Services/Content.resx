@@ -175,7 +175,7 @@
         <value>&lt;p  class="govuk-!-font-weight-bold"&gt;Evidence to provide:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Dates spent in prison/ remand centre/secure unit&lt;/li&gt;&lt;li&gt;Details of prison/ remand centre/secure unit&lt;/li&gt;&lt;ul/&gt;</value>
     </data>
     <data name="RemovePupilOtherElectiveHomeEducationRule.HTML" xml:space="preserve">
-        <value>&lt;p class="govuk-!-font-weight-bold"&gt;Evidence to provide:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;A copy of the parental letter withdrawing the pupil from school&lt;li&gt;&lt;/ul&gt;</value>
+        <value>&lt;p class="govuk-!-font-weight-bold"&gt;Evidence to provide:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;A copy of the parental letter withdrawing the pupil from school&lt;/li&gt;&lt;/ul&gt;</value>
     </data>
     <data name="RemovePupilOtherPermanentlyExcluded.HTML" xml:space="preserve">
         <value>&lt;p class="govuk-!-font-weight-bold"&gt;Evidence to include:&lt;/p&gt;&lt;ul&gt; &lt;li&gt;Timing and outcome of any review process&lt;/li&gt;&lt;li&gt;The DfE number or name and postcode of the educational establishment pupil went on to or came from.&lt;/li&gt;&lt;/ul&gt;</value>

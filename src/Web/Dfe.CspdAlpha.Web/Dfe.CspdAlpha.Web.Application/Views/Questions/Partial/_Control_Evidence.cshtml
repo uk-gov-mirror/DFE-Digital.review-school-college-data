@@ -30,7 +30,6 @@
             </div>
         </details>
 
-        <hr class="govuk-section-break govuk-section-break--visible"/>
         <dl class="govuk-summary-list app-files-list">
             @if (uploaded == null)
             {
@@ -49,7 +48,7 @@
                         <dt class="govuk-summary-list__key">
                             @count.ToString(). @file.FileName
                         </dt>
-                        <dd class="govuk-summary-list__value">
+                        <dd class="govuk-summary-list__actions">
                             <button class="app-link-button" name="remove" value="@file.Id">Remove</button>
                         </dd>
                     </div>
@@ -64,9 +63,9 @@
 {
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
-            <p>
+            <div class="govuk-form-group govuk-!-margin-bottom-8">
                 <button class="app-link-button" value="true" name="skipValidation">Upload another file</button>
-            </p>
+            </div>
             <div class="govuk-form-group">
                 <button name="Continue" value="true" class="govuk-button govuk-!-margin-right-1" data-module="govuk-button">
                     Continue
