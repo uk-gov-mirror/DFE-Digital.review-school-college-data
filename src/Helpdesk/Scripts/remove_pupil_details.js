@@ -53,10 +53,10 @@ console.log(reasonCode);
             var fieldsArray = ['rscd_subreason', 'rscd_reasondescription'];
             var subReasonValue = removePupilForm.getControl('rscd_subreason').getAttribute().getValue();
             if (subReasonValue.toLowerCase().indexOf('elective home education') > -1){
-                fieldsArray.push('rcsd_details');
-            }
-           if (subReasonValue.toLowerCase().indexOf('pupil missing in education') > -1){
-                fieldsArray.push('rscd_dateoffroll');
+                 removePupilForm.getControl('rscd_details').setVisible(true);
+                if (removePupilForm.getControl('rscd_dateoffroll').getAttribute().getValue() !== '') {
+                    removePupilForm.getControl('rscd_dateoffroll').setVisible(true);
+                }
            }
            if (subReasonValue.toLowerCase().indexOf('eal exceptional circumstances') > -1){
                 fieldsArray.push('rscd_language', 'rscd_countryoforigin', 'rscd_dateofarrival');
