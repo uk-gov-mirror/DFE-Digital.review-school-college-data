@@ -1,6 +1,6 @@
 @using Dfe.Rscd.Web.Application.Models.Common
 @{
-    var pageTitle = !string.IsNullOrEmpty(ViewBag.Title) ? string.Format("{0} - {1}", ViewBag.Title, $"{Constants.APP_TITLE} - GOV.UK") : $"{Constants.APP_TITLE} - GOV.UK";
+    var pageTitle = !string.IsNullOrEmpty(ViewBag.Title) ? string.Format("{0} - {1}", ViewBag.Title, $"{Constants.APPLICATION_TITLE} - GOV.UK") : $"{Constants.APPLICATION_TITLE} - GOV.UK";
 }
 <!DOCTYPE html>
 <html lang="en" class="govuk-template app-html-class">
@@ -51,7 +51,7 @@
             </div>
             <div class="govuk-header__content">
                 <a href="/" class="govuk-header__link govuk-header__link--service-name">
-                    @Constants.APP_TITLE
+                    @Constants.APPLICATION_TITLE
                 </a>
                 <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
                 <nav>

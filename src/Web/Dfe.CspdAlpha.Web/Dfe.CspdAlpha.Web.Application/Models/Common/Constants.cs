@@ -2,7 +2,7 @@ namespace Dfe.Rscd.Web.Application.Models.Common
 {
     public class Constants
     {
-        public const string APP_TITLE = "Review my school or college data";
+        public const string APPLICATION_TITLE = "Review my school or college data";
 
         // Session keys
         public const string AMENDMENT_SESSION_KEY = "current-amendment";
