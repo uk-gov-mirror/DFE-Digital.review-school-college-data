@@ -2,7 +2,7 @@ namespace Dfe.Rscd.Web.Application.Models.Common
 {
     public class Constants
     {
-        public const string APP_TITLE = "Review my school and college data";
+        public const string APP_TITLE = "Review my school or college data";
 
         // Session keys
         public const string AMENDMENT_SESSION_KEY = "current-amendment";
@@ -10,7 +10,7 @@ namespace Dfe.Rscd.Web.Application.Models.Common
         public const string NEW_REFERENCE_ID = "new-reference-id";
         public const string PROMPT_QUESTIONS = "new-promptquestions-ref";
         public const string PROMPT_ANSWERS = "new-promptanswers-ref";
-       
+
 
         public class AddPupil
         {
