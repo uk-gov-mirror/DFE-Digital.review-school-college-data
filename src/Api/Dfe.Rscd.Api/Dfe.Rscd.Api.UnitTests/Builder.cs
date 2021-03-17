@@ -45,15 +45,30 @@ namespace Dfe.Rscd.Api.UnitTests
                 SENStatusCode = "N"
             };
         }
-
-        public static List<PupilDTO> GetPupils()
+        
+        public static PupilProxy GetPupilPupilProxy(string id, string gender, string urn, string upn, string uln, string name="Jack", string surname="Smith")
         {
-            return new List<PupilDTO>
+            return new PupilProxy
             {
-                GetPupilDTO("1000", "M", "U111", "111", "10100", "John", "Patrick"),
-                GetPupilDTO("2000", "F", "U222", "222", "20200", "Cecil", "Warrington"),
-                GetPupilDTO("3000", "M", "U333", "333", "30300", "Marcus", "Russel"),
-                GetPupilDTO("4000", "F", "U444", "444", "40400", "Mary", "Blight")
+                id = id,
+                Gender = gender,
+                DOB = "20060413",
+                Forename = name,
+                Surname = surname,
+                ULN = uln,
+                UPN = upn,
+                URN = urn,
+            };
+        }
+
+        public static List<PupilProxy> GetPupils()
+        {
+            return new List<PupilProxy>
+            {
+                GetPupilPupilProxy("1000", "M", "U111", "111", "10100", "John", "Patrick"),
+                GetPupilPupilProxy("2000", "F", "U222", "222", "20200", "Cecil", "Warrington"),
+                GetPupilPupilProxy("3000", "M", "U333", "333", "30300", "Marcus", "Russel"),
+                GetPupilPupilProxy("4000", "F", "U444", "444", "40400", "Mary", "Blight")
             };
         }
 

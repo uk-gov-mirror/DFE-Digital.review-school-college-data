@@ -67,7 +67,7 @@ namespace Dfe.Rscd.Api.UnitTests
         private void GivenRepoReturnsMultipleTestPupils()
         {
             _repository.Setup(x =>
-                    x.Get<PupilDTO>(_ks4JunePupils))
+                    x.Get<PupilProxy>(_ks4JunePupils))
                 .Returns(Builder.GetPupils().AsQueryable());
         }
 
@@ -121,7 +121,7 @@ namespace Dfe.Rscd.Api.UnitTests
 
             var result = _pupilService.QueryPupils(CheckingWindow.KS4June, new PupilsSearchRequest {ID = "11"});
 
-            _repository.Verify(x => x.Get<PupilDTO>(_ks4JunePupils), Times.Once);
+            _repository.Verify(x => x.Get<PupilProxy>(_ks4JunePupils), Times.Once);
 
             Assert.NotNull(result);
             Assert.True(result.Count == 1);
@@ -135,7 +135,7 @@ namespace Dfe.Rscd.Api.UnitTests
 
             var result = _pupilService.QueryPupils(CheckingWindow.KS4June, new PupilsSearchRequest {ID = "101"});
 
-            _repository.Verify(x => x.Get<PupilDTO>(_ks4JunePupils), Times.Once);
+            _repository.Verify(x => x.Get<PupilProxy>(_ks4JunePupils), Times.Once);
 
             Assert.NotNull(result);
             Assert.True(result.Count == 1);
@@ -149,7 +149,7 @@ namespace Dfe.Rscd.Api.UnitTests
 
             var result = _pupilService.QueryPupils(CheckingWindow.KS4June, new PupilsSearchRequest {ID = "22"});
 
-            _repository.Verify(x => x.Get<PupilDTO>(_ks4JunePupils), Times.Once);
+            _repository.Verify(x => x.Get<PupilProxy>(_ks4JunePupils), Times.Once);
 
             Assert.NotNull(result);
             Assert.True(result.Count == 1);
@@ -163,7 +163,7 @@ namespace Dfe.Rscd.Api.UnitTests
 
             var result = _pupilService.QueryPupils(CheckingWindow.KS4June, new PupilsSearchRequest {ID = "202"});
 
-            _repository.Verify(x => x.Get<PupilDTO>(_ks4JunePupils), Times.Once);
+            _repository.Verify(x => x.Get<PupilProxy>(_ks4JunePupils), Times.Once);
 
             Assert.NotNull(result);
             Assert.True(result.Count == 1);
@@ -176,7 +176,7 @@ namespace Dfe.Rscd.Api.UnitTests
 
             var result = _pupilService.QueryPupils(CheckingWindow.KS4June, new PupilsSearchRequest {Name = "Mar"});
 
-            _repository.Verify(x => x.Get<PupilDTO>(_ks4JunePupils), Times.Once);
+            _repository.Verify(x => x.Get<PupilProxy>(_ks4JunePupils), Times.Once);
 
             Assert.NotNull(result);
             Assert.True(result.Count == 2);

@@ -43,7 +43,7 @@ namespace Dfe.Rscd.Api.Services
 
         public List<PupilRecord> QueryPupils(CheckingWindow checkingWindow, PupilsSearchRequest query)
         {
-            var repoQuery = _documentRepository.Get<PupilDTO>(GetCollection(checkingWindow));
+            var repoQuery = _documentRepository.Get<PupilProxy>(GetCollection(checkingWindow));
             
             if (!string.IsNullOrWhiteSpace(query.URN))
                 repoQuery = repoQuery.Where(p => p.URN == query.URN);

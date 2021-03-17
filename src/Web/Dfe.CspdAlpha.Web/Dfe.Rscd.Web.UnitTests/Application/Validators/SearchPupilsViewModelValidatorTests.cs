@@ -141,7 +141,7 @@ namespace Dfe.Rscd.Web.UnitTests.Application.Validators
         public void SearchPupilsViewModel_IsInvalid_GivenSearcgTypeIsNameAndNoName(string check)
         {
             // Arrange
-            var viewModel = new SearchPupilsViewModel("ks5")
+            var viewModel = new SearchPupilsViewModel(check)
             {
                 SearchType = QueryType.Name,
                 Name = " "
