@@ -29,6 +29,36 @@ namespace Dfe.Rscd.Api.Services
             return Get(x => x.DFESNumber == dfesNumber, checkingWindow);
         }
 
+        public bool DoesSchoolExist(string dfesNumber)
+        {
+            var collectionName = $"{CheckingWindow.KS4June.ToString().ToLower()}_establishments_{_allocationYear}";
+
+            var establishmentDtos = _documentRepository
+                .Get<EstablishmentProxyDTO>(collectionName)
+                .Where(x=>x.DFESNumber == dfesNumber)
+                .ToList();
+
+            if(establishmentDtos.Any()) return true;
+            
+            collectionName = $"{CheckingWindow.KS4Late.ToString().ToLower()}_establishments_{_allocationYear}";
+
+            establishmentDtos = _documentRepository
+                .Get<EstablishmentProxyDTO>(collectionName)
+                .Where(x=>x.DFESNumber == dfesNumber)
+                .ToList();
+
+            if (establishmentDtos.Any()) return true;
+            
+            collectionName = $"{CheckingWindow.KS5.ToString().ToLower()}_establishments_{_allocationYear}";
+
+            establishmentDtos = _documentRepository
+                .Get<EstablishmentProxyDTO>(collectionName)
+                .Where(x=>x.DFESNumber == dfesNumber)
+                .ToList();
+
+            return establishmentDtos.Any();
+        }
+
         private School Get(Func<EstablishmentDTO, bool> predicate, CheckingWindow checkingWindow)
         {
             var collectionName = $"{checkingWindow.ToString().ToLower()}_establishments_{_allocationYear}";
