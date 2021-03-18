@@ -4,12 +4,19 @@ using Dfe.Rscd.Web.ApiClient;
 using Dfe.Rscd.Web.Application.Models.Common;
 using Dfe.Rscd.Web.Application.Models.ViewModels.Pupil;
 using Dfe.Rscd.Web.Application.Models.ViewModels.Results;
+using Dfe.Rscd.Web.Application.Security;
 using Microsoft.AspNetCore.Mvc;
+using Constants = Dfe.Rscd.Web.Application.Models.Common.Constants;
 
 namespace Dfe.Rscd.Web.Application.Controllers
 {
     public class PriorAttainmentController : SessionController
     {
+        public PriorAttainmentController(UserInfo userInfo)
+            : base(userInfo)
+        {
+
+        }
         public IActionResult Add()
         {
             var amendment = GetAmendment();

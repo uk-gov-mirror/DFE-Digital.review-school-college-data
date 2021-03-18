@@ -3,39 +3,53 @@ using System.Collections.Generic;
 using System.Linq;
 using Dfe.Rscd.Web.Application.Application.Helpers;
 using Dfe.Rscd.Web.Application.Models.ViewModels;
+using Dfe.Rscd.Web.Application.Security;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Dfe.Rscd.Web.Application.Application
 {
-    public class TasksReviewedFilterAttribute : ActionFilterAttribute
+    public class TasksReviewedFilterAttribute : TypeFilterAttribute
     {
-        private const string TASK_LIST = "task-list-{0}";
-
-        private readonly List<string> _allowedActions;
-
-        public TasksReviewedFilterAttribute(string allowedActions)
+        public TasksReviewedFilterAttribute(string allowedActions) : base(typeof(TasksReviewedFilterAttributeImpl))
         {
-            _allowedActions = allowedActions
-                .Split(',', StringSplitOptions.RemoveEmptyEntries)
-                .Select(a => a.Trim())
-                .ToList();
-
+            Arguments = new object[] { allowedActions };
         }
-        public override void OnActionExecuting(ActionExecutingContext context)
+
+        private class TasksReviewedFilterAttributeImpl : IActionFilter
         {
-            if (_allowedActions.All(a => !a.Equals(context.RouteData.Values["action"].ToString(), StringComparison.InvariantCultureIgnoreCase)))
+            private const string TASK_LIST = "task-list-{0}";
+
+            private readonly List<string> _allowedActions;
+            private readonly UserInfo _userInfo;
+
+            public TasksReviewedFilterAttributeImpl(string allowedActions, UserInfo userInfo)
             {
-                var checkingWindow = CheckingWindowHelper.GetCheckingWindow(context.RouteData);
-                var userId = ClaimsHelper.GetUserId(context.HttpContext.User) + checkingWindow.ToString();
-                var viewModel = context.HttpContext.Session.Get<TaskListViewModel>(string.Format(TASK_LIST, userId));
-                if (viewModel == null || !viewModel.ReviewChecked)
+                _allowedActions = allowedActions
+                    .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                    .Select(a => a.Trim())
+                    .ToList();
+                _userInfo = userInfo;
+            }
+
+            public void OnActionExecuting(ActionExecutingContext context)
+            {
+                if (_allowedActions.All(a => !a.Equals(context.RouteData.Values["action"].ToString(), StringComparison.InvariantCultureIgnoreCase)))
                 {
-                    context.Result = new RedirectToActionResult("Index", "TaskList", null);
+                    var checkingWindow = CheckingWindowHelper.GetCheckingWindow(context.RouteData);
+                    var userId = _userInfo.UserId + checkingWindow.ToString();
+                    var viewModel = context.HttpContext.Session.Get<TaskListViewModel>(string.Format(TASK_LIST, userId));
+
+                    if (viewModel == null || !viewModel.ReviewChecked)
+                    {
+                        context.Result = new RedirectToActionResult("Index", "TaskList", null);
+                    }
                 }
             }
 
-            base.OnActionExecuting(context);
+            public void OnActionExecuted(ActionExecutedContext context)
+            {
+            }
         }
     }
 }

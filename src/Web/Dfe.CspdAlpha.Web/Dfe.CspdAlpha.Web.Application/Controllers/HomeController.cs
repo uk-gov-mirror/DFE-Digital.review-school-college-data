@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Dfe.Rscd.Web.Application.Models.ViewModels;
+using Dfe.Rscd.Web.Application.Security;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -9,7 +10,8 @@ namespace Dfe.Rscd.Web.Application.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, UserInfo userInfo)
+            : base(userInfo)
         {
             _logger = logger;
         }
@@ -25,7 +27,7 @@ namespace Dfe.Rscd.Web.Application.Controllers
             if (ModelState.IsValid)
             {
                 return RedirectToAction("Index", "TaskList",
-                    new {phase = homeViewModel.SelectedKeyStage.ToLower(), urn = GetCurrentUrn()});
+                    new {phase = homeViewModel.SelectedKeyStage.ToLower(), urn = _userInfo.Urn});
             }
 
             return View(homeViewModel);

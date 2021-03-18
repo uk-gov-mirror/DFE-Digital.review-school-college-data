@@ -1,5 +1,6 @@
 using Dfe.Rscd.Web.Application.Application.Helpers;
 using Dfe.Rscd.Web.Application.Application.Interfaces;
+using Dfe.Rscd.Web.Application.Security;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
@@ -9,9 +10,11 @@ namespace Dfe.Rscd.Web.Application.Controllers
     {
         private readonly IEstablishmentService _establishmentService;
 
-        public SchoolController(IEstablishmentService establishmentService1, IConfiguration configuration)
+        public SchoolController(
+            IEstablishmentService establishmentService, IConfiguration configuration, UserInfo userInfo)
+            : base(userInfo)
         {
-            _establishmentService = establishmentService1;
+            _establishmentService = establishmentService;
         }
 
         public IActionResult Index(string urn)

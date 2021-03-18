@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Dfe.Rscd.Web.Application.Security;
 using Dfe.Rscd.Web.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,8 +12,11 @@ namespace Dfe.Rscd.Web.Application.Controllers
         private readonly ILogger<FileUploadController> _logger;
         private readonly IFileUploadService _fileUploadService;
 
-        public FileUploadController(ILogger<FileUploadController> logger,
-            IFileUploadService fileUploadService)
+        public FileUploadController(
+            ILogger<FileUploadController> logger,
+            IFileUploadService fileUploadService,
+            UserInfo userInfo)
+            : base(userInfo)
         {
             _logger = logger;
             _fileUploadService = fileUploadService;

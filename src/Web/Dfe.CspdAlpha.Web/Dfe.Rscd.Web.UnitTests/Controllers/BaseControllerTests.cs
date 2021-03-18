@@ -2,12 +2,12 @@
 using System.Security.Claims;
 using System.Text.Json;
 using Dfe.Rscd.Web.Application.Application;
+using Dfe.Rscd.Web.Application.Security.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Routing;
 using Moq;
-using static Dfe.Rscd.Web.Application.Application.Helpers.ClaimsHelper;
 
 namespace Dfe.Rscd.Web.UnitTests.Controllers
 {

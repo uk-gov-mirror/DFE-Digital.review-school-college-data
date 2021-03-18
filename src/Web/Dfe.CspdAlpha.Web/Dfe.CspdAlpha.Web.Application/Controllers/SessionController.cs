@@ -4,6 +4,7 @@ using Dfe.Rscd.Web.ApiClient;
 using Dfe.Rscd.Web.Application.Application;
 using Dfe.Rscd.Web.Application.Application.Helpers;
 using Dfe.Rscd.Web.Application.Models.ViewModels;
+using Dfe.Rscd.Web.Application.Security;
 using Dfe.Rscd.Web.Infrastructure.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,6 +17,13 @@ namespace Dfe.Rscd.Web.Application.Controllers
         private const string PROMPT_QUESTIONS = "new-promptquestions-ref";
         private const string TASK_LIST = "task-list-{0}";
         private const string FILE_LIST = "files-list";
+
+        protected readonly UserInfo _userInfo;
+
+        public SessionController(UserInfo userInfo)
+        {
+            _userInfo = userInfo;
+        }
 
         protected CheckingWindow CheckingWindow => CheckingWindowHelper.GetCheckingWindow(RouteData);
 
@@ -61,7 +69,7 @@ namespace Dfe.Rscd.Web.Application.Controllers
             return HttpContext.Session.Get<List<Question>>(PROMPT_QUESTIONS);
         }
 
-        protected string UserId => ClaimsHelper.GetUserId(User) + CheckingWindow;
+        protected string UserId => _userInfo.UserId + CheckingWindow;
 
         protected TaskListViewModel GetTaskList()
         {
@@ -71,11 +79,6 @@ namespace Dfe.Rscd.Web.Application.Controllers
         protected void SaveTaskList(TaskListViewModel model)
         {
             HttpContext.Session.Set(string.Format(TASK_LIST, UserId), model);
-        }
-
-        protected string GetCurrentUrn()
-        {
-            return ClaimsHelper.GetURN(User);
         }
 
         protected void ClearAmendmentAndRelated()

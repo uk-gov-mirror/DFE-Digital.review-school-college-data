@@ -6,6 +6,7 @@ using Dfe.Rscd.Web.ApiClient;
 using Dfe.Rscd.Web.Application.Application.Interfaces;
 using Dfe.Rscd.Web.Application.Models.ViewModels.Amendments;
 using Dfe.Rscd.Web.Application.Models.ViewModels.Pupil;
+using Dfe.Rscd.Web.Application.Security;
 using Dfe.Rscd.Web.Infrastructure.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,7 +18,9 @@ namespace Dfe.Rscd.Web.Application.Controllers
         private readonly IEvidenceService _evidenceService;
         private long ThreeMegabytes => 3000000;
 
-        public QuestionsController(IAmendmentService amendmentService, IEvidenceService evidenceService)
+        public QuestionsController(
+            IAmendmentService amendmentService, IEvidenceService evidenceService, UserInfo userInfo)
+            : base(userInfo)
         {
             _amendmentService = amendmentService;
             _evidenceService = evidenceService;

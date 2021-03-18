@@ -4,6 +4,7 @@ using Dfe.Rscd.Web.Application.Application;
 using Dfe.Rscd.Web.Application.Application.Interfaces;
 using Dfe.Rscd.Web.Application.Controllers;
 using Dfe.Rscd.Web.Application.Models.ViewModels;
+using Dfe.Rscd.Web.Application.Security;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -28,7 +29,7 @@ namespace Dfe.Rscd.Web.UnitTests.Controllers
             context.Setup(x => x.Session).Returns(Session);
             context.Setup(x => x.User).Returns(GetClaimsPrincipal());
 
-            var controller = new TaskListController(schoolService.Object, config.Object)
+            var controller = new TaskListController(schoolService.Object, config.Object, new UserInfo())
             {
                 ControllerContext = GetControllerContext("ks5", context)
             };
@@ -56,7 +57,7 @@ namespace Dfe.Rscd.Web.UnitTests.Controllers
             context.Setup(x => x.User).Returns(GetClaimsPrincipal());
             context.Setup(x => x.Request).Returns(httpRequest.Object);
 
-            var controller = new TaskListController(schoolService.Object, config.Object)
+            var controller = new TaskListController(schoolService.Object, config.Object, new UserInfo())
             {
                 ControllerContext = GetControllerContext("ks5", context)
             };
@@ -86,7 +87,7 @@ namespace Dfe.Rscd.Web.UnitTests.Controllers
             context.Setup(x => x.User).Returns(GetClaimsPrincipal());
             context.Setup(x => x.Request).Returns(httpRequest.Object);
 
-            var controller = new TaskListController(schoolService.Object, config.Object)
+            var controller = new TaskListController(schoolService.Object, config.Object, new UserInfo())
             {
                 ControllerContext = GetControllerContext("ks5", context)
             };
@@ -116,7 +117,7 @@ namespace Dfe.Rscd.Web.UnitTests.Controllers
             context.Setup(x => x.User).Returns(GetClaimsPrincipal());
             context.Setup(x => x.Request).Returns(httpRequest.Object);
 
-            var controller = new TaskListController(schoolService.Object, config.Object)
+            var controller = new TaskListController(schoolService.Object, config.Object, new UserInfo())
             {
                 ControllerContext = GetControllerContext("ks5", context)
             };

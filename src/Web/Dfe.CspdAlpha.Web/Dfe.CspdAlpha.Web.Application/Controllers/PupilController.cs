@@ -2,6 +2,7 @@ using Dfe.Rscd.Web.Application.Application;
 using Dfe.Rscd.Web.Application.Application.Interfaces;
 using Dfe.Rscd.Web.Application.Models.ViewModels.Pupil;
 using Dfe.Rscd.Web.Application.Models.ViewModels.RemovePupil;
+using Dfe.Rscd.Web.Application.Security;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dfe.Rscd.Web.Application.Controllers
@@ -12,7 +13,8 @@ namespace Dfe.Rscd.Web.Application.Controllers
         private readonly IEstablishmentService _establishmentService;
         private readonly IPupilService _pupilService;
 
-        public PupilController(IPupilService pupilService, IEstablishmentService establishmentService)
+        public PupilController(IPupilService pupilService, IEstablishmentService establishmentService, UserInfo userInfo)
+            : base(userInfo)
         {
             _pupilService = pupilService;
             _establishmentService = establishmentService;

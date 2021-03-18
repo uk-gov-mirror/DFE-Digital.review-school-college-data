@@ -1,5 +1,6 @@
 ﻿using Dfe.Rscd.Web.Application.Controllers;
 using Dfe.Rscd.Web.Application.Models.ViewModels;
+using Dfe.Rscd.Web.Application.Security;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
@@ -16,7 +17,7 @@ namespace Dfe.Rscd.Web.UnitTests.Controllers
         public void WhenIndexCalledShouldReturnIndexViewWithHomeViewModel()
         {
             var context = new Mock<HttpContext>();
-            var controller = new HomeController(new NullLogger<HomeController>())
+            var controller = new HomeController(new NullLogger<HomeController>(), new UserInfo())
             {
                 ControllerContext =
                     new ControllerContext(new ActionContext(context.Object, new RouteData(),
@@ -34,7 +35,7 @@ namespace Dfe.Rscd.Web.UnitTests.Controllers
             var context = new Mock<HttpContext>();
             context.SetupGet(x => x.User).Returns(GetClaimsPrincipal());
 
-            var controller = new HomeController(new NullLogger<HomeController>())
+            var controller = new HomeController(new NullLogger<HomeController>(), new UserInfo())
             {
                 ControllerContext =
                     new ControllerContext(new ActionContext(context.Object, new RouteData(),

@@ -1,14 +1,12 @@
 using System;
-using System.Diagnostics;
-using System.IO;
 using System.Net.Http.Headers;
 using System.Text;
-using System.Threading.Tasks;
 using Dfe.Rscd.Web.ApiClient;
 using Dfe.Rscd.Web.Application.Application;
 using Dfe.Rscd.Web.Application.Application.Interfaces;
 using Dfe.Rscd.Web.Application.Application.Services;
 using Dfe.Rscd.Web.Application.Middleware;
+using Dfe.Rscd.Web.Application.Security;
 using Dfe.Rscd.Web.Application.TagHelpers;
 using Dfe.Rscd.Web.Application.Validators.AddPupil;
 using Dfe.Rscd.Web.Application.Validators.RemovePupil;
@@ -16,8 +14,6 @@ using Dfe.Rscd.Web.Infrastructure.Interfaces;
 using Dfe.Rscd.Web.Infrastructure.SharePoint;
 using Dfe.Rscd.Web.Shared.Config;
 using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,9 +26,7 @@ using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.FeatureManagement;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Newtonsoft.Json;
 
 namespace Dfe.Rscd.Web.Application
@@ -87,57 +81,9 @@ namespace Dfe.Rscd.Web.Application
 
             //services.AddControllers().AddJsonOptions()
 
-            // configure OpenID Connect authentication
-            var oidcAuthOptions = Configuration.GetSection("OidcAuth").Get<OidcAuthOptions>();
-            var overallSessionTimeout = TimeSpan.FromMinutes(20);
-
-            services.AddAuthentication(options =>
-            {
-                options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
-            })
-            .AddCookie(options =>
-            {
-                options.Cookie.Name = "rscd-auth-cookie";
-                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-                options.SlidingExpiration = true;
-                options.ExpireTimeSpan = overallSessionTimeout;
-                options.LoginPath = "/Account/Login/";
-            })
-            .AddOpenIdConnect(options =>
-            {
-                options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.MetadataAddress = oidcAuthOptions.MetadataUrl;
-                options.CallbackPath = "/auth/cb";
-                options.SignedOutCallbackPath = "/signout/complete";
-
-                options.ClientId = oidcAuthOptions.ClientId;
-                options.ClientSecret = oidcAuthOptions.ClientSecret;
-                options.ResponseType = OpenIdConnectResponseType.Code;
-                options.AuthenticationMethod = OpenIdConnectRedirectBehavior.FormPost;
-
-                options.Scope.Clear();
-                options.Scope.Add("openid");
-                options.Scope.Add("email");
-                options.Scope.Add("profile");
-                options.Scope.Add("organisation");
-
-                options.SaveTokens = true;
-                options.GetClaimsFromUserInfoEndpoint = true;
-
-                // When we expire the session, ensure user is prompted to sign in again at DfE Sign In
-                options.MaxAge = overallSessionTimeout;
-
-                options.ProtocolValidator = new OpenIdConnectProtocolValidator
-                {
-                    RequireSub = true,
-                    RequireStateValidation = false,
-                    NonceLifetime = overallSessionTimeout
-                };
-
-                options.DisableTelemetry = true;
-            });
+            var dfeSignInSettings = Configuration.GetSection(nameof(DfeSignInSettings));
+            services.Configure<DfeSignInSettings>(dfeSignInSettings);
+            services.AddDfeSignIn(dfeSignInSettings.Get<DfeSignInSettings>());
 
             if (_env.IsDevelopment() || _env.IsStaging())
             {

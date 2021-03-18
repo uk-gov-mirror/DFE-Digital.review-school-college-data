@@ -1,4 +1,5 @@
 using Dfe.Rscd.Web.ApiClient;
+using Dfe.Rscd.Web.Application.Security;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
@@ -9,7 +10,8 @@ namespace Dfe.Rscd.Web.Application.Controllers
     {
         private readonly IWebHostEnvironment _env;
 
-        public QaController(IWebHostEnvironment env)
+        public QaController(IWebHostEnvironment env, UserInfo userInfo)
+            : base(userInfo)
         {
             _env = env;
         }

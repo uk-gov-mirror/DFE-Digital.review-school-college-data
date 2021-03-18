@@ -7,7 +7,9 @@ using Dfe.Rscd.Web.Application.Models.Common;
 using Dfe.Rscd.Web.Application.Models.ViewModels.Pupil;
 using Dfe.Rscd.Web.Application.Models.ViewModels.RemovePupil;
 using Dfe.Rscd.Web.Application.Models.ViewModels.Results;
+using Dfe.Rscd.Web.Application.Security;
 using Microsoft.AspNetCore.Mvc;
+using Constants = Dfe.Rscd.Web.Application.Models.Common.Constants;
 
 namespace Dfe.Rscd.Web.Application.Controllers
 {
@@ -15,7 +17,8 @@ namespace Dfe.Rscd.Web.Application.Controllers
     {
         private readonly IPupilService _pupilService;
 
-        public RemovePupilController(IPupilService pupilService)
+        public RemovePupilController(IPupilService pupilService, UserInfo userInfo)
+            : base(userInfo)
         {
             _pupilService = pupilService;
         }

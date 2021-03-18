@@ -1,11 +1,9 @@
-using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using Dfe.Rscd.Web.ApiClient;
 using Dfe.Rscd.Web.Application.Application.Interfaces;
 using Dfe.Rscd.Web.Application.Models.ViewModels.Amendments;
 using Dfe.Rscd.Web.Application.Models.ViewModels.Pupil;
-using Dfe.Rscd.Web.Infrastructure.Models;
+using Dfe.Rscd.Web.Application.Security;
 using Microsoft.AspNetCore.Mvc;
 using ProblemDetails = Dfe.Rscd.Web.ApiClient.ProblemDetails;
 
@@ -15,7 +13,8 @@ namespace Dfe.Rscd.Web.Application.Controllers
     {
         private readonly IAmendmentService _amendmentService;
 
-        public AmendmentsController(IAmendmentService amendmentService)
+        public AmendmentsController(IAmendmentService amendmentService, UserInfo userInfo)
+            : base(userInfo)
         {
             _amendmentService = amendmentService;
         }

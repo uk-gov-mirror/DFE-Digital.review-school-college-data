@@ -1,6 +1,7 @@
 using System;
 using Dfe.Rscd.Web.Application.Application.Interfaces;
 using Dfe.Rscd.Web.Application.Models.ViewModels;
+using Dfe.Rscd.Web.Application.Security;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
@@ -11,7 +12,8 @@ namespace Dfe.Rscd.Web.Application.Controllers
         private const string TASK_LIST = "task-list-{0}";
         private readonly ISchoolService _schoolService;
 
-        public TaskListController(ISchoolService schoolService, IConfiguration configuration)
+        public TaskListController(ISchoolService schoolService, IConfiguration configuration, UserInfo userInfo)
+            : base(userInfo)
         {
             _schoolService = schoolService;
         }
@@ -23,7 +25,7 @@ namespace Dfe.Rscd.Web.Application.Controllers
             var viewModel = GetTaskList();
             if (viewModel == null)
             {
-                viewModel = _schoolService.GetConfirmationRecord(UserId, GetCurrentUrn()) ??
+                viewModel = _schoolService.GetConfirmationRecord(UserId, _userInfo.Urn) ??
                             new TaskListViewModel();
 
                 SaveTaskList(viewModel);
@@ -39,7 +41,7 @@ namespace Dfe.Rscd.Web.Application.Controllers
 
             viewModel.ReviewChecked = true;
 
-            _schoolService.UpdateConfirmation(viewModel, UserId, GetCurrentUrn());
+            _schoolService.UpdateConfirmation(viewModel, UserId, _userInfo.Urn);
 
             SaveTaskList(viewModel);
 
@@ -54,7 +56,7 @@ namespace Dfe.Rscd.Web.Application.Controllers
             if (viewModel == null || !viewModel.ReviewChecked) return RedirectToAction("Index");
             viewModel.DataConfirmed = true;
 
-            _schoolService.UpdateConfirmation(viewModel, UserId, GetCurrentUrn());
+            _schoolService.UpdateConfirmation(viewModel, UserId, _userInfo.Urn);
 
             viewModel.ConfirmationDate = DateTime.Now;
 
