@@ -24,10 +24,21 @@ namespace Dfe.Rscd.Api.Services.Rules
 
         public override List<Question> GetQuestions(Amendment amendment)
         {
-            var laestabQuestion = new LaestabNumberQuestion();
+            var laestabQuestion = new LaestabNumberQuestion(CustomValidator);
+           
             var pupilExclusionDateQuestion = new PupilExclusionDateQuestion();
 
             return new List<Question> { laestabQuestion, pupilExclusionDateQuestion };
+        }
+
+        private bool CustomValidator(string arg)
+        {
+            if (!string.IsNullOrEmpty(arg))
+            {
+                return _establishmentService.DoesSchoolExist(arg); 
+            }
+
+            return false;
         }
 
         protected override List<ValidatedAnswer> GetValidatedAnswers(Amendment amendment)
@@ -52,16 +63,6 @@ namespace Dfe.Rscd.Api.Services.Rules
                 .GetByDFESNumber(amendment.CheckingWindow, laestabAnswer.Value);
 
             var pupilExclusionDate = answers.Single(x => x.QuestionId == nameof(PupilExclusionDateQuestion));
-
-            if (establishment == null)
-            {
-                return new AmendmentOutcome(OutcomeStatus.AutoReject, $"Establishment with LAESTAB {laestabAnswer.Value} was not found")
-                {
-                    ScrutinyStatusCode = ScrutinyCode.ToString(),
-                    ReasonId = (int) AmendmentReasonCode.AdmittedFollowingPermanentExclusion,
-                    ReasonDescription = ReasonDescription
-                };
-            }
 
             if (!IsStateFundedOrFeCollege(establishment.InstitutionTypeNumber??0))
             {

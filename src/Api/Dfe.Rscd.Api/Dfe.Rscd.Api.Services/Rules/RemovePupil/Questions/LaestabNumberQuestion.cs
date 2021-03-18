@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Dfe.Rscd.Api.Domain.Entities.Questions;
 
 namespace Dfe.Rscd.Api.Services.Rules.RemovePupil.Questions
 {
     public class LaestabNumberQuestion : NumberQuestion
     {
-        public LaestabNumberQuestion() 
+        public LaestabNumberQuestion(Func<string, bool> customValidator) 
             : base(nameof(LaestabNumberQuestion), 
                 Content.LaestabNumberQuestion_Title, 
                 Content.LaestabNumberQuestion_Label, 
@@ -18,9 +16,9 @@ namespace Dfe.Rscd.Api.Services.Rules.RemovePupil.Questions
                     ValidatorType = ValidatorType.LAESTABNumber,
                     ValidatorCompareValue = @"^\d{7}$",
                     InValidErrorMessage = Content.LaestabNumberQuestion_InvalidErrorMessage
-                })
+                }.SetCustomValidationPredicate(customValidator))
         {
-
+            
         }
     }
 }

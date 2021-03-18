@@ -6,5 +6,6 @@ namespace Dfe.Rscd.Api.Services
     {
         School GetByURN(CheckingWindow checkingWindow, URN urn);
         School GetByDFESNumber(CheckingWindow checkingWindow, string dfesNumber);
+        bool DoesSchoolExist(string dfesNumber);
     }
 }
