@@ -1,12 +1,8 @@
 ﻿using Dfe.Rscd.Web.Application.Controllers;
 using Dfe.Rscd.Web.Application.Models.ViewModels;
 using Dfe.Rscd.Web.Application.Security;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Controllers;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging.Abstractions;
-using Moq;
 using Xunit;
 
 namespace Dfe.Rscd.Web.UnitTests.Controllers
@@ -16,13 +12,7 @@ namespace Dfe.Rscd.Web.UnitTests.Controllers
         [Fact]
         public void WhenIndexCalledShouldReturnIndexViewWithHomeViewModel()
         {
-            var context = new Mock<HttpContext>();
-            var controller = new HomeController(new NullLogger<HomeController>(), new UserInfo())
-            {
-                ControllerContext =
-                    new ControllerContext(new ActionContext(context.Object, new RouteData(),
-                        new ControllerActionDescriptor()))
-            };
+            var controller = new HomeController(new NullLogger<HomeController>(), new UserInfo());
 
             var result = controller.Index() as ViewResult;
 
@@ -32,15 +22,7 @@ namespace Dfe.Rscd.Web.UnitTests.Controllers
         [Fact]
         public void WhenIndexCalledAndModelStateIsValidShouldRedirectToIndexOfTaskList()
         {
-            var context = new Mock<HttpContext>();
-            context.SetupGet(x => x.User).Returns(GetClaimsPrincipal());
-
-            var controller = new HomeController(new NullLogger<HomeController>(), new UserInfo())
-            {
-                ControllerContext =
-                    new ControllerContext(new ActionContext(context.Object, new RouteData(),
-                        new ControllerActionDescriptor()))
-            };
+            var controller = new HomeController(new NullLogger<HomeController>(), GetUserInfo());
 
             var result = controller.Index(new HomeViewModel {SelectedKeyStage = "Ks5"}) as RedirectToActionResult;
 

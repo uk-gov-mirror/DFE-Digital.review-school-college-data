@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using System.Text.Json;
 using Dfe.Rscd.Web.Application.Application;
+using Dfe.Rscd.Web.Application.Security;
 using Dfe.Rscd.Web.Application.Security.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,21 +18,13 @@ namespace Dfe.Rscd.Web.UnitTests.Controllers
         protected string UserId => "987198729";
         protected TestSession Session { get; } = new();
 
-        protected ClaimsPrincipal GetClaimsPrincipal()
+        protected UserInfo GetUserInfo()
         {
-            var org = new Organisation
+            return new UserInfo
             {
-                urn = SchoolUrn
+                UserId = UserId,
+                Urn = SchoolUrn
             };
-            var claims = new List<Claim>
-            {
-                new("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier", UserId),
-                new("organisation", JsonSerializer.Serialize(org))
-            };
-            var identity = new ClaimsIdentity(claims, "TestAuthType");
-            var claimsPrincipal = new ClaimsPrincipal(identity);
-
-            return claimsPrincipal;
         }
 
         protected ControllerContext GetControllerContext(string phase, Mock<HttpContext> context)
