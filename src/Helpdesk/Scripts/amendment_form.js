@@ -13,6 +13,10 @@ var Rscd = window.Rscd || {};
   this.formOnLoad = function (executionContext) {
     const formContext = executionContext.getFormContext();
     const checkingWindowValue = formContext.getAttribute('rscd_checkingwindow').getInitialValue();
+    const outcomeReason = formContext.getAttribute('rscd_outcome').getInitialValue();
+    if (outcomeReason === 501940002) { // awaiting review
+       formContext.getControl('rscd_outcomereason').setVisible(false);
+    }
     if (checkingWindowValue == 501940005 || checkingWindowValue == 501940006) { // ks5 checking windows
         formContext.getControl('rscd_uln').setVisible(true); //show ULN field
     } else {
@@ -48,7 +52,7 @@ var Rscd = window.Rscd || {};
     formContext.getControl(decision1Field).setDisabled(true);
     formContext.getControl(decision2Field).setDisabled(true);
     formContext.getControl(decision3Field).setDisabled(true);
-	if (reviewer1 === currentUserId || reviewer2 === currentUserId || reviewer3 === currentUserId) {
+    if (reviewer1 === currentUserId || reviewer2 === currentUserId || reviewer3 === currentUserId) {
       // current user has already recorded a decision for this record
       return;
     }
@@ -64,8 +68,8 @@ var Rscd = window.Rscd || {};
     const decision = formContext.getAttribute(decisionFieldName).getValue();
     const reviewerField = formContext.getAttribute(reviewerFieldName);
     if (decision == null) {
-    	// clear associated reviewer field
-    	reviewerField.setValue(null);
+        // clear associated reviewer field
+        reviewerField.setValue(null);
     } else {
       const userValue = new Array();
       userValue[0] = new Object();
@@ -76,3 +80,4 @@ var Rscd = window.Rscd || {};
     }
   }
 }).call(Rscd);
+
