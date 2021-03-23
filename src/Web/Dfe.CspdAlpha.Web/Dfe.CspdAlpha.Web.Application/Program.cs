@@ -9,6 +9,8 @@ namespace Dfe.Rscd.Web.Application
     {
         public const string LOCAL_ENVIRONMENT = "Local";
 
+        public static string RedisConnectionString { get; internal set; } = string.Empty;
+
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
