@@ -14,5 +14,7 @@ namespace Dfe.Rscd.Web.Application.Application
 
             return Keystage.Unknown;
         }
+
+        public static string Clean(this string text) => string.IsNullOrWhiteSpace(text) ? null : text.Trim();
     }
 }

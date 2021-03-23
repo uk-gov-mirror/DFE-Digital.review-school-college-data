@@ -3,12 +3,12 @@ using System.Net.Http.Headers;
 using System.Text;
 using Dfe.Rscd.Web.ApiClient;
 using Dfe.Rscd.Web.Application.Application;
+using Dfe.Rscd.Web.Application.Application.Cache.Redis;
 using Dfe.Rscd.Web.Application.Application.Interfaces;
 using Dfe.Rscd.Web.Application.Application.Services;
 using Dfe.Rscd.Web.Application.Middleware;
 using Dfe.Rscd.Web.Application.Security;
 using Dfe.Rscd.Web.Application.TagHelpers;
-using Dfe.Rscd.Web.Application.Validators.AddPupil;
 using Dfe.Rscd.Web.Application.Validators.RemovePupil;
 using Dfe.Rscd.Web.Infrastructure.Interfaces;
 using Dfe.Rscd.Web.Infrastructure.SharePoint;
@@ -103,15 +103,18 @@ namespace Dfe.Rscd.Web.Application
 
             services.Configure<SharePointOptions>(Configuration.GetSection("SharePoint"));
 
+            Program.RedisConnectionString = Configuration.GetConnectionString("RedisCache");
+
             // Application insights config
             services.AddApplicationInsightsTelemetry();
 
+            services.AddSingleton<IRedisCache, RedisCache>();
             services.AddSingleton<IFileUploadService, SharePointFileUploadService>();
-            services.AddSingleton<ISchoolService, SchoolService>();
-            services.AddSingleton<IEstablishmentService, EstablishmentService>();
-            services.AddSingleton<IPupilService, PupilService>();
+            services.AddSingleton<ISchoolService, CachedSchoolService>();
+            services.AddSingleton<IEstablishmentService, CachedEstablishmentService>();
+            services.AddSingleton<IPupilService, CachedPupilService>();
             services.AddSingleton<IEvidenceService, EvidenceService>();
-            services.AddSingleton<IAmendmentService, AmendmentService>();
+            services.AddSingleton<IAmendmentService, CachedAmendmentService>();
             services.AddTransient<IHtmlGenerator, HtmlGenerator>();
 
             var apiOptions = Configuration.GetSection("Api").Get<ApiOptions>();
