@@ -72,6 +72,12 @@ console.log(reasonCode);
            case 1903: //
            this.showFields(removePupilForm,['rscd_reasondescription']);
            break;
+           case 'DUALEVIDENCE': // need reasoncode for this
+           this.showFields(removePupilForm, ['rscd_reason', 'rscd_pupilsmainschoollaestab']);
+          break;
+         case 'CHANGEYEARGROUP': // reasoncode needed
+           this.showFields(removePupilForm, ['rscd_reason', 'rscd_yeargroup']);
+          break;
         // case 330: // Other without evidence  
         //   break;
           default:
