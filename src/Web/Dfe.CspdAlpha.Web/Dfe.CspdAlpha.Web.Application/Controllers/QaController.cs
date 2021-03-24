@@ -1,4 +1,5 @@
 using Dfe.Rscd.Web.ApiClient;
+using Dfe.Rscd.Web.Application.Application.Cache.Redis;
 using Dfe.Rscd.Web.Application.Security;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -9,11 +10,13 @@ namespace Dfe.Rscd.Web.Application.Controllers
     public class QaController : SessionController
     {
         private readonly IWebHostEnvironment _env;
+        private readonly IRedisCache _cache;
 
-        public QaController(IWebHostEnvironment env, UserInfo userInfo)
+        public QaController(IWebHostEnvironment env, UserInfo userInfo, IRedisCache cache)
             : base(userInfo)
         {
             _env = env;
+            _cache = cache;
         }
 
         [HttpPost]
@@ -43,6 +46,14 @@ namespace Dfe.Rscd.Web.Application.Controllers
             if (IsDevelopment() || _env.IsStaging())
             {
                 ClearAmendmentAndRelated();
+            }
+        }
+
+        public void ClearCache()
+        {
+            if (IsDevelopment() || _env.IsStaging())
+            {
+                _cache.Clear();
             }
         }
 

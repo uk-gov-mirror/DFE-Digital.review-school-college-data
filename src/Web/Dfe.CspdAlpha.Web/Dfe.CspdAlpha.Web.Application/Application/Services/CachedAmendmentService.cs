@@ -5,8 +5,9 @@ using Dfe.Rscd.Web.Application.Models.ViewModels.Amendments;
 
 namespace Dfe.Rscd.Web.Application.Application.Services
 {
-    public class CachedAmendmentService : IAmendmentService
+    public class CachedAmendmentService : ContextAwareService, IAmendmentService
     {
+        private const string GetAmendmentKeyFormat = "GetAmendmentsListViewModel{0}{1}";
         private readonly IRedisCache _cache;
         private readonly IAmendmentService _amendmentService;
 
@@ -18,13 +19,13 @@ namespace Dfe.Rscd.Web.Application.Application.Services
 
         public AmendmentsListViewModel GetAmendmentsListViewModel(string urn)
         {
-            return _cache.GetOrCreate("GetAmendmentsListViewModel" + urn, () => _amendmentService.GetAmendmentsListViewModel(urn),
+            return _cache.GetOrCreate(string.Format(GetAmendmentKeyFormat, CheckingWindow, urn), () => _amendmentService.GetAmendmentsListViewModel(urn),
                 null, databaseId: RedisDb.General);
         }
 
         public AmendmentOutcome CreateAmendment(Amendment amendment)
         {
-            _cache.Remove("GetAmendmentsListViewModel" + amendment.Urn);
+            _cache.Remove(string.Format(GetAmendmentKeyFormat, CheckingWindow, amendment.Urn));
             return _amendmentService.CreateAmendment(amendment);
         }
 
@@ -36,14 +37,14 @@ namespace Dfe.Rscd.Web.Application.Application.Services
         public bool CancelAmendment(string id)
         {
             var amendment = GetAmendment(id);
-            _cache.Remove("GetAmendmentsListViewModel" + amendment.Urn);
+            _cache.Remove(string.Format(GetAmendmentKeyFormat, CheckingWindow, amendment.Urn));
             return _amendmentService.CancelAmendment(id);
         }
 
         public bool RelateEvidence(string amendmentId, string evidenceFolder)
         {
             var amendment = GetAmendment(amendmentId);
-            _cache.Remove("GetAmendmentsListViewModel" + amendment.Urn);
+            _cache.Remove(string.Format(GetAmendmentKeyFormat, CheckingWindow, amendment.Urn));
             return _amendmentService.RelateEvidence(amendmentId, evidenceFolder);
         }
     }
