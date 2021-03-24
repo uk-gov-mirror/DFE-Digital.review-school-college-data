@@ -1,3 +1,4 @@
+using System;
 using Dfe.Rscd.Web.ApiClient;
 using Dfe.Rscd.Web.Application.Application.Cache.Redis;
 using Dfe.Rscd.Web.Application.Application.Interfaces;
@@ -20,7 +21,7 @@ namespace Dfe.Rscd.Web.Application.Application.Services
         public AmendmentsListViewModel GetAmendmentsListViewModel(string urn)
         {
             return _cache.GetOrCreate(string.Format(GetAmendmentKeyFormat, CheckingWindow, urn), () => _amendmentService.GetAmendmentsListViewModel(urn),
-                null, databaseId: RedisDb.General);
+                TimeSpan.FromDays(1), databaseId: RedisDb.General);
         }
 
         public AmendmentOutcome CreateAmendment(Amendment amendment)
