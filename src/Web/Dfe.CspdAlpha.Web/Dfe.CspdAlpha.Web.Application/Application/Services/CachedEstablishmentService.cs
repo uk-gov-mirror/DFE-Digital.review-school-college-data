@@ -6,7 +6,7 @@ using Dfe.Rscd.Web.Application.Models.ViewModels;
 
 namespace Dfe.Rscd.Web.Application.Application.Services
 {
-    public class CachedEstablishmentService : IEstablishmentService
+    public class CachedEstablishmentService : ContextAwareService, IEstablishmentService
     {
         private readonly IRedisCache _cache;
         private readonly IEstablishmentService _establishmentService;
@@ -19,19 +19,19 @@ namespace Dfe.Rscd.Web.Application.Application.Services
 
         public string GetSchoolName(string laestab)
         {
-            return _cache.GetOrCreate("GetSchoolName" + laestab, () => _establishmentService.GetSchoolName(laestab),
+            return _cache.GetOrCreate("GetSchoolName" + CheckingWindow + laestab, () => _establishmentService.GetSchoolName(laestab),
                 null, databaseId: RedisDb.General);
         }
 
         public SchoolDetails GetSchoolDetails(string urn)
         {
-            return _cache.GetOrCreate("GetSchoolDetails" + urn, () => _establishmentService.GetSchoolDetails(urn),
+            return _cache.GetOrCreate("GetSchoolDetails" + CheckingWindow + urn, () => _establishmentService.GetSchoolDetails(urn),
                 null, databaseId: RedisDb.General);
         }
 
         public SchoolViewModel GetSchoolViewModel(string urn)
         {
-            return _cache.GetOrCreate("GetSchoolViewModel" + urn, () => _establishmentService.GetSchoolViewModel(urn),
+            return _cache.GetOrCreate("GetSchoolViewModel" + CheckingWindow + urn, () => _establishmentService.GetSchoolViewModel(urn),
                 null, databaseId: RedisDb.General);
         }
     }

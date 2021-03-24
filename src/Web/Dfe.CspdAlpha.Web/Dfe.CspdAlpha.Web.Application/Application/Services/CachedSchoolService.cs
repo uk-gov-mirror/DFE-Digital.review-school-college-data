@@ -5,7 +5,7 @@ using Dfe.Rscd.Web.Application.Models.ViewModels;
 
 namespace Dfe.Rscd.Web.Application.Application.Services
 {
-    public class CachedSchoolService : ISchoolService
+    public class CachedSchoolService : ContextAwareService, ISchoolService
     {
         private readonly IRedisCache _cache;
         private readonly ISchoolService _schoolService;
@@ -23,7 +23,7 @@ namespace Dfe.Rscd.Web.Application.Application.Services
 
         public TaskListViewModel GetConfirmationRecord(string userId, string urn)
         {
-            return _cache.GetOrCreate("GetConfirmationRecord" + userId + urn,
+            return _cache.GetOrCreate("GetConfirmationRecord" + CheckingWindow + userId + urn,
                 () => _schoolService.GetConfirmationRecord(userId, urn), null, databaseId: RedisDb.General);
 
         }

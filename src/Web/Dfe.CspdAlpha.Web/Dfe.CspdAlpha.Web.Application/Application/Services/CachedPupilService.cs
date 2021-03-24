@@ -7,7 +7,7 @@ using Dfe.Rscd.Web.Application.Models.ViewModels.RemovePupil;
 
 namespace Dfe.Rscd.Web.Application.Application.Services
 {
-    public class CachedPupilService : IPupilService
+    public class CachedPupilService : ContextAwareService, IPupilService
     {
         private readonly IPupilService _service;
         private readonly IRedisCache _cache;
@@ -20,22 +20,22 @@ namespace Dfe.Rscd.Web.Application.Application.Services
 
         public List<PupilViewModel> GetPupilDetailsList(SearchQuery searchQuery)
         {
-            return _cache.GetOrCreate("GetPupilDetailsList"+searchQuery.CheckingWindow+searchQuery.URN+searchQuery.Query, () => _service.GetPupilDetailsList(searchQuery), null, databaseId: RedisDb.General);
+            return _cache.GetOrCreate("GetPupilDetailsList" + CheckingWindow + searchQuery.URN + searchQuery.Query, () => _service.GetPupilDetailsList(searchQuery), null, databaseId: RedisDb.General);
         }
 
         public MatchedPupilViewModel GetPupil(string id)
         {
-            return _cache.GetOrCreate("GetPupil"+id, () => _service.GetPupil(id), null, databaseId: RedisDb.General);
+            return _cache.GetOrCreate("GetPupil" + CheckingWindow + id, () => _service.GetPupil(id), null, databaseId: RedisDb.General);
         }
 
         public MatchedPupilViewModel GetMatchedPupil(string upn)
         {
-            return _cache.GetOrCreate("GetMatchedPupil"+upn, () => _service.GetMatchedPupil(upn), null, databaseId: RedisDb.General);
+            return _cache.GetOrCreate("GetMatchedPupil" + CheckingWindow + upn, () => _service.GetMatchedPupil(upn), null, databaseId: RedisDb.General);
         }
 
         public List<AmendmentReason> GetAmendmentReasons(AmendmentType amendmentType)
         {
-            return _cache.GetOrCreate("GetAmendmentReasons"+amendmentType, () => _service.GetAmendmentReasons(amendmentType), null, databaseId: RedisDb.General);
+            return _cache.GetOrCreate("GetAmendmentReasons" + CheckingWindow + amendmentType, () => _service.GetAmendmentReasons(amendmentType), null, databaseId: RedisDb.General);
         }
     }
 }
