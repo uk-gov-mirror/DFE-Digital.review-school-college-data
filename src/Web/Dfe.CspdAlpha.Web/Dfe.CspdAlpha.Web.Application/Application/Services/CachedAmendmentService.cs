@@ -35,11 +35,15 @@ namespace Dfe.Rscd.Web.Application.Application.Services
 
         public bool CancelAmendment(string id)
         {
+            var amendment = GetAmendment(id);
+            _cache.Remove("GetAmendmentsListViewModel" + amendment.Urn);
             return _amendmentService.CancelAmendment(id);
         }
 
         public bool RelateEvidence(string amendmentId, string evidenceFolder)
         {
+            var amendment = GetAmendment(amendmentId);
+            _cache.Remove("GetAmendmentsListViewModel" + amendment.Urn);
             return _amendmentService.RelateEvidence(amendmentId, evidenceFolder);
         }
     }
