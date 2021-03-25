@@ -3,12 +3,21 @@ using System.Security.Claims;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Dfe.Rscd.Web.Application.Security.DTO;
+using Microsoft.Extensions.Logging;
 using static Dfe.Rscd.Web.Application.Security.Constants;
 
 namespace Dfe.Rscd.Web.Application.Security
 {
     public class StubUserInfoHelper : UserInfoHelperBase, IUserInfoHelper
     {
+        private readonly ILogger<DsiUserInfoHelper> _logger;
+
+        public StubUserInfoHelper(
+            ILogger<DsiUserInfoHelper> logger)
+        {
+            _logger = logger;
+        }
+
         public Task<ClaimsPrincipal> HydrateUserClaimsAsync(ClaimsPrincipal principal)
         {
             var userId = principal.FindFirst(Claims.Subject).Value;
@@ -17,6 +26,8 @@ namespace Dfe.Rscd.Web.Application.Security
             var roleName = GetRoleFromOrgClaim(organisation, userId);
 
             var newClaims = BuildAdditionalClaims(userId, principal.Claims, organisation, roleName);
+
+            _logger.LogInformation("Log in event - User ID: {userId}, Role: {roleName}", userId, roleName);
 
             return Task.FromResult(new ClaimsPrincipal(new ClaimsIdentity(newClaims, "Dfe Sign In")));
         }
