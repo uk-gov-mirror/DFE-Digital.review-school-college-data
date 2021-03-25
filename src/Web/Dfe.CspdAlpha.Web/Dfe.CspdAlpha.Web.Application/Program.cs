@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.AzureAppConfiguration;
 using Microsoft.Extensions.Hosting;
+using Serilog;
+using System;
 
 namespace Dfe.Rscd.Web.Application
 {
@@ -13,7 +15,36 @@ namespace Dfe.Rscd.Web.Application
 
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            try
+            {
+                using IHost host = CreateHostBuilder(args).Build();
+                host.Run();
+            }
+            catch (Exception ex)
+            {
+                // Log.Logger will likely be internal type "Serilog.Core.Pipeline.SilentLogger".
+                if (Log.Logger == null || Log.Logger.GetType().Name == "SilentLogger")
+                {
+                    // Loading configuration or Serilog failed.
+                    // Ensure application logs are enabled in Azure App Service to capture
+                    // these start-up errors.
+                    Log.Logger = new LoggerConfiguration()
+                        .MinimumLevel.Debug()
+                        .WriteTo.Console()
+                        .CreateLogger();
+                }
+
+                Log.Fatal(ex, "Application start-up failed");
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
+
+            Log.Logger = new LoggerConfiguration()
+                .Enrich.FromLogContext()
+                .WriteTo.Console()
+                .CreateLogger();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -37,6 +68,11 @@ namespace Dfe.Rscd.Web.Application
                                     .Select(KeyFilter.Any, configLabel)
                                     .UseFeatureFlags();
                             });
+                        })
+                        .UseSerilog((hostingContext, loggerConfiguration) => {
+                            loggerConfiguration
+                                .ReadFrom.Configuration(hostingContext.Configuration)
+                                .Enrich.WithProperty("Environment", hostingContext.HostingEnvironment.EnvironmentName);
                         })
                         .UseStartup<Startup>();
                 });
