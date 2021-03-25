@@ -1,19 +1,25 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Entities;
 using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Domain.Entities.Amendments;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Config;
 using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Config;
 using Microsoft.Xrm.Sdk;
+using Microsoft.Extensions.Logging;
 
 namespace Dfe.Rscd.Api.Services
 {
     public class RemovePupilAmendmentBuilder : AmendmentBuilder
     {
-        public RemovePupilAmendmentBuilder(IOrganizationService organizationService, IOutcomeService outcomeService,
-            IPupilService pupilService, DynamicsOptions dynamicsOptions, IAllocationYearConfig year) : base(
-            organizationService, outcomeService, pupilService, dynamicsOptions, year)
+        public RemovePupilAmendmentBuilder(
+            IOrganizationService organizationService, 
+            IOutcomeService outcomeService,
+            IPupilService pupilService, 
+            DynamicsOptions dynamicsOptions, 
+            IAllocationYearConfig year,
+            ILogger<RemovePupilAmendmentBuilder> logger) 
+            : base(
+            organizationService, outcomeService, pupilService, dynamicsOptions, year, logger)
         {
         }
 
