@@ -34,6 +34,10 @@ console.log(reasonCode);
           break;
      case 8: // admitted from abroad English not 1st language
         this.showFields(removePupilForm, ['rscd_language', 'rscd_countryoforigin' ,'rscd_dateofarrival']);
+        
+        if (removePupilForm.getControl('rscd_dateonroll').getAttribute().getValue() !== '') {            
+            removePupilForm.getControl('rscd_dateonroll').setVisible(true);
+         }
         break;
     case 10: // Admitted following permanent exclusion from maintained school
          this.showFields(removePupilForm, ['rscd_laestabofexcludedschool', 'rscd_pupilexclusiondate']);
@@ -60,6 +64,9 @@ console.log(reasonCode);
            }
            if (subReasonValue.toLowerCase().indexOf('eal exceptional circumstances') > -1){
                 fieldsArray.push('rscd_language', 'rscd_countryoforigin', 'rscd_dateofarrival');
+                if (removePupilForm.getControl('rscd_dateonroll').getAttribute().getValue() !== '') {            
+                  removePupilForm.getControl('rscd_dateonroll').setVisible(true);
+                 }
            }
             this.showFields(removePupilForm, fieldsArray);
             break;
@@ -92,3 +99,4 @@ console.log(reasonCode);
   });
   }
 }).call(Rscd);
+
