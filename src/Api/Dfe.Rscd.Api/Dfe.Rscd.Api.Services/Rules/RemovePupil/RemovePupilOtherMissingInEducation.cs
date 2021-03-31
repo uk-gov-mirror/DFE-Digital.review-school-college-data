@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using Dfe.Rscd.Api.Domain.Common;
 using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Domain.Entities.Amendments;
@@ -26,24 +25,10 @@ namespace Dfe.Rscd.Api.Services.Rules
             return new List<Question>{dateOffRoll, evidence};
         }
 
-        protected override List<ValidatedAnswer> GetValidatedAnswers(Amendment amendment)
+        protected override AmendmentOutcome ApplyRule(Amendment amendment)
         {
-            var questions = GetQuestions(amendment);
-            
-            var dateOffRollQuestion = questions.Single(x => x.Id == nameof(PupilDateOffRollQuestion));
-            var evidenceQuestion = questions.Single(x => x.Id == nameof(EvidenceUploadQuestion));
-
-            return new List<ValidatedAnswer>
-            {
-                dateOffRollQuestion.GetAnswer(amendment),
-                evidenceQuestion.GetAnswer(amendment)
-            };
-        }
-
-        protected override AmendmentOutcome ApplyRule(Amendment amendment, List<ValidatedAnswer> answers)
-        {
-            var dateOffRoll = answers.Single(x => x.QuestionId == nameof(PupilDateOffRollQuestion));
-            var evidenceUploadQuestion = answers.Single(x => x.QuestionId == nameof(EvidenceUploadQuestion));
+            var dateOffRoll = GetAnswer(amendment, nameof(PupilDateOffRollQuestion));
+            var evidenceUploadQuestion = GetAnswer(amendment, nameof(EvidenceUploadQuestion));
 
             amendment.EvidenceStatus = string.IsNullOrEmpty(evidenceUploadQuestion.Value) || evidenceUploadQuestion.Value == "0"
                 ? EvidenceStatus.Later : EvidenceStatus.Now;
@@ -68,7 +53,7 @@ namespace Dfe.Rscd.Api.Services.Rules
             };
         }
 
-        protected override void ApplyOutcomeToAmendment(Amendment amendment, AmendmentOutcome amendmentOutcome, List<ValidatedAnswer> answers)
+        protected override void ApplyOutcomeToAmendment(Amendment amendment, AmendmentOutcome amendmentOutcome)
         {
             if (amendmentOutcome.IsComplete && amendmentOutcome.FurtherQuestions == null)
             {
@@ -85,7 +70,7 @@ namespace Dfe.Rscd.Api.Services.Rules
                     amendmentOutcome.OutcomeDescription);
                 
                 amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_DateOffRoll,
-                    GetAnswer(answers, nameof(PupilDateOffRollQuestion)).Value);
+                    GetAnswer(amendment, nameof(PupilDateOffRollQuestion)).Value);
             }
         }
 

@@ -16,7 +16,7 @@ var Rscd = window.Rscd || {};
     const outcomeReason = formContext.getAttribute('rscd_outcome').getInitialValue();
     //console.log(outcomeReason);
     if (outcomeReason === 501940002) { // awaiting review
-       formContext.getControl('rscd_outcome').setVisible(false);
+       formContext.getControl('rscd_outcomereason').setVisible(false);
     }
     if (checkingWindowValue == 501940005 || checkingWindowValue == 501940006) { // ks5 checking windows
         formContext.getControl('rscd_uln').setVisible(true); //show ULN field
@@ -81,3 +81,4 @@ var Rscd = window.Rscd || {};
     }
   }
 }).call(Rscd);
+    

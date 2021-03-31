@@ -29,21 +29,9 @@ namespace Dfe.Rscd.Api.Services.Rules
             return new List<Question> { dateOffRoll };
         }
 
-        protected override List<ValidatedAnswer> GetValidatedAnswers(Amendment amendment)
+        protected override AmendmentOutcome ApplyRule(Amendment amendment)
         {
-            var questions = GetQuestions(amendment);
-
-            var dateOffRoll = questions.Single(x => x.Id == nameof(PupilDateOffRollQuestion));
-            
-            return new List<ValidatedAnswer>
-            {
-                dateOffRoll.GetAnswer(amendment)
-            };
-        }
-
-        protected override AmendmentOutcome ApplyRule(Amendment amendment, List<ValidatedAnswer> answers)
-        {
-            var dateOffRoll = answers.Single(x => x.QuestionId == nameof(PupilDateOffRollQuestion));
+            var dateOffRoll = GetAnswer(amendment, nameof(PupilDateOffRollQuestion));
             
             if (dateOffRoll.Value.ToDateTimeWhenSureNotNull() < _allocationYearConfig.CensusDate.ToDateTimeWhenSureNotNull())
             {
@@ -63,7 +51,7 @@ namespace Dfe.Rscd.Api.Services.Rules
             };
         }
 
-        protected override void ApplyOutcomeToAmendment(Amendment amendment, AmendmentOutcome amendmentOutcome, List<ValidatedAnswer> answers)
+        protected override void ApplyOutcomeToAmendment(Amendment amendment, AmendmentOutcome amendmentOutcome)
         {
             if (amendmentOutcome.IsComplete && amendmentOutcome.FurtherQuestions == null)
             {
@@ -77,7 +65,7 @@ namespace Dfe.Rscd.Api.Services.Rules
                     amendmentOutcome.OutcomeDescription);
 
                 amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_DateOffRoll, 
-                    GetAnswer(answers, nameof(PupilDateOffRollQuestion)).Value);
+                    GetAnswer(amendment, nameof(PupilDateOffRollQuestion)).Value);
             }
         }
 

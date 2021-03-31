@@ -11,6 +11,7 @@ using System.Text.Json;
 using Newtonsoft.Json.Linq;
 using Microsoft.Extensions.Options;
 using Dfe.Rscd.Web.Application.Security.DTO;
+using Microsoft.Extensions.Logging;
 
 namespace Dfe.Rscd.Web.Application.Security
 {
@@ -18,13 +19,16 @@ namespace Dfe.Rscd.Web.Application.Security
     {
         private readonly DfeSignInSettings _settings;
         private readonly HttpClient _httpClient;
+        private readonly ILogger<DsiUserInfoHelper> _logger;
 
         public DsiUserInfoHelper(
             IOptions<DfeSignInSettings> settings,
-            IHttpClientFactory httpClientFactory)
+            IHttpClientFactory httpClientFactory,
+            ILogger<DsiUserInfoHelper> logger)
         {
             _settings = settings.Value;
             _httpClient = httpClientFactory.CreateClient("DfeSignIn");
+            _logger = logger;
         }
 
         public static string CreateApiToken(DfeSignInSettings settings)
@@ -69,6 +73,8 @@ namespace Dfe.Rscd.Web.Application.Security
             var roleName = userRoles.Single();
 
             var newClaims = BuildAdditionalClaims(userId, principal.Claims, organisation, roleName);
+
+            _logger.LogInformation("Log in event - User ID: {userId}, Role: {roleName}", userId, roleName);
 
             return new ClaimsPrincipal(new ClaimsIdentity(newClaims, "Dfe Sign In"));
         }

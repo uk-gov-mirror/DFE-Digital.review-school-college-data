@@ -44,30 +44,11 @@ namespace Dfe.Rscd.Api.Services.Rules
 
             return questions;
         }
-        
 
-        protected override List<ValidatedAnswer> GetValidatedAnswers(Amendment amendment)
+        protected override AmendmentOutcome ApplyRule(Amendment amendment)
         {
-            var answers = new List<ValidatedAnswer>();
-            var questions = GetQuestions(amendment);
-            
-            var languageAnswer = questions.Single(x => x.Id == nameof(PupilNativeLanguageQuestion));
-            var countryAnswer = questions.Single(x => x.Id == nameof(PupilCountryQuestion));
-            var studentArrivalDate = questions.Single(x => x.Id == nameof(ArrivalDateQuestion));
-            var evidenceAnswer = questions.Single(x => x.Id == nameof(EvidenceUploadQuestion));
-            return new List<ValidatedAnswer>
-            {
-                languageAnswer.GetAnswer(amendment),
-                countryAnswer.GetAnswer(amendment),
-                studentArrivalDate.GetAnswer(amendment),
-                evidenceAnswer.GetAnswer(amendment)
-            };
-        }
-
-        protected override AmendmentOutcome ApplyRule(Amendment amendment, List<ValidatedAnswer> answers)
-        {
-            var arrivalDate = answers.Single(x => x.QuestionId == nameof(ArrivalDateQuestion));
-            var evidenceUploadQuestion = answers.Single(x => x.QuestionId == nameof(EvidenceUploadQuestion));
+            var arrivalDate = GetAnswer(amendment, nameof(ArrivalDateQuestion));
+            var evidenceUploadQuestion = GetAnswer(amendment, nameof(EvidenceUploadQuestion));
 
             amendment.EvidenceStatus = string.IsNullOrEmpty(evidenceUploadQuestion.Value) || evidenceUploadQuestion.Value == "0"
                 ? EvidenceStatus.Later : EvidenceStatus.Now;
@@ -81,7 +62,7 @@ namespace Dfe.Rscd.Api.Services.Rules
             };
         }
 
-        protected override void ApplyOutcomeToAmendment(Amendment amendment, AmendmentOutcome amendmentOutcome, List<ValidatedAnswer> answers)
+        protected override void ApplyOutcomeToAmendment(Amendment amendment, AmendmentOutcome amendmentOutcome)
         {
             if (amendmentOutcome.IsComplete && amendmentOutcome.FurtherQuestions == null)
             {
@@ -98,13 +79,13 @@ namespace Dfe.Rscd.Api.Services.Rules
                     amendmentOutcome.OutcomeDescription);
                 
                 amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_DateOfArrivalUk,
-                    GetAnswer(answers, nameof(ArrivalDateQuestion)).Value);
+                    GetAnswer(amendment, nameof(ArrivalDateQuestion)).Value);
                 
                 amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_CountryOfOrigin, 
-                    GetAnswer(answers, nameof(PupilCountryQuestion)).Value);
+                    GetFlattenedDisplayField(amendment, nameof(PupilCountryQuestion)));
                 
                 amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_NativeLanguage, 
-                    GetAnswer(answers, nameof(PupilNativeLanguageQuestion)).Value);
+                    GetFlattenedDisplayField(amendment, nameof(PupilNativeLanguageQuestion)));
             }
         }
     }

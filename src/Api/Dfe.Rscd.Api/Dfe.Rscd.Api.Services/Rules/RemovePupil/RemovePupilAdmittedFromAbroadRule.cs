@@ -38,23 +38,7 @@ namespace Dfe.Rscd.Api.Services.Rules
         public override int AmendmentReason => (int)AmendmentReasonCode.AdmittedFromAbroadWithEnglishNotFirstLanguageCode;
         public override AmendmentType AmendmentType => AmendmentType.RemovePupil;
 
-        protected override List<ValidatedAnswer> GetValidatedAnswers(Amendment amendment)
-        {
-            var questions = GetQuestions(amendment);
-
-            var languageQuestion = questions.Single(x => x.Id == nameof(PupilNativeLanguageQuestion));
-            var countryAnswer = questions.Single(x => x.Id == nameof(PupilCountryQuestion));
-            var studentArrivalDate = questions.Single(x => x.Id == nameof(ArrivalDateQuestion));
-
-            return new List<ValidatedAnswer>
-            {
-                languageQuestion.GetAnswer(amendment),
-                countryAnswer.GetAnswer(amendment),
-                studentArrivalDate.GetAnswer(amendment)
-            };
-        }
-
-        protected override AmendmentOutcome ApplyRule(Amendment amendment, List<ValidatedAnswer> validatedAnswers)
+        protected override AmendmentOutcome ApplyRule(Amendment amendment)
         {
             var admissionDate = amendment.Pupil.AdmissionDate;
             var hasKs2Result = amendment.Pupil.Results.Any(x =>
@@ -66,9 +50,9 @@ namespace Dfe.Rscd.Api.Services.Rules
             //    amendment.Pupil.Results.Any(x => x.SubjectCode == "LEV2EM" && x.TestMark == "1"); // TODO: Implement when ready
             var firstLanguage = amendment.Pupil.FirstLanguage;
 
-            var studentCountryOfOrigin = validatedAnswers.Single(x => x.QuestionId == nameof(PupilCountryQuestion));
+            var studentCountryOfOrigin = GetSelectedAnswerItem(amendment, nameof(PupilCountryQuestion));
 
-            if (studentCountryOfOrigin.IsRejected)
+            if (studentCountryOfOrigin.Reject)
             {
                 return new AmendmentOutcome(OutcomeStatus.AutoReject, "The country is not on the accept list")
                 {
@@ -108,9 +92,9 @@ namespace Dfe.Rscd.Api.Services.Rules
                 };
             }
 
-            var studentLanguage = validatedAnswers.Single(x => x.QuestionId == nameof(PupilNativeLanguageQuestion));
+            var studentLanguage = GetSelectedAnswerItem(amendment, nameof(PupilNativeLanguageQuestion));
 
-            if (studentLanguage.IsRejected)
+            if (studentLanguage.Reject)
             {
                 return new AmendmentOutcome(OutcomeStatus.AutoReject, "The language is not on the accept list.")
                 {
@@ -120,7 +104,7 @@ namespace Dfe.Rscd.Api.Services.Rules
                 };
             }
 
-            var arrivalDate = validatedAnswers.Single(x => x.QuestionId == nameof(ArrivalDateQuestion));
+            var arrivalDate = GetAnswer(amendment, nameof(ArrivalDateQuestion));
 
             var twoYearsBeforeAnnualCensusDate = annualCensusDate.AddYears(-2);
             var studentArrivalDate = arrivalDate.Value.ToDateTime();
@@ -133,16 +117,6 @@ namespace Dfe.Rscd.Api.Services.Rules
                     ReasonDescription = ReasonDescription
                 };
             }
-
-            //if (currentAttainmentLevel2)
-            //{
-            //    return new AmendmentOutcome(OutcomeStatus.AutoReject, "The current attainment is at level 2 including English and Maths. ")
-            //    {
-            //        ScrutinyStatusCode = ScrutinyCode.ToString(),
-            //        ReasonId = (int) AmendmentReasonCode.AdmittedFromAbroadWithEnglishNotFirstLanguageCode,
-            //        ReasonDescription = ReasonDescription
-            //    };
-            //}
 
             if (firstLanguage.Code == "ENG" || firstLanguage.Code == "ENB")
             {
@@ -162,7 +136,7 @@ namespace Dfe.Rscd.Api.Services.Rules
             };
         }
 
-        protected override void ApplyOutcomeToAmendment(Amendment amendment, AmendmentOutcome amendmentOutcome, List<ValidatedAnswer> answers)
+        protected override void ApplyOutcomeToAmendment(Amendment amendment, AmendmentOutcome amendmentOutcome)
         {
             if (amendmentOutcome.IsComplete && amendmentOutcome.FurtherQuestions == null)
             {
@@ -176,13 +150,13 @@ namespace Dfe.Rscd.Api.Services.Rules
                     amendmentOutcome.OutcomeDescription);
 
                 amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_CountryOfOrigin, 
-                    GetAnswer(answers, nameof(PupilCountryQuestion)).Value);
+                    GetFlattenedDisplayField(amendment, nameof(PupilCountryQuestion)));
 
                 amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_NativeLanguage, 
-                    GetAnswer(answers, nameof(PupilNativeLanguageQuestion)).Value);
+                    GetFlattenedDisplayField(amendment, nameof(PupilNativeLanguageQuestion)));
 
                 amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_DateOfArrivalUk, 
-                    GetAnswer(answers, nameof(ArrivalDateQuestion)).Value);
+                    GetAnswer(amendment, nameof(ArrivalDateQuestion)).Value);
             }
         }
     }

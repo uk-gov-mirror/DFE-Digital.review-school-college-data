@@ -6,6 +6,7 @@ using Dfe.Rscd.Api.Domain.Entities.Amendments;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Config;
 using Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Config;
 using Microsoft.Xrm.Sdk;
+using Microsoft.Extensions.Logging;
 
 namespace Dfe.Rscd.Api.Services
 {
@@ -14,18 +15,22 @@ namespace Dfe.Rscd.Api.Services
         private readonly string _allocationYear;
         private readonly EntityReference _autoRecordedUser;
         private readonly EntityReference _firstLineTeam;
-
-
         private readonly IOrganizationService _organizationService;
         private readonly IOutcomeService _outcomeService;
+        private readonly ILogger<AmendmentBuilder> _logger;
 
         protected readonly rscd_Checkingwindow[] Ks4Windows =
             {rscd_Checkingwindow.KS4June, rscd_Checkingwindow.KS4Late, rscd_Checkingwindow.KS4Errata};
 
         protected readonly IPupilService PupilService;
 
-        protected AmendmentBuilder(IOrganizationService organizationService, IOutcomeService outcomeService,
-            IPupilService pupilService, DynamicsOptions dynamicsOptions, IAllocationYearConfig year)
+        protected AmendmentBuilder(
+            IOrganizationService organizationService, 
+            IOutcomeService outcomeService,
+            IPupilService pupilService, 
+            DynamicsOptions dynamicsOptions, 
+            IAllocationYearConfig year,
+            ILogger<AmendmentBuilder> logger)
         {
             PupilService = pupilService;
             _outcomeService = outcomeService;
@@ -33,6 +38,7 @@ namespace Dfe.Rscd.Api.Services
             _firstLineTeam = new EntityReference("team", dynamicsOptions.Helpdesk1stLineTeamId);
             _autoRecordedUser = new EntityReference("systemuser", dynamicsOptions.AutoRecordedUser);
             _allocationYear = year.Value;
+            _logger = logger;
         }
 
         public abstract string RelationshipKey { get; }
@@ -89,6 +95,8 @@ namespace Dfe.Rscd.Api.Services
 
                     outcome.IsAmendmentCreated = true;
                     outcome.NewAmendmentId = amendmentDto.Id;
+
+                    _logger.LogInformation("Amendment requested - ID: {amendmentId}", amendmentDto.Id);
                 }
 
                 return outcome;

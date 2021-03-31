@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Dfe.Rscd.Api.Domain.Common;
 using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Domain.Entities.Amendments;
@@ -41,28 +40,14 @@ namespace Dfe.Rscd.Api.Services.Rules
             return false;
         }
 
-        protected override List<ValidatedAnswer> GetValidatedAnswers(Amendment amendment)
+        protected override AmendmentOutcome ApplyRule(Amendment amendment)
         {
-            var questions = GetQuestions(amendment);
-
-            var laestabQuestion = questions.Single(x => x.Id == nameof(LaestabNumberQuestion));
-            var pupilExclusionDateQuestion = questions.Single(x => x.Id == nameof(PupilExclusionDateQuestion));
-            
-            return new List<ValidatedAnswer>
-            {
-                laestabQuestion.GetAnswer(amendment),
-                pupilExclusionDateQuestion.GetAnswer(amendment)
-            };
-        }
-
-        protected override AmendmentOutcome ApplyRule(Amendment amendment, List<ValidatedAnswer> answers)
-        {
-            var laestabAnswer = answers.Single(x => x.QuestionId == nameof(LaestabNumberQuestion));
+            var laestabAnswer = GetAnswer(amendment, nameof(LaestabNumberQuestion));
 
             var establishment = _establishmentService
                 .GetByDFESNumber(amendment.CheckingWindow, laestabAnswer.Value);
 
-            var pupilExclusionDate = answers.Single(x => x.QuestionId == nameof(PupilExclusionDateQuestion));
+            var pupilExclusionDate = GetAnswer(amendment, nameof(PupilExclusionDateQuestion));
 
             if (!IsStateFundedOrFeCollege(establishment.InstitutionTypeNumber??0))
             {
@@ -118,7 +103,7 @@ namespace Dfe.Rscd.Api.Services.Rules
             return School.StateFundedSchools.Contains(schoolType) || schoolType == 31;
         }
 
-        protected override void ApplyOutcomeToAmendment(Amendment amendment, AmendmentOutcome amendmentOutcome, List<ValidatedAnswer> answers)
+        protected override void ApplyOutcomeToAmendment(Amendment amendment, AmendmentOutcome amendmentOutcome)
         {
             if (amendmentOutcome.IsComplete && amendmentOutcome.FurtherQuestions == null)
             {
@@ -132,10 +117,10 @@ namespace Dfe.Rscd.Api.Services.Rules
                     amendmentOutcome.OutcomeDescription);
 
                 amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_LAESTABNumber, 
-                    GetAnswer(answers, nameof(LaestabNumberQuestion)).Value);
+                    GetAnswer(amendment, nameof(LaestabNumberQuestion)).Value);
 
                 amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_ExclusionDate, 
-                    GetAnswer(answers, nameof(PupilExclusionDateQuestion)).Value);
+                    GetAnswer(amendment, nameof(PupilExclusionDateQuestion)).Value);
             }
         }
 

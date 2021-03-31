@@ -148,7 +148,7 @@ namespace Dfe.Rscd.Api
             app.UseSwagger();
             app.UseSwaggerUI(c =>
                 {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Review school and college data API V1");
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Review school or college data API V1");
                     c.RoutePrefix = string.Empty;
                 }
             );
@@ -156,6 +156,9 @@ namespace Dfe.Rscd.Api
             if (_env.IsEnvironment(Program.LOCAL_ENVIRONMENT) || env.IsDevelopment()) app.UseDeveloperExceptionPage();
 
             app.UseHttpsRedirection();
+
+            // Uncomment in future if we want to push request logs to Serilog sinks.
+            //app.UseSerilogRequestLogging();
 
             app.UseRouting();
 

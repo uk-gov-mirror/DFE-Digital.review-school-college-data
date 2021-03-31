@@ -100,7 +100,7 @@
         <value>Enter the LAESTAB</value>
     </data>
     <data name="LaestabNumberQuestion.InvalidErrorMessage" xml:space="preserve">
-        <value>We don't recognize the LAESTAB you've entered</value>
+        <value>We don't recognise the LAESTAB you've entered</value>
     </data>
     <data name="PupilCountryQuestion.Select.Title" xml:space="preserve">
         <value>Pupil's originating country</value>

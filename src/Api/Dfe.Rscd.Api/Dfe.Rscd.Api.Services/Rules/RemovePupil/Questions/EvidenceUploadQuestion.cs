@@ -39,30 +39,5 @@ namespace Dfe.Rscd.Api.Services.Rules
 
             SetupConditionalQuestion(conditionalQuestion, "1");
         }
-
-        public override ValidatedAnswer GetAnswer(Amendment amendment)
-        {
-            var userAnswer = amendment.Answers.Single(x => x.QuestionId == Id);
-            var answer = GetAnswerPotential(userAnswer.Value);
-
-            if (Answer.HasConditional && (Answer.ConditionalValue == answer.Value || Answer.ConditionalValue == answer.Description))
-            {
-                userAnswer = amendment.Answers.Single(x => x.QuestionId == Answer.ConditionalQuestion.Id);
-                
-                return new ValidatedAnswer
-                {
-                    Value = userAnswer.Value,
-                    IsRejected = answer.Reject,
-                    QuestionId = Id
-                };
-            }
-            
-            return new ValidatedAnswer
-            {
-                Value = answer.Value,
-                IsRejected = answer.Reject,
-                QuestionId = Id
-            };
-        }
     }
 }

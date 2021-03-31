@@ -28,6 +28,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.FeatureManagement;
 using Newtonsoft.Json;
+using Serilog;
 
 namespace Dfe.Rscd.Web.Application
 {
@@ -163,6 +164,9 @@ namespace Dfe.Rscd.Web.Application
             Context.Configure(app.ApplicationServices.GetRequiredService<IHttpContextAccessor>());
 
             app.UseHttpsRedirection();
+
+            // Uncomment in future if we want to push request logs to Serilog sinks.
+            //app.UseSerilogRequestLogging();
 
             if (env.IsDevelopment() || env.IsStaging())
             {
