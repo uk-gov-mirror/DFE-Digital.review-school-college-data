@@ -279,6 +279,30 @@ namespace Dfe.Rscd.Api {
             }
         }
         
+        internal static string PupilDateOnRollQuestion_Title {
+            get {
+                return ResourceManager.GetString("PupilDateOnRollQuestion.Title", resourceCulture);
+            }
+        }
+        
+        internal static string PupilDateOnRollQuestion_Label {
+            get {
+                return ResourceManager.GetString("PupilDateOnRollQuestion.Label", resourceCulture);
+            }
+        }
+        
+        internal static string PupilDateOnRollQuestion_NullErrorMessage {
+            get {
+                return ResourceManager.GetString("PupilDateOnRollQuestion.NullErrorMessage", resourceCulture);
+            }
+        }
+        
+        internal static string PupilDateOnRollQuestion_InvalidErrorMessage {
+            get {
+                return ResourceManager.GetString("PupilDateOnRollQuestion.InvalidErrorMessage", resourceCulture);
+            }
+        }
+        
         internal static string PupilExclusionDateQuestion_Title {
             get {
                 return ResourceManager.GetString("PupilExclusionDateQuestion.Title", resourceCulture);

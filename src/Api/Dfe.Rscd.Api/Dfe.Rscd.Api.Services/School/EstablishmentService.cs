@@ -12,6 +12,7 @@ namespace Dfe.Rscd.Api.Services
     {
         private readonly IDocumentRepository _documentRepository;
         private readonly string _allocationYear;
+        private List<int> NonPlascNfTypes = new List<int>() { 29, 30, 31, 32, 33, 35, 36, 38, 42, 48, 60, 98, 99 };
 
         public EstablishmentService(IDocumentRepository documentRepository, IAllocationYearConfig year)
         {
@@ -57,6 +58,13 @@ namespace Dfe.Rscd.Api.Services
                 .ToList();
 
             return establishmentDtos.Any();
+        }
+        
+        public bool IsNonPlascEstablishment(CheckingWindow checkingWindow, URN urn)
+        {
+            var school = GetByURN(checkingWindow, urn);
+            var nfType = school.InstitutionTypeNumber;
+            return NonPlascNfTypes.Contains(nfType.GetValueOrDefault());
         }
 
         private School Get(Func<EstablishmentDTO, bool> predicate, CheckingWindow checkingWindow)

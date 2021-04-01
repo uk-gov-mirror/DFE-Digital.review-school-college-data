@@ -135,6 +135,18 @@
     <data name="PupilDateOffRollQuestion.InvalidErrorMessage" xml:space="preserve">
         <value>Enter a valid pupil's date off roll</value>
     </data>
+    <data name="PupilDateOnRollQuestion.Title" xml:space="preserve">
+        <value>Pupil's date on roll</value>
+    </data>
+    <data name="PupilDateOnRollQuestion.Label" xml:space="preserve">
+        <value>Enter the date that the pupil was on roll</value>
+    </data>
+    <data name="PupilDateOnRollQuestion.NullErrorMessage" xml:space="preserve">
+        <value>Enter pupil's date on roll</value>
+    </data>
+    <data name="PupilDateOnRollQuestion.InvalidErrorMessage" xml:space="preserve">
+        <value>Enter a valid pupil's date on roll</value>
+    </data>
     <data name="PupilExclusionDateQuestion.Title" xml:space="preserve">
         <value>Pupil's exclusion date</value>
     </data>
@@ -172,7 +184,7 @@
         <value>&lt;p  class="govuk-!-font-weight-bold"&gt;Evidence to include&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Efforts to locate pupil&lt;/li&gt;&lt;li&gt;Evidence from the local authority that the pupil is missing in education&lt;/li&gt;&lt;li&gt;When the pupil was reported to the police as missing - if not reported please provide reason why&lt;/li&gt;&lt;li&gt;Reason for pupil missing from education (if known)&lt;/li&gt;&lt;li&gt;Awareness of pupil sitting key stage 4 qualifications&lt;/li&gt;&lt;/ul&gt;</value>
     </data>
     <data name="RemovePupilOtherInPrisonRemandCentreSecureUnitRule.HTML" xml:space="preserve">
-        <value>&lt;p  class="govuk-!-font-weight-bold"&gt;Evidence to provide:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Dates spent in prison/ remand centre/secure unit&lt;/li&gt;&lt;li&gt;Details of prison/ remand centre/secure unit&lt;/li&gt;&lt;ul/&gt;</value>
+        <value>&lt;p class="govuk-!-font-weight-bold"&gt;Evidence to provide:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Dates spent in prison/ remand centre/secure unit&lt;/li&gt;&lt;li&gt;Details of prison/ remand centre/secure unit&lt;/li&gt;&lt;ul/&gt;</value>
     </data>
     <data name="RemovePupilOtherElectiveHomeEducationRule.HTML" xml:space="preserve">
         <value>&lt;p class="govuk-!-font-weight-bold"&gt;Evidence to provide:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;A copy of the parental letter withdrawing the pupil from school&lt;/li&gt;&lt;/ul&gt;</value>
