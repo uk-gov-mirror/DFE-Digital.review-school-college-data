@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Domain.Entities.Amendments;
 using Dfe.Rscd.Api.Domain.Entities.Questions;
@@ -15,16 +14,9 @@ namespace Dfe.Rscd.Api.Services.Rules
             return new List<Question> { evidenceQuestion };
         }
 
-        protected override List<ValidatedAnswer> GetValidatedAnswers(Amendment amendment)
+        protected override AmendmentOutcome ApplyRule(Amendment amendment)
         {
-            var questions = GetQuestions(amendment);
-            var evidenceAnswer = questions.Single(x => x.Id == nameof(EvidenceUploadQuestion));
-            return new List<ValidatedAnswer> { evidenceAnswer.GetAnswer(amendment) };
-        }
-
-        protected override AmendmentOutcome ApplyRule(Amendment amendment, List<ValidatedAnswer> answers)
-        {
-            var evidenceUploadQuestion = answers.Single(x => x.QuestionId == nameof(EvidenceUploadQuestion));
+            var evidenceUploadQuestion = GetAnswer(amendment, nameof(EvidenceUploadQuestion));
 
             amendment.EvidenceStatus = string.IsNullOrEmpty(evidenceUploadQuestion.Value) || evidenceUploadQuestion.Value == "0"
                 ? EvidenceStatus.Later : EvidenceStatus.Now;
@@ -37,7 +29,7 @@ namespace Dfe.Rscd.Api.Services.Rules
             };
         }
 
-        protected override void ApplyOutcomeToAmendment(Amendment amendment, AmendmentOutcome amendmentOutcome, List<ValidatedAnswer> answers)
+        protected override void ApplyOutcomeToAmendment(Amendment amendment, AmendmentOutcome amendmentOutcome)
         {
             if (amendmentOutcome.IsComplete && amendmentOutcome.FurtherQuestions == null)
             {

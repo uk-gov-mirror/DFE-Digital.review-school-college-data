@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
-using System.Resources;
 using Dfe.Rscd.Api.Domain.Common;
 using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Domain.Entities.Amendments;
@@ -28,8 +26,7 @@ namespace Dfe.Rscd.Api.Services.Rules
             var pupilDateOffRoleQuestion = new PupilDateOffRollQuestion();
             questions.Add(pupilDateOffRoleQuestion);
 
-            if (pupilDateOffRoleQuestion.HasAnswer(amendment) && 
-                pupilDateOffRoleQuestion.GetAnswer(amendment).Value.ToDateTimeWhenSureNotNull() < _config.CensusDate.ToDateTimeWhenSureNotNull())
+            if (GetAnswer(amendment, nameof(pupilDateOffRoleQuestion))?.Value.ToDateTimeWhenSureNotNull() < _config.CensusDate.ToDateTimeWhenSureNotNull())
             {
                 var explainQuestion = new ExplainYourRequestQuestion("The date off roll is before the January census but this pupil was recorded on your January census");
                 questions.Add(explainQuestion);
@@ -41,30 +38,10 @@ namespace Dfe.Rscd.Api.Services.Rules
             return questions;
         }
 
-        protected override List<ValidatedAnswer> GetValidatedAnswers(Amendment amendment)
+        protected override AmendmentOutcome ApplyRule(Amendment amendment)
         {
-            var answers = new List<ValidatedAnswer>();
-            var questions = GetQuestions(amendment);
-
-            var dateOffRollQuestion = questions.Single(x => x.Id == nameof(PupilDateOffRollQuestion));
-            answers.Add(dateOffRollQuestion.GetAnswer(amendment));
-
-            if (questions.Any(x => x.Id == nameof(ExplainYourRequestQuestion)))
-            {
-                var explainRequestQuestion = questions.Single(x => x.Id == nameof(ExplainYourRequestQuestion));
-                answers.Add(explainRequestQuestion.GetAnswer(amendment));
-            }
-            
-            var evidenceQuestion = questions.Single(x => x.Id == nameof(EvidenceUploadQuestion));
-            answers.Add(evidenceQuestion.GetAnswer(amendment));
-
-            return answers;
-        }
-
-        protected override AmendmentOutcome ApplyRule(Amendment amendment, List<ValidatedAnswer> answers)
-        {
-            var dateOffRoll = answers.Single(x => x.QuestionId == nameof(PupilDateOffRollQuestion));
-            var evidenceUploadQuestion = answers.Single(x => x.QuestionId == nameof(EvidenceUploadQuestion));
+            var dateOffRoll = GetAnswer(amendment, nameof(PupilDateOffRollQuestion));
+            var evidenceUploadQuestion = GetAnswer(amendment, nameof(EvidenceUploadQuestion));
 
             amendment.EvidenceStatus = string.IsNullOrEmpty(evidenceUploadQuestion.Value) || evidenceUploadQuestion.Value == "0"
                 ? EvidenceStatus.Later : EvidenceStatus.Now;
@@ -89,7 +66,7 @@ namespace Dfe.Rscd.Api.Services.Rules
             };
         }
 
-        protected override void ApplyOutcomeToAmendment(Amendment amendment, AmendmentOutcome amendmentOutcome, List<ValidatedAnswer> answers)
+        protected override void ApplyOutcomeToAmendment(Amendment amendment, AmendmentOutcome amendmentOutcome)
         {
             if (amendmentOutcome.IsComplete && amendmentOutcome.FurtherQuestions == null)
             {
@@ -106,12 +83,12 @@ namespace Dfe.Rscd.Api.Services.Rules
                     amendmentOutcome.OutcomeDescription);
                 
                 amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_DateOffRoll,
-                    GetAnswer(answers, nameof(PupilDateOffRollQuestion)).Value);
+                    GetAnswer(amendment, nameof(PupilDateOffRollQuestion)).Value);
 
-                if (HasAnswer(answers, nameof(ExplainYourRequestQuestion)))
+                if (HasAnswer(amendment, nameof(ExplainYourRequestQuestion)))
                 {
                     amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_Detail,
-                        GetAnswer(answers, nameof(ExplainYourRequestQuestion)).Value);
+                        GetAnswer(amendment, nameof(ExplainYourRequestQuestion)).Value);
                 }
             }
         }
