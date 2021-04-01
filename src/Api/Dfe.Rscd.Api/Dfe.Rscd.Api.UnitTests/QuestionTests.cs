@@ -32,13 +32,15 @@ namespace Dfe.Rscd.Api.UnitTests
 
             var outcome = admittedFromAbroadRules.Apply(new Amendment()
             {
+                URN = "100987",
                 Answers = new List<UserAnswer>
                 {
                     new UserAnswer{Value = string.Empty, QuestionId = "PupilNativeLanguageQuestion"},
                     new UserAnswer{Value = string.Empty, QuestionId = "PupilNativeLanguageQuestion.Other"},
                     new UserAnswer{Value = string.Empty, QuestionId = "PupilCountryQuestion"},
                     new UserAnswer{Value = string.Empty, QuestionId = "PupilCountryQuestion.Other"},
-                    new UserAnswer{Value = string.Empty, QuestionId = "ArrivalDateQuestion"}
+                    new UserAnswer{Value = string.Empty, QuestionId = "ArrivalDateQuestion"},
+                    new UserAnswer{Value = string.Empty, QuestionId = "PupilDateOnRollQuestion"}
                 }
             });
 
@@ -56,6 +58,7 @@ namespace Dfe.Rscd.Api.UnitTests
 
             var outcome = admittedFromAbroadRules.Apply(new Amendment()
             {
+                URN = "100987",
                 Answers = new List<UserAnswer>
                 {
                     new UserAnswer{Value = "", QuestionId = "ArrivalDateQuestion"}
@@ -76,6 +79,7 @@ namespace Dfe.Rscd.Api.UnitTests
 
             var outcome = admittedFromAbroadRules.Apply(new Amendment()
             {
+                URN = "100987",
                 Answers = new List<UserAnswer>
                 {
                     new UserAnswer{Value = "", QuestionId = nameof(PupilCountryQuestion)}
@@ -97,6 +101,7 @@ namespace Dfe.Rscd.Api.UnitTests
 
             var outcome = admittedFromAbroadRules.Apply(new Amendment()
             {
+                URN = "100987",
                 Answers = new List<UserAnswer>
                 {
                     new UserAnswer{Value = "23/10/2021", QuestionId = "ArrivalDateQuestion"}
@@ -118,6 +123,7 @@ namespace Dfe.Rscd.Api.UnitTests
 
             var outcome = admittedFromAbroadRules.Apply(new Amendment()
             {
+                URN = "100987",
                 Answers = new List<UserAnswer>
                 {
                     new UserAnswer{Value = DateTime.Now.AddDays(1).ToString("dd/MM/yyyy"), QuestionId = "ArrivalDateQuestion"}
@@ -139,6 +145,7 @@ namespace Dfe.Rscd.Api.UnitTests
 
             var outcome = admittedFromAbroadRules.Apply(new Amendment()
             {
+                URN = "100987",
                 Answers = new List<UserAnswer>
                 {
                     new UserAnswer{Value = "2/1/2021", QuestionId = "ArrivalDateQuestion"}
@@ -150,6 +157,7 @@ namespace Dfe.Rscd.Api.UnitTests
 
             outcome = admittedFromAbroadRules.Apply(new Amendment()
             {
+                URN = "100987",
                 Answers = new List<UserAnswer>
                 {
                     new UserAnswer{Value = "2-1-2021", QuestionId = "ArrivalDateQuestion"}
@@ -161,6 +169,7 @@ namespace Dfe.Rscd.Api.UnitTests
 
             outcome = admittedFromAbroadRules.Apply(new Amendment()
             {
+                URN = "100987",
                 Answers = new List<UserAnswer>
                 {
                     new UserAnswer{Value = "2-1-21", QuestionId = "ArrivalDateQuestion"}
@@ -197,7 +206,10 @@ namespace Dfe.Rscd.Api.UnitTests
             dataService.Setup(x => x.GetAnswerPotentials(It.IsAny<string>())).Returns(new List<AnswerPotential>());
             var admittedFromAbroadRules = new RemovePupilAdmittedFromAbroadRule(dataService.Object, null, establishmentService.Object);
 
-            var outcome = admittedFromAbroadRules.Apply(new Amendment());
+            var outcome = admittedFromAbroadRules.Apply(new Amendment
+            {
+                URN = "100987"
+            });
 
             Assert.True(outcome.IsComplete == false);
             Assert.True(outcome.FurtherQuestions != null);
