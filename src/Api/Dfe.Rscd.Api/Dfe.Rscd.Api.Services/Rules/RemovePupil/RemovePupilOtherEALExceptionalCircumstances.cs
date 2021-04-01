@@ -11,14 +11,16 @@ namespace Dfe.Rscd.Api.Services.Rules
     public class RemovePupilOtherEalExceptionalCircumstances : Rule
     {
         private readonly IDataService _dataService;
+        private readonly IEstablishmentService _establishmentService;
         private readonly IAllocationYearConfig _config;
         
         private const string ReasonDescription = "Other - EAL exceptional circumstances";
         private string _evidenceHelpDeskText => Content.RemovePupilOtherEalExceptionalCirumstances_HTML;
 
-        public RemovePupilOtherEalExceptionalCircumstances(IDataService dataService, IAllocationYearConfig config)
+        public RemovePupilOtherEalExceptionalCircumstances(IDataService dataService, IAllocationYearConfig config, IEstablishmentService establishmentService)
         {
             _dataService = dataService;
+            _establishmentService = establishmentService;
             _config = config;
         }
         public override AmendmentType AmendmentType => AmendmentType.RemovePupil;
@@ -29,7 +31,7 @@ namespace Dfe.Rscd.Api.Services.Rules
             var questions = new List<Question>();
             var countries = _dataService.GetAnswerPotentials(nameof(PupilCountryQuestion));
             var languages = _dataService.GetAnswerPotentials(nameof(PupilNativeLanguageQuestion));
-
+            var isNonPlasc = _establishmentService.IsNonPlascEstablishment(amendment.CheckingWindow, new URN(amendment.URN));
             var nativeLanguageQuestion = new PupilNativeLanguageQuestion(languages.ToList());
             questions.Add(nativeLanguageQuestion);
             
@@ -38,6 +40,11 @@ namespace Dfe.Rscd.Api.Services.Rules
             
             var pupilArrivalToUk = new ArrivalDateQuestion();
             questions.Add(pupilArrivalToUk);
+
+            if (isNonPlasc)
+            {
+                questions.Add(new PupilDateOnRollQuestion());
+            }
             
             var evidenceQuestion = new EvidenceUploadQuestion(_evidenceHelpDeskText);
             questions.Add(evidenceQuestion);
@@ -50,18 +57,25 @@ namespace Dfe.Rscd.Api.Services.Rules
         {
             var answers = new List<ValidatedAnswer>();
             var questions = GetQuestions(amendment);
-            
+            var isNonPlasc = _establishmentService.IsNonPlascEstablishment(amendment.CheckingWindow, new URN(amendment.URN));
             var languageAnswer = questions.Single(x => x.Id == nameof(PupilNativeLanguageQuestion));
             var countryAnswer = questions.Single(x => x.Id == nameof(PupilCountryQuestion));
             var studentArrivalDate = questions.Single(x => x.Id == nameof(ArrivalDateQuestion));
             var evidenceAnswer = questions.Single(x => x.Id == nameof(EvidenceUploadQuestion));
-            return new List<ValidatedAnswer>
+            var validatedAnswers = new List<ValidatedAnswer>()
             {
                 languageAnswer.GetAnswer(amendment),
                 countryAnswer.GetAnswer(amendment),
                 studentArrivalDate.GetAnswer(amendment),
                 evidenceAnswer.GetAnswer(amendment)
             };
+            if (isNonPlasc)
+            {
+                var dateOnRollAnswer = questions.Single(x => x.Id == nameof(PupilDateOnRollQuestion));
+                validatedAnswers.Add(dateOnRollAnswer.GetAnswer(amendment));
+            }
+
+            return validatedAnswers;
         }
 
         protected override AmendmentOutcome ApplyRule(Amendment amendment, List<ValidatedAnswer> answers)
@@ -85,6 +99,8 @@ namespace Dfe.Rscd.Api.Services.Rules
         {
             if (amendmentOutcome.IsComplete && amendmentOutcome.FurtherQuestions == null)
             {
+                var isNonPlasc = _establishmentService.IsNonPlascEstablishment(amendment.CheckingWindow, new URN(amendment.URN));
+                
                 amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_ReasonDescription,
                     amendmentOutcome.ReasonDescription);
 
@@ -105,6 +121,12 @@ namespace Dfe.Rscd.Api.Services.Rules
                 
                 amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_NativeLanguage, 
                     GetAnswer(answers, nameof(PupilNativeLanguageQuestion)).Value);
+
+                if (isNonPlasc)
+                {
+                    amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_DateOnRoll, 
+                        GetAnswer(answers, nameof(PupilDateOnRollQuestion)).Value);
+                }
             }
         }
     }

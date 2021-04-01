@@ -2458,6 +2458,24 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Entities
 		/// <summary>
 		/// 
 		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_dateonroll")]
+		public System.Nullable<System.DateTime> rscd_Dateonroll
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("rscd_dateonroll");
+			}
+			set
+			{
+				this.OnPropertyChanging("rscd_Dateonroll");
+				this.SetAttributeValue("rscd_dateonroll", value);
+				this.OnPropertyChanged("rscd_Dateonroll");
+			}
+		}
+		
+		/// <summary>
+		/// 
+		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_details")]
 		public string rscd_Details
 		{
@@ -2542,6 +2560,24 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Entities
 				this.OnPropertyChanging("rscd_PupilExclusionDate");
 				this.SetAttributeValue("rscd_pupilexclusiondate", value);
 				this.OnPropertyChanged("rscd_PupilExclusionDate");
+			}
+		}
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_pupilsmainschoollaestab")]
+		public string rscd_PupilsmainschoolLAESTAB
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("rscd_pupilsmainschoollaestab");
+			}
+			set
+			{
+				this.OnPropertyChanging("rscd_PupilsmainschoolLAESTAB");
+				this.SetAttributeValue("rscd_pupilsmainschoollaestab", value);
+				this.OnPropertyChanged("rscd_PupilsmainschoolLAESTAB");
 			}
 		}
 		
@@ -2635,6 +2671,24 @@ namespace Dfe.Rscd.Api.Infrastructure.DynamicsCRM.Entities
 				this.OnPropertyChanging("rscd_Subreason");
 				this.SetAttributeValue("rscd_subreason", value);
 				this.OnPropertyChanged("rscd_Subreason");
+			}
+		}
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rscd_yeargroup")]
+		public string rscd_Yeargroup
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("rscd_yeargroup");
+			}
+			set
+			{
+				this.OnPropertyChanging("rscd_Yeargroup");
+				this.SetAttributeValue("rscd_yeargroup", value);
+				this.OnPropertyChanged("rscd_Yeargroup");
 			}
 		}
 		
