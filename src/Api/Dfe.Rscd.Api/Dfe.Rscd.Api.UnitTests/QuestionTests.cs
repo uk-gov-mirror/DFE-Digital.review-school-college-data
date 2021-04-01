@@ -26,8 +26,9 @@ namespace Dfe.Rscd.Api.UnitTests
         public void ItShouldShowErrorIfAnswerIsNull()
         {
             var dataService = new Mock<IDataService>();
+            var establishmentService = new Mock<IEstablishmentService>();
             dataService.Setup(x => x.GetAnswerPotentials(It.IsAny<string>())).Returns(new List<AnswerPotential>());
-            var admittedFromAbroadRules = new RemovePupilAdmittedFromAbroadRule(dataService.Object, null);
+            var admittedFromAbroadRules = new RemovePupilAdmittedFromAbroadRule(dataService.Object, null, establishmentService.Object);
 
             var outcome = admittedFromAbroadRules.Apply(new Amendment()
             {
@@ -49,8 +50,9 @@ namespace Dfe.Rscd.Api.UnitTests
         public void ItShouldShowNotErrorIfDateIsNotEnteredAsNullable()
         {
             var dataService = new Mock<IDataService>();
+            var establishmentService = new Mock<IEstablishmentService>();
             dataService.Setup(x => x.GetAnswerPotentials(It.IsAny<string>())).Returns(new List<AnswerPotential>());
-            var admittedFromAbroadRules = new RemovePupilAdmittedFromAbroadRule(dataService.Object, null);
+            var admittedFromAbroadRules = new RemovePupilAdmittedFromAbroadRule(dataService.Object, null, establishmentService.Object);
 
             var outcome = admittedFromAbroadRules.Apply(new Amendment()
             {
@@ -68,8 +70,9 @@ namespace Dfe.Rscd.Api.UnitTests
         public void ItShouldShowErrorIfAnswerIsNotEntered()
         {
             var dataService = new Mock<IDataService>();
+            var establishmentService = new Mock<IEstablishmentService>();
             dataService.Setup(x => x.GetAnswerPotentials(It.IsAny<string>())).Returns(new List<AnswerPotential>());
-            var admittedFromAbroadRules = new RemovePupilAdmittedFromAbroadRule(dataService.Object, null);
+            var admittedFromAbroadRules = new RemovePupilAdmittedFromAbroadRule(dataService.Object, null, establishmentService.Object);
 
             var outcome = admittedFromAbroadRules.Apply(new Amendment()
             {
@@ -88,8 +91,9 @@ namespace Dfe.Rscd.Api.UnitTests
         public void ItShouldShowErrorIfDateIsNotValid()
         {
             var dataService = new Mock<IDataService>();
+            var establishmentService = new Mock<IEstablishmentService>();
             dataService.Setup(x => x.GetAnswerPotentials(It.IsAny<string>())).Returns(new List<AnswerPotential>());
-            var admittedFromAbroadRules = new RemovePupilAdmittedFromAbroadRule(dataService.Object, null);
+            var admittedFromAbroadRules = new RemovePupilAdmittedFromAbroadRule(dataService.Object, null, establishmentService.Object);
 
             var outcome = admittedFromAbroadRules.Apply(new Amendment()
             {
@@ -108,8 +112,9 @@ namespace Dfe.Rscd.Api.UnitTests
         public void ItShouldShowErrorIfDateIsNotHistorical()
         {
             var dataService = new Mock<IDataService>();
+            var establishmentService = new Mock<IEstablishmentService>();
             dataService.Setup(x => x.GetAnswerPotentials(It.IsAny<string>())).Returns(new List<AnswerPotential>());
-            var admittedFromAbroadRules = new RemovePupilAdmittedFromAbroadRule(dataService.Object, null);
+            var admittedFromAbroadRules = new RemovePupilAdmittedFromAbroadRule(dataService.Object, null, establishmentService.Object);
 
             var outcome = admittedFromAbroadRules.Apply(new Amendment()
             {
@@ -128,8 +133,9 @@ namespace Dfe.Rscd.Api.UnitTests
         public void ItShouldParseDateFormats()
         {
             var dataService = new Mock<IDataService>();
+            var establishmentService = new Mock<IEstablishmentService>();
             dataService.Setup(x => x.GetAnswerPotentials(It.IsAny<string>())).Returns(new List<AnswerPotential>());
-            var admittedFromAbroadRules = new RemovePupilAdmittedFromAbroadRule(dataService.Object, null);
+            var admittedFromAbroadRules = new RemovePupilAdmittedFromAbroadRule(dataService.Object, null, establishmentService.Object);
 
             var outcome = admittedFromAbroadRules.Apply(new Amendment()
             {
@@ -187,8 +193,9 @@ namespace Dfe.Rscd.Api.UnitTests
         public void ItShouldPresentExpectedQuestionsForAdmittedFromAboard()
         {
             var dataService = new Mock<IDataService>();
+            var establishmentService = new Mock<IEstablishmentService>();
             dataService.Setup(x => x.GetAnswerPotentials(It.IsAny<string>())).Returns(new List<AnswerPotential>());
-            var admittedFromAbroadRules = new RemovePupilAdmittedFromAbroadRule(dataService.Object, null);
+            var admittedFromAbroadRules = new RemovePupilAdmittedFromAbroadRule(dataService.Object, null, establishmentService.Object);
 
             var outcome = admittedFromAbroadRules.Apply(new Amendment());
 
