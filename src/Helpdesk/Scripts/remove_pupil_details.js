@@ -34,8 +34,7 @@ console.log(reasonCode);
           break;
      case 8: // admitted from abroad English not 1st language
         this.showFields(removePupilForm, ['rscd_language', 'rscd_countryoforigin' ,'rscd_dateofarrival']);
-        
-        if (removePupilForm.getControl('rscd_dateonroll').getAttribute().getValue() !== '') {            
+        if (removePupilForm.getControl('rscd_dateonroll').getAttribute().getValue() !== null) {            
             removePupilForm.getControl('rscd_dateonroll').setVisible(true);
          }
         break;
@@ -64,7 +63,7 @@ console.log(reasonCode);
            }
            if (subReasonValue.toLowerCase().indexOf('eal exceptional circumstances') > -1){
                 fieldsArray.push('rscd_language', 'rscd_countryoforigin', 'rscd_dateofarrival');
-                if (removePupilForm.getControl('rscd_dateonroll').getAttribute().getValue() !== '') {            
+                if (removePupilForm.getControl('rscd_dateonroll').getAttribute().getValue() !== null) {  
                   removePupilForm.getControl('rscd_dateonroll').setVisible(true);
                  }
            }
@@ -99,4 +98,3 @@ console.log(reasonCode);
   });
   }
 }).call(Rscd);
-
