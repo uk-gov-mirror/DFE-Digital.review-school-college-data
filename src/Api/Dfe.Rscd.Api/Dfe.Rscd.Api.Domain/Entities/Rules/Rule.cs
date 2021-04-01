@@ -59,36 +59,77 @@ namespace Dfe.Rscd.Api.Domain.Entities
                 return new AmendmentOutcome(questions);
             }
 
-            var validatedAnswers = GetValidatedAnswers(amendment);
+            AmendmentOutcome amendmentOutcome = ApplyRule(amendment);
 
-            AmendmentOutcome amendmentOutcome = ApplyRule(amendment, validatedAnswers);
-
-            ApplyOutcomeToAmendment(amendment, amendmentOutcome, validatedAnswers);
+            ApplyOutcomeToAmendment(amendment, amendmentOutcome);
 
             return amendmentOutcome;
         }
 
-        protected abstract List<ValidatedAnswer> GetValidatedAnswers(Amendment amendment);
+        protected abstract AmendmentOutcome ApplyRule(Amendment amendment);
 
-        protected abstract AmendmentOutcome ApplyRule(Amendment amendment, List<ValidatedAnswer> answers);
-
-        protected abstract void ApplyOutcomeToAmendment(Amendment amendment, AmendmentOutcome amendmentOutcome, List<ValidatedAnswer> answers);
+        protected abstract void ApplyOutcomeToAmendment(Amendment amendment, AmendmentOutcome amendmentOutcome);
 
         public abstract int AmendmentReason { get; }
 
-        protected bool HasAnswer(List<ValidatedAnswer> answers, string questionId)
+        protected bool HasAnswer(Amendment amendment, string questionId)
         {
-            return answers.Any(x => x.QuestionId == questionId);
+            return amendment.Answers.Any(x => x.QuestionId == questionId);
         }
-        
-        protected ValidatedAnswer GetAnswer(List<ValidatedAnswer> answers, string questionId)
+
+        protected UserAnswer GetAnswer(Amendment amendment, string questionId)
         {
-            if (HasAnswer(answers, questionId))
+            if (HasAnswer(amendment, questionId))
             {
-                return answers.Single(x => x.QuestionId == questionId);
+                return amendment.Answers.Single(x => x.QuestionId == questionId);
             }
 
             return null;
+        }
+        
+        protected AnswerPotential GetSelectedAnswerItem(Amendment amendment, string questionId)
+        {
+            var question = GetQuestions(amendment).Single(x => x.Id == questionId);
+            var actualValue = amendment.Answers.Single(x => x.QuestionId == questionId)?.Value;
+            
+            if (question.Answer.AnswerPotentials != null && question.Answer.AnswerPotentials.Count > 0)
+            {
+                var answer = question.Answer.AnswerPotentials.SingleOrDefault(x => x.Value == actualValue);
+                if (answer != null)
+                {
+                    return answer;
+                }
+            }
+
+            return new AnswerPotential {Description = actualValue, Value = actualValue, Reject = false};
+        }
+        
+        protected string GetConditionalValue(Amendment amendment, string questionId)
+        {
+            var question = GetQuestions(amendment).Single(x => x.Id == questionId);
+            
+            if (question.Answer.HasConditional)
+            {
+                var answer = GetAnswer(amendment, question.Answer.ConditionalQuestion.Id);
+                if (answer != null)
+                {
+                    return answer.Value;
+                }
+            }
+
+            return string.Empty;
+        }
+        
+        protected string GetFlattenedDisplayField(Amendment amendment, string questionId)
+        {
+            var selectedItem = GetSelectedAnswerItem(amendment, questionId);
+            var conditionalValue = GetConditionalValue(amendment, questionId);
+            if (string.IsNullOrEmpty(conditionalValue))
+            {
+                return selectedItem.Description;
+            }
+
+            return selectedItem.Description + " - " + conditionalValue;
         }
     }
 }
