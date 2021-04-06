@@ -4,7 +4,7 @@ namespace Dfe.Rscd.Api.Domain.Entities.Questions
 {
     public class StringQuestion : Question
     {
-        public StringQuestion(string id, string title, string label, Validator validator)
+        public StringQuestion(string id, string title, string label, Validator validator, string subLabel = "")
         {
             Id = id;
             Title = title;
@@ -12,7 +12,8 @@ namespace Dfe.Rscd.Api.Domain.Entities.Questions
             Validator = validator;
             Answer = new Answer
             {
-                Label = label
+                Label = label,
+                SubLabel = subLabel
             };
         }
     }

@@ -27,7 +27,12 @@ namespace Dfe.Rscd.Api.Services.Rules
            
             var pupilExclusionDateQuestion = new PupilExclusionDateQuestion();
 
-            return new List<Question> { laestabQuestion, pupilExclusionDateQuestion };
+            var explainQuestion = new ExplainYourRequestQuestion(string.Empty, "Please explain your request to remove this Pupil");
+
+            var evidenceQuestion =
+                new EvidenceUploadQuestion(Content.RemovePupilAdmittedFollowingPermanentExclusionEvidence_HTML);
+
+            return new List<Question> { laestabQuestion, pupilExclusionDateQuestion , explainQuestion, evidenceQuestion };
         }
 
         private bool CustomValidator(string arg)
@@ -48,6 +53,11 @@ namespace Dfe.Rscd.Api.Services.Rules
                 .GetByDFESNumber(amendment.CheckingWindow, laestabAnswer.Value);
 
             var pupilExclusionDate = GetAnswer(amendment, nameof(PupilExclusionDateQuestion));
+            
+            var evidenceUploadAnswer = GetAnswer(amendment, nameof(EvidenceUploadQuestion));
+
+            amendment.EvidenceStatus = string.IsNullOrEmpty(evidenceUploadAnswer.Value) || evidenceUploadAnswer.Value == "0"
+                ? EvidenceStatus.Later : EvidenceStatus.Now;
 
             if (!IsStateFundedOrFeCollege(establishment.InstitutionTypeNumber??0))
             {
@@ -121,6 +131,9 @@ namespace Dfe.Rscd.Api.Services.Rules
 
                 amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_ExclusionDate, 
                     GetAnswer(amendment, nameof(PupilExclusionDateQuestion)).Value);
+                
+                amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_Detail,
+                    GetAnswer(amendment, nameof(ExplainYourRequestQuestion)).Value);
             }
         }
 

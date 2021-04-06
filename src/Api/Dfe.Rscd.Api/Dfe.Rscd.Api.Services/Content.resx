@@ -207,4 +207,7 @@
     <data name="RemovePupilOtherEalExceptionalCirumstances.HTML" xml:space="preserve">
         <value>&lt;p class="govuk-!-font-weight-bold"&gt;Evidence to provide:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Details of any large gap between the pupil arriving from overseas and being placed in an English  school, for example awaiting immigration status.&lt;/li&gt;&lt;/ul&gt;</value>
     </data>
+    <data name="RemovePupilAdmittedFollowingPermanentExclusionEvidence.HTML" xml:space="preserve">
+        <value>&lt;p class="govuk-!-font-weight-bold"&gt;Evidence to provide:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Head Teacher notification letter to parent&lt;/li&gt;&lt;li&gt;Evidence of review outcome&lt;/li&gt;&lt;/ul&gt;</value>
+    </data>
 </root>

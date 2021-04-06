@@ -422,5 +422,11 @@ namespace Dfe.Rscd.Api {
                 return ResourceManager.GetString("RemovePupilOtherEalExceptionalCirumstances.HTML", resourceCulture);
             }
         }
+        
+        internal static string RemovePupilAdmittedFollowingPermanentExclusionEvidence_HTML {
+            get {
+                return ResourceManager.GetString("RemovePupilAdmittedFollowingPermanentExclusionEvidence.HTML", resourceCulture);
+            }
+        }
     }
 }

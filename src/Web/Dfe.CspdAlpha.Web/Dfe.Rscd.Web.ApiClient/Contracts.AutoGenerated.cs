@@ -914,6 +914,9 @@ namespace Dfe.Rscd.Web.ApiClient
         [Newtonsoft.Json.JsonProperty("label", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Label { get; set; }
     
+        [Newtonsoft.Json.JsonProperty("subLabel", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string SubLabel { get; set; }
+    
     
     }
     
@@ -983,9 +986,6 @@ namespace Dfe.Rscd.Web.ApiClient
         [Newtonsoft.Json.JsonProperty("newAmendmentReferenceNumber", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string NewAmendmentReferenceNumber { get; set; }
     
-        [Newtonsoft.Json.JsonProperty("validatedAnswers", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<UserAnswer> ValidatedAnswers { get; set; }
-    
         [Newtonsoft.Json.JsonProperty("outcomeDescription", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string OutcomeDescription { get; set; }
     
@@ -998,13 +998,12 @@ namespace Dfe.Rscd.Web.ApiClient
         [Newtonsoft.Json.JsonProperty("reasonDescription", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string ReasonDescription { get; set; }
     
+        [Newtonsoft.Json.JsonProperty("subReason", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string SubReason { get; set; }
+    
         [Newtonsoft.Json.JsonProperty("outcomeStatus", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public OutcomeStatus OutcomeStatus { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("evidenceStatus", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public EvidenceStatus EvidenceStatus { get; set; }
     
     
     }

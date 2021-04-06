@@ -16,7 +16,15 @@
             <span class="govuk-error-message">@ViewData["errorMessage"]</span>
         }
 
-        <label class="govuk-label" for="@Model.Id">Please explain your request</label>
+        <label class="govuk-label" for="@Model.Id">
+            @if (!string.IsNullOrEmpty(Model.Answer.SubLabel)) {
+                @Model.Answer.SubLabel
+            }
+            else
+            {
+                <text>Please explain your request</text>
+            }
+        </label>
 
         <textarea class="govuk-textarea govuk-js-character-count" id="@Model.Id" name="explain" rows="5" aria-describedby="string-info"></textarea>
     </div>
