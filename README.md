@@ -1,8 +1,8 @@
-﻿# Review my school and college data (Private beta)
+﻿# Review my school or college data (Private beta)
  
 ## Prerequisites
 - Visual Studio 2019
-- .NET Core 3.1 SDK
+- .NET 5.0 SDK
 - Node
 - NPM
 - Python 2.7
