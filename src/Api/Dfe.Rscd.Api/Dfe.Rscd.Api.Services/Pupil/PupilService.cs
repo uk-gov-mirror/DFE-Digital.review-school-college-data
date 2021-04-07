@@ -123,7 +123,6 @@ namespace Dfe.Rscd.Api.Services
                     PortlandResultID = p.PortlandResultID,
                 }).ToList() ?? new List<Result>(Enumerable.Empty<Result>()),
                 Allocations = GetSourceOfAllocations(pupil, allocationYear),
-                ForvusIndex = int.Parse(pupil.ForvusIndex),
                 LookedAfterEver = pupil.LookedAfterEver == 1,
                 School = school,
                 FreeSchoolMealsLast6Years = pupil.FSM6 == 1,
@@ -136,6 +135,12 @@ namespace Dfe.Rscd.Api.Services
             if (ethnicity != null) newPupil.Ethnicity = ethnicity;
             if (pincl != null) newPupil.PINCL = pincl;
 
+            if (pupil.ForvusIndex != null)
+            {
+                int.TryParse(pupil.ForvusIndex, out int forvusIndex);
+                newPupil.ForvusIndex = forvusIndex;
+            }
+            
             return newPupil;
         }
 
