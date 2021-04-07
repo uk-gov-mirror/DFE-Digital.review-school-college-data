@@ -1,0 +1,12 @@
+{
+  "CosmosDb": {
+    "CollectionLookup": {
+      "ks4june_establishments_2021": "ks4june_establishments_2021-2021-04-07",
+      "ks4june_pupils_2021": "ks4june_pupils_2021-2021-04-07",
+      "ks4late_establishments_2021": "ks4late_establishments_2021-2021-04-07",
+      "ks4late_pupils_2021": "ks4late_pupils_2021",
+      "ks5_establishments_2021": "ks5_establishments_2021-2021-04-07",
+      "ks5_pupils_2021": "ks5_pupils_2021"
+    }
+  }
+}

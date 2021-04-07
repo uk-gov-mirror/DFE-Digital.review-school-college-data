@@ -53,6 +53,8 @@ namespace Dfe.Rscd.Api
                     webBuilder
                         .ConfigureAppConfiguration((hostingContext, config) =>
                         {
+                            config.AddJsonFile("collection_lookup.json");
+
                             if (hostingContext.HostingEnvironment.IsEnvironment(LOCAL_ENVIRONMENT))
                             {
                                 config.AddUserSecrets<Program>();
