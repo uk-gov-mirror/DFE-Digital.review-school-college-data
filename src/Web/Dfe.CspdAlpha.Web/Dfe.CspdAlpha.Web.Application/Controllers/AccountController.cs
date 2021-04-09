@@ -18,6 +18,8 @@ namespace Dfe.Rscd.Web.Application.Controllers
 
         public async Task SignOut()
         {
+            HttpContext.Session.Clear();
+
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             await HttpContext.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme);
         }
