@@ -62,9 +62,14 @@ namespace Dfe.Rscd.Api.Services
         
         public bool IsNonPlascEstablishment(CheckingWindow checkingWindow, URN urn)
         {
-            var school = GetByURN(checkingWindow, urn);
-            var nfType = school.InstitutionTypeNumber;
-            return NonPlascNfTypes.Contains(nfType.GetValueOrDefault());
+            var collectionName = $"{checkingWindow.ToString().ToLower()}_establishments_{_allocationYear}";
+            return true;
+            // var result = _documentRepository
+            //     .Get<EstablishmentNfTypeDTO>(collectionName)
+            //     .Where(x=>x.id == urn.ToString())
+            //     .ToList().First();
+            // var nfType = result.InstitutionTypeNumber;
+            // return NonPlascNfTypes.Contains(nfType.GetValueOrDefault());
         }
 
         private School Get(Func<EstablishmentDTO, bool> predicate, CheckingWindow checkingWindow)
