@@ -104,18 +104,31 @@ namespace Dfe.Rscd.Web.Application
 
             services.Configure<SharePointOptions>(Configuration.GetSection("SharePoint"));
 
-            Program.RedisConnectionString = Configuration.GetConnectionString("RedisCache");
+            // Caching config
+            if (Configuration.GetValue<bool>("EnableCache"))
+            {
+                Program.RedisConnectionString = Configuration.GetConnectionString("RedisCache");
+
+                services.AddSingleton<IRedisCache, RedisCache>();
+
+                services.AddSingleton<ISchoolService, CachedSchoolService>();
+                services.AddSingleton<IEstablishmentService, CachedEstablishmentService>();
+                services.AddSingleton<IPupilService, CachedPupilService>();
+                services.AddSingleton<IAmendmentService, CachedAmendmentService>();
+            }
+            else
+            {
+                services.AddSingleton<ISchoolService, SchoolService>();
+                services.AddSingleton<IEstablishmentService, EstablishmentService>();
+                services.AddSingleton<IPupilService, PupilService>();
+                services.AddSingleton<IAmendmentService, AmendmentService>();
+            }            
 
             // Application insights config
             services.AddApplicationInsightsTelemetry();
 
-            services.AddSingleton<IRedisCache, RedisCache>();
             services.AddSingleton<IFileUploadService, SharePointFileUploadService>();
-            services.AddSingleton<ISchoolService, CachedSchoolService>();
-            services.AddSingleton<IEstablishmentService, CachedEstablishmentService>();
-            services.AddSingleton<IPupilService, CachedPupilService>();
             services.AddSingleton<IEvidenceService, EvidenceService>();
-            services.AddSingleton<IAmendmentService, CachedAmendmentService>();
             services.AddTransient<IHtmlGenerator, HtmlGenerator>();
 
             var apiOptions = Configuration.GetSection("Api").Get<ApiOptions>();
