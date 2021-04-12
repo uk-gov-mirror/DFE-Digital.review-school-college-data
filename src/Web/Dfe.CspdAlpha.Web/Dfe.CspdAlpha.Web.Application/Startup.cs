@@ -105,12 +105,11 @@ namespace Dfe.Rscd.Web.Application
             services.Configure<SharePointOptions>(Configuration.GetSection("SharePoint"));
 
             // Caching config
+            Program.RedisConnectionString = Configuration.GetConnectionString("RedisCache");
+            services.AddSingleton<IRedisCache, RedisCache>();
+                        
             if (Configuration.GetValue<bool>("EnableCache"))
             {
-                Program.RedisConnectionString = Configuration.GetConnectionString("RedisCache");
-
-                services.AddSingleton<IRedisCache, RedisCache>();
-
                 services.AddSingleton<ISchoolService, CachedSchoolService>();
                 services.AddSingleton<IEstablishmentService, CachedEstablishmentService>();
                 services.AddSingleton<IPupilService, CachedPupilService>();
