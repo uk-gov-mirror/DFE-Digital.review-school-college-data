@@ -60,7 +60,7 @@ namespace Dfe.Rscd.Api.Services.Rules
             amendment.EvidenceStatus = string.IsNullOrEmpty(evidenceUploadQuestion.Value) || evidenceUploadQuestion.Value == "0"
                 ? EvidenceStatus.Later : EvidenceStatus.Now;
             
-            return new AmendmentOutcome(OutcomeStatus.AwatingDfeReview, ReasonDescription)
+            return new AmendmentOutcome(OutcomeStatus.AwatingDfeReview, null)
             {
                 ScrutinyStatusCode = string.Empty,
                 ReasonId = (int)AmendmentReasonCode.Other,

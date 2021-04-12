@@ -21,7 +21,7 @@ namespace Dfe.Rscd.Api.Services.Rules
             amendment.EvidenceStatus = string.IsNullOrEmpty(evidenceUploadQuestion.Value) || evidenceUploadQuestion.Value == "0"
                 ? EvidenceStatus.Later : EvidenceStatus.Now;
             
-            return new AmendmentOutcome(OutcomeStatus.AwatingDfeReview, ReasonDescription)
+            return new AmendmentOutcome(OutcomeStatus.AwatingDfeReview, null)
             {
                 ReasonId = (int)AmendmentReasonCode.Other,
                 ReasonDescription = "Other",

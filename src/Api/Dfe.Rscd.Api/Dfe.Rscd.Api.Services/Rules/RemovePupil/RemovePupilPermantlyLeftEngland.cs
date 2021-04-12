@@ -58,7 +58,7 @@ namespace Dfe.Rscd.Api.Services.Rules
 
             if (dateOffRoll.Value.ToDateTimeWhenSureNotNull() < _config.CensusDate.ToDateTimeWhenSureNotNull())
             {
-                return new AmendmentOutcome(OutcomeStatus.AwatingDfeReview, "Permanently Left England")
+                return new AmendmentOutcome(OutcomeStatus.AwatingDfeReview, null)
                 {
                     ScrutinyStatusCode = ScrutinyCode,
                     ReasonId = AmendmentReason,
@@ -76,7 +76,7 @@ namespace Dfe.Rscd.Api.Services.Rules
                 };
             }
             
-            return new AmendmentOutcome(OutcomeStatus.AwatingDfeReview, "Emigrated")
+            return new AmendmentOutcome(OutcomeStatus.AwatingDfeReview, null)
             {
                 ScrutinyStatusCode = ScrutinyCode,
                 ReasonId = AmendmentReason,

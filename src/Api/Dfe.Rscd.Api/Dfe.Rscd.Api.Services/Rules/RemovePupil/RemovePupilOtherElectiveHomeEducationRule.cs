@@ -48,7 +48,7 @@ namespace Dfe.Rscd.Api.Services.Rules
 
             if (dateOffRoll.Value.ToDateTimeWhenSureNotNull() >= _config.CensusDate.ToDateTimeWhenSureNotNull())
             {
-                return new AmendmentOutcome(OutcomeStatus.AwatingDfeReview, ReasonDescription)
+                return new AmendmentOutcome(OutcomeStatus.AwatingDfeReview, null)
                 {
                     ScrutinyStatusCode = string.Empty,
                     ReasonId = (int)AmendmentReasonCode.Other,

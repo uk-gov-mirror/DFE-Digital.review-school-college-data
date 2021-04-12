@@ -133,7 +133,7 @@ namespace Dfe.Rscd.Api.Services.Rules
 
             if (firstLanguage.Code == "ENG" || firstLanguage.Code == "ENB")
             {
-                return new AmendmentOutcome(OutcomeStatus.AwatingDfeReview, "First Language Code is ENG or ENB.")
+                return new AmendmentOutcome(OutcomeStatus.AwatingDfeReview, null)
                 {
                     ScrutinyStatusCode = ScrutinyCode.ToString(),
                     ReasonId = (int) AmendmentReasonCode.AdmittedFromAbroadWithEnglishNotFirstLanguageCode,
