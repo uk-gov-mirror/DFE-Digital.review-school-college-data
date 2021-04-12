@@ -15,7 +15,7 @@ var Rscd = window.Rscd || {};
     const checkingWindowValue = formContext.getAttribute('rscd_checkingwindow').getInitialValue();
     const outcomeReason = formContext.getAttribute('rscd_outcome').getInitialValue();
     //console.log(outcomeReason);
-    if (outcomeReason === 501940002) { // awaiting review
+    if (outcomeReason === 501940002 || outcomeReason === null) { // awaiting review
        formContext.getControl('rscd_outcomereason').setVisible(false);
     }
     if (checkingWindowValue == 501940005 || checkingWindowValue == 501940006) { // ks5 checking windows
@@ -81,4 +81,3 @@ var Rscd = window.Rscd || {};
     }
   }
 }).call(Rscd);
-    
