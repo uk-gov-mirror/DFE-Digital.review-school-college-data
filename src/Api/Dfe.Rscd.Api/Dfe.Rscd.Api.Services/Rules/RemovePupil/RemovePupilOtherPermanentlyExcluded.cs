@@ -33,18 +33,7 @@ namespace Dfe.Rscd.Api.Services.Rules
             amendment.EvidenceStatus = string.IsNullOrEmpty(evidenceUploadQuestion.Value) || evidenceUploadQuestion.Value == "0"
                 ? EvidenceStatus.Later : EvidenceStatus.Now;
 
-            if (dateOffRoll.Value.ToDateTimeWhenSureNotNull() >= _config.CensusDate.ToDateTimeWhenSureNotNull())
-            {
-                return new AmendmentOutcome(OutcomeStatus.AwatingDfeReview, null)
-                {
-                    ScrutinyStatusCode = string.Empty,
-                    ReasonId = (int)AmendmentReasonCode.Other,
-                    ReasonDescription = "Other",
-                    SubReason = ReasonDescription
-                };
-            }
-            
-            return new AmendmentOutcome(OutcomeStatus.AutoReject, "Date Pupil Removed from Roll should be older than Annual School Census Date")
+            return new AmendmentOutcome(OutcomeStatus.AwatingDfeReview, null)
             {
                 ScrutinyStatusCode = string.Empty,
                 ReasonId = (int)AmendmentReasonCode.Other,
