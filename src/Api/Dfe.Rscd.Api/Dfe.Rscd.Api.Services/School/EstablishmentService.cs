@@ -22,12 +22,36 @@ namespace Dfe.Rscd.Api.Services
 
         public School GetByURN(CheckingWindow checkingWindow, URN urn)
         {
-            return Get(x => x.id == urn.Value, checkingWindow);
+            var collectionName = $"{checkingWindow.ToString().ToLower()}_establishments_{_allocationYear}";
+
+            var establishmentDtos = _documentRepository
+                .Get<EstablishmentDTO>(collectionName)
+                .Where(x => x.id == urn.Value)
+                .ToList();
+
+            if (establishmentDtos.Any())
+            {
+                return GetEstablishment(establishmentDtos.First());
+            }
+
+            return null;
         }
 
         public School GetByDFESNumber(CheckingWindow checkingWindow, string dfesNumber)
         {
-            return Get(x => x.DFESNumber == dfesNumber, checkingWindow);
+            var collectionName = $"{checkingWindow.ToString().ToLower()}_establishments_{_allocationYear}";
+
+            var establishmentDtos = _documentRepository
+                .Get<EstablishmentDTO>(collectionName)
+                .Where(x => x.DFESNumber == dfesNumber)
+                .ToList();
+
+            if (establishmentDtos.Any())
+            {
+                return GetEstablishment(establishmentDtos.First());
+            }
+
+            return null;
         }
 
         public bool DoesSchoolExist(string dfesNumber)
@@ -69,23 +93,6 @@ namespace Dfe.Rscd.Api.Services
                 .ToList().First();
             var nfType = result.InstitutionTypeNumber;
             return NonPlascNfTypes.Contains(nfType.GetValueOrDefault());
-        }
-
-        private School Get(Func<EstablishmentDTO, bool> predicate, CheckingWindow checkingWindow)
-        {
-            var collectionName = $"{checkingWindow.ToString().ToLower()}_establishments_{_allocationYear}";
-
-            var establishmentDtos = _documentRepository
-                .Get<EstablishmentDTO>(collectionName)
-                .Where(predicate)
-                .ToList();
-
-            if (establishmentDtos.Any())
-            {
-                return GetEstablishment(establishmentDtos.First());
-            }
-
-            return null;
         }
 
         private School GetEstablishment(EstablishmentDTO dto)
