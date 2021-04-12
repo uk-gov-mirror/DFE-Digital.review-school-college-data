@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using Dfe.Rscd.Api.Domain.Entities;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.Config;
 using Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs;
@@ -22,36 +23,12 @@ namespace Dfe.Rscd.Api.Services
 
         public School GetByURN(CheckingWindow checkingWindow, URN urn)
         {
-            var collectionName = $"{checkingWindow.ToString().ToLower()}_establishments_{_allocationYear}";
-
-            var establishmentDtos = _documentRepository
-                .Get<EstablishmentDTO>(collectionName)
-                .Where(x => x.id == urn.Value)
-                .ToList();
-
-            if (establishmentDtos.Any())
-            {
-                return GetEstablishment(establishmentDtos.First());
-            }
-
-            return null;
+            return Get(x => x.id == urn.Value, checkingWindow);
         }
 
         public School GetByDFESNumber(CheckingWindow checkingWindow, string dfesNumber)
         {
-            var collectionName = $"{checkingWindow.ToString().ToLower()}_establishments_{_allocationYear}";
-
-            var establishmentDtos = _documentRepository
-                .Get<EstablishmentDTO>(collectionName)
-                .Where(x => x.DFESNumber == dfesNumber)
-                .ToList();
-
-            if (establishmentDtos.Any())
-            {
-                return GetEstablishment(establishmentDtos.First());
-            }
-
-            return null;
+            return Get(x => x.DFESNumber == dfesNumber, checkingWindow);
         }
 
         public bool DoesSchoolExist(string dfesNumber)
@@ -86,13 +63,27 @@ namespace Dfe.Rscd.Api.Services
         
         public bool IsNonPlascEstablishment(CheckingWindow checkingWindow, URN urn)
         {
-            var collectionName = $"{checkingWindow.ToString().ToLower()}_establishments_{_allocationYear}";
-            var result = _documentRepository
-                .Get<EstablishmentNfTypeDTO>(collectionName)
-                .Where(x=>x.id == urn.ToString())
-                .ToList().First();
-            var nfType = result.InstitutionTypeNumber;
+            var school = GetByURN(checkingWindow, urn);
+            var nfType = school.InstitutionTypeNumber;
+
             return NonPlascNfTypes.Contains(nfType.GetValueOrDefault());
+        }
+
+        private School Get(Expression<Func<EstablishmentDTO, bool>> predicate, CheckingWindow checkingWindow)
+        {
+            var collectionName = $"{checkingWindow.ToString().ToLower()}_establishments_{_allocationYear}";
+
+            var establishmentDtos = _documentRepository
+                .Get<EstablishmentDTO>(collectionName)
+                .Where(predicate)
+                .ToList();
+
+            if (establishmentDtos.Any())
+            {
+                return GetEstablishment(establishmentDtos.First());
+            }
+
+            return null;
         }
 
         private School GetEstablishment(EstablishmentDTO dto)
