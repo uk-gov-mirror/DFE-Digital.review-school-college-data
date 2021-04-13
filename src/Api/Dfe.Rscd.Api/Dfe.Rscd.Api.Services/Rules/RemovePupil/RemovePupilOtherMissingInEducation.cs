@@ -24,12 +24,9 @@ namespace Dfe.Rscd.Api.Services.Rules
             var pupilDateOffRoleQuestion = new PupilDateOffRollQuestion();
             questions.Add(pupilDateOffRoleQuestion);
 
-            if (GetAnswer(amendment, nameof(PupilDateOffRollQuestion))?.Value.ToDateTimeWhenSureNotNull() < _config.CensusDate.ToDateTimeWhenSureNotNull())
-            {
-                var explainQuestion = new ExplainYourRequestQuestion("The date off roll is before the January census but this pupil was recorded on your January census");
-                questions.Add(explainQuestion);
-            }
-
+            var explainQuestion = new ExplainYourRequestQuestion(null);
+            questions.Add(explainQuestion);
+            
             var evidenceQuestion = new EvidenceUploadQuestion(Content.RemovePupilOtherPermanentlyExcluded_HTML);
             questions.Add(evidenceQuestion);
 
