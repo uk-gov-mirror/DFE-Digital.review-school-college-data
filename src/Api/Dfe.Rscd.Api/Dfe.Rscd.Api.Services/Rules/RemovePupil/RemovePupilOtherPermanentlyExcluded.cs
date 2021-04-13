@@ -19,10 +19,21 @@ namespace Dfe.Rscd.Api.Services.Rules
         public override AmendmentType AmendmentType => AmendmentType.RemovePupil;
         public override List<Question> GetQuestions(Amendment amendment)
         {
-            var dateOffRoll = new PupilDateOffRollQuestion();
-            var evidence = new EvidenceUploadQuestion(Content.RemovePupilOtherPermanentlyExcluded_HTML);
+            var questions = new List<Question>();
 
-            return new List<Question>{dateOffRoll, evidence};
+            var pupilDateOffRoleQuestion = new PupilDateOffRollQuestion();
+            questions.Add(pupilDateOffRoleQuestion);
+
+            if (GetAnswer(amendment, nameof(PupilDateOffRollQuestion))?.Value.ToDateTimeWhenSureNotNull() < _config.CensusDate.ToDateTimeWhenSureNotNull())
+            {
+                var explainQuestion = new ExplainYourRequestQuestion("The date off roll is before the January census but this pupil was recorded on your January census");
+                questions.Add(explainQuestion);
+            }
+
+            var evidenceQuestion = new EvidenceUploadQuestion(Content.RemovePupilOtherPermanentlyExcluded_HTML);
+            questions.Add(evidenceQuestion);
+
+            return questions;
         }
 
         protected override AmendmentOutcome ApplyRule(Amendment amendment)
