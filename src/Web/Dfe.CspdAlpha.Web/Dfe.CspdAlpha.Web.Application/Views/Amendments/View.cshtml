@@ -106,7 +106,7 @@
                         Admission date
                     </dt>
                     <dd class="govuk-summary-list__value">
-                        @Model.Amendment.Pupil.AdmissionDate.ToString("dd/MM/yyyy")
+                        @(Model.Amendment.Pupil.AdmissionDate?.ToString("dd/MM/yyyy") ?? "-")
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row">

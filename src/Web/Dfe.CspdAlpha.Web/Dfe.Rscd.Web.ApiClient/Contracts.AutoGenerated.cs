@@ -600,8 +600,8 @@ namespace Dfe.Rscd.Web.ApiClient
         [Newtonsoft.Json.JsonProperty("dob", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.DateTimeOffset Dob { get; set; }
     
-        [Newtonsoft.Json.JsonProperty("admissionDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTimeOffset AdmissionDate { get; set; }
+        [Newtonsoft.Json.JsonProperty("admissionDate", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.DateTimeOffset? AdmissionDate { get; set; }
     
         [Newtonsoft.Json.JsonProperty("lookedAfterEver", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public bool LookedAfterEver { get; set; }

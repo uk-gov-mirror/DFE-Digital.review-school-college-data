@@ -35,7 +35,7 @@ namespace Dfe.Rscd.Api.Domain.Entities
 
         public DateTime DOB { get; set; }
 
-        public DateTime AdmissionDate { get; set; }
+        public DateTime? AdmissionDate { get; set; }
 
         public bool LookedAfterEver { get; set; }
 

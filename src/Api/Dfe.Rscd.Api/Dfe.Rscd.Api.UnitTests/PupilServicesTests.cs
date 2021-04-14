@@ -99,9 +99,9 @@ namespace Dfe.Rscd.Api.UnitTests
             Assert.True(result.DOB.Year == 2006);
             Assert.True(result.DOB.Month == 04);
             Assert.True(result.DOB.Day == 13);
-            Assert.True(result.AdmissionDate.Year == 2020);
-            Assert.True(result.AdmissionDate.Month == 01);
-            Assert.True(result.AdmissionDate.Day == 01);
+            Assert.True(result.AdmissionDate.Value.Year == 2020);
+            Assert.True(result.AdmissionDate.Value.Month == 01);
+            Assert.True(result.AdmissionDate.Value.Day == 01);
             Assert.True(result.Forename == _testPupil.Forename);
             Assert.True(result.Surname == _testPupil.Surname);
             Assert.True(result.LookedAfterEver);

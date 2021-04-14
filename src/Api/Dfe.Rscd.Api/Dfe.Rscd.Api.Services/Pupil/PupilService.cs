@@ -98,7 +98,7 @@ namespace Dfe.Rscd.Api.Services
                 DOB = GetDateTime(pupil.DOB),
                 Age = pupil.Age ?? 0,
                 Gender = Gender.FromCode(pupil.Gender),
-                AdmissionDate = GetDateTime(pupil.ENTRYDAT.ToString()),
+                AdmissionDate = pupil.ENTRYDAT != null ? GetDateTime(pupil.ENTRYDAT.ToString()) : null as DateTime?,
                 YearGroup = pupil.ActualYearGroup,
                 Results = pupil.performance?.Select(p => new Result
                 {

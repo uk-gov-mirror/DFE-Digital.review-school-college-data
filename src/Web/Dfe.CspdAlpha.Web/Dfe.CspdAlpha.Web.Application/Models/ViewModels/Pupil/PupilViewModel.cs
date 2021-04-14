@@ -31,7 +31,7 @@ namespace Dfe.Rscd.Web.Application.Models.ViewModels.Pupil
             DateOfBirth = pupil.Dob.Date;
             Age = pupil.Age;
             Gender = pupil.Gender;
-            DateOfAdmission = pupil.AdmissionDate.Date;
+            DateOfAdmission = pupil.AdmissionDate?.Date;
             YearGroup = pupil.YearGroup;
             AllocationYears = GetAllocationYears(pupil.Allocations);
             Allocations = pupil.Allocations;
@@ -86,7 +86,7 @@ namespace Dfe.Rscd.Web.Application.Models.ViewModels.Pupil
 
         public string DateOfBirthString => DateOfBirth.ToString("dd/MM/yyyy");
 
-        public DateTime DateOfAdmission { get; set; }
+        public DateTime? DateOfAdmission { get; set; }
         public string YearGroup { get; set; }
         public ICollection<SourceOfAllocation> Allocations { get; set; }
 

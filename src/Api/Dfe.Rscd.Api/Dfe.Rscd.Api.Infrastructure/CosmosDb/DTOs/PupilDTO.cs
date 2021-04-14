@@ -15,7 +15,7 @@ namespace Dfe.Rscd.Api.Infrastructure.CosmosDb.DTOs
         public string DOB { get; set; }
         public int? Age { get; set; }
         public string Gender { get; set; }
-        public int ENTRYDAT { get; set; }
+        public int? ENTRYDAT { get; set; }
         public string ActualYearGroup { get; set; }
         public bool Attendance_year_0 { get; set; }
         public bool Attendance_year_1 { get; set; }

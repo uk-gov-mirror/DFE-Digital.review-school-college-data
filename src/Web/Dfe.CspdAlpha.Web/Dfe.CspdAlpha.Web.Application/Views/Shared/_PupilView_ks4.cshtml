@@ -73,7 +73,7 @@
                     Admission date
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @Model.PupilViewModel.DateOfAdmission.ToString("dd/MM/yyyy")
+                    @(Model.PupilViewModel.DateOfAdmission?.ToString("dd/MM/yyyy") ?? "-")
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
