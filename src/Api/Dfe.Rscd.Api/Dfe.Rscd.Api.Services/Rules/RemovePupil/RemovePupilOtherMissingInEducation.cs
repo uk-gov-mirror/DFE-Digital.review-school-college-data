@@ -54,20 +54,16 @@ namespace Dfe.Rscd.Api.Services.Rules
         {
             if (amendmentOutcome.IsComplete && amendmentOutcome.FurtherQuestions == null)
             {
-                amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_ReasonDescription,
-                    amendmentOutcome.ReasonDescription);
+                amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_ReasonDescription, amendmentOutcome.ReasonDescription);
+                amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_ReasonCode, amendmentOutcome.ReasonId);
+                amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_SubReasonDescription, amendmentOutcome.SubReason);
+                amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_OutcomeDescription, amendmentOutcome.OutcomeDescription);
 
-                amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_ReasonCode,
-                    amendmentOutcome.ReasonId);
-                
-                amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_SubReasonDescription,
-                    amendmentOutcome.SubReason);
+                var dateOffRoll = GetAnswer(amendment, nameof(PupilDateOffRollQuestion)).Value;
+                amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_DateOffRoll, dateOffRoll);
 
-                amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_OutcomeDescription,
-                    amendmentOutcome.OutcomeDescription);
-                
-                amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_DateOffRoll,
-                    GetAnswer(amendment, nameof(PupilDateOffRollQuestion)).Value);
+                var explanation = GetAnswer(amendment, nameof(ExplainYourRequestQuestion)).Value;
+                amendment.AmendmentDetail.SetField(RemovePupilAmendment.FIELD_Detail, explanation);
             }
         }
 
