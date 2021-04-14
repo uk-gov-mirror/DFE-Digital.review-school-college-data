@@ -27,7 +27,7 @@ namespace Dfe.Rscd.Api.Services.Rules
             var explainQuestion = new ExplainYourRequestQuestion(null);
             questions.Add(explainQuestion);
             
-            var evidenceQuestion = new EvidenceUploadQuestion(Content.RemovePupilOtherPermanentlyExcluded_HTML);
+            var evidenceQuestion = new EvidenceUploadQuestion(Content.RemovePupilOtherMissingInEducation_HTML);
             questions.Add(evidenceQuestion);
 
             return questions;
