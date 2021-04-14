@@ -39,7 +39,7 @@ console.log(reasonCode);
          }
         break;
     case 10: // Admitted following permanent exclusion from maintained school
-         this.showFields(removePupilForm, ['rscd_laestabofexcludedschool', 'rscd_pupilexclusiondate']);
+         this.showFields(removePupilForm, ['rscd_laestabofexcludedschool', 'rscd_pupilexclusiondate', 'rscd_details']);
          break;
      case 11: // Perm left England
            var fieldsArray =  ['rscd_countrypupilleftenglandfor', 'rscd_dateoffroll'];
@@ -55,6 +55,7 @@ console.log(reasonCode);
     case 19: // Other  > sub reasons
             var fieldsArray = ['rscd_subreason', 'rscd_reasondescription'];
             var subReasonValue = removePupilForm.getControl('rscd_subreason').getAttribute().getValue();
+console.log(subReasonValue);
             if (subReasonValue.toLowerCase().indexOf('elective home education') > -1){
                  removePupilForm.getControl('rscd_details').setVisible(true);
                 if (removePupilForm.getControl('rscd_dateoffroll').getAttribute().getValue() !== '') {
@@ -67,6 +68,11 @@ console.log(reasonCode);
                   removePupilForm.getControl('rscd_dateonroll').setVisible(true);
                  }
            }
+           
+          if (subReasonValue.toLowerCase().indexOf('permanently excluded from this school') > -1 || subReasonValue.toLowerCase().indexOf('missing in education') > -1 ){
+               removePupilForm.getControl('rscd_dateoffroll').setVisible(true);
+               removePupilForm.getControl('rscd_details').setVisible(true);
+          }
             this.showFields(removePupilForm, fieldsArray);
             break;
           case 1902: // 
