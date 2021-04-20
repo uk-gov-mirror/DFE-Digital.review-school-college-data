@@ -210,4 +210,19 @@
     <data name="RemovePupilAdmittedFollowingPermanentExclusionEvidence.HTML" xml:space="preserve">
         <value>&lt;p class="govuk-!-font-weight-bold"&gt;Evidence to provide:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Head Teacher notification letter to parent&lt;/li&gt;&lt;li&gt;Evidence of review outcome&lt;/li&gt;&lt;/ul&gt;</value>
     </data>
+    <data name="RemovePupilDualRegLAESTABLabel" xml:space="preserve">
+        <value>Enter pupil's main school LAESTAB</value>
+    </data>
+    <data name="RemovePupilDualRegExplainDetailsLabel" xml:space="preserve">
+        <value>Please explain why this pupil was on your roll</value>
+    </data>
+    <data name="RemovePupilDualRegLAESTABTitle" xml:space="preserve">
+        <value>Pupil's main school LAESTAB</value>
+    </data>
+    <data name="RemovePupilDualRegLAESTABError" xml:space="preserve">
+        <value>Enter pupil's main school LAESTAB</value>
+    </data>
+    <data name="RemovePupilDualRegEvidence" xml:space="preserve">
+        <value>&lt;p class="govuk-!-font-weight-bold"&gt;Evidence to provide:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Evidence supporting the request from an official authority i.e. the LA, other establishment clearly showing that funding has been forwarded&lt;/li&gt;&lt;/ul&gt;</value>
+    </data>
 </root>

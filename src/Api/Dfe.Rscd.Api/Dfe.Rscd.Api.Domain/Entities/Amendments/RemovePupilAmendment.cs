@@ -15,6 +15,7 @@ namespace Dfe.Rscd.Api.Domain.Entities
         public const string FIELD_NativeLanguage = "NativeLanguage";
         public const string FIELD_DateOfArrivalUk = "DateOfArrivalUk";
         public const string FIELD_LAESTABNumber = "LAESTABNumber";
+        public const string FIELD_PreviousLAESTABNumber = "MainSchoolLAESTAB";
         public const string FIELD_ExclusionDate = "PupilExclusionDate";
         public const string FIELD_DateOffRoll = "PupilDateOffRoll";
         public const string FIELD_DateOnRoll = "PupilDateOnRoll";

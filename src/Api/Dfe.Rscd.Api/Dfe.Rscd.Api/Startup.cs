@@ -117,6 +117,7 @@ namespace Dfe.Rscd.Api
             services.AddScoped<IRule, RemovePupilAdmittedFollowingPermanentExclusion>();
             services.AddScoped<IRule, RemovePupilDeceased>();
             services.AddScoped<IRule, RemovePupilPermanentlyLeftEngland>();
+            services.AddScoped<IRule, RemovePupilDualRegistration>();
             services.AddScoped<IRule, RemovePupilOtherTerminalLongIllnessRule>();
             services.AddScoped<IRule, RemovePupilOtherPoliceInvolvementBailRule>();
             services.AddScoped<IRule, RemovePupilOtherSafeguardingFapRule>();

@@ -428,5 +428,35 @@ namespace Dfe.Rscd.Api {
                 return ResourceManager.GetString("RemovePupilAdmittedFollowingPermanentExclusionEvidence.HTML", resourceCulture);
             }
         }
+        
+        internal static string RemovePupilDualRegLAESTABLabel {
+            get {
+                return ResourceManager.GetString("RemovePupilDualRegLAESTABLabel", resourceCulture);
+            }
+        }
+        
+        internal static string RemovePupilDualRegExplainDetailsLabel {
+            get {
+                return ResourceManager.GetString("RemovePupilDualRegExplainDetailsLabel", resourceCulture);
+            }
+        }
+        
+        internal static string RemovePupilDualRegLAESTABTitle {
+            get {
+                return ResourceManager.GetString("RemovePupilDualRegLAESTABTitle", resourceCulture);
+            }
+        }
+        
+        internal static string RemovePupilDualRegLAESTABError {
+            get {
+                return ResourceManager.GetString("RemovePupilDualRegLAESTABError", resourceCulture);
+            }
+        }
+        
+        internal static string RemovePupilDualRegEvidence {
+            get {
+                return ResourceManager.GetString("RemovePupilDualRegEvidence", resourceCulture);
+            }
+        }
     }
 }

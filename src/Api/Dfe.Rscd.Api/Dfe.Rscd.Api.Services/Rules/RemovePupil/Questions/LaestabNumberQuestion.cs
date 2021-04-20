@@ -5,14 +5,17 @@ namespace Dfe.Rscd.Api.Services.Rules.RemovePupil.Questions
 {
     public class LaestabNumberQuestion : NumberQuestion
     {
-        public LaestabNumberQuestion(Func<string, bool> customValidator) 
+        public LaestabNumberQuestion(Func<string, bool> customValidator, 
+                string title = nameof(Content.LaestabNumberQuestion_Title),
+                string label = nameof(Content.LaestabNumberQuestion_Label),
+                string errorMessage = nameof(Content.LaestabNumberQuestion_NullErrorMessage)) 
             : base(nameof(LaestabNumberQuestion), 
-                Content.LaestabNumberQuestion_Title, 
-                Content.LaestabNumberQuestion_Label, 
+                title, 
+                label,
                 new Validator
                 {
                     AllowNull = false,
-                    NullErrorMessage = Content.LaestabNumberQuestion_NullErrorMessage,
+                    NullErrorMessage = errorMessage,
                     ValidatorType = ValidatorType.LAESTABNumber,
                     ValidatorCompareValue = @"^\d{7}$",
                     InValidErrorMessage = Content.LaestabNumberQuestion_InvalidErrorMessage

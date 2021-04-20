@@ -71,6 +71,7 @@ namespace Dfe.Rscd.Api.Services
                 new AmendmentReason{Description ="Admitted from abroad with English not first language", ReasonId = 8, AmendmentType = AmendmentType.RemovePupil},
                 new AmendmentReason{Description ="Deceased", ReasonId = 12, AmendmentType = AmendmentType.RemovePupil},
                 new AmendmentReason{Description ="Permanently left England", ReasonId = 11, AmendmentType = AmendmentType.RemovePupil},
+                new AmendmentReason{Description = "Dual registration", ReasonId = 13, AmendmentType = AmendmentType.RemovePupil},
                 new AmendmentReason{Description ="Other", ReasonId = 19, AmendmentType = AmendmentType.RemovePupil},
                 new AmendmentReason{Description ="Other - EAL exceptional circumstances", ReasonId = 1901, ParentReasonId = 19, AmendmentType = AmendmentType.RemovePupil},
                 new AmendmentReason{Description ="Other - Elective home education", ReasonId = 1902, ParentReasonId = 19, AmendmentType = AmendmentType.RemovePupil},

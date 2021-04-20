@@ -4,7 +4,8 @@ namespace Dfe.Rscd.Api.Services.Rules
 {
     public class ExplainYourRequestQuestion : ExplainQuestion
     {
-        public ExplainYourRequestQuestion(string reason, string subLabel = null) : base(nameof(ExplainYourRequestQuestion), Content.ExplainYourRequestQuestion_Title, 
+        public ExplainYourRequestQuestion(string reason, string subLabel = null) 
+            : base(nameof(ExplainYourRequestQuestion), Content.ExplainYourRequestQuestion_Title, 
             reason, 
             subLabel,
             new Validator

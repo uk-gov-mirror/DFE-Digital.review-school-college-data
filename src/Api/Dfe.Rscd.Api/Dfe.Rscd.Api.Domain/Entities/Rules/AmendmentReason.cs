@@ -15,6 +15,7 @@
         AdmittedFollowingPermanentExclusion = 10,
         Deceased = 12,
         PermanentlyLeftEngland = 11,
+        DualRegistration = 13,
         Other = 19,
         OtherEAL = 1901,
         OtherEHE = 1902,
