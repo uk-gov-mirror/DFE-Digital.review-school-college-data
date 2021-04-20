@@ -76,17 +76,19 @@ console.log(subReasonValue);
             this.showFields(removePupilForm, fieldsArray);
             break;
           case 1902: // 
-           var detailsValue = removePupilForm.getControl('rscd_details').getAttribute().getValue();
-          if (detailsValue !== ''){
-             this.showFields(removePupilForm,['rscd_details']);
-          }
-           break;
+              var detailsValue = removePupilForm.getControl('rscd_details').getAttribute().getValue();
+              if (detailsValue !== ''){
+                 this.showFields(removePupilForm,['rscd_details']);
+              }
+              break;
            case 1903: //
-           this.showFields(removePupilForm,['rscd_reasondescription']);
-           break;
-           case 'DUALEVIDENCE': // need reasoncode for this
-           this.showFields(removePupilForm, ['rscd_reason', 'rscd_pupilsmainschoollaestab']);
-          break;
+               this.showFields(removePupilForm,['rscd_reasondescription']);
+               break;
+           case 13: //  dual registration
+               removePupilForm.getControl('rscd_pupilsmainschoollaestab').setVisible(true);
+               
+               this.showFields(removePupilForm,['rscd_details', 'rscd_reason']);
+              break;
          case 'CHANGEYEARGROUP': // reasoncode needed
            this.showFields(removePupilForm, ['rscd_reason', 'rscd_yeargroup']);
           break;
@@ -95,10 +97,9 @@ console.log(subReasonValue);
           default:
           // no additional fields to show
       }
-      
     }
   }
-  this.showFields = function (removePupilForm, fieldsToShow,) {
+  this.showFields = function (removePupilForm, fieldsToShow) {
     fieldsToShow.forEach(function(field){
       removePupilForm.getControl(field).setVisible(true);
   });
