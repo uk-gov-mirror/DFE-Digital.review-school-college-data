@@ -44,7 +44,7 @@ namespace Dfe.Rscd.Api.Services.Rules
                 Content.RemovePupilDualRegLAESTABError);
             
             var explainQuestion =
-                new ExplainYourRequestQuestion(Content.RemovePupilDualRegExplainDetailsLabel, "Please explain your request");
+                new ExplainYourRequestQuestion(null, Content.RemovePupilDualRegExplainDetailsLabel);
             var evidenceQuestion =
                 new EvidenceUploadQuestion(Content.RemovePupilDualRegEvidence);
 
