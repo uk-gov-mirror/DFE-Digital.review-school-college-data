@@ -6,9 +6,9 @@ namespace Dfe.Rscd.Api.Services.Rules.RemovePupil.Questions
     public class LaestabNumberQuestion : NumberQuestion
     {
         public LaestabNumberQuestion(Func<string, bool> customValidator, 
-                string title = nameof(Content.LaestabNumberQuestion_Title),
-                string label = nameof(Content.LaestabNumberQuestion_Label),
-                string errorMessage = nameof(Content.LaestabNumberQuestion_NullErrorMessage)) 
+                string title,
+                string label,
+                string errorMessage) 
             : base(nameof(LaestabNumberQuestion), 
                 title, 
                 label,

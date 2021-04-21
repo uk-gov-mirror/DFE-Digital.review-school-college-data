@@ -23,7 +23,11 @@ namespace Dfe.Rscd.Api.Services.Rules
 
         public override List<Question> GetQuestions(Amendment amendment)
         {
-            var laestabQuestion = new LaestabNumberQuestion(CustomValidator);
+            var laestabQuestion = new LaestabNumberQuestion(
+                CustomValidator,
+                Content.LaestabNumberQuestion_Title,
+                Content.LaestabNumberQuestion_Label,
+                Content.LaestabNumberQuestion_NullErrorMessage);
            
             var pupilExclusionDateQuestion = new PupilExclusionDateQuestion();
 
